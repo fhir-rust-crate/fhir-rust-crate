@@ -27,7 +27,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::resources::search_parameter::SearchParameter;
+/// use fhir::r5::resources::search_parameter::SearchParameter;
 ///
 /// let value = SearchParameter::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

@@ -27,7 +27,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::types::parameter_definition::ParameterDefinition;
+/// use fhir::r5::types::parameter_definition::ParameterDefinition;
 ///
 /// let value = ParameterDefinition::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

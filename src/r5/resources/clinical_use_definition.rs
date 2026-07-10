@@ -26,7 +26,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::resources::clinical_use_definition::ClinicalUseDefinition;
+/// use fhir::r5::resources::clinical_use_definition::ClinicalUseDefinition;
 ///
 /// let value = ClinicalUseDefinition::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

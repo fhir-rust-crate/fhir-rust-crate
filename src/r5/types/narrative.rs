@@ -30,7 +30,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::types::narrative::Narrative;
+/// use fhir::r5::types::narrative::Narrative;
 ///
 /// let value = Narrative::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

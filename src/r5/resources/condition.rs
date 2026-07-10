@@ -29,7 +29,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::resources::condition::Condition;
+/// use fhir::r5::resources::condition::Condition;
 ///
 /// let value = Condition::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

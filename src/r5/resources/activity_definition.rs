@@ -28,7 +28,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::resources::activity_definition::ActivityDefinition;
+/// use fhir::r5::resources::activity_definition::ActivityDefinition;
 ///
 /// let value = ActivityDefinition::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

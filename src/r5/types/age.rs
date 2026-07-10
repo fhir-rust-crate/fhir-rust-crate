@@ -30,7 +30,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::types::age::Age;
+/// use fhir::r5::types::age::Age;
 ///
 /// let value = Age::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

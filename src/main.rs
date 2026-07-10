@@ -1,7 +1,7 @@
 //! Command-line entry point for the FHIR specifications parser / generator.
 
-use fhir_specifications_parser::DEFINITIONS_DIR;
-use fhir_specifications_parser::r5::parse;
+use fhir::DEFINITIONS_DIR;
+use fhir::r5::parse;
 use std::fs::File;
 use std::io::BufReader;
 

@@ -26,7 +26,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::resources::account::Account;
+/// use fhir::r5::resources::account::Account;
 ///
 /// let value = Account::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

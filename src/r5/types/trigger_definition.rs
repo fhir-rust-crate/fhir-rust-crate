@@ -27,7 +27,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::types::trigger_definition::TriggerDefinition;
+/// use fhir::r5::types::trigger_definition::TriggerDefinition;
 ///
 /// let value = TriggerDefinition::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

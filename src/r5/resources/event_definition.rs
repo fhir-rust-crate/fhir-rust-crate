@@ -27,7 +27,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::resources::event_definition::EventDefinition;
+/// use fhir::r5::resources::event_definition::EventDefinition;
 ///
 /// let value = EventDefinition::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

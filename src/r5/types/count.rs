@@ -27,7 +27,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::types::count::Count;
+/// use fhir::r5::types::count::Count;
 ///
 /// let value = Count::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

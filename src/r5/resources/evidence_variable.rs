@@ -26,7 +26,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::resources::evidence_variable::EvidenceVariable;
+/// use fhir::r5::resources::evidence_variable::EvidenceVariable;
 ///
 /// let value = EvidenceVariable::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

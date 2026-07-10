@@ -29,7 +29,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::types::dosage::Dosage;
+/// use fhir::r5::types::dosage::Dosage;
 ///
 /// let value = Dosage::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

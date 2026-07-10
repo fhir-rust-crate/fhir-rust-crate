@@ -30,7 +30,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::resources::composition::Composition;
+/// use fhir::r5::resources::composition::Composition;
 ///
 /// let value = Composition::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

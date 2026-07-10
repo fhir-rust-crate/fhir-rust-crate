@@ -27,7 +27,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::types::meta::Meta;
+/// use fhir::r5::types::meta::Meta;
 ///
 /// let value = Meta::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

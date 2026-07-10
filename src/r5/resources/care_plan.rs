@@ -31,7 +31,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::resources::care_plan::CarePlan;
+/// use fhir::r5::resources::care_plan::CarePlan;
 ///
 /// let value = CarePlan::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

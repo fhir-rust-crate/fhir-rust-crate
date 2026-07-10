@@ -29,7 +29,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::types::product_shelf_life::ProductShelfLife;
+/// use fhir::r5::types::product_shelf_life::ProductShelfLife;
 ///
 /// let value = ProductShelfLife::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

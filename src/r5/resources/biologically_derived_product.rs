@@ -29,7 +29,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::resources::biologically_derived_product::BiologicallyDerivedProduct;
+/// use fhir::r5::resources::biologically_derived_product::BiologicallyDerivedProduct;
 ///
 /// let value = BiologicallyDerivedProduct::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

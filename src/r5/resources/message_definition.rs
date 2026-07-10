@@ -27,7 +27,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::resources::message_definition::MessageDefinition;
+/// use fhir::r5::resources::message_definition::MessageDefinition;
 ///
 /// let value = MessageDefinition::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

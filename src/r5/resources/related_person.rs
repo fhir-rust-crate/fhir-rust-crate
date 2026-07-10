@@ -31,7 +31,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::resources::related_person::RelatedPerson;
+/// use fhir::r5::resources::related_person::RelatedPerson;
 ///
 /// let value = RelatedPerson::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

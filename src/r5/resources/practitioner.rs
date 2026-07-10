@@ -27,7 +27,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::resources::practitioner::Practitioner;
+/// use fhir::r5::resources::practitioner::Practitioner;
 ///
 /// let value = Practitioner::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

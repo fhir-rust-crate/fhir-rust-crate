@@ -28,7 +28,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::types::backbone_element::BackboneElement;
+/// use fhir::r5::types::backbone_element::BackboneElement;
 ///
 /// let value = BackboneElement::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

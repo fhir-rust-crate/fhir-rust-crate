@@ -27,7 +27,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::resources::naming_system::NamingSystem;
+/// use fhir::r5::resources::naming_system::NamingSystem;
 ///
 /// let value = NamingSystem::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

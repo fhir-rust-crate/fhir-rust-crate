@@ -15,7 +15,7 @@
 //! Round-trip a FHIR datatype through JSON:
 //!
 //! ```
-//! use fhir_specifications_parser::r5::types::period::Period;
+//! use fhir::r5::types::period::Period;
 //!
 //! let period = Period::default();
 //! let json = ::serde_json::to_value(&period).unwrap();
@@ -43,6 +43,13 @@
 #![allow(clippy::must_use_candidate)]
 #![allow(clippy::missing_panics_doc)]
 #![allow(clippy::missing_errors_doc)]
+// The datatype/resource doc comments are long-form FHIR prose that contains
+// bare specification URLs (e.g. `http://hl7.org/fhir/...`) and FHIR choice
+// notation such as `value[x]`. rustdoc would otherwise treat these as bare
+// URLs or (broken) intra-doc links. Backticking/wrapping every occurrence
+// across ~200 modules would not improve the docs, so allow these rustdoc lints.
+#![allow(rustdoc::bare_urls)]
+#![allow(rustdoc::broken_intra_doc_links)]
 
 pub mod r5;
 pub mod util;

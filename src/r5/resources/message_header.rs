@@ -27,7 +27,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::resources::message_header::MessageHeader;
+/// use fhir::r5::resources::message_header::MessageHeader;
 ///
 /// let value = MessageHeader::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

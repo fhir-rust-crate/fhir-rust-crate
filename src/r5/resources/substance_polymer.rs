@@ -30,7 +30,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::resources::substance_polymer::SubstancePolymer;
+/// use fhir::r5::resources::substance_polymer::SubstancePolymer;
 ///
 /// let value = SubstancePolymer::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

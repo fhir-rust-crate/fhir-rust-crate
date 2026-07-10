@@ -28,7 +28,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::resources::plan_definition::PlanDefinition;
+/// use fhir::r5::resources::plan_definition::PlanDefinition;
 ///
 /// let value = PlanDefinition::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

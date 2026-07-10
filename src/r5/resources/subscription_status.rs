@@ -27,7 +27,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::resources::subscription_status::SubscriptionStatus;
+/// use fhir::r5::resources::subscription_status::SubscriptionStatus;
 ///
 /// let value = SubscriptionStatus::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

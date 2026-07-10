@@ -29,7 +29,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::resources::subscription_topic::SubscriptionTopic;
+/// use fhir::r5::resources::subscription_topic::SubscriptionTopic;
 ///
 /// let value = SubscriptionTopic::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

@@ -29,7 +29,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::resources::example_scenario::ExampleScenario;
+/// use fhir::r5::resources::example_scenario::ExampleScenario;
 ///
 /// let value = ExampleScenario::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

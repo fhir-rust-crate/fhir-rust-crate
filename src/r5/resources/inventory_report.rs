@@ -29,7 +29,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::resources::inventory_report::InventoryReport;
+/// use fhir::r5::resources::inventory_report::InventoryReport;
 ///
 /// let value = InventoryReport::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

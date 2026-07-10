@@ -29,7 +29,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::types::virtual_service_detail::VirtualServiceDetail;
+/// use fhir::r5::types::virtual_service_detail::VirtualServiceDetail;
 ///
 /// let value = VirtualServiceDetail::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

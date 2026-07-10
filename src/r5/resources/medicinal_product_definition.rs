@@ -29,7 +29,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::resources::medicinal_product_definition::MedicinalProductDefinition;
+/// use fhir::r5::resources::medicinal_product_definition::MedicinalProductDefinition;
 ///
 /// let value = MedicinalProductDefinition::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

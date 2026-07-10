@@ -28,7 +28,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::resources::contract::Contract;
+/// use fhir::r5::resources::contract::Contract;
 ///
 /// let value = Contract::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

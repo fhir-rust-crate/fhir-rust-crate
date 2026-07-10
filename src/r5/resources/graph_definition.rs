@@ -29,7 +29,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::resources::graph_definition::GraphDefinition;
+/// use fhir::r5::resources::graph_definition::GraphDefinition;
 ///
 /// let value = GraphDefinition::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

@@ -7,7 +7,7 @@
 /// Example:
 ///
 /// ```
-/// use fhir_specifications_parser::util::first_word;
+/// use fhir::util::first_word;
 /// assert_eq!(first_word("alfa"), "alfa");
 /// assert_eq!(first_word("alfa bravo"), "alfa");
 /// assert_eq!(first_word("alfa bravo charlie"), "alfa");
@@ -39,7 +39,7 @@ mod test_first_word {
 /// Example:
 ///
 /// ```
-/// use fhir_specifications_parser::util::last_word;
+/// use fhir::util::last_word;
 /// assert_eq!(last_word("alfa"), "alfa");
 /// assert_eq!(last_word("alfa bravo"), "bravo");
 /// assert_eq!(last_word("alfa bravo charlie"), "charlie");

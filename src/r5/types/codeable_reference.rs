@@ -29,7 +29,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::types::codeable_reference::CodeableReference;
+/// use fhir::r5::types::codeable_reference::CodeableReference;
 ///
 /// let value = CodeableReference::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

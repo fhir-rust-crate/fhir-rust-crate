@@ -27,7 +27,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::types::availability::Availability;
+/// use fhir::r5::types::availability::Availability;
 ///
 /// let value = Availability::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

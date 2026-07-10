@@ -29,7 +29,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::resources::compartment_definition::CompartmentDefinition;
+/// use fhir::r5::resources::compartment_definition::CompartmentDefinition;
 ///
 /// let value = CompartmentDefinition::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

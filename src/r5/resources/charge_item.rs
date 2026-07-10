@@ -26,7 +26,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::resources::charge_item::ChargeItem;
+/// use fhir::r5::resources::charge_item::ChargeItem;
 ///
 /// let value = ChargeItem::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

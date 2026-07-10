@@ -31,7 +31,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::resources::inventory_item::InventoryItem;
+/// use fhir::r5::resources::inventory_item::InventoryItem;
 ///
 /// let value = InventoryItem::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

@@ -4,7 +4,7 @@
 //!
 //! JSON Representation of Resources
 //!
-//! ```json```
+//! ```text
 //! {
 //!   "resourceType" : "[Resource Type]",
 //!   "resourceDefinition" : "(see below)",

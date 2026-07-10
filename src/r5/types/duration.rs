@@ -30,7 +30,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::types::duration::Duration;
+/// use fhir::r5::types::duration::Duration;
 ///
 /// let value = Duration::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

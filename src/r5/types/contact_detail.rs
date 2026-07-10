@@ -25,7 +25,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::types::contact_detail::ContactDetail;
+/// use fhir::r5::types::contact_detail::ContactDetail;
 ///
 /// let value = ContactDetail::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

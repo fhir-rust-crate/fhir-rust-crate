@@ -6,7 +6,7 @@
 //! # Examples
 //!
 //! ```
-//! use fhir_specifications_parser::r5::codes::AdministrativeGender;
+//! use fhir::r5::codes::AdministrativeGender;
 //!
 //! let code = AdministrativeGender::Female;
 //! assert_eq!(::serde_json::to_value(&code).unwrap(), ::serde_json::json!("female"));
@@ -19,7 +19,7 @@ use ::serde::{Deserialize, Serialize};
 
 /// `example` — This is an example code system that includes all the ACME codes for serum/plasma cholesterol from v2.36.
 ///
-/// System: http://hl7.org/fhir/CodeSystem/example
+/// System: <http://hl7.org/fhir/CodeSystem/example>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum Example {
     /// SChol (mmol/L)
@@ -36,7 +36,7 @@ pub enum Example {
 
 /// `nhin-purposeofuse` — This value set is suitable for use with the provenance resource. It is derived from, but not compatible with, the HL7 v3 Purpose of use Code system.
 ///
-/// System: http://healthit.gov/nhin/purposeofuse
+/// System: <http://healthit.gov/nhin/purposeofuse>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum NhinPurposeofuse {
     /// Treatment
@@ -125,7 +125,7 @@ pub enum NhinPurposeofuse {
 
 /// `example-metadata` — This is an example code system that illustrates usage of the metadata resource elements introduced in R5
 ///
-/// System: http://hl7.org/fhir/CodeSystem/example-metadata
+/// System: <http://hl7.org/fhir/CodeSystem/example-metadata>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ExampleMetadata {
     /// A
@@ -142,7 +142,7 @@ pub enum ExampleMetadata {
 
 /// `example-metadata-2` — This is an example code system that illustrates usage of the metadata resource elements introduced in R5
 ///
-/// System: http://hl7.org/fhir/CodeSystem/example-metadata-2
+/// System: <http://hl7.org/fhir/CodeSystem/example-metadata-2>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ExampleMetadata2 {
     /// A
@@ -162,7 +162,7 @@ pub enum ExampleMetadata2 {
 
 /// `fhirpath-types` — Data types defined by FHIRPath and used within the FHIR specification
 ///
-/// System: http://hl7.org/fhir/CodeSystem/fhirpath-types
+/// System: <http://hl7.org/fhir/CodeSystem/fhirpath-types>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum FhirpathTypes {
     /// String
@@ -191,7 +191,7 @@ pub enum FhirpathTypes {
 
 /// `administrative-gender` — The gender of a person used for administrative purposes.
 ///
-/// System: http://hl7.org/fhir/administrative-gender
+/// System: <http://hl7.org/fhir/administrative-gender>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum AdministrativeGender {
     /// Male
@@ -211,7 +211,7 @@ pub enum AdministrativeGender {
 
 /// `binding-strength` — Indication of the degree of conformance expectations associated with a binding.
 ///
-/// System: http://hl7.org/fhir/binding-strength
+/// System: <http://hl7.org/fhir/binding-strength>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum BindingStrength {
     /// Required
@@ -231,7 +231,7 @@ pub enum BindingStrength {
 
 /// `cdshooks-indicator` — This codesystem captures the indicator codes defined by the CDS Hooks specification. The indicator is included as an element of the cards in a CDS Hooks response and conveys the urgency and/or importa
 ///
-/// System: http://cds-hooks.hl7.org/CodeSystem/indicator
+/// System: <http://cds-hooks.hl7.org/CodeSystem/indicator>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum CdshooksIndicator {
     /// Information
@@ -248,7 +248,7 @@ pub enum CdshooksIndicator {
 
 /// `concept-map-relationship` — The relationship between concepts.
 ///
-/// System: http://hl7.org/fhir/concept-map-relationship
+/// System: <http://hl7.org/fhir/concept-map-relationship>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ConceptMapRelationship {
     /// Related To
@@ -262,7 +262,7 @@ pub enum ConceptMapRelationship {
 
 /// `document-reference-status` — The status of the document reference.
 ///
-/// System: http://hl7.org/fhir/document-reference-status
+/// System: <http://hl7.org/fhir/document-reference-status>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum DocumentReferenceStatus {
     /// Current
@@ -279,7 +279,7 @@ pub enum DocumentReferenceStatus {
 
 /// `FHIR-version` — All published FHIR Versions.
 ///
-/// System: http://hl7.org/fhir/FHIR-version
+/// System: <http://hl7.org/fhir/FHIR-version>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum FHIRVersion {
     /// 0.01
@@ -356,7 +356,7 @@ pub enum FHIRVersion {
 
 /// `note-type` — The presentation types of notes.
 ///
-/// System: http://hl7.org/fhir/note-type
+/// System: <http://hl7.org/fhir/note-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum NoteType {
     /// Display
@@ -373,7 +373,7 @@ pub enum NoteType {
 
 /// `operation-outcome` — Operation Outcome codes for translatable phrases used by FHIR test servers (see Implementation file translations.xml)
 ///
-/// System: http://hl7.org/fhir/operation-outcome
+/// System: <http://hl7.org/fhir/operation-outcome>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum OperationOutcome {
     /// Error: Multiple matches exist for the conditional delete
@@ -534,7 +534,7 @@ pub enum OperationOutcome {
 
 /// `publication-status` — The lifecycle status of an artifact.
 ///
-/// System: http://hl7.org/fhir/publication-status
+/// System: <http://hl7.org/fhir/publication-status>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum PublicationStatus {
     /// Draft
@@ -554,7 +554,7 @@ pub enum PublicationStatus {
 
 /// `relationship` — This value set includes the Patient to subscriber relationship codes.
 ///
-/// System: http://hl7.org/fhir/relationship
+/// System: <http://hl7.org/fhir/relationship>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum Relationship {
     /// Self
@@ -577,7 +577,7 @@ pub enum Relationship {
 
 /// `remittance-outcome` — The outcome of the processing.
 ///
-/// System: http://hl7.org/fhir/remittance-outcome
+/// System: <http://hl7.org/fhir/remittance-outcome>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum RemittanceOutcome {
     /// Complete
@@ -594,7 +594,7 @@ pub enum RemittanceOutcome {
 
 /// `search-param-type` — Data types allowed to be used for search parameters.
 ///
-/// System: http://hl7.org/fhir/search-param-type
+/// System: <http://hl7.org/fhir/search-param-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum SearchParamType {
     /// Number
@@ -629,7 +629,7 @@ pub enum SearchParamType {
 
 /// `usage-context-agreement-scope` — This codesystem defines codes describing the type of agreement represented by an artifact, for example for use in CanonicalResource.usageContext.
 ///
-/// System: http://hl7.org/fhir/CodeSystem/usage-context-agreement-scope
+/// System: <http://hl7.org/fhir/CodeSystem/usage-context-agreement-scope>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum UsageContextAgreementScope {
     /// Realm Base
@@ -655,7 +655,7 @@ pub enum UsageContextAgreementScope {
 
 /// `restful-interaction` — The set of interactions defined by the RESTful part of the FHIR specification.
 ///
-/// System: http://hl7.org/fhir/restful-interaction
+/// System: <http://hl7.org/fhir/restful-interaction>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum RestfulInteraction {
     /// read
@@ -699,7 +699,7 @@ pub enum RestfulInteraction {
 
 /// `safety-entries` — The [checklist items](http://hl7.org/fhir/safety.html) defined as part of the FHIR specification.
 ///
-/// System: http://hl7.org/fhir/safety-entries
+/// System: <http://hl7.org/fhir/safety-entries>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum SafetyEntries {
     #[default]
@@ -789,7 +789,7 @@ pub enum SafetyEntries {
 
 /// `concept-properties` — A set of common concept properties for use on coded systems throughout the FHIR eco-system.
 ///
-/// System: http://hl7.org/fhir/concept-properties
+/// System: <http://hl7.org/fhir/concept-properties>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ConceptProperties {
     /// Status
@@ -836,7 +836,7 @@ pub enum ConceptProperties {
 
 /// `w3c-provenance-activity-type` — This value set includes W3C PROV Data Model Activity concepts, which are treated as codes in this valueset. Some adaptations were made to make these concepts suitable values for the Provenance.activit
 ///
-/// System: http://hl7.org/fhir/w3c-provenance-activity-type
+/// System: <http://hl7.org/fhir/w3c-provenance-activity-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum W3cProvenanceActivityType {
     /// wasGeneratedBy
@@ -880,7 +880,7 @@ pub enum W3cProvenanceActivityType {
 
 /// `extra-activity-type` — This value set includes coded concepts not well covered in any of the included valuesets.
 ///
-/// System: http://hl7.org/fhir/extra-activity-type
+/// System: <http://hl7.org/fhir/extra-activity-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ExtraActivityType {
     /// aggregate
@@ -897,7 +897,7 @@ pub enum ExtraActivityType {
 
 /// `resource-status` — The master set of status codes used throughout FHIR. All status codes are mapped to one of these codes.
 ///
-/// System: http://hl7.org/fhir/resource-status
+/// System: <http://hl7.org/fhir/resource-status>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ResourceStatus {
     /// error
@@ -1030,7 +1030,7 @@ pub enum Tldc {
 
 /// `etsi-signature-type` — The ETSI TS 101 733 V2.2.1 (2013-04) - Electronic Signatures and Infrastructures (ESI) - defines a set of Commitment Types (Purpose of Signature). ETSI TS 101 903 V1.2.2 defines vocabulary identifiers
 ///
-/// System: http://uri.etsi.org/01903/v1.2.2
+/// System: <http://uri.etsi.org/01903/v1.2.2>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum EtsiSignatureType {
     /// Proof of origin
@@ -1118,7 +1118,7 @@ pub enum AstmSignatureType {
 
 /// `sample-security-structural-roles` — This codeSystem contains example structural roles. In general, two types of roles can be distinguished: structural roles and functional roles. Structural Roles reflect human or organizational categori
 ///
-/// System: http://hl7.org/fhir/sample-security-structural-roles
+/// System: <http://hl7.org/fhir/sample-security-structural-roles>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum SampleSecurityStructuralRoles {
     /// Regulated Health Professionals
@@ -1132,7 +1132,7 @@ pub enum SampleSecurityStructuralRoles {
 
 /// `fhir-format-type` — FHIR Format types
 ///
-/// System: http://hl7.org/fhir/fhir-format-type
+/// System: <http://hl7.org/fhir/fhir-format-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum FhirFormatType {
     /// XML
@@ -1149,7 +1149,7 @@ pub enum FhirFormatType {
 
 /// `fhir-old-types` — An old resource name no longer used in this version of FHIR (deleted or renamed).
 ///
-/// System: http://hl7.org/fhir/fhir-old-types
+/// System: <http://hl7.org/fhir/fhir-old-types>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum FhirOldTypes {
     /// BodySite
@@ -1280,7 +1280,7 @@ pub enum FhirOldTypes {
 
 /// `color-names` — This code system represents that named RGB colors found in the [CSS4 specification](https://www.w3.org/TR/css-color-4/). The names are not case sensitive and different cases are encountered in common 
 ///
-/// System: http://hl7.org/fhir/color-names
+/// System: <http://hl7.org/fhir/color-names>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ColorNames {
     /// aliceblue
@@ -1732,7 +1732,7 @@ pub enum ColorNames {
 
 /// `conformance-expectation` — ConformanceExpectation
 ///
-/// System: http://hl7.org/fhir/conformance-expectation
+/// System: <http://hl7.org/fhir/conformance-expectation>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ConformanceExpectation {
     /// SHALL
@@ -1752,7 +1752,7 @@ pub enum ConformanceExpectation {
 
 /// `related-artifact-type-expanded` — The type of relationship to the cited artifact.
 ///
-/// System: http://hl7.org/fhir/related-artifact-type-expanded
+/// System: <http://hl7.org/fhir/related-artifact-type-expanded>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum RelatedArtifactTypeExpanded {
     /// Reprint
@@ -1766,7 +1766,7 @@ pub enum RelatedArtifactTypeExpanded {
 
 /// `narrative-status` — The status of a resource narrative.
 ///
-/// System: http://hl7.org/fhir/narrative-status
+/// System: <http://hl7.org/fhir/narrative-status>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum NarrativeStatus {
     /// Generated
@@ -1786,7 +1786,7 @@ pub enum NarrativeStatus {
 
 /// `identifier-use` — Identifies the purpose for this identifier, if known .
 ///
-/// System: http://hl7.org/fhir/identifier-use
+/// System: <http://hl7.org/fhir/identifier-use>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum IdentifierUse {
     /// Usual
@@ -1809,7 +1809,7 @@ pub enum IdentifierUse {
 
 /// `quantity-comparator` — How the Quantity should be understood and represented.
 ///
-/// System: http://hl7.org/fhir/quantity-comparator
+/// System: <http://hl7.org/fhir/quantity-comparator>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum QuantityComparator {
     /// Less than
@@ -1832,7 +1832,7 @@ pub enum QuantityComparator {
 
 /// `name-use` — The use of a human name.
 ///
-/// System: http://hl7.org/fhir/name-use
+/// System: <http://hl7.org/fhir/name-use>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum NameUse {
     /// Usual
@@ -1858,7 +1858,7 @@ pub enum NameUse {
 
 /// `address-use` — The use of an address.
 ///
-/// System: http://hl7.org/fhir/address-use
+/// System: <http://hl7.org/fhir/address-use>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum AddressUse {
     /// Home
@@ -1881,7 +1881,7 @@ pub enum AddressUse {
 
 /// `address-type` — The type of an address (physical / postal).
 ///
-/// System: http://hl7.org/fhir/address-type
+/// System: <http://hl7.org/fhir/address-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum AddressType {
     /// Postal
@@ -1898,7 +1898,7 @@ pub enum AddressType {
 
 /// `contact-point-system` — Telecommunications form for contact point.
 ///
-/// System: http://hl7.org/fhir/contact-point-system
+/// System: <http://hl7.org/fhir/contact-point-system>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ContactPointSystem {
     /// Phone
@@ -1927,7 +1927,7 @@ pub enum ContactPointSystem {
 
 /// `contact-point-use` — Use of contact point.
 ///
-/// System: http://hl7.org/fhir/contact-point-use
+/// System: <http://hl7.org/fhir/contact-point-use>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ContactPointUse {
     /// Home
@@ -1950,7 +1950,7 @@ pub enum ContactPointUse {
 
 /// `event-timing` — Real-world event relating to the schedule.
 ///
-/// System: http://hl7.org/fhir/event-timing
+/// System: <http://hl7.org/fhir/event-timing>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum EventTiming {
     /// Morning
@@ -1997,7 +1997,7 @@ pub enum EventTiming {
 
 /// `days-of-week` — The days of the week.
 ///
-/// System: http://hl7.org/fhir/days-of-week
+/// System: <http://hl7.org/fhir/days-of-week>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum DaysOfWeek {
     /// Monday
@@ -2026,7 +2026,7 @@ pub enum DaysOfWeek {
 
 /// `virtual-service-type` — Example codes for possible virtual service connection types.
 ///
-/// System: http://hl7.org/fhir/virtual-service-type
+/// System: <http://hl7.org/fhir/virtual-service-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum VirtualServiceType {
     /// Zoom web conferencing
@@ -2043,7 +2043,7 @@ pub enum VirtualServiceType {
 
 /// `price-component-type` — Codes indicating the kind of the price component.
 ///
-/// System: http://hl7.org/fhir/price-component-type
+/// System: <http://hl7.org/fhir/price-component-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum PriceComponentType {
     /// base price
@@ -2069,7 +2069,7 @@ pub enum PriceComponentType {
 
 /// `contributor-type` — The type of contributor.
 ///
-/// System: http://hl7.org/fhir/contributor-type
+/// System: <http://hl7.org/fhir/contributor-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ContributorType {
     /// Author
@@ -2089,7 +2089,7 @@ pub enum ContributorType {
 
 /// `sort-direction` — The possible sort directions, ascending or descending.
 ///
-/// System: http://hl7.org/fhir/sort-direction
+/// System: <http://hl7.org/fhir/sort-direction>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum SortDirection {
     /// Ascending
@@ -2103,7 +2103,7 @@ pub enum SortDirection {
 
 /// `operation-parameter-use` — Whether an operation parameter is an input or an output parameter.
 ///
-/// System: http://hl7.org/fhir/operation-parameter-use
+/// System: <http://hl7.org/fhir/operation-parameter-use>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum OperationParameterUse {
     /// In
@@ -2117,7 +2117,7 @@ pub enum OperationParameterUse {
 
 /// `related-artifact-type` — The type of relationship to the related artifact.
 ///
-/// System: http://hl7.org/fhir/related-artifact-type
+/// System: <http://hl7.org/fhir/related-artifact-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum RelatedArtifactType {
     /// Documentation
@@ -2233,7 +2233,7 @@ pub enum RelatedArtifactType {
 
 /// `citation-artifact-classifier` — Citation artifact classifier
 ///
-/// System: http://hl7.org/fhir/citation-artifact-classifier
+/// System: <http://hl7.org/fhir/citation-artifact-classifier>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum CitationArtifactClassifier {
     /// Audio file
@@ -2334,7 +2334,7 @@ pub enum CitationArtifactClassifier {
 
 /// `trigger-type` — The type of trigger.
 ///
-/// System: http://hl7.org/fhir/trigger-type
+/// System: <http://hl7.org/fhir/trigger-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum TriggerType {
     /// Named Event
@@ -2357,7 +2357,7 @@ pub enum TriggerType {
 
 /// `constraint-severity` — SHALL applications comply with this constraint?
 ///
-/// System: http://hl7.org/fhir/constraint-severity
+/// System: <http://hl7.org/fhir/constraint-severity>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ConstraintSeverity {
     /// Error
@@ -2371,7 +2371,7 @@ pub enum ConstraintSeverity {
 
 /// `resource-slicing-rules` — How slices are interpreted when evaluating an instance.
 ///
-/// System: http://hl7.org/fhir/resource-slicing-rules
+/// System: <http://hl7.org/fhir/resource-slicing-rules>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ResourceSlicingRules {
     /// Closed
@@ -2388,7 +2388,7 @@ pub enum ResourceSlicingRules {
 
 /// `resource-aggregation-mode` — How resource references can be aggregated.
 ///
-/// System: http://hl7.org/fhir/resource-aggregation-mode
+/// System: <http://hl7.org/fhir/resource-aggregation-mode>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ResourceAggregationMode {
     /// Contained
@@ -2402,7 +2402,7 @@ pub enum ResourceAggregationMode {
 
 /// `property-representation` — How a property is represented when serialized.
 ///
-/// System: http://hl7.org/fhir/property-representation
+/// System: <http://hl7.org/fhir/property-representation>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum PropertyRepresentation {
     /// XML Attribute
@@ -2425,7 +2425,7 @@ pub enum PropertyRepresentation {
 
 /// `reference-version-rules` — Whether a reference needs to be version specific or version independent, or whether either can be used.
 ///
-/// System: http://hl7.org/fhir/reference-version-rules
+/// System: <http://hl7.org/fhir/reference-version-rules>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ReferenceVersionRules {
     /// Either Specific or independent
@@ -2442,7 +2442,7 @@ pub enum ReferenceVersionRules {
 
 /// `discriminator-type` — How an element value is interpreted when discrimination is evaluated.
 ///
-/// System: http://hl7.org/fhir/discriminator-type
+/// System: <http://hl7.org/fhir/discriminator-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum DiscriminatorType {
     /// Value
@@ -2468,7 +2468,7 @@ pub enum DiscriminatorType {
 
 /// `additional-binding-purpose` — Additional Binding Purpose
 ///
-/// System: http://hl7.org/fhir/CodeSystem/additional-binding-purpose
+/// System: <http://hl7.org/fhir/CodeSystem/additional-binding-purpose>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum AdditionalBindingPurpose {
     /// Maximum Binding
@@ -2506,7 +2506,7 @@ pub enum AdditionalBindingPurpose {
 
 /// `event-status` — Codes identifying the lifecycle stage of an event.
 ///
-/// System: http://hl7.org/fhir/event-status
+/// System: <http://hl7.org/fhir/event-status>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum EventStatus {
     /// Preparation
@@ -2538,7 +2538,7 @@ pub enum EventStatus {
 
 /// `request-status` — Codes identifying the lifecycle stage of a request.
 ///
-/// System: http://hl7.org/fhir/request-status
+/// System: <http://hl7.org/fhir/request-status>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum RequestStatus {
     /// Draft
@@ -2567,7 +2567,7 @@ pub enum RequestStatus {
 
 /// `request-intent` — Codes indicating the degree of authority/intentionality associated with a request.
 ///
-/// System: http://hl7.org/fhir/request-intent
+/// System: <http://hl7.org/fhir/request-intent>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum RequestIntent {
     /// Proposal
@@ -2590,7 +2590,7 @@ pub enum RequestIntent {
 
 /// `request-priority` — Identifies the level of importance to be assigned to actioning the request.
 ///
-/// System: http://hl7.org/fhir/request-priority
+/// System: <http://hl7.org/fhir/request-priority>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum RequestPriority {
     /// Routine
@@ -2610,7 +2610,7 @@ pub enum RequestPriority {
 
 /// `product-status` — Codes identifying the lifecycle stage of a product.
 ///
-/// System: http://hl7.org/fhir/product-status
+/// System: <http://hl7.org/fhir/product-status>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ProductStatus {
     /// Active
@@ -2624,7 +2624,7 @@ pub enum ProductStatus {
 
 /// `resource-validation-mode` — ResourceValidationMode
 ///
-/// System: http://hl7.org/fhir/resource-validation-mode
+/// System: <http://hl7.org/fhir/resource-validation-mode>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ResourceValidationMode {
     /// Validate for Create
@@ -2644,7 +2644,7 @@ pub enum ResourceValidationMode {
 
 /// `version-algorithm` — Indicates the mechanism used to compare versions to determine which is more current.
 ///
-/// System: http://hl7.org/fhir/version-algorithm
+/// System: <http://hl7.org/fhir/version-algorithm>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum VersionAlgorithm {
     /// SemVer
@@ -2667,7 +2667,7 @@ pub enum VersionAlgorithm {
 
 /// `flag-status` — Indicates whether this flag is active and needs to be displayed to a user, or whether it is no longer needed or was entered in error.
 ///
-/// System: http://hl7.org/fhir/flag-status
+/// System: <http://hl7.org/fhir/flag-status>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum FlagStatus {
     /// Active
@@ -2684,7 +2684,7 @@ pub enum FlagStatus {
 
 /// `allergy-intolerance-type` — Identification of the underlying physiological mechanism for a Reaction Risk.
 ///
-/// System: http://hl7.org/fhir/allergy-intolerance-type
+/// System: <http://hl7.org/fhir/allergy-intolerance-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum AllergyIntoleranceType {
     /// Allergy
@@ -2698,7 +2698,7 @@ pub enum AllergyIntoleranceType {
 
 /// `allergy-intolerance-category` — Category of an identified substance associated with allergies or intolerances.
 ///
-/// System: http://hl7.org/fhir/allergy-intolerance-category
+/// System: <http://hl7.org/fhir/allergy-intolerance-category>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum AllergyIntoleranceCategory {
     /// Food
@@ -2718,7 +2718,7 @@ pub enum AllergyIntoleranceCategory {
 
 /// `allergy-intolerance-criticality` — Estimate of the potential clinical harm, or seriousness, of a reaction to an identified substance.
 ///
-/// System: http://hl7.org/fhir/allergy-intolerance-criticality
+/// System: <http://hl7.org/fhir/allergy-intolerance-criticality>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum AllergyIntoleranceCriticality {
     /// Low Risk
@@ -2735,7 +2735,7 @@ pub enum AllergyIntoleranceCriticality {
 
 /// `reaction-event-severity` — Clinical assessment of the severity of a reaction event as a whole, potentially considering multiple different manifestations.
 ///
-/// System: http://hl7.org/fhir/reaction-event-severity
+/// System: <http://hl7.org/fhir/reaction-event-severity>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ReactionEventSeverity {
     /// Mild
@@ -2752,7 +2752,7 @@ pub enum ReactionEventSeverity {
 
 /// `care-team-status` — Indicates the status of the care team.
 ///
-/// System: http://hl7.org/fhir/care-team-status
+/// System: <http://hl7.org/fhir/care-team-status>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum CareTeamStatus {
     /// Proposed
@@ -2775,7 +2775,7 @@ pub enum CareTeamStatus {
 
 /// `capability-statement-kind` — How a capability statement is intended to be used.
 ///
-/// System: http://hl7.org/fhir/capability-statement-kind
+/// System: <http://hl7.org/fhir/capability-statement-kind>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum CapabilityStatementKind {
     /// Instance
@@ -2792,7 +2792,7 @@ pub enum CapabilityStatementKind {
 
 /// `restful-capability-mode` — The mode of a RESTful capability statement.
 ///
-/// System: http://hl7.org/fhir/restful-capability-mode
+/// System: <http://hl7.org/fhir/restful-capability-mode>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum RestfulCapabilityMode {
     /// Client
@@ -2806,7 +2806,7 @@ pub enum RestfulCapabilityMode {
 
 /// `restful-security-service` — Types of security services used with FHIR.
 ///
-/// System: http://hl7.org/fhir/restful-security-service
+/// System: <http://hl7.org/fhir/restful-security-service>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum RestfulSecurityService {
     /// OAuth
@@ -2832,7 +2832,7 @@ pub enum RestfulSecurityService {
 
 /// `versioning-policy` — How the system supports versioning for a resource.
 ///
-/// System: http://hl7.org/fhir/versioning-policy
+/// System: <http://hl7.org/fhir/versioning-policy>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum VersioningPolicy {
     /// No VersionId Support
@@ -2849,7 +2849,7 @@ pub enum VersioningPolicy {
 
 /// `conditional-read-status` — A code that indicates how the server supports conditional read.
 ///
-/// System: http://hl7.org/fhir/conditional-read-status
+/// System: <http://hl7.org/fhir/conditional-read-status>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ConditionalReadStatus {
     /// Not Supported
@@ -2869,7 +2869,7 @@ pub enum ConditionalReadStatus {
 
 /// `conditional-delete-status` — A code that indicates how the server supports conditional delete.
 ///
-/// System: http://hl7.org/fhir/conditional-delete-status
+/// System: <http://hl7.org/fhir/conditional-delete-status>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ConditionalDeleteStatus {
     /// Not Supported
@@ -2886,7 +2886,7 @@ pub enum ConditionalDeleteStatus {
 
 /// `reference-handling-policy` — A set of flags that defines how references are supported.
 ///
-/// System: http://hl7.org/fhir/reference-handling-policy
+/// System: <http://hl7.org/fhir/reference-handling-policy>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ReferenceHandlingPolicy {
     /// Literal References
@@ -2909,7 +2909,7 @@ pub enum ReferenceHandlingPolicy {
 
 /// `message-transport` — The protocol used for message transport.
 ///
-/// System: http://hl7.org/fhir/message-transport
+/// System: <http://hl7.org/fhir/message-transport>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum MessageTransport {
     /// HTTP
@@ -2926,7 +2926,7 @@ pub enum MessageTransport {
 
 /// `event-capability-mode` — The mode of a message capability statement.
 ///
-/// System: http://hl7.org/fhir/event-capability-mode
+/// System: <http://hl7.org/fhir/event-capability-mode>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum EventCapabilityMode {
     /// Sender
@@ -2940,7 +2940,7 @@ pub enum EventCapabilityMode {
 
 /// `document-mode` — Whether the application produces or consumes documents.
 ///
-/// System: http://hl7.org/fhir/document-mode
+/// System: <http://hl7.org/fhir/document-mode>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum DocumentMode {
     /// Producer
@@ -2954,7 +2954,7 @@ pub enum DocumentMode {
 
 /// `detectedissue-severity` — Indicates the potential degree of impact of the identified issue on the patient.
 ///
-/// System: http://hl7.org/fhir/detectedissue-severity
+/// System: <http://hl7.org/fhir/detectedissue-severity>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum DetectedissueSeverity {
     /// High
@@ -2971,7 +2971,7 @@ pub enum DetectedissueSeverity {
 
 /// `udi-entry-type` — Codes to identify how UDI data was entered.
 ///
-/// System: http://hl7.org/fhir/udi-entry-type
+/// System: <http://hl7.org/fhir/udi-entry-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum UdiEntryType {
     /// Barcode
@@ -3000,7 +3000,7 @@ pub enum UdiEntryType {
 
 /// `device-status` — The status of the Device record.
 ///
-/// System: http://hl7.org/fhir/device-status
+/// System: <http://hl7.org/fhir/device-status>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum DeviceStatus {
     /// Active
@@ -3017,7 +3017,7 @@ pub enum DeviceStatus {
 
 /// `device-availability-status` — The record status of the device.
 ///
-/// System: http://hl7.org/fhir/device-availability-status
+/// System: <http://hl7.org/fhir/device-availability-status>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum DeviceAvailabilityStatus {
     /// Lost
@@ -3037,7 +3037,7 @@ pub enum DeviceAvailabilityStatus {
 
 /// `device-nametype` — The type of name the device is referred by.
 ///
-/// System: http://hl7.org/fhir/device-nametype
+/// System: <http://hl7.org/fhir/device-nametype>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum DeviceNametype {
     /// Registered name
@@ -3054,7 +3054,7 @@ pub enum DeviceNametype {
 
 /// `device-category` — The category of the device.
 ///
-/// System: http://hl7.org/fhir/device-category
+/// System: <http://hl7.org/fhir/device-category>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum DeviceCategory {
     /// Active
@@ -3092,7 +3092,7 @@ pub enum DeviceCategory {
 
 /// `device-specification-category` — The kind of standards used by the device.
 ///
-/// System: http://hl7.org/fhir/device-specification-category
+/// System: <http://hl7.org/fhir/device-specification-category>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum DeviceSpecificationCategory {
     /// Communication
@@ -3121,7 +3121,7 @@ pub enum DeviceSpecificationCategory {
 
 /// `device-operation-mode` — The operation mode of the device.
 ///
-/// System: http://hl7.org/fhir/device-operation-mode
+/// System: <http://hl7.org/fhir/device-operation-mode>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum DeviceOperationMode {
     /// Normal
@@ -3144,7 +3144,7 @@ pub enum DeviceOperationMode {
 
 /// `deviceusage-status` — A coded concept indicating the current status of the Device Usage.
 ///
-/// System: http://hl7.org/fhir/deviceusage-status
+/// System: <http://hl7.org/fhir/deviceusage-status>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum DeviceusageStatus {
     /// Active
@@ -3173,7 +3173,7 @@ pub enum DeviceusageStatus {
 
 /// `deviceusage-adherence-code` — A coded concept indicating the usage of the device.
 ///
-/// System: http://hl7.org/fhir/deviceusage-adherence-code
+/// System: <http://hl7.org/fhir/deviceusage-adherence-code>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum DeviceusageAdherenceCode {
     /// Always
@@ -3190,7 +3190,7 @@ pub enum DeviceusageAdherenceCode {
 
 /// `deviceusage-adherence-reason` — A coded concept indicating the reason for the usage of the device.
 ///
-/// System: http://hl7.org/fhir/deviceusage-adherence-reason
+/// System: <http://hl7.org/fhir/deviceusage-adherence-reason>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum DeviceusageAdherenceReason {
     /// Lost
@@ -3216,7 +3216,7 @@ pub enum DeviceusageAdherenceReason {
 
 /// `sequence-type` — Type if a sequence -- DNA, RNA, or amino acid sequence.
 ///
-/// System: http://hl7.org/fhir/sequence-type
+/// System: <http://hl7.org/fhir/sequence-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum SequenceType {
     /// AA Sequence
@@ -3233,7 +3233,7 @@ pub enum SequenceType {
 
 /// `orientation-type` — Type for orientation.
 ///
-/// System: http://hl7.org/fhir/orientation-type
+/// System: <http://hl7.org/fhir/orientation-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum OrientationType {
     /// Sense orientation of referenceSeq
@@ -3247,7 +3247,7 @@ pub enum OrientationType {
 
 /// `strand-type` — Type for strand.
 ///
-/// System: http://hl7.org/fhir/strand-type
+/// System: <http://hl7.org/fhir/strand-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum StrandType {
     /// Watson strand of starting sequence
@@ -3261,7 +3261,7 @@ pub enum StrandType {
 
 /// `diagnostic-report-status` — The status of the diagnostic report.
 ///
-/// System: http://hl7.org/fhir/diagnostic-report-status
+/// System: <http://hl7.org/fhir/diagnostic-report-status>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum DiagnosticReportStatus {
     /// Registered
@@ -3290,7 +3290,7 @@ pub enum DiagnosticReportStatus {
 
 /// `citation-summary-style` — The format for display of the citation.
 ///
-/// System: http://hl7.org/fhir/citation-summary-style
+/// System: <http://hl7.org/fhir/citation-summary-style>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum CitationSummaryStyle {
     /// Vancouver style
@@ -3340,7 +3340,7 @@ pub enum CitationSummaryStyle {
 
 /// `citation-classification-type` — Citation classification type
 ///
-/// System: http://hl7.org/fhir/citation-classification-type
+/// System: <http://hl7.org/fhir/citation-classification-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum CitationClassificationType {
     /// Citation Source
@@ -3357,7 +3357,7 @@ pub enum CitationClassificationType {
 
 /// `citation-status-type` — Citation status type
 ///
-/// System: http://hl7.org/fhir/citation-status-type
+/// System: <http://hl7.org/fhir/citation-status-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum CitationStatusType {
     /// PubMed Pubstatus of Received
@@ -3446,7 +3446,7 @@ pub enum CitationStatusType {
 
 /// `cited-artifact-status-type` — Cited Artifact Status Type
 ///
-/// System: http://hl7.org/fhir/cited-artifact-status-type
+/// System: <http://hl7.org/fhir/cited-artifact-status-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum CitedArtifactStatusType {
     /// Created
@@ -3502,7 +3502,7 @@ pub enum CitedArtifactStatusType {
 
 /// `title-type` — Used to express the reason and specific aspect for the variant title, such as language and specific language.
 ///
-/// System: http://hl7.org/fhir/title-type
+/// System: <http://hl7.org/fhir/title-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum TitleType {
     /// Primary title
@@ -3549,7 +3549,7 @@ pub enum TitleType {
 
 /// `cited-artifact-abstract-type` — Used to express the reason and specific aspect for the variant abstract, such as language and specific language
 ///
-/// System: http://hl7.org/fhir/cited-artifact-abstract-type
+/// System: <http://hl7.org/fhir/cited-artifact-abstract-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum CitedArtifactAbstractType {
     /// Primary human use
@@ -3590,7 +3590,7 @@ pub enum CitedArtifactAbstractType {
 
 /// `cited-artifact-part-type` — To describe the reason for the variant citation, such as version number or subpart specification.
 ///
-/// System: http://hl7.org/fhir/cited-artifact-part-type
+/// System: <http://hl7.org/fhir/cited-artifact-part-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum CitedArtifactPartType {
     /// pages
@@ -3625,7 +3625,7 @@ pub enum CitedArtifactPartType {
 
 /// `published-in-type` — The type of publication such as book, database, or journal.
 ///
-/// System: http://hl7.org/fhir/published-in-type
+/// System: <http://hl7.org/fhir/published-in-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum PublishedInType {
     /// Periodical
@@ -3645,7 +3645,7 @@ pub enum PublishedInType {
 
 /// `cited-medium` — NLM codes Internet or Print.
 ///
-/// System: http://hl7.org/fhir/cited-medium
+/// System: <http://hl7.org/fhir/cited-medium>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum CitedMedium {
     /// Internet
@@ -3671,7 +3671,7 @@ pub enum CitedMedium {
 
 /// `artifact-url-classifier` — Code the reason for different URLs, eg abstract and full-text.
 ///
-/// System: http://hl7.org/fhir/artifact-url-classifier
+/// System: <http://hl7.org/fhir/artifact-url-classifier>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ArtifactUrlClassifier {
     /// Abstract
@@ -3724,7 +3724,7 @@ pub enum ArtifactUrlClassifier {
 
 /// `cited-artifact-classification-type` — Cited Artifact Classification Type
 ///
-/// System: http://hl7.org/fhir/cited-artifact-classification-type
+/// System: <http://hl7.org/fhir/cited-artifact-classification-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum CitedArtifactClassificationType {
     /// Publication type
@@ -3765,7 +3765,7 @@ pub enum CitedArtifactClassificationType {
 
 /// `artifact-contribution-type` — Citation contribution.
 ///
-/// System: http://hl7.org/fhir/artifact-contribution-type
+/// System: <http://hl7.org/fhir/artifact-contribution-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ArtifactContributionType {
     /// Conceptualization
@@ -3815,7 +3815,7 @@ pub enum ArtifactContributionType {
 
 /// `contributor-role` — Used to code the format of the display string.
 ///
-/// System: http://hl7.org/fhir/contributor-role
+/// System: <http://hl7.org/fhir/contributor-role>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ContributorRole {
     /// Publisher
@@ -3844,7 +3844,7 @@ pub enum ContributorRole {
 
 /// `artifact-contribution-instance-type` — Artifact Contribution Instance Type
 ///
-/// System: http://hl7.org/fhir/artifact-contribution-instance-type
+/// System: <http://hl7.org/fhir/artifact-contribution-instance-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ArtifactContributionInstanceType {
     /// Reviewed
@@ -3861,7 +3861,7 @@ pub enum ArtifactContributionInstanceType {
 
 /// `contributor-summary-type` — Used to code author list statement, contributorship statement, and such.
 ///
-/// System: http://hl7.org/fhir/contributor-summary-type
+/// System: <http://hl7.org/fhir/contributor-summary-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ContributorSummaryType {
     /// Author string
@@ -3890,7 +3890,7 @@ pub enum ContributorSummaryType {
 
 /// `contributor-summary-style` — Used to code the format of the display string.
 ///
-/// System: http://hl7.org/fhir/contributor-summary-style
+/// System: <http://hl7.org/fhir/contributor-summary-style>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ContributorSummaryStyle {
     /// First author (full name) et al
@@ -3946,7 +3946,7 @@ pub enum ContributorSummaryStyle {
 
 /// `contributor-summary-source` — Used to code the producer or rule for creating the display string.
 ///
-/// System: http://hl7.org/fhir/contributor-summary-source
+/// System: <http://hl7.org/fhir/contributor-summary-source>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ContributorSummarySource {
     /// Publisher provided
@@ -3966,7 +3966,7 @@ pub enum ContributorSummarySource {
 
 /// `evidence-report-type` — The kind of report, such as grouping of classifiers, search results, or human-compiled expression.
 ///
-/// System: http://hl7.org/fhir/evidence-report-type
+/// System: <http://hl7.org/fhir/evidence-report-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum EvidenceReportType {
     /// Classification
@@ -3986,7 +3986,7 @@ pub enum EvidenceReportType {
 
 /// `focus-characteristic-code` — Evidence focus characteristic code.
 ///
-/// System: http://hl7.org/fhir/focus-characteristic-code
+/// System: <http://hl7.org/fhir/focus-characteristic-code>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum FocusCharacteristicCode {
     /// Citation
@@ -4018,7 +4018,7 @@ pub enum FocusCharacteristicCode {
 
 /// `report-relation-type` — The type of relationship between reports.
 ///
-/// System: http://hl7.org/fhir/report-relation-type
+/// System: <http://hl7.org/fhir/report-relation-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ReportRelationType {
     /// Replaces
@@ -4050,7 +4050,7 @@ pub enum ReportRelationType {
 
 /// `evidence-report-section` — Evidence Report Section Type.
 ///
-/// System: http://hl7.org/fhir/evidence-report-section
+/// System: <http://hl7.org/fhir/evidence-report-section>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum EvidenceReportSection {
     /// Evidence Results
@@ -4142,7 +4142,7 @@ pub enum EvidenceReportSection {
 
 /// `evidence-classifier-code` — Commonly used classifiers for evidence sets.
 ///
-/// System: http://hl7.org/fhir/evidence-classifier-code
+/// System: <http://hl7.org/fhir/evidence-classifier-code>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum EvidenceClassifierCode {
     /// COVID-19 specific article
@@ -4243,7 +4243,7 @@ pub enum EvidenceClassifierCode {
 
 /// `composition-status` — The workflow/clinical status of the composition.
 ///
-/// System: http://hl7.org/fhir/composition-status
+/// System: <http://hl7.org/fhir/composition-status>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum CompositionStatus {
     /// Registered
@@ -4275,7 +4275,7 @@ pub enum CompositionStatus {
 
 /// `composition-attestation-mode` — The way in which a person authenticated a composition.
 ///
-/// System: http://hl7.org/fhir/composition-attestation-mode
+/// System: <http://hl7.org/fhir/composition-attestation-mode>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum CompositionAttestationMode {
     /// Personal
@@ -4295,7 +4295,7 @@ pub enum CompositionAttestationMode {
 
 /// `catalogType` — CatalogType
 ///
-/// System: http://hl7.org/fhir/catalogType
+/// System: <http://hl7.org/fhir/catalogType>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum CatalogType {
     /// Medication Catalog
@@ -4312,7 +4312,7 @@ pub enum CatalogType {
 
 /// `document-relationship-type` — The type of relationship between documents.
 ///
-/// System: http://hl7.org/fhir/document-relationship-type
+/// System: <http://hl7.org/fhir/document-relationship-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum DocumentRelationshipType {
     /// Replaces
@@ -4338,7 +4338,7 @@ pub enum DocumentRelationshipType {
 
 /// `encounter-status` — Current state of the encounter.
 ///
-/// System: http://hl7.org/fhir/encounter-status
+/// System: <http://hl7.org/fhir/encounter-status>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum EncounterStatus {
     /// Planned
@@ -4373,7 +4373,7 @@ pub enum EncounterStatus {
 
 /// `encounter-reason-use` — Encounter Reason Use
 ///
-/// System: http://hl7.org/fhir/encounter-reason-use
+/// System: <http://hl7.org/fhir/encounter-reason-use>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum EncounterReasonUse {
     /// Chief Complaint
@@ -4396,7 +4396,7 @@ pub enum EncounterReasonUse {
 
 /// `encounter-diagnosis-use` — Encounter Condition Use
 ///
-/// System: http://hl7.org/fhir/encounter-diagnosis-use
+/// System: <http://hl7.org/fhir/encounter-diagnosis-use>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum EncounterDiagnosisUse {
     /// Working
@@ -4410,7 +4410,7 @@ pub enum EncounterDiagnosisUse {
 
 /// `encounter-location-status` — The status of the location.
 ///
-/// System: http://hl7.org/fhir/encounter-location-status
+/// System: <http://hl7.org/fhir/encounter-location-status>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum EncounterLocationStatus {
     /// Planned
@@ -4430,7 +4430,7 @@ pub enum EncounterLocationStatus {
 
 /// `history-status` — A code that identifies the status of the family history record.
 ///
-/// System: http://hl7.org/fhir/history-status
+/// System: <http://hl7.org/fhir/history-status>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum HistoryStatus {
     /// Partial
@@ -4450,7 +4450,7 @@ pub enum HistoryStatus {
 
 /// `goal-status` — Codes that reflect the current state of a goal and whether the goal is still being targeted.
 ///
-/// System: http://hl7.org/fhir/goal-status
+/// System: <http://hl7.org/fhir/goal-status>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum GoalStatus {
     /// Proposed
@@ -4476,7 +4476,7 @@ pub enum GoalStatus {
 
 /// `graph-compartment-use` — Defines how a compartment rule is used.
 ///
-/// System: http://hl7.org/fhir/graph-compartment-use
+/// System: <http://hl7.org/fhir/graph-compartment-use>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum GraphCompartmentUse {
     /// Where
@@ -4490,7 +4490,7 @@ pub enum GraphCompartmentUse {
 
 /// `graph-compartment-rule` — How a compartment must be linked.
 ///
-/// System: http://hl7.org/fhir/graph-compartment-rule
+/// System: <http://hl7.org/fhir/graph-compartment-rule>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum GraphCompartmentRule {
     /// Identical
@@ -4510,7 +4510,7 @@ pub enum GraphCompartmentRule {
 
 /// `group-type` — Types of resources that are part of group.
 ///
-/// System: http://hl7.org/fhir/group-type
+/// System: <http://hl7.org/fhir/group-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum GroupType {
     /// Person
@@ -4548,7 +4548,7 @@ pub enum GroupType {
 
 /// `group-membership-basis` — Basis for membership in a group
 ///
-/// System: http://hl7.org/fhir/group-membership-basis
+/// System: <http://hl7.org/fhir/group-membership-basis>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum GroupMembershipBasis {
     /// Definitional
@@ -4562,7 +4562,7 @@ pub enum GroupMembershipBasis {
 
 /// `imagingselection-status` — The status of the ImagingSelection.
 ///
-/// System: http://hl7.org/fhir/imagingselection-status
+/// System: <http://hl7.org/fhir/imagingselection-status>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ImagingselectionStatus {
     /// Available
@@ -4579,7 +4579,7 @@ pub enum ImagingselectionStatus {
 
 /// `imagingselection-2dgraphictype` — The type of coordinates describing a 2D image region.
 ///
-/// System: http://hl7.org/fhir/imagingselection-2dgraphictype
+/// System: <http://hl7.org/fhir/imagingselection-2dgraphictype>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum Imagingselection2dgraphictype {
     /// POINT
@@ -4602,7 +4602,7 @@ pub enum Imagingselection2dgraphictype {
 
 /// `imagingselection-3dgraphictype` — The type of coordinates describing an image region.
 ///
-/// System: http://hl7.org/fhir/imagingselection-3dgraphictype
+/// System: <http://hl7.org/fhir/imagingselection-3dgraphictype>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum Imagingselection3dgraphictype {
     /// POINT
@@ -4628,7 +4628,7 @@ pub enum Imagingselection3dgraphictype {
 
 /// `imagingstudy-status` — The status of the ImagingStudy.
 ///
-/// System: http://hl7.org/fhir/imagingstudy-status
+/// System: <http://hl7.org/fhir/imagingstudy-status>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ImagingstudyStatus {
     /// Registered
@@ -4651,7 +4651,7 @@ pub enum ImagingstudyStatus {
 
 /// `spdx-license` — The license that applies to an Implementation Guide (using an SPDX license Identifiers, or 'not-open-source'). The binding is required but new SPDX license Identifiers are allowed to be used (https://
 ///
-/// System: http://hl7.org/fhir/spdx-license
+/// System: <http://hl7.org/fhir/spdx-license>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum SpdxLicense {
     /// Not open source
@@ -5697,7 +5697,7 @@ pub enum SpdxLicense {
 
 /// `guide-page-generation` — A code that indicates how the page is generated.
 ///
-/// System: http://hl7.org/fhir/guide-page-generation
+/// System: <http://hl7.org/fhir/guide-page-generation>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum GuidePageGeneration {
     /// HTML
@@ -5717,7 +5717,7 @@ pub enum GuidePageGeneration {
 
 /// `guide-parameter-code` — GuideParameterCode
 ///
-/// System: http://hl7.org/fhir/guide-parameter-code
+/// System: <http://hl7.org/fhir/guide-parameter-code>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum GuideParameterCode {
     /// Apply Metadata Value
@@ -5755,7 +5755,7 @@ pub enum GuideParameterCode {
 
 /// `linkage-type` — Used to distinguish different roles a resource can play within a set of linked resources.
 ///
-/// System: http://hl7.org/fhir/linkage-type
+/// System: <http://hl7.org/fhir/linkage-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum LinkageType {
     /// Source of Truth
@@ -5772,7 +5772,7 @@ pub enum LinkageType {
 
 /// `list-status` — The current state of the list.
 ///
-/// System: http://hl7.org/fhir/list-status
+/// System: <http://hl7.org/fhir/list-status>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ListStatus {
     /// Current
@@ -5789,7 +5789,7 @@ pub enum ListStatus {
 
 /// `list-mode` — The processing mode that applies to this list.
 ///
-/// System: http://hl7.org/fhir/list-mode
+/// System: <http://hl7.org/fhir/list-mode>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ListMode {
     /// Working List
@@ -5832,7 +5832,7 @@ pub enum ListItemFlag {
 
 /// `location-status` — Indicates whether the location is still in use.
 ///
-/// System: http://hl7.org/fhir/location-status
+/// System: <http://hl7.org/fhir/location-status>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum LocationStatus {
     /// Active
@@ -5849,7 +5849,7 @@ pub enum LocationStatus {
 
 /// `location-mode` — Indicates whether a resource instance represents a specific location or a class of locations.
 ///
-/// System: http://hl7.org/fhir/location-mode
+/// System: <http://hl7.org/fhir/location-mode>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum LocationMode {
     /// Instance
@@ -5863,7 +5863,7 @@ pub enum LocationMode {
 
 /// `location-characteristic` — Example Set of Location Characteristics.
 ///
-/// System: http://hl7.org/fhir/location-characteristic
+/// System: <http://hl7.org/fhir/location-characteristic>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum LocationCharacteristic {
     /// Wheelchair accessible
@@ -5889,7 +5889,7 @@ pub enum LocationCharacteristic {
 
 /// `medication-admin-status` — MedicationAdministration Status Codes
 ///
-/// System: http://hl7.org/fhir/CodeSystem/medication-admin-status
+/// System: <http://hl7.org/fhir/CodeSystem/medication-admin-status>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum MedicationAdminStatus {
     /// In Progress
@@ -5918,7 +5918,7 @@ pub enum MedicationAdminStatus {
 
 /// `reason-medication-not-given-codes` — This value set is provided as an example. The value set to instantiate this attribute should be drawn from a robust terminology code system that consists of or contains concepts to support the medicat
 ///
-/// System: http://hl7.org/fhir/reason-medication-not-given
+/// System: <http://hl7.org/fhir/reason-medication-not-given>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ReasonMedicationNotGivenCodes {
     /// None
@@ -5938,7 +5938,7 @@ pub enum ReasonMedicationNotGivenCodes {
 
 /// `administration-subpotent-reason` — This value set is provided as an example. The value set to instantiate this attribute should be drawn from a robust terminology code system that consists of or contains concepts to support the medicat
 ///
-/// System: http://hl7.org/fhir/CodeSystem/administration-subpotent-reason
+/// System: <http://hl7.org/fhir/CodeSystem/administration-subpotent-reason>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum AdministrationSubpotentReason {
     /// Partial Dose
@@ -5961,7 +5961,7 @@ pub enum AdministrationSubpotentReason {
 
 /// `medicationdispense-status` — Medication Dispense Status Codes
 ///
-/// System: http://hl7.org/fhir/CodeSystem/medicationdispense-status
+/// System: <http://hl7.org/fhir/CodeSystem/medicationdispense-status>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum MedicationdispenseStatus {
     /// Preparation
@@ -5996,7 +5996,7 @@ pub enum MedicationdispenseStatus {
 
 /// `medicationdispense-status-reason` — Medication Dispense Status Reason Codes
 ///
-/// System: http://hl7.org/fhir/CodeSystem/medicationdispense-status-reason
+/// System: <http://hl7.org/fhir/CodeSystem/medicationdispense-status-reason>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum MedicationdispenseStatusReason {
     /// Order Stopped
@@ -6067,7 +6067,7 @@ pub enum MedicationdispenseStatusReason {
 
 /// `medicationdispense-admin-location` — Medication Dispense Administration Location Codes
 ///
-/// System: http://hl7.org/fhir/medicationdispense-admin-location
+/// System: <http://hl7.org/fhir/medicationdispense-admin-location>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum MedicationdispenseAdminLocation {
     /// Inpatient
@@ -6084,7 +6084,7 @@ pub enum MedicationdispenseAdminLocation {
 
 /// `medicationrequest-status` — MedicationRequest Status Codes
 ///
-/// System: http://hl7.org/fhir/CodeSystem/medicationrequest-status
+/// System: <http://hl7.org/fhir/CodeSystem/medicationrequest-status>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum MedicationrequestStatus {
     /// Active
@@ -6110,7 +6110,7 @@ pub enum MedicationrequestStatus {
 
 /// `medicationrequest-intent` — MedicationRequest Intent Codes
 ///
-/// System: http://hl7.org/fhir/CodeSystem/medicationrequest-intent
+/// System: <http://hl7.org/fhir/CodeSystem/medicationrequest-intent>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum MedicationrequestIntent {
     /// Proposal
@@ -6130,7 +6130,7 @@ pub enum MedicationrequestIntent {
 
 /// `medication-intended-performer-role` — Medication Intended Performer Role
 ///
-/// System: http://hl7.org/fhir/CodeSystem/medication-intended-performer-role
+/// System: <http://hl7.org/fhir/CodeSystem/medication-intended-performer-role>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum MedicationIntendedPerformerRole {
     /// Registered Nurse
@@ -6153,7 +6153,7 @@ pub enum MedicationIntendedPerformerRole {
 
 /// `medication-dose-aid` — Medication dose aid
 ///
-/// System: http://hl7.org/fhir/CodeSystem/medication-dose-aid
+/// System: <http://hl7.org/fhir/CodeSystem/medication-dose-aid>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum MedicationDoseAid {
     /// Blister Pack
@@ -6170,7 +6170,7 @@ pub enum MedicationDoseAid {
 
 /// `medication-statement-status` — MedicationStatement Status Codes
 ///
-/// System: http://hl7.org/fhir/CodeSystem/medication-statement-status
+/// System: <http://hl7.org/fhir/CodeSystem/medication-statement-status>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum MedicationStatementStatus {
     /// Recorded
@@ -6187,7 +6187,7 @@ pub enum MedicationStatementStatus {
 
 /// `medication-statement-adherence` — MedicationStatement Adherence Codes
 ///
-/// System: http://hl7.org/fhir/CodeSystem/medication-statement-adherence
+/// System: <http://hl7.org/fhir/CodeSystem/medication-statement-adherence>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum MedicationStatementAdherence {
     /// Taking
@@ -6204,7 +6204,7 @@ pub enum MedicationStatementAdherence {
 
 /// `medication-status` — Medication Status Codes
 ///
-/// System: http://hl7.org/fhir/CodeSystem/medication-status
+/// System: <http://hl7.org/fhir/CodeSystem/medication-status>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum MedicationStatus {
     /// Active
@@ -6221,7 +6221,7 @@ pub enum MedicationStatus {
 
 /// `medication-ingredientstrength` — Medication Ingredient Strength Codes
 ///
-/// System: http://hl7.org/fhir/CodeSystem/medication-ingredientstrength
+/// System: <http://hl7.org/fhir/CodeSystem/medication-ingredientstrength>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum MedicationIngredientstrength {
     /// QS
@@ -6235,7 +6235,7 @@ pub enum MedicationIngredientstrength {
 
 /// `response-code` — The kind of response to a message.
 ///
-/// System: http://hl7.org/fhir/response-code
+/// System: <http://hl7.org/fhir/response-code>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ResponseCode {
     /// OK
@@ -6252,7 +6252,7 @@ pub enum ResponseCode {
 
 /// `observation-triggeredbytype` — Codes providing the triggeredBy type of observation.
 ///
-/// System: http://hl7.org/fhir/observation-triggeredbytype
+/// System: <http://hl7.org/fhir/observation-triggeredbytype>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ObservationTriggeredbytype {
     /// Reflex
@@ -6269,7 +6269,7 @@ pub enum ObservationTriggeredbytype {
 
 /// `observation-status` — Codes providing the status of an observation.
 ///
-/// System: http://hl7.org/fhir/observation-status
+/// System: <http://hl7.org/fhir/observation-status>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ObservationStatus {
     /// Registered
@@ -6298,7 +6298,7 @@ pub enum ObservationStatus {
 
 /// `observation-referencerange-normalvalue` — Codes that describe the normal value in the reference range.
 ///
-/// System: http://hl7.org/fhir/observation-referencerange-normalvalue
+/// System: <http://hl7.org/fhir/observation-referencerange-normalvalue>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ObservationReferencerangeNormalvalue {
     /// Negative
@@ -6312,7 +6312,7 @@ pub enum ObservationReferencerangeNormalvalue {
 
 /// `observation-statistics` — The statistical operation parameter -"statistic" codes.
 ///
-/// System: http://hl7.org/fhir/observation-statistics
+/// System: <http://hl7.org/fhir/observation-statistics>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ObservationStatistics {
     /// Average
@@ -6383,7 +6383,7 @@ pub enum ObservationStatistics {
 
 /// `issue-severity` — How the issue affects the success of the action.
 ///
-/// System: http://hl7.org/fhir/issue-severity
+/// System: <http://hl7.org/fhir/issue-severity>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum IssueSeverity {
     /// Fatal
@@ -6406,7 +6406,7 @@ pub enum IssueSeverity {
 
 /// `issue-type` — A code that describes the type of issue.
 ///
-/// System: http://hl7.org/fhir/issue-type
+/// System: <http://hl7.org/fhir/issue-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum IssueType {
     /// Invalid Content
@@ -6432,7 +6432,7 @@ pub enum IssueType {
 
 /// `link-type` — The type of link between this Patient resource and other Patient/RelatedPerson resource(s).
 ///
-/// System: http://hl7.org/fhir/link-type
+/// System: <http://hl7.org/fhir/link-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum LinkType {
     /// Replaced-by
@@ -6452,7 +6452,7 @@ pub enum LinkType {
 
 /// `device-action` — Example value set for Procedure Device Action code (what happened to a device during a procedure.
 ///
-/// System: http://hl7.org/fhir/device-action
+/// System: <http://hl7.org/fhir/device-action>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum DeviceAction {
     /// Implanted
@@ -6469,7 +6469,7 @@ pub enum DeviceAction {
 
 /// `servicerequest-orderdetail-parameter-code` — Codes providing the parameter codes for service request details.
 ///
-/// System: http://hl7.org/fhir/servicerequest-orderdetail-parameter-code
+/// System: <http://hl7.org/fhir/servicerequest-orderdetail-parameter-code>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ServicerequestOrderdetailParameterCode {
     /// Catheter Insertion
@@ -6489,7 +6489,7 @@ pub enum ServicerequestOrderdetailParameterCode {
 
 /// `provenance-entity-role` — How an entity was used in an activity.
 ///
-/// System: http://hl7.org/fhir/provenance-entity-role
+/// System: <http://hl7.org/fhir/provenance-entity-role>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ProvenanceEntityRole {
     /// Revision
@@ -6512,7 +6512,7 @@ pub enum ProvenanceEntityRole {
 
 /// `item-type` — Distinguishes groups from questions and display text and indicates data type for questions.
 ///
-/// System: http://hl7.org/fhir/item-type
+/// System: <http://hl7.org/fhir/item-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ItemType {
     /// Group
@@ -6529,7 +6529,7 @@ pub enum ItemType {
 
 /// `questionnaire-enable-operator` — The criteria by which a question is enabled.
 ///
-/// System: http://hl7.org/fhir/questionnaire-enable-operator
+/// System: <http://hl7.org/fhir/questionnaire-enable-operator>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum QuestionnaireEnableOperator {
     /// Exists
@@ -6558,7 +6558,7 @@ pub enum QuestionnaireEnableOperator {
 
 /// `questionnaire-enable-behavior` — Controls how multiple enableWhen values are interpreted - whether all or any must be true.
 ///
-/// System: http://hl7.org/fhir/questionnaire-enable-behavior
+/// System: <http://hl7.org/fhir/questionnaire-enable-behavior>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum QuestionnaireEnableBehavior {
     /// All
@@ -6572,7 +6572,7 @@ pub enum QuestionnaireEnableBehavior {
 
 /// `questionnaire-disabled-display` — QuestionnaireItemDisabledDisplay
 ///
-/// System: http://hl7.org/fhir/questionnaire-disabled-display
+/// System: <http://hl7.org/fhir/questionnaire-disabled-display>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum QuestionnaireDisabledDisplay {
     /// Hidden
@@ -6586,7 +6586,7 @@ pub enum QuestionnaireDisabledDisplay {
 
 /// `questionnaire-answer-constraint` — Codes that describe the types of constraints possible on a question item that has a list of permitted answers
 ///
-/// System: http://hl7.org/fhir/questionnaire-answer-constraint
+/// System: <http://hl7.org/fhir/questionnaire-answer-constraint>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum QuestionnaireAnswerConstraint {
     /// Options only
@@ -6603,7 +6603,7 @@ pub enum QuestionnaireAnswerConstraint {
 
 /// `questionnaire-answers-status` — Lifecycle status of the questionnaire response.
 ///
-/// System: http://hl7.org/fhir/questionnaire-answers-status
+/// System: <http://hl7.org/fhir/questionnaire-answers-status>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum QuestionnaireAnswersStatus {
     /// In Progress
@@ -6626,7 +6626,7 @@ pub enum QuestionnaireAnswersStatus {
 
 /// `audit-event-action` — Indicator for type of action performed during the event that generated the event.
 ///
-/// System: http://hl7.org/fhir/audit-event-action
+/// System: <http://hl7.org/fhir/audit-event-action>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum AuditEventAction {
     /// Create
@@ -6649,7 +6649,7 @@ pub enum AuditEventAction {
 
 /// `audit-event-severity` — The severity of the audit entry.
 ///
-/// System: http://hl7.org/fhir/audit-event-severity
+/// System: <http://hl7.org/fhir/audit-event-severity>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum AuditEventSeverity {
     /// Emergency
@@ -6681,7 +6681,7 @@ pub enum AuditEventSeverity {
 
 /// `specimen-status` — Codes providing the status/availability of a specimen.
 ///
-/// System: http://hl7.org/fhir/specimen-status
+/// System: <http://hl7.org/fhir/specimen-status>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum SpecimenStatus {
     /// Available
@@ -6701,7 +6701,7 @@ pub enum SpecimenStatus {
 
 /// `specimen-combined` — Codes providing the combined status of the specimen.
 ///
-/// System: http://hl7.org/fhir/specimen-combined
+/// System: <http://hl7.org/fhir/specimen-combined>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum SpecimenCombined {
     /// Grouped
@@ -6715,7 +6715,7 @@ pub enum SpecimenCombined {
 
 /// `specimen-role` — Codes providing the combined status of the specimen.
 ///
-/// System: http://hl7.org/fhir/specimen-role
+/// System: <http://hl7.org/fhir/specimen-role>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum SpecimenRole {
     /// Blind Sample
@@ -6750,7 +6750,7 @@ pub enum SpecimenRole {
 
 /// `substance-status` — A code to indicate if the substance is actively used.
 ///
-/// System: http://hl7.org/fhir/substance-status
+/// System: <http://hl7.org/fhir/substance-status>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum SubstanceStatus {
     /// Active
@@ -6767,7 +6767,7 @@ pub enum SubstanceStatus {
 
 /// `filter-operator` — The kind of operation to perform as a part of a property based filter.
 ///
-/// System: http://hl7.org/fhir/filter-operator
+/// System: <http://hl7.org/fhir/filter-operator>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum FilterOperator {
     /// Equals
@@ -6808,7 +6808,7 @@ pub enum FilterOperator {
 
 /// `conceptmap-property-type` — The type of a ConceptMap mapping property value.
 ///
-/// System: http://hl7.org/fhir/conceptmap-property-type
+/// System: <http://hl7.org/fhir/conceptmap-property-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ConceptmapPropertyType {
     /// Coding (external reference)
@@ -6837,7 +6837,7 @@ pub enum ConceptmapPropertyType {
 
 /// `conceptmap-attribute-type` — The type of a ConceptMap map attribute value.
 ///
-/// System: http://hl7.org/fhir/conceptmap-attribute-type
+/// System: <http://hl7.org/fhir/conceptmap-attribute-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ConceptmapAttributeType {
     /// code
@@ -6860,7 +6860,7 @@ pub enum ConceptmapAttributeType {
 
 /// `conceptmap-unmapped-mode` — Defines which action to take if there is no match in the group.
 ///
-/// System: http://hl7.org/fhir/conceptmap-unmapped-mode
+/// System: <http://hl7.org/fhir/conceptmap-unmapped-mode>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ConceptmapUnmappedMode {
     /// Use Provided Source Code
@@ -6877,7 +6877,7 @@ pub enum ConceptmapUnmappedMode {
 
 /// `slotstatus` — The free/busy status of the slot.
 ///
-/// System: http://hl7.org/fhir/slotstatus
+/// System: <http://hl7.org/fhir/slotstatus>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum Slotstatus {
     /// Busy
@@ -6900,7 +6900,7 @@ pub enum Slotstatus {
 
 /// `appointmentstatus` — The free/busy status of an appointment.
 ///
-/// System: http://hl7.org/fhir/appointmentstatus
+/// System: <http://hl7.org/fhir/appointmentstatus>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum Appointmentstatus {
     /// Proposed
@@ -6938,7 +6938,7 @@ pub enum Appointmentstatus {
 
 /// `participationstatus` — The Participation status of an appointment.
 ///
-/// System: http://hl7.org/fhir/participationstatus
+/// System: <http://hl7.org/fhir/participationstatus>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum Participationstatus {
     /// Accepted
@@ -6958,7 +6958,7 @@ pub enum Participationstatus {
 
 /// `week-of-month` — The set of weeks with in a month.
 ///
-/// System: http://hl7.org/fhir/week-of-month
+/// System: <http://hl7.org/fhir/week-of-month>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum WeekOfMonth {
     /// First
@@ -6981,7 +6981,7 @@ pub enum WeekOfMonth {
 
 /// `namingsystem-type` — Identifies the purpose of the naming system.
 ///
-/// System: http://hl7.org/fhir/namingsystem-type
+/// System: <http://hl7.org/fhir/namingsystem-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum NamingsystemType {
     /// Code System
@@ -6998,7 +6998,7 @@ pub enum NamingsystemType {
 
 /// `namingsystem-identifier-type` — Identifies the style of unique identifier used to identify a namespace.
 ///
-/// System: http://hl7.org/fhir/namingsystem-identifier-type
+/// System: <http://hl7.org/fhir/namingsystem-identifier-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum NamingsystemIdentifierType {
     /// OID
@@ -7024,7 +7024,7 @@ pub enum NamingsystemIdentifierType {
 
 /// `endpoint-status` — The status of the endpoint.
 ///
-/// System: http://hl7.org/fhir/endpoint-status
+/// System: <http://hl7.org/fhir/endpoint-status>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum EndpointStatus {
     /// Active
@@ -7047,7 +7047,7 @@ pub enum EndpointStatus {
 
 /// `endpoint-environment` — The environment type of the endpoint.
 ///
-/// System: http://hl7.org/fhir/endpoint-environment
+/// System: <http://hl7.org/fhir/endpoint-environment>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum EndpointEnvironment {
     /// Production
@@ -7070,7 +7070,7 @@ pub enum EndpointEnvironment {
 
 /// `subscription-status` — This codesystem defines a set of codes that can be used to filter Subscription triggers.
 ///
-/// System: http://hl7.org/fhir/subscription-status
+/// System: <http://hl7.org/fhir/subscription-status>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum SubscriptionStatus {
     /// Requested
@@ -7093,7 +7093,7 @@ pub enum SubscriptionStatus {
 
 /// `subscription-payload-content` — Codes to represent how much resource content to send in the notification payload.
 ///
-/// System: http://hl7.org/fhir/subscription-payload-content
+/// System: <http://hl7.org/fhir/subscription-payload-content>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum SubscriptionPayloadContent {
     /// Empty
@@ -7110,7 +7110,7 @@ pub enum SubscriptionPayloadContent {
 
 /// `subscription-notification-type` — The type of notification represented by the status message.
 ///
-/// System: http://hl7.org/fhir/subscription-notification-type
+/// System: <http://hl7.org/fhir/subscription-notification-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum SubscriptionNotificationType {
     /// Handshake
@@ -7133,7 +7133,7 @@ pub enum SubscriptionNotificationType {
 
 /// `subscriptiontopic-cr-behavior` — Behavior a server can exhibit when a criteria state does not exist (e.g., state prior to a create or after a delete).
 ///
-/// System: http://hl7.org/fhir/subscriptiontopic-cr-behavior
+/// System: <http://hl7.org/fhir/subscriptiontopic-cr-behavior>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum SubscriptiontopicCrBehavior {
     /// Test passes
@@ -7147,7 +7147,7 @@ pub enum SubscriptiontopicCrBehavior {
 
 /// `operation-kind` — Whether an operation is a normal operation or a query.
 ///
-/// System: http://hl7.org/fhir/operation-kind
+/// System: <http://hl7.org/fhir/operation-kind>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum OperationKind {
     /// Operation
@@ -7161,7 +7161,7 @@ pub enum OperationKind {
 
 /// `operation-parameter-scope` — Indicates that a parameter applies when the operation is being invoked at the specified level
 ///
-/// System: http://hl7.org/fhir/operation-parameter-scope
+/// System: <http://hl7.org/fhir/operation-parameter-scope>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum OperationParameterScope {
     /// Instance
@@ -7178,7 +7178,7 @@ pub enum OperationParameterScope {
 
 /// `service-mode` — An example set of Service Modes that could be applicable to use to characterize HealthcareServices or PractitionerRoles while searching
 ///
-/// System: http://hl7.org/fhir/service-mode
+/// System: <http://hl7.org/fhir/service-mode>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ServiceMode {
     /// In Person
@@ -7198,7 +7198,7 @@ pub enum ServiceMode {
 
 /// `coverage-kind` — The nature of the Coverage details which convey who is paying potentially for health services.
 ///
-/// System: http://hl7.org/fhir/coverage-kind
+/// System: <http://hl7.org/fhir/coverage-kind>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum CoverageKind {
     /// Insurance
@@ -7215,7 +7215,7 @@ pub enum CoverageKind {
 
 /// `fm-status` — This value set includes Status codes.
 ///
-/// System: http://hl7.org/fhir/fm-status
+/// System: <http://hl7.org/fhir/fm-status>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum FmStatus {
     /// Active
@@ -7235,7 +7235,7 @@ pub enum FmStatus {
 
 /// `claim-use` — The purpose of the Claim: predetermination, preauthorization, claim.
 ///
-/// System: http://hl7.org/fhir/claim-use
+/// System: <http://hl7.org/fhir/claim-use>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ClaimUse {
     /// Claim
@@ -7252,7 +7252,7 @@ pub enum ClaimUse {
 
 /// `datestype` — This value set includes sample Dates Event Type codes.
 ///
-/// System: http://hl7.org/fhir/datestype
+/// System: <http://hl7.org/fhir/datestype>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum Datestype {
     /// Card Issued
@@ -7269,7 +7269,7 @@ pub enum Datestype {
 
 /// `icd-10-procedures` — This value set includes sample ICD-10 Procedure codes.
 ///
-/// System: http://hl7.org/fhir/sid/ex-icd-10-procedures
+/// System: <http://hl7.org/fhir/sid/ex-icd-10-procedures>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum Icd10Procedures {
     /// PROC-1
@@ -7286,7 +7286,7 @@ pub enum Icd10Procedures {
 
 /// `claim-outcome` — This value set includes Claim Processing Outcome codes.
 ///
-/// System: http://hl7.org/fhir/claim-outcome
+/// System: <http://hl7.org/fhir/claim-outcome>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ClaimOutcome {
     /// Queued
@@ -7306,7 +7306,7 @@ pub enum ClaimOutcome {
 
 /// `claim-decision` — This value set provides Claim Adjudication Decision codes.
 ///
-/// System: http://hl7.org/fhir/claim-decision
+/// System: <http://hl7.org/fhir/claim-decision>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ClaimDecision {
     /// Denied
@@ -7326,7 +7326,7 @@ pub enum ClaimDecision {
 
 /// `claim-decision-reason` — This value set provides example Claim Adjudication Decision Reason codes.
 ///
-/// System: http://hl7.org/fhir/claim-decision-reason
+/// System: <http://hl7.org/fhir/claim-decision-reason>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ClaimDecisionReason {
     /// Not medically necessary
@@ -7349,7 +7349,7 @@ pub enum ClaimDecisionReason {
 
 /// `explanationofbenefit-status` — A code specifying the state of the resource instance.
 ///
-/// System: http://hl7.org/fhir/explanationofbenefit-status
+/// System: <http://hl7.org/fhir/explanationofbenefit-status>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ExplanationofbenefitStatus {
     /// Active
@@ -7369,7 +7369,7 @@ pub enum ExplanationofbenefitStatus {
 
 /// `eligibilityrequest-purpose` — A code specifying the types of information being requested.
 ///
-/// System: http://hl7.org/fhir/eligibilityrequest-purpose
+/// System: <http://hl7.org/fhir/eligibilityrequest-purpose>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum EligibilityrequestPurpose {
     /// Coverage auth-requirements
@@ -7389,7 +7389,7 @@ pub enum EligibilityrequestPurpose {
 
 /// `bundle-type` — Indicates the purpose of a bundle - how it is intended to be used.
 ///
-/// System: http://hl7.org/fhir/bundle-type
+/// System: <http://hl7.org/fhir/bundle-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum BundleType {
     /// Document
@@ -7427,7 +7427,7 @@ pub enum BundleType {
 
 /// `iana-link-relations` — Link Relation Types defined at https://www.iana.org/assignments/link-relations/link-relations.xhtml#link-relations-1
 ///
-/// System: http://hl7.org/fhir/CodeSystem/iana-link-relations
+/// System: <http://hl7.org/fhir/CodeSystem/iana-link-relations>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum IanaLinkRelations {
     /// Refers to a resource that is the subject of the link's context.
@@ -7795,7 +7795,7 @@ pub enum IanaLinkRelations {
 
 /// `search-entry-mode` — Why an entry is in the result set - whether it's included as a match or because of an _include requirement, or to convey information or warning information about the search process.
 ///
-/// System: http://hl7.org/fhir/search-entry-mode
+/// System: <http://hl7.org/fhir/search-entry-mode>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum SearchEntryMode {
     /// Match
@@ -7812,7 +7812,7 @@ pub enum SearchEntryMode {
 
 /// `http-verb` — HTTP verbs (in the HTTP command line). See [HTTP rfc](https://tools.ietf.org/html/rfc7231) for details.
 ///
-/// System: http://hl7.org/fhir/http-verb
+/// System: <http://hl7.org/fhir/http-verb>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum HttpVerb {
     /// GET
@@ -7838,7 +7838,7 @@ pub enum HttpVerb {
 
 /// `search-processingmode` — How a search parameter relates to the set of elements returned by evaluating its expression query.
 ///
-/// System: http://hl7.org/fhir/search-processingmode
+/// System: <http://hl7.org/fhir/search-processingmode>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum SearchProcessingmode {
     /// Normal
@@ -7855,7 +7855,7 @@ pub enum SearchProcessingmode {
 
 /// `search-comparator` — What Search Comparator Codes are supported in search.
 ///
-/// System: http://hl7.org/fhir/search-comparator
+/// System: <http://hl7.org/fhir/search-comparator>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum SearchComparator {
     /// Equals
@@ -7890,7 +7890,7 @@ pub enum SearchComparator {
 
 /// `search-modifier-code` — A supported modifier for a search parameter.
 ///
-/// System: http://hl7.org/fhir/search-modifier-code
+/// System: <http://hl7.org/fhir/search-modifier-code>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum SearchModifierCode {
     /// Missing
@@ -7943,7 +7943,7 @@ pub enum SearchModifierCode {
 
 /// `eligibilityresponse-purpose` — A code specifying the types of information being requested.
 ///
-/// System: http://hl7.org/fhir/eligibilityresponse-purpose
+/// System: <http://hl7.org/fhir/eligibilityresponse-purpose>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum EligibilityresponsePurpose {
     /// Coverage auth-requirements
@@ -7963,7 +7963,7 @@ pub enum EligibilityresponsePurpose {
 
 /// `eligibility-outcome` — This value set includes Claim Processing Outcome codes.
 ///
-/// System: http://hl7.org/fhir/eligibility-outcome
+/// System: <http://hl7.org/fhir/eligibility-outcome>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum EligibilityOutcome {
     /// Queued
@@ -7983,7 +7983,7 @@ pub enum EligibilityOutcome {
 
 /// `enrollment-outcome` — This value set includes Claim Processing Outcome codes.
 ///
-/// System: http://hl7.org/fhir/enrollment-outcome
+/// System: <http://hl7.org/fhir/enrollment-outcome>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum EnrollmentOutcome {
     /// Queued
@@ -8003,7 +8003,7 @@ pub enum EnrollmentOutcome {
 
 /// `payment-kind` — This value set contains codes for the type of workflow from which payments arise.
 ///
-/// System: http://hl7.org/fhir/payment-kind
+/// System: <http://hl7.org/fhir/payment-kind>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum PaymentKind {
     /// Deposit on Account
@@ -8023,7 +8023,7 @@ pub enum PaymentKind {
 
 /// `payment-issuertype` — This value set contains codes for the type of payment issuers.
 ///
-/// System: http://hl7.org/fhir/payment-issuertype
+/// System: <http://hl7.org/fhir/payment-issuertype>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum PaymentIssuertype {
     /// Patient
@@ -8037,7 +8037,7 @@ pub enum PaymentIssuertype {
 
 /// `payment-outcome` — This value set includes Claim Processing Outcome codes.
 ///
-/// System: http://hl7.org/fhir/payment-outcome
+/// System: <http://hl7.org/fhir/payment-outcome>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum PaymentOutcome {
     /// Queued
@@ -8057,7 +8057,7 @@ pub enum PaymentOutcome {
 
 /// `metric-operational-status` — Describes the operational status of the DeviceMetric.
 ///
-/// System: http://hl7.org/fhir/metric-operational-status
+/// System: <http://hl7.org/fhir/metric-operational-status>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum MetricOperationalStatus {
     /// On
@@ -8077,7 +8077,7 @@ pub enum MetricOperationalStatus {
 
 /// `metric-category` — Describes the category of the metric.
 ///
-/// System: http://hl7.org/fhir/metric-category
+/// System: <http://hl7.org/fhir/metric-category>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum MetricCategory {
     /// Measurement
@@ -8097,7 +8097,7 @@ pub enum MetricCategory {
 
 /// `metric-calibration-type` — Describes the type of a metric calibration.
 ///
-/// System: http://hl7.org/fhir/metric-calibration-type
+/// System: <http://hl7.org/fhir/metric-calibration-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum MetricCalibrationType {
     /// Unspecified
@@ -8117,7 +8117,7 @@ pub enum MetricCalibrationType {
 
 /// `metric-calibration-state` — Describes the state of a metric calibration.
 ///
-/// System: http://hl7.org/fhir/metric-calibration-state
+/// System: <http://hl7.org/fhir/metric-calibration-state>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum MetricCalibrationState {
     /// Not Calibrated
@@ -8137,7 +8137,7 @@ pub enum MetricCalibrationState {
 
 /// `identity-assuranceLevel` — The level of confidence that this link represents the same actual person, based on NIST Authentication Levels.
 ///
-/// System: http://hl7.org/fhir/identity-assuranceLevel
+/// System: <http://hl7.org/fhir/identity-assuranceLevel>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum IdentityAssuranceLevel {
     /// Level 1
@@ -8157,7 +8157,7 @@ pub enum IdentityAssuranceLevel {
 
 /// `vision-eye-codes` — A coded concept listing the eye codes.
 ///
-/// System: http://hl7.org/fhir/vision-eye-codes
+/// System: <http://hl7.org/fhir/vision-eye-codes>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum VisionEyeCodes {
     /// Right Eye
@@ -8171,7 +8171,7 @@ pub enum VisionEyeCodes {
 
 /// `vision-base-codes` — A coded concept listing the base codes.
 ///
-/// System: http://hl7.org/fhir/vision-base-codes
+/// System: <http://hl7.org/fhir/vision-base-codes>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum VisionBaseCodes {
     /// Up
@@ -8191,7 +8191,7 @@ pub enum VisionBaseCodes {
 
 /// `episode-of-care-status` — The status of the episode of care.
 ///
-/// System: http://hl7.org/fhir/episode-of-care-status
+/// System: <http://hl7.org/fhir/episode-of-care-status>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum EpisodeOfCareStatus {
     /// Planned
@@ -8220,7 +8220,7 @@ pub enum EpisodeOfCareStatus {
 
 /// `structure-definition-kind` — Defines the type of structure that a definition is describing.
 ///
-/// System: http://hl7.org/fhir/structure-definition-kind
+/// System: <http://hl7.org/fhir/structure-definition-kind>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum StructureDefinitionKind {
     /// Primitive Data Type
@@ -8240,7 +8240,7 @@ pub enum StructureDefinitionKind {
 
 /// `extension-context-type` — How an extension context is interpreted.
 ///
-/// System: http://hl7.org/fhir/extension-context-type
+/// System: <http://hl7.org/fhir/extension-context-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ExtensionContextType {
     /// FHIRPath
@@ -8257,7 +8257,7 @@ pub enum ExtensionContextType {
 
 /// `type-derivation-rule` — How a type relates to its baseDefinition.
 ///
-/// System: http://hl7.org/fhir/type-derivation-rule
+/// System: <http://hl7.org/fhir/type-derivation-rule>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum TypeDerivationRule {
     /// Specialization
@@ -8271,7 +8271,7 @@ pub enum TypeDerivationRule {
 
 /// `map-model-mode` — How the referenced structure is used in this mapping.
 ///
-/// System: http://hl7.org/fhir/map-model-mode
+/// System: <http://hl7.org/fhir/map-model-mode>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum MapModelMode {
     /// Source Structure Definition
@@ -8291,7 +8291,7 @@ pub enum MapModelMode {
 
 /// `map-group-type-mode` — If this is the default rule set to apply for the source type, or this combination of types.
 ///
-/// System: http://hl7.org/fhir/map-group-type-mode
+/// System: <http://hl7.org/fhir/map-group-type-mode>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum MapGroupTypeMode {
     /// Default for Type Combination
@@ -8305,7 +8305,7 @@ pub enum MapGroupTypeMode {
 
 /// `map-input-mode` — Mode for this instance of data.
 ///
-/// System: http://hl7.org/fhir/map-input-mode
+/// System: <http://hl7.org/fhir/map-input-mode>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum MapInputMode {
     /// Source Instance
@@ -8319,7 +8319,7 @@ pub enum MapInputMode {
 
 /// `map-source-list-mode` — If field is a list, how to manage the source.
 ///
-/// System: http://hl7.org/fhir/map-source-list-mode
+/// System: <http://hl7.org/fhir/map-source-list-mode>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum MapSourceListMode {
     /// First
@@ -8342,7 +8342,7 @@ pub enum MapSourceListMode {
 
 /// `map-target-list-mode` — If field is a list, how to manage the production.
 ///
-/// System: http://hl7.org/fhir/map-target-list-mode
+/// System: <http://hl7.org/fhir/map-target-list-mode>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum MapTargetListMode {
     /// First
@@ -8362,7 +8362,7 @@ pub enum MapTargetListMode {
 
 /// `map-transform` — How data is copied/created.
 ///
-/// System: http://hl7.org/fhir/map-transform
+/// System: <http://hl7.org/fhir/map-transform>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum MapTransform {
     /// create
@@ -8421,7 +8421,7 @@ pub enum MapTransform {
 
 /// `supplyrequest-status` — Status of the supply request.
 ///
-/// System: http://hl7.org/fhir/supplyrequest-status
+/// System: <http://hl7.org/fhir/supplyrequest-status>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum SupplyrequestStatus {
     /// Draft
@@ -8450,7 +8450,7 @@ pub enum SupplyrequestStatus {
 
 /// `supplydelivery-status` — Status of the supply delivery.
 ///
-/// System: http://hl7.org/fhir/supplydelivery-status
+/// System: <http://hl7.org/fhir/supplydelivery-status>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum SupplydeliveryStatus {
     /// In Progress
@@ -8470,7 +8470,7 @@ pub enum SupplydeliveryStatus {
 
 /// `supplydelivery-supplyitemtype` — Status of the supply delivery.
 ///
-/// System: http://hl7.org/fhir/supplydelivery-supplyitemtype
+/// System: <http://hl7.org/fhir/supplydelivery-supplyitemtype>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum SupplydeliverySupplyitemtype {
     /// Medication
@@ -8487,7 +8487,7 @@ pub enum SupplydeliverySupplyitemtype {
 
 /// `testscript-scope-conformance-codes` — The expectation of whether the test must pass for the system to be considered conformant with the artifact.
 ///
-/// System: http://hl7.org/fhir/testscript-scope-conformance-codes
+/// System: <http://hl7.org/fhir/testscript-scope-conformance-codes>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum TestscriptScopeConformanceCodes {
     /// Required
@@ -8504,7 +8504,7 @@ pub enum TestscriptScopeConformanceCodes {
 
 /// `testscript-scope-phase-codes` — The phase of testing for this artifact.
 ///
-/// System: http://hl7.org/fhir/testscript-scope-phase-codes
+/// System: <http://hl7.org/fhir/testscript-scope-phase-codes>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum TestscriptScopePhaseCodes {
     /// Unit
@@ -8521,7 +8521,7 @@ pub enum TestscriptScopePhaseCodes {
 
 /// `http-operations` — The allowable request method or HTTP operation codes.
 ///
-/// System: http://hl7.org/fhir/http-operations
+/// System: <http://hl7.org/fhir/http-operations>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum HttpOperations {
     /// DELETE
@@ -8550,7 +8550,7 @@ pub enum HttpOperations {
 
 /// `assert-direction-codes` — The type of direction to use for assertion.
 ///
-/// System: http://hl7.org/fhir/assert-direction-codes
+/// System: <http://hl7.org/fhir/assert-direction-codes>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum AssertDirectionCodes {
     /// response
@@ -8564,7 +8564,7 @@ pub enum AssertDirectionCodes {
 
 /// `assert-manual-completion-codes` — The type of manual completion to use for assertion.
 ///
-/// System: http://hl7.org/fhir/assert-manual-completion-codes
+/// System: <http://hl7.org/fhir/assert-manual-completion-codes>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum AssertManualCompletionCodes {
     /// Fail
@@ -8584,7 +8584,7 @@ pub enum AssertManualCompletionCodes {
 
 /// `assert-operator-codes` — The type of operator to use for assertion.
 ///
-/// System: http://hl7.org/fhir/assert-operator-codes
+/// System: <http://hl7.org/fhir/assert-operator-codes>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum AssertOperatorCodes {
     /// equals
@@ -8628,7 +8628,7 @@ pub enum AssertOperatorCodes {
 
 /// `assert-response-code-types` — The type of response code to use for assertion.
 ///
-/// System: http://hl7.org/fhir/assert-response-code-types
+/// System: <http://hl7.org/fhir/assert-response-code-types>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum AssertResponseCodeTypes {
     /// Continue
@@ -8768,7 +8768,7 @@ pub enum AssertResponseCodeTypes {
 
 /// `report-status-codes` — The current status of the test report.
 ///
-/// System: http://hl7.org/fhir/report-status-codes
+/// System: <http://hl7.org/fhir/report-status-codes>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ReportStatusCodes {
     /// Completed
@@ -8791,7 +8791,7 @@ pub enum ReportStatusCodes {
 
 /// `report-result-codes` — The reported execution result.
 ///
-/// System: http://hl7.org/fhir/report-result-codes
+/// System: <http://hl7.org/fhir/report-result-codes>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ReportResultCodes {
     /// Pass
@@ -8808,7 +8808,7 @@ pub enum ReportResultCodes {
 
 /// `report-participant-type` — The type of participant.
 ///
-/// System: http://hl7.org/fhir/report-participant-type
+/// System: <http://hl7.org/fhir/report-participant-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ReportParticipantType {
     /// Test Engine
@@ -8825,7 +8825,7 @@ pub enum ReportParticipantType {
 
 /// `report-action-result-codes` — The results of executing an action.
 ///
-/// System: http://hl7.org/fhir/report-action-result-codes
+/// System: <http://hl7.org/fhir/report-action-result-codes>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ReportActionResultCodes {
     /// Pass
@@ -8848,7 +8848,7 @@ pub enum ReportActionResultCodes {
 
 /// `account-status` — Indicates whether the account is available to be used.
 ///
-/// System: http://hl7.org/fhir/account-status
+/// System: <http://hl7.org/fhir/account-status>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum AccountStatus {
     /// Active
@@ -8871,7 +8871,7 @@ pub enum AccountStatus {
 
 /// `account-billing-status` — Indicates whether the account is available to be used for billing purposes.
 ///
-/// System: http://hl7.org/fhir/account-billing-status
+/// System: <http://hl7.org/fhir/account-billing-status>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum AccountBillingStatus {
     /// Open
@@ -8900,7 +8900,7 @@ pub enum AccountBillingStatus {
 
 /// `account-relationship` — Relationship between accounts
 ///
-/// System: http://hl7.org/fhir/account-relationship
+/// System: <http://hl7.org/fhir/account-relationship>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum AccountRelationship {
     /// Parent
@@ -8914,7 +8914,7 @@ pub enum AccountRelationship {
 
 /// `account-aggregate` — Indicates who is expected to pay a part of the account balance.
 ///
-/// System: http://hl7.org/fhir/account-aggregate
+/// System: <http://hl7.org/fhir/account-aggregate>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum AccountAggregate {
     /// Patient
@@ -8931,7 +8931,7 @@ pub enum AccountAggregate {
 
 /// `account-balance-term` — Indicates the account balance's age
 ///
-/// System: http://hl7.org/fhir/account-balance-term
+/// System: <http://hl7.org/fhir/account-balance-term>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum AccountBalanceTerm {
     /// Current
@@ -8954,7 +8954,7 @@ pub enum AccountBalanceTerm {
 
 /// `condition-precondition-type` — Kind of precondition for the condition.
 ///
-/// System: http://hl7.org/fhir/condition-precondition-type
+/// System: <http://hl7.org/fhir/condition-precondition-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ConditionPreconditionType {
     /// Sensitive
@@ -8968,7 +8968,7 @@ pub enum ConditionPreconditionType {
 
 /// `condition-questionnaire-purpose` — The use of a questionnaire.
 ///
-/// System: http://hl7.org/fhir/condition-questionnaire-purpose
+/// System: <http://hl7.org/fhir/condition-questionnaire-purpose>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ConditionQuestionnairePurpose {
     /// Pre-admit
@@ -8985,7 +8985,7 @@ pub enum ConditionQuestionnairePurpose {
 
 /// `contract-status` — This CodeSystem contains FHIR-defined contract status types. Each definition includes usage notes explaining the precedence order in contract lifecycle - i.e., while only some stages are required, the
 ///
-/// System: http://hl7.org/fhir/contract-status
+/// System: <http://hl7.org/fhir/contract-status>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ContractStatus {
     /// Amended
@@ -9038,7 +9038,7 @@ pub enum ContractStatus {
 
 /// `contract-legalstate` — This CodeSystem contains FHIR-defined contract status types. Each definition includes usage notes explaining the precedence order in contract lifecycle - i.e., while only some stages are required, the
 ///
-/// System: http://hl7.org/fhir/contract-legalstate
+/// System: <http://hl7.org/fhir/contract-legalstate>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ContractLegalstate {
     /// Amended
@@ -9091,7 +9091,7 @@ pub enum ContractLegalstate {
 
 /// `contract-publicationstatus` — This CodeSystem contains FHIR-defined contract publication status types. Each definition includes usage notes explaining the precedence order in contract publication lifecycle - i.e., while only some 
 ///
-/// System: http://hl7.org/fhir/contract-publicationstatus
+/// System: <http://hl7.org/fhir/contract-publicationstatus>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ContractPublicationstatus {
     /// Amended
@@ -9144,7 +9144,7 @@ pub enum ContractPublicationstatus {
 
 /// `consent-state-codes` — Indicates the state of the consent.
 ///
-/// System: http://hl7.org/fhir/consent-state-codes
+/// System: <http://hl7.org/fhir/consent-state-codes>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ConsentStateCodes {
     /// Pending
@@ -9170,7 +9170,7 @@ pub enum ConsentStateCodes {
 
 /// `consent-provision-type` — How a rule statement is applied, such as adding additional consent or removing consent.
 ///
-/// System: http://hl7.org/fhir/consent-provision-type
+/// System: <http://hl7.org/fhir/consent-provision-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ConsentProvisionType {
     /// Deny
@@ -9184,7 +9184,7 @@ pub enum ConsentProvisionType {
 
 /// `consent-data-meaning` — How a resource reference is interpreted when testing consent restrictions.
 ///
-/// System: http://hl7.org/fhir/consent-data-meaning
+/// System: <http://hl7.org/fhir/consent-data-meaning>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ConsentDataMeaning {
     /// Instance
@@ -9204,7 +9204,7 @@ pub enum ConsentDataMeaning {
 
 /// `measure-definition-example` — Example Measure Definitions for the Measure Resource.
 ///
-/// System: http://hl7.org/fhir/measure-definition-example
+/// System: <http://hl7.org/fhir/measure-definition-example>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum MeasureDefinitionExample {
     /// Screening
@@ -9218,7 +9218,7 @@ pub enum MeasureDefinitionExample {
 
 /// `measure-group-example` — Example Measure Groups for the Measure Resource.
 ///
-/// System: http://hl7.org/fhir/measure-group-example
+/// System: <http://hl7.org/fhir/measure-group-example>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum MeasureGroupExample {
     /// Primary Rate
@@ -9232,7 +9232,7 @@ pub enum MeasureGroupExample {
 
 /// `measure-aggregate-method` — Aggregation method for a measure (e.g. sum, average, median, minimum, maximum, count)
 ///
-/// System: http://hl7.org/fhir/CodeSystem/measure-aggregate-method
+/// System: <http://hl7.org/fhir/CodeSystem/measure-aggregate-method>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum MeasureAggregateMethod {
     /// Sum
@@ -9258,7 +9258,7 @@ pub enum MeasureAggregateMethod {
 
 /// `measure-stratifier-example` — Identifier subgroups in a population for measuring purposes.
 ///
-/// System: http://hl7.org/fhir/measure-stratifier-example
+/// System: <http://hl7.org/fhir/measure-stratifier-example>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum MeasureStratifierExample {
     /// Age
@@ -9275,7 +9275,7 @@ pub enum MeasureStratifierExample {
 
 /// `measure-supplemental-data-example` — Identifier supplemental data in a population for measuring purposes.
 ///
-/// System: http://hl7.org/fhir/measure-supplemental-data-example
+/// System: <http://hl7.org/fhir/measure-supplemental-data-example>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum MeasureSupplementalDataExample {
     /// Age
@@ -9295,7 +9295,7 @@ pub enum MeasureSupplementalDataExample {
 
 /// `measure-report-status` — The status of the measure report.
 ///
-/// System: http://hl7.org/fhir/measure-report-status
+/// System: <http://hl7.org/fhir/measure-report-status>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum MeasureReportStatus {
     /// Complete
@@ -9312,7 +9312,7 @@ pub enum MeasureReportStatus {
 
 /// `measure-report-type` — The type of the measure report.
 ///
-/// System: http://hl7.org/fhir/measure-report-type
+/// System: <http://hl7.org/fhir/measure-report-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum MeasureReportType {
     /// Individual
@@ -9332,7 +9332,7 @@ pub enum MeasureReportType {
 
 /// `submit-data-update-type` — Concepts for how a measure report consumer and receiver coordinate data exchange updates. The choices are snapshot or incremental updates
 ///
-/// System: http://hl7.org/fhir/CodeSystem/submit-data-update-type
+/// System: <http://hl7.org/fhir/CodeSystem/submit-data-update-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum SubmitDataUpdateType {
     /// Incremental
@@ -9346,7 +9346,7 @@ pub enum SubmitDataUpdateType {
 
 /// `measurereport-stratifier-value-example` — Example Region Value Measure Groups for the Measure Resource.
 ///
-/// System: http://hl7.org/fhir/measurereport-stratifier-value-example
+/// System: <http://hl7.org/fhir/measurereport-stratifier-value-example>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum MeasurereportStratifierValueExample {
     /// Northwest
@@ -9366,7 +9366,7 @@ pub enum MeasurereportStratifierValueExample {
 
 /// `codesystem-hierarchy-meaning` — The meaning of the hierarchy of concepts in a code system.
 ///
-/// System: http://hl7.org/fhir/codesystem-hierarchy-meaning
+/// System: <http://hl7.org/fhir/codesystem-hierarchy-meaning>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum CodesystemHierarchyMeaning {
     /// Grouped By
@@ -9386,7 +9386,7 @@ pub enum CodesystemHierarchyMeaning {
 
 /// `codesystem-content-mode` — The extent of the content of the code system (the concepts and codes it defines) are represented in a code system resource.
 ///
-/// System: http://hl7.org/fhir/codesystem-content-mode
+/// System: <http://hl7.org/fhir/codesystem-content-mode>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum CodesystemContentMode {
     /// Not Present
@@ -9409,7 +9409,7 @@ pub enum CodesystemContentMode {
 
 /// `concept-property-type` — The type of a property value.
 ///
-/// System: http://hl7.org/fhir/concept-property-type
+/// System: <http://hl7.org/fhir/concept-property-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ConceptPropertyType {
     /// code (internal reference)
@@ -9438,7 +9438,7 @@ pub enum ConceptPropertyType {
 
 /// `concept-subsumption-outcome` — Codes indicating the results of a subsumption check between codes. In the context of this CodeSystem, subsumption is defined in the FHIR specification under Resource Types - CodeSystem.
 ///
-/// System: http://hl7.org/fhir/concept-subsumption-outcome
+/// System: <http://hl7.org/fhir/concept-subsumption-outcome>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ConceptSubsumptionOutcome {
     /// Equivalent
@@ -9458,7 +9458,7 @@ pub enum ConceptSubsumptionOutcome {
 
 /// `compartment-type` — Which type a compartment definition describes.
 ///
-/// System: http://hl7.org/fhir/compartment-type
+/// System: <http://hl7.org/fhir/compartment-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum CompartmentType {
     /// Patient
@@ -9484,7 +9484,7 @@ pub enum CompartmentType {
 
 /// `task-status` — The current status of the task.
 ///
-/// System: http://hl7.org/fhir/task-status
+/// System: <http://hl7.org/fhir/task-status>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum TaskStatus {
     /// Draft
@@ -9528,7 +9528,7 @@ pub enum TaskStatus {
 
 /// `task-status-reason` — The current status reason of the task.
 ///
-/// System: http://hl7.org/fhir/task-status-reason
+/// System: <http://hl7.org/fhir/task-status-reason>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum TaskStatusReason {
     /// Missing
@@ -9551,7 +9551,7 @@ pub enum TaskStatusReason {
 
 /// `task-code` — Codes indicating the type of action that is expected to be performed
 ///
-/// System: http://hl7.org/fhir/CodeSystem/task-code
+/// System: <http://hl7.org/fhir/CodeSystem/task-code>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum TaskCode {
     /// Activate/approve the focal resource
@@ -9583,7 +9583,7 @@ pub enum TaskCode {
 
 /// `action-participant-type` — The type of participant for the action.
 ///
-/// System: http://hl7.org/fhir/action-participant-type
+/// System: <http://hl7.org/fhir/action-participant-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ActionParticipantType {
     /// CareTeam
@@ -9621,7 +9621,7 @@ pub enum ActionParticipantType {
 
 /// `action-code` — Provides examples of actions to be performed.
 ///
-/// System: http://hl7.org/fhir/action-code
+/// System: <http://hl7.org/fhir/action-code>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ActionCode {
     /// Send a message
@@ -9656,7 +9656,7 @@ pub enum ActionCode {
 
 /// `action-reason-code` — Provides examples of reasons for actions to be performed.
 ///
-/// System: http://hl7.org/fhir/action-reason-code
+/// System: <http://hl7.org/fhir/action-reason-code>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ActionReasonCode {
     /// Off pathway
@@ -9679,7 +9679,7 @@ pub enum ActionReasonCode {
 
 /// `action-condition-kind` — Defines the kinds of conditions that can appear on actions.
 ///
-/// System: http://hl7.org/fhir/action-condition-kind
+/// System: <http://hl7.org/fhir/action-condition-kind>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ActionConditionKind {
     /// Applicability
@@ -9696,7 +9696,7 @@ pub enum ActionConditionKind {
 
 /// `action-relationship-type` — Defines the types of relationships between actions.
 ///
-/// System: http://hl7.org/fhir/action-relationship-type
+/// System: <http://hl7.org/fhir/action-relationship-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ActionRelationshipType {
     /// Before
@@ -9713,7 +9713,7 @@ pub enum ActionRelationshipType {
 
 /// `action-participant-function` — The function performed by the participant for the action.
 ///
-/// System: http://hl7.org/fhir/action-participant-function
+/// System: <http://hl7.org/fhir/action-participant-function>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ActionParticipantFunction {
     /// Performer
@@ -9733,7 +9733,7 @@ pub enum ActionParticipantFunction {
 
 /// `action-grouping-behavior` — Defines organization behavior of a group.
 ///
-/// System: http://hl7.org/fhir/action-grouping-behavior
+/// System: <http://hl7.org/fhir/action-grouping-behavior>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ActionGroupingBehavior {
     /// Visual Group
@@ -9750,7 +9750,7 @@ pub enum ActionGroupingBehavior {
 
 /// `action-selection-behavior` — Defines selection behavior of a group.
 ///
-/// System: http://hl7.org/fhir/action-selection-behavior
+/// System: <http://hl7.org/fhir/action-selection-behavior>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ActionSelectionBehavior {
     /// Any
@@ -9776,7 +9776,7 @@ pub enum ActionSelectionBehavior {
 
 /// `action-required-behavior` — Defines expectations around whether an action or action group is required.
 ///
-/// System: http://hl7.org/fhir/action-required-behavior
+/// System: <http://hl7.org/fhir/action-required-behavior>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ActionRequiredBehavior {
     /// Must
@@ -9793,7 +9793,7 @@ pub enum ActionRequiredBehavior {
 
 /// `action-precheck-behavior` — Defines selection frequency behavior for an action or group.
 ///
-/// System: http://hl7.org/fhir/action-precheck-behavior
+/// System: <http://hl7.org/fhir/action-precheck-behavior>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ActionPrecheckBehavior {
     /// Yes
@@ -9807,7 +9807,7 @@ pub enum ActionPrecheckBehavior {
 
 /// `action-cardinality-behavior` — Defines behavior for an action or a group for how many times that item may be repeated.
 ///
-/// System: http://hl7.org/fhir/action-cardinality-behavior
+/// System: <http://hl7.org/fhir/action-cardinality-behavior>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ActionCardinalityBehavior {
     /// Single
@@ -9821,7 +9821,7 @@ pub enum ActionCardinalityBehavior {
 
 /// `guidance-module-code` — Example guidance module codes.
 ///
-/// System: http://hl7.org/fhir/guidance-module-code
+/// System: <http://hl7.org/fhir/guidance-module-code>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum GuidanceModuleCode {
     /// BMI Calculator
@@ -9847,7 +9847,7 @@ pub enum GuidanceModuleCode {
 
 /// `guidance-response-status` — The status of a guidance response.
 ///
-/// System: http://hl7.org/fhir/guidance-response-status
+/// System: <http://hl7.org/fhir/guidance-response-status>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum GuidanceResponseStatus {
     /// Success
@@ -9873,7 +9873,7 @@ pub enum GuidanceResponseStatus {
 
 /// `research-study-prim-purp-type` — Codes for the main intent of a research study.
 ///
-/// System: http://hl7.org/fhir/research-study-prim-purp-type
+/// System: <http://hl7.org/fhir/research-study-prim-purp-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ResearchStudyPrimPurpType {
     /// Treatment
@@ -9905,7 +9905,7 @@ pub enum ResearchStudyPrimPurpType {
 
 /// `research-study-phase` — Codes for the stage in the progression of a therapy from initial experimental use in humans in clinical trials to post-market evaluation.
 ///
-/// System: http://hl7.org/fhir/research-study-phase
+/// System: <http://hl7.org/fhir/research-study-phase>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ResearchStudyPhase {
     /// N/A
@@ -9937,7 +9937,7 @@ pub enum ResearchStudyPhase {
 
 /// `research-study-focus-type` — Codes for the main intent of the study.
 ///
-/// System: http://hl7.org/fhir/research-study-focus-type
+/// System: <http://hl7.org/fhir/research-study-focus-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ResearchStudyFocusType {
     /// Medication
@@ -9957,7 +9957,7 @@ pub enum ResearchStudyFocusType {
 
 /// `research-study-classifiers` — Codes for use in ResearchStudy Resource. This resource (this entire set of content) is being used for active development of a ResearchStudyClassifiers CodeSystem for use for supporting multiple value 
 ///
-/// System: http://hl7.org/fhir/research-study-classifiers
+/// System: <http://hl7.org/fhir/research-study-classifiers>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ResearchStudyClassifiers {
     /// FDA regulated drug
@@ -9977,7 +9977,7 @@ pub enum ResearchStudyClassifiers {
 
 /// `research-study-party-role` — This is a ResearchStudy's party role.
 ///
-/// System: http://hl7.org/fhir/research-study-party-role
+/// System: <http://hl7.org/fhir/research-study-party-role>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ResearchStudyPartyRole {
     /// sponsor
@@ -10021,7 +10021,7 @@ pub enum ResearchStudyPartyRole {
 
 /// `research-study-party-organization-type` — This is a ResearchStudy's party organization type.
 ///
-/// System: http://hl7.org/fhir/research-study-party-organization-type
+/// System: <http://hl7.org/fhir/research-study-party-organization-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ResearchStudyPartyOrganizationType {
     /// NIH
@@ -10047,7 +10047,7 @@ pub enum ResearchStudyPartyOrganizationType {
 
 /// `research-study-status` — Codes that convey the current status of the research study.
 ///
-/// System: http://hl7.org/fhir/research-study-status
+/// System: <http://hl7.org/fhir/research-study-status>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ResearchStudyStatus {
     /// Overall study
@@ -10106,7 +10106,7 @@ pub enum ResearchStudyStatus {
 
 /// `research-study-reason-stopped` — Codes for why the study ended prematurely.
 ///
-/// System: http://hl7.org/fhir/research-study-reason-stopped
+/// System: <http://hl7.org/fhir/research-study-reason-stopped>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ResearchStudyReasonStopped {
     /// Accrual Goal Met
@@ -10126,7 +10126,7 @@ pub enum ResearchStudyReasonStopped {
 
 /// `research-study-arm-type` — Codes for the main intent of the study.
 ///
-/// System: http://hl7.org/fhir/research-study-arm-type
+/// System: <http://hl7.org/fhir/research-study-arm-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ResearchStudyArmType {
     /// Active Comparator
@@ -10152,7 +10152,7 @@ pub enum ResearchStudyArmType {
 
 /// `research-study-objective-type` — Codes for the kind of study objective.
 ///
-/// System: http://hl7.org/fhir/research-study-objective-type
+/// System: <http://hl7.org/fhir/research-study-objective-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ResearchStudyObjectiveType {
     /// Primary
@@ -10169,7 +10169,7 @@ pub enum ResearchStudyObjectiveType {
 
 /// `message-significance-category` — The impact of the content of a message.
 ///
-/// System: http://hl7.org/fhir/message-significance-category
+/// System: <http://hl7.org/fhir/message-significance-category>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum MessageSignificanceCategory {
     /// Consequence
@@ -10186,7 +10186,7 @@ pub enum MessageSignificanceCategory {
 
 /// `messageheader-response-request` — HL7-defined table of codes which identify conditions under which acknowledgments are required to be returned in response to a message.
 ///
-/// System: http://hl7.org/fhir/messageheader-response-request
+/// System: <http://hl7.org/fhir/messageheader-response-request>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum MessageheaderResponseRequest {
     /// Always
@@ -10206,7 +10206,7 @@ pub enum MessageheaderResponseRequest {
 
 /// `adverse-event-actuality` — Overall nature of the adverse event, e.g. real or potential.
 ///
-/// System: http://hl7.org/fhir/adverse-event-actuality
+/// System: <http://hl7.org/fhir/adverse-event-actuality>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum AdverseEventActuality {
     /// Adverse Event
@@ -10220,7 +10220,7 @@ pub enum AdverseEventActuality {
 
 /// `chargeitem-status` — Codes identifying the lifecycle stage of a ChargeItem.
 ///
-/// System: http://hl7.org/fhir/chargeitem-status
+/// System: <http://hl7.org/fhir/chargeitem-status>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ChargeitemStatus {
     /// Planned
@@ -10249,7 +10249,7 @@ pub enum ChargeitemStatus {
 
 /// `specimen-contained-preference` — Degree of preference of a type of conditioned specimen.
 ///
-/// System: http://hl7.org/fhir/specimen-contained-preference
+/// System: <http://hl7.org/fhir/specimen-contained-preference>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum SpecimenContainedPreference {
     /// Preferred
@@ -10263,7 +10263,7 @@ pub enum SpecimenContainedPreference {
 
 /// `permitted-data-type` — Permitted data type for observation value.
 ///
-/// System: http://hl7.org/fhir/permitted-data-type
+/// System: <http://hl7.org/fhir/permitted-data-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum PermittedDataType {
     /// Quantity
@@ -10304,7 +10304,7 @@ pub enum PermittedDataType {
 
 /// `observation-range-category` — Codes identifying the category of observation range.
 ///
-/// System: http://hl7.org/fhir/observation-range-category
+/// System: <http://hl7.org/fhir/observation-range-category>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ObservationRangeCategory {
     /// reference range
@@ -10321,7 +10321,7 @@ pub enum ObservationRangeCategory {
 
 /// `examplescenario-actor-type` — The type of actor - system or human.
 ///
-/// System: http://hl7.org/fhir/examplescenario-actor-type
+/// System: <http://hl7.org/fhir/examplescenario-actor-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ExamplescenarioActorType {
     /// Person
@@ -10335,7 +10335,7 @@ pub enum ExamplescenarioActorType {
 
 /// `code-search-support` — The degree to which the server supports the code search parameter on ValueSet, if it is supported.
 ///
-/// System: http://hl7.org/fhir/code-search-support
+/// System: <http://hl7.org/fhir/code-search-support>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum CodeSearchSupport {
     /// In Compose
@@ -10352,7 +10352,7 @@ pub enum CodeSearchSupport {
 
 /// `invoice-status` — Codes identifying the lifecycle stage of an Invoice.
 ///
-/// System: http://hl7.org/fhir/invoice-status
+/// System: <http://hl7.org/fhir/invoice-status>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum InvoiceStatus {
     /// draft
@@ -10375,7 +10375,7 @@ pub enum InvoiceStatus {
 
 /// `organization-role` — This example value set defines a set of codes that can be used to indicate the role of one Organization in relation to its affiliation with another.
 ///
-/// System: http://hl7.org/fhir/organization-role
+/// System: <http://hl7.org/fhir/organization-role>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum OrganizationRole {
     /// Provider
@@ -10407,7 +10407,7 @@ pub enum OrganizationRole {
 
 /// `verificationresult-status` — The validation status of the target
 ///
-/// System: http://hl7.org/fhir/CodeSystem/verificationresult-status
+/// System: <http://hl7.org/fhir/CodeSystem/verificationresult-status>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum VerificationresultStatus {
     /// Attested
@@ -10436,7 +10436,7 @@ pub enum VerificationresultStatus {
 
 /// `medicinal-product-type` — Overall defining type of this Medicinal Product.
 ///
-/// System: http://hl7.org/fhir/medicinal-product-type
+/// System: <http://hl7.org/fhir/medicinal-product-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum MedicinalProductType {
     /// Medicinal Product
@@ -10450,7 +10450,7 @@ pub enum MedicinalProductType {
 
 /// `medicinal-product-domain` — Applicable domain for this product (e.g. human, veterinary).
 ///
-/// System: http://hl7.org/fhir/medicinal-product-domain
+/// System: <http://hl7.org/fhir/medicinal-product-domain>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum MedicinalProductDomain {
     /// Human use
@@ -10467,7 +10467,7 @@ pub enum MedicinalProductDomain {
 
 /// `combined-dose-form` — Dose forms for a product as a whole, considering all individual parts, but before any mixing
 ///
-/// System: http://hl7.org/fhir/combined-dose-form
+/// System: <http://hl7.org/fhir/combined-dose-form>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum CombinedDoseForm {
     /// Powder and solvent for oral solution
@@ -10706,7 +10706,7 @@ pub enum CombinedDoseForm {
 
 /// `legal-status-of-supply` — The prescription supply types appropriate to a medicinal product
 ///
-/// System: http://hl7.org/fhir/legal-status-of-supply
+/// System: <http://hl7.org/fhir/legal-status-of-supply>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum LegalStatusOfSupply {
     /// Medicinal product not subject to medical prescription
@@ -10738,7 +10738,7 @@ pub enum LegalStatusOfSupply {
 
 /// `medicinal-product-pediatric-use` — Suitability for age groups, in particular children.
 ///
-/// System: http://hl7.org/fhir/medicinal-product-pediatric-use
+/// System: <http://hl7.org/fhir/medicinal-product-pediatric-use>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum MedicinalProductPediatricUse {
     /// In utero
@@ -10788,7 +10788,7 @@ pub enum MedicinalProductPediatricUse {
 
 /// `medicinal-product-package-type` — Types of medicinal product packs
 ///
-/// System: http://hl7.org/fhir/medicinal-product-package-type
+/// System: <http://hl7.org/fhir/medicinal-product-package-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum MedicinalProductPackageType {
     /// Ampoule
@@ -10832,7 +10832,7 @@ pub enum MedicinalProductPackageType {
 
 /// `medicinal-product-contact-type` — Contact type for a Medicinal Product.
 ///
-/// System: http://hl7.org/fhir/medicinal-product-contact-type
+/// System: <http://hl7.org/fhir/medicinal-product-contact-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum MedicinalProductContactType {
     /// Proposed Marketing Authorization Holder/Person
@@ -10855,7 +10855,7 @@ pub enum MedicinalProductContactType {
 
 /// `medicinal-product-name-type` — Type of a name for a Medicinal Product.
 ///
-/// System: http://hl7.org/fhir/medicinal-product-name-type
+/// System: <http://hl7.org/fhir/medicinal-product-name-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum MedicinalProductNameType {
     /// British Approved Name
@@ -10878,7 +10878,7 @@ pub enum MedicinalProductNameType {
 
 /// `medicinal-product-name-part-type` — Type of part of a name for a Medicinal Product.
 ///
-/// System: http://hl7.org/fhir/medicinal-product-name-part-type
+/// System: <http://hl7.org/fhir/medicinal-product-name-part-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum MedicinalProductNamePartType {
     /// Full name
@@ -10934,7 +10934,7 @@ pub enum MedicinalProductNamePartType {
 
 /// `medicinal-product-cross-reference-type` — Relationship to another Medicinal Product.
 ///
-/// System: http://hl7.org/fhir/medicinal-product-cross-reference-type
+/// System: <http://hl7.org/fhir/medicinal-product-cross-reference-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum MedicinalProductCrossReferenceType {
     /// Link to Investigational Product
@@ -10960,7 +10960,7 @@ pub enum MedicinalProductCrossReferenceType {
 
 /// `medicinal-product-confidentiality` — Confidentiality rating, e.g. commercial sensitivity for a Medicinal Product.
 ///
-/// System: http://hl7.org/fhir/medicinal-product-confidentiality
+/// System: <http://hl7.org/fhir/medicinal-product-confidentiality>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum MedicinalProductConfidentiality {
     /// Commercially Sensitive
@@ -10974,7 +10974,7 @@ pub enum MedicinalProductConfidentiality {
 
 /// `package-type` — A high level categorisation of a package.
 ///
-/// System: http://hl7.org/fhir/package-type
+/// System: <http://hl7.org/fhir/package-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum PackageType {
     /// Medicinal product pack
@@ -10991,7 +10991,7 @@ pub enum PackageType {
 
 /// `packaging-type` — A type of packaging.
 ///
-/// System: http://hl7.org/fhir/packaging-type
+/// System: <http://hl7.org/fhir/packaging-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum PackagingType {
     /// Ampoule
@@ -11305,7 +11305,7 @@ pub enum PackagingType {
 
 /// `package-material` — A material used in the construction of packages and their components.
 ///
-/// System: http://hl7.org/fhir/package-material
+/// System: <http://hl7.org/fhir/package-material>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum PackageMaterial {
     /// Aluminium
@@ -11442,7 +11442,7 @@ pub enum PackageMaterial {
 
 /// `manufactured-dose-form` — Dose form for a medication, as manufactured (and before any mixing etc.), not necessarily ready for administration to the patient.
 ///
-/// System: http://hl7.org/fhir/manufactured-dose-form
+/// System: <http://hl7.org/fhir/manufactured-dose-form>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ManufacturedDoseForm {
     /// Oral suspension
@@ -12053,7 +12053,7 @@ pub enum ManufacturedDoseForm {
 
 /// `administrable-dose-form` — Dose form for a medication, in the form suitable for administering to the patient, after mixing, where necessary.
 ///
-/// System: http://hl7.org/fhir/administrable-dose-form
+/// System: <http://hl7.org/fhir/administrable-dose-form>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum AdministrableDoseForm {
     /// Oral suspension
@@ -12664,7 +12664,7 @@ pub enum AdministrableDoseForm {
 
 /// `unit-of-presentation` — The presentation type in which an administrable medicinal product is given to a patient.
 ///
-/// System: http://hl7.org/fhir/unit-of-presentation
+/// System: <http://hl7.org/fhir/unit-of-presentation>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum UnitOfPresentation {
     /// Barrel
@@ -12840,7 +12840,7 @@ pub enum UnitOfPresentation {
 
 /// `target-species` — A species for which a medicinal product is intended.
 ///
-/// System: http://hl7.org/fhir/target-species
+/// System: <http://hl7.org/fhir/target-species>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum TargetSpecies {
     /// Dove
@@ -13448,7 +13448,7 @@ pub enum TargetSpecies {
 
 /// `animal-tissue-type` — A tissue type of an animal.
 ///
-/// System: http://hl7.org/fhir/animal-tissue-type
+/// System: <http://hl7.org/fhir/animal-tissue-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum AnimalTissueType {
     /// All relevant tissues
@@ -14023,7 +14023,7 @@ pub enum AnimalTissueType {
 
 /// `regulated-authorization-type` — RegulatedAuthorizationType
 ///
-/// System: http://hl7.org/fhir/regulated-authorization-type
+/// System: <http://hl7.org/fhir/regulated-authorization-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum RegulatedAuthorizationType {
     /// Marketing Authorization
@@ -14040,7 +14040,7 @@ pub enum RegulatedAuthorizationType {
 
 /// `product-intended-use` — ProductIntendedUse
 ///
-/// System: http://hl7.org/fhir/product-intended-use
+/// System: <http://hl7.org/fhir/product-intended-use>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ProductIntendedUse {
     /// Prevention
@@ -14063,7 +14063,7 @@ pub enum ProductIntendedUse {
 
 /// `regulated-authorization-basis` — RegulatedAuthorizationBasis
 ///
-/// System: http://hl7.org/fhir/regulated-authorization-basis
+/// System: <http://hl7.org/fhir/regulated-authorization-basis>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum RegulatedAuthorizationBasis {
     /// Full application
@@ -14101,7 +14101,7 @@ pub enum RegulatedAuthorizationBasis {
 
 /// `regulated-authorization-case-type` — RegulatedAuthorizationCaseType
 ///
-/// System: http://hl7.org/fhir/regulated-authorization-case-type
+/// System: <http://hl7.org/fhir/regulated-authorization-case-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum RegulatedAuthorizationCaseType {
     /// Initial Marketing Authorization Application
@@ -14175,7 +14175,7 @@ pub enum RegulatedAuthorizationCaseType {
 
 /// `ingredient-role` — A classification of the ingredient identifying its purpose within the product, e.g. active, inactive.
 ///
-/// System: http://hl7.org/fhir/ingredient-role
+/// System: <http://hl7.org/fhir/ingredient-role>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum IngredientRole {
     /// Active
@@ -14210,7 +14210,7 @@ pub enum IngredientRole {
 
 /// `ingredient-function` — A classification of the ingredient identifying its precise purpose(s) in the drug product (beyond e.g. active/inactive).
 ///
-/// System: http://hl7.org/fhir/ingredient-function
+/// System: <http://hl7.org/fhir/ingredient-function>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum IngredientFunction {
     /// Antioxidant
@@ -14224,7 +14224,7 @@ pub enum IngredientFunction {
 
 /// `ingredient-manufacturer-role` — The way in which this manufacturer is associated with the ingredient. For example whether it is a possible one (others allowed), or an exclusive authorized one for this ingredient. Note that this is n
 ///
-/// System: http://hl7.org/fhir/ingredient-manufacturer-role
+/// System: <http://hl7.org/fhir/ingredient-manufacturer-role>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum IngredientManufacturerRole {
     /// Manufacturer is specifically allowed for this ingredient
@@ -14241,7 +14241,7 @@ pub enum IngredientManufacturerRole {
 
 /// `substance-grade` — SubstanceGrade
 ///
-/// System: http://hl7.org/fhir/substance-grade
+/// System: <http://hl7.org/fhir/substance-grade>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum SubstanceGrade {
     /// USP/NF United States Pharmacopeia (USP) and the National Formulary (NF)
@@ -14264,7 +14264,7 @@ pub enum SubstanceGrade {
 
 /// `substance-stereochemistry` — The stereochemistry type of a substance.
 ///
-/// System: http://hl7.org/fhir/substance-stereochemistry
+/// System: <http://hl7.org/fhir/substance-stereochemistry>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum SubstanceStereochemistry {
     /// constitutional isomer
@@ -14281,7 +14281,7 @@ pub enum SubstanceStereochemistry {
 
 /// `substance-optical-activity` — The optical rotation type of a substance.
 ///
-/// System: http://hl7.org/fhir/substance-optical-activity
+/// System: <http://hl7.org/fhir/substance-optical-activity>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum SubstanceOpticalActivity {
     /// dextrorotary
@@ -14295,7 +14295,7 @@ pub enum SubstanceOpticalActivity {
 
 /// `substance-amount-type` — The type of a numeric quantity measurement.
 ///
-/// System: http://hl7.org/fhir/substance-amount-type
+/// System: <http://hl7.org/fhir/substance-amount-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum SubstanceAmountType {
     /// Average
@@ -14315,7 +14315,7 @@ pub enum SubstanceAmountType {
 
 /// `substance-structure-technique` — SubstanceStructureTechnique
 ///
-/// System: http://hl7.org/fhir/substance-structure-technique
+/// System: <http://hl7.org/fhir/substance-structure-technique>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum SubstanceStructureTechnique {
     /// X-ray
@@ -14338,7 +14338,7 @@ pub enum SubstanceStructureTechnique {
 
 /// `substance-form` — SubstanceForm
 ///
-/// System: http://hl7.org/fhir/substance-form
+/// System: <http://hl7.org/fhir/substance-form>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum SubstanceForm {
     /// Salt of substance
@@ -14352,7 +14352,7 @@ pub enum SubstanceForm {
 
 /// `substance-weight-method` — SubstanceWeightMethod
 ///
-/// System: http://hl7.org/fhir/substance-weight-method
+/// System: <http://hl7.org/fhir/substance-weight-method>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum SubstanceWeightMethod {
     /// SDS-PAGE (sodium dodecyl sulfate-polyacrylamide gel electrophoresis)
@@ -14384,7 +14384,7 @@ pub enum SubstanceWeightMethod {
 
 /// `substance-weight-type` — SubstanceWeightType
 ///
-/// System: http://hl7.org/fhir/substance-weight-type
+/// System: <http://hl7.org/fhir/substance-weight-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum SubstanceWeightType {
     /// exact
@@ -14401,7 +14401,7 @@ pub enum SubstanceWeightType {
 
 /// `substance-representation-type` — SubstanceRepresentationType
 ///
-/// System: http://hl7.org/fhir/substance-representation-type
+/// System: <http://hl7.org/fhir/substance-representation-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum SubstanceRepresentationType {
     /// systematic
@@ -14418,7 +14418,7 @@ pub enum SubstanceRepresentationType {
 
 /// `substance-representation-format` — SubstanceRepresentationFormat
 ///
-/// System: http://hl7.org/fhir/substance-representation-format
+/// System: <http://hl7.org/fhir/substance-representation-format>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum SubstanceRepresentationFormat {
     /// InChI
@@ -14447,7 +14447,7 @@ pub enum SubstanceRepresentationFormat {
 
 /// `substance-name-type` — SubstanceNameType
 ///
-/// System: http://hl7.org/fhir/substance-name-type
+/// System: <http://hl7.org/fhir/substance-name-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum SubstanceNameType {
     /// systematic
@@ -14464,7 +14464,7 @@ pub enum SubstanceNameType {
 
 /// `substance-name-domain` — SubstanceNameDomain
 ///
-/// System: http://hl7.org/fhir/substance-name-domain
+/// System: <http://hl7.org/fhir/substance-name-domain>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum SubstanceNameDomain {
     /// Active Ingredient
@@ -14478,7 +14478,7 @@ pub enum SubstanceNameDomain {
 
 /// `substance-name-authority` — SubstanceNameAuthority
 ///
-/// System: http://hl7.org/fhir/substance-name-authority
+/// System: <http://hl7.org/fhir/substance-name-authority>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum SubstanceNameAuthority {
     /// BAN
@@ -14531,7 +14531,7 @@ pub enum SubstanceNameAuthority {
 
 /// `substance-relationship-type` — The relationship between two substance types.
 ///
-/// System: http://hl7.org/fhir/substance-relationship-type
+/// System: <http://hl7.org/fhir/substance-relationship-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum SubstanceRelationshipType {
     /// Salt to parent
@@ -14554,7 +14554,7 @@ pub enum SubstanceRelationshipType {
 
 /// `substance-source-material-type` — SubstanceSourceMaterialType
 ///
-/// System: http://hl7.org/fhir/substance-source-material-type
+/// System: <http://hl7.org/fhir/substance-source-material-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum SubstanceSourceMaterialType {
     /// animal
@@ -14571,7 +14571,7 @@ pub enum SubstanceSourceMaterialType {
 
 /// `substance-source-material-genus` — SubstanceSourceMaterialGenus
 ///
-/// System: http://hl7.org/fhir/substance-source-material-genus
+/// System: <http://hl7.org/fhir/substance-source-material-genus>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum SubstanceSourceMaterialGenus {
     /// Mycobacterium
@@ -14588,7 +14588,7 @@ pub enum SubstanceSourceMaterialGenus {
 
 /// `substance-source-material-species` — SubstanceSourceMaterialSpecies
 ///
-/// System: http://hl7.org/fhir/substance-source-material-species
+/// System: <http://hl7.org/fhir/substance-source-material-species>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum SubstanceSourceMaterialSpecies {
     /// Ginkgo biloba
@@ -14602,7 +14602,7 @@ pub enum SubstanceSourceMaterialSpecies {
 
 /// `substance-source-material-part` — SubstanceSourceMaterialPart
 ///
-/// System: http://hl7.org/fhir/substance-source-material-part
+/// System: <http://hl7.org/fhir/substance-source-material-part>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum SubstanceSourceMaterialPart {
     /// animal
@@ -14619,7 +14619,7 @@ pub enum SubstanceSourceMaterialPart {
 
 /// `product-category` — Biologically Derived Product Category.
 ///
-/// System: http://hl7.org/fhir/product-category
+/// System: <http://hl7.org/fhir/product-category>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ProductCategory {
     /// Organ
@@ -14642,7 +14642,7 @@ pub enum ProductCategory {
 
 /// `biologicallyderived-productcodes` — This code system is a subset of ISBT 128 Product Description Codes© published by ICCBBA as a part of the ISBT 128 standard. These codes support characterization and classification of medical products 
 ///
-/// System: http://hl7.org/fhir/biologicallyderived-productcodes
+/// System: <http://hl7.org/fhir/biologicallyderived-productcodes>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum BiologicallyderivedProductcodes {
     /// RED BLOOD CELLS|CPD>AS5/450mL/refg|Irr|ResLeu
@@ -14677,7 +14677,7 @@ pub enum BiologicallyderivedProductcodes {
 
 /// `biologicallyderived-product-status` — Biologically Derived Product Status.
 ///
-/// System: http://hl7.org/fhir/biologicallyderived-product-status
+/// System: <http://hl7.org/fhir/biologicallyderived-product-status>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum BiologicallyderivedProductStatus {
     /// Available
@@ -14691,7 +14691,7 @@ pub enum BiologicallyderivedProductStatus {
 
 /// `medicationknowledge-status` — MedicationKnowledge Status Codes
 ///
-/// System: http://hl7.org/fhir/CodeSystem/medicationknowledge-status
+/// System: <http://hl7.org/fhir/CodeSystem/medicationknowledge-status>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum MedicationknowledgeStatus {
     /// Active
@@ -14708,7 +14708,7 @@ pub enum MedicationknowledgeStatus {
 
 /// `medication-cost-category` — Medication Cost Category Codes
 ///
-/// System: http://hl7.org/fhir/medication-cost-category
+/// System: <http://hl7.org/fhir/medication-cost-category>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum MedicationCostCategory {
     /// Band A
@@ -14722,7 +14722,7 @@ pub enum MedicationCostCategory {
 
 /// `devicedefinition-regulatory-identifier-type` — The type of regulatory identifier.
 ///
-/// System: http://hl7.org/fhir/devicedefinition-regulatory-identifier-type
+/// System: <http://hl7.org/fhir/devicedefinition-regulatory-identifier-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum DevicedefinitionRegulatoryIdentifierType {
     /// Basic
@@ -14739,7 +14739,7 @@ pub enum DevicedefinitionRegulatoryIdentifierType {
 
 /// `devicedefinition-relationtype` — The type of relation between devices.
 ///
-/// System: http://hl7.org/fhir/devicedefinition-relationtype
+/// System: <http://hl7.org/fhir/devicedefinition-relationtype>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum DevicedefinitionRelationtype {
     /// Gateway
@@ -14756,7 +14756,7 @@ pub enum DevicedefinitionRelationtype {
 
 /// `device-productidentifierinudi` — The production identifier(s) that are expected to appear in the UDI carrier.
 ///
-/// System: http://hl7.org/fhir/device-productidentifierinudi
+/// System: <http://hl7.org/fhir/device-productidentifierinudi>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum DeviceProductidentifierinudi {
     /// Lot Number
@@ -14782,7 +14782,7 @@ pub enum DeviceProductidentifierinudi {
 
 /// `device-correctiveactionscope` — The type of relation between devices.
 ///
-/// System: http://hl7.org/fhir/device-correctiveactionscope
+/// System: <http://hl7.org/fhir/device-correctiveactionscope>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum DeviceCorrectiveactionscope {
     /// Model
@@ -14799,7 +14799,7 @@ pub enum DeviceCorrectiveactionscope {
 
 /// `definition-method` — The method used to define, describe, or determine a characteristic value.
 ///
-/// System: http://hl7.org/fhir/definition-method
+/// System: <http://hl7.org/fhir/definition-method>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum DefinitionMethod {
     /// Systematic Assessment
@@ -14831,7 +14831,7 @@ pub enum DefinitionMethod {
 
 /// `characteristic-offset` — Reference point for characteristic.valueQuantity.
 ///
-/// System: http://hl7.org/fhir/characteristic-offset
+/// System: <http://hl7.org/fhir/characteristic-offset>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum CharacteristicOffset {
     /// Upper Normal Limit
@@ -14845,7 +14845,7 @@ pub enum CharacteristicOffset {
 
 /// `characteristic-combination` — Logical grouping of characteristics.
 ///
-/// System: http://hl7.org/fhir/characteristic-combination
+/// System: <http://hl7.org/fhir/characteristic-combination>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum CharacteristicCombination {
     /// All of
@@ -14874,7 +14874,7 @@ pub enum CharacteristicCombination {
 
 /// `evidence-variable-event` — The event used as a base point (reference point) in time.
 ///
-/// System: http://hl7.org/fhir/evidence-variable-event
+/// System: <http://hl7.org/fhir/evidence-variable-event>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum EvidenceVariableEvent {
     /// Study Start
@@ -14903,7 +14903,7 @@ pub enum EvidenceVariableEvent {
 
 /// `variable-handling` — The handling of the variable in statistical analysis for exposures or outcomes (E.g. Dichotomous, Continuous, Descriptive).
 ///
-/// System: http://hl7.org/fhir/variable-handling
+/// System: <http://hl7.org/fhir/variable-handling>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum VariableHandling {
     /// continuous variable
@@ -14923,7 +14923,7 @@ pub enum VariableHandling {
 
 /// `clinical-use-definition-type` — Overall defining type of this clinical use definition.
 ///
-/// System: http://hl7.org/fhir/clinical-use-definition-type
+/// System: <http://hl7.org/fhir/clinical-use-definition-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ClinicalUseDefinitionType {
     /// Indication
@@ -14946,7 +14946,7 @@ pub enum ClinicalUseDefinitionType {
 
 /// `clinical-use-definition-category` — ClinicalUseDefinitionCategory
 ///
-/// System: http://hl7.org/fhir/clinical-use-definition-category
+/// System: <http://hl7.org/fhir/clinical-use-definition-category>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ClinicalUseDefinitionCategory {
     /// Pregnancy and Lactation
@@ -14963,7 +14963,7 @@ pub enum ClinicalUseDefinitionCategory {
 
 /// `therapy-relationship-type` — Classification of relationship between a therapy and a contraindication or an indication.
 ///
-/// System: http://hl7.org/fhir/therapy-relationship-type
+/// System: <http://hl7.org/fhir/therapy-relationship-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum TherapyRelationshipType {
     /// Only contraindicated if the other therapy is given
@@ -15001,7 +15001,7 @@ pub enum TherapyRelationshipType {
 
 /// `interaction-type` — A categorisation for an interaction between two substances.
 ///
-/// System: http://hl7.org/fhir/interaction-type
+/// System: <http://hl7.org/fhir/interaction-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum InteractionType {
     /// drug to drug interaction
@@ -15021,7 +15021,7 @@ pub enum InteractionType {
 
 /// `interaction-incidence` — A categorisation for a frequency of occurence of an undesirable effect.
 ///
-/// System: http://hl7.org/fhir/interaction-incidence
+/// System: <http://hl7.org/fhir/interaction-incidence>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum InteractionIncidence {
     /// Theoretical
@@ -15035,7 +15035,7 @@ pub enum InteractionIncidence {
 
 /// `undesirable-effect-frequency` — A categorisation for a frequency of occurence of an undesirable effect.
 ///
-/// System: http://hl7.org/fhir/undesirable-effect-frequency
+/// System: <http://hl7.org/fhir/undesirable-effect-frequency>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum UndesirableEffectFrequency {
     /// Common
@@ -15052,7 +15052,7 @@ pub enum UndesirableEffectFrequency {
 
 /// `warning-type` — Classification of warning type.
 ///
-/// System: http://hl7.org/fhir/warning-type
+/// System: <http://hl7.org/fhir/warning-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum WarningType {
     /// Get medical advice/attention.
@@ -15090,7 +15090,7 @@ pub enum WarningType {
 
 /// `study-design` — This is a set of terms for study design characteristics.
 ///
-/// System: http://hl7.org/fhir/study-design
+/// System: <http://hl7.org/fhir/study-design>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum StudyDesign {
     /// Interventional research
@@ -15173,7 +15173,7 @@ pub enum StudyDesign {
 
 /// `statistic-model-code` — The role that the assertion variable plays.
 ///
-/// System: http://hl7.org/fhir/statistic-model-code
+/// System: <http://hl7.org/fhir/statistic-model-code>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum StatisticModelCode {
     /// one-tailed test (1 threshold)
@@ -15418,7 +15418,7 @@ pub enum StatisticModelCode {
 
 /// `certainty-type` — The aspect of quality, confidence, or certainty.
 ///
-/// System: http://hl7.org/fhir/certainty-type
+/// System: <http://hl7.org/fhir/certainty-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum CertaintyType {
     /// Overall certainty
@@ -15453,7 +15453,7 @@ pub enum CertaintyType {
 
 /// `certainty-rating` — The assessment of quality, confidence, or certainty.
 ///
-/// System: http://hl7.org/fhir/certainty-rating
+/// System: <http://hl7.org/fhir/certainty-rating>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum CertaintyRating {
     /// High quality
@@ -15509,7 +15509,7 @@ pub enum CertaintyRating {
 
 /// `nutritionproduct-status` — Codes identifying the lifecycle stage of a product.
 ///
-/// System: http://hl7.org/fhir/nutritionproduct-status
+/// System: <http://hl7.org/fhir/nutritionproduct-status>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum NutritionproductStatus {
     /// Active
@@ -15526,7 +15526,7 @@ pub enum NutritionproductStatus {
 
 /// `permission-status` — Codes identifying the lifecycle stage of a product.
 ///
-/// System: http://hl7.org/fhir/permission-status
+/// System: <http://hl7.org/fhir/permission-status>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum PermissionStatus {
     /// Active
@@ -15546,7 +15546,7 @@ pub enum PermissionStatus {
 
 /// `permission-rule-combining` — Codes identifying the rule combining. See XACML Combining algorithms http://docs.oasis-open.org/xacml/3.0/xacml-3.0-core-spec-cos01-en.html
 ///
-/// System: http://hl7.org/fhir/permission-rule-combining
+/// System: <http://hl7.org/fhir/permission-rule-combining>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum PermissionRuleCombining {
     /// Deny-overrides
@@ -15572,7 +15572,7 @@ pub enum PermissionRuleCombining {
 
 /// `inventoryreport-status` — The status of the InventoryReport.
 ///
-/// System: http://hl7.org/fhir/inventoryreport-status
+/// System: <http://hl7.org/fhir/inventoryreport-status>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum InventoryreportStatus {
     /// Draft
@@ -15592,7 +15592,7 @@ pub enum InventoryreportStatus {
 
 /// `inventoryreport-counttype` — The type of count.
 ///
-/// System: http://hl7.org/fhir/inventoryreport-counttype
+/// System: <http://hl7.org/fhir/inventoryreport-counttype>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum InventoryreportCounttype {
     /// Snapshot
@@ -15606,7 +15606,7 @@ pub enum InventoryreportCounttype {
 
 /// `devicedispense-status` — DeviceDispense Status Codes
 ///
-/// System: http://hl7.org/fhir/devicedispense-status
+/// System: <http://hl7.org/fhir/devicedispense-status>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum DevicedispenseStatus {
     /// Preparation
@@ -15641,7 +15641,7 @@ pub enum DevicedispenseStatus {
 
 /// `devicedispense-status-reason` — DeviceDispense Status Reason Codes
 ///
-/// System: http://hl7.org/fhir/CodeSystem/devicedispense-status-reason
+/// System: <http://hl7.org/fhir/CodeSystem/devicedispense-status-reason>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum DevicedispenseStatusReason {
     /// Out of Stock
@@ -15667,7 +15667,7 @@ pub enum DevicedispenseStatusReason {
 
 /// `artifactassessment-information-type` — The type of information contained in a component of an artifact assessment.
 ///
-/// System: http://hl7.org/fhir/artifactassessment-information-type
+/// System: <http://hl7.org/fhir/artifactassessment-information-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ArtifactassessmentInformationType {
     /// Comment
@@ -15693,7 +15693,7 @@ pub enum ArtifactassessmentInformationType {
 
 /// `artifactassessment-workflow-status` — Possible values for the workflow status of the comment or assessment, typically used to coordinate workflow around the process of accepting and rejecting changes and comments on the artifact.
 ///
-/// System: http://hl7.org/fhir/artifactassessment-workflow-status
+/// System: <http://hl7.org/fhir/artifactassessment-workflow-status>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ArtifactassessmentWorkflowStatus {
     /// Submitted
@@ -15731,7 +15731,7 @@ pub enum ArtifactassessmentWorkflowStatus {
 
 /// `artifactassessment-disposition` — Possible values for the disposition of a comment or change request, typically used for comments and change requests, to indicate the disposition of the responsible party towards the changes suggested 
 ///
-/// System: http://hl7.org/fhir/artifactassessment-disposition
+/// System: <http://hl7.org/fhir/artifactassessment-disposition>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum ArtifactassessmentDisposition {
     /// Unresolved
@@ -15754,7 +15754,7 @@ pub enum ArtifactassessmentDisposition {
 
 /// `transport-status` — Status of transport.
 ///
-/// System: http://hl7.org/fhir/transport-status
+/// System: <http://hl7.org/fhir/transport-status>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum TransportStatus {
     /// In Progress
@@ -15780,7 +15780,7 @@ pub enum TransportStatus {
 
 /// `transport-status-reason` — Status of transport.
 ///
-/// System: http://hl7.org/fhir/transport-status-reason
+/// System: <http://hl7.org/fhir/transport-status-reason>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum TransportStatusReason {
     /// Declined by patient
@@ -15809,7 +15809,7 @@ pub enum TransportStatusReason {
 
 /// `transport-code` — Codes indicating the type of action that is expected to be performed
 ///
-/// System: http://hl7.org/fhir/CodeSystem/transport-code
+/// System: <http://hl7.org/fhir/CodeSystem/transport-code>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum TransportCode {
     /// Activate/approve the focal resource
@@ -15841,7 +15841,7 @@ pub enum TransportCode {
 
 /// `genomicstudy-status` — The status of the GenomicStudy.
 ///
-/// System: http://hl7.org/fhir/genomicstudy-status
+/// System: <http://hl7.org/fhir/genomicstudy-status>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum GenomicstudyStatus {
     /// Registered
@@ -15864,7 +15864,7 @@ pub enum GenomicstudyStatus {
 
 /// `genomicstudy-type` — The type relevant to GenomicStudy.
 ///
-/// System: http://hl7.org/fhir/genomicstudy-type
+/// System: <http://hl7.org/fhir/genomicstudy-type>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum GenomicstudyType {
     /// Alternative splicing detection
@@ -15908,7 +15908,7 @@ pub enum GenomicstudyType {
 
 /// `genomicstudy-methodtype` — The method type of the GenomicStudy analysis. These method types and relevant codes were pulled from [National Library of Medicine-Genetic Testing Registry](https://www.ncbi.nlm.nih.gov/gtr/) (NCBI-GT
 ///
-/// System: http://hl7.org/fhir/genomicstudy-methodtype
+/// System: <http://hl7.org/fhir/genomicstudy-methodtype>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum GenomicstudyMethodtype {
     /// Biochemical Genetics
@@ -16159,7 +16159,7 @@ pub enum GenomicstudyMethodtype {
 
 /// `genomicstudy-changetype` — The change type relevant to GenomicStudy analysis.
 ///
-/// System: http://hl7.org/fhir/genomicstudy-changetype
+/// System: <http://hl7.org/fhir/genomicstudy-changetype>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum GenomicstudyChangetype {
     /// DNA change
@@ -16182,7 +16182,7 @@ pub enum GenomicstudyChangetype {
 
 /// `genomicstudy-dataformat` — The data format relevant to genomics. These formats and relevant codes were pulled from [Integrative Genomics Viewer Documentation](https://software.broadinstitute.org/software/igv/FileFormats) by Bro
 ///
-/// System: http://hl7.org/fhir/genomicstudy-dataformat
+/// System: <http://hl7.org/fhir/genomicstudy-dataformat>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum GenomicstudyDataformat {
     /// BAM
@@ -16310,7 +16310,7 @@ pub enum GenomicstudyDataformat {
 
 /// `formularyitem-status` — FormularyItem Status Codes
 ///
-/// System: http://hl7.org/fhir/CodeSystem/formularyitem-status
+/// System: <http://hl7.org/fhir/CodeSystem/formularyitem-status>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum FormularyitemStatus {
     /// Active
@@ -16327,7 +16327,7 @@ pub enum FormularyitemStatus {
 
 /// `biologicallyderivedproductdispense-status` — BiologicallyDerivedProductDispense Status Codes
 ///
-/// System: http://hl7.org/fhir/biologicallyderivedproductdispense-status
+/// System: <http://hl7.org/fhir/biologicallyderivedproductdispense-status>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum BiologicallyderivedproductdispenseStatus {
     /// Preparation
@@ -16359,7 +16359,7 @@ pub enum BiologicallyderivedproductdispenseStatus {
 
 /// `biologicallyderivedproductdispense-origin-relationship` — Biologically derived product dispense - origin relationship
 ///
-/// System: http://hl7.org/fhir/CodeSystem/biologicallyderivedproductdispense-origin-relationship
+/// System: <http://hl7.org/fhir/CodeSystem/biologicallyderivedproductdispense-origin-relationship>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum BiologicallyderivedproductdispenseOriginRelationship {
     /// Autologous
@@ -16382,7 +16382,7 @@ pub enum BiologicallyderivedproductdispenseOriginRelationship {
 
 /// `biologicallyderivedproductdispense-match-status` — Biologically derived product dispense - match status
 ///
-/// System: http://hl7.org/fhir/CodeSystem/biologicallyderivedproductdispense-match-status
+/// System: <http://hl7.org/fhir/CodeSystem/biologicallyderivedproductdispense-match-status>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum BiologicallyderivedproductdispenseMatchStatus {
     /// Crossmatched
@@ -16402,7 +16402,7 @@ pub enum BiologicallyderivedproductdispenseMatchStatus {
 
 /// `biologicallyderivedproductdispense-performer-function` — Biologically derived product dispense - performer function
 ///
-/// System: http://hl7.org/fhir/CodeSystem/biologicallyderivedproductdispense-performer-function
+/// System: <http://hl7.org/fhir/CodeSystem/biologicallyderivedproductdispense-performer-function>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum BiologicallyderivedproductdispensePerformerFunction {
     /// Group and Type
@@ -16431,7 +16431,7 @@ pub enum BiologicallyderivedproductdispensePerformerFunction {
 
 /// `deviceassociation-status` — DeviceAssociation Status Codes
 ///
-/// System: http://hl7.org/fhir/deviceassociation-status
+/// System: <http://hl7.org/fhir/deviceassociation-status>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum DeviceassociationStatus {
     /// Implanted
@@ -16454,7 +16454,7 @@ pub enum DeviceassociationStatus {
 
 /// `deviceassociation-status-reason` — DeviceAssociation Status Reason Codes
 ///
-/// System: http://hl7.org/fhir/deviceassociation-status-reason
+/// System: <http://hl7.org/fhir/deviceassociation-status-reason>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum DeviceassociationStatusReason {
     /// Attached
@@ -16477,7 +16477,7 @@ pub enum DeviceassociationStatusReason {
 
 /// `deviceassociation-operationstatus` — The operational status of the device.
 ///
-/// System: http://hl7.org/fhir/deviceassociation-operationstatus
+/// System: <http://hl7.org/fhir/deviceassociation-operationstatus>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum DeviceassociationOperationstatus {
     /// On
@@ -16500,7 +16500,7 @@ pub enum DeviceassociationOperationstatus {
 
 /// `inventoryitem-status` — InventoryItem Status Codes
 ///
-/// System: http://hl7.org/fhir/inventoryitem-status
+/// System: <http://hl7.org/fhir/inventoryitem-status>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum InventoryitemStatus {
     /// Active
@@ -16520,7 +16520,7 @@ pub enum InventoryitemStatus {
 
 /// `inventoryitem-nametype` — InventoryItem Name Type
 ///
-/// System: http://hl7.org/fhir/inventoryitem-nametype
+/// System: <http://hl7.org/fhir/inventoryitem-nametype>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum InventoryitemNametype {
     /// Trade Name
@@ -16540,7 +16540,7 @@ pub enum InventoryitemNametype {
 
 /// `knowledge-representation-level` — A knowledge representation level, narrative, semi-structured, structured, and executable
 ///
-/// System: http://hl7.org/fhir/CodeSystem/knowledge-representation-level
+/// System: <http://hl7.org/fhir/CodeSystem/knowledge-representation-level>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub enum KnowledgeRepresentationLevel {
     /// Narrative

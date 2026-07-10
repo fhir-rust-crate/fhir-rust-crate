@@ -30,7 +30,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::resources::enrollment_response::EnrollmentResponse;
+/// use fhir::r5::resources::enrollment_response::EnrollmentResponse;
 ///
 /// let value = EnrollmentResponse::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

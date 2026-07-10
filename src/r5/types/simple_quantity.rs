@@ -27,7 +27,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::types::simple_quantity::SimpleQuantity;
+/// use fhir::r5::types::simple_quantity::SimpleQuantity;
 ///
 /// let value = SimpleQuantity::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

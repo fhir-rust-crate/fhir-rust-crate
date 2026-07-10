@@ -29,7 +29,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::resources::operation_definition::OperationDefinition;
+/// use fhir::r5::resources::operation_definition::OperationDefinition;
 ///
 /// let value = OperationDefinition::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

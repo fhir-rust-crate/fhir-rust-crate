@@ -29,7 +29,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::resources::device_usage::DeviceUsage;
+/// use fhir::r5::resources::device_usage::DeviceUsage;
 ///
 /// let value = DeviceUsage::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

@@ -29,7 +29,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::resources::questionnaire_response::QuestionnaireResponse;
+/// use fhir::r5::resources::questionnaire_response::QuestionnaireResponse;
 ///
 /// let value = QuestionnaireResponse::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

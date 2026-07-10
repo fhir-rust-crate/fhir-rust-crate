@@ -28,7 +28,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::types::monetary_component::MonetaryComponent;
+/// use fhir::r5::types::monetary_component::MonetaryComponent;
 ///
 /// let value = MonetaryComponent::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

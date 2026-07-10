@@ -27,7 +27,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::types::usage_context::UsageContext;
+/// use fhir::r5::types::usage_context::UsageContext;
 ///
 /// let value = UsageContext::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

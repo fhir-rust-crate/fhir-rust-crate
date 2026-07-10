@@ -30,7 +30,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::resources::condition_definition::ConditionDefinition;
+/// use fhir::r5::resources::condition_definition::ConditionDefinition;
 ///
 /// let value = ConditionDefinition::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

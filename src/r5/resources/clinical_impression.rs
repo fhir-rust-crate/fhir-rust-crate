@@ -27,7 +27,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::resources::clinical_impression::ClinicalImpression;
+/// use fhir::r5::resources::clinical_impression::ClinicalImpression;
 ///
 /// let value = ClinicalImpression::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

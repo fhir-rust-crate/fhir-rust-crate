@@ -29,7 +29,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::resources::audit_event::AuditEvent;
+/// use fhir::r5::resources::audit_event::AuditEvent;
 ///
 /// let value = AuditEvent::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

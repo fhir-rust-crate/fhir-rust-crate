@@ -28,7 +28,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::resources::actor_definition::ActorDefinition;
+/// use fhir::r5::resources::actor_definition::ActorDefinition;
 ///
 /// let value = ActorDefinition::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

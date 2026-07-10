@@ -28,7 +28,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::types::timing::Timing;
+/// use fhir::r5::types::timing::Timing;
 ///
 /// let value = Timing::default();
 /// let json = ::serde_json::to_value(&value).unwrap();
@@ -66,7 +66,7 @@ pub struct Timing {
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::types::timing::TimingRepeat;
+/// use fhir::r5::types::timing::TimingRepeat;
 ///
 /// let value = TimingRepeat::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

@@ -30,7 +30,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::resources::payment_notice::PaymentNotice;
+/// use fhir::r5::resources::payment_notice::PaymentNotice;
 ///
 /// let value = PaymentNotice::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

@@ -27,7 +27,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::resources::manufactured_item_definition::ManufacturedItemDefinition;
+/// use fhir::r5::resources::manufactured_item_definition::ManufacturedItemDefinition;
 ///
 /// let value = ManufacturedItemDefinition::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

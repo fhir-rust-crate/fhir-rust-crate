@@ -29,7 +29,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::resources::concept_map::ConceptMap;
+/// use fhir::r5::resources::concept_map::ConceptMap;
 ///
 /// let value = ConceptMap::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

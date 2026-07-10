@@ -27,7 +27,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::resources::citation::Citation;
+/// use fhir::r5::resources::citation::Citation;
 ///
 /// let value = Citation::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

@@ -335,7 +335,7 @@ pub use vision_prescription::VisionPrescription;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::resources::Resource;
+/// use fhir::r5::resources::Resource;
 ///
 /// let json = ::serde_json::json!({"resourceType": "Patient"});
 /// let resource: Resource = ::serde_json::from_value(json).unwrap();

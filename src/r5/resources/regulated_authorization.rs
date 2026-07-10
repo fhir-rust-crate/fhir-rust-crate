@@ -26,7 +26,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::resources::regulated_authorization::RegulatedAuthorization;
+/// use fhir::r5::resources::regulated_authorization::RegulatedAuthorization;
 ///
 /// let value = RegulatedAuthorization::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

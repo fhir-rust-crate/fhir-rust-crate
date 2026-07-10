@@ -29,7 +29,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::resources::molecular_sequence::MolecularSequence;
+/// use fhir::r5::resources::molecular_sequence::MolecularSequence;
 ///
 /// let value = MolecularSequence::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

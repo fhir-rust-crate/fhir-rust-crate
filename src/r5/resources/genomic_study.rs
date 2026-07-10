@@ -29,7 +29,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::resources::genomic_study::GenomicStudy;
+/// use fhir::r5::resources::genomic_study::GenomicStudy;
 ///
 /// let value = GenomicStudy::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

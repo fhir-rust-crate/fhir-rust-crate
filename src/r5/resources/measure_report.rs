@@ -26,7 +26,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::resources::measure_report::MeasureReport;
+/// use fhir::r5::resources::measure_report::MeasureReport;
 ///
 /// let value = MeasureReport::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

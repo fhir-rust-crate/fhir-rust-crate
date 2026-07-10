@@ -30,7 +30,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::resources::detected_issue::DetectedIssue;
+/// use fhir::r5::resources::detected_issue::DetectedIssue;
 ///
 /// let value = DetectedIssue::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

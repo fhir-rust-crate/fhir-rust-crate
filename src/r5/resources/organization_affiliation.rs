@@ -30,7 +30,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::resources::organization_affiliation::OrganizationAffiliation;
+/// use fhir::r5::resources::organization_affiliation::OrganizationAffiliation;
 ///
 /// let value = OrganizationAffiliation::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

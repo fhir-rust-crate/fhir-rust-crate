@@ -31,7 +31,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::resources::episode_of_care::EpisodeOfCare;
+/// use fhir::r5::resources::episode_of_care::EpisodeOfCare;
 ///
 /// let value = EpisodeOfCare::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

@@ -27,7 +27,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::resources::coverage_eligibility_response::CoverageEligibilityResponse;
+/// use fhir::r5::resources::coverage_eligibility_response::CoverageEligibilityResponse;
 ///
 /// let value = CoverageEligibilityResponse::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

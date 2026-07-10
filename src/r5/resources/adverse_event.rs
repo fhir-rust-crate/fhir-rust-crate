@@ -27,7 +27,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::resources::adverse_event::AdverseEvent;
+/// use fhir::r5::resources::adverse_event::AdverseEvent;
 ///
 /// let value = AdverseEvent::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

@@ -29,7 +29,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::resources::structure_definition::StructureDefinition;
+/// use fhir::r5::resources::structure_definition::StructureDefinition;
 ///
 /// let value = StructureDefinition::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

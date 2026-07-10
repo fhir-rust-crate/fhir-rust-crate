@@ -11,8 +11,8 @@
 //! # Examples
 //!
 //! ```
-//! use fhir_specifications_parser::r5::types::Id;
-//! use fhir_specifications_parser::r5::validate::Validate;
+//! use fhir::r5::types::Id;
+//! use fhir::r5::validate::Validate;
 //!
 //! assert!(Id("patient-1".to_string()).validate().is_empty());
 //! assert!(!Id("bad id!".to_string()).validate().is_empty());

@@ -26,7 +26,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::resources::capability_statement::CapabilityStatement;
+/// use fhir::r5::resources::capability_statement::CapabilityStatement;
 ///
 /// let value = CapabilityStatement::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

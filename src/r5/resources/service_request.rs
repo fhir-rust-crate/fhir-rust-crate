@@ -30,7 +30,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::resources::service_request::ServiceRequest;
+/// use fhir::r5::resources::service_request::ServiceRequest;
 ///
 /// let value = ServiceRequest::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

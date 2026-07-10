@@ -29,7 +29,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::resources::administrable_product_definition::AdministrableProductDefinition;
+/// use fhir::r5::resources::administrable_product_definition::AdministrableProductDefinition;
 ///
 /// let value = AdministrableProductDefinition::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

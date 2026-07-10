@@ -27,7 +27,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::resources::substance_nucleic_acid::SubstanceNucleicAcid;
+/// use fhir::r5::resources::substance_nucleic_acid::SubstanceNucleicAcid;
 ///
 /// let value = SubstanceNucleicAcid::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

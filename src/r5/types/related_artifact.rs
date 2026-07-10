@@ -26,7 +26,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::types::related_artifact::RelatedArtifact;
+/// use fhir::r5::types::related_artifact::RelatedArtifact;
 ///
 /// let value = RelatedArtifact::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

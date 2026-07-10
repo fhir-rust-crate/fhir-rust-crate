@@ -30,7 +30,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::resources::vision_prescription::VisionPrescription;
+/// use fhir::r5::resources::vision_prescription::VisionPrescription;
 ///
 /// let value = VisionPrescription::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

@@ -28,7 +28,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::resources::specimen_definition::SpecimenDefinition;
+/// use fhir::r5::resources::specimen_definition::SpecimenDefinition;
 ///
 /// let value = SpecimenDefinition::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

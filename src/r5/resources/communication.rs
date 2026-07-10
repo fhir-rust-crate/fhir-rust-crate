@@ -32,7 +32,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::resources::communication::Communication;
+/// use fhir::r5::resources::communication::Communication;
 ///
 /// let value = Communication::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

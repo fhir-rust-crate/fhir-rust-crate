@@ -27,7 +27,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::resources::medication_administration::MedicationAdministration;
+/// use fhir::r5::resources::medication_administration::MedicationAdministration;
 ///
 /// let value = MedicationAdministration::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

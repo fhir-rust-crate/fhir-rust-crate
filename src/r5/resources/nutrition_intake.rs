@@ -27,7 +27,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::resources::nutrition_intake::NutritionIntake;
+/// use fhir::r5::resources::nutrition_intake::NutritionIntake;
 ///
 /// let value = NutritionIntake::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

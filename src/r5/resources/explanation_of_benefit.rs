@@ -28,7 +28,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::resources::explanation_of_benefit::ExplanationOfBenefit;
+/// use fhir::r5::resources::explanation_of_benefit::ExplanationOfBenefit;
 ///
 /// let value = ExplanationOfBenefit::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

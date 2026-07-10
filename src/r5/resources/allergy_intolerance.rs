@@ -29,7 +29,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::resources::allergy_intolerance::AllergyIntolerance;
+/// use fhir::r5::resources::allergy_intolerance::AllergyIntolerance;
 ///
 /// let value = AllergyIntolerance::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

@@ -28,7 +28,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::resources::device_request::DeviceRequest;
+/// use fhir::r5::resources::device_request::DeviceRequest;
 ///
 /// let value = DeviceRequest::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

@@ -31,7 +31,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::resources::supply_request::SupplyRequest;
+/// use fhir::r5::resources::supply_request::SupplyRequest;
 ///
 /// let value = SupplyRequest::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

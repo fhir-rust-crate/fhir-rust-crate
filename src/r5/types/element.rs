@@ -25,7 +25,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::types::element::Element;
+/// use fhir::r5::types::element::Element;
 ///
 /// let element = Element::default();
 /// let json = ::serde_json::to_value(&element).unwrap();

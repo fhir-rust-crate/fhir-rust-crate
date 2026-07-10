@@ -28,7 +28,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::types::distance::Distance;
+/// use fhir::r5::types::distance::Distance;
 ///
 /// let value = Distance::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

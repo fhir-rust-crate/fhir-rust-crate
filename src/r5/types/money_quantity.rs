@@ -26,7 +26,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::types::money_quantity::MoneyQuantity;
+/// use fhir::r5::types::money_quantity::MoneyQuantity;
 ///
 /// let value = MoneyQuantity::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

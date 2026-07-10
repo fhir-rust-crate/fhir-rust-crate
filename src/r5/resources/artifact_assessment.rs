@@ -27,7 +27,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::resources::artifact_assessment::ArtifactAssessment;
+/// use fhir::r5::resources::artifact_assessment::ArtifactAssessment;
 ///
 /// let value = ArtifactAssessment::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

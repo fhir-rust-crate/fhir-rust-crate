@@ -27,7 +27,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::resources::family_member_history::FamilyMemberHistory;
+/// use fhir::r5::resources::family_member_history::FamilyMemberHistory;
 ///
 /// let value = FamilyMemberHistory::default();
 /// let json = ::serde_json::to_value(&value).unwrap();

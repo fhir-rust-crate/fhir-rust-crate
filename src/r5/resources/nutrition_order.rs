@@ -30,7 +30,7 @@ use fhir_derive::Validate;
 /// # Examples
 ///
 /// ```
-/// use fhir_specifications_parser::r5::resources::nutrition_order::NutritionOrder;
+/// use fhir::r5::resources::nutrition_order::NutritionOrder;
 ///
 /// let value = NutritionOrder::default();
 /// let json = ::serde_json::to_value(&value).unwrap();
