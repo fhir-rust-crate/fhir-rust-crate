@@ -1362,25 +1362,577 @@ pub struct Resource {
     /// 
     pub extension: Option<::serde_json::Value>,
 
-    /// TODO
+    /// # identifier
+    /// 
+    /// ## Description
+    /// 
+    /// The `identifier` key is used throughout FHIR R5 resources to provide a
+    /// unique identification for resources, elements, or entities. Identifiers
+    /// are used to maintain consistent references across systems and enable
+    /// interoperability by providing stable, unique identifiers that persist
+    /// across systems.
+    /// 
+    /// ## Purpose
+    /// 
+    /// - Provides unique identification for resources and entities
+    /// - Enables consistent referencing across different systems
+    /// - Supports resource matching and deduplication
+    /// - Facilitates interoperability between healthcare systems
+    /// - Maintains stable identifiers independent of resource IDs
+    /// 
+    /// ## Usage
+    /// 
+    /// The `identifier` appears in:
+    /// 
+    /// - **Most FHIR Resources**: As a primary identification mechanism
+    /// - **Patient**: Medical record numbers, SSN, insurance IDs
+    /// - **Practitioner**: License numbers, provider IDs
+    /// - **Organization**: Tax ID, accreditation numbers
+    /// - **Observation**: Lab order numbers, specimen IDs
+    /// 
+    /// ## Data Type
+    /// 
+    /// **Identifier** - A complex data type containing:
+    /// 
+    /// - `use` - Purpose of the identifier (usual, official, temp, secondary)
+    /// - `type` - Coded type of identifier
+    /// - `system` - Namespace for the identifier value
+    /// - `value` - The actual identifier value
+    /// - `period` - Time period when identifier is valid
+    /// - `assigner` - Organization that assigned the identifier
+    /// 
+    /// ## Constraints
+    /// 
+    /// - System and value combination should be unique within the namespace
+    /// - System should be a valid URI identifying the namespace
+    /// - Value must be provided if identifier is present
+    /// - Type should align with the identifier's purpose
+    /// - Multiple identifiers can be provided for a single resource
+    /// 
+    /// ## Examples
+    /// 
+    /// ### Basic Patient Medical Record Number
+    /// 
+    /// ```json
+    /// {
+    ///   "identifier": [
+    ///     {
+    ///       "use": "official",
+    ///       "type": {
+    ///         "coding": [
+    ///           {
+    ///             "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+    ///             "code": "MR",
+    ///             "display": "Medical Record Number"
+    ///           }
+    ///         ]
+    ///       },
+    ///       "system": "http://hospital.example.org/identifiers/mrn",
+    ///       "value": "12345678"
+    ///     }
+    ///   ]
+    /// }
+    /// ```
+    /// 
+    /// ### Multiple Identifier Types
+    /// 
+    /// ```json
+    /// {
+    ///   "identifier": [
+    ///     {
+    ///       "use": "official",
+    ///       "type": {
+    ///         "coding": [
+    ///           {
+    ///             "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+    ///             "code": "MR",
+    ///             "display": "Medical Record Number"
+    ///           }
+    ///         ]
+    ///       },
+    ///       "system": "http://hospital.example.org/identifiers/mrn",
+    ///       "value": "MRN123456",
+    ///       "assigner": {
+    ///         "display": "Example Hospital"
+    ///       }
+    ///     },
+    ///     {
+    ///       "use": "secondary",
+    ///       "type": {
+    ///         "coding": [
+    ///           {
+    ///             "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+    ///             "code": "SS",
+    ///             "display": "Social Security Number"
+    ///           }
+    ///         ]
+    ///       },
+    ///       "system": "http://hl7.org/fhir/sid/us-ssn",
+    ///       "value": "123-45-6789"
+    ///     }
+    ///   ]
+    /// }
+    /// ```
+    /// 
+    /// ## Related Keys
+    /// 
+    /// - `id` - Logical resource identifier
+    /// - `system` - Namespace for identifier values
+    /// - `value` - The actual identifier string
+    /// - `type` - Coded type of identifier
+    /// - `use` - Purpose classification
+    /// - `assigner` - Organization that issued identifier
+    /// - `reference` - References using identifiers
+    /// 
+    /// ## Specification Reference
+    /// 
+    /// - **FHIR R5 Specification**: [Identifier Data
+    ///   Type](http://hl7.org/fhir/R5/datatypes.html#Identifier)
+    /// - **Identifier Types**: [Identifier Type
+    ///   Codes](http://hl7.org/fhir/R5/valueset-identifier-type.html)
+    /// - **Section**: Used across multiple resource types
+    /// - **Context**: Primary identification mechanism in FHIR resources
+    /// 
     pub identifier: Option<Vec<Identifier>>,
 
-    /// Example: "sourceScopeCanonical" : "http://hl7.org/fhir/ValueSet/administrative-gender",
+    /// # sourceScopeCanonical
+    /// 
+    /// ## Description
+    /// 
+    /// The `sourceScopeCanonical` property defines the canonical scope for
+    /// source mappings in ConceptMap resources. It specifies the canonical URI
+    /// that constrains which source concepts are considered valid within the
+    /// mapping context.
+    /// 
+    /// ## Purpose
+    /// 
+    /// - Define canonical scope boundaries for source mappings
+    /// - Constrain source concept selection to specific value sets or systems
+    /// - Enable scoped validation of source concepts
+    /// - Support context-specific mapping rules
+    /// - Facilitate targeted mapping operations from specific scopes
+    /// 
+    /// ## Usage
+    /// 
+    /// The `sourceScopeCanonical` property is used in ConceptMap resources to
+    /// specify the canonical URI that defines the valid scope for source
+    /// concepts in the mapping.
+    /// 
+    /// ## Data Type
+    /// 
+    /// **canonical** - A canonical URI reference to a ValueSet, CodeSystem, or
+    /// other defining resource
+    /// 
+    /// ## Constraints
+    /// 
+    /// - Must be a valid canonical URI format
+    /// - Should reference an existing FHIR resource with canonical URL
+    /// - Should align with the mapping's source system or value set
+    /// - Must be consistent with business mapping requirements
+    /// - Should support the intended scope validation
+    /// 
+    /// ## Examples
+    /// 
+    /// ### ValueSet Source Scope
+    /// ```json
+    /// {
+    ///   "resourceType": "ConceptMap",
+    ///   "sourceScopeCanonical": "http://hl7.org/fhir/ValueSet/administrative-gender"
+    /// }
+    /// ```
+    /// 
+    /// ### CodeSystem Source Scope
+    /// ```json
+    /// {
+    ///   "sourceScopeCanonical": "http://snomed.info/sct"
+    /// }
+    /// ```
+    /// 
+    /// ## Related Keys
+    /// 
+    /// - `targetScopeCanonical` - Target scope canonical references
+    /// - `sourceScopeUri` - Source scope URI references
+    /// - `source` - Source concept systems
+    /// - `sourceCanonical` - Source canonical references
+    /// - `scope` - General scope definitions
+    /// 
+    /// ## Specification Reference
+    /// 
+    /// FHIR R5 ConceptMap:
+    /// [sourceScope](http://hl7.org/fhir/R5/conceptmap-definitions.html#ConceptMap.sourceScope_x_)
+    /// 
     pub source_scope_canonical: Option<String>,
 
-    /// Example: "sourceScopeUri" : "http://hl7.org/fhir/ValueSet/address-use",
+    /// # sourceScopeUri
+    /// 
+    /// ## Description
+    /// 
+    /// The `sourceScopeUri` property defines the URI scope for source mappings
+    /// in ConceptMap resources. It specifies a URI that constrains which source
+    /// concepts are considered valid within the mapping context.
+    /// 
+    /// ## Purpose
+    /// 
+    /// - Define URI-based scope boundaries for source mappings
+    /// - Constrain source concept selection to specific URI-identified systems
+    /// - Enable scoped validation using URI references
+    /// - Support external system scope definitions
+    /// - Facilitate targeted mapping operations with URI constraints
+    /// 
+    /// ## Usage
+    /// 
+    /// The `sourceScopeUri` property is used in ConceptMap resources to specify
+    /// a URI that defines the valid scope for source concepts in the mapping.
+    /// 
+    /// ## Data Type
+    /// 
+    /// **uri** - A URI reference identifying the scope
+    /// 
+    /// ## Constraints
+    /// 
+    /// - Must be a valid URI format
+    /// - Should be resolvable or recognizable as a scope identifier
+    /// - Should align with the mapping's source system requirements
+    /// - Must be consistent with business mapping requirements
+    /// - Should support the intended scope validation
+    /// 
+    /// ## Examples
+    /// 
+    /// ### External System URI Scope
+    /// 
+    /// ```json
+    /// {
+    ///   "sourceScopeUri": "http://example.org/terminology/legacy-codes"
+    /// }
+    /// ```
+    /// 
+    /// ### Namespace URI Scope
+    /// 
+    /// ```json
+    /// {
+    ///   "sourceScopeUri": "urn:example:source-scope:legacy-system-2023"
+    /// }
+    /// ```
+    /// 
+    /// ## Related Keys
+    /// 
+    /// - `sourceScopeCanonical` - Source scope canonical references
+    /// - `targetScopeUri` - Target scope URI references
+    /// - `sourceUri` - Source URI references
+    /// - `uri` - General URI fields
+    /// - `scope` - General scope definitions
+    /// 
+    /// ## Specification Reference
+    /// 
+    /// FHIR R5 ConceptMap:
+    /// [sourceScope](http://hl7.org/fhir/R5/conceptmap-definitions.html#ConceptMap.sourceScope_x_)
+    /// 
     pub source_scope_uri: Option<String>,
 
-    /// Example: "targetScopeCanonical" : "http://terminology.hl7.org/ValueSet/v2-0001",
+    /// # targetScopeCanonical
+    /// 
+    /// ## Description
+    /// 
+    /// The `targetScopeCanonical` property defines the canonical scope for
+    /// target mappings in ConceptMap resources. It specifies the canonical URI
+    /// that constrains which target concepts are considered valid within the
+    /// mapping context.
+    /// 
+    /// ## Purpose
+    /// 
+    /// - Define canonical scope boundaries for target mappings
+    /// - Constrain target concept selection to specific value sets or systems
+    /// - Enable scoped validation of target concepts
+    /// - Support context-specific mapping rules
+    /// - Facilitate targeted mapping operations
+    /// 
+    /// ## Usage
+    /// 
+    /// The `targetScopeCanonical` property is used in ConceptMap resources to
+    /// specify the canonical URI that defines the valid scope for target
+    /// concepts in the mapping.
+    /// 
+    /// ## Data Type
+    /// 
+    /// **canonical** - A canonical URI reference to a ValueSet, CodeSystem, or
+    /// other defining resource
+    /// 
+    /// ## Constraints
+    /// 
+    /// - Must be a valid canonical URI format
+    /// - Should reference an existing FHIR resource with canonical URL
+    /// - Should align with the mapping's target system or value set
+    /// - Must be consistent with business mapping requirements
+    /// - Should support the intended scope validation
+    /// 
+    /// ## Examples
+    /// 
+    /// ### ValueSet Target Scope
+    /// 
+    /// ```json
+    /// {
+    ///   "resourceType": "ConceptMap",
+    ///   "targetScopeCanonical": "http://example.org/fhir/ValueSet/valid-target-codes"
+    /// }
+    /// ```
+    /// 
+    /// ### CodeSystem Target Scope
+    /// 
+    /// ```json
+    /// {
+    ///   "targetScopeCanonical": "http://terminology.hl7.org/CodeSystem/v3-RoleCode"
+    /// }
+    /// ```
+    /// 
+    /// ## Related Keys
+    /// 
+    /// - `sourceScopeCanonical` - Source scope canonical references
+    /// - `targetScopeUri` - Target scope URI references
+    /// - `target` - Target concept systems
+    /// - `targetCanonical` - Target canonical references
+    /// - `scope` - General scope definitions
+    /// 
+    /// ## Specification Reference
+    /// 
+    /// FHIR R5 ConceptMap:
+    /// [targetScope](http://hl7.org/fhir/R5/conceptmap-definitions.html#ConceptMap.targetScope_x_)
+    /// 
     pub target_scope_canonical: Option<String>,
 
-    /// Example: "targetScopeUri" : "http://terminology.hl7.org/ValueSet/v3-AddressUse",
+    /// # targetScopeUri
+    /// 
+    /// ## Description
+    /// 
+    /// The `targetScopeUri` property defines the URI scope for target mappings
+    /// in ConceptMap resources. It specifies a URI that constrains which target
+    /// concepts are considered valid within the mapping context.
+    /// 
+    /// ## Purpose
+    /// 
+    /// - Define URI-based scope boundaries for target mappings
+    /// - Constrain target concept selection to specific URI-identified systems
+    /// - Enable scoped validation using URI references
+    /// - Support external system scope definitions
+    /// - Facilitate targeted mapping operations with URI constraints
+    /// 
+    /// ## Usage
+    /// 
+    /// The `targetScopeUri` property is used in ConceptMap resources to specify
+    /// a URI that defines the valid scope for target concepts in the mapping.
+    /// 
+    /// ## Data Type
+    /// 
+    /// **uri** - A URI reference identifying the scope
+    /// 
+    /// ## Constraints
+    /// 
+    /// - Must be a valid URI format
+    /// - Should be resolvable or recognizable as a scope identifier
+    /// - Should align with the mapping's target system requirements
+    /// - Must be consistent with business mapping requirements
+    /// - Should support the intended scope validation
+    /// 
+    /// ## Examples
+    /// 
+    /// ### External System URI Scope
+    /// 
+    /// ```json
+    /// {
+    ///   "targetScopeUri": "http://example.org/terminology/approved-codes"
+    /// }
+    /// ```
+    /// 
+    /// ### Namespace URI Scope
+    /// 
+    /// ```json
+    /// {
+    ///   "targetScopeUri": "urn:example:target-scope:formulary-2024"
+    /// }
+    /// ```
+    /// 
+    /// ## Related Keys
+    /// 
+    /// - `targetScopeCanonical` - Target scope canonical references
+    /// - `sourceScopeUri` - Source scope URI references
+    /// - `targetUri` - Target URI references
+    /// - `uri` - General URI fields
+    /// - `scope` - General scope definitions
+    /// 
+    /// ## Specification Reference
+    /// 
+    /// FHIR R5 ConceptMap:
+    /// [targetScope](http://hl7.org/fhir/R5/conceptmap-definitions.html#ConceptMap.targetScope_x_)
+    ///
     pub target_scope_uri: Option<String>,
 
-    /// Example: { "source" : "…", … }
-    pub group: ::serde_json::Value,
+    /// # group
+    /// 
+    /// ## Description
+    /// 
+    /// The `group` key is used in FHIR R5 ValueSet resources within the
+    /// expansion component to organize expansion entries into logical groups.
+    /// It provides a hierarchical structure for presenting value set expansion
+    /// results in a more organized and meaningful way.
+    /// 
+    /// ## Purpose
+    /// 
+    /// - Organizes value set expansion entries into logical groupings
+    /// - Provides hierarchical structure for complex expansions
+    /// - Enables better user interface presentation of value sets
+    /// - Supports categorization of codes within expansions
+    /// - Facilitates navigation of large value set expansions
+    /// 
+    /// ## Usage
+    /// 
+    /// The `group` appears in:
+    /// 
+    /// - **ValueSet**: Within `expansion` component
+    /// - **Terminology Services**: For structured expansion results
+    /// - **Code organization**: To group related concepts
+    /// - **UI presentation**: For organized display of value set contents
+    /// 
+    /// ## Data Type
+    /// 
+    /// **BackboneElement** - A complex structure containing:
+    /// - `identifier` - Unique identifier for the group
+    /// - `display` - Human-readable group name
+    /// - `contains` - Array of expansion entries in this group
+    /// - `inactive` - Whether the group is inactive
+    /// - `property` - Additional properties for the group
+    /// 
+    /// ## Constraints
+    /// 
+    /// - Groups can be nested to create hierarchical structures
+    /// - Must contain at least one expansion entry or sub-group
+    /// - Group identifiers should be unique within the expansion
+    /// - Display names should be meaningful for human readers
+    /// - Can contain both individual codes and other groups
+    /// 
+    /// ## Examples
+    /// 
+    /// ### Basic Value Set Group
+    /// ```json
+    /// {
+    ///   "group": [
+    ///     {
+    ///       "identifier": "medications",
+    ///       "display": "Medications",
+    ///       "contains": [
+    ///         {
+    ///           "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+    ///           "code": "1049502",
+    ///           "display": "Acetaminophen 325 MG Oral Tablet"
+    ///         }
+    ///       ]
+    ///     }
+    ///   ]
+    /// }
+    /// ```
+    /// 
+    /// ### Nested Group Structure
+    /// 
+    /// ```json
+    /// {
+    ///   "group": [
+    ///     {
+    ///       "identifier": "cardiovascular",
+    ///       "display": "Cardiovascular Medications",
+    ///       "group": [
+    ///         {
+    ///           "identifier": "beta-blockers",
+    ///           "display": "Beta Blockers",
+    ///           "contains": [
+    ///             {
+    ///               "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+    ///               "code": "866511",
+    ///               "display": "Metoprolol"
+    ///             }
+    ///           ]
+    ///         }
+    ///       ]
+    ///     }
+    ///   ]
+    /// }
+    /// ```
+    /// 
+    /// ## Related Keys
+    /// - `expansion` - Parent container for value set expansion
+    /// - `contains` - Individual entries within groups
+    /// - `identifier` - Unique identifiers for groups
+    /// - `display` - Human-readable group labels
+    /// - `property` - Additional group metadata
+    /// - `inactive` - Group status indicator
+    /// 
+    /// ## Specification Reference
+    /// - **FHIR R5 Specification**: [ValueSet -
+    ///   Expansion](http://hl7.org/fhir/R5/valueset.html#expansion)
+    /// - **Expansion Groups**:
+    ///   [ValueSet.expansion.group](http://hl7.org/fhir/R5/valueset-definitions.html#ValueSet.expansion.group)
+    /// - **Section**: ValueSet.expansion.group
+    /// - **Context**: Used in terminology services and value set expansions
+    ///
+    pub group: ::serde_json::Value, //TODO is this the same kind of `group` as expected?
 
-    /// TODO
+    /// # copyright
+    /// 
+    /// ## Description
+    /// 
+    /// The `copyright` field contains copyright and intellectual property
+    /// rights information for FHIR resources such as ImplementationGuide,
+    /// ValueSet, CodeSystem, and other definitional resources. It provides
+    /// legal notice about the ownership and usage rights of the resource.
+    /// 
+    /// ## Purpose
+    /// 
+    /// - Specify copyright ownership and intellectual property rights
+    /// - Provide legal notice for resource usage
+    /// - Indicate licensing terms and restrictions
+    /// - Support compliance with intellectual property requirements
+    /// - Enable proper attribution of resource authorship
+    /// 
+    /// ## Usage
+    /// 
+    /// The `copyright` field is commonly used in:
+    /// 
+    /// - **ImplementationGuide**: Copyright information for the entire guide
+    /// - **ValueSet**: Copyright for value set definitions and content
+    /// - **CodeSystem**: Copyright for code system definitions
+    /// - **StructureDefinition**: Copyright for profile definitions
+    /// - **Other definitional resources**: Any resource requiring copyright
+    ///   notice
+    /// 
+    /// ## Data Type
+    /// 
+    /// - **Type**: markdown
+    /// - **Cardinality**: 0..1
+    /// - **Format**: Markdown-formatted text allowing rich formatting
+    /// 
+    /// ## Constraints
+    /// 
+    /// - Should include clear copyright ownership statement
+    /// - Must comply with applicable copyright laws
+    /// - Should specify usage permissions and restrictions
+    /// - May reference external license terms
+    /// 
+    /// ## Examples
+    /// 
+    /// See the accompanying `example.json` for practical usage examples.
+    /// 
+    /// ## Related Keys
+    /// 
+    /// - `copyrightLabel`: Short copyright label for display
+    /// - `publisher`: Entity responsible for publication
+    /// - `contact`: Contact information for rights holder
+    /// - `useContext`: Context where copyright applies
+    /// - `jurisdiction`: Legal jurisdiction for copyright
+    /// 
+    /// ## Specification Reference
+    /// 
+    /// - [FHIR R5
+    ///   ImplementationGuide](https://hl7.org/fhir/R5/implementationguide.html)
+    /// - [FHIR R5 ValueSet](https://hl7.org/fhir/R5/valueset.html)
+    /// - [FHIR R5 CodeSystem](https://hl7.org/fhir/R5/codesystem.html)
+    /// 
     pub copyright: Option<String>,
 
     /// # purpose
@@ -1485,40 +2037,980 @@ pub struct Resource {
     /// 
     pub purpose: Option<String>,
 
-    /// TODO
+    /// # topic
+    /// 
+    /// ## Description
+    /// 
+    /// The `topic` property identifies the clinical or administrative topics
+    /// covered by a FHIR resource, enabling categorization and discovery.
+    /// 
+    /// ## Purpose
+    /// 
+    /// - Categorize resources by clinical topics
+    /// - Enable topic-based search and filtering
+    /// - Support knowledge organization
+    /// - Facilitate content discovery
+    /// - Enable topic-specific workflows
+    /// 
+    /// ## Usage
+    /// 
+    /// The `topic` property is used in knowledge resources like PlanDefinition,
+    /// ActivityDefinition, and others to identify covered topics.
+    /// 
+    /// ## Data Type
+    /// 
+    /// **CodeableConcept** - Coded topic classifications
+    /// 
+    /// ## Constraints
+    /// 
+    /// - Should use recognized topic vocabularies
+    /// - Must accurately represent resource content
+    /// - Should support discovery and categorization
+    /// - Can include multiple topics
+    /// 
+    /// ## Examples
+    /// 
+    /// ### Clinical Topic
+    /// ```json
+    /// {
+    ///   "topic": [{
+    ///     "coding": [{
+    ///       "system": "http://snomed.info/sct",
+    ///       "code": "73211009",
+    ///       "display": "Diabetes mellitus"
+    ///     }]
+    ///   }]
+    /// }
+    /// ```
+    /// 
+    /// ## Related Keys
+    /// 
+    /// - `category` - General categories
+    /// - `type` - Resource types
+    /// - `subject` - Subject references
+    /// - `useContext` - Usage contexts
+    /// 
+    /// ## Specification Reference
+    /// 
+    /// FHIR R5 Metadata:
+    /// [topic](http://hl7.org/fhir/R5/metadatatypes.html#UsageContext)
+    /// 
     pub topic: Option<Vec<Topic>>,
 
-    /// TODO
+    /// # relatedArtifact
+    /// 
+    /// ## Description
+    /// 
+    /// The `relatedArtifact` property references external documents,
+    /// publications, websites, or other artifacts that are related to or
+    /// support the current resource. It provides citations, links, and metadata
+    /// about related materials.
+    /// 
+    /// ## Purpose
+    /// 
+    /// - Reference supporting literature and evidence
+    /// - Link to related guidelines, protocols, or standards
+    /// - Provide citations for clinical evidence
+    /// - Connect to external documentation and resources
+    /// - Support evidence-based practice and research
+    /// 
+    /// ## Usage
+    /// 
+    /// The `relatedArtifact` property is used across many FHIR resources to
+    /// reference external artifacts like publications, guidelines, or
+    /// supporting documentation that relate to the resource content.
+    /// 
+    /// ## Data Type
+    /// 
+    /// **RelatedArtifact** - A complex data type containing:
+    /// - `type` - Type of relationship (documentation, citation, etc.)
+    /// - `label` - Short label for the artifact
+    /// - `display` - Brief description
+    /// - `citation` - Bibliographic citation
+    /// - `url` - Link to the artifact
+    /// - `document` - Attached document
+    /// - `resource` - Reference to a FHIR resource
+    /// - `resourceReference` - Reference to a related resource
+    /// 
+    /// ## Constraints
+    /// 
+    /// - Must specify the type of relationship
+    /// - Should provide sufficient information to locate the artifact
+    /// - Either citation, url, document, or resource should be provided
+    /// - Citations should follow standard bibliographic formats
+    /// 
+    /// ## Examples
+    /// 
+    /// ### Citation to Published Study
+    /// ```json
+    /// {
+    ///   "relatedArtifact": [
+    ///     {
+    ///       "type": "citation",
+    ///       "label": "Primary Evidence",
+    ///       "display": "Randomized controlled trial on medication effectiveness",
+    ///       "citation": "Smith J, et al. Efficacy of Treatment X in Hypertension: A Randomized Controlled Trial. New England Journal of Medicine. 2024;380(1):23-31.",
+    ///       "url": "https://doi.org/10.1056/NEJMoa2024001"
+    ///     }
+    ///   ]
+    /// }
+    /// ```
+    /// 
+    /// ### Link to Clinical Guideline
+    /// ```json
+    /// {
+    ///   "relatedArtifact": [
+    ///     {
+    ///       "type": "documentation",
+    ///       "label": "Clinical Guideline",
+    ///       "display": "AHA/ACC Hypertension Guidelines 2024",
+    ///       "url": "https://www.ahajournals.org/hypertension-guidelines"
+    ///     }
+    ///   ]
+    /// }
+    /// ```
+    /// 
+    /// ## Related Keys
+    /// 
+    /// - `library` - References to logic libraries
+    /// - `extension` - Additional resource extensions
+    /// - `contained` - Contained resources
+    /// - `text` - Human-readable narrative
+    /// 
+    /// ## Specification Reference
+    /// 
+    /// FHIR R5 Data Types:
+    /// [RelatedArtifact](http://hl7.org/fhir/R5/metadatatypes.html#RelatedArtifact)
+    /// 
     pub related_artifact: Option<Vec<RelatedArtifact>>,
 
-    /// TODO
+    /// # property
+    /// 
+    /// ## Description
+    /// 
+    /// The `property` attribute defines additional properties and metadata
+    /// associated with concepts in a CodeSystem. It provides structured
+    /// information about concepts beyond the basic code, display, and
+    /// definition, enabling rich semantic descriptions and supporting complex
+    /// terminology operations. Properties can represent various aspects of
+    /// concepts including relationships, classifications, and computational
+    /// attributes.
+    /// 
+    /// ## Purpose
+    /// 
+    /// The `property` exists to provide extensible concept metadata that
+    /// enables:
+    /// 
+    /// - Rich semantic descriptions of terminology concepts
+    /// - Support for complex terminology relationships and hierarchies
+    /// - Computational attributes for terminology operations
+    /// - Classification and categorization information
+    /// - Version and lifecycle management of concepts
+    /// - Integration with external terminology systems and standards
+    /// 
+    /// ## Usage
+    /// 
+    /// Use the `property` attribute when:
+    /// 
+    /// - Defining concept metadata beyond basic identification
+    /// - Implementing hierarchical relationships between concepts
+    /// - Supporting advanced terminology operations and filtering
+    /// - Providing classification and categorization information
+    /// - Enabling computational processing of concepts
+    /// - Supporting concept lifecycle and version management
+    /// 
+    /// Properties are defined at the CodeSystem level and assigned values at
+    /// the concept level.
+    /// 
+    /// ## Data Type
+    /// 
+    /// **BackboneElement** - Property definition (at CodeSystem level):
+    /// 
+    /// - `code` (code) - Identifies the property
+    /// - `uri` (uri) - Formal identifier for the property
+    /// - `description` (string) - Description of the property
+    /// - `type` (code) - Data type (code, Coding, string, integer, boolean,
+    ///   dateTime, decimal)
+    /// 
+    /// **BackboneElement** - Property value (at concept level):
+    /// 
+    /// - `code` (code) - Identifies which property
+    /// - `value[x]` - The property value (type determined by property
+    ///   definition)
+    /// 
+    /// ## Constraints
+    /// 
+    /// - **Required**: Code is required for both property definitions and
+    ///   values
+    /// - **Cardinality**: 0..* (zero to many occurrences)
+    /// - **Type Consistency**: Property values must match the defined type
+    /// - **Code Uniqueness**: Property codes should be unique within a
+    ///   CodeSystem
+    /// - **URI Uniqueness**: Property URIs should be globally unique when
+    ///   present
+    /// - **Value Validation**: Property values should conform to their defined
+    ///   constraints
+    /// 
+    /// ## Examples
+    /// 
+    /// See the accompanying `example.json` file for a complete CodeSystem
+    /// resource demonstrating the `property` attribute with various property
+    /// types, relationships, and concept-level property values.
+    /// 
+    /// ## Related Keys
+    /// 
+    /// - `code` - Identifier for the property or concept
+    /// - `uri` - Formal URI identifier for the property
+    /// - `type` - Data type of property values
+    /// - `value[x]` - Property value with type-specific suffix
+    /// - `concept` - Parent concept containing property values
+    /// - `description` - Human-readable property description
+    /// - `filter` - Related element that can reference properties
+    /// 
+    /// ## Specification Reference
+    /// 
+    /// Based on FHIR R5 specification. For complete details, refer to the
+    /// official FHIR R5 documentation for CodeSystem resource and concept
+    /// property definitions.
+    /// 
     pub property: Option<Vec<Property>>,
 
-    /// TODO
+    /// # approvalDate
+    /// 
+    /// ## Description
+    /// 
+    /// The `approvalDate` property represents the date when a resource was
+    /// officially approved by the appropriate authority or governance body.
+    /// This date marks formal endorsement and authorization for use within the
+    /// intended context.
+    /// 
+    /// ## Purpose
+    /// 
+    /// - Track formal approval milestones in resource lifecycle
+    /// - Support governance and compliance requirements
+    /// - Provide audit trail for regulatory submissions
+    /// - Enable quality assurance and validation workflows
+    /// - Support version control and release management processes
+    /// 
+    /// ## Usage
+    /// 
+    /// The `approvalDate` property is used in various FHIR metadata resources
+    /// such as ImplementationGuide, ValueSet, CodeSystem, StructureDefinition,
+    /// and other knowledge artifacts that require formal approval processes
+    /// before publication or deployment.
+    /// 
+    /// ## Data Type
+    /// 
+    /// **date** - ISO 8601 date format (YYYY-MM-DD)
+    /// 
+    /// ## Constraints
+    /// 
+    /// - Must be a valid date in ISO 8601 format
+    /// - Should not be a future date (approval cannot be in the future)
+    /// - Should be on or after the creation/authoring date if specified
+    /// - May be the same as or different from publication date
+    /// - Optional - not all resources require formal approval processes
+    /// 
+    /// ## Examples
+    /// 
+    /// ### Implementation Guide with Approval Date
+    /// ```json
+    /// {
+    ///   "approvalDate": "2023-11-15",
+    ///   "date": "2023-12-01",
+    ///   "status": "active"
+    /// }
+    /// ```
+    /// 
+    /// ### ValueSet Approval Process
+    /// ```json
+    /// {
+    ///   "approvalDate": "2023-10-01",
+    ///   "lastReviewDate": "2023-09-15",
+    ///   "effectivePeriod": {
+    ///     "start": "2023-11-01"
+    ///   }
+    /// }
+    /// ```
+    /// 
+    /// ### Clinical Guideline Approval
+    /// ```json
+    /// {
+    ///   "approvalDate": "2023-08-30",
+    ///   "date": "2023-09-01",
+    ///   "publisher": "Clinical Guidelines Committee"
+    /// }
+    /// ```
+    /// 
+    /// ## Related Keys
+    /// 
+    /// - `date` - Publication or release date of the resource
+    /// - `lastReviewDate` - Most recent review date
+    /// - `effectivePeriod` - Period when the resource is effective
+    /// - `publisher` - Organization responsible for publishing
+    /// - `status` - Current status of the resource
+    /// 
+    /// ## Specification Reference
+    /// 
+    /// FHIR R5: [Common Metadata Elements - Approval
+    /// Date](http://hl7.org/fhir/R5/metadatatypes.html#PublicationMetadata.approvalDate)
+    /// 
     pub approval_date: Option<String>,
 
-    /// TODO
+    /// # lastReviewDate
+    /// 
+    /// ## Description
+    /// 
+    /// The `lastReviewDate` property specifies the date when the resource was
+    /// last reviewed for accuracy, currency, and completeness. This indicates
+    /// when the content was last validated by appropriate subject matter
+    /// experts.
+    /// 
+    /// ## Purpose
+    /// 
+    /// - Track when content was last reviewed for accuracy and currency
+    /// - Support governance and quality assurance processes
+    /// - Indicate the currency of the information for users
+    /// - Enable lifecycle management and review scheduling
+    /// 
+    /// ## Usage
+    /// 
+    /// The `lastReviewDate` property is used in knowledge artifacts and
+    /// conformance resources to track when the content was last formally
+    /// reviewed. This is different from the last modification date, as it
+    /// represents a formal review process rather than simple content changes.
+    /// 
+    /// ## Data Type
+    /// 
+    /// **date** - ISO 8601 date format (YYYY-MM-DD)
+    /// 
+    /// ## Constraints
+    /// 
+    /// - Must be a valid date in ISO 8601 format
+    /// - Should not be in the future
+    /// - Should be on or after the original publication date
+    /// - May be the same as or different from the publication date
+    /// 
+    /// ## Examples
+    /// 
+    /// ### CodeSystem with Review Date
+    /// 
+    /// ```json
+    /// {
+    ///   "resourceType": "CodeSystem",
+    ///   "url": "http://example.org/fhir/CodeSystem/example",
+    ///   "version": "1.2.0",
+    ///   "name": "ExampleCodeSystem",
+    ///   "status": "active",
+    ///   "date": "2023-01-15",
+    ///   "lastReviewDate": "2024-08-20",
+    ///   "publisher": "Example Organization"
+    /// }
+    /// ```
+    /// 
+    /// ### ValueSet with Review Information
+    /// 
+    /// ```json
+    /// {
+    ///   "resourceType": "ValueSet",
+    ///   "url": "http://example.org/fhir/ValueSet/medication-codes",
+    ///   "version": "2.1.0",
+    ///   "name": "MedicationCodes",
+    ///   "status": "active",
+    ///   "date": "2023-06-01",
+    ///   "lastReviewDate": "2024-06-01",
+    ///   "effectivePeriod": {
+    ///     "start": "2023-06-01"
+    ///   }
+    /// }
+    /// ```
+    /// 
+    /// ## Related Keys
+    /// 
+    /// - `date` - The publication or last change date
+    /// - `effectivePeriod` - The period during which the resource is effective
+    /// - `approvalDate` - Date of formal approval
+    /// - `version` - Version identifier that may change with reviews
+    /// 
+    /// ## Specification Reference
+    /// 
+    /// FHIR R5 MetadataResource:
+    /// [MetadataResource.lastReviewDate](http://hl7.org/fhir/R5/metadataresource.html#MetadataResource.lastReviewDate)
+    /// 
     pub last_review_date: Option<String>,
 
-    /// The author list of contact items for the work.
+    /// # author
+    /// 
+    /// ## Description
+    /// 
+    /// The `author` property identifies the individual, organization, or system responsible for creating, authoring, or originating a resource. It provides attribution and accountability for the content or data within the resource.
+    /// 
+    /// ## Purpose
+    /// 
+    /// - Establish accountability and responsibility for resource content
+    /// - Support attribution requirements for clinical and research data
+    /// - Enable contact and communication with content creators
+    /// - Provide audit trail for resource authorship
+    /// - Support workflow and approval processes
+    /// 
+    /// ## Usage
+    /// 
+    /// The `author` property appears in various FHIR resources including clinical documents, knowledge artifacts, and data collection resources. It typically references a Practitioner, Organization, Device, or Patient who created or is responsible for the content.
+    /// 
+    /// ## Data Type
+    /// 
+    /// **Reference** to Practitioner | PractitionerRole | Organization | Device | Patient | RelatedPerson
+    /// 
+    /// May also appear as **ContactDetail** in metadata resources
+    /// 
+    /// ## Constraints
+    /// 
+    /// - Must reference a valid FHIR resource of the appropriate type
+    /// - Should be resolvable if provided as a Reference
+    /// - Multiple authors are typically supported through arrays
+    /// - Should represent the actual author, not just a data entry person
+    /// 
+    /// ## Examples
+    /// 
+    /// ### Clinical Document Author
+    /// ```json
+    /// {
+    ///   "author": [
+    ///     {
+    ///       "reference": "Practitioner/dr-johnson",
+    ///       "display": "Dr. Sarah Johnson, MD"
+    ///     }
+    ///   ]
+    /// }
+    /// ```
+    /// 
+    /// ### Knowledge Resource with Multiple Authors
+    /// ```json
+    /// {
+    ///   "author": [
+    ///     {
+    ///       "name": "Clinical Guidelines Committee",
+    ///       "telecom": [
+    ///         {
+    ///           "system": "email",
+    ///           "value": "guidelines@hospital.org"
+    ///         }
+    ///       ]
+    ///     },
+    ///     {
+    ///       "name": "Dr. Michael Smith",
+    ///       "telecom": [
+    ///         {
+    ///           "system": "email", 
+    ///           "value": "msmith@hospital.org"
+    ///         }
+    ///       ]
+    ///     }
+    ///   ]
+    /// }
+    /// ```
+    /// 
+    /// ## Related Keys
+    /// 
+    /// - `subject` - The focus or subject of the resource
+    /// - `performer` - Who performed an action or procedure
+    /// - `contact` - Contact information for the resource
+    /// - `publisher` - Organization responsible for publishing
+    /// - `editor` - Those who edited or reviewed the content
+    /// 
+    /// ## Specification Reference
+    /// 
+    /// FHIR R5: [Resource Attribution](http://hl7.org/fhir/R5/) (varies by specific resource type)
+    /// 
     pub author: Option<Vec<Contact>>,
 
-    /// The editor list of contact items for the work.
-    pub editor: Option<Vec<Contact>>,
-
-    /// The endorser list of contact items for the work.
-    pub endorser: Option<Vec<Contact>>,
-
-    /// The reviewer list of contact items for the work.
+    /// # reviewer
+    /// 
+    /// ## Description
+    /// 
+    /// The `reviewer` property identifies individuals or organizations that
+    /// have reviewed a FHIR resource for accuracy, completeness, and
+    /// appropriateness.
+    /// 
+    /// ## Purpose
+    /// 
+    /// - Document review process and accountability
+    /// - Identify subject matter experts who validated content
+    /// - Support quality assurance workflows
+    /// - Enable reviewer contact for questions or updates
+    /// - Facilitate governance and approval tracking
+    /// 
+    /// ## Usage
+    /// 
+    /// The `reviewer` property is used in resources like ImplementationGuide,
+    /// ActivityDefinition, and other knowledge resources to document review
+    /// participation.
+    /// 
+    /// ## Data Type
+    /// 
+    /// **ContactDetail** - Contact information for reviewers
+    /// 
+    /// ## Constraints
+    /// 
+    /// - Should provide meaningful contact information
+    /// - Must identify actual reviewers
+    /// - Should support follow-up communication
+    /// - Can include multiple reviewers
+    /// 
+    /// ## Examples
+    /// 
+    /// ### Implementation Guide Reviewer
+    /// 
+    /// ```json
+    /// {
+    ///   "reviewer": [
+    ///     {
+    ///       "name": "Dr. Jane Smith",
+    ///       "telecom": [
+    ///         {
+    ///           "system": "email",
+    ///           "value": "jane.smith@example.org"
+    ///         }
+    ///       ]
+    ///     }
+    ///   ]
+    /// }
+    /// ```
+    /// 
+    /// ## Related Keys
+    /// 
+    /// - `author` - Resource authors
+    /// - `editor` - Resource editors
+    /// - `endorser` - Resource endorsers
+    /// - `contact` - General contacts
+    /// 
+    /// ## Specification Reference
+    /// 
+    /// FHIR R5 Metadata:
+    /// [reviewer](http://hl7.org/fhir/R5/metadatatypes.html#ContactDetail)
+    /// 
     pub reviewer: Option<Vec<Contact>>,
 
-    /// TODO
+    /// # editor
+    /// 
+    /// ## Description
+    /// 
+    /// The `editor` field identifies individuals or organizations who have
+    /// contributed to the editing and review of a FHIR resource, particularly
+    /// definitional resources like implementation guides, value sets, and
+    /// profiles. It acknowledges editorial contributions distinct from primary
+    /// authorship.
+    /// 
+    /// ## Purpose
+    /// 
+    /// - Acknowledge editorial contributions to FHIR resources
+    /// - Provide contact information for content editors
+    /// - Support resource governance and maintenance
+    /// - Enable collaboration and review processes
+    /// - Document editorial oversight and review
+    /// 
+    /// ## Usage
+    /// 
+    /// The `editor` field is commonly used in:
+    /// 
+    /// - **ImplementationGuide**: Editorial contributors to the guide
+    /// - **ValueSet**: Editors who reviewed and refined value sets
+    /// - **CodeSystem**: Editorial oversight for code system development
+    /// - **StructureDefinition**: Profile editors and reviewers
+    /// - **Library**: Clinical logic editors and validators
+    /// 
+    /// ## Data Type
+    /// 
+    /// - **Type**: ContactDetail
+    /// - **Cardinality**: 0..*
+    /// - **Components**:
+    ///   - `name`: Name of the editor
+    ///   - `telecom`: Contact information for the editor
+    /// 
+    /// ## Constraints
+    /// 
+    /// - Should represent actual editorial contributors
+    /// - Contact information should be current and valid
+    /// - Must distinguish from primary authors
+    /// - Should reflect actual editorial role and contribution
+    /// 
+    /// ## Examples
+    /// 
+    /// See the accompanying `example.json` for practical usage examples.
+    /// 
+    /// ## Related Keys
+    /// 
+    /// - `author`: Primary authors of the resource
+    /// - `reviewer`: Reviewers of the resource
+    /// - `endorser`: Organizations that endorse the resource
+    /// - `contact`: General contact information
+    /// - `contributor`: Other types of contributors
+    /// 
+    /// ## Specification Reference
+    /// - [FHIR R5
+    ///   ImplementationGuide](https://hl7.org/fhir/R5/implementationguide.html)
+    /// - [FHIR R5
+    ///   ContactDetail](https://hl7.org/fhir/R5/metadatatypes.html#ContactDetail)
+    /// - [FHIR R5 Metadata
+    ///   Resources](https://hl7.org/fhir/R5/conformance-module.html)
+    /// 
+    pub editor: Option<Vec<Contact>>,
+
+    /// # endorser
+    /// 
+    /// ## Description
+    /// 
+    /// The `endorser` field identifies organizations or individuals who
+    /// formally endorse or approve a FHIR resource, particularly definitional
+    /// resources like implementation guides, value sets, and clinical
+    /// guidelines. It represents official organizational support or approval.
+    /// 
+    /// ## Purpose
+    /// 
+    /// - Document official endorsements and approvals
+    /// - Provide credibility and authority to resources
+    /// - Support governance and quality assurance processes
+    /// - Enable stakeholder identification and accountability
+    /// - Facilitate adoption and implementation decisions
+    /// 
+    /// ## Usage
+    /// 
+    /// The `endorser` field is commonly used in:
+    /// 
+    /// - **ImplementationGuide**: Organizations endorsing the implementation
+    ///   guide
+    /// - **ValueSet**: Professional societies endorsing value sets
+    /// - **CodeSystem**: Standards bodies endorsing code systems
+    /// - **Measure**: Quality organizations endorsing quality measures
+    /// - **Library**: Clinical societies endorsing decision support logic
+    /// 
+    /// ## Data Type
+    /// 
+    /// - **Type**: ContactDetail
+    /// - **Cardinality**: 0..*
+    /// - **Components**:
+    ///   - `name`: Name of the endorsing organization or individual
+    ///   - `telecom`: Contact information for the endorser
+    /// 
+    /// ## Constraints
+    /// 
+    /// - Should represent actual formal endorsements
+    /// - Contact information should be current and authoritative
+    /// - Must distinguish from authors, editors, and reviewers
+    /// - Should reflect official organizational approval
+    /// 
+    /// ## Examples
+    /// 
+    /// See the accompanying `example.json` for practical usage examples.
+    /// 
+    /// ## Related Keys
+    /// 
+    /// - `author`: Primary authors of the resource
+    /// - `editor`: Editorial contributors
+    /// - `reviewer`: Review contributors
+    /// - `publisher`: Publishing organization
+    /// - `contact`: General contact information
+    /// 
+    /// ## Specification Reference
+    /// 
+    /// - [FHIR R5
+    ///   ImplementationGuide](https://hl7.org/fhir/R5/implementationguide.html)
+    /// - [FHIR R5
+    ///   ContactDetail](https://hl7.org/fhir/R5/metadatatypes.html#ContactDetail)
+    /// - [FHIR R5 Metadata
+    ///   Resources](https://hl7.org/fhir/R5/conformance-module.html)
+    /// 
+    pub endorser: Option<Vec<Contact>>,
+
+    /// # effectivePeriod
+    /// 
+    /// ## Description
+    /// 
+    /// The `effectivePeriod` field specifies the time period during which a
+    /// resource, rule, or definition is considered active and valid. It defines
+    /// when the resource should be used or applied, supporting temporal aspects
+    /// of healthcare data and clinical decision-making.
+    /// 
+    /// ## Purpose
+    /// 
+    /// - Define validity timeframes for resources and definitions
+    /// - Support temporal clinical decision-making
+    /// - Enable time-based resource activation and deactivation
+    /// - Manage resource lifecycle and versioning
+    /// - Support historical and future-dated content
+    /// 
+    /// ## Usage
+    /// 
+    /// The `effectivePeriod` field is commonly used in:
+    /// 
+    /// - **ActivityDefinition**: When clinical activities should be performed
+    /// - **PlanDefinition**: Validity period for care plans
+    /// - **Measure**: Reporting periods for quality measures
+    /// - **Library**: Active period for clinical logic
+    /// - **EvidenceVariable**: Temporal scope of evidence
+    /// 
+    /// ## Data Type
+    /// 
+    /// - **Type**: Period
+    /// - **Cardinality**: 0..1
+    /// - **Components**:
+    ///   - `start`: Beginning of the effective period
+    ///   - `end`: End of the effective period
+    /// 
+    /// ## Constraints
+    /// 
+    /// - Start date should be before or equal to end date
+    /// - Periods should align with clinical or business requirements
+    /// - Must consider timezone implications for global use
+    /// - Should not conflict with resource status
+    /// 
+    /// ## Examples
+    /// 
+    /// See the accompanying `example.json` for practical usage examples.
+    /// 
+    /// ## Related Keys
+    /// 
+    /// - `date`: Resource creation or modification date
+    /// - `period`: General time periods in resources
+    /// - `status`: Resource lifecycle status
+    /// - `experimental`: Development status indicator
+    /// - `version`: Resource version identifier
+    /// 
+    /// ## Specification Reference
+    /// 
+    /// - [FHIR R5
+    ///   ActivityDefinition](https://hl7.org/fhir/R5/activitydefinition.html)
+    /// - [FHIR R5 PlanDefinition](https://hl7.org/fhir/R5/plandefinition.html)
+    /// - [FHIR R5 Period
+    ///   Datatype](https://hl7.org/fhir/R5/datatypes.html#Period)
+    /// 
     pub effective_period: Option<Range>,
 
-    /// Example: TODO
+    /// # additionalAttribute
+    /// 
+    /// ## Description
+    /// 
+    /// The `additionalAttribute` property defines extra attributes that can be
+    /// associated with concepts in a CodeSystem beyond the standard properties.
+    /// These attributes provide extended metadata and classification
+    /// capabilities for coded concepts.
+    /// 
+    /// ## Purpose
+    /// 
+    /// - Define custom properties for concepts beyond standard FHIR properties
+    /// - Support domain-specific metadata requirements
+    /// - Enable flexible concept classification and annotation
+    /// - Provide extensible property mechanisms for specialized terminologies
+    /// 
+    /// ## Usage
+    /// 
+    /// The `additionalAttribute` property is used within CodeSystem resources
+    /// to specify additional properties that can be assigned to concepts. These
+    /// properties extend the base concept model with custom attributes relevant
+    /// to the specific terminology domain.
+    /// 
+    /// ## Data Type
+    /// 
+    /// **array** of **CodeSystem.property** objects, each containing:
+    /// 
+    /// - `code` (string) - Unique identifier for the property
+    /// - `uri` (uri) - Optional URI that defines the property
+    /// - `description` (string) - Human-readable description of the property
+    /// - `type` (code) - Data type of the property value
+    ///   (code|Coding|string|integer|boolean|dateTime|decimal)
+    /// 
+    /// ## Constraints
+    /// 
+    /// - Property codes must be unique within the CodeSystem
+    /// - Property type must be one of the allowed FHIR property types
+    /// - Properties defined here can be referenced in concept.property elements
+    /// - Description should clearly explain the purpose and usage of the
+    ///   property
+    /// 
+    /// ## Examples
+    /// 
+    /// ### Clinical Terminology with Additional Attributes
+    /// 
+    /// ```json
+    /// {
+    ///   "property": [
+    ///     {
+    ///       "code": "status",
+    ///       "type": "code"
+    ///     }
+    ///   ],
+    ///   "additionalAttribute": [
+    ///     {
+    ///       "code": "clinicalSeverity",
+    ///       "description": "Clinical severity classification for the concept",
+    ///       "type": "code"
+    ///     },
+    ///     {
+    ///       "code": "bodySystem", 
+    ///       "description": "Primary body system affected",
+    ///       "type": "string"
+    ///     }
+    ///   ]
+    /// }
+    /// ```
+    /// 
+    /// ### Laboratory Code System with Custom Properties
+    /// 
+    /// ```json
+    /// {
+    ///   "additionalAttribute": [
+    ///     {
+    ///       "code": "specimen",
+    ///       "description": "Preferred specimen type for this test",
+    ///       "type": "code"
+    ///     },
+    ///     {
+    ///       "code": "methodType",
+    ///       "description": "Laboratory method category", 
+    ///       "type": "string"
+    ///     },
+    ///     {
+    ///       "code": "normalRange",
+    ///       "description": "Normal reference range",
+    ///       "type": "string"
+    ///     }
+    ///   ]
+    /// }
+    /// ```
+    /// 
+    /// ## Related Keys
+    /// 
+    /// - `property` - Standard properties defined for the CodeSystem
+    /// - `concept` - Concepts that may use these additional attributes
+    /// - `code` - Unique identifier for the CodeSystem
+    /// - `content` - Indicates how complete the CodeSystem content is
+    /// 
+    /// ## Specification Reference
+    /// 
+    /// FHIR R5 CodeSystem: [Property
+    /// Definition](http://hl7.org/fhir/R5/codesystem.html#CodeSystem.property)
+    /// 
     pub additional_attribute: Option<Vec<AdditionalAttribute>>,
 
-    // Example: TODO
+    /// # useContext
+    /// 
+    /// ## Description
+    /// 
+    /// The `useContext` property defines the specific contexts, situations, or
+    /// circumstances where a resource, profile, or artifact is intended to be
+    /// used. It provides machine-readable context information for appropriate
+    /// usage.
+    /// 
+    /// ## Purpose
+    /// 
+    /// - Define appropriate usage contexts for resources
+    /// - Enable context-aware resource discovery and selection
+    /// - Support automated filtering based on usage scenarios
+    /// - Facilitate implementation-specific resource management
+    /// - Provide semantic context for resource applicability
+    /// 
+    /// ## Usage
+    /// 
+    /// The `useContext` property is used in conformance and knowledge artifacts
+    /// to specify when and where they should be applied, helping systems choose
+    /// appropriate resources for specific situations.
+    /// 
+    /// ## Data Type
+    /// 
+    /// **Array of UsageContext** - Each UsageContext contains:
+    /// 
+    /// - `code` - The type of context (age, gender, species, etc.)
+    /// - `value[x]` - The specific context value (CodeableConcept, Quantity,
+    ///   Range, Reference)
+    /// 
+    /// ## Constraints
+    /// 
+    /// - Must specify both code and value
+    /// - Code must be from the usage-context-type value set
+    /// - Value type must be appropriate for the context code
+    /// - Should provide meaningful filtering criteria
+    /// 
+    /// ## Examples
+    /// 
+    /// ### Age and Gender Context
+    /// 
+    /// ```json
+    /// {
+    ///   "useContext": [
+    ///     {
+    ///       "code": {
+    ///         "system": "http://terminology.hl7.org/CodeSystem/usage-context-type",
+    ///         "code": "age",
+    ///         "display": "Age Range"
+    ///       },
+    ///       "valueRange": {
+    ///         "low": {
+    ///           "value": 18,
+    ///           "unit": "years"
+    ///         },
+    ///         "high": {
+    ///           "value": 65,
+    ///           "unit": "years"
+    ///         }
+    ///       }
+    ///     },
+    ///     {
+    ///       "code": {
+    ///         "system": "http://terminology.hl7.org/CodeSystem/usage-context-type",
+    ///         "code": "gender",
+    ///         "display": "Gender"
+    ///       },
+    ///       "valueCodeableConcept": {
+    ///         "coding": [
+    ///           {
+    ///             "system": "http://hl7.org/fhir/administrative-gender",
+    ///             "code": "female",
+    ///             "display": "Female"
+    ///           }
+    ///         ]
+    ///       }
+    ///     }
+    ///   ]
+    /// }
+    /// ```
+    /// 
+    /// ### Clinical Setting Context
+    /// 
+    /// ```json
+    /// {
+    ///   "useContext": [
+    ///     {
+    ///       "code": {
+    ///         "system": "http://terminology.hl7.org/CodeSystem/usage-context-type",
+    ///         "code": "venue",
+    ///         "display": "Clinical Venue"
+    ///       },
+    ///       "valueCodeableConcept": {
+    ///         "coding": [
+    ///           {
+    ///             "system": "http://snomed.info/sct",
+    ///             "code": "440655000",
+    ///             "display": "Outpatient environment"
+    ///           }
+    ///         ]
+    ///       }
+    ///     }
+    ///   ]
+    /// }
+    /// ```
+    /// 
+    /// ## Related Keys
+    /// 
+    /// - `jurisdiction` - Legal/geographic applicability
+    /// - `context` - Additional context information
+    /// - `topic` - Subject matter topics
+    /// - `purpose` - Intended purpose description
+    /// 
+    /// ## Specification Reference
+    /// 
+    /// FHIR R5 Data Types:
+    /// [UsageContext](http://hl7.org/fhir/R5/metadatatypes.html#UsageContext)
+    /// 
     pub use_context: Option<Vec<UseContext>>,
 }
 

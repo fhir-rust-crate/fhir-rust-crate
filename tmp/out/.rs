@@ -13,8 +13,8 @@
         // Allow unused crate::r5::types as types;
         #![allow(unused_imports)]
 
-        /// Use all the relevant parse types for the goal.
-        use crate::r5::parse::profiles_types::*;
+        /// Use the FHIR R5 datatypes referenced by this struct's fields.
+        use crate::r5::types;
 
         /// Use serde to serialize Rust into JSON and deserialize JSON to Rust.
         use ::serde::{Deserialize, Serialize};

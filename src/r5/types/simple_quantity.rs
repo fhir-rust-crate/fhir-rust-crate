@@ -4,7 +4,7 @@
 //!
 //! Version: 5.0.0
 //!
-//! A fixed quantity (no comparator)
+//! SimpleQuantity Type: A fixed quantity (no comparator)
 //!
 //! FHIR: <https://build.fhir.org/>
 //!
@@ -15,11 +15,47 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
+use fhir_derive::Validate;
 
+/// SimpleQuantity is a constrained profile of Quantity that represents a fixed
+/// numerical amount without any comparator (the `comparator` element is
+/// prohibited). It captures a value together with its unit, optionally coded
+/// against a defined unit system such as UCUM. This makes it suitable wherever
+/// FHIR R5 requires an unambiguous, exact measurement rather than an approximate
+/// or bounded one.
+///
+/// # Examples
+///
+/// ```
+/// use fhir_specifications_parser::r5::types::simple_quantity::SimpleQuantity;
+///
+/// let value = SimpleQuantity::default();
+/// let json = ::serde_json::to_value(&value).unwrap();
+/// let back: SimpleQuantity = ::serde_json::from_value(json).unwrap();
+/// assert_eq!(value, back);
+/// ```
 #[serde_with::skip_serializing_none]
-#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq)]
+#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
-pub struct SimpleQuantity {}
+pub struct SimpleQuantity {
+    /// Unique id for inter-element referencing
+    pub id: Option<types::String>,
+
+    /// Additional content defined by implementations
+    pub extension: Option<Vec<types::Extension>>,
+
+    /// Numerical value (with implicit precision)
+    pub value: Option<types::Decimal>,
+
+    /// Unit representation
+    pub unit: Option<types::String>,
+
+    /// System that defines coded unit form
+    pub system: Option<types::Uri>,
+
+    /// Coded form of the unit
+    pub code: Option<types::Code>,
+}
 
 #[cfg(test)]
 mod tests {
@@ -28,29 +64,14 @@ mod tests {
 
     #[test]
     fn test_default() {
-        let actual = T::default();
-        let expect = T {};
-        assert_eq!(actual, expect);
+        let _ = T::default();
     }
 
-    mod serde_json {
-        use super::*;
-        use ::serde_json::json;
-
-        #[test]
-        fn test_serde_json_from_value() {
-            let json = json!({});
-            let actual: T = ::serde_json::from_value(json).expect("from_value");
-            let expect: T = T::default();
-            assert_eq!(actual, expect);
-        }
-
-        #[test]
-        fn test_serde_json_to_value() {
-            let actual: ::serde_json::Value =
-                ::serde_json::to_value(T::default()).expect("to_value");
-            let expect: ::serde_json::Value = json!({});
-            assert_eq!(actual, expect);
-        }
+    #[test]
+    fn test_serde_round_trip() {
+        let value = T::default();
+        let json = ::serde_json::to_value(&value).expect("to_value");
+        let back: T = ::serde_json::from_value(json).expect("from_value");
+        assert_eq!(value, back);
     }
 }

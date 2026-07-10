@@ -1362,19 +1362,472 @@ pub struct Resource {
     /// 
     pub jurisdiction: Option<Vec<Jurisdiction>>,
 
-    /// Example: [{ "system": …", "value": "…" }]
+    /// # identifier
+    /// 
+    /// ## Description
+    /// 
+    /// The `identifier` key is used throughout FHIR R5 resources to provide a
+    /// unique identification for resources, elements, or entities. Identifiers
+    /// are used to maintain consistent references across systems and enable
+    /// interoperability by providing stable, unique identifiers that persist
+    /// across systems.
+    /// 
+    /// ## Purpose
+    /// 
+    /// - Provides unique identification for resources and entities
+    /// - Enables consistent referencing across different systems
+    /// - Supports resource matching and deduplication
+    /// - Facilitates interoperability between healthcare systems
+    /// - Maintains stable identifiers independent of resource IDs
+    /// 
+    /// ## Usage
+    /// 
+    /// The `identifier` appears in:
+    /// 
+    /// - **Most FHIR Resources**: As a primary identification mechanism
+    /// - **Patient**: Medical record numbers, SSN, insurance IDs
+    /// - **Practitioner**: License numbers, provider IDs
+    /// - **Organization**: Tax ID, accreditation numbers
+    /// - **Observation**: Lab order numbers, specimen IDs
+    /// 
+    /// ## Data Type
+    /// 
+    /// **Identifier** - A complex data type containing:
+    /// 
+    /// - `use` - Purpose of the identifier (usual, official, temp, secondary)
+    /// - `type` - Coded type of identifier
+    /// - `system` - Namespace for the identifier value
+    /// - `value` - The actual identifier value
+    /// - `period` - Time period when identifier is valid
+    /// - `assigner` - Organization that assigned the identifier
+    /// 
+    /// ## Constraints
+    /// 
+    /// - System and value combination should be unique within the namespace
+    /// - System should be a valid URI identifying the namespace
+    /// - Value must be provided if identifier is present
+    /// - Type should align with the identifier's purpose
+    /// - Multiple identifiers can be provided for a single resource
+    /// 
+    /// ## Examples
+    /// 
+    /// ### Basic Patient Medical Record Number
+    /// 
+    /// ```json
+    /// {
+    ///   "identifier": [
+    ///     {
+    ///       "use": "official",
+    ///       "type": {
+    ///         "coding": [
+    ///           {
+    ///             "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+    ///             "code": "MR",
+    ///             "display": "Medical Record Number"
+    ///           }
+    ///         ]
+    ///       },
+    ///       "system": "http://hospital.example.org/identifiers/mrn",
+    ///       "value": "12345678"
+    ///     }
+    ///   ]
+    /// }
+    /// ```
+    /// 
+    /// ### Multiple Identifier Types
+    /// 
+    /// ```json
+    /// {
+    ///   "identifier": [
+    ///     {
+    ///       "use": "official",
+    ///       "type": {
+    ///         "coding": [
+    ///           {
+    ///             "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+    ///             "code": "MR",
+    ///             "display": "Medical Record Number"
+    ///           }
+    ///         ]
+    ///       },
+    ///       "system": "http://hospital.example.org/identifiers/mrn",
+    ///       "value": "MRN123456",
+    ///       "assigner": {
+    ///         "display": "Example Hospital"
+    ///       }
+    ///     },
+    ///     {
+    ///       "use": "secondary",
+    ///       "type": {
+    ///         "coding": [
+    ///           {
+    ///             "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+    ///             "code": "SS",
+    ///             "display": "Social Security Number"
+    ///           }
+    ///         ]
+    ///       },
+    ///       "system": "http://hl7.org/fhir/sid/us-ssn",
+    ///       "value": "123-45-6789"
+    ///     }
+    ///   ]
+    /// }
+    /// ```
+    /// 
+    /// ## Related Keys
+    /// 
+    /// - `id` - Logical resource identifier
+    /// - `system` - Namespace for identifier values
+    /// - `value` - The actual identifier string
+    /// - `type` - Coded type of identifier
+    /// - `use` - Purpose classification
+    /// - `assigner` - Organization that issued identifier
+    /// - `reference` - References using identifiers
+    /// 
+    /// ## Specification Reference
+    /// 
+    /// - **FHIR R5 Specification**: [Identifier Data
+    ///   Type](http://hl7.org/fhir/R5/datatypes.html#Identifier)
+    /// - **Identifier Types**: [Identifier Type
+    ///   Codes](http://hl7.org/fhir/R5/valueset-identifier-type.html)
+    /// - **Section**: Used across multiple resource types
+    /// - **Context**: Primary identification mechanism in FHIR resources
+    /// 
     pub identifier: Option<Vec<Identifier>>,
 
-    /// Example: "caseSensitive" : true,
+    /// # caseSensitive
+    /// 
+    /// ## Description
+    /// 
+    /// The `caseSensitive` property indicates whether codes in a CodeSystem are
+    /// case-sensitive. When true, codes must match exactly including case; when
+    /// false, codes can be matched regardless of case differences.
+    /// 
+    /// ## Purpose
+    /// 
+    /// - Define case sensitivity rules for code matching and validation
+    /// - Support different coding system conventions and requirements
+    /// - Enable proper code comparison and lookup operations
+    /// - Prevent errors from case mismatches in clinical data
+    /// - Support international and legacy system variations
+    /// 
+    /// ## Usage
+    /// 
+    /// The `caseSensitive` property is used in CodeSystem resources to specify
+    /// how codes should be compared. This affects validation, terminology
+    /// services, and code lookup operations throughout the FHIR ecosystem.
+    /// 
+    /// ## Data Type
+    /// 
+    /// **boolean** - true if codes are case-sensitive, false if
+    /// case-insensitive
+    /// 
+    /// ## Constraints
+    /// 
+    /// - Must be a boolean value (true or false)
+    /// - If not specified, defaults to true (case-sensitive)
+    /// - Should be consistent across all codes in the CodeSystem
+    /// - Affects all code matching operations for the system
+    /// 
+    /// ## Examples
+    /// 
+    /// ### Case-Sensitive Code System
+    /// 
+    /// ```json
+    /// {
+    ///   "caseSensitive": true,
+    ///   "concept": [
+    ///     {
+    ///       "code": "Male",
+    ///       "display": "Male"
+    ///     },
+    ///     {
+    ///       "code": "MALE", 
+    ///       "display": "Male (uppercase variant)"
+    ///     }
+    ///   ]
+    /// }
+    /// ```
+    /// 
+    /// ### Case-Insensitive Code System
+    /// 
+    /// ```json
+    /// {
+    ///   "caseSensitive": false,
+    ///   "concept": [
+    ///     {
+    ///       "code": "active",
+    ///       "display": "Active"
+    ///     },
+    ///     {
+    ///       "code": "inactive",
+    ///       "display": "Inactive" 
+    ///     }
+    ///   ]
+    /// }
+    /// ```
+    /// 
+    /// ### Laboratory Code System (Case-Sensitive)
+    /// 
+    /// ```json
+    /// {
+    ///   "caseSensitive": true,
+    ///   "concept": [
+    ///     {
+    ///       "code": "GLU",
+    ///       "display": "Glucose"
+    ///     },
+    ///     {
+    ///       "code": "glu",
+    ///       "display": "Glutamine (different from GLU)"
+    ///     }
+    ///   ]
+    /// }
+    /// ```
+    /// 
+    /// ## Related Keys
+    /// 
+    /// - `code` - Individual codes within the CodeSystem
+    /// - `concept` - Concepts that contain the codes
+    /// - `property` - Additional properties for concepts
+    /// - `content` - Indicates how complete the CodeSystem is
+    /// 
+    /// ## Specification Reference
+    /// 
+    /// FHIR R5 CodeSystem: [Case
+    /// Sensitive](http://hl7.org/fhir/R5/codesystem.html#CodeSystem.caseSensitive)
+    /// 
     pub case_sensitive: Option<bool>,
 
-    /// Example: "complete",
+    /// # content
+    /// 
+    /// ## Description
+    /// 
+    /// The `content` field represents the actual content or data within a FHIR
+    /// resource or element. It is commonly used to hold the primary information
+    /// that the resource is meant to convey, such as the binary data in a
+    /// Binary resource or the narrative text in a DocumentReference.
+    /// 
+    /// ## Purpose
+    /// 
+    /// - Store the main content or data of a resource
+    /// - Provide the actual information being represented
+    /// - Support various content types and formats
+    /// - Enable attachment of binary or textual data to resources
+    /// 
+    /// ## Usage
+    /// 
+    /// The `content` field is used in multiple contexts:
+    /// 
+    /// - **Binary resources**: Contains base64-encoded binary data
+    /// - **DocumentReference**: References to document content
+    /// - **Media resources**: Multimedia content
+    /// - **Attachment elements**: File content within other resources
+    /// 
+    /// ## Data Type
+    /// 
+    /// - **Type**: Various (base64Binary, string, Attachment, etc.)
+    /// - **Cardinality**: Depends on context (0..1 or 0..*)
+    /// - **Format**: Context-dependent (binary, text, structured data)
+    /// 
+    /// ## Constraints
+    /// 
+    /// - Content must be appropriately encoded (base64 for binary)
+    /// - Size limitations may apply depending on implementation
+    /// - Content type should match declared media type
+    /// - Must conform to declared encoding
+    /// 
+    /// ## Examples
+    /// 
+    /// See the accompanying `example.json` for practical usage examples.
+    /// 
+    /// ## Related Keys
+    /// 
+    /// - `contentType`: Specifies the media type of content
+    /// - `data`: Alternative field for binary content
+    /// - `url`: Reference to external content location
+    /// - `attachment`: Structured content with metadata
+    /// - `text`: Narrative text content
+    /// 
+    /// ## Specification Reference
+    /// 
+    /// - [FHIR R5 Binary Resource](https://hl7.org/fhir/R5/binary.html)
+    /// - [FHIR R5 Attachment
+    ///   Datatype](https://hl7.org/fhir/R5/datatypes.html#Attachment)
+    /// - [FHIR R5
+    ///   DocumentReference](https://hl7.org/fhir/R5/documentreference.html)
+    /// 
     pub content: Option<String>,
 
-    /// TODO
+    /// # filter
+    /// 
+    /// ## Description
+    /// 
+    /// The `filter` attribute defines criteria for selecting concepts from a
+    /// code system during value set composition. It provides a mechanism to
+    /// include or exclude concepts based on their properties, relationships, or
+    /// other characteristics rather than listing individual concepts
+    /// explicitly. Filters enable dynamic value set construction based on
+    /// logical rules and support efficient management of large terminology
+    /// subsets.
+    /// 
+    /// ## Purpose
+    /// 
+    /// The `filter` exists to enable rule-based concept selection that
+    /// supports:
+    /// 
+    /// - Dynamic inclusion of concepts based on properties or relationships
+    /// - Efficient management of large terminology subsets
+    /// - Automated value set maintenance as terminologies evolve
+    /// - Flexible concept selection using various criteria
+    /// - Support for hierarchical and property-based filtering
+    /// - Reduced maintenance overhead for evolving value sets
+    /// 
+    /// ## Usage
+    /// 
+    /// Use the `filter` attribute when:
+    /// 
+    /// - Including/excluding concepts based on hierarchical relationships
+    ///   (is-a, child-of)
+    /// - Selecting concepts with specific property values
+    /// - Creating subsets of large terminologies dynamically
+    /// - Implementing concept filters based on status or other attributes
+    /// - Building value sets that automatically adapt to terminology changes
+    /// - Supporting complex inclusion/exclusion logic
+    /// 
+    /// Filters are used within include and exclude elements of ValueSet
+    /// composition to define selection criteria.
+    /// 
+    /// ## Data Type
+    /// 
+    /// **BackboneElement** - A complex structure containing:
+    /// 
+    /// - `property` (code) - The property to filter on
+    /// - `op` (code) - The operation to perform (is-a, descendent-of, is-not-a,
+    ///   regex, in, not-in, generalizes, exists)
+    /// - `value` (string) - The value to compare against
+    /// 
+    /// ## Constraints
+    /// 
+    /// - **Required**: Property, op, and value are required when filter is
+    ///   present
+    /// - **Cardinality**: 0..* (zero to many occurrences within
+    ///   include/exclude)
+    /// - **Property**: Must be a valid property code for the referenced code
+    ///   system
+    /// - **Operation**: Must be supported by the code system for the specified
+    ///   property
+    /// - **Value**: Must be appropriate for the property type and operation
+    /// - **Compatibility**: Filter operations must be supported by terminology
+    ///   servers
+    /// 
+    /// ## Examples
+    /// 
+    /// See the accompanying `example.json` file for a complete ValueSet
+    /// resource demonstrating the `filter` attribute with various operations
+    /// including hierarchical filtering, property-based selection, and regex
+    /// patterns.
+    /// 
+    /// ## Related Keys
+    /// 
+    /// - `property` - The concept property to filter on
+    /// - `op` - The filter operation to apply
+    /// - `value` - The value for comparison
+    /// - `include` - Container element for inclusion filters
+    /// - `exclude` - Container element for exclusion filters
+    /// - `system` - Code system to which the filter applies
+    /// - `concept` - Alternative to filter for explicit concept listing
+    /// 
+    /// ## Specification Reference
+    /// 
+    /// Based on FHIR R5 specification. For complete details, refer to the
+    /// official FHIR R5 documentation for ValueSet resource and filtering
+    /// operations.
+    /// 
     pub filter: Option<::serde_json::Value>,
 
-    /// TODO
+    /// # concept
+    /// 
+    /// ## Description
+    /// 
+    /// The `concept` attribute represents an individual concept definition
+    /// within a CodeSystem resource or specifies particular concepts to
+    /// include/exclude within a ValueSet composition. It contains the
+    /// fundamental information about a coded concept including its identifier,
+    /// display text, definition, and relationships. Concepts are the atomic
+    /// units of meaning in FHIR terminology and form the building blocks for
+    /// clinical and administrative coding.
+    /// 
+    /// ## Purpose
+    /// 
+    /// The `concept` exists to provide structured representation of terminology
+    /// concepts that enables:
+    /// 
+    /// - Detailed definition and documentation of coded concepts
+    /// - Hierarchical organization of related concepts
+    /// - Support for multiple display names and translations
+    /// - Concept properties and relationships
+    /// - Precise semantic meaning for healthcare data
+    /// - Interoperability across different terminology systems
+    /// 
+    /// ## Usage
+    /// 
+    /// Use the `concept` attribute when:
+    /// 
+    /// - Defining concepts within a CodeSystem resource
+    /// - Specifying particular concepts to include/exclude in ValueSet
+    ///   composition
+    /// - Building hierarchical terminology structures
+    /// - Providing detailed concept definitions and properties
+    /// - Supporting multilingual displays and translations
+    /// - Implementing concept-based filtering and expansion
+    /// 
+    /// Concepts can be nested to represent hierarchical relationships and
+    /// contain properties for additional metadata.
+    /// 
+    /// ## Data Type
+    /// 
+    /// **BackboneElement** - A complex structure containing:
+    /// 
+    /// - `code` (code) - The identifier for the concept
+    /// - `display` (string) - Human-readable display name
+    /// - `definition` (string) - Formal definition of the concept
+    /// - `designation` (array) - Additional display names and translations
+    /// - `property` (array) - Properties associated with the concept
+    /// - `concept` (array) - Child concepts for hierarchical organization
+    /// 
+    /// ## Constraints
+    /// 
+    /// - **Required**: Code is required when concept is present
+    /// - **Cardinality**: 0..* (zero to many occurrences)
+    /// - **Uniqueness**: Code must be unique within the same level of hierarchy
+    /// - **Hierarchy**: Child concepts inherit context from parent concepts
+    /// - **Properties**: Property codes must be defined in the CodeSystem
+    /// - **Display**: Display text should be appropriate for the target
+    ///   language
+    /// 
+    /// ## Examples
+    /// 
+    /// See the accompanying `example.json` file for a complete CodeSystem
+    /// resource demonstrating the `concept` attribute with hierarchical
+    /// organization, properties, designations, and multilingual support.
+    /// 
+    /// ## Related Keys
+    /// 
+    /// - `code` - The unique identifier for the concept
+    /// - `display` - Human-readable name for the concept
+    /// - `definition` - Formal definition text
+    /// - `designation` - Alternative display names and translations
+    /// - `property` - Additional concept properties and metadata
+    /// - `contains` - Related concept used in ValueSet expansions
+    /// - `system` - The code system containing the concept
+    /// 
+    /// ## Specification Reference
+    /// 
+    /// Based on FHIR R5 specification. For complete details, refer to the
+    /// official FHIR R5 documentation for CodeSystem resource and concept
+    /// definition principles.
+    /// 
     pub concept: Option<::serde_json::Value>,
 
     /// # purpose

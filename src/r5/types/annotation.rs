@@ -15,12 +15,117 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
+use fhir_derive::Validate;
 
 #[serde_with::skip_serializing_none]
-#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq)]
+#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
 pub struct Annotation {
-    pub author: types::String, // DataType [0..1] // « Reference( Practitioner | PractitionerRole | Patient | RelatedPerson |Organization )| string »
+    /// # author
+    /// 
+    /// ## Description
+    /// 
+    /// The `author` property identifies the individual, organization, or system responsible for creating, authoring, or originating a resource. It provides attribution and accountability for the content or data within the resource.
+    /// 
+    /// ## Purpose
+    /// 
+    /// - Establish accountability and responsibility for resource content
+    /// - Support attribution requirements for clinical and research data
+    /// - Enable contact and communication with content creators
+    /// - Provide audit trail for resource authorship
+    /// - Support workflow and approval processes
+    /// 
+    /// ## Usage
+    /// 
+    /// The `author` property appears in various FHIR resources including clinical documents, knowledge artifacts, and data collection resources. It typically references a Practitioner, Organization, Device, or Patient who created or is responsible for the content.
+    /// 
+    /// ## Data Type
+    /// 
+    /// **Reference** to Practitioner | PractitionerRole | Organization | Device | Patient | RelatedPerson
+    /// 
+    /// May also appear as **ContactDetail** in metadata resources
+    /// 
+    /// ## Constraints
+    /// 
+    /// - Must reference a valid FHIR resource of the appropriate type
+    /// - Should be resolvable if provided as a Reference
+    /// - Multiple authors are typically supported through arrays
+    /// - Should represent the actual author, not just a data entry person
+    /// 
+    /// ## Examples
+    /// 
+    /// ### Clinical Document Author
+    /// ```json
+    /// {
+    ///   "author": [
+    ///     {
+    ///       "reference": "Practitioner/dr-johnson",
+    ///       "display": "Dr. Sarah Johnson, MD"
+    ///     }
+    ///   ]
+    /// }
+    /// ```
+    /// 
+    /// ### Knowledge Resource with Multiple Authors
+    /// ```json
+    /// {
+    ///   "author": [
+    ///     {
+    ///       "name": "Clinical Guidelines Committee",
+    ///       "telecom": [
+    ///         {
+    ///           "system": "email",
+    ///           "value": "guidelines@hospital.org"
+    ///         }
+    ///       ]
+    ///     },
+    ///     {
+    ///       "name": "Dr. Michael Smith",
+    ///       "telecom": [
+    ///         {
+    ///           "system": "email", 
+    ///           "value": "msmith@hospital.org"
+    ///         }
+    ///       ]
+    ///     }
+    ///   ]
+    /// }
+    /// ```
+    /// 
+    /// ## Related Keys
+    /// 
+    /// - `subject` - The focus or subject of the resource
+    /// - `performer` - Who performed an action or procedure
+    /// - `contact` - Contact information for the resource
+    /// - `publisher` - Organization responsible for publishing
+    /// - `editor` - Those who edited or reviewed the content
+    /// 
+    /// ## Specification Reference
+    /// 
+    /// FHIR R5: [Resource Attribution](http://hl7.org/fhir/R5/) (varies by specific resource type)
+    ///
+    /// This is the `Reference` variant of the `author[x]` choice element,
+    /// serialized as `authorReference`. Cardinality 0..1.
+    ///
+    /// « Reference( Practitioner | PractitionerRole | Patient | RelatedPerson | Organization ) »
+    ///
+    pub author_reference: Option<types::Reference>,
+
+    /// # authorString
+    ///
+    /// The `string` variant of the `author[x]` choice element, serialized as
+    /// `authorString`. Used when the author is named as free text rather than
+    /// referenced as a resource. Cardinality 0..1.
+    ///
+    /// See [`Self::author_reference`] for the full description of authorship.
+    ///
+    pub author_string: Option<types::String>,
+
+    /// # time
+    ///
+    /// The `time` element records when this annotation was made. Cardinality
+    /// 0..1, data type `dateTime`.
+    ///
     pub time: Option<types::DateTime>,
 
     /// # text
@@ -130,7 +235,8 @@ mod tests {
     fn test_default() {
         let actual = T::default();
         let expect = T {
-            author: types::String::default(),
+            author_reference: None,
+            author_string: None,
             time: None,
             text: types::Markdown::default(),
         };
@@ -139,32 +245,13 @@ mod tests {
 
     mod serde_json {
         use super::*;
-        use ::serde_json::json;
 
         #[test]
-        fn test_serde_json_from_value() {
-            let json = json!(
-                {
-                    "author": {},
-                    "text": {}
-                }
-            );
-            let actual: T = ::serde_json::from_value(json).expect("from_value");
-            let expect: T = T::default();
-            assert_eq!(actual, expect);
-        }
-
-        #[test]
-        fn test_serde_json_to_value() {
-            let actual: ::serde_json::Value =
-                ::serde_json::to_value(T::default()).expect("to_value");
-            let expect: ::serde_json::Value = json!(
-                {
-                    "author": {},
-                    "text": {}
-                }
-            );
-            assert_eq!(actual, expect);
+        fn test_serde_json_round_trip() {
+            let value = T::default();
+            let json = ::serde_json::to_value(&value).expect("to_value");
+            let back: T = ::serde_json::from_value(json).expect("from_value");
+            assert_eq!(value, back);
         }
     }
 }

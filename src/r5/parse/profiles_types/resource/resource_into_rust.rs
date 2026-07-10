@@ -8,7 +8,7 @@ use std::path::PathBuf;
 ///
 /// Example:
 ///
-/// ```no_run
+/// ```text
 /// let resource = … // e.g. resource id AlfaBravo.
 /// let result = resource_into_rust(&resource);
 /// ```
@@ -24,8 +24,8 @@ pub fn resource_into_rust(resource: &Resource) -> std::io::Result<()> {
         resource.id.to_case(Case::Snake),
     );
     std::fs::write(
-        resource_into_rust_struct_path(&resource),
-        resource_into_rust_struct_block(&resource),
+        resource_into_rust_struct_path(resource),
+        resource_into_rust_struct_block(resource),
     )
 }
 
@@ -33,7 +33,7 @@ pub fn resource_into_rust(resource: &Resource) -> std::io::Result<()> {
 ///
 /// Example:
 ///
-/// ```no_run
+/// ```text
 /// let resource = … // e.g. resource id AlfaBravo.
 /// let path_buf = resource_into_rust_struct_path(&resource);
 /// ```
@@ -55,7 +55,7 @@ pub fn resource_into_rust_struct_path(resource: &Resource) -> PathBuf {
 ///
 /// Example:
 ///
-/// ```no_run
+/// ```text
 /// let resource = … // e.g. resource id AlfaBravo.
 /// let source_code_string = resource_into_rust_struct(&resource);
 /// ```
@@ -82,8 +82,8 @@ pub fn resource_into_rust_struct_block(resource: &Resource) -> SourceCodeString 
         // Allow unused crate::r5::types as types;
         #![allow(unused_imports)]
 
-        /// Use all the relevant parse types for the goal.
-        use crate::r5::parse::profiles_types::*;
+        /// Use the FHIR R5 datatypes referenced by this struct's fields.
+        use crate::r5::types;
 
         /// Use serde to serialize Rust into JSON and deserialize JSON to Rust.
         use ::serde::{{Deserialize, Serialize}};
@@ -145,14 +145,14 @@ pub fn resource_into_rust_struct_block(resource: &Resource) -> SourceCodeString 
 ///
 /// Example:
 ///
-/// ```no_run
+/// ```text
 /// let resource = … // e.g. resource id AlfaBravo.
 /// let attribute_block = resource_into_into_rust_struct_attribute_block(&resource);
 /// ```
 ///
 /// Output is approximately like this also with indentation:
 ///
-/// ```no_run
+/// ```text
 /// alfa: int,
 /// bravo: int,
 /// ```
@@ -164,15 +164,17 @@ pub fn resource_into_rust_struct_attribute_block(resource: &Resource) -> SourceC
             .element
             .iter()
             .map(element_into_rust_struct_attribute)
+            .filter(|s| !s.is_empty())
             .collect::<Vec<String>>()
             .join("\n"),
-        None => String::from(""),
+        None => String::new(),
     }
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::r5::parse::all::ElementType;
 
     #[test]
     fn test_resource_into_rust() {
@@ -187,13 +189,25 @@ mod tests {
             snapshot: Some(Snapshot {
                 element: vec![
                     Element {
-                        id: "Foo.alfa".into(),
+                        path: "Foo.alfa".into(),
                         short: Some(String::from("Short comment 0")),
+                        r#type: Some(vec![ElementType {
+                            code: "string".into(),
+                            ..ElementType::default()
+                        }]),
+                        min: Some(0),
+                        max: Some("1".into()),
                         ..Element::default()
                     },
                     Element {
-                        id: "Foo.bravo".into(),
+                        path: "Foo.bravo".into(),
                         short: Some(String::from("Short comment 1")),
+                        r#type: Some(vec![ElementType {
+                            code: "boolean".into(),
+                            ..ElementType::default()
+                        }]),
+                        min: Some(1),
+                        max: Some("1".into()),
                         ..Element::default()
                     },
                 ],
@@ -203,10 +217,10 @@ mod tests {
         let actual = resource_into_rust_struct_attribute_block(&resource);
         let expect = concat!(
             "    /// Short comment 0\n",
-            "    alfa: ? // ?\n",
+            "    pub alfa: Option<types::String>, // string [0..1]\n",
             "\n",
             "    /// Short comment 1\n",
-            "    bravo: ? // ?\n",
+            "    pub bravo: types::Boolean, // boolean [1..1]\n",
         );
         assert_eq!(actual, expect);
     }
@@ -222,8 +236,7 @@ mod tests {
             actual
                 .to_string_lossy()
                 .ends_with("/tmp/out/alfa_bravo_charlie.rs"),
-            "{:?}",
-            actual
+            "{actual:?}"
         );
     }
 

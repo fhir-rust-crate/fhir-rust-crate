@@ -16,41 +16,31 @@
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
 
-#[serde_with::skip_serializing_none]
-#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq)]
-#[serde(rename_all = "camelCase")]
-pub struct Decimal {}
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq)]
+pub struct Decimal(pub ::serde_json::Number);
+
+impl Default for Decimal {
+    fn default() -> Self {
+        Decimal(::serde_json::Number::from(0))
+    }
+}
 
 #[cfg(test)]
 mod tests {
     use super::*;
-    type T = Decimal;
+    use ::serde_json::json;
 
     #[test]
     fn test_default() {
-        let actual = T::default();
-        let expect = T {};
-        assert_eq!(actual, expect);
+        assert_eq!(Decimal::default(), Decimal(::serde_json::Number::from(0)));
     }
 
-    mod serde_json {
-        use super::*;
-        use ::serde_json::json;
-
-        #[test]
-        fn test_serde_json_from_value() {
-            let json = json!({});
-            let actual: T = ::serde_json::from_value(json).expect("from_value");
-            let expect: T = T::default();
-            assert_eq!(actual, expect);
-        }
-
-        #[test]
-        fn test_serde_json_to_value() {
-            let actual: ::serde_json::Value =
-                ::serde_json::to_value(T::default()).expect("to_value");
-            let expect: ::serde_json::Value = json!({});
-            assert_eq!(actual, expect);
-        }
+    #[test]
+    fn test_serde() {
+        let value = Decimal(::serde_json::Number::from_f64(3.5).unwrap());
+        let json = ::serde_json::to_value(&value).expect("to_value");
+        assert_eq!(json, json!(3.5));
+        let back: Decimal = ::serde_json::from_value(json).expect("from_value");
+        assert_eq!(value, back);
     }
 }

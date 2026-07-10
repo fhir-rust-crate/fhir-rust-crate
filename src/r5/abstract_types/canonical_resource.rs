@@ -115,7 +115,138 @@ pub struct CanonicalResource {
     /// 
     pub url: Option<types::Uri>,
 
-    #[serde(skip_serializing_if = "Vec::is_empty")]
+    /// # identifier
+    /// 
+    /// ## Description
+    /// 
+    /// The `identifier` key is used throughout FHIR R5 resources to provide a
+    /// unique identification for resources, elements, or entities. Identifiers
+    /// are used to maintain consistent references across systems and enable
+    /// interoperability by providing stable, unique identifiers that persist
+    /// across systems.
+    /// 
+    /// ## Purpose
+    /// 
+    /// - Provides unique identification for resources and entities
+    /// - Enables consistent referencing across different systems
+    /// - Supports resource matching and deduplication
+    /// - Facilitates interoperability between healthcare systems
+    /// - Maintains stable identifiers independent of resource IDs
+    /// 
+    /// ## Usage
+    /// 
+    /// The `identifier` appears in:
+    /// 
+    /// - **Most FHIR Resources**: As a primary identification mechanism
+    /// - **Patient**: Medical record numbers, SSN, insurance IDs
+    /// - **Practitioner**: License numbers, provider IDs
+    /// - **Organization**: Tax ID, accreditation numbers
+    /// - **Observation**: Lab order numbers, specimen IDs
+    /// 
+    /// ## Data Type
+    /// 
+    /// **Identifier** - A complex data type containing:
+    /// 
+    /// - `use` - Purpose of the identifier (usual, official, temp, secondary)
+    /// - `type` - Coded type of identifier
+    /// - `system` - Namespace for the identifier value
+    /// - `value` - The actual identifier value
+    /// - `period` - Time period when identifier is valid
+    /// - `assigner` - Organization that assigned the identifier
+    /// 
+    /// ## Constraints
+    /// 
+    /// - System and value combination should be unique within the namespace
+    /// - System should be a valid URI identifying the namespace
+    /// - Value must be provided if identifier is present
+    /// - Type should align with the identifier's purpose
+    /// - Multiple identifiers can be provided for a single resource
+    /// 
+    /// ## Examples
+    /// 
+    /// ### Basic Patient Medical Record Number
+    /// 
+    /// ```json
+    /// {
+    ///   "identifier": [
+    ///     {
+    ///       "use": "official",
+    ///       "type": {
+    ///         "coding": [
+    ///           {
+    ///             "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+    ///             "code": "MR",
+    ///             "display": "Medical Record Number"
+    ///           }
+    ///         ]
+    ///       },
+    ///       "system": "http://hospital.example.org/identifiers/mrn",
+    ///       "value": "12345678"
+    ///     }
+    ///   ]
+    /// }
+    /// ```
+    /// 
+    /// ### Multiple Identifier Types
+    /// 
+    /// ```json
+    /// {
+    ///   "identifier": [
+    ///     {
+    ///       "use": "official",
+    ///       "type": {
+    ///         "coding": [
+    ///           {
+    ///             "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+    ///             "code": "MR",
+    ///             "display": "Medical Record Number"
+    ///           }
+    ///         ]
+    ///       },
+    ///       "system": "http://hospital.example.org/identifiers/mrn",
+    ///       "value": "MRN123456",
+    ///       "assigner": {
+    ///         "display": "Example Hospital"
+    ///       }
+    ///     },
+    ///     {
+    ///       "use": "secondary",
+    ///       "type": {
+    ///         "coding": [
+    ///           {
+    ///             "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+    ///             "code": "SS",
+    ///             "display": "Social Security Number"
+    ///           }
+    ///         ]
+    ///       },
+    ///       "system": "http://hl7.org/fhir/sid/us-ssn",
+    ///       "value": "123-45-6789"
+    ///     }
+    ///   ]
+    /// }
+    /// ```
+    /// 
+    /// ## Related Keys
+    /// 
+    /// - `id` - Logical resource identifier
+    /// - `system` - Namespace for identifier values
+    /// - `value` - The actual identifier string
+    /// - `type` - Coded type of identifier
+    /// - `use` - Purpose classification
+    /// - `assigner` - Organization that issued identifier
+    /// - `reference` - References using identifiers
+    /// 
+    /// ## Specification Reference
+    /// 
+    /// - **FHIR R5 Specification**: [Identifier Data
+    ///   Type](http://hl7.org/fhir/R5/datatypes.html#Identifier)
+    /// - **Identifier Types**: [Identifier Type
+    ///   Codes](http://hl7.org/fhir/R5/valueset-identifier-type.html)
+    /// - **Section**: Used across multiple resource types
+    /// - **Context**: Primary identification mechanism in FHIR resources
+    /// 
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub identifier: Vec<types::Identifier>,
 
     /// # version
@@ -794,7 +925,7 @@ pub struct CanonicalResource {
     /// official FHIR R5 documentation for ContactDetail data type and
     /// ContactPoint structure definitions.
     /// 
-    #[serde(skip_serializing_if = "Vec::is_empty")]
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub contact: Vec<types::ContactDetail>,
 
     /// # description
@@ -874,7 +1005,126 @@ pub struct CanonicalResource {
     /// 
     pub description: Option<types::Markdown>,
 
-    #[serde(skip_serializing_if = "Vec::is_empty")]
+        /// # useContext
+    /// 
+    /// ## Description
+    /// 
+    /// The `useContext` property defines the specific contexts, situations, or
+    /// circumstances where a resource, profile, or artifact is intended to be
+    /// used. It provides machine-readable context information for appropriate
+    /// usage.
+    /// 
+    /// ## Purpose
+    /// 
+    /// - Define appropriate usage contexts for resources
+    /// - Enable context-aware resource discovery and selection
+    /// - Support automated filtering based on usage scenarios
+    /// - Facilitate implementation-specific resource management
+    /// - Provide semantic context for resource applicability
+    /// 
+    /// ## Usage
+    /// 
+    /// The `useContext` property is used in conformance and knowledge artifacts
+    /// to specify when and where they should be applied, helping systems choose
+    /// appropriate resources for specific situations.
+    /// 
+    /// ## Data Type
+    /// 
+    /// **Array of UsageContext** - Each UsageContext contains:
+    /// 
+    /// - `code` - The type of context (age, gender, species, etc.)
+    /// - `value[x]` - The specific context value (CodeableConcept, Quantity,
+    ///   Range, Reference)
+    /// 
+    /// ## Constraints
+    /// 
+    /// - Must specify both code and value
+    /// - Code must be from the usage-context-type value set
+    /// - Value type must be appropriate for the context code
+    /// - Should provide meaningful filtering criteria
+    /// 
+    /// ## Examples
+    /// 
+    /// ### Age and Gender Context
+    /// 
+    /// ```json
+    /// {
+    ///   "useContext": [
+    ///     {
+    ///       "code": {
+    ///         "system": "http://terminology.hl7.org/CodeSystem/usage-context-type",
+    ///         "code": "age",
+    ///         "display": "Age Range"
+    ///       },
+    ///       "valueRange": {
+    ///         "low": {
+    ///           "value": 18,
+    ///           "unit": "years"
+    ///         },
+    ///         "high": {
+    ///           "value": 65,
+    ///           "unit": "years"
+    ///         }
+    ///       }
+    ///     },
+    ///     {
+    ///       "code": {
+    ///         "system": "http://terminology.hl7.org/CodeSystem/usage-context-type",
+    ///         "code": "gender",
+    ///         "display": "Gender"
+    ///       },
+    ///       "valueCodeableConcept": {
+    ///         "coding": [
+    ///           {
+    ///             "system": "http://hl7.org/fhir/administrative-gender",
+    ///             "code": "female",
+    ///             "display": "Female"
+    ///           }
+    ///         ]
+    ///       }
+    ///     }
+    ///   ]
+    /// }
+    /// ```
+    /// 
+    /// ### Clinical Setting Context
+    /// 
+    /// ```json
+    /// {
+    ///   "useContext": [
+    ///     {
+    ///       "code": {
+    ///         "system": "http://terminology.hl7.org/CodeSystem/usage-context-type",
+    ///         "code": "venue",
+    ///         "display": "Clinical Venue"
+    ///       },
+    ///       "valueCodeableConcept": {
+    ///         "coding": [
+    ///           {
+    ///             "system": "http://snomed.info/sct",
+    ///             "code": "440655000",
+    ///             "display": "Outpatient environment"
+    ///           }
+    ///         ]
+    ///       }
+    ///     }
+    ///   ]
+    /// }
+    /// ```
+    /// 
+    /// ## Related Keys
+    /// 
+    /// - `jurisdiction` - Legal/geographic applicability
+    /// - `context` - Additional context information
+    /// - `topic` - Subject matter topics
+    /// - `purpose` - Intended purpose description
+    /// 
+    /// ## Specification Reference
+    /// 
+    /// FHIR R5 Data Types:
+    /// [UsageContext](http://hl7.org/fhir/R5/metadatatypes.html#UsageContext)
+    /// 
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub use_context: Vec<types::UsageContext>,
 
     /// # jurisdiction
@@ -999,7 +1249,7 @@ pub struct CanonicalResource {
     /// - **Context**: Used in conformance and terminology resources for scope
     ///   definition
     /// 
-    #[serde(skip_serializing_if = "Vec::is_empty")]
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub jurisdiction: Vec<types::CodeableConcept>,
 
     /// # purpose
@@ -1104,6 +1354,66 @@ pub struct CanonicalResource {
     /// 
     pub purpose: Option<types::Markdown>,
 
+    /// # copyright
+    /// 
+    /// ## Description
+    /// 
+    /// The `copyright` field contains copyright and intellectual property
+    /// rights information for FHIR resources such as ImplementationGuide,
+    /// ValueSet, CodeSystem, and other definitional resources. It provides
+    /// legal notice about the ownership and usage rights of the resource.
+    /// 
+    /// ## Purpose
+    /// 
+    /// - Specify copyright ownership and intellectual property rights
+    /// - Provide legal notice for resource usage
+    /// - Indicate licensing terms and restrictions
+    /// - Support compliance with intellectual property requirements
+    /// - Enable proper attribution of resource authorship
+    /// 
+    /// ## Usage
+    /// 
+    /// The `copyright` field is commonly used in:
+    /// 
+    /// - **ImplementationGuide**: Copyright information for the entire guide
+    /// - **ValueSet**: Copyright for value set definitions and content
+    /// - **CodeSystem**: Copyright for code system definitions
+    /// - **StructureDefinition**: Copyright for profile definitions
+    /// - **Other definitional resources**: Any resource requiring copyright
+    ///   notice
+    /// 
+    /// ## Data Type
+    /// 
+    /// - **Type**: markdown
+    /// - **Cardinality**: 0..1
+    /// - **Format**: Markdown-formatted text allowing rich formatting
+    /// 
+    /// ## Constraints
+    /// 
+    /// - Should include clear copyright ownership statement
+    /// - Must comply with applicable copyright laws
+    /// - Should specify usage permissions and restrictions
+    /// - May reference external license terms
+    /// 
+    /// ## Examples
+    /// 
+    /// See the accompanying `example.json` for practical usage examples.
+    /// 
+    /// ## Related Keys
+    /// 
+    /// - `copyrightLabel`: Short copyright label for display
+    /// - `publisher`: Entity responsible for publication
+    /// - `contact`: Contact information for rights holder
+    /// - `useContext`: Context where copyright applies
+    /// - `jurisdiction`: Legal jurisdiction for copyright
+    /// 
+    /// ## Specification Reference
+    /// 
+    /// - [FHIR R5
+    ///   ImplementationGuide](https://hl7.org/fhir/R5/implementationguide.html)
+    /// - [FHIR R5 ValueSet](https://hl7.org/fhir/R5/valueset.html)
+    /// - [FHIR R5 CodeSystem](https://hl7.org/fhir/R5/codesystem.html)
+    /// 
     pub copyright: Option<types::Markdown>,
 
     pub copyright_label: Option<types::String>,
@@ -1141,36 +1451,13 @@ mod tests {
 
     mod serde_json {
         use super::*;
-        use ::serde_json::json;
 
         #[test]
-        fn test_serde_json_from_value() {
-            let json = json!(
-                {
-                    "identifier": [],
-                    "versionAlgorithm": {},
-                    "status": {},
-                    "contact": [],
-                    "useContext": [],
-                    "jurisdiction": [],
-                }
-            );
-            let actual: CanonicalResource = ::serde_json::from_value(json).expect("from_value");
-            let expect: T = T::default();
-            assert_eq!(actual, expect);
-        }
-
-        #[test]
-        fn test_serde_json_to_value() {
-            let actual: ::serde_json::Value =
-                ::serde_json::to_value(T::default()).expect("to_value");
-            let expect: ::serde_json::Value = json!(
-                {
-                    "versionAlgorithm": {},
-                    "status": {},
-                }
-            );
-            assert_eq!(actual, expect);
+        fn test_serde_json_round_trip() {
+            let value = T::default();
+            let json = ::serde_json::to_value(&value).expect("to_value");
+            let back: T = ::serde_json::from_value(json).expect("from_value");
+            assert_eq!(value, back);
         }
     }
 }

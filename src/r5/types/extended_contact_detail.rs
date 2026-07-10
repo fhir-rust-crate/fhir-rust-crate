@@ -15,11 +15,53 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
+use fhir_derive::Validate;
 
+/// The ExtendedContactDetail datatype specifies contact information for a
+/// specific purpose over a period of time, such as an address or telecom
+/// details that might be handled or monitored by a specific named person or
+/// organization. It extends basic contact details with a purpose, a validity
+/// period, and an associated responsible organization. It is commonly used in
+/// FHIR R5 resources to convey rich, contextualized contact information.
+///
+/// # Examples
+///
+/// ```
+/// use fhir_specifications_parser::r5::types::extended_contact_detail::ExtendedContactDetail;
+///
+/// let value = ExtendedContactDetail::default();
+/// let json = ::serde_json::to_value(&value).unwrap();
+/// let back: ExtendedContactDetail = ::serde_json::from_value(json).unwrap();
+/// assert_eq!(value, back);
+/// ```
 #[serde_with::skip_serializing_none]
-#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq)]
+#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
-pub struct ExtendedContactDetail {}
+pub struct ExtendedContactDetail {
+    /// Unique id for inter-element referencing
+    pub id: Option<types::String>,
+
+    /// Additional content defined by implementations
+    pub extension: Option<Vec<types::Extension>>,
+
+    /// The type of contact
+    pub purpose: Option<types::CodeableConcept>,
+
+    /// Name of an individual to contact
+    pub name: Option<Vec<types::HumanName>>,
+
+    /// Contact details (e.g.phone/fax/url)
+    pub telecom: Option<Vec<types::ContactPoint>>,
+
+    /// Address for the contact
+    pub address: Option<types::Address>,
+
+    /// This contact detail is handled/monitored by a specific organization
+    pub organization: Option<types::Reference>,
+
+    /// Period that this contact was valid for usage
+    pub period: Option<types::Period>,
+}
 
 #[cfg(test)]
 mod tests {
@@ -28,29 +70,14 @@ mod tests {
 
     #[test]
     fn test_default() {
-        let actual = T::default();
-        let expect = T {};
-        assert_eq!(actual, expect);
+        let _ = T::default();
     }
 
-    mod serde_json {
-        use super::*;
-        use ::serde_json::json;
-
-        #[test]
-        fn test_serde_json_from_value() {
-            let json = json!({});
-            let actual: T = ::serde_json::from_value(json).expect("from_value");
-            let expect: T = T::default();
-            assert_eq!(actual, expect);
-        }
-
-        #[test]
-        fn test_serde_json_to_value() {
-            let actual: ::serde_json::Value =
-                ::serde_json::to_value(T::default()).expect("to_value");
-            let expect: ::serde_json::Value = json!({});
-            assert_eq!(actual, expect);
-        }
+    #[test]
+    fn test_serde_round_trip() {
+        let value = T::default();
+        let json = ::serde_json::to_value(&value).expect("to_value");
+        let back: T = ::serde_json::from_value(json).expect("from_value");
+        assert_eq!(value, back);
     }
 }

@@ -1,105 +1,110 @@
 //! Attachment
-//!
-//! URL: http://hl7.org/fhir/StructureDefinition/Attachment
-//!
-//! Version: 5.0.0
-//!
-//! Attachment Type: For referring to data content defined in other formats.
-//!
-//! FHIR: <https://build.fhir.org/>
-//!
-//! UML: <https://build.fhir.org/uml.html>
+        //!
+        //! URL: http://hl7.org/fhir/StructureDefinition/Attachment
+        //!
+        //! Version: 5.0.0
+        //!
+        //! Attachment Type: For referring to data content defined in other formats.
+        //!
+        //! FHIR: <https://build.fhir.org/>
+        //!
+        //! UML: <https://build.fhir.org/uml.html>
 
-// Allow unused crate::r5::types as types;
-#![allow(unused_imports)]
+        // Allow unused crate::r5::types as types;
+        #![allow(unused_imports)]
 
-use crate::r5::types;
-use ::serde::{Deserialize, Serialize};
+        /// Use the FHIR R5 datatypes referenced by this struct's fields.
+        use crate::r5::types;
 
-#[serde_with::skip_serializing_none]
-#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq)]
-#[serde(rename_all = "camelCase")]
-pub struct Attachment {
-    /// Content in a format defined elsewhere
-    Attachment: ? // ?
+        /// Use serde to serialize Rust into JSON and deserialize JSON to Rust.
+        use ::serde::{Deserialize, Serialize};
 
-    /// Unique id for inter-element referencing
-    id: ? // http://hl7.org/fhirpath/System.String
+        /// Skip serializing each attributes that is an option and set to none.
+        #[serde_with::skip_serializing_none]
+        /// Derive all our typical things for programming, serde, comparing, etc.
+        #[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq)]
+        /// Rename all the snake case Rust attributes into camel case JSON keys.
+        #[serde(rename_all = "camelCase")]
+#[serde(deny_unknown_fields)]
+        pub struct Attachment {
+            /// Unique id for inter-element referencing
+    pub id: Option<types::String>, // http://hl7.org/fhirpath/System.String [0..1]
 
     /// Additional content defined by implementations
-    extension: ? // Extension
+    pub extension: Option<Vec<types::Extension>>, // Extension [0..*]
 
     /// Mime type of the content, with charset etc.
-    contentType: ? // code
+    pub content_type: Option<types::Code>, // code [0..1]
 
     /// Human language of the content (BCP-47)
-    language: ? // code
+    pub language: Option<types::Code>, // code [0..1]
 
     /// Data inline, base64ed
-    data: ? // base64Binary
+    pub data: Option<types::Base64Binary>, // base64Binary [0..1]
 
     /// Uri where the data can be found
-    url: ? // url
+    pub url: Option<types::Url>, // url [0..1]
 
     /// Number of bytes of content (if url provided)
-    size: ? // integer64
+    pub size: Option<types::Integer64>, // integer64 [0..1]
 
     /// Hash of the data (sha-1, base64ed)
-    hash: ? // base64Binary
+    pub hash: Option<types::Base64Binary>, // base64Binary [0..1]
 
     /// Label to display in place of the data
-    title: ? // string
+    pub title: Option<types::String>, // string [0..1]
 
     /// Date attachment was first created
-    creation: ? // dateTime
+    pub creation: Option<types::DateTime>, // dateTime [0..1]
 
     /// Height of the image in pixels (photo/video)
-    height: ? // positiveInt
+    pub height: Option<types::PositiveInt>, // positiveInt [0..1]
 
     /// Width of the image in pixels (photo/video)
-    width: ? // positiveInt
+    pub width: Option<types::PositiveInt>, // positiveInt [0..1]
 
     /// Number of frames if > 1 (photo)
-    frames: ? // positiveInt
+    pub frames: Option<types::PositiveInt>, // positiveInt [0..1]
 
     /// Length in seconds (audio / video)
-    duration: ? // decimal
+    pub duration: Option<types::Decimal>, // decimal [0..1]
 
     /// Number of printed pages
-    pages: ? // positiveInt
+    pub pages: Option<types::PositiveInt>, // positiveInt [0..1]
 
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-    type T = Attachment;
-
-    #[test]
-    fn test_default() {
-        let actual = T::default();
-        let expect = T {};
-        assert_eq!(actual, expect);
-    }
-
-    mod serde_json {
-        use super::*;
-        use ::serde_json::json;
-
-        #[test]
-        fn test_serde_json_from_value() {
-            let json = json!({});
-            let actual: T = ::serde_json::from_value(json).expect("from_value");
-            let expect: T = T::default();
-            assert_eq!(actual, expect);
         }
 
-        #[test]
-        fn test_serde_json_to_value() {
-            let actual: ::serde_json::Value =
-                ::serde_json::to_value(T::default()).expect("to_value");
-            let expect: ::serde_json::Value = json!({});
-            assert_eq!(actual, expect);
+        #[cfg(test)]
+        mod tests {
+            use super::*;
+            type T = Attachment;
+
+            #[test]
+            fn test_default() {
+                let actual = T::default();
+                let expect = T {};
+                assert_eq!(actual, expect);
+            }
+
+            mod serde_json {
+                use super::*;
+                use ::serde_json::json;
+
+                #[test]
+                fn test_serde_json_from_value() {
+                    let json = json!({});
+                    let actual: T = ::serde_json::from_value(json).expect("from_value");
+                    let expect: T = T::default();
+                    assert_eq!(actual, expect);
+                }
+
+                #[test]
+                fn test_serde_json_to_value() {
+                    let actual: ::serde_json::Value =
+                        ::serde_json::to_value(T::default()).expect("to_value");
+                    let expect: ::serde_json::Value = json!({});
+                    assert_eq!(actual, expect);
+                }
+            }
         }
-    }
-}
+        

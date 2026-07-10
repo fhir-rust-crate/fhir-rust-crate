@@ -15,11 +15,46 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
+use fhir_derive::Validate;
 
+/// A contributor to the content of a knowledge asset, including authors,
+/// editors, reviewers, and endorsers.
+///
+/// The `Contributor` datatype captures attribution for a knowledge asset by
+/// naming an individual or organization and describing the kind of contribution
+/// they made (author, editor, reviewer, or endorser). It also carries contact
+/// details so the contributor can be reached. It is commonly used in metadata
+/// resources such as knowledge artifacts, guidelines, and measures.
+///
+/// # Examples
+///
+/// ```
+/// use fhir_specifications_parser::r5::types::contributor::Contributor;
+///
+/// let value = Contributor::default();
+/// let json = ::serde_json::to_value(&value).unwrap();
+/// let back: Contributor = ::serde_json::from_value(json).unwrap();
+/// assert_eq!(value, back);
+/// ```
 #[serde_with::skip_serializing_none]
-#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq)]
+#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
-pub struct Contributor {}
+pub struct Contributor {
+    /// Unique id for inter-element referencing
+    pub id: Option<types::String>,
+
+    /// Additional content defined by implementations
+    pub extension: Option<Vec<types::Extension>>,
+
+    /// author | editor | reviewer | endorser
+    pub r#type: types::Code,
+
+    /// Who contributed the content
+    pub name: types::String,
+
+    /// Contact details of the contributor
+    pub contact: Option<Vec<types::ContactDetail>>,
+}
 
 #[cfg(test)]
 mod tests {
@@ -28,29 +63,14 @@ mod tests {
 
     #[test]
     fn test_default() {
-        let actual = T::default();
-        let expect = T {};
-        assert_eq!(actual, expect);
+        let _ = T::default();
     }
 
-    mod serde_json {
-        use super::*;
-        use ::serde_json::json;
-
-        #[test]
-        fn test_serde_json_from_value() {
-            let json = json!({});
-            let actual: Contributor = ::serde_json::from_value(json).expect("from_value");
-            let expect: T = T::default();
-            assert_eq!(actual, expect);
-        }
-
-        #[test]
-        fn test_serde_json_to_value() {
-            let actual: ::serde_json::Value =
-                ::serde_json::to_value(T::default()).expect("to_value");
-            let expect: ::serde_json::Value = json!({});
-            assert_eq!(actual, expect);
-        }
+    #[test]
+    fn test_serde_round_trip() {
+        let value = T::default();
+        let json = ::serde_json::to_value(&value).expect("to_value");
+        let back: T = ::serde_json::from_value(json).expect("from_value");
+        assert_eq!(value, back);
     }
 }

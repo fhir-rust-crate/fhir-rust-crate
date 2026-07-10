@@ -1,0 +1,246 @@
+//! Ingredient
+//!
+//! URL: http://hl7.org/fhir/StructureDefinition/Ingredient
+//!
+//! Version: 5.0.0
+//!
+//! Ingredient Resource: An ingredient of a manufactured item or pharmaceutical product.
+//!
+//! FHIR: <https://build.fhir.org/>
+//!
+//! UML: <https://build.fhir.org/uml.html>
+
+// Allow unused crate::r5::types as types;
+#![allow(unused_imports)]
+
+use crate::r5::types;
+use ::serde::{Deserialize, Serialize};
+use fhir_derive::Validate;
+
+/// An ingredient of a manufactured item or pharmaceutical product.
+///
+/// The Ingredient resource describes a substance that is a constituent part of a
+/// manufactured item or a pharmaceutical product, including its role (such as
+/// active or inactive), the substance itself, and its strength expressed in a
+/// variety of ways. It is used in medicinal product definitions to capture the
+/// composition and regulatory information about each constituent.
+///
+/// # Examples
+///
+/// ```
+/// use fhir_specifications_parser::r5::resources::ingredient::Ingredient;
+///
+/// let value = Ingredient::default();
+/// let json = ::serde_json::to_value(&value).unwrap();
+/// let back: Ingredient = ::serde_json::from_value(json).unwrap();
+/// assert_eq!(value, back);
+/// ```
+#[serde_with::skip_serializing_none]
+#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[serde(rename_all = "camelCase")]
+pub struct Ingredient {
+    /// Logical id of this artifact
+    pub id: Option<types::String>,
+
+    /// Metadata about the resource
+    pub meta: Option<types::Meta>,
+
+    /// A set of rules under which this content was created
+    pub implicit_rules: Option<types::Uri>,
+
+    /// Language of the resource content
+    pub language: Option<types::Code>,
+
+    /// Text summary of the resource, for human interpretation
+    pub text: Option<types::Narrative>,
+
+    /// Contained, inline Resources
+    pub contained: Option<Vec<::serde_json::Value>>,
+
+    /// Additional content defined by implementations
+    pub extension: Option<Vec<types::Extension>>,
+
+    /// Extensions that cannot be ignored
+    pub modifier_extension: Option<Vec<types::Extension>>,
+
+    /// An identifier or code by which the ingredient can be referenced
+    pub identifier: Option<types::Identifier>,
+
+    /// draft | active | retired | unknown
+    pub status: types::Code,
+
+    /// The product which this ingredient is a constituent part of
+    pub r#for: Option<Vec<types::Reference>>,
+
+    /// Purpose of the ingredient within the product, e.g. active, inactive
+    pub role: types::CodeableConcept,
+
+    /// Precise action within the drug product, e.g. antioxidant, alkalizing agent
+    pub function: Option<Vec<types::CodeableConcept>>,
+
+    /// A classification of the ingredient according to where in the physical item it tends to be used
+    pub group: Option<types::CodeableConcept>,
+
+    /// If the ingredient is a known or suspected allergen
+    pub allergenic_indicator: Option<types::Boolean>,
+
+    /// A place for providing any notes that are relevant to the component
+    pub comment: Option<types::Markdown>,
+
+    /// An organization that manufactures this ingredient
+    pub manufacturer: Option<Vec<IngredientManufacturer>>,
+
+    /// The substance that comprises this ingredient
+    pub substance: IngredientSubstance,
+}
+
+/// An organization that manufactures this ingredient.
+#[serde_with::skip_serializing_none]
+#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[serde(rename_all = "camelCase")]
+pub struct IngredientManufacturer {
+    /// Unique id for inter-element referencing
+    pub id: Option<types::String>,
+
+    /// Additional content defined by implementations
+    pub extension: Option<Vec<types::Extension>>,
+
+    /// Extensions that cannot be ignored even if unrecognized
+    pub modifier_extension: Option<Vec<types::Extension>>,
+
+    /// allowed | possible | actual
+    pub role: Option<types::Code>,
+
+    /// An organization that manufactures this ingredient
+    pub manufacturer: types::Reference,
+}
+
+/// The substance that comprises this ingredient.
+#[serde_with::skip_serializing_none]
+#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[serde(rename_all = "camelCase")]
+pub struct IngredientSubstance {
+    /// Unique id for inter-element referencing
+    pub id: Option<types::String>,
+
+    /// Additional content defined by implementations
+    pub extension: Option<Vec<types::Extension>>,
+
+    /// Extensions that cannot be ignored even if unrecognized
+    pub modifier_extension: Option<Vec<types::Extension>>,
+
+    /// A code or full resource that represents the ingredient substance
+    pub code: types::CodeableReference,
+
+    /// The quantity of substance, per presentation, or per volume or mass, and type of quantity
+    pub strength: Option<Vec<IngredientSubstanceStrength>>,
+}
+
+/// The quantity of substance, per presentation, or per volume or mass, and type of quantity.
+#[serde_with::skip_serializing_none]
+#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[serde(rename_all = "camelCase")]
+pub struct IngredientSubstanceStrength {
+    /// Unique id for inter-element referencing
+    pub id: Option<types::String>,
+
+    /// Additional content defined by implementations
+    pub extension: Option<Vec<types::Extension>>,
+
+    /// Extensions that cannot be ignored even if unrecognized
+    pub modifier_extension: Option<Vec<types::Extension>>,
+
+    /// The quantity of substance in the unit of presentation
+    pub presentation_ratio: Option<types::Ratio>,
+
+    /// The quantity of substance in the unit of presentation
+    pub presentation_ratio_range: Option<types::RatioRange>,
+
+    /// The quantity of substance in the unit of presentation
+    pub presentation_codeable_concept: Option<types::CodeableConcept>,
+
+    /// The quantity of substance in the unit of presentation
+    pub presentation_quantity: Option<types::Quantity>,
+
+    /// Text of either the whole presentation strength or a part of it
+    pub text_presentation: Option<types::String>,
+
+    /// The strength per unitary volume (or mass)
+    pub concentration_ratio: Option<types::Ratio>,
+
+    /// The strength per unitary volume (or mass)
+    pub concentration_ratio_range: Option<types::RatioRange>,
+
+    /// The strength per unitary volume (or mass)
+    pub concentration_codeable_concept: Option<types::CodeableConcept>,
+
+    /// The strength per unitary volume (or mass)
+    pub concentration_quantity: Option<types::Quantity>,
+
+    /// Text of either the whole concentration strength or a part of it
+    pub text_concentration: Option<types::String>,
+
+    /// A code that indicates if the strength is based on the ingredient substance as stated or on the substance base
+    pub basis: Option<types::CodeableConcept>,
+
+    /// When strength is measured at a particular point or distance
+    pub measurement_point: Option<types::String>,
+
+    /// Where the strength range applies
+    pub country: Option<Vec<types::CodeableConcept>>,
+
+    /// Strength expressed in terms of a reference substance
+    pub reference_strength: Option<Vec<IngredientSubstanceStrengthReferenceStrength>>,
+}
+
+/// Strength expressed in terms of a reference substance.
+#[serde_with::skip_serializing_none]
+#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[serde(rename_all = "camelCase")]
+pub struct IngredientSubstanceStrengthReferenceStrength {
+    /// Unique id for inter-element referencing
+    pub id: Option<types::String>,
+
+    /// Additional content defined by implementations
+    pub extension: Option<Vec<types::Extension>>,
+
+    /// Extensions that cannot be ignored even if unrecognized
+    pub modifier_extension: Option<Vec<types::Extension>>,
+
+    /// Relevant reference substance
+    pub substance: types::CodeableReference,
+
+    /// Strength expressed in terms of a reference substance
+    pub strength_ratio: Option<types::Ratio>,
+
+    /// Strength expressed in terms of a reference substance
+    pub strength_ratio_range: Option<types::RatioRange>,
+
+    /// Strength expressed in terms of a reference substance
+    pub strength_quantity: Option<types::Quantity>,
+
+    /// When strength is measured at a particular point or distance
+    pub measurement_point: Option<types::String>,
+
+    /// Where the strength range applies
+    pub country: Option<Vec<types::CodeableConcept>>,
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    type T = Ingredient;
+
+    #[test]
+    fn test_default() {
+        let _ = T::default();
+    }
+
+    #[test]
+    fn test_serde_round_trip() {
+        let value = T::default();
+        let json = ::serde_json::to_value(&value).expect("to_value");
+        let back: T = ::serde_json::from_value(json).expect("from_value");
+        assert_eq!(value, back);
+    }
+}

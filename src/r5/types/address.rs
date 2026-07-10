@@ -15,9 +15,10 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
+use fhir_derive::Validate;
 
 #[serde_with::skip_serializing_none]
-#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq)]
+#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
 pub struct Address {
     #[serde(rename = "use")]
@@ -123,7 +124,7 @@ pub struct Address {
     /// 
     pub text: Option<types::String>,
 
-    #[serde(skip_serializing_if = "Vec::is_empty")]
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub line: Vec<types::String>,
 
     pub city: Option<types::String>,

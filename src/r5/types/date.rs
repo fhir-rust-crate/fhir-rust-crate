@@ -16,41 +16,25 @@
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
 
-#[serde_with::skip_serializing_none]
 #[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq)]
-#[serde(rename_all = "camelCase")]
-pub struct Date {}
+pub struct Date(pub std::string::String);
 
 #[cfg(test)]
 mod tests {
     use super::*;
-    type T = Date;
+    use ::serde_json::json;
 
     #[test]
     fn test_default() {
-        let actual = T::default();
-        let expect = T {};
-        assert_eq!(actual, expect);
+        assert_eq!(Date::default(), Date(std::string::String::new()));
     }
 
-    mod serde_json {
-        use super::*;
-        use ::serde_json::json;
-
-        #[test]
-        fn test_serde_json_from_value() {
-            let json = json!({});
-            let actual: T = ::serde_json::from_value(json).expect("from_value");
-            let expect: T = T::default();
-            assert_eq!(actual, expect);
-        }
-
-        #[test]
-        fn test_serde_json_to_value() {
-            let actual: ::serde_json::Value =
-                ::serde_json::to_value(T::default()).expect("to_value");
-            let expect: ::serde_json::Value = json!({});
-            assert_eq!(actual, expect);
-        }
+    #[test]
+    fn test_serde() {
+        let value = Date("abc".to_string());
+        let json = ::serde_json::to_value(&value).expect("to_value");
+        assert_eq!(json, json!("abc"));
+        let back: Date = ::serde_json::from_value(json).expect("from_value");
+        assert_eq!(value, back);
     }
 }

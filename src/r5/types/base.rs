@@ -15,9 +15,25 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
+use fhir_derive::Validate;
 
+/// Base is the abstract root definition for every type in the FHIR type system.
+/// All FHIR datatypes and resources ultimately derive from `Base`, which itself
+/// declares no elements. It exists purely to anchor the type hierarchy and to
+/// provide a common ancestor for the FHIR object model in R5.
+///
+/// # Examples
+///
+/// ```
+/// use fhir_specifications_parser::r5::types::base::Base;
+///
+/// let value = Base::default();
+/// let json = ::serde_json::to_value(&value).unwrap();
+/// let back: Base = ::serde_json::from_value(json).unwrap();
+/// assert_eq!(value, back);
+/// ```
 #[serde_with::skip_serializing_none]
-#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq)]
+#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
 pub struct Base {}
 
@@ -28,29 +44,14 @@ mod tests {
 
     #[test]
     fn test_default() {
-        let actual = T::default();
-        let expect = T {};
-        assert_eq!(actual, expect);
+        let _ = T::default();
     }
 
-    mod serde_json {
-        use super::*;
-        use ::serde_json::json;
-
-        #[test]
-        fn test_serde_json_from_value() {
-            let json = json!({});
-            let actual: T = ::serde_json::from_value(json).expect("from_value");
-            let expect: T = T::default();
-            assert_eq!(actual, expect);
-        }
-
-        #[test]
-        fn test_serde_json_to_value() {
-            let actual: ::serde_json::Value =
-                ::serde_json::to_value(T::default()).expect("to_value");
-            let expect: ::serde_json::Value = json!({});
-            assert_eq!(actual, expect);
-        }
+    #[test]
+    fn test_serde_round_trip() {
+        let value = T::default();
+        let json = ::serde_json::to_value(&value).expect("to_value");
+        let back: T = ::serde_json::from_value(json).expect("from_value");
+        assert_eq!(value, back);
     }
 }

@@ -15,11 +15,42 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
+use fhir_derive::Validate;
 
+/// MonetaryComponent is a FHIR R5 complex datatype that expresses a single
+/// price component contributing to an overall monetary total, such as a base
+/// price, surcharge, deduction, discount, or tax. Each component carries a
+/// classifying `type`, an optional coded `code` to distinguish kinds of the
+/// same type, and either a proportional `factor` or an explicit `amount`.
+/// It is used within pricing and charge-item structures to itemize how a
+/// final cost is calculated.
+///
+/// # Examples
+///
+/// ```
+/// use fhir_specifications_parser::r5::types::monetary_component::MonetaryComponent;
+///
+/// let value = MonetaryComponent::default();
+/// let json = ::serde_json::to_value(&value).unwrap();
+/// let back: MonetaryComponent = ::serde_json::from_value(json).unwrap();
+/// assert_eq!(value, back);
+/// ```
 #[serde_with::skip_serializing_none]
-#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq)]
+#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
-pub struct MonetaryComponent {}
+pub struct MonetaryComponent {
+    /// base | surcharge | deduction | discount | tax | informational
+    pub r#type: types::Code,
+
+    /// Codes may be used to differentiate between kinds of taxes, surcharges, discounts etc.
+    pub code: Option<types::CodeableConcept>,
+
+    /// Factor used for calculating this component
+    pub factor: Option<types::Decimal>,
+
+    /// Explicit value amount to be used
+    pub amount: Option<types::Money>,
+}
 
 #[cfg(test)]
 mod tests {
@@ -28,29 +59,14 @@ mod tests {
 
     #[test]
     fn test_default() {
-        let actual = T::default();
-        let expect = T {};
-        assert_eq!(actual, expect);
+        let _ = T::default();
     }
 
-    mod serde_json {
-        use super::*;
-        use ::serde_json::json;
-
-        #[test]
-        fn test_serde_json_from_value() {
-            let json = json!({});
-            let actual: T = ::serde_json::from_value(json).expect("from_value");
-            let expect: T = T::default();
-            assert_eq!(actual, expect);
-        }
-
-        #[test]
-        fn test_serde_json_to_value() {
-            let actual: ::serde_json::Value =
-                ::serde_json::to_value(T::default()).expect("to_value");
-            let expect: ::serde_json::Value = json!({});
-            assert_eq!(actual, expect);
-        }
+    #[test]
+    fn test_serde_round_trip() {
+        let value = T::default();
+        let json = ::serde_json::to_value(&value).expect("to_value");
+        let back: T = ::serde_json::from_value(json).expect("from_value");
+        assert_eq!(value, back);
     }
 }

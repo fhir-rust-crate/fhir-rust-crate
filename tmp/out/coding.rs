@@ -1,81 +1,86 @@
 //! Coding
-//!
-//! URL: http://hl7.org/fhir/StructureDefinition/Coding
-//!
-//! Version: 5.0.0
-//!
-//! Coding Type: A reference to a code defined by a terminology system.
-//!
-//! FHIR: <https://build.fhir.org/>
-//!
-//! UML: <https://build.fhir.org/uml.html>
+        //!
+        //! URL: http://hl7.org/fhir/StructureDefinition/Coding
+        //!
+        //! Version: 5.0.0
+        //!
+        //! Coding Type: A reference to a code defined by a terminology system.
+        //!
+        //! FHIR: <https://build.fhir.org/>
+        //!
+        //! UML: <https://build.fhir.org/uml.html>
 
-// Allow unused crate::r5::types as types;
-#![allow(unused_imports)]
+        // Allow unused crate::r5::types as types;
+        #![allow(unused_imports)]
 
-use crate::r5::types;
-use ::serde::{Deserialize, Serialize};
+        /// Use the FHIR R5 datatypes referenced by this struct's fields.
+        use crate::r5::types;
 
-#[serde_with::skip_serializing_none]
-#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq)]
-#[serde(rename_all = "camelCase")]
-pub struct Coding {
-    /// A reference to a code defined by a terminology system
-    Coding: ? // ?
+        /// Use serde to serialize Rust into JSON and deserialize JSON to Rust.
+        use ::serde::{Deserialize, Serialize};
 
-    /// Unique id for inter-element referencing
-    id: ? // http://hl7.org/fhirpath/System.String
+        /// Skip serializing each attributes that is an option and set to none.
+        #[serde_with::skip_serializing_none]
+        /// Derive all our typical things for programming, serde, comparing, etc.
+        #[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq)]
+        /// Rename all the snake case Rust attributes into camel case JSON keys.
+        #[serde(rename_all = "camelCase")]
+#[serde(deny_unknown_fields)]
+        pub struct Coding {
+            /// Unique id for inter-element referencing
+    pub id: Option<types::String>, // http://hl7.org/fhirpath/System.String [0..1]
 
     /// Additional content defined by implementations
-    extension: ? // Extension
+    pub extension: Option<Vec<types::Extension>>, // Extension [0..*]
 
     /// Identity of the terminology system
-    system: ? // uri
+    pub system: Option<types::Uri>, // uri [0..1]
 
     /// Version of the system - if relevant
-    version: ? // string
+    pub version: Option<types::String>, // string [0..1]
 
     /// Symbol in syntax defined by the system
-    code: ? // code
+    pub code: Option<types::Code>, // code [0..1]
 
     /// Representation defined by the system
-    display: ? // string
+    pub display: Option<types::String>, // string [0..1]
 
     /// If this coding was chosen directly by the user
-    userSelected: ? // boolean
+    pub user_selected: Option<types::Boolean>, // boolean [0..1]
 
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-    type T = Coding;
-
-    #[test]
-    fn test_default() {
-        let actual = T::default();
-        let expect = T {};
-        assert_eq!(actual, expect);
-    }
-
-    mod serde_json {
-        use super::*;
-        use ::serde_json::json;
-
-        #[test]
-        fn test_serde_json_from_value() {
-            let json = json!({});
-            let actual: T = ::serde_json::from_value(json).expect("from_value");
-            let expect: T = T::default();
-            assert_eq!(actual, expect);
         }
 
-        #[test]
-        fn test_serde_json_to_value() {
-            let actual: ::serde_json::Value =
-                ::serde_json::to_value(T::default()).expect("to_value");
-            let expect: ::serde_json::Value = json!({});
-            assert_eq!(actual, expect);
+        #[cfg(test)]
+        mod tests {
+            use super::*;
+            type T = Coding;
+
+            #[test]
+            fn test_default() {
+                let actual = T::default();
+                let expect = T {};
+                assert_eq!(actual, expect);
+            }
+
+            mod serde_json {
+                use super::*;
+                use ::serde_json::json;
+
+                #[test]
+                fn test_serde_json_from_value() {
+                    let json = json!({});
+                    let actual: T = ::serde_json::from_value(json).expect("from_value");
+                    let expect: T = T::default();
+                    assert_eq!(actual, expect);
+                }
+
+                #[test]
+                fn test_serde_json_to_value() {
+                    let actual: ::serde_json::Value =
+                        ::serde_json::to_value(T::default()).expect("to_value");
+                    let expect: ::serde_json::Value = json!({});
+                    assert_eq!(actual, expect);
+                }
+            }
         }
-    }
-}
+        

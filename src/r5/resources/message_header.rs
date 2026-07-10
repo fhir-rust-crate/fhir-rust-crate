@@ -1,0 +1,215 @@
+//! MessageHeader
+//!
+//! URL: http://hl7.org/fhir/StructureDefinition/MessageHeader
+//!
+//! Version: 5.0.0
+//!
+//! MessageHeader Resource: The header for a message exchange that is either requesting or responding to an action.
+//!
+//! FHIR: <https://build.fhir.org/>
+//!
+//! UML: <https://build.fhir.org/uml.html>
+
+// Allow unused crate::r5::types as types;
+#![allow(unused_imports)]
+
+use crate::r5::types;
+use ::serde::{Deserialize, Serialize};
+use fhir_derive::Validate;
+
+/// The header for a message exchange that is either requesting or responding
+/// to an action. The reference(s) that are the subject of the action as well
+/// as other information related to the action are typically transmitted in a
+/// bundle in which the MessageHeader resource instance is the first resource
+/// in the bundle. This resource conveys routing, source, destination, and
+/// response context for FHIR messaging.
+///
+/// # Examples
+///
+/// ```
+/// use fhir_specifications_parser::r5::resources::message_header::MessageHeader;
+///
+/// let value = MessageHeader::default();
+/// let json = ::serde_json::to_value(&value).unwrap();
+/// let back: MessageHeader = ::serde_json::from_value(json).unwrap();
+/// assert_eq!(value, back);
+/// ```
+#[serde_with::skip_serializing_none]
+#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[serde(rename_all = "camelCase")]
+pub struct MessageHeader {
+    /// Logical id of this artifact
+    pub id: Option<types::String>,
+
+    /// Metadata about the resource
+    pub meta: Option<types::Meta>,
+
+    /// A set of rules under which this content was created
+    pub implicit_rules: Option<types::Uri>,
+
+    /// Language of the resource content
+    pub language: Option<types::Code>,
+
+    /// Text summary of the resource, for human interpretation
+    pub text: Option<types::Narrative>,
+
+    /// Contained, inline Resources
+    pub contained: Option<Vec<::serde_json::Value>>,
+
+    /// Additional content defined by implementations
+    pub extension: Option<Vec<types::Extension>>,
+
+    /// Extensions that cannot be ignored
+    pub modifier_extension: Option<Vec<types::Extension>>,
+
+    /// Event code or link to EventDefinition
+    pub event_coding: Option<types::Coding>,
+
+    /// Event code or link to EventDefinition
+    pub event_canonical: Option<types::Canonical>,
+
+    /// Message destination application(s)
+    pub destination: Option<Vec<MessageHeaderDestination>>,
+
+    /// Real world sender of the message
+    pub sender: Option<types::Reference>,
+
+    /// The source of the decision
+    pub author: Option<types::Reference>,
+
+    /// Message source application
+    pub source: MessageHeaderSource,
+
+    /// Final responsibility for event
+    pub responsible: Option<types::Reference>,
+
+    /// Cause of event
+    pub reason: Option<types::CodeableConcept>,
+
+    /// If this is a reply to prior message
+    pub response: Option<MessageHeaderResponse>,
+
+    /// The actual content of the message
+    pub focus: Option<Vec<types::Reference>>,
+
+    /// Link to the definition for this message
+    pub definition: Option<types::Canonical>,
+}
+
+/// Message destination application(s).
+///
+/// The destination application(s) which the message is intended for, including
+/// the actual address or Endpoint resource and the intended real-world
+/// recipient for the data.
+#[serde_with::skip_serializing_none]
+#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[serde(rename_all = "camelCase")]
+pub struct MessageHeaderDestination {
+    /// Unique id for inter-element referencing
+    pub id: Option<types::String>,
+
+    /// Additional content defined by implementations
+    pub extension: Option<Vec<types::Extension>>,
+
+    /// Extensions that cannot be ignored even if unrecognized
+    pub modifier_extension: Option<Vec<types::Extension>>,
+
+    /// Actual destination address or Endpoint resource
+    pub endpoint_url: Option<types::Url>,
+
+    /// Actual destination address or Endpoint resource
+    pub endpoint_reference: Option<types::Reference>,
+
+    /// Name of system
+    pub name: Option<types::String>,
+
+    /// Particular delivery destination within the destination
+    pub target: Option<types::Reference>,
+
+    /// Intended "real-world" recipient for the data
+    pub receiver: Option<types::Reference>,
+}
+
+/// Message source application.
+///
+/// The source application from which this message originated, including the
+/// actual address or Endpoint resource, the name and version of the software,
+/// and a human contact for problems.
+#[serde_with::skip_serializing_none]
+#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[serde(rename_all = "camelCase")]
+pub struct MessageHeaderSource {
+    /// Unique id for inter-element referencing
+    pub id: Option<types::String>,
+
+    /// Additional content defined by implementations
+    pub extension: Option<Vec<types::Extension>>,
+
+    /// Extensions that cannot be ignored even if unrecognized
+    pub modifier_extension: Option<Vec<types::Extension>>,
+
+    /// Actual source address or Endpoint resource
+    pub endpoint_url: Option<types::Url>,
+
+    /// Actual source address or Endpoint resource
+    pub endpoint_reference: Option<types::Reference>,
+
+    /// Name of system
+    pub name: Option<types::String>,
+
+    /// Name of software running the system
+    pub software: Option<types::String>,
+
+    /// Version of software running
+    pub version: Option<types::String>,
+
+    /// Human contact for problems
+    pub contact: Option<types::ContactPoint>,
+}
+
+/// If this is a reply to prior message.
+///
+/// Information about the message that this message is a response to, present
+/// only if this message is a response. Carries the identifier of the original
+/// message, a status code, and an optional reference to details.
+#[serde_with::skip_serializing_none]
+#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[serde(rename_all = "camelCase")]
+pub struct MessageHeaderResponse {
+    /// Unique id for inter-element referencing
+    pub id: Option<types::String>,
+
+    /// Additional content defined by implementations
+    pub extension: Option<Vec<types::Extension>>,
+
+    /// Extensions that cannot be ignored even if unrecognized
+    pub modifier_extension: Option<Vec<types::Extension>>,
+
+    /// Bundle.identifier of original message
+    pub identifier: types::Identifier,
+
+    /// ok | transient-error | fatal-error
+    pub code: types::Code,
+
+    /// Specific list of hints/warnings/errors
+    pub details: Option<types::Reference>,
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    type T = MessageHeader;
+
+    #[test]
+    fn test_default() {
+        let _ = T::default();
+    }
+
+    #[test]
+    fn test_serde_round_trip() {
+        let value = T::default();
+        let json = ::serde_json::to_value(&value).expect("to_value");
+        let back: T = ::serde_json::from_value(json).expect("from_value");
+        assert_eq!(value, back);
+    }
+}

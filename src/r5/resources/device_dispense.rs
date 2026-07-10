@@ -1,0 +1,167 @@
+//! DeviceDispense
+//!
+//! URL: http://hl7.org/fhir/StructureDefinition/DeviceDispense
+//!
+//! Version: 5.0.0
+//!
+//! DeviceDispense Resource: Indicates that a device is to be or has been dispensed for a named person/patient.
+//!
+//! FHIR: <https://build.fhir.org/>
+//!
+//! UML: <https://build.fhir.org/uml.html>
+
+// Allow unused crate::r5::types as types;
+#![allow(unused_imports)]
+
+use crate::r5::types;
+use ::serde::{Deserialize, Serialize};
+use fhir_derive::Validate;
+
+/// Indicates that a device is to be or has been dispensed for a named
+/// person/patient. This includes a description of the product (supply)
+/// provided and the instructions for using the device. It records the
+/// event of dispensing devices such as durable medical equipment or
+/// point-of-care supplies to a patient or their caregiver.
+///
+/// # Examples
+///
+/// ```
+/// use fhir_specifications_parser::r5::resources::device_dispense::DeviceDispense;
+///
+/// let value = DeviceDispense::default();
+/// let json = ::serde_json::to_value(&value).unwrap();
+/// let back: DeviceDispense = ::serde_json::from_value(json).unwrap();
+/// assert_eq!(value, back);
+/// ```
+#[serde_with::skip_serializing_none]
+#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[serde(rename_all = "camelCase")]
+pub struct DeviceDispense {
+    /// Logical id of this artifact
+    pub id: Option<types::String>,
+
+    /// Metadata about the resource
+    pub meta: Option<types::Meta>,
+
+    /// A set of rules under which this content was created
+    pub implicit_rules: Option<types::Uri>,
+
+    /// Language of the resource content
+    pub language: Option<types::Code>,
+
+    /// Text summary of the resource, for human interpretation
+    pub text: Option<types::Narrative>,
+
+    /// Contained, inline Resources
+    pub contained: Option<Vec<::serde_json::Value>>,
+
+    /// Additional content defined by implementations
+    pub extension: Option<Vec<types::Extension>>,
+
+    /// Extensions that cannot be ignored
+    pub modifier_extension: Option<Vec<types::Extension>>,
+
+    /// Business identifier for this dispensation
+    pub identifier: Option<Vec<types::Identifier>>,
+
+    /// The order or request that this dispense is fulfilling
+    pub based_on: Option<Vec<types::Reference>>,
+
+    /// The bigger event that this dispense is a part of
+    pub part_of: Option<Vec<types::Reference>>,
+
+    /// preparation | in-progress | cancelled | on-hold | completed | entered-in-error | stopped | declined | unknown
+    pub status: types::Code,
+
+    /// Why a dispense was or was not performed
+    pub status_reason: Option<types::CodeableReference>,
+
+    /// Type of device dispense
+    pub category: Option<Vec<types::CodeableConcept>>,
+
+    /// What device was supplied
+    pub device: types::CodeableReference,
+
+    /// Who the dispense is for
+    pub subject: types::Reference,
+
+    /// Who collected the device or where the medication was delivered
+    pub receiver: Option<types::Reference>,
+
+    /// Encounter associated with event
+    pub encounter: Option<types::Reference>,
+
+    /// Information that supports the dispensing of the device
+    pub supporting_information: Option<Vec<types::Reference>>,
+
+    /// Who performed event
+    pub performer: Option<Vec<DeviceDispensePerformer>>,
+
+    /// Where the dispense occurred
+    pub location: Option<types::Reference>,
+
+    /// Trial fill, partial fill, emergency fill, etc
+    pub r#type: Option<types::CodeableConcept>,
+
+    /// Amount dispensed
+    pub quantity: Option<types::Quantity>,
+
+    /// When product was packaged and reviewed
+    pub prepared_date: Option<types::DateTime>,
+
+    /// When product was given out
+    pub when_handed_over: Option<types::DateTime>,
+
+    /// Where the device was sent or should be sent
+    pub destination: Option<types::Reference>,
+
+    /// Information about the dispense
+    pub note: Option<Vec<types::Annotation>>,
+
+    /// Full representation of the usage instructions
+    pub usage_instruction: Option<types::Markdown>,
+
+    /// A list of relevant lifecycle events
+    pub event_history: Option<Vec<types::Reference>>,
+}
+
+/// Indicates who or what performed the event, and how they were involved
+/// in the device dispensing.
+#[serde_with::skip_serializing_none]
+#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[serde(rename_all = "camelCase")]
+pub struct DeviceDispensePerformer {
+    /// Unique id for inter-element referencing
+    pub id: Option<types::String>,
+
+    /// Additional content defined by implementations
+    pub extension: Option<Vec<types::Extension>>,
+
+    /// Extensions that cannot be ignored even if unrecognized
+    pub modifier_extension: Option<Vec<types::Extension>>,
+
+    /// Who performed the dispense and what they did
+    pub function: Option<types::CodeableConcept>,
+
+    /// Individual who was performing
+    pub actor: types::Reference,
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    type T = DeviceDispense;
+
+    #[test]
+    fn test_default() {
+        let _ = T::default();
+    }
+
+    #[test]
+    fn test_serde_round_trip() {
+        let value = T::default();
+        let json = ::serde_json::to_value(&value).expect("to_value");
+        let back: T = ::serde_json::from_value(json).expect("from_value");
+        assert_eq!(value, back);
+    }
+}

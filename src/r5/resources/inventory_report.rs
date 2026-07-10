@@ -1,0 +1,166 @@
+//! InventoryReport
+//!
+//! URL: http://hl7.org/fhir/StructureDefinition/InventoryReport
+//!
+//! Version: 5.0.0
+//!
+//! InventoryReport Resource: A report of inventory or stock items.
+//!
+//! FHIR: <https://build.fhir.org/>
+//!
+//! UML: <https://build.fhir.org/uml.html>
+
+// Allow unused crate::r5::types as types;
+#![allow(unused_imports)]
+
+use crate::r5::types;
+use ::serde::{Deserialize, Serialize};
+use fhir_derive::Validate;
+
+/// A report of inventory or stock items.
+///
+/// An InventoryReport communicates the current or changed state of stock items
+/// held at one or more locations, either as a full snapshot or as a difference
+/// from a previous count. It groups items into inventory listing sections and,
+/// within each section, records the item type, category, and counted quantity.
+/// In FHIR R5 it supports supply-chain and stock-management workflows such as
+/// periodic counts, receipt of new arrivals, and reconciliation.
+///
+/// # Examples
+///
+/// ```
+/// use fhir_specifications_parser::r5::resources::inventory_report::InventoryReport;
+///
+/// let value = InventoryReport::default();
+/// let json = ::serde_json::to_value(&value).unwrap();
+/// let back: InventoryReport = ::serde_json::from_value(json).unwrap();
+/// assert_eq!(value, back);
+/// ```
+#[serde_with::skip_serializing_none]
+#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[serde(rename_all = "camelCase")]
+pub struct InventoryReport {
+    /// Logical id of this artifact
+    pub id: Option<types::String>,
+
+    /// Metadata about the resource
+    pub meta: Option<types::Meta>,
+
+    /// A set of rules under which this content was created
+    pub implicit_rules: Option<types::Uri>,
+
+    /// Language of the resource content
+    pub language: Option<types::Code>,
+
+    /// Text summary of the resource, for human interpretation
+    pub text: Option<types::Narrative>,
+
+    /// Contained, inline Resources
+    pub contained: Option<Vec<::serde_json::Value>>,
+
+    /// Additional content defined by implementations
+    pub extension: Option<Vec<types::Extension>>,
+
+    /// Extensions that cannot be ignored
+    pub modifier_extension: Option<Vec<types::Extension>>,
+
+    /// Business identifier for the report
+    pub identifier: Option<Vec<types::Identifier>>,
+
+    /// draft | requested | active | entered-in-error
+    pub status: types::Code,
+
+    /// snapshot | difference
+    pub count_type: types::Code,
+
+    /// addition | subtraction
+    pub operation_type: Option<types::CodeableConcept>,
+
+    /// The reason for this count - regular count, ad-hoc count, new arrivals, etc
+    pub operation_type_reason: Option<types::CodeableConcept>,
+
+    /// When the report has been submitted
+    pub reported_date_time: types::DateTime,
+
+    /// Who submits the report
+    pub reporter: Option<types::Reference>,
+
+    /// The period the report refers to
+    pub reporting_period: Option<types::Period>,
+
+    /// An inventory listing section (grouped by any of the attributes)
+    pub inventory_listing: Option<Vec<InventoryReportInventoryListing>>,
+
+    /// A note associated with the InventoryReport
+    pub note: Option<Vec<types::Annotation>>,
+}
+
+/// An inventory listing section (grouped by any of the attributes).
+#[serde_with::skip_serializing_none]
+#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[serde(rename_all = "camelCase")]
+pub struct InventoryReportInventoryListing {
+    /// Unique id for inter-element referencing
+    pub id: Option<types::String>,
+
+    /// Additional content defined by implementations
+    pub extension: Option<Vec<types::Extension>>,
+
+    /// Extensions that cannot be ignored even if unrecognized
+    pub modifier_extension: Option<Vec<types::Extension>>,
+
+    /// Location of the inventory items
+    pub location: Option<types::Reference>,
+
+    /// The status of the items that are being reported
+    pub item_status: Option<types::CodeableConcept>,
+
+    /// The date and time when the items were counted
+    pub counting_date_time: Option<types::DateTime>,
+
+    /// The item or items in this listing
+    pub item: Option<Vec<InventoryReportInventoryListingItem>>,
+}
+
+/// The item or items in this listing.
+#[serde_with::skip_serializing_none]
+#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[serde(rename_all = "camelCase")]
+pub struct InventoryReportInventoryListingItem {
+    /// Unique id for inter-element referencing
+    pub id: Option<types::String>,
+
+    /// Additional content defined by implementations
+    pub extension: Option<Vec<types::Extension>>,
+
+    /// Extensions that cannot be ignored even if unrecognized
+    pub modifier_extension: Option<Vec<types::Extension>>,
+
+    /// The inventory category or classification of the items being reported
+    pub category: Option<types::CodeableConcept>,
+
+    /// The quantity of the item or items being reported
+    pub quantity: types::Quantity,
+
+    /// The code or reference to the item type
+    pub item: types::CodeableReference,
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    type T = InventoryReport;
+
+    #[test]
+    fn test_default() {
+        let _ = T::default();
+    }
+
+    #[test]
+    fn test_serde_round_trip() {
+        let value = T::default();
+        let json = ::serde_json::to_value(&value).expect("to_value");
+        let back: T = ::serde_json::from_value(json).expect("from_value");
+        assert_eq!(value, back);
+    }
+}

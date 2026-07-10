@@ -22,7 +22,7 @@ pub mod profiles_types;
 pub mod search_parameters;
 pub mod value_sets;
 
-//// Namespace conveniences
+// Namespace conveniences
 
 use std::path::PathBuf;
 use std::sync::LazyLock;

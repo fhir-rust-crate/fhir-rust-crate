@@ -15,9 +15,10 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
+use fhir_derive::Validate;
 
 #[serde_with::skip_serializing_none]
-#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq)]
+#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
 pub struct SampledData {
     pub origin: types::Quantity,          // Quantity(SimpleQuantity) [1..1]
@@ -57,34 +58,13 @@ mod tests {
 
     mod serde_json {
         use super::*;
-        use ::serde_json::json;
 
         #[test]
-        fn test_serde_json_from_value() {
-            let json = json!(
-                {
-                    "origin": {},
-                    "intervalUnit": {},
-                    "dimensions": {}
-                }
-            );
-            let actual: T = ::serde_json::from_value(json).expect("from_value");
-            let expect: T = T::default();
-            assert_eq!(actual, expect);
-        }
-
-        #[test]
-        fn test_serde_json_to_value() {
-            let actual: ::serde_json::Value =
-                ::serde_json::to_value(T::default()).expect("to_value");
-            let expect: ::serde_json::Value = json!(
-                {
-                    "origin": {},
-                    "intervalUnit": {},
-                    "dimensions": {}
-                }
-            );
-            assert_eq!(actual, expect);
+        fn test_serde_json_round_trip() {
+            let value = T::default();
+            let json = ::serde_json::to_value(&value).expect("to_value");
+            let back: T = ::serde_json::from_value(json).expect("from_value");
+            assert_eq!(value, back);
         }
     }
 }

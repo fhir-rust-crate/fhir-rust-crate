@@ -1,0 +1,259 @@
+//! StructureDefinition
+//!
+//! URL: http://hl7.org/fhir/StructureDefinition/StructureDefinition
+//!
+//! Version: 5.0.0
+//!
+//! StructureDefinition Resource: A definition of a FHIR structure.
+//!
+//! FHIR: <https://build.fhir.org/>
+//!
+//! UML: <https://build.fhir.org/uml.html>
+
+// Allow unused crate::r5::types as types;
+#![allow(unused_imports)]
+
+use crate::r5::types;
+use ::serde::{Deserialize, Serialize};
+use fhir_derive::Validate;
+
+/// A definition of a FHIR structure.
+///
+/// This resource is used to describe the underlying resources, data types
+/// defined in FHIR, and also for describing extensions and constraints on
+/// resources and data types. StructureDefinition is a core piece of FHIR
+/// conformance tooling: profiles, extensions, and logical models are all
+/// expressed as StructureDefinition resources, holding both the snapshot and
+/// differential views of the elements they define or constrain.
+///
+/// # Examples
+///
+/// ```
+/// use fhir_specifications_parser::r5::resources::structure_definition::StructureDefinition;
+///
+/// let value = StructureDefinition::default();
+/// let json = ::serde_json::to_value(&value).unwrap();
+/// let back: StructureDefinition = ::serde_json::from_value(json).unwrap();
+/// assert_eq!(value, back);
+/// ```
+#[serde_with::skip_serializing_none]
+#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[serde(rename_all = "camelCase")]
+pub struct StructureDefinition {
+    /// Logical id of this artifact
+    pub id: Option<types::String>,
+
+    /// Metadata about the resource
+    pub meta: Option<types::Meta>,
+
+    /// A set of rules under which this content was created
+    pub implicit_rules: Option<types::Uri>,
+
+    /// Language of the resource content
+    pub language: Option<types::Code>,
+
+    /// Text summary of the resource, for human interpretation
+    pub text: Option<types::Narrative>,
+
+    /// Contained, inline Resources
+    pub contained: Option<Vec<::serde_json::Value>>,
+
+    /// Additional content defined by implementations
+    pub extension: Option<Vec<types::Extension>>,
+
+    /// Extensions that cannot be ignored
+    pub modifier_extension: Option<Vec<types::Extension>>,
+
+    /// Canonical identifier for this structure definition, represented as a URI (globally unique)
+    pub url: types::Uri,
+
+    /// Additional identifier for the structure definition
+    pub identifier: Option<Vec<types::Identifier>>,
+
+    /// Business version of the structure definition
+    pub version: Option<types::String>,
+
+    /// How to compare versions
+    pub version_algorithm_string: Option<types::String>,
+
+    /// How to compare versions
+    pub version_algorithm_coding: Option<types::Coding>,
+
+    /// Name for this structure definition (computer friendly)
+    pub name: types::String,
+
+    /// Name for this structure definition (human friendly)
+    pub title: Option<types::String>,
+
+    /// draft | active | retired | unknown
+    pub status: types::Code,
+
+    /// For testing purposes, not real usage
+    pub experimental: Option<types::Boolean>,
+
+    /// Date last changed
+    pub date: Option<types::DateTime>,
+
+    /// Name of the publisher/steward (organization or individual)
+    pub publisher: Option<types::String>,
+
+    /// Contact details for the publisher
+    pub contact: Option<Vec<types::ContactDetail>>,
+
+    /// Natural language description of the structure definition
+    pub description: Option<types::Markdown>,
+
+    /// The context that the content is intended to support
+    pub use_context: Option<Vec<types::UsageContext>>,
+
+    /// Intended jurisdiction for structure definition (if applicable)
+    pub jurisdiction: Option<Vec<types::CodeableConcept>>,
+
+    /// Why this structure definition is defined
+    pub purpose: Option<types::Markdown>,
+
+    /// Use and/or publishing restrictions
+    pub copyright: Option<types::Markdown>,
+
+    /// Copyright holder and year(s)
+    pub copyright_label: Option<types::String>,
+
+    /// Assist with indexing and finding
+    pub keyword: Option<Vec<types::Coding>>,
+
+    /// FHIR Version this StructureDefinition targets
+    pub fhir_version: Option<types::Code>,
+
+    /// External specification that the content is mapped to
+    pub mapping: Option<Vec<StructureDefinitionMapping>>,
+
+    /// primitive-type | complex-type | resource | logical
+    pub kind: types::Code,
+
+    /// Whether the structure is abstract
+    pub r#abstract: types::Boolean,
+
+    /// If an extension, where it can be used in instances
+    pub context: Option<Vec<StructureDefinitionContext>>,
+
+    /// FHIRPath invariants - when the extension can be used
+    pub context_invariant: Option<Vec<types::String>>,
+
+    /// Type defined or constrained by this structure
+    pub r#type: types::Uri,
+
+    /// Definition that this type is constrained/specialized from
+    pub base_definition: Option<types::Canonical>,
+
+    /// specialization | constraint - How relates to base definition
+    pub derivation: Option<types::Code>,
+
+    /// Snapshot view of the structure
+    pub snapshot: Option<StructureDefinitionSnapshot>,
+
+    /// Differential view of the structure
+    pub differential: Option<StructureDefinitionDifferential>,
+}
+
+/// External specification that the content is mapped to.
+#[serde_with::skip_serializing_none]
+#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[serde(rename_all = "camelCase")]
+pub struct StructureDefinitionMapping {
+    /// Unique id for inter-element referencing
+    pub id: Option<types::String>,
+
+    /// Additional content defined by implementations
+    pub extension: Option<Vec<types::Extension>>,
+
+    /// Extensions that cannot be ignored even if unrecognized
+    pub modifier_extension: Option<Vec<types::Extension>>,
+
+    /// Internal id when this mapping is used
+    pub identity: types::Id,
+
+    /// Identifies what this mapping refers to
+    pub uri: Option<types::Uri>,
+
+    /// Names what this mapping refers to
+    pub name: Option<types::String>,
+
+    /// Versions, Issues, Scope limitations etc
+    pub comment: Option<types::String>,
+}
+
+/// If an extension, where it can be used in instances.
+#[serde_with::skip_serializing_none]
+#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[serde(rename_all = "camelCase")]
+pub struct StructureDefinitionContext {
+    /// Unique id for inter-element referencing
+    pub id: Option<types::String>,
+
+    /// Additional content defined by implementations
+    pub extension: Option<Vec<types::Extension>>,
+
+    /// Extensions that cannot be ignored even if unrecognized
+    pub modifier_extension: Option<Vec<types::Extension>>,
+
+    /// fhirpath | element | extension
+    pub r#type: types::Code,
+
+    /// Where the extension can be used in instances
+    pub expression: types::String,
+}
+
+/// Snapshot view of the structure.
+#[serde_with::skip_serializing_none]
+#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[serde(rename_all = "camelCase")]
+pub struct StructureDefinitionSnapshot {
+    /// Unique id for inter-element referencing
+    pub id: Option<types::String>,
+
+    /// Additional content defined by implementations
+    pub extension: Option<Vec<types::Extension>>,
+
+    /// Extensions that cannot be ignored even if unrecognized
+    pub modifier_extension: Option<Vec<types::Extension>>,
+
+    /// Definition of elements in the resource (if no StructureDefinition)
+    pub element: Vec<types::ElementDefinition>,
+}
+
+/// Differential view of the structure.
+#[serde_with::skip_serializing_none]
+#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[serde(rename_all = "camelCase")]
+pub struct StructureDefinitionDifferential {
+    /// Unique id for inter-element referencing
+    pub id: Option<types::String>,
+
+    /// Additional content defined by implementations
+    pub extension: Option<Vec<types::Extension>>,
+
+    /// Extensions that cannot be ignored even if unrecognized
+    pub modifier_extension: Option<Vec<types::Extension>>,
+
+    /// Definition of elements in the resource (if no StructureDefinition)
+    pub element: Vec<types::ElementDefinition>,
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    type T = StructureDefinition;
+
+    #[test]
+    fn test_default() {
+        let _ = T::default();
+    }
+
+    #[test]
+    fn test_serde_round_trip() {
+        let value = T::default();
+        let json = ::serde_json::to_value(&value).expect("to_value");
+        let back: T = ::serde_json::from_value(json).expect("from_value");
+        assert_eq!(value, back);
+    }
+}

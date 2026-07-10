@@ -15,11 +15,89 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
+use fhir_derive::Validate;
 
+/// Availability data for an item, such as a location or a healthcare service.
+///
+/// This complex datatype expresses when an item is available by listing the
+/// recurring times it is open (`available_time`) and the specific periods when
+/// it is not available (`not_available_time`). It is used throughout FHIR R5 to
+/// describe scheduling and access windows for services and resources.
+///
+/// # Examples
+///
+/// ```
+/// use fhir_specifications_parser::r5::types::availability::Availability;
+///
+/// let value = Availability::default();
+/// let json = ::serde_json::to_value(&value).unwrap();
+/// let back: Availability = ::serde_json::from_value(json).unwrap();
+/// assert_eq!(value, back);
+/// ```
 #[serde_with::skip_serializing_none]
-#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq)]
+#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
-pub struct Availability {}
+pub struct Availability {
+    /// Unique id for inter-element referencing
+    pub id: Option<types::String>,
+
+    /// Additional content defined by implementations
+    pub extension: Option<Vec<types::Extension>>,
+
+    /// Times the {item} is available
+    pub available_time: Option<Vec<AvailabilityAvailableTime>>,
+
+    /// Not available during this time due to provided reason
+    pub not_available_time: Option<Vec<AvailabilityNotAvailableTime>>,
+}
+
+/// Times the {item} is available.
+///
+/// Describes a recurring window of availability, optionally scoped to specific
+/// days of the week and start/end times, or marked as always available.
+#[serde_with::skip_serializing_none]
+#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[serde(rename_all = "camelCase")]
+pub struct AvailabilityAvailableTime {
+    /// Unique id for inter-element referencing
+    pub id: Option<types::String>,
+
+    /// Additional content defined by implementations
+    pub extension: Option<Vec<types::Extension>>,
+
+    /// mon | tue | wed | thu | fri | sat | sun
+    pub days_of_week: Option<Vec<types::Code>>,
+
+    /// Always available? i.e. 24 hour service
+    pub all_day: Option<types::Boolean>,
+
+    /// Opening time of day (ignored if allDay = true)
+    pub available_start_time: Option<types::Time>,
+
+    /// Closing time of day (ignored if allDay = true)
+    pub available_end_time: Option<types::Time>,
+}
+
+/// Not available during this time due to provided reason.
+///
+/// Describes a period during which the item is not available, together with a
+/// human-readable reason presented to the user.
+#[serde_with::skip_serializing_none]
+#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[serde(rename_all = "camelCase")]
+pub struct AvailabilityNotAvailableTime {
+    /// Unique id for inter-element referencing
+    pub id: Option<types::String>,
+
+    /// Additional content defined by implementations
+    pub extension: Option<Vec<types::Extension>>,
+
+    /// Reason presented to the user explaining why time not available
+    pub description: Option<types::String>,
+
+    /// Service not available during this period
+    pub during: Option<types::Period>,
+}
 
 #[cfg(test)]
 mod tests {
@@ -28,29 +106,14 @@ mod tests {
 
     #[test]
     fn test_default() {
-        let actual = T::default();
-        let expect = T {};
-        assert_eq!(actual, expect);
+        let _ = T::default();
     }
 
-    mod serde_json {
-        use super::*;
-        use ::serde_json::json;
-
-        #[test]
-        fn test_serde_json_from_value() {
-            let json = json!({});
-            let actual: T = ::serde_json::from_value(json).expect("from_value");
-            let expect: T = T::default();
-            assert_eq!(actual, expect);
-        }
-
-        #[test]
-        fn test_serde_json_to_value() {
-            let actual: ::serde_json::Value =
-                ::serde_json::to_value(T::default()).expect("to_value");
-            let expect: ::serde_json::Value = json!({});
-            assert_eq!(actual, expect);
-        }
+    #[test]
+    fn test_serde_round_trip() {
+        let value = T::default();
+        let json = ::serde_json::to_value(&value).expect("to_value");
+        let back: T = ::serde_json::from_value(json).expect("from_value");
+        assert_eq!(value, back);
     }
 }

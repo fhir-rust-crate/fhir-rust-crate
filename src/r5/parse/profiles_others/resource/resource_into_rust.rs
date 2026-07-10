@@ -8,7 +8,7 @@ use std::path::PathBuf;
 ///
 /// Example:
 ///
-/// ```no_run
+/// ```text
 /// let resource = … // e.g. resource id AlfaBravo.
 /// let result = resource_into_rust(&resource);
 /// ```
@@ -24,8 +24,8 @@ pub fn resource_into_rust(resource: &Resource) -> std::io::Result<()> {
         resource.id.to_case(Case::Snake),
     );
     std::fs::write(
-        resource_into_rust_struct_path(&resource),
-        resource_into_rust_struct_block(&resource),
+        resource_into_rust_struct_path(resource),
+        resource_into_rust_struct_block(resource),
     )
 }
 
@@ -33,7 +33,7 @@ pub fn resource_into_rust(resource: &Resource) -> std::io::Result<()> {
 ///
 /// Example:
 ///
-/// ```no_run
+/// ```text
 /// let resource = … // e.g. resource id AlfaBravo.
 /// let path_buf = resource_into_rust_struct_path(&resource);
 /// ```
@@ -55,7 +55,7 @@ pub fn resource_into_rust_struct_path(resource: &Resource) -> PathBuf {
 ///
 /// Example:
 ///
-/// ```no_run
+/// ```text
 /// let resource = … // e.g. resource id AlfaBravo.
 /// let source_code_string = resource_into_rust_struct(&resource);
 /// ```
@@ -145,14 +145,14 @@ pub fn resource_into_rust_struct_block(resource: &Resource) -> SourceCodeString 
 ///
 /// Example:
 ///
-/// ```no_run
+/// ```text
 /// let resource = … // e.g. resource id AlfaBravo.
 /// let attribute_block = resource_into_into_rust_struct_attribute_block(&resource);
 /// ```
 ///
 /// Output is approximately like this also with indentation:
 ///
-/// ```no_run
+/// ```text
 /// alfa: int,
 /// bravo: int,
 /// ```
@@ -166,7 +166,7 @@ pub fn resource_into_rust_struct_attribute_block(resource: &Resource) -> SourceC
             .map(element_into_rust_struct_attribute)
             .collect::<Vec<String>>()
             .join("\n"),
-        None => String::from(""),
+        None => String::new(),
     }
 }
 
@@ -222,8 +222,7 @@ mod tests {
             actual
                 .to_string_lossy()
                 .ends_with("/tmp/out/alfa_bravo_charlie.rs"),
-            "{:?}",
-            actual
+            "{actual:?}"
         );
     }
 

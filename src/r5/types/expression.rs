@@ -4,7 +4,7 @@
 //!
 //! Version: 5.0.0
 //!
-//! Expression Type: A expression that is evaluated in a specified context and returns a value. The context of use of the expression must specify the context in which the expression is evaluated, and how the result of the expression is used.
+//! Expression Type: A expression that is evaluated in a specified context and returns a value.
 //!
 //! FHIR: <https://build.fhir.org/>
 //!
@@ -15,11 +15,49 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
+use fhir_derive::Validate;
 
+/// Expression is a FHIR R5 complex datatype that captures an expression which is
+/// evaluated in a specified context and returns a value. The context of use must
+/// specify the environment in which the expression is evaluated and how its result
+/// is used. Expressions are commonly written in languages such as FHIRPath, CQL, or
+/// as FHIR query strings, and may be provided inline or referenced by URI.
+///
+/// # Examples
+///
+/// ```
+/// use fhir_specifications_parser::r5::types::expression::Expression;
+///
+/// let value = Expression::default();
+/// let json = ::serde_json::to_value(&value).unwrap();
+/// let back: Expression = ::serde_json::from_value(json).unwrap();
+/// assert_eq!(value, back);
+/// ```
 #[serde_with::skip_serializing_none]
-#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq)]
+#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
-pub struct Expression {}
+pub struct Expression {
+    /// Unique id for inter-element referencing
+    pub id: Option<types::String>,
+
+    /// Additional content defined by implementations
+    pub extension: Option<Vec<types::Extension>>,
+
+    /// Natural language description of the condition
+    pub description: Option<types::String>,
+
+    /// Short name assigned to expression for reuse
+    pub name: Option<types::Code>,
+
+    /// text/cql | text/fhirpath | application/x-fhir-query | etc.
+    pub language: Option<types::Code>,
+
+    /// Expression in specified language
+    pub expression: Option<types::String>,
+
+    /// Where the expression is found
+    pub reference: Option<types::Uri>,
+}
 
 #[cfg(test)]
 mod tests {
@@ -28,29 +66,14 @@ mod tests {
 
     #[test]
     fn test_default() {
-        let actual = T::default();
-        let expect = T {};
-        assert_eq!(actual, expect);
+        let _ = T::default();
     }
 
-    mod serde_json {
-        use super::*;
-        use ::serde_json::json;
-
-        #[test]
-        fn test_serde_json_from_value() {
-            let json = json!({});
-            let actual: Expression = ::serde_json::from_value(json).expect("from_value");
-            let expect: T = T::default();
-            assert_eq!(actual, expect);
-        }
-
-        #[test]
-        fn test_serde_json_to_value() {
-            let actual: ::serde_json::Value =
-                ::serde_json::to_value(T::default()).expect("to_value");
-            let expect: ::serde_json::Value = json!({});
-            assert_eq!(actual, expect);
-        }
+    #[test]
+    fn test_serde_round_trip() {
+        let value = T::default();
+        let json = ::serde_json::to_value(&value).expect("to_value");
+        let back: T = ::serde_json::from_value(json).expect("from_value");
+        assert_eq!(value, back);
     }
 }

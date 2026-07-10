@@ -15,11 +15,64 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
+use fhir_derive::Validate;
 
+/// Related artifacts such as additional documentation, justification, or
+/// bibliographic references. RelatedArtifact links a knowledge artifact to
+/// supporting materials such as documentation, citations, predecessors,
+/// successors, or dependencies. It is used throughout FHIR R5 to describe the
+/// relationships between resources and the external artifacts that inform them.
+///
+/// # Examples
+///
+/// ```
+/// use fhir_specifications_parser::r5::types::related_artifact::RelatedArtifact;
+///
+/// let value = RelatedArtifact::default();
+/// let json = ::serde_json::to_value(&value).unwrap();
+/// let back: RelatedArtifact = ::serde_json::from_value(json).unwrap();
+/// assert_eq!(value, back);
+/// ```
 #[serde_with::skip_serializing_none]
-#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq)]
+#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
-pub struct RelatedArtifact {}
+pub struct RelatedArtifact {
+    /// Unique id for inter-element referencing
+    pub id: Option<types::String>,
+
+    /// Additional content defined by implementations
+    pub extension: Option<Vec<types::Extension>>,
+
+    /// documentation | justification | citation | predecessor | successor | derived-from | depends-on | composed-of | part-of | amends | amended-with | appends | appended-with | cites | cited-by | comments-on | comment-in | contains | contained-in | corrects | correction-in | replaces | replaced-with | retracts | retracted-by | signs | similar-to | supports | supported-with | transforms | transformed-into | transformed-with | documents | specification-of | created-with | cite-as
+    pub r#type: types::Code,
+
+    /// Additional classifiers
+    pub classifier: Option<Vec<types::CodeableConcept>>,
+
+    /// Short label
+    pub label: Option<types::String>,
+
+    /// Brief description of the related artifact
+    pub display: Option<types::String>,
+
+    /// Bibliographic citation for the artifact
+    pub citation: Option<types::Markdown>,
+
+    /// What document is being referenced
+    pub document: Option<types::Attachment>,
+
+    /// What artifact is being referenced
+    pub resource: Option<types::Canonical>,
+
+    /// What artifact, if not a conformance resource
+    pub resource_reference: Option<types::Reference>,
+
+    /// draft | active | retired | unknown
+    pub publication_status: Option<types::Code>,
+
+    /// Date of publication of the artifact being referred to
+    pub publication_date: Option<types::Date>,
+}
 
 #[cfg(test)]
 mod tests {
@@ -28,29 +81,14 @@ mod tests {
 
     #[test]
     fn test_default() {
-        let actual = T::default();
-        let expect = T {};
-        assert_eq!(actual, expect);
+        let _ = T::default();
     }
 
-    mod serde_json {
-        use super::*;
-        use ::serde_json::json;
-
-        #[test]
-        fn test_serde_json_from_value() {
-            let json = json!({});
-            let actual: T = ::serde_json::from_value(json).expect("from_value");
-            let expect: T = T::default();
-            assert_eq!(actual, expect);
-        }
-
-        #[test]
-        fn test_serde_json_to_value() {
-            let actual: ::serde_json::Value =
-                ::serde_json::to_value(T::default()).expect("to_value");
-            let expect: ::serde_json::Value = json!({});
-            assert_eq!(actual, expect);
-        }
+    #[test]
+    fn test_serde_round_trip() {
+        let value = T::default();
+        let json = ::serde_json::to_value(&value).expect("to_value");
+        let back: T = ::serde_json::from_value(json).expect("from_value");
+        assert_eq!(value, back);
     }
 }

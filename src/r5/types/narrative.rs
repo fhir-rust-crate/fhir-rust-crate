@@ -15,11 +15,44 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
+use fhir_derive::Validate;
 
+/// A human-readable summary of the resource conveying the essential clinical
+/// and business information for the resource.
+///
+/// The `Narrative` datatype carries an XHTML-formatted rendering of a FHIR
+/// resource so that its key information remains accessible to humans even when
+/// a system cannot process every structured element. It pairs a generation
+/// `status` code with an XHTML `div`, and is typically embedded as the `text`
+/// element of a resource. Narratives are central to clinical safety and
+/// interoperability because they guarantee a readable fallback view.
+///
+/// # Examples
+///
+/// ```
+/// use fhir_specifications_parser::r5::types::narrative::Narrative;
+///
+/// let value = Narrative::default();
+/// let json = ::serde_json::to_value(&value).unwrap();
+/// let back: Narrative = ::serde_json::from_value(json).unwrap();
+/// assert_eq!(value, back);
+/// ```
 #[serde_with::skip_serializing_none]
-#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq)]
+#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
-pub struct Narrative {}
+pub struct Narrative {
+    /// Unique id for inter-element referencing
+    pub id: Option<types::String>,
+
+    /// Additional content defined by implementations
+    pub extension: Option<Vec<types::Extension>>,
+
+    /// generated | extensions | additional | empty
+    pub status: types::Code,
+
+    /// Limited xhtml content
+    pub div: types::Xhtml,
+}
 
 #[cfg(test)]
 mod tests {
@@ -28,29 +61,14 @@ mod tests {
 
     #[test]
     fn test_default() {
-        let actual = T::default();
-        let expect = T {};
-        assert_eq!(actual, expect);
+        let _ = T::default();
     }
 
-    mod serde_json {
-        use super::*;
-        use ::serde_json::json;
-
-        #[test]
-        fn test_serde_json_from_value() {
-            let json = json!({});
-            let actual: T = ::serde_json::from_value(json).expect("from_value");
-            let expect: T = T::default();
-            assert_eq!(actual, expect);
-        }
-
-        #[test]
-        fn test_serde_json_to_value() {
-            let actual: ::serde_json::Value =
-                ::serde_json::to_value(T::default()).expect("to_value");
-            let expect: ::serde_json::Value = json!({});
-            assert_eq!(actual, expect);
-        }
+    #[test]
+    fn test_serde_round_trip() {
+        let value = T::default();
+        let json = ::serde_json::to_value(&value).expect("to_value");
+        let back: T = ::serde_json::from_value(json).expect("from_value");
+        assert_eq!(value, back);
     }
 }

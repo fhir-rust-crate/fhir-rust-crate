@@ -1,4 +1,4 @@
-//// Namespace conveniences
+// Namespace conveniences
 
 pub static DIR: std::sync::LazyLock<std::path::PathBuf> =
     std::sync::LazyLock::new(|| crate::r5::parse::DIR.join("value_sets"));
@@ -6,7 +6,7 @@ pub static DIR: std::sync::LazyLock<std::path::PathBuf> =
 pub static DEFINITIONS_FILE: std::sync::LazyLock<std::path::PathBuf> =
     std::sync::LazyLock::new(|| crate::DEFINITIONS_DIR.join("valuesets.json"));
 
-//// Submodules
+// Submodules
 
 pub mod base {
     pub mod base;

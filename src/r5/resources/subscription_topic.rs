@@ -1,0 +1,304 @@
+//! SubscriptionTopic
+//!
+//! URL: http://hl7.org/fhir/StructureDefinition/SubscriptionTopic
+//!
+//! Version: 5.0.0
+//!
+//! SubscriptionTopic Resource: Describes a stream of resource state changes identified by trigger criteria and annotated with labels useful to filter projections from this topic.
+//!
+//! FHIR: <https://build.fhir.org/>
+//!
+//! UML: <https://build.fhir.org/uml.html>
+
+// Allow unused crate::r5::types as types;
+#![allow(unused_imports)]
+
+use crate::r5::types;
+use ::serde::{Deserialize, Serialize};
+use fhir_derive::Validate;
+
+/// SubscriptionTopic
+///
+/// Describes a stream of resource state changes identified by trigger criteria
+/// and annotated with labels useful to filter projections from this topic. A
+/// SubscriptionTopic defines the interesting events that a server can notify
+/// subscribers about, along with the filters and notification shapes those
+/// subscribers may request. It is a canonical, shareable definition that
+/// Subscription resources reference to describe the changes they wish to receive.
+///
+/// # Examples
+///
+/// ```
+/// use fhir_specifications_parser::r5::resources::subscription_topic::SubscriptionTopic;
+///
+/// let value = SubscriptionTopic::default();
+/// let json = ::serde_json::to_value(&value).unwrap();
+/// let back: SubscriptionTopic = ::serde_json::from_value(json).unwrap();
+/// assert_eq!(value, back);
+/// ```
+#[serde_with::skip_serializing_none]
+#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[serde(rename_all = "camelCase")]
+pub struct SubscriptionTopic {
+    /// Logical id of this artifact
+    pub id: Option<types::String>,
+
+    /// Metadata about the resource
+    pub meta: Option<types::Meta>,
+
+    /// A set of rules under which this content was created
+    pub implicit_rules: Option<types::Uri>,
+
+    /// Language of the resource content
+    pub language: Option<types::Code>,
+
+    /// Text summary of the resource, for human interpretation
+    pub text: Option<types::Narrative>,
+
+    /// Contained, inline Resources
+    pub contained: Option<Vec<::serde_json::Value>>,
+
+    /// Additional content defined by implementations
+    pub extension: Option<Vec<types::Extension>>,
+
+    /// Extensions that cannot be ignored
+    pub modifier_extension: Option<Vec<types::Extension>>,
+
+    /// Canonical identifier for this subscription topic, represented as an absolute URI (globally unique)
+    pub url: types::Uri,
+
+    /// Business identifier for subscription topic
+    pub identifier: Option<Vec<types::Identifier>>,
+
+    /// Business version of the subscription topic
+    pub version: Option<types::String>,
+
+    /// How to compare versions
+    pub version_algorithm_string: Option<types::String>,
+
+    /// How to compare versions
+    pub version_algorithm_coding: Option<types::Coding>,
+
+    /// Name for this subscription topic (computer friendly)
+    pub name: Option<types::String>,
+
+    /// Name for this subscription topic (human friendly)
+    pub title: Option<types::String>,
+
+    /// Based on FHIR protocol or definition
+    pub derived_from: Option<Vec<types::Canonical>>,
+
+    /// draft | active | retired | unknown
+    pub status: types::Code,
+
+    /// If for testing purposes, not real usage
+    pub experimental: Option<types::Boolean>,
+
+    /// Date status first applied
+    pub date: Option<types::DateTime>,
+
+    /// The name of the individual or organization that published the SubscriptionTopic
+    pub publisher: Option<types::String>,
+
+    /// Contact details for the publisher
+    pub contact: Option<Vec<types::ContactDetail>>,
+
+    /// Natural language description of the SubscriptionTopic
+    pub description: Option<types::Markdown>,
+
+    /// Content intends to support these contexts
+    pub use_context: Option<Vec<types::UsageContext>>,
+
+    /// Intended jurisdiction of the SubscriptionTopic (if applicable)
+    pub jurisdiction: Option<Vec<types::CodeableConcept>>,
+
+    /// Why this SubscriptionTopic is defined
+    pub purpose: Option<types::Markdown>,
+
+    /// Use and/or publishing restrictions
+    pub copyright: Option<types::Markdown>,
+
+    /// Copyright holder and year(s)
+    pub copyright_label: Option<types::String>,
+
+    /// When SubscriptionTopic is/was approved by publisher
+    pub approval_date: Option<types::Date>,
+
+    /// Date the Subscription Topic was last reviewed by the publisher
+    pub last_review_date: Option<types::Date>,
+
+    /// The effective date range for the SubscriptionTopic
+    pub effective_period: Option<types::Period>,
+
+    /// Definition of a resource-based trigger for the subscription topic
+    pub resource_trigger: Option<Vec<SubscriptionTopicResourceTrigger>>,
+
+    /// Event definitions the SubscriptionTopic
+    pub event_trigger: Option<Vec<SubscriptionTopicEventTrigger>>,
+
+    /// Properties by which a Subscription can filter notifications from the SubscriptionTopic
+    pub can_filter_by: Option<Vec<SubscriptionTopicCanFilterBy>>,
+
+    /// Properties for describing the shape of notifications generated by this topic
+    pub notification_shape: Option<Vec<SubscriptionTopicNotificationShape>>,
+}
+
+/// Definition of a resource-based trigger for the subscription topic.
+#[serde_with::skip_serializing_none]
+#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[serde(rename_all = "camelCase")]
+pub struct SubscriptionTopicResourceTrigger {
+    /// Unique id for inter-element referencing
+    pub id: Option<types::String>,
+
+    /// Additional content defined by implementations
+    pub extension: Option<Vec<types::Extension>>,
+
+    /// Extensions that cannot be ignored even if unrecognized
+    pub modifier_extension: Option<Vec<types::Extension>>,
+
+    /// Text representation of the resource trigger
+    pub description: Option<types::Markdown>,
+
+    /// Data Type or Resource (reference to definition) for this trigger definition
+    pub resource: types::Uri,
+
+    /// create | update | delete
+    pub supported_interaction: Option<Vec<types::Code>>,
+
+    /// Query based trigger rule
+    pub query_criteria: Option<SubscriptionTopicResourceTriggerQueryCriteria>,
+
+    /// FHIRPath based trigger rule
+    pub fhir_path_criteria: Option<types::String>,
+}
+
+/// Query based trigger rule for a resource-based trigger.
+#[serde_with::skip_serializing_none]
+#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[serde(rename_all = "camelCase")]
+pub struct SubscriptionTopicResourceTriggerQueryCriteria {
+    /// Unique id for inter-element referencing
+    pub id: Option<types::String>,
+
+    /// Additional content defined by implementations
+    pub extension: Option<Vec<types::Extension>>,
+
+    /// Extensions that cannot be ignored even if unrecognized
+    pub modifier_extension: Option<Vec<types::Extension>>,
+
+    /// Rule applied to previous resource state
+    pub previous: Option<types::String>,
+
+    /// test-passes | test-fails
+    pub result_for_create: Option<types::Code>,
+
+    /// Rule applied to current resource state
+    pub current: Option<types::String>,
+
+    /// test-passes | test-fails
+    pub result_for_delete: Option<types::Code>,
+
+    /// Both must be true flag
+    pub require_both: Option<types::Boolean>,
+}
+
+/// Event definitions the SubscriptionTopic.
+#[serde_with::skip_serializing_none]
+#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[serde(rename_all = "camelCase")]
+pub struct SubscriptionTopicEventTrigger {
+    /// Unique id for inter-element referencing
+    pub id: Option<types::String>,
+
+    /// Additional content defined by implementations
+    pub extension: Option<Vec<types::Extension>>,
+
+    /// Extensions that cannot be ignored even if unrecognized
+    pub modifier_extension: Option<Vec<types::Extension>>,
+
+    /// Text representation of the event trigger
+    pub description: Option<types::Markdown>,
+
+    /// Event which can trigger a notification from the SubscriptionTopic
+    pub event: types::CodeableConcept,
+
+    /// Data Type or Resource (reference to definition) for this trigger definition
+    pub resource: types::Uri,
+}
+
+/// Properties by which a Subscription can filter notifications from the SubscriptionTopic.
+#[serde_with::skip_serializing_none]
+#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[serde(rename_all = "camelCase")]
+pub struct SubscriptionTopicCanFilterBy {
+    /// Unique id for inter-element referencing
+    pub id: Option<types::String>,
+
+    /// Additional content defined by implementations
+    pub extension: Option<Vec<types::Extension>>,
+
+    /// Extensions that cannot be ignored even if unrecognized
+    pub modifier_extension: Option<Vec<types::Extension>>,
+
+    /// Description of this filter parameter
+    pub description: Option<types::Markdown>,
+
+    /// URL of the triggering Resource that this filter applies to
+    pub resource: Option<types::Uri>,
+
+    /// Human-readable and computation-friendly name for a filter parameter usable by subscriptions on this topic, via Subscription.filterBy.filterParameter
+    pub filter_parameter: types::String,
+
+    /// Canonical URL for a filterParameter definition
+    pub filter_definition: Option<types::Uri>,
+
+    /// eq | ne | gt | lt | ge | le | sa | eb | ap
+    pub comparator: Option<Vec<types::Code>>,
+
+    /// missing | exact | contains | not | text | in | not-in | below | above | type | identifier | of-type | code-text | text-advanced | iterate
+    pub modifier: Option<Vec<types::Code>>,
+}
+
+/// Properties for describing the shape of notifications generated by this topic.
+#[serde_with::skip_serializing_none]
+#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[serde(rename_all = "camelCase")]
+pub struct SubscriptionTopicNotificationShape {
+    /// Unique id for inter-element referencing
+    pub id: Option<types::String>,
+
+    /// Additional content defined by implementations
+    pub extension: Option<Vec<types::Extension>>,
+
+    /// Extensions that cannot be ignored even if unrecognized
+    pub modifier_extension: Option<Vec<types::Extension>>,
+
+    /// URL of the Resource that is the focus (main) resource in a notification shape
+    pub resource: types::Uri,
+
+    /// Include directives, rooted in the resource for this shape
+    pub include: Option<Vec<types::String>>,
+
+    /// Reverse include directives, rooted in the resource for this shape
+    pub rev_include: Option<Vec<types::String>>,
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    type T = SubscriptionTopic;
+
+    #[test]
+    fn test_default() {
+        let _ = T::default();
+    }
+
+    #[test]
+    fn test_serde_round_trip() {
+        let value = T::default();
+        let json = ::serde_json::to_value(&value).expect("to_value");
+        let back: T = ::serde_json::from_value(json).expect("from_value");
+        assert_eq!(value, back);
+    }
+}

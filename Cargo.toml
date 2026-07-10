@@ -3,9 +3,13 @@ name = "fhir-specifications-parser"
 version = "0.1.0"
 edition = "2024"
 
+[workspace]
+members = ["fhir-derive"]
+
 [dependencies]
-serde = { version = "~1.0.219", features = ["derive"] } # A serialization/deserialization framework.
-serde_json = { version = "~1.0.140" } # Serde serialization/deserialization of JSON data.
-serde_with = { version = "3.14" } # Serde annotation helpers for serde "with" and "serde_as"
+fhir-derive = { path = "fhir-derive" } # Procedural macros for this crate (e.g. #[derive(Validate)]).
+serde = { version = "~1.0.228", features = ["derive"] } # A serialization/deserialization framework.
+serde_json = { version = "~1.0.150" } # Serde serialization/deserialization of JSON data.
+serde_with = { version = "3.21" } # Serde annotation helpers for serde "with" and "serde_as"
 indoc = { version = "*" } # Indented string literal procedural macro.
 convert_case = { version = "*" } # Convert text case, such as from camel case to snake case.

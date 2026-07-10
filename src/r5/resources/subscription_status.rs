@@ -1,0 +1,131 @@
+//! SubscriptionStatus
+//!
+//! URL: http://hl7.org/fhir/StructureDefinition/SubscriptionStatus
+//!
+//! Version: 5.0.0
+//!
+//! SubscriptionStatus Resource: The SubscriptionStatus resource describes the state of a Subscription during notifications. It is not persisted.
+//!
+//! FHIR: <https://build.fhir.org/>
+//!
+//! UML: <https://build.fhir.org/uml.html>
+
+// Allow unused crate::r5::types as types;
+#![allow(unused_imports)]
+
+use crate::r5::types;
+use ::serde::{Deserialize, Serialize};
+use fhir_derive::Validate;
+
+/// SubscriptionStatus is a status resource that conveys the current state of a
+/// Subscription and is delivered as part of notification bundles. It is not
+/// persisted on the server; instead it is generated for each notification to
+/// report the subscription's status, the type of notification, and details
+/// about the events that triggered it. It also carries any errors relevant to
+/// the subscription.
+///
+/// # Examples
+///
+/// ```
+/// use fhir_specifications_parser::r5::resources::subscription_status::SubscriptionStatus;
+///
+/// let value = SubscriptionStatus::default();
+/// let json = ::serde_json::to_value(&value).unwrap();
+/// let back: SubscriptionStatus = ::serde_json::from_value(json).unwrap();
+/// assert_eq!(value, back);
+/// ```
+#[serde_with::skip_serializing_none]
+#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[serde(rename_all = "camelCase")]
+pub struct SubscriptionStatus {
+    /// Logical id of this artifact
+    pub id: Option<types::String>,
+
+    /// Metadata about the resource
+    pub meta: Option<types::Meta>,
+
+    /// A set of rules under which this content was created
+    pub implicit_rules: Option<types::Uri>,
+
+    /// Language of the resource content
+    pub language: Option<types::Code>,
+
+    /// Text summary of the resource, for human interpretation
+    pub text: Option<types::Narrative>,
+
+    /// Contained, inline Resources
+    pub contained: Option<Vec<::serde_json::Value>>,
+
+    /// Additional content defined by implementations
+    pub extension: Option<Vec<types::Extension>>,
+
+    /// Extensions that cannot be ignored
+    pub modifier_extension: Option<Vec<types::Extension>>,
+
+    /// requested | active | error | off | entered-in-error
+    pub status: Option<types::Code>,
+
+    /// handshake | heartbeat | event-notification | query-status | query-event
+    pub r#type: types::Code,
+
+    /// Events since the Subscription was created
+    pub events_since_subscription_start: Option<types::Integer64>,
+
+    /// Detailed information about any events relevant to this notification
+    pub notification_event: Option<Vec<SubscriptionStatusNotificationEvent>>,
+
+    /// Reference to the Subscription responsible for this notification
+    pub subscription: types::Reference,
+
+    /// Reference to the SubscriptionTopic this notification relates to
+    pub topic: Option<types::Canonical>,
+
+    /// List of errors on the subscription
+    pub error: Option<Vec<types::CodeableConcept>>,
+}
+
+/// Detailed information about any events relevant to this notification.
+#[serde_with::skip_serializing_none]
+#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[serde(rename_all = "camelCase")]
+pub struct SubscriptionStatusNotificationEvent {
+    /// Unique id for inter-element referencing
+    pub id: Option<types::String>,
+
+    /// Additional content defined by implementations
+    pub extension: Option<Vec<types::Extension>>,
+
+    /// Extensions that cannot be ignored even if unrecognized
+    pub modifier_extension: Option<Vec<types::Extension>>,
+
+    /// Sequencing index of this event
+    pub event_number: types::Integer64,
+
+    /// The instant this event occurred
+    pub timestamp: Option<types::Instant>,
+
+    /// Reference to the primary resource or information of this event
+    pub focus: Option<types::Reference>,
+
+    /// References related to the focus resource and/or context of this event
+    pub additional_context: Option<Vec<types::Reference>>,
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    type T = SubscriptionStatus;
+
+    #[test]
+    fn test_default() {
+        let _ = T::default();
+    }
+
+    #[test]
+    fn test_serde_round_trip() {
+        let value = T::default();
+        let json = ::serde_json::to_value(&value).expect("to_value");
+        let back: T = ::serde_json::from_value(json).expect("from_value");
+        assert_eq!(value, back);
+    }
+}
