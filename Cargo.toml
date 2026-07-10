@@ -15,7 +15,7 @@ include = ["src/**/*", "LICENSE.md", "README.md", "llms.txt", "llms.json"]
 members = ["fhir-derive"]
 
 [dependencies]
-fhir-derive = { path = "fhir-derive" } # Procedural macros for this crate (e.g. #[derive(Validate)]).
+fhir-derive = { path = "fhir-derive", version = "0.1.0" } # Procedural macros for this crate (e.g. #[derive(Validate)]).
 serde = { version = "~1.0.228", features = ["derive"] } # A serialization/deserialization framework.
 serde_json = { version = "~1.0.150" } # Serde serialization/deserialization of JSON data.
 serde_with = { version = "3.21" } # Serde annotation helpers for serde "with" and "serde_as"
