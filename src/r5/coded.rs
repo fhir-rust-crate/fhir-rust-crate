@@ -83,10 +83,16 @@ impl<E: Serialize> Coded<E> {
 }
 
 impl<E> Validate for Coded<E> {
-    // A recognized variant is valid by construction; membership checks for the
-    // `Unknown` fallback belong to the validation-depth work (T13).
+    // Every `Coded` field has a `required` binding (that is why it was typed as
+    // an enum), so an `Unknown` code is outside the value set (T13).
     fn validate(&self) -> Vec<ValidationIssue> {
-        Vec::new()
+        match self {
+            Coded::Known(_) => Vec::new(),
+            Coded::Unknown(code) => vec![ValidationIssue::new(
+                "code",
+                format!("code {code:?} is not in the required value set"),
+            )],
+        }
     }
 }
 

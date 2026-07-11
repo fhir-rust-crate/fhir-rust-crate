@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Deeper validation (T13): `Validate` now reports empty `1..*` elements (read
+  from `meta` at runtime, since bare `Vec` is also used for some `0..*`) and
+  required-binding codes outside the value set (a `Coded::Unknown`). See
+  `spec/07-validation.md`.
+
 ### Changed (breaking)
 - Coded fields with a `required` binding are now typed as their `codes` enum via
   the new `fhir::r5::coded::Coded<E>` wrapper (`Known(E)` | `Unknown(String)`

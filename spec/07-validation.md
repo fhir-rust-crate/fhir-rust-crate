@@ -69,3 +69,22 @@ validation layer that walks a value and reports issues.
 - [ ] A default-constructed resource validates with no panics.
 - [ ] `fhir-derive-macros` builds and the whole model derives `Validate` without
       clippy warnings.
+
+## Cardinality and required-binding checks (T13)
+
+Beyond primitive formats, `Validate` now reports two metadata-driven problems,
+using the [`meta`](../src/r5/meta.rs) table:
+
+- **Empty `1..*` elements.** A required repeating element must have at least one
+  entry. Because bare `Vec<T>` is used for some `0..*` fields too, cardinality is
+  read from `meta` at validation time (via `meta::struct_prefix` + the field's
+  FHIR name), not inferred from the Rust type. Reported at the field's path.
+- **Required-binding codes.** A `required`-binding field is typed
+  `Coded<Enum>`; a value that fell back to `Coded::Unknown` is, by definition,
+  outside the value set, and is reported at `<field>.code`.
+
+### Acceptance criteria (T13)
+
+- [x] An empty `Appointment.participant` (`1..*`) yields a pathed
+      `participant` issue; a `0..*` empty Vec does not.
+- [x] `Patient.gender = Coded::Unknown(...)` yields a `gender.code` issue.

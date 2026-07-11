@@ -169,6 +169,34 @@ pub fn elements_of(type_name: &str) -> impl Iterator<Item = &'static ElementMeta
         .filter(move |e| e.path.starts_with(&prefix))
 }
 
+/// The FHIR path prefix a generated Rust struct corresponds to, e.g.
+/// `"AppointmentParticipant"` → `"Appointment.participant"`, `"Patient"` →
+/// `"Patient"`. Backbone struct names are the PascalCase concatenation of their
+/// path segments. Returns `None` for a name that is not a FHIR type/backbone.
+#[must_use]
+pub fn struct_prefix(struct_name: &str) -> Option<&'static str> {
+    use ::convert_case::{Case, Casing};
+    use std::collections::HashMap;
+    use std::sync::LazyLock;
+
+    static PREFIXES: LazyLock<HashMap<String, &'static str>> = LazyLock::new(|| {
+        let mut map = HashMap::new();
+        for e in generated::ELEMENTS {
+            let seg_count = e.path.split('.').count();
+            for take in 1..seg_count {
+                let name: String =
+                    e.path.split('.').take(take).map(|s| s.to_case(Case::Pascal)).collect();
+                if let Some((end, _)) = e.path.match_indices('.').nth(take - 1) {
+                    map.entry(name).or_insert(&e.path[..end]);
+                }
+            }
+        }
+        map
+    });
+
+    PREFIXES.get(struct_name).copied()
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;

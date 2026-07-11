@@ -30,7 +30,7 @@ pub struct ValidationIssue {
 }
 
 impl ValidationIssue {
-    fn new(path: &str, message: impl Into<String>) -> Self {
+    pub(crate) fn new(path: &str, message: impl Into<String>) -> Self {
         Self {
             path: path.to_string(),
             message: message.into(),
@@ -233,6 +233,48 @@ mod tests {
         assert!(good.validate().is_empty());
         let bad = vec![types::Id("ok".to_string()), types::Id("no!".to_string())];
         assert_eq!(bad.validate().len(), 1);
+    }
+
+    // T13: a required binding rejects a code outside the value set.
+    #[test]
+    fn required_binding_flags_unknown_code() {
+        use crate::r5::codes::AdministrativeGender;
+        use crate::r5::coded::Coded;
+        use crate::r5::resources::Patient;
+
+        let mut patient = Patient {
+            gender: Some(Coded::Known(AdministrativeGender::Male)),
+            ..Default::default()
+        };
+        assert!(patient.validate().is_empty());
+
+        patient.gender = Some(Coded::Unknown("robot".to_string()));
+        let issues = patient.validate();
+        assert_eq!(issues.len(), 1);
+        assert_eq!(issues[0].path, "gender.code");
+    }
+
+    // T13: an empty 1..* Vec is a cardinality violation.
+    #[test]
+    fn cardinality_flags_empty_required_vec() {
+        use crate::r5::resources::appointment::{Appointment, AppointmentParticipant};
+
+        // Appointment.participant is 1..* — empty is invalid.
+        let empty = Appointment::default();
+        let issues = empty.validate();
+        assert!(
+            issues.iter().any(|i| i.path == "participant"),
+            "expected a participant cardinality issue, got {:?}",
+            issues.iter().map(|i| &i.path).collect::<Vec<_>>()
+        );
+
+        // A 0..* Vec (e.g. Appointment.identifier) being empty is fine, and one
+        // participant satisfies the requirement.
+        let ok = Appointment {
+            participant: vec![AppointmentParticipant::default()],
+            ..Default::default()
+        };
+        assert!(!ok.validate().iter().any(|i| i.path == "participant"));
     }
 
     #[test]

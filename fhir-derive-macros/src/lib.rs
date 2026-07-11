@@ -21,7 +21,7 @@ pub fn derive_validate(input: TokenStream) -> TokenStream {
 
     let body = match &input.data {
         Data::Struct(s) => {
-            let stmts = struct_field_stmts(&s.fields);
+            let stmts = struct_field_stmts(&s.fields, &name.to_string());
             quote! {
                 let mut issues = ::std::vec::Vec::new();
                 #(#stmts)*
@@ -71,7 +71,31 @@ pub fn derive_validate(input: TokenStream) -> TokenStream {
     .into()
 }
 
-fn struct_field_stmts(fields: &Fields) -> Vec<proc_macro2::TokenStream> {
+/// Snake-case identifier (after stripping a raw `r#`) to camelCase, matching the
+/// FHIR element name.
+fn to_camel(s: &str) -> String {
+    let bare = s.strip_prefix("r#").unwrap_or(s);
+    let mut out = String::new();
+    let mut upper = false;
+    for c in bare.chars() {
+        if c == '_' {
+            upper = true;
+        } else if upper {
+            out.extend(c.to_uppercase());
+            upper = false;
+        } else {
+            out.push(c);
+        }
+    }
+    out
+}
+
+/// Whether a field type is a bare `Vec<…>` (not `Option<Vec<…>>`).
+fn is_bare_vec(ty: &syn::Type) -> bool {
+    matches!(ty, syn::Type::Path(p) if p.path.segments.last().is_some_and(|s| s.ident == "Vec"))
+}
+
+fn struct_field_stmts(fields: &Fields, struct_name: &str) -> Vec<proc_macro2::TokenStream> {
     match fields {
         Fields::Named(f) => f
             .named
@@ -79,6 +103,32 @@ fn struct_field_stmts(fields: &Fields) -> Vec<proc_macro2::TokenStream> {
             .map(|field| {
                 let ident = field.ident.as_ref().unwrap();
                 let fname = ident.to_string();
+                // Cardinality: a bare `Vec` that FHIR marks `1..*` must be
+                // non-empty. Which fields are `1..*` is not encoded in the type
+                // (bare `Vec` is also used for some `0..*`), so consult `meta` at
+                // runtime keyed by the struct's FHIR path prefix.
+                let cardinality = if is_bare_vec(&field.ty) {
+                    let fhir_field = to_camel(&fname);
+                    quote! {
+                        if self.#ident.is_empty() {
+                            if let ::core::option::Option::Some(__prefix) =
+                                crate::r5::meta::struct_prefix(#struct_name)
+                            {
+                                let __path = format!("{}.{}", __prefix, #fhir_field);
+                                if crate::r5::meta::element(&__path)
+                                    .is_some_and(|__e| __e.min >= 1 && __e.is_multiple())
+                                {
+                                    issues.push(crate::r5::validate::ValidationIssue::new(
+                                        #fname,
+                                        "cardinality: a 1..* element must have at least one entry",
+                                    ));
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    quote! {}
+                };
                 quote! {
                     for mut __issue in crate::r5::validate::Validate::validate(&self.#ident) {
                         __issue.path = if __issue.path.is_empty() {
@@ -88,6 +138,7 @@ fn struct_field_stmts(fields: &Fields) -> Vec<proc_macro2::TokenStream> {
                         };
                         issues.push(__issue);
                     }
+                    #cardinality
                 }
             })
             .collect(),
