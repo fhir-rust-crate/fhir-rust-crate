@@ -133,6 +133,14 @@ impl<T: Validate> Validate for Box<T> {
     }
 }
 
+/// A zero-sized type marker (e.g. the phantom on `Reference<T>`) has nothing to
+/// validate.
+impl<T: ?Sized> Validate for ::std::marker::PhantomData<T> {
+    fn validate(&self) -> Vec<ValidationIssue> {
+        Vec::new()
+    }
+}
+
 /// Arbitrary embedded JSON (e.g. a `contained` resource) is not structurally
 /// validated here.
 impl Validate for ::serde_json::Value {

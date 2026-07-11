@@ -8,6 +8,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Typed references: `Reference` is now `Reference<T = Any>`, a phantom-typed
+  newtype over the same wire form (`Reference<Any>` = the old untyped reference,
+  so existing code is unaffected). Adds the `ResourceType` marker trait, the
+  `Any` target, `.cast()`/`.into_any()`, and `.resolve(&bundle)` to look a
+  reference up in a `Bundle`. (Machinery only; typing individual reference fields
+  from `targetProfile` is a follow-up rollout.)
 - `fhir::r5::temporal`: precision-aware parsing for the date/time primitives —
   `Date::parse_parts`/`DateTime::date_parts`/`Instant::date_parts`/`Time::parse_parts`,
   a `DateParts` type with FHIR precision ordering (`"2024"` vs `"2024-03"` is
