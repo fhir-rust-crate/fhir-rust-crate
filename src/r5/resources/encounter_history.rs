@@ -99,7 +99,7 @@ pub struct EncounterHistory {
     pub identifier: Option<Vec<types::Identifier>>,
 
     /// The status of the encounter at this point in its history: planned | in-progress | on-hold | discharged | completed | cancelled | discontinued | entered-in-error | unknown
-    pub status: types::Code,
+    pub status: crate::r5::coded::Coded<crate::r5::codes::EncounterStatus>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,

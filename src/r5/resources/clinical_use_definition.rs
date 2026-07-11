@@ -91,7 +91,7 @@ pub struct ClinicalUseDefinition {
     pub identifier: Option<Vec<types::Identifier>>,
 
     /// The kind of issue this instance describes: indication | contraindication | interaction | undesirable-effect | warning; this determines which of the backbone elements below carries the detail
-    pub r#type: types::Code,
+    pub r#type: crate::r5::coded::Coded<crate::r5::codes::ClinicalUseDefinitionType>,
     /// Primitive extension sibling for [`type`](Self::r#type) (FHIR `_type`).
     #[serde(rename = "_type")]
     pub type_ext: Option<types::Element>,

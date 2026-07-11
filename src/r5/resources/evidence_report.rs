@@ -99,7 +99,7 @@ pub struct EvidenceReport {
     pub url_ext: Option<types::Element>,
 
     /// The publication lifecycle status of this report: draft | active | retired | unknown.
-    pub status: types::Code,
+    pub status: crate::r5::coded::Coded<crate::r5::codes::PublicationStatus>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,
@@ -235,7 +235,7 @@ pub struct EvidenceReportRelatesTo {
     pub modifier_extension: Option<Vec<types::Extension>>,
 
     /// replaces | amends | appends | transforms | replacedWith | amendedWith | appendedWith | transformedWith
-    pub code: types::Code,
+    pub code: crate::r5::coded::Coded<crate::r5::codes::ReportRelationType>,
     /// Primitive extension sibling for [`code`](Self::code) (FHIR `_code`).
     #[serde(rename = "_code")]
     pub code_ext: Option<types::Element>,
@@ -317,7 +317,7 @@ pub struct EvidenceReportSection {
     pub text: Option<types::Narrative>,
 
     /// working | snapshot | changes
-    pub mode: Option<types::Code>,
+    pub mode: Option<crate::r5::coded::Coded<crate::r5::codes::ListMode>>,
     /// Primitive extension sibling for [`mode`](Self::mode) (FHIR `_mode`).
     #[serde(rename = "_mode")]
     pub mode_ext: Option<types::Element>,

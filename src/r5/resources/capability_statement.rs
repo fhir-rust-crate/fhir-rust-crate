@@ -120,7 +120,7 @@ pub struct CapabilityStatement {
     pub title_ext: Option<types::Element>,
 
     /// The publication lifecycle status of this capability statement, one of draft | active | retired | unknown
-    pub status: types::Code,
+    pub status: crate::r5::coded::Coded<crate::r5::codes::PublicationStatus>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,
@@ -177,7 +177,7 @@ pub struct CapabilityStatement {
     pub copyright_label_ext: Option<types::Element>,
 
     /// Whether this statement describes an actual running instance, a reusable base capability, or a set of requirements, one of instance | capability | requirements
-    pub kind: types::Code,
+    pub kind: crate::r5::coded::Coded<crate::r5::codes::CapabilityStatementKind>,
     /// Primitive extension sibling for [`kind`](Self::kind) (FHIR `_kind`).
     #[serde(rename = "_kind")]
     pub kind_ext: Option<types::Element>,
@@ -318,7 +318,7 @@ pub struct CapabilityStatementRest {
     pub modifier_extension: Option<Vec<types::Extension>>,
 
     /// client | server
-    pub mode: types::Code,
+    pub mode: crate::r5::coded::Coded<crate::r5::codes::RestfulCapabilityMode>,
     /// Primitive extension sibling for [`mode`](Self::mode) (FHIR `_mode`).
     #[serde(rename = "_mode")]
     pub mode_ext: Option<types::Element>,
@@ -423,7 +423,7 @@ pub struct CapabilityStatementRestResource {
     pub interaction: Option<Vec<CapabilityStatementRestResourceInteraction>>,
 
     /// no-version | versioned | versioned-update
-    pub versioning: Option<types::Code>,
+    pub versioning: Option<crate::r5::coded::Coded<crate::r5::codes::VersioningPolicy>>,
     /// Primitive extension sibling for [`versioning`](Self::versioning) (FHIR `_versioning`).
     #[serde(rename = "_versioning")]
     pub versioning_ext: Option<types::Element>,
@@ -447,7 +447,7 @@ pub struct CapabilityStatementRestResource {
     pub conditional_create_ext: Option<types::Element>,
 
     /// not-supported | modified-since | not-match | full-support
-    pub conditional_read: Option<types::Code>,
+    pub conditional_read: Option<crate::r5::coded::Coded<crate::r5::codes::ConditionalReadStatus>>,
     /// Primitive extension sibling for [`conditional_read`](Self::conditional_read) (FHIR `_conditionalRead`).
     #[serde(rename = "_conditionalRead")]
     pub conditional_read_ext: Option<types::Element>,
@@ -465,13 +465,13 @@ pub struct CapabilityStatementRestResource {
     pub conditional_patch_ext: Option<types::Element>,
 
     /// not-supported | single | multiple - how conditional delete is supported
-    pub conditional_delete: Option<types::Code>,
+    pub conditional_delete: Option<crate::r5::coded::Coded<crate::r5::codes::ConditionalDeleteStatus>>,
     /// Primitive extension sibling for [`conditional_delete`](Self::conditional_delete) (FHIR `_conditionalDelete`).
     #[serde(rename = "_conditionalDelete")]
     pub conditional_delete_ext: Option<types::Element>,
 
     /// literal | logical | resolves | enforced | local
-    pub reference_policy: Option<Vec<types::Code>>,
+    pub reference_policy: Option<Vec<crate::r5::coded::Coded<crate::r5::codes::ReferenceHandlingPolicy>>>,
     /// Primitive extension sibling for [`reference_policy`](Self::reference_policy) (FHIR `_referencePolicy`).
     #[serde(rename = "_referencePolicy")]
     pub reference_policy_ext: Option<Vec<Option<types::Element>>>,
@@ -549,7 +549,7 @@ pub struct CapabilityStatementRestResourceSearchParam {
     pub definition_ext: Option<types::Element>,
 
     /// number | date | string | token | reference | composite | quantity | uri | special
-    pub r#type: types::Code,
+    pub r#type: crate::r5::coded::Coded<crate::r5::codes::SearchParamType>,
     /// Primitive extension sibling for [`type`](Self::r#type) (FHIR `_type`).
     #[serde(rename = "_type")]
     pub type_ext: Option<types::Element>,
@@ -693,7 +693,7 @@ pub struct CapabilityStatementMessagingSupportedMessage {
     pub modifier_extension: Option<Vec<types::Extension>>,
 
     /// sender | receiver
-    pub mode: types::Code,
+    pub mode: crate::r5::coded::Coded<crate::r5::codes::EventCapabilityMode>,
     /// Primitive extension sibling for [`mode`](Self::mode) (FHIR `_mode`).
     #[serde(rename = "_mode")]
     pub mode_ext: Option<types::Element>,
@@ -720,7 +720,7 @@ pub struct CapabilityStatementDocument {
     pub modifier_extension: Option<Vec<types::Extension>>,
 
     /// producer | consumer
-    pub mode: types::Code,
+    pub mode: crate::r5::coded::Coded<crate::r5::codes::DocumentMode>,
     /// Primitive extension sibling for [`mode`](Self::mode) (FHIR `_mode`).
     #[serde(rename = "_mode")]
     pub mode_ext: Option<types::Element>,

@@ -106,7 +106,7 @@ pub struct VerificationResult {
     pub need: Option<types::CodeableConcept>,
 
     /// The current status of this verification: attested | validated | in-process | req-revalid | val-fail | reval-fail | entered-in-error
-    pub status: types::Code,
+    pub status: crate::r5::coded::Coded<crate::r5::codes::VerificationresultStatus>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,

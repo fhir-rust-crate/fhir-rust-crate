@@ -91,7 +91,7 @@ pub struct ExplanationOfBenefit {
     /// Number for tracking
     pub trace_number: Option<Vec<types::Identifier>>,
     /// The status of the resource instance: active | cancelled | draft | entered-in-error
-    pub status: types::Code,
+    pub status: crate::r5::coded::Coded<crate::r5::codes::ExplanationofbenefitStatus>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,
@@ -100,7 +100,7 @@ pub struct ExplanationOfBenefit {
     /// More granular claim type
     pub sub_type: Option<types::CodeableConcept>,
     /// Whether this represents a claim, a preauthorization request, or a predetermination
-    pub r#use: types::Code,
+    pub r#use: crate::r5::coded::Coded<crate::r5::codes::ClaimUse>,
     /// Primitive extension sibling for [`use`](Self::r#use) (FHIR `_use`).
     #[serde(rename = "_use")]
     pub use_ext: Option<types::Element>,
@@ -146,7 +146,7 @@ pub struct ExplanationOfBenefit {
     /// Claim response reference
     pub claim_response: Option<types::Reference>,
     /// The processing outcome of the adjudication: queued | complete | error | partial
-    pub outcome: types::Code,
+    pub outcome: crate::r5::coded::Coded<crate::r5::codes::ClaimOutcome>,
     /// Primitive extension sibling for [`outcome`](Self::outcome) (FHIR `_outcome`).
     #[serde(rename = "_outcome")]
     pub outcome_ext: Option<types::Element>,

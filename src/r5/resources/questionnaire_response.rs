@@ -104,7 +104,7 @@ pub struct QuestionnaireResponse {
     pub questionnaire_ext: Option<types::Element>,
 
     /// The lifecycle status of this response: in-progress | completed | amended | entered-in-error | stopped
-    pub status: types::Code,
+    pub status: crate::r5::coded::Coded<crate::r5::codes::QuestionnaireAnswersStatus>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,

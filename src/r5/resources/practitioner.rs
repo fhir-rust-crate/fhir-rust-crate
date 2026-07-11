@@ -101,7 +101,7 @@ pub struct Practitioner {
     pub telecom: Option<Vec<types::ContactPoint>>,
 
     /// male | female | other | unknown
-    pub gender: Option<types::Code>,
+    pub gender: Option<crate::r5::coded::Coded<crate::r5::codes::AdministrativeGender>>,
     /// Primitive extension sibling for [`gender`](Self::gender) (FHIR `_gender`).
     #[serde(rename = "_gender")]
     pub gender_ext: Option<types::Element>,

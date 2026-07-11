@@ -126,7 +126,7 @@ pub struct ExampleScenario {
     pub title_ext: Option<types::Element>,
 
     /// The publication lifecycle status of this scenario: draft | active | retired | unknown.
-    pub status: types::Code,
+    pub status: crate::r5::coded::Coded<crate::r5::codes::PublicationStatus>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,
@@ -215,7 +215,7 @@ pub struct ExampleScenarioActor {
     pub key_ext: Option<types::Element>,
 
     /// person | system
-    pub r#type: types::Code,
+    pub r#type: crate::r5::coded::Coded<crate::r5::codes::ExamplescenarioActorType>,
     /// Primitive extension sibling for [`type`](Self::r#type) (FHIR `_type`).
     #[serde(rename = "_type")]
     pub type_ext: Option<types::Element>,

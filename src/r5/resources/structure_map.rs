@@ -125,7 +125,7 @@ pub struct StructureMap {
     pub title_ext: Option<types::Element>,
 
     /// The publication lifecycle status of the map: draft | active | retired | unknown
-    pub status: types::Code,
+    pub status: crate::r5::coded::Coded<crate::r5::codes::PublicationStatus>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,
@@ -222,7 +222,7 @@ pub struct StructureMapStructure {
     pub url_ext: Option<types::Element>,
 
     /// source | queried | target | produced
-    pub mode: types::Code,
+    pub mode: crate::r5::coded::Coded<crate::r5::codes::MapModelMode>,
     /// Primitive extension sibling for [`mode`](Self::mode) (FHIR `_mode`).
     #[serde(rename = "_mode")]
     pub mode_ext: Option<types::Element>,
@@ -302,7 +302,7 @@ pub struct StructureMapGroup {
     pub extends_ext: Option<types::Element>,
 
     /// types | type-and-types
-    pub type_mode: Option<types::Code>,
+    pub type_mode: Option<crate::r5::coded::Coded<crate::r5::codes::MapGroupTypeMode>>,
     /// Primitive extension sibling for [`type_mode`](Self::type_mode) (FHIR `_typeMode`).
     #[serde(rename = "_typeMode")]
     pub type_mode_ext: Option<types::Element>,
@@ -350,7 +350,7 @@ pub struct StructureMapGroupInput {
     pub type_ext: Option<types::Element>,
 
     /// source | target
-    pub mode: types::Code,
+    pub mode: crate::r5::coded::Coded<crate::r5::codes::MapInputMode>,
     /// Primitive extension sibling for [`mode`](Self::mode) (FHIR `_mode`).
     #[serde(rename = "_mode")]
     pub mode_ext: Option<types::Element>,
@@ -459,7 +459,7 @@ pub struct StructureMapGroupRuleSource {
     pub element_ext: Option<types::Element>,
 
     /// first | not_first | last | not_last | only_one
-    pub list_mode: Option<types::Code>,
+    pub list_mode: Option<crate::r5::coded::Coded<crate::r5::codes::MapSourceListMode>>,
     /// Primitive extension sibling for [`list_mode`](Self::list_mode) (FHIR `_listMode`).
     #[serde(rename = "_listMode")]
     pub list_mode_ext: Option<types::Element>,
@@ -526,7 +526,7 @@ pub struct StructureMapGroupRuleTarget {
     pub variable_ext: Option<types::Element>,
 
     /// first | share | last | single
-    pub list_mode: Option<Vec<types::Code>>,
+    pub list_mode: Option<Vec<crate::r5::coded::Coded<crate::r5::codes::MapTargetListMode>>>,
     /// Primitive extension sibling for [`list_mode`](Self::list_mode) (FHIR `_listMode`).
     #[serde(rename = "_listMode")]
     pub list_mode_ext: Option<Vec<Option<types::Element>>>,
@@ -538,7 +538,7 @@ pub struct StructureMapGroupRuleTarget {
     pub list_rule_id_ext: Option<types::Element>,
 
     /// create | copy +
-    pub transform: Option<types::Code>,
+    pub transform: Option<crate::r5::coded::Coded<crate::r5::codes::MapTransform>>,
     /// Primitive extension sibling for [`transform`](Self::transform) (FHIR `_transform`).
     #[serde(rename = "_transform")]
     pub transform_ext: Option<types::Element>,

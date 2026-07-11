@@ -96,7 +96,7 @@ pub struct SupplyDelivery {
     pub part_of: Option<Vec<types::Reference>>,
 
     /// Lifecycle status of the delivery event: in-progress | completed | abandoned | entered-in-error
-    pub status: Option<types::Code>,
+    pub status: Option<crate::r5::coded::Coded<crate::r5::codes::SupplydeliveryStatus>>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,

@@ -111,7 +111,7 @@ pub struct Device {
 
     /// The record status of this Device instance: active | inactive |
     /// entered-in-error
-    pub status: Option<types::Code>,
+    pub status: Option<crate::r5::coded::Coded<crate::r5::codes::DeviceStatus>>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,
@@ -269,7 +269,7 @@ pub struct DeviceUdiCarrier {
     pub carrier_hrf: Option<types::String>,
 
     /// barcode | rfid | manual | card | self-reported | electronic-transmission | unknown
-    pub entry_type: Option<types::Code>,
+    pub entry_type: Option<crate::r5::coded::Coded<crate::r5::codes::UdiEntryType>>,
     /// Primitive extension sibling for [`entry_type`](Self::entry_type) (FHIR `_entryType`).
     #[serde(rename = "_entryType")]
     pub entry_type_ext: Option<types::Element>,
@@ -296,7 +296,7 @@ pub struct DeviceName {
     pub value_ext: Option<types::Element>,
 
     /// registered-name | user-friendly-name | patient-reported-name
-    pub r#type: types::Code,
+    pub r#type: crate::r5::coded::Coded<crate::r5::codes::DeviceNametype>,
     /// Primitive extension sibling for [`type`](Self::r#type) (FHIR `_type`).
     #[serde(rename = "_type")]
     pub type_ext: Option<types::Element>,

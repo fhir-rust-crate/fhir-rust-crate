@@ -122,7 +122,7 @@ pub struct ConceptMap {
     pub title_ext: Option<types::Element>,
 
     /// draft | active | retired | unknown; the publication lifecycle status of this ConceptMap
-    pub status: types::Code,
+    pub status: crate::r5::coded::Coded<crate::r5::codes::PublicationStatus>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,
@@ -265,7 +265,7 @@ pub struct ConceptMapProperty {
     pub description_ext: Option<types::Element>,
 
     /// Coding | string | integer | boolean | dateTime | decimal | code
-    pub r#type: types::Code,
+    pub r#type: crate::r5::coded::Coded<crate::r5::codes::ConceptmapPropertyType>,
     /// Primitive extension sibling for [`type`](Self::r#type) (FHIR `_type`).
     #[serde(rename = "_type")]
     pub type_ext: Option<types::Element>,
@@ -313,7 +313,7 @@ pub struct ConceptMapAdditionalAttribute {
     pub description_ext: Option<types::Element>,
 
     /// code | Coding | string | boolean | Quantity
-    pub r#type: types::Code,
+    pub r#type: crate::r5::coded::Coded<crate::r5::codes::ConceptmapAttributeType>,
     /// Primitive extension sibling for [`type`](Self::r#type) (FHIR `_type`).
     #[serde(rename = "_type")]
     pub type_ext: Option<types::Element>,
@@ -436,7 +436,7 @@ pub struct ConceptMapGroupElementTarget {
     pub value_set_ext: Option<types::Element>,
 
     /// related-to | equivalent | source-is-narrower-than-target | source-is-broader-than-target | not-related-to
-    pub relationship: types::Code,
+    pub relationship: crate::r5::coded::Coded<crate::r5::codes::ConceptMapRelationship>,
     /// Primitive extension sibling for [`relationship`](Self::relationship) (FHIR `_relationship`).
     #[serde(rename = "_relationship")]
     pub relationship_ext: Option<types::Element>,
@@ -538,7 +538,7 @@ pub struct ConceptMapGroupUnmapped {
     pub modifier_extension: Option<Vec<types::Extension>>,
 
     /// use-source-code | fixed | other-map
-    pub mode: types::Code,
+    pub mode: crate::r5::coded::Coded<crate::r5::codes::ConceptmapUnmappedMode>,
     /// Primitive extension sibling for [`mode`](Self::mode) (FHIR `_mode`).
     #[serde(rename = "_mode")]
     pub mode_ext: Option<types::Element>,
@@ -562,7 +562,7 @@ pub struct ConceptMapGroupUnmapped {
     pub value_set_ext: Option<types::Element>,
 
     /// related-to | equivalent | source-is-narrower-than-target | source-is-broader-than-target | not-related-to
-    pub relationship: Option<types::Code>,
+    pub relationship: Option<crate::r5::coded::Coded<crate::r5::codes::ConceptMapRelationship>>,
     /// Primitive extension sibling for [`relationship`](Self::relationship) (FHIR `_relationship`).
     #[serde(rename = "_relationship")]
     pub relationship_ext: Option<types::Element>,

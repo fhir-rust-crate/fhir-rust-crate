@@ -89,7 +89,7 @@ pub struct Flag {
     pub identifier: Option<Vec<types::Identifier>>,
 
     /// The lifecycle status of the flag: active | inactive | entered-in-error.
-    pub status: types::Code,
+    pub status: crate::r5::coded::Coded<crate::r5::codes::FlagStatus>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,

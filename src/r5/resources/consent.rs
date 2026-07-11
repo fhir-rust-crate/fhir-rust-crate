@@ -91,7 +91,7 @@ pub struct Consent {
     pub identifier: Option<Vec<types::Identifier>>,
 
     /// The current lifecycle status of this consent record: draft | active | inactive | not-done | entered-in-error | unknown
-    pub status: types::Code,
+    pub status: crate::r5::coded::Coded<crate::r5::codes::ConsentStateCodes>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,
@@ -142,7 +142,7 @@ pub struct Consent {
     pub verification: Option<Vec<ConsentVerification>>,
 
     /// The overall decision expressed by this consent: deny | permit
-    pub decision: Option<types::Code>,
+    pub decision: Option<crate::r5::coded::Coded<crate::r5::codes::ConsentProvisionType>>,
     /// Primitive extension sibling for [`decision`](Self::decision) (FHIR `_decision`).
     #[serde(rename = "_decision")]
     pub decision_ext: Option<types::Element>,
@@ -314,7 +314,7 @@ pub struct ConsentProvisionData {
     pub modifier_extension: Option<Vec<types::Extension>>,
 
     /// instance | related | dependents | authoredby
-    pub meaning: types::Code,
+    pub meaning: crate::r5::coded::Coded<crate::r5::codes::ConsentDataMeaning>,
     /// Primitive extension sibling for [`meaning`](Self::meaning) (FHIR `_meaning`).
     #[serde(rename = "_meaning")]
     pub meaning_ext: Option<types::Element>,

@@ -90,7 +90,7 @@ pub struct Goal {
     pub identifier: Option<Vec<types::Identifier>>,
 
     /// The current lifecycle status of this goal: proposed | planned | accepted | active | on-hold | completed | cancelled | entered-in-error | rejected
-    pub lifecycle_status: types::Code,
+    pub lifecycle_status: crate::r5::coded::Coded<crate::r5::codes::GoalStatus>,
     /// Primitive extension sibling for [`lifecycle_status`](Self::lifecycle_status) (FHIR `_lifecycleStatus`).
     #[serde(rename = "_lifecycleStatus")]
     pub lifecycle_status_ext: Option<types::Element>,

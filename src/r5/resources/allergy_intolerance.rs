@@ -104,13 +104,13 @@ pub struct AllergyIntolerance {
     pub r#type: Option<types::CodeableConcept>,
 
     /// food | medication | environment | biologic
-    pub category: Option<Vec<types::Code>>,
+    pub category: Option<Vec<crate::r5::coded::Coded<crate::r5::codes::AllergyIntoleranceCategory>>>,
     /// Primitive extension sibling for [`category`](Self::category) (FHIR `_category`).
     #[serde(rename = "_category")]
     pub category_ext: Option<Vec<Option<types::Element>>>,
 
     /// low | high | unable-to-assess - estimated risk of harm from future exposure
-    pub criticality: Option<types::Code>,
+    pub criticality: Option<crate::r5::coded::Coded<crate::r5::codes::AllergyIntoleranceCriticality>>,
     /// Primitive extension sibling for [`criticality`](Self::criticality) (FHIR `_criticality`).
     #[serde(rename = "_criticality")]
     pub criticality_ext: Option<types::Element>,
@@ -208,7 +208,7 @@ pub struct AllergyIntoleranceReaction {
     pub onset_ext: Option<types::Element>,
 
     /// mild | moderate | severe (of event as a whole)
-    pub severity: Option<types::Code>,
+    pub severity: Option<crate::r5::coded::Coded<crate::r5::codes::ReactionEventSeverity>>,
     /// Primitive extension sibling for [`severity`](Self::severity) (FHIR `_severity`).
     #[serde(rename = "_severity")]
     pub severity_ext: Option<types::Element>,

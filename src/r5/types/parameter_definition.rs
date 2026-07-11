@@ -51,7 +51,7 @@ pub struct ParameterDefinition {
     pub name_ext: Option<types::Element>,
 
     /// Whether the parameter is input or output (in | out)
-    pub r#use: types::Code,
+    pub r#use: crate::r5::coded::Coded<crate::r5::codes::OperationParameterUse>,
     /// Primitive extension sibling for [`use`](Self::r#use) (FHIR `_use`).
     #[serde(rename = "_use")]
     pub use_ext: Option<types::Element>,

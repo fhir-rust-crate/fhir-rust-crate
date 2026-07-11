@@ -121,7 +121,7 @@ pub struct ValueSet {
     pub title_ext: Option<types::Element>,
 
     /// Publication lifecycle status of this value set: draft | active | retired | unknown
-    pub status: types::Code,
+    pub status: crate::r5::coded::Coded<crate::r5::codes::PublicationStatus>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,
@@ -394,7 +394,7 @@ pub struct ValueSetComposeIncludeFilter {
     pub property_ext: Option<types::Element>,
 
     /// = | is-a | descendent-of | is-not-a | regex | in | not-in | generalizes | child-of | descendent-leaf | exists
-    pub op: types::Code,
+    pub op: crate::r5::coded::Coded<crate::r5::codes::FilterOperator>,
     /// Primitive extension sibling for [`op`](Self::op) (FHIR `_op`).
     #[serde(rename = "_op")]
     pub op_ext: Option<types::Element>,

@@ -97,7 +97,7 @@ pub struct SupplyRequest {
     pub identifier: Option<Vec<types::Identifier>>,
 
     /// Status of the request: draft | active | suspended | cancelled | completed | entered-in-error | unknown
-    pub status: Option<types::Code>,
+    pub status: Option<crate::r5::coded::Coded<crate::r5::codes::SupplyrequestStatus>>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,
@@ -109,7 +109,7 @@ pub struct SupplyRequest {
     pub category: Option<types::CodeableConcept>,
 
     /// Indicates how quickly this SupplyRequest should be addressed: routine | urgent | asap | stat
-    pub priority: Option<types::Code>,
+    pub priority: Option<crate::r5::coded::Coded<crate::r5::codes::RequestPriority>>,
     /// Primitive extension sibling for [`priority`](Self::priority) (FHIR `_priority`).
     #[serde(rename = "_priority")]
     pub priority_ext: Option<types::Element>,

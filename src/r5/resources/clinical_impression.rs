@@ -91,7 +91,7 @@ pub struct ClinicalImpression {
     pub identifier: Option<Vec<types::Identifier>>,
 
     /// The workflow state of this assessment: preparation | in-progress | not-done | on-hold | stopped | completed | entered-in-error | unknown
-    pub status: types::Code,
+    pub status: crate::r5::coded::Coded<crate::r5::codes::EventStatus>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,

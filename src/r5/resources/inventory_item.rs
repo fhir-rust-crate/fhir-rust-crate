@@ -93,7 +93,7 @@ pub struct InventoryItem {
     pub identifier: Option<Vec<types::Identifier>>,
 
     /// Lifecycle status of this inventory record: active, inactive, entered-in-error, or unknown.
-    pub status: types::Code,
+    pub status: crate::r5::coded::Coded<crate::r5::codes::InventoryitemStatus>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,

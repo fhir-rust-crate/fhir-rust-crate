@@ -116,7 +116,7 @@ pub struct Patient {
     pub telecom: Option<Vec<types::ContactPoint>>,
 
     /// The administrative gender used for record keeping, coded as male, female, other, or unknown, which may differ from clinical or biological sex.
-    pub gender: Option<types::Code>,
+    pub gender: Option<crate::r5::coded::Coded<crate::r5::codes::AdministrativeGender>>,
 
     /// Primitive extension sibling for [`gender`](Self::gender) (FHIR `_gender`).
     #[serde(rename = "_gender")]
@@ -190,7 +190,7 @@ pub struct PatientContact {
     pub address: Option<types::Address>,
 
     /// male | female | other | unknown
-    pub gender: Option<types::Code>,
+    pub gender: Option<crate::r5::coded::Coded<crate::r5::codes::AdministrativeGender>>,
     /// Primitive extension sibling for [`gender`](Self::gender) (FHIR `_gender`).
     #[serde(rename = "_gender")]
     pub gender_ext: Option<types::Element>,
@@ -246,7 +246,7 @@ pub struct PatientLink {
     pub other: types::Reference,
 
     /// replaced-by | replaces | refer | seealso
-    pub r#type: types::Code,
+    pub r#type: crate::r5::coded::Coded<crate::r5::codes::LinkType>,
     /// Primitive extension sibling for [`type`](Self::r#type) (FHIR `_type`).
     #[serde(rename = "_type")]
     pub type_ext: Option<types::Element>,

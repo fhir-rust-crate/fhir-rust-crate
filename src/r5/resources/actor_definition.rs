@@ -126,7 +126,7 @@ pub struct ActorDefinition {
     pub title_ext: Option<types::Element>,
 
     /// The publication status of this actor definition: draft | active | retired | unknown
-    pub status: types::Code,
+    pub status: crate::r5::coded::Coded<crate::r5::codes::PublicationStatus>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,
@@ -183,7 +183,7 @@ pub struct ActorDefinition {
     pub copyright_label_ext: Option<types::Element>,
 
     /// Whether the actor represents a human participant or a software system: person | system
-    pub r#type: types::Code,
+    pub r#type: crate::r5::coded::Coded<crate::r5::codes::ExamplescenarioActorType>,
     /// Primitive extension sibling for [`type`](Self::r#type) (FHIR `_type`).
     #[serde(rename = "_type")]
     pub type_ext: Option<types::Element>,

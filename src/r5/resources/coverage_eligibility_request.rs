@@ -91,7 +91,7 @@ pub struct CoverageEligibilityRequest {
     pub identifier: Option<Vec<types::Identifier>>,
 
     /// The status of this request; one of active | cancelled | draft | entered-in-error
-    pub status: types::Code,
+    pub status: crate::r5::coded::Coded<crate::r5::codes::FmStatus>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,
@@ -100,7 +100,7 @@ pub struct CoverageEligibilityRequest {
     pub priority: Option<types::CodeableConcept>,
 
     /// The reason(s) for the request, one or more of auth-requirements | benefits | discovery | validation
-    pub purpose: Vec<types::Code>,
+    pub purpose: Vec<crate::r5::coded::Coded<crate::r5::codes::EligibilityrequestPurpose>>,
     /// Primitive extension sibling for [`purpose`](Self::purpose) (FHIR `_purpose`).
     #[serde(rename = "_purpose")]
     pub purpose_ext: Option<Vec<Option<types::Element>>>,

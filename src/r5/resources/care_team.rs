@@ -84,7 +84,7 @@ pub struct CareTeam {
     pub identifier: Option<Vec<types::Identifier>>,
 
     /// The lifecycle status of the team: proposed | active | suspended | inactive | entered-in-error.
-    pub status: Option<types::Code>,
+    pub status: Option<crate::r5::coded::Coded<crate::r5::codes::CareTeamStatus>>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,

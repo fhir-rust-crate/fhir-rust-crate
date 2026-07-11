@@ -205,7 +205,7 @@ pub struct DataRequirementSort {
     pub path_ext: Option<types::Element>,
 
     /// ascending | descending
-    pub direction: types::Code,
+    pub direction: crate::r5::coded::Coded<crate::r5::codes::SortDirection>,
     /// Primitive extension sibling for [`direction`](Self::direction) (FHIR `_direction`).
     #[serde(rename = "_direction")]
     pub direction_ext: Option<types::Element>,

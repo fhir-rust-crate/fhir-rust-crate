@@ -99,7 +99,7 @@ pub struct Encounter {
     pub identifier: Option<Vec<types::Identifier>>,
 
     /// Current lifecycle state of the encounter, such as planned, in-progress, on-hold, discharged, completed, cancelled, discontinued, entered-in-error, or unknown.
-    pub status: types::Code,
+    pub status: crate::r5::coded::Coded<crate::r5::codes::EncounterStatus>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,
@@ -307,7 +307,7 @@ pub struct EncounterLocation {
     pub location: types::Reference,
 
     /// planned | active | reserved | completed
-    pub status: Option<types::Code>,
+    pub status: Option<crate::r5::coded::Coded<crate::r5::codes::EncounterLocationStatus>>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,

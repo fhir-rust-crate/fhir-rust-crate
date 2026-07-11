@@ -52,3 +52,40 @@ strength and value-set membership from the spec.
       deserializes to `AdministrativeGender::Male`.
 - [ ] Generation is deterministic and the module compiles with zero clippy
       warnings (no bare URLs, no keyword/identifier errors).
+
+## Typing coded fields (T10)
+
+Status: **decided and rolled out.** Elements with a `required` binding whose
+value set maps to an existing code enum are typed as that enum rather than the
+opaque `types::Code`, so the compiler enforces the value set.
+
+**Fallback policy — decision.** A closed enum would reject any code outside the
+value set, which is unacceptable for a data-exchange library (data carries newer
+codes, local extensions, or simply invalid values, and read must not fail).
+Rather than add an `Other(String)` variant to every one of the ~419 generated
+enums, the field type is wrapped:
+
+```rust
+pub enum Coded<E> {           // fhir::r5::coded
+    Known(E),                 // a recognized code from the value set
+    Unknown(String),          // any other code, preserved verbatim
+}
+```
+
+`Coded<E>` is `#[serde(untagged)]`: deserialization tries `E` first and falls
+back to `Unknown`; serialization emits the code string either way. This keeps
+`codes.rs` untouched, makes the retype **round-trip-safe** (a code outside the
+set — or a mis-mapped enum — simply lands in `Unknown`), and localizes the
+policy in one type. A required-binding field is therefore
+`Option<Coded<AdministrativeGender>>` (or `Coded<…>` for `1..1`).
+
+Rollout: `src/r5/parse/coded_gen.rs` retyped 343 fields (27 datatypes + 316
+resources) whose value set maps to a code enum. Membership-of-value-set checking
+for the `Unknown` fallback is deferred to the validation-depth work (T13).
+
+### Acceptance criteria (T10)
+
+- [x] ≥100 required-binding fields retyped (343 done).
+- [x] `Coded<E>` round-trips known and unknown codes; official-examples run
+      unchanged (2822/2824).
+- [x] Examples and doctests migrated to the enum API; full gate green.

@@ -12,8 +12,10 @@
 //!
 //! [`Validate`]: fhir::r5::validate::Validate
 
+use fhir::r5::coded::Coded;
+use fhir::r5::codes::AdministrativeGender;
 use fhir::r5::resources::Patient;
-use fhir::r5::types::{Code, HumanName, Id, String as FhirString};
+use fhir::r5::types::{HumanName, Id, String as FhirString, Uri};
 use fhir::r5::validate::Validate;
 
 fn main() {
@@ -25,7 +27,8 @@ fn main() {
     // --- A valid resource -------------------------------------------------
     let mut patient = Patient {
         id: Some(FhirString("pat-1".to_string())),
-        gender: Some(Code("male".to_string())),
+        // A required-binding coded field is the code enum, wrapped in `Coded`.
+        gender: Some(Coded::Known(AdministrativeGender::Male)),
         name: Some(vec![HumanName {
             family: Some(FhirString("Chalmers".to_string())),
             ..Default::default()
@@ -35,9 +38,9 @@ fn main() {
     report(&patient);
 
     // --- Introduce a problem ----------------------------------------------
-    // An empty `code` violates the FHIR `code` constraint. Because the check is
-    // recursive, the reported path is `gender.code`.
-    patient.gender = Some(Code(String::new()));
+    // A FHIR `uri` must not be empty or surrounded by whitespace. Because the
+    // check is recursive, the reported path points at the offending field.
+    patient.implicit_rules = Some(Uri(" http://example.org/bad ".to_string()));
     report(&patient);
 }
 

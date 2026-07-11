@@ -97,7 +97,7 @@ pub struct Appointment {
     pub identifier: Option<Vec<types::Identifier>>,
 
     /// Lifecycle state of the appointment that drives scheduling workflow: proposed | pending | booked | arrived | fulfilled | cancelled | noshow | entered-in-error | checked-in | waitlist
-    pub status: types::Code,
+    pub status: crate::r5::coded::Coded<crate::r5::codes::Appointmentstatus>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,
@@ -251,7 +251,7 @@ pub struct AppointmentParticipant {
     pub required_ext: Option<types::Element>,
 
     /// accepted | declined | tentative | needs-action
-    pub status: types::Code,
+    pub status: crate::r5::coded::Coded<crate::r5::codes::Participationstatus>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,

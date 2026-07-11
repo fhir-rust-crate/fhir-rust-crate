@@ -91,7 +91,7 @@ pub struct MolecularSequence {
     pub identifier: Option<Vec<types::Identifier>>,
 
     /// Kind of molecule represented, coded as aa (amino acid), dna, or rna
-    pub r#type: Option<types::Code>,
+    pub r#type: Option<crate::r5::coded::Coded<crate::r5::codes::SequenceType>>,
     /// Primitive extension sibling for [`type`](Self::r#type) (FHIR `_type`).
     #[serde(rename = "_type")]
     pub type_ext: Option<types::Element>,
@@ -194,13 +194,13 @@ pub struct MolecularSequenceRelativeStartingSequence {
     pub window_end_ext: Option<types::Element>,
 
     /// sense | antisense
-    pub orientation: Option<types::Code>,
+    pub orientation: Option<crate::r5::coded::Coded<crate::r5::codes::OrientationType>>,
     /// Primitive extension sibling for [`orientation`](Self::orientation) (FHIR `_orientation`).
     #[serde(rename = "_orientation")]
     pub orientation_ext: Option<types::Element>,
 
     /// watson | crick
-    pub strand: Option<types::Code>,
+    pub strand: Option<crate::r5::coded::Coded<crate::r5::codes::StrandType>>,
     /// Primitive extension sibling for [`strand`](Self::strand) (FHIR `_strand`).
     #[serde(rename = "_strand")]
     pub strand_ext: Option<types::Element>,

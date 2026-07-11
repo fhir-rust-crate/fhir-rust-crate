@@ -113,7 +113,7 @@ pub struct Requirements {
     pub title_ext: Option<types::Element>,
 
     /// Publication lifecycle state of this Requirements: draft, active, retired, or unknown
-    pub status: types::Code,
+    pub status: crate::r5::coded::Coded<crate::r5::codes::PublicationStatus>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,
@@ -222,7 +222,7 @@ pub struct RequirementsStatement {
     pub label_ext: Option<types::Element>,
 
     /// Conformance verbs that set the strength of this requirement: SHALL, SHOULD, MAY, or SHOULD-NOT
-    pub conformance: Option<Vec<types::Code>>,
+    pub conformance: Option<Vec<crate::r5::coded::Coded<crate::r5::codes::ConformanceExpectation>>>,
     /// Primitive extension sibling for [`conformance`](Self::conformance) (FHIR `_conformance`).
     #[serde(rename = "_conformance")]
     pub conformance_ext: Option<Vec<Option<types::Element>>>,

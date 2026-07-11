@@ -93,7 +93,7 @@ pub struct DeviceUsage {
     pub based_on: Option<Vec<types::Reference>>,
 
     /// The current state of this device usage record: active | completed | not-done | entered-in-error +
-    pub status: types::Code,
+    pub status: crate::r5::coded::Coded<crate::r5::codes::DeviceusageStatus>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,

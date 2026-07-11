@@ -95,7 +95,7 @@ pub struct DiagnosticReport {
     pub based_on: Option<Vec<types::Reference>>,
 
     /// registered | partial | preliminary | modified | final | amended | corrected | appended | cancelled | entered-in-error | unknown; tracks the report's lifecycle status
-    pub status: types::Code,
+    pub status: crate::r5::coded::Coded<crate::r5::codes::DiagnosticReportStatus>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,

@@ -93,7 +93,7 @@ pub struct MedicationKnowledge {
     pub code: Option<types::CodeableConcept>,
 
     /// Lifecycle status of this knowledge record: active, entered-in-error, or inactive
-    pub status: Option<types::Code>,
+    pub status: Option<crate::r5::coded::Coded<crate::r5::codes::MedicationknowledgeStatus>>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,

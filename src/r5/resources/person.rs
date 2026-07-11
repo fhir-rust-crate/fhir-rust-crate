@@ -102,7 +102,7 @@ pub struct Person {
     pub telecom: Option<Vec<types::ContactPoint>>,
 
     /// male | female | other | unknown
-    pub gender: Option<types::Code>,
+    pub gender: Option<crate::r5::coded::Coded<crate::r5::codes::AdministrativeGender>>,
     /// Primitive extension sibling for [`gender`](Self::gender) (FHIR `_gender`).
     #[serde(rename = "_gender")]
     pub gender_ext: Option<types::Element>,
@@ -179,7 +179,7 @@ pub struct PersonLink {
     pub target: types::Reference,
 
     /// level1 | level2 | level3 | level4
-    pub assurance: Option<types::Code>,
+    pub assurance: Option<crate::r5::coded::Coded<crate::r5::codes::IdentityAssuranceLevel>>,
     /// Primitive extension sibling for [`assurance`](Self::assurance) (FHIR `_assurance`).
     #[serde(rename = "_assurance")]
     pub assurance_ext: Option<types::Element>,

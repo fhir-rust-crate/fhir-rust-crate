@@ -93,7 +93,7 @@ pub struct ClaimResponse {
     pub trace_number: Option<Vec<types::Identifier>>,
 
     /// The status of the resource instance itself: active | cancelled | draft | entered-in-error.
-    pub status: types::Code,
+    pub status: crate::r5::coded::Coded<crate::r5::codes::FmStatus>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,
@@ -105,7 +105,7 @@ pub struct ClaimResponse {
     pub sub_type: Option<types::CodeableConcept>,
 
     /// Indicates whether this response adjudicates a claim, preauthorization, or predetermination: claim | preauthorization | predetermination.
-    pub r#use: types::Code,
+    pub r#use: crate::r5::coded::Coded<crate::r5::codes::ClaimUse>,
     /// Primitive extension sibling for [`use`](Self::r#use) (FHIR `_use`).
     #[serde(rename = "_use")]
     pub use_ext: Option<types::Element>,
@@ -129,7 +129,7 @@ pub struct ClaimResponse {
     pub request: Option<types::Reference>,
 
     /// The high-level processing outcome of the adjudication: queued | complete | error | partial.
-    pub outcome: types::Code,
+    pub outcome: crate::r5::coded::Coded<crate::r5::codes::ClaimOutcome>,
     /// Primitive extension sibling for [`outcome`](Self::outcome) (FHIR `_outcome`).
     #[serde(rename = "_outcome")]
     pub outcome_ext: Option<types::Element>,

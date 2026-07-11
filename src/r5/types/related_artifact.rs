@@ -45,7 +45,7 @@ pub struct RelatedArtifact {
 
     /// The type of relationship to the related artifact.
     /// documentation | justification | citation | predecessor | successor | derived-from | depends-on | composed-of | part-of | amends | amended-with | appends | appended-with | cites | cited-by | comments-on | comment-in | contains | contained-in | corrects | correction-in | replaces | replaced-with | retracts | retracted-by | signs | similar-to | supports | supported-with | transforms | transformed-into | transformed-with | documents | specification-of | created-with | cite-as
-    pub r#type: types::Code,
+    pub r#type: crate::r5::coded::Coded<crate::r5::codes::RelatedArtifactType>,
     /// Primitive extension sibling for [`type`](Self::r#type) (FHIR `_type`).
     #[serde(rename = "_type")]
     pub type_ext: Option<types::Element>,
@@ -85,7 +85,7 @@ pub struct RelatedArtifact {
 
     /// The publication status of the artifact being referred to.
     /// draft | active | retired | unknown
-    pub publication_status: Option<types::Code>,
+    pub publication_status: Option<crate::r5::coded::Coded<crate::r5::codes::PublicationStatus>>,
     /// Primitive extension sibling for [`publication_status`](Self::publication_status) (FHIR `_publicationStatus`).
     #[serde(rename = "_publicationStatus")]
     pub publication_status_ext: Option<types::Element>,

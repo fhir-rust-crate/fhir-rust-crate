@@ -90,7 +90,7 @@ pub struct DeviceMetric {
     pub device: types::Reference,
 
     /// Indicates the current operational status of the device metric: on | off | standby | entered-in-error.
-    pub operational_status: Option<types::Code>,
+    pub operational_status: Option<crate::r5::coded::Coded<crate::r5::codes::MetricOperationalStatus>>,
     /// Primitive extension sibling for [`operational_status`](Self::operational_status) (FHIR `_operationalStatus`).
     #[serde(rename = "_operationalStatus")]
     pub operational_status_ext: Option<types::Element>,
@@ -102,7 +102,7 @@ pub struct DeviceMetric {
     pub color_ext: Option<types::Element>,
 
     /// Classifies the metric as a measurement, setting, calculation, or unspecified kind.
-    pub category: types::Code,
+    pub category: crate::r5::coded::Coded<crate::r5::codes::MetricCategory>,
     /// Primitive extension sibling for [`category`](Self::category) (FHIR `_category`).
     #[serde(rename = "_category")]
     pub category_ext: Option<types::Element>,
@@ -129,13 +129,13 @@ pub struct DeviceMetricCalibration {
     pub modifier_extension: Option<Vec<types::Extension>>,
 
     /// unspecified | offset | gain | two-point
-    pub r#type: Option<types::Code>,
+    pub r#type: Option<crate::r5::coded::Coded<crate::r5::codes::MetricCalibrationType>>,
     /// Primitive extension sibling for [`type`](Self::r#type) (FHIR `_type`).
     #[serde(rename = "_type")]
     pub type_ext: Option<types::Element>,
 
     /// not-calibrated | calibration-required | calibrated | unspecified
-    pub state: Option<types::Code>,
+    pub state: Option<crate::r5::coded::Coded<crate::r5::codes::MetricCalibrationState>>,
     /// Primitive extension sibling for [`state`](Self::state) (FHIR `_state`).
     #[serde(rename = "_state")]
     pub state_ext: Option<types::Element>,

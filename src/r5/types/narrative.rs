@@ -48,7 +48,7 @@ pub struct Narrative {
     pub extension: Option<Vec<types::Extension>>,
 
     /// generated | extensions | additional | empty
-    pub status: types::Code,
+    pub status: crate::r5::coded::Coded<crate::r5::codes::NarrativeStatus>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,

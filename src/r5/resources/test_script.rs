@@ -123,7 +123,7 @@ pub struct TestScript {
     pub title_ext: Option<types::Element>,
 
     /// The publication status of this test script: draft | active | retired | unknown
-    pub status: types::Code,
+    pub status: crate::r5::coded::Coded<crate::r5::codes::PublicationStatus>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,
@@ -597,7 +597,7 @@ pub struct TestScriptSetupActionOperation {
     pub encode_request_url_ext: Option<types::Element>,
 
     /// delete | get | options | patch | post | put | head
-    pub method: Option<types::Code>,
+    pub method: Option<crate::r5::coded::Coded<crate::r5::codes::HttpOperations>>,
     /// Primitive extension sibling for [`method`](Self::method) (FHIR `_method`).
     #[serde(rename = "_method")]
     pub method_ext: Option<types::Element>,
@@ -702,7 +702,7 @@ pub struct TestScriptSetupActionAssert {
     pub description_ext: Option<types::Element>,
 
     /// response | request
-    pub direction: Option<types::Code>,
+    pub direction: Option<crate::r5::coded::Coded<crate::r5::codes::AssertDirectionCodes>>,
     /// Primitive extension sibling for [`direction`](Self::direction) (FHIR `_direction`).
     #[serde(rename = "_direction")]
     pub direction_ext: Option<types::Element>,
@@ -732,7 +732,7 @@ pub struct TestScriptSetupActionAssert {
     pub content_type_ext: Option<types::Element>,
 
     /// fail | pass | skip | stop
-    pub default_manual_completion: Option<types::Code>,
+    pub default_manual_completion: Option<crate::r5::coded::Coded<crate::r5::codes::AssertManualCompletionCodes>>,
     /// Primitive extension sibling for [`default_manual_completion`](Self::default_manual_completion) (FHIR `_defaultManualCompletion`).
     #[serde(rename = "_defaultManualCompletion")]
     pub default_manual_completion_ext: Option<types::Element>,
@@ -762,7 +762,7 @@ pub struct TestScriptSetupActionAssert {
     pub navigation_links_ext: Option<types::Element>,
 
     /// equals | notEquals | in | notIn | greaterThan | lessThan | empty | notEmpty | contains | notContains | eval | manualEval
-    pub operator: Option<types::Code>,
+    pub operator: Option<crate::r5::coded::Coded<crate::r5::codes::AssertOperatorCodes>>,
     /// Primitive extension sibling for [`operator`](Self::operator) (FHIR `_operator`).
     #[serde(rename = "_operator")]
     pub operator_ext: Option<types::Element>,
@@ -774,7 +774,7 @@ pub struct TestScriptSetupActionAssert {
     pub path_ext: Option<types::Element>,
 
     /// delete | get | options | patch | post | put | head
-    pub request_method: Option<types::Code>,
+    pub request_method: Option<crate::r5::coded::Coded<crate::r5::codes::HttpOperations>>,
     /// Primitive extension sibling for [`request_method`](Self::request_method) (FHIR `_requestMethod`).
     #[serde(rename = "_requestMethod")]
     pub request_method_ext: Option<types::Element>,
@@ -790,7 +790,7 @@ pub struct TestScriptSetupActionAssert {
     pub resource_ext: Option<types::Element>,
 
     /// HTTP response status code family
-    pub response: Option<types::Code>,
+    pub response: Option<crate::r5::coded::Coded<crate::r5::codes::AssertResponseCodeTypes>>,
     /// Primitive extension sibling for [`response`](Self::response) (FHIR `_response`).
     #[serde(rename = "_response")]
     pub response_ext: Option<types::Element>,

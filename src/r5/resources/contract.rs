@@ -103,7 +103,7 @@ pub struct Contract {
     pub version_ext: Option<types::Element>,
 
     /// Current lifecycle status of the contract, e.g. amended | appended | cancelled | disputed | entered-in-error | executable +
-    pub status: Option<types::Code>,
+    pub status: Option<crate::r5::coded::Coded<crate::r5::codes::ContractStatus>>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,
@@ -246,7 +246,7 @@ pub struct ContractContentDefinition {
     pub publication_date_ext: Option<types::Element>,
 
     /// amended | appended | cancelled | disputed | entered-in-error | executable +
-    pub publication_status: types::Code,
+    pub publication_status: crate::r5::coded::Coded<crate::r5::codes::ContractPublicationstatus>,
     /// Primitive extension sibling for [`publication_status`](Self::publication_status) (FHIR `_publicationStatus`).
     #[serde(rename = "_publicationStatus")]
     pub publication_status_ext: Option<types::Element>,

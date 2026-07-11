@@ -93,7 +93,7 @@ pub struct RiskAssessment {
     pub parent: Option<types::Reference>,
 
     /// The status of the RiskAssessment, using the codes registered | preliminary | final | amended +
-    pub status: types::Code,
+    pub status: crate::r5::coded::Coded<crate::r5::codes::ObservationStatus>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,

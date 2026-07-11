@@ -90,19 +90,19 @@ pub struct MeasureReport {
     pub identifier: Option<Vec<types::Identifier>>,
 
     /// The processing state of the report: complete, pending, or error.
-    pub status: types::Code,
+    pub status: crate::r5::coded::Coded<crate::r5::codes::MeasureReportStatus>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,
 
     /// The kind of report: individual, subject-list, summary, or data-exchange.
-    pub r#type: types::Code,
+    pub r#type: crate::r5::coded::Coded<crate::r5::codes::MeasureReportType>,
     /// Primitive extension sibling for [`type`](Self::r#type) (FHIR `_type`).
     #[serde(rename = "_type")]
     pub type_ext: Option<types::Element>,
 
     /// incremental | snapshot
-    pub data_update_type: Option<types::Code>,
+    pub data_update_type: Option<crate::r5::coded::Coded<crate::r5::codes::SubmitDataUpdateType>>,
     /// Primitive extension sibling for [`data_update_type`](Self::data_update_type) (FHIR `_dataUpdateType`).
     #[serde(rename = "_dataUpdateType")]
     pub data_update_type_ext: Option<types::Element>,

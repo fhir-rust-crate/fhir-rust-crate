@@ -91,13 +91,13 @@ pub struct Coverage {
     pub identifier: Option<Vec<types::Identifier>>,
 
     /// The status of the resource instance: active | cancelled | draft | entered-in-error
-    pub status: types::Code,
+    pub status: crate::r5::coded::Coded<crate::r5::codes::FmStatus>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,
 
     /// The nature of the coverage: insurance | self-pay | other
-    pub kind: types::Code,
+    pub kind: crate::r5::coded::Coded<crate::r5::codes::CoverageKind>,
     /// Primitive extension sibling for [`kind`](Self::kind) (FHIR `_kind`).
     #[serde(rename = "_kind")]
     pub kind_ext: Option<types::Element>,

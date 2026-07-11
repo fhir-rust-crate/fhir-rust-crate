@@ -11,6 +11,8 @@
 //! produce the JSON. Because every resource derives `Default`, you only set the
 //! fields you care about and spread `..Default::default()` for the rest.
 
+use fhir::r5::coded::Coded;
+use fhir::r5::codes::{AdministrativeGender, ContactPointSystem};
 use fhir::r5::resources::Patient;
 use fhir::r5::types::{Boolean, Code, ContactPoint, HumanName, String as FhirString};
 
@@ -21,7 +23,9 @@ fn main() {
     let patient = Patient {
         id: Some(FhirString("pat-1".to_string())),
         active: Some(Boolean(true)),
-        gender: Some(Code("male".to_string())),
+        // `gender` has a required binding, so it is typed as the code enum
+        // (wrapped in `Coded`, which tolerates codes outside the value set).
+        gender: Some(Coded::Known(AdministrativeGender::Male)),
 
         // `name` is `0..*`, so it is `Option<Vec<HumanName>>`.
         name: Some(vec![HumanName {
@@ -36,7 +40,7 @@ fn main() {
 
         // `telecom` demonstrates another repeating datatype.
         telecom: Some(vec![ContactPoint {
-            system: Some(Code("phone".to_string())),
+            system: Some(Coded::Known(ContactPointSystem::Phone)),
             value: Some(FhirString("(03) 5555 6473".to_string())),
             use1: Some(Code("work".to_string())),
             ..Default::default()

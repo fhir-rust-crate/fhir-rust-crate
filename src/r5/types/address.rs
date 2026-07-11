@@ -51,7 +51,7 @@ pub struct Address {
     /// Distinguishes between a postal address (physical/mailing) and a physical
     /// address (visiting location).
     #[serde(rename = "type")]
-    pub r#type: Option<types::Code>, // « AddressType! »
+    pub r#type: Option<crate::r5::coded::Coded<crate::r5::codes::AddressType>>, // « AddressType! »
     /// Primitive extension sibling for [`type`](Self::r#type) (FHIR `_type`).
     #[serde(rename = "_type")]
     pub type_ext: Option<types::Element>,

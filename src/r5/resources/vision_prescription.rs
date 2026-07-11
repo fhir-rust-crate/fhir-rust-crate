@@ -94,7 +94,7 @@ pub struct VisionPrescription {
 
     /// The current lifecycle status of the prescription: active | cancelled |
     /// draft | entered-in-error.
-    pub status: types::Code,
+    pub status: crate::r5::coded::Coded<crate::r5::codes::FmStatus>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,
@@ -150,7 +150,7 @@ pub struct VisionPrescriptionLensSpecification {
     pub product: types::CodeableConcept,
 
     /// right | left
-    pub eye: types::Code,
+    pub eye: crate::r5::coded::Coded<crate::r5::codes::VisionEyeCodes>,
     /// Primitive extension sibling for [`eye`](Self::eye) (FHIR `_eye`).
     #[serde(rename = "_eye")]
     pub eye_ext: Option<types::Element>,
@@ -243,7 +243,7 @@ pub struct VisionPrescriptionLensSpecificationPrism {
     pub amount_ext: Option<types::Element>,
 
     /// up | down | in | out
-    pub base: types::Code,
+    pub base: crate::r5::coded::Coded<crate::r5::codes::VisionBaseCodes>,
     /// Primitive extension sibling for [`base`](Self::base) (FHIR `_base`).
     #[serde(rename = "_base")]
     pub base_ext: Option<types::Element>,

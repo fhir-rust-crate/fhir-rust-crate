@@ -128,7 +128,7 @@ pub struct EvidenceVariable {
     pub short_title_ext: Option<types::Element>,
 
     /// The publication status of this evidence variable: draft | active | retired | unknown.
-    pub status: types::Code,
+    pub status: crate::r5::coded::Coded<crate::r5::codes::PublicationStatus>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,
@@ -224,7 +224,7 @@ pub struct EvidenceVariable {
     pub characteristic: Option<Vec<EvidenceVariableCharacteristic>>,
 
     /// The type of variable measurement: continuous | dichotomous | ordinal | polychotomous
-    pub handling: Option<types::Code>,
+    pub handling: Option<crate::r5::coded::Coded<crate::r5::codes::VariableHandling>>,
     /// Primitive extension sibling for [`handling`](Self::handling) (FHIR `_handling`).
     #[serde(rename = "_handling")]
     pub handling_ext: Option<types::Element>,
@@ -353,7 +353,7 @@ pub struct EvidenceVariableCharacteristicDefinitionByCombination {
     pub modifier_extension: Option<Vec<types::Extension>>,
 
     /// all-of | any-of | at-least | at-most | statistical | net-effect | dataset
-    pub code: types::Code,
+    pub code: crate::r5::coded::Coded<crate::r5::codes::CharacteristicCombination>,
     /// Primitive extension sibling for [`code`](Self::code) (FHIR `_code`).
     #[serde(rename = "_code")]
     pub code_ext: Option<types::Element>,

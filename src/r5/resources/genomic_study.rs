@@ -96,7 +96,7 @@ pub struct GenomicStudy {
     pub identifier: Option<Vec<types::Identifier>>,
 
     /// The overall workflow status of the study: registered | available | cancelled | entered-in-error | unknown
-    pub status: types::Code,
+    pub status: crate::r5::coded::Coded<crate::r5::codes::GenomicstudyStatus>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,

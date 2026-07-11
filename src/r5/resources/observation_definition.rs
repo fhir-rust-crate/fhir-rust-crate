@@ -125,7 +125,7 @@ pub struct ObservationDefinition {
     pub title_ext: Option<types::Element>,
 
     /// Publication lifecycle state of this definition: draft, active, retired, or unknown.
-    pub status: types::Code,
+    pub status: crate::r5::coded::Coded<crate::r5::codes::PublicationStatus>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,
@@ -221,7 +221,7 @@ pub struct ObservationDefinition {
     pub code: types::CodeableConcept,
 
     /// Permitted result value types, such as Quantity, CodeableConcept, string, boolean, integer, Range, Ratio, SampledData, time, dateTime, or Period.
-    pub permitted_data_type: Option<Vec<types::Code>>,
+    pub permitted_data_type: Option<Vec<crate::r5::coded::Coded<crate::r5::codes::PermittedDataType>>>,
     /// Primitive extension sibling for [`permitted_data_type`](Self::permitted_data_type) (FHIR `_permittedDataType`).
     #[serde(rename = "_permittedDataType")]
     pub permitted_data_type_ext: Option<Vec<Option<types::Element>>>,
@@ -289,7 +289,7 @@ pub struct ObservationDefinitionQualifiedValue {
     pub applies_to: Option<Vec<types::CodeableConcept>>,
 
     /// male | female | other | unknown
-    pub gender: Option<types::Code>,
+    pub gender: Option<crate::r5::coded::Coded<crate::r5::codes::AdministrativeGender>>,
     /// Primitive extension sibling for [`gender`](Self::gender) (FHIR `_gender`).
     #[serde(rename = "_gender")]
     pub gender_ext: Option<types::Element>,
@@ -307,7 +307,7 @@ pub struct ObservationDefinitionQualifiedValue {
     pub condition_ext: Option<types::Element>,
 
     /// reference | critical | absolute
-    pub range_category: Option<types::Code>,
+    pub range_category: Option<crate::r5::coded::Coded<crate::r5::codes::ObservationRangeCategory>>,
     /// Primitive extension sibling for [`range_category`](Self::range_category) (FHIR `_rangeCategory`).
     #[serde(rename = "_rangeCategory")]
     pub range_category_ext: Option<types::Element>,
@@ -362,7 +362,7 @@ pub struct ObservationDefinitionComponent {
     pub code: types::CodeableConcept,
 
     /// Quantity | CodeableConcept | string | boolean | integer | Range | Ratio | SampledData | time | dateTime | Period
-    pub permitted_data_type: Option<Vec<types::Code>>,
+    pub permitted_data_type: Option<Vec<crate::r5::coded::Coded<crate::r5::codes::PermittedDataType>>>,
     /// Primitive extension sibling for [`permitted_data_type`](Self::permitted_data_type) (FHIR `_permittedDataType`).
     #[serde(rename = "_permittedDataType")]
     pub permitted_data_type_ext: Option<Vec<Option<types::Element>>>,

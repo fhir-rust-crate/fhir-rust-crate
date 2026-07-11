@@ -123,7 +123,7 @@ pub struct TerminologyCapabilities {
     pub title_ext: Option<types::Element>,
 
     /// Publication status of this statement: draft | active | retired | unknown
-    pub status: types::Code,
+    pub status: crate::r5::coded::Coded<crate::r5::codes::PublicationStatus>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,
@@ -180,7 +180,7 @@ pub struct TerminologyCapabilities {
     pub copyright_label_ext: Option<types::Element>,
 
     /// The way this statement is intended to be used: instance | capability | requirements
-    pub kind: types::Code,
+    pub kind: crate::r5::coded::Coded<crate::r5::codes::CapabilityStatementKind>,
     /// Primitive extension sibling for [`kind`](Self::kind) (FHIR `_kind`).
     #[serde(rename = "_kind")]
     pub kind_ext: Option<types::Element>,
@@ -204,7 +204,7 @@ pub struct TerminologyCapabilities {
     pub expansion: Option<TerminologyCapabilitiesExpansion>,
 
     /// in-compose | in-expansion | in-compose-or-expansion
-    pub code_search: Option<types::Code>,
+    pub code_search: Option<crate::r5::coded::Coded<crate::r5::codes::CodeSearchSupport>>,
     /// Primitive extension sibling for [`code_search`](Self::code_search) (FHIR `_codeSearch`).
     #[serde(rename = "_codeSearch")]
     pub code_search_ext: Option<types::Element>,
@@ -297,7 +297,7 @@ pub struct TerminologyCapabilitiesCodeSystem {
     pub version: Option<Vec<TerminologyCapabilitiesCodeSystemVersion>>,
 
     /// not-present | example | fragment | complete | supplement
-    pub content: types::Code,
+    pub content: crate::r5::coded::Coded<crate::r5::codes::CodesystemContentMode>,
     /// Primitive extension sibling for [`content`](Self::content) (FHIR `_content`).
     #[serde(rename = "_content")]
     pub content_ext: Option<types::Element>,

@@ -115,13 +115,13 @@ pub struct NamingSystem {
     pub title_ext: Option<types::Element>,
 
     /// Publication status of this naming system definition: draft | active | retired | unknown
-    pub status: types::Code,
+    pub status: crate::r5::coded::Coded<crate::r5::codes::PublicationStatus>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,
 
     /// Indicates the purpose of the namespace: codesystem | identifier | root
-    pub kind: types::Code,
+    pub kind: crate::r5::coded::Coded<crate::r5::codes::NamingsystemType>,
     /// Primitive extension sibling for [`kind`](Self::kind) (FHIR `_kind`).
     #[serde(rename = "_kind")]
     pub kind_ext: Option<types::Element>,
@@ -246,7 +246,7 @@ pub struct NamingSystemUniqueId {
     pub modifier_extension: Option<Vec<types::Extension>>,
 
     /// oid | uuid | uri | iri-stem | v2csmnemonic | other
-    pub r#type: types::Code,
+    pub r#type: crate::r5::coded::Coded<crate::r5::codes::NamingsystemIdentifierType>,
     /// Primitive extension sibling for [`type`](Self::r#type) (FHIR `_type`).
     #[serde(rename = "_type")]
     pub type_ext: Option<types::Element>,

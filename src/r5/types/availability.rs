@@ -70,7 +70,7 @@ pub struct AvailabilityAvailableTime {
     pub extension: Option<Vec<types::Extension>>,
 
     /// mon | tue | wed | thu | fri | sat | sun
-    pub days_of_week: Option<Vec<types::Code>>,
+    pub days_of_week: Option<Vec<crate::r5::coded::Coded<crate::r5::codes::DaysOfWeek>>>,
     /// Primitive extension sibling for [`days_of_week`](Self::days_of_week) (FHIR `_daysOfWeek`).
     #[serde(rename = "_daysOfWeek")]
     pub days_of_week_ext: Option<Vec<Option<types::Element>>>,

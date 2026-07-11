@@ -31,7 +31,7 @@ fn main() {
 
     // Parse the envelope. `Bundle.type` is required (`1..1`).
     let bundle: Bundle = serde_json::from_value(bundle_json).expect("parse Bundle");
-    println!("Bundle type: {}", bundle.r#type.0);
+    println!("Bundle type: {}", bundle.r#type.code());
 
     // Walk the entries, deserializing each contained resource by its type tag.
     for entry in bundle.entry.into_iter().flatten() {
@@ -48,7 +48,7 @@ fn main() {
                 println!(
                     "- Observation {} (status: {})",
                     observation.id.as_ref().map_or("?", |id| &id.0),
-                    observation.status.0,
+                    observation.status.code(),
                 );
             }
             other => println!("- some other resource: {other:?}"),

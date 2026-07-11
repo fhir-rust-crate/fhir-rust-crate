@@ -127,7 +127,7 @@ pub struct SpecimenDefinition {
     pub derived_from_uri_ext: Option<Vec<Option<types::Element>>>,
 
     /// Publication status of this definition: draft | active | retired | unknown
-    pub status: types::Code,
+    pub status: crate::r5::coded::Coded<crate::r5::codes::PublicationStatus>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,
@@ -249,7 +249,7 @@ pub struct SpecimenDefinitionTypeTested {
     pub r#type: Option<types::CodeableConcept>,
 
     /// preferred | alternate
-    pub preference: types::Code,
+    pub preference: crate::r5::coded::Coded<crate::r5::codes::SpecimenContainedPreference>,
     /// Primitive extension sibling for [`preference`](Self::preference) (FHIR `_preference`).
     #[serde(rename = "_preference")]
     pub preference_ext: Option<types::Element>,

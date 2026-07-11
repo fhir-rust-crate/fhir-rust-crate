@@ -99,13 +99,13 @@ pub struct AuditEvent {
     pub code: types::CodeableConcept,
 
     /// Type of action performed during the event: create (C), read/view (R), update (U), delete (D), or execute (E)
-    pub action: Option<types::Code>,
+    pub action: Option<crate::r5::coded::Coded<crate::r5::codes::AuditEventAction>>,
     /// Primitive extension sibling for [`action`](Self::action) (FHIR `_action`).
     #[serde(rename = "_action")]
     pub action_ext: Option<types::Element>,
 
     /// emergency | alert | critical | error | warning | notice | informational | debug
-    pub severity: Option<types::Code>,
+    pub severity: Option<crate::r5::coded::Coded<crate::r5::codes::AuditEventSeverity>>,
     /// Primitive extension sibling for [`severity`](Self::severity) (FHIR `_severity`).
     #[serde(rename = "_severity")]
     pub severity_ext: Option<types::Element>,

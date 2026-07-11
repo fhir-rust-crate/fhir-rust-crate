@@ -47,7 +47,7 @@ pub struct Contributor {
     pub extension: Option<Vec<types::Extension>>,
 
     /// author | editor | reviewer | endorser
-    pub r#type: types::Code,
+    pub r#type: crate::r5::coded::Coded<crate::r5::codes::ContributorType>,
     /// Primitive extension sibling for [`type`](Self::r#type) (FHIR `_type`).
     #[serde(rename = "_type")]
     pub type_ext: Option<types::Element>,

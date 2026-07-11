@@ -94,7 +94,7 @@ pub struct Ingredient {
     pub identifier: Option<types::Identifier>,
 
     /// Publication lifecycle status of this Ingredient record, one of draft, active, retired, or unknown.
-    pub status: types::Code,
+    pub status: crate::r5::coded::Coded<crate::r5::codes::PublicationStatus>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,
@@ -145,7 +145,7 @@ pub struct IngredientManufacturer {
     pub modifier_extension: Option<Vec<types::Extension>>,
 
     /// allowed | possible | actual
-    pub role: Option<types::Code>,
+    pub role: Option<crate::r5::coded::Coded<crate::r5::codes::IngredientManufacturerRole>>,
     /// Primitive extension sibling for [`role`](Self::role) (FHIR `_role`).
     #[serde(rename = "_role")]
     pub role_ext: Option<types::Element>,

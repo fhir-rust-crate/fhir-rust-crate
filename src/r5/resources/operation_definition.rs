@@ -116,13 +116,13 @@ pub struct OperationDefinition {
     pub title_ext: Option<types::Element>,
 
     /// Publication lifecycle status of this definition: draft, active, retired, or unknown.
-    pub status: types::Code,
+    pub status: crate::r5::coded::Coded<crate::r5::codes::PublicationStatus>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,
 
     /// Whether this defines an operation invoked at an endpoint or a named query invoked via search.
-    pub kind: types::Code,
+    pub kind: crate::r5::coded::Coded<crate::r5::codes::OperationKind>,
     /// Primitive extension sibling for [`kind`](Self::kind) (FHIR `_kind`).
     #[serde(rename = "_kind")]
     pub kind_ext: Option<types::Element>,
@@ -269,13 +269,13 @@ pub struct OperationDefinitionParameter {
     pub name_ext: Option<types::Element>,
 
     /// in | out
-    pub r#use: types::Code,
+    pub r#use: crate::r5::coded::Coded<crate::r5::codes::OperationParameterUse>,
     /// Primitive extension sibling for [`use`](Self::r#use) (FHIR `_use`).
     #[serde(rename = "_use")]
     pub use_ext: Option<types::Element>,
 
     /// instance | type | system
-    pub scope: Option<Vec<types::Code>>,
+    pub scope: Option<Vec<crate::r5::coded::Coded<crate::r5::codes::OperationParameterScope>>>,
     /// Primitive extension sibling for [`scope`](Self::scope) (FHIR `_scope`).
     #[serde(rename = "_scope")]
     pub scope_ext: Option<Vec<Option<types::Element>>>,
@@ -317,7 +317,7 @@ pub struct OperationDefinitionParameter {
     pub target_profile_ext: Option<Vec<Option<types::Element>>>,
 
     /// number | date | string | token | reference | composite | quantity | uri | special
-    pub search_type: Option<types::Code>,
+    pub search_type: Option<crate::r5::coded::Coded<crate::r5::codes::SearchParamType>>,
     /// Primitive extension sibling for [`search_type`](Self::search_type) (FHIR `_searchType`).
     #[serde(rename = "_searchType")]
     pub search_type_ext: Option<types::Element>,
@@ -350,7 +350,7 @@ pub struct OperationDefinitionParameterBinding {
     pub modifier_extension: Option<Vec<types::Extension>>,
 
     /// required | extensible | preferred | example
-    pub strength: types::Code,
+    pub strength: crate::r5::coded::Coded<crate::r5::codes::BindingStrength>,
     /// Primitive extension sibling for [`strength`](Self::strength) (FHIR `_strength`).
     #[serde(rename = "_strength")]
     pub strength_ext: Option<types::Element>,

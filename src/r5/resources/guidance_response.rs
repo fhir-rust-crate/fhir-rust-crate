@@ -100,7 +100,7 @@ pub struct GuidanceResponse {
     pub module: Option<GuidanceResponseModule>,
 
     /// The processing status of the guidance response: success | data-requested | data-required | in-progress | failure | entered-in-error
-    pub status: types::Code,
+    pub status: crate::r5::coded::Coded<crate::r5::codes::GuidanceResponseStatus>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,

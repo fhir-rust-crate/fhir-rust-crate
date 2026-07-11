@@ -89,7 +89,7 @@ pub struct PaymentReconciliation {
     pub r#type: types::CodeableConcept,
 
     /// Lifecycle status of the reconciliation: active, cancelled, draft, or entered-in-error.
-    pub status: types::Code,
+    pub status: crate::r5::coded::Coded<crate::r5::codes::FmStatus>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,
@@ -122,7 +122,7 @@ pub struct PaymentReconciliation {
     pub requestor: Option<types::Reference>,
 
     /// queued | complete | error | partial
-    pub outcome: Option<types::Code>,
+    pub outcome: Option<crate::r5::coded::Coded<crate::r5::codes::PaymentOutcome>>,
     /// Primitive extension sibling for [`outcome`](Self::outcome) (FHIR `_outcome`).
     #[serde(rename = "_outcome")]
     pub outcome_ext: Option<types::Element>,
@@ -278,7 +278,7 @@ pub struct PaymentReconciliationProcessNote {
     pub modifier_extension: Option<Vec<types::Extension>>,
 
     /// display | print | printoper
-    pub r#type: Option<types::Code>,
+    pub r#type: Option<crate::r5::coded::Coded<crate::r5::codes::NoteType>>,
     /// Primitive extension sibling for [`type`](Self::r#type) (FHIR `_type`).
     #[serde(rename = "_type")]
     pub type_ext: Option<types::Element>,

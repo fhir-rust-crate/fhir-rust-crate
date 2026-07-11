@@ -108,19 +108,19 @@ pub struct DeviceRequest {
     pub group_identifier: Option<types::Identifier>,
 
     /// Status of the request in its lifecycle: draft | active | on-hold | revoked | completed | entered-in-error | unknown
-    pub status: Option<types::Code>,
+    pub status: Option<crate::r5::coded::Coded<crate::r5::codes::RequestStatus>>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,
 
     /// Indicates the level of authority of the request, e.g. proposal | plan | directive | order | original-order | reflex-order | filler-order | instance-order | option
-    pub intent: types::Code,
+    pub intent: crate::r5::coded::Coded<crate::r5::codes::RequestIntent>,
     /// Primitive extension sibling for [`intent`](Self::intent) (FHIR `_intent`).
     #[serde(rename = "_intent")]
     pub intent_ext: Option<types::Element>,
 
     /// routine | urgent | asap | stat
-    pub priority: Option<types::Code>,
+    pub priority: Option<crate::r5::coded::Coded<crate::r5::codes::RequestPriority>>,
     /// Primitive extension sibling for [`priority`](Self::priority) (FHIR `_priority`).
     #[serde(rename = "_priority")]
     pub priority_ext: Option<types::Element>,

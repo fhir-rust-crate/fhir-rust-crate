@@ -92,13 +92,13 @@ pub struct List {
     pub identifier: Option<Vec<types::Identifier>>,
 
     /// Lifecycle status of the list: current, retired, or entered-in-error.
-    pub status: types::Code,
+    pub status: crate::r5::coded::Coded<crate::r5::codes::ListStatus>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,
 
     /// How the list was assembled: a working list, a point-in-time snapshot, or a change set.
-    pub mode: types::Code,
+    pub mode: crate::r5::coded::Coded<crate::r5::codes::ListMode>,
     /// Primitive extension sibling for [`mode`](Self::mode) (FHIR `_mode`).
     #[serde(rename = "_mode")]
     pub mode_ext: Option<types::Element>,

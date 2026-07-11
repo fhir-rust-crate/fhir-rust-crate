@@ -128,7 +128,7 @@ pub struct EventDefinition {
     pub subtitle_ext: Option<types::Element>,
 
     /// Publication status of this definition: draft | active | retired | unknown, governing whether it is safe to reference and use
-    pub status: types::Code,
+    pub status: crate::r5::coded::Coded<crate::r5::codes::PublicationStatus>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,

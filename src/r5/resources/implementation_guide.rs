@@ -122,7 +122,7 @@ pub struct ImplementationGuide {
     pub title_ext: Option<types::Element>,
 
     /// draft | active | retired | unknown; reflects the maturity/publication lifecycle status of this guide
-    pub status: types::Code,
+    pub status: crate::r5::coded::Coded<crate::r5::codes::PublicationStatus>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,
@@ -185,7 +185,7 @@ pub struct ImplementationGuide {
     pub package_id_ext: Option<types::Element>,
 
     /// SPDX license code for this IG (or not-open-source)
-    pub license: Option<types::Code>,
+    pub license: Option<crate::r5::coded::Coded<crate::r5::codes::SpdxLicense>>,
     /// Primitive extension sibling for [`license`](Self::license) (FHIR `_license`).
     #[serde(rename = "_license")]
     pub license_ext: Option<types::Element>,
@@ -424,7 +424,7 @@ pub struct ImplementationGuideDefinitionPage {
     pub title_ext: Option<types::Element>,
 
     /// html | markdown | xml | generated
-    pub generation: types::Code,
+    pub generation: crate::r5::coded::Coded<crate::r5::codes::GuidePageGeneration>,
     /// Primitive extension sibling for [`generation`](Self::generation) (FHIR `_generation`).
     #[serde(rename = "_generation")]
     pub generation_ext: Option<types::Element>,

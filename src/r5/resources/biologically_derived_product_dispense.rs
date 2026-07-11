@@ -99,7 +99,7 @@ pub struct BiologicallyDerivedProductDispense {
     pub part_of: Option<Vec<types::Reference>>,
 
     /// Status of the dispense: preparation | in-progress | allocated | issued | unfulfilled | returned | entered-in-error | unknown
-    pub status: types::Code,
+    pub status: crate::r5::coded::Coded<crate::r5::codes::BiologicallyderivedproductdispenseStatus>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,

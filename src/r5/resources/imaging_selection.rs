@@ -91,7 +91,7 @@ pub struct ImagingSelection {
     pub identifier: Option<Vec<types::Identifier>>,
 
     /// Status of the imaging selection: available, entered-in-error, or unknown.
-    pub status: types::Code,
+    pub status: crate::r5::coded::Coded<crate::r5::codes::ImagingselectionStatus>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,

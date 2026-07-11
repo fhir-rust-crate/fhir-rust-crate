@@ -92,7 +92,7 @@ pub struct Account {
 
     /// Indicates whether the account is currently in use: active | inactive |
     /// entered-in-error | on-hold | unknown
-    pub status: types::Code,
+    pub status: crate::r5::coded::Coded<crate::r5::codes::AccountStatus>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,

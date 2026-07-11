@@ -110,7 +110,7 @@ pub struct Transport {
     pub part_of: Option<Vec<types::Reference>>,
 
     /// Current lifecycle state: in-progress | completed | abandoned | cancelled | planned | entered-in-error
-    pub status: Option<types::Code>,
+    pub status: Option<crate::r5::coded::Coded<crate::r5::codes::TransportStatus>>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,
@@ -125,7 +125,7 @@ pub struct Transport {
     pub intent_ext: Option<types::Element>,
 
     /// routine | urgent | asap | stat
-    pub priority: Option<types::Code>,
+    pub priority: Option<crate::r5::coded::Coded<crate::r5::codes::RequestPriority>>,
     /// Primitive extension sibling for [`priority`](Self::priority) (FHIR `_priority`).
     #[serde(rename = "_priority")]
     pub priority_ext: Option<types::Element>,

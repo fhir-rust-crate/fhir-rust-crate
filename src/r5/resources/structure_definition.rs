@@ -118,7 +118,7 @@ pub struct StructureDefinition {
     pub title_ext: Option<types::Element>,
 
     /// draft | active | retired | unknown; governs whether the definition is usable in production
-    pub status: types::Code,
+    pub status: crate::r5::coded::Coded<crate::r5::codes::PublicationStatus>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,
@@ -187,7 +187,7 @@ pub struct StructureDefinition {
     pub mapping: Option<Vec<StructureDefinitionMapping>>,
 
     /// primitive-type | complex-type | resource | logical; the category of definition this represents
-    pub kind: types::Code,
+    pub kind: crate::r5::coded::Coded<crate::r5::codes::StructureDefinitionKind>,
     /// Primitive extension sibling for [`kind`](Self::kind) (FHIR `_kind`).
     #[serde(rename = "_kind")]
     pub kind_ext: Option<types::Element>,
@@ -220,7 +220,7 @@ pub struct StructureDefinition {
     pub base_definition_ext: Option<types::Element>,
 
     /// specialization | constraint - How relates to base definition
-    pub derivation: Option<types::Code>,
+    pub derivation: Option<crate::r5::coded::Coded<crate::r5::codes::TypeDerivationRule>>,
     /// Primitive extension sibling for [`derivation`](Self::derivation) (FHIR `_derivation`).
     #[serde(rename = "_derivation")]
     pub derivation_ext: Option<types::Element>,
@@ -286,7 +286,7 @@ pub struct StructureDefinitionContext {
     pub modifier_extension: Option<Vec<types::Extension>>,
 
     /// fhirpath | element | extension
-    pub r#type: types::Code,
+    pub r#type: crate::r5::coded::Coded<crate::r5::codes::ExtensionContextType>,
     /// Primitive extension sibling for [`type`](Self::r#type) (FHIR `_type`).
     #[serde(rename = "_type")]
     pub type_ext: Option<types::Element>,

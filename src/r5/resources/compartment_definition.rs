@@ -118,7 +118,7 @@ pub struct CompartmentDefinition {
     pub title_ext: Option<types::Element>,
 
     /// draft | active | retired | unknown
-    pub status: types::Code,
+    pub status: crate::r5::coded::Coded<crate::r5::codes::PublicationStatus>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,
@@ -162,7 +162,7 @@ pub struct CompartmentDefinition {
     /// Patient | Encounter | RelatedPerson | Practitioner | Device |
     /// EpisodeOfCare; identifies which resource type defines membership in
     /// this compartment
-    pub code: types::Code,
+    pub code: crate::r5::coded::Coded<crate::r5::codes::CompartmentType>,
     /// Primitive extension sibling for [`code`](Self::code) (FHIR `_code`).
     #[serde(rename = "_code")]
     pub code_ext: Option<types::Element>,

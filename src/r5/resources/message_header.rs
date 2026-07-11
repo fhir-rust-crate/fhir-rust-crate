@@ -221,7 +221,7 @@ pub struct MessageHeaderResponse {
     pub identifier: types::Identifier,
 
     /// ok | transient-error | fatal-error
-    pub code: types::Code,
+    pub code: crate::r5::coded::Coded<crate::r5::codes::ResponseCode>,
     /// Primitive extension sibling for [`code`](Self::code) (FHIR `_code`).
     #[serde(rename = "_code")]
     pub code_ext: Option<types::Element>,

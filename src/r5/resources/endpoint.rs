@@ -92,7 +92,7 @@ pub struct Endpoint {
 
     /// The current operational status of the endpoint: active | suspended |
     /// error | off | entered-in-error | test
-    pub status: types::Code,
+    pub status: crate::r5::coded::Coded<crate::r5::codes::EndpointStatus>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,

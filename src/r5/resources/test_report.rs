@@ -96,7 +96,7 @@ pub struct TestReport {
     pub name_ext: Option<types::Element>,
 
     /// Lifecycle status of this report's execution: completed | in-progress | waiting | stopped | entered-in-error.
-    pub status: types::Code,
+    pub status: crate::r5::coded::Coded<crate::r5::codes::ReportStatusCodes>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,
@@ -108,7 +108,7 @@ pub struct TestReport {
     pub test_script_ext: Option<types::Element>,
 
     /// Overall outcome of the executed test run: pass | fail | pending.
-    pub result: types::Code,
+    pub result: crate::r5::coded::Coded<crate::r5::codes::ReportResultCodes>,
     /// Primitive extension sibling for [`result`](Self::result) (FHIR `_result`).
     #[serde(rename = "_result")]
     pub result_ext: Option<types::Element>,
@@ -159,7 +159,7 @@ pub struct TestReportParticipant {
     pub modifier_extension: Option<Vec<types::Extension>>,
 
     /// test-engine | client | server
-    pub r#type: types::Code,
+    pub r#type: crate::r5::coded::Coded<crate::r5::codes::ReportParticipantType>,
     /// Primitive extension sibling for [`type`](Self::r#type) (FHIR `_type`).
     #[serde(rename = "_type")]
     pub type_ext: Option<types::Element>,
@@ -231,7 +231,7 @@ pub struct TestReportSetupActionOperation {
     pub modifier_extension: Option<Vec<types::Extension>>,
 
     /// pass | skip | fail | warning | error
-    pub result: types::Code,
+    pub result: crate::r5::coded::Coded<crate::r5::codes::ReportActionResultCodes>,
     /// Primitive extension sibling for [`result`](Self::result) (FHIR `_result`).
     #[serde(rename = "_result")]
     pub result_ext: Option<types::Element>,
@@ -264,7 +264,7 @@ pub struct TestReportSetupActionAssert {
     pub modifier_extension: Option<Vec<types::Extension>>,
 
     /// pass | skip | fail | warning | error
-    pub result: types::Code,
+    pub result: crate::r5::coded::Coded<crate::r5::codes::ReportActionResultCodes>,
     /// Primitive extension sibling for [`result`](Self::result) (FHIR `_result`).
     #[serde(rename = "_result")]
     pub result_ext: Option<types::Element>,

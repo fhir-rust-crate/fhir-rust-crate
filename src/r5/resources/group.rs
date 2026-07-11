@@ -100,13 +100,13 @@ pub struct Group {
     pub active_ext: Option<types::Element>,
 
     /// The kind of entities held by this group: person | animal | practitioner | device | careteam | healthcareservice | location | organization | relatedperson | specimen
-    pub r#type: types::Code,
+    pub r#type: crate::r5::coded::Coded<crate::r5::codes::GroupType>,
     /// Primitive extension sibling for [`type`](Self::r#type) (FHIR `_type`).
     #[serde(rename = "_type")]
     pub type_ext: Option<types::Element>,
 
     /// Basis for membership: definitional (rule-based, via `characteristic`) or enumerated (explicitly listed, via `member`)
-    pub membership: types::Code,
+    pub membership: crate::r5::coded::Coded<crate::r5::codes::GroupMembershipBasis>,
     /// Primitive extension sibling for [`membership`](Self::membership) (FHIR `_membership`).
     #[serde(rename = "_membership")]
     pub membership_ext: Option<types::Element>,

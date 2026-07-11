@@ -93,7 +93,7 @@ pub struct DeviceDispense {
     pub part_of: Option<Vec<types::Reference>>,
 
     /// The current lifecycle status of the dispense event: preparation | in-progress | cancelled | on-hold | completed | entered-in-error | stopped | declined | unknown.
-    pub status: types::Code,
+    pub status: crate::r5::coded::Coded<crate::r5::codes::DevicedispenseStatus>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,

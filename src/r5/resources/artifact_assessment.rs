@@ -127,13 +127,13 @@ pub struct ArtifactAssessment {
     pub content: Option<Vec<ArtifactAssessmentContent>>,
 
     /// submitted | triaged | waiting-for-input | resolved-no-change | resolved-change-required | deferred | duplicate | applied | published | entered-in-error
-    pub workflow_status: Option<types::Code>,
+    pub workflow_status: Option<crate::r5::coded::Coded<crate::r5::codes::ArtifactassessmentWorkflowStatus>>,
     /// Primitive extension sibling for [`workflow_status`](Self::workflow_status) (FHIR `_workflowStatus`).
     #[serde(rename = "_workflowStatus")]
     pub workflow_status_ext: Option<types::Element>,
 
     /// unresolved | not-persuasive | persuasive | persuasive-with-modification | not-persuasive-with-modification
-    pub disposition: Option<types::Code>,
+    pub disposition: Option<crate::r5::coded::Coded<crate::r5::codes::ArtifactassessmentDisposition>>,
     /// Primitive extension sibling for [`disposition`](Self::disposition) (FHIR `_disposition`).
     #[serde(rename = "_disposition")]
     pub disposition_ext: Option<types::Element>,
@@ -159,7 +159,7 @@ pub struct ArtifactAssessmentContent {
     pub modifier_extension: Option<Vec<types::Extension>>,
 
     /// comment | classifier | rating | container | response | change-request
-    pub information_type: Option<types::Code>,
+    pub information_type: Option<crate::r5::coded::Coded<crate::r5::codes::ArtifactassessmentInformationType>>,
     /// Primitive extension sibling for [`information_type`](Self::information_type) (FHIR `_informationType`).
     #[serde(rename = "_informationType")]
     pub information_type_ext: Option<types::Element>,

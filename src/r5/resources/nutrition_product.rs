@@ -94,7 +94,7 @@ pub struct NutritionProduct {
     pub code: Option<types::CodeableConcept>,
 
     /// Lifecycle state of the product definition: active, inactive, or entered-in-error
-    pub status: types::Code,
+    pub status: crate::r5::coded::Coded<crate::r5::codes::NutritionproductStatus>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,

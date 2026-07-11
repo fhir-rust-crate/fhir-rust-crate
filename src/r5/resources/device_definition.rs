@@ -166,7 +166,7 @@ pub struct DeviceDefinition {
 
     /// lot-number | manufactured-date | serial-number | expiration-date | biological-source | software-version
     #[serde(rename = "productionIdentifierInUDI")]
-    pub production_identifier_in_udi: Option<Vec<types::Code>>,
+    pub production_identifier_in_udi: Option<Vec<crate::r5::coded::Coded<crate::r5::codes::DeviceProductidentifierinudi>>>,
 
     /// Information aimed at providing directions for the usage of this model of device
     pub guideline: Option<DeviceDefinitionGuideline>,
@@ -253,7 +253,7 @@ pub struct DeviceDefinitionRegulatoryIdentifier {
     pub modifier_extension: Option<Vec<types::Extension>>,
 
     /// basic | master | license
-    pub r#type: types::Code,
+    pub r#type: crate::r5::coded::Coded<crate::r5::codes::DevicedefinitionRegulatoryIdentifierType>,
     /// Primitive extension sibling for [`type`](Self::r#type) (FHIR `_type`).
     #[serde(rename = "_type")]
     pub type_ext: Option<types::Element>,
@@ -298,7 +298,7 @@ pub struct DeviceDefinitionDeviceName {
     pub name_ext: Option<types::Element>,
 
     /// registered-name | user-friendly-name | patient-reported-name
-    pub r#type: types::Code,
+    pub r#type: crate::r5::coded::Coded<crate::r5::codes::DeviceNametype>,
     /// Primitive extension sibling for [`type`](Self::r#type) (FHIR `_type`).
     #[serde(rename = "_type")]
     pub type_ext: Option<types::Element>,
@@ -605,7 +605,7 @@ pub struct DeviceDefinitionCorrectiveAction {
     pub recall_ext: Option<types::Element>,
 
     /// model | lot-numbers | serial-numbers
-    pub scope: Option<types::Code>,
+    pub scope: Option<crate::r5::coded::Coded<crate::r5::codes::DeviceCorrectiveactionscope>>,
     /// Primitive extension sibling for [`scope`](Self::scope) (FHIR `_scope`).
     #[serde(rename = "_scope")]
     pub scope_ext: Option<types::Element>,

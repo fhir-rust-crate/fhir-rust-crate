@@ -99,7 +99,7 @@ pub struct AdverseEvent {
 
     /// Whether the adverse event actually occurred (actual) or was only a
     /// possible or averted occurrence (potential)
-    pub actuality: types::Code,
+    pub actuality: crate::r5::coded::Coded<crate::r5::codes::AdverseEventActuality>,
     /// Primitive extension sibling for [`actuality`](Self::actuality) (FHIR `_actuality`).
     #[serde(rename = "_actuality")]
     pub actuality_ext: Option<types::Element>,

@@ -121,7 +121,7 @@ pub struct GraphDefinition {
     pub title_ext: Option<types::Element>,
 
     /// Publication status of this graph definition: draft | active | retired | unknown
-    pub status: types::Code,
+    pub status: crate::r5::coded::Coded<crate::r5::codes::PublicationStatus>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,
@@ -321,19 +321,19 @@ pub struct GraphDefinitionLinkCompartment {
     pub modifier_extension: Option<Vec<types::Extension>>,
 
     /// where | requires
-    pub r#use: types::Code,
+    pub r#use: crate::r5::coded::Coded<crate::r5::codes::GraphCompartmentUse>,
     /// Primitive extension sibling for [`use`](Self::r#use) (FHIR `_use`).
     #[serde(rename = "_use")]
     pub use_ext: Option<types::Element>,
 
     /// identical | matching | different | custom
-    pub rule: types::Code,
+    pub rule: crate::r5::coded::Coded<crate::r5::codes::GraphCompartmentRule>,
     /// Primitive extension sibling for [`rule`](Self::rule) (FHIR `_rule`).
     #[serde(rename = "_rule")]
     pub rule_ext: Option<types::Element>,
 
     /// Patient | Encounter | RelatedPerson | Practitioner | Device | EpisodeOfCare
-    pub code: types::Code,
+    pub code: crate::r5::coded::Coded<crate::r5::codes::CompartmentType>,
     /// Primitive extension sibling for [`code`](Self::code) (FHIR `_code`).
     #[serde(rename = "_code")]
     pub code_ext: Option<types::Element>,

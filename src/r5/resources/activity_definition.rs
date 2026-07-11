@@ -129,7 +129,7 @@ pub struct ActivityDefinition {
     pub subtitle_ext: Option<types::Element>,
 
     /// Publication status of this definition: draft | active | retired | unknown.
-    pub status: types::Code,
+    pub status: crate::r5::coded::Coded<crate::r5::codes::PublicationStatus>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,
@@ -250,13 +250,13 @@ pub struct ActivityDefinition {
     pub code: Option<types::CodeableConcept>,
 
     /// proposal | plan | directive | order | original-order | reflex-order | filler-order | instance-order | option
-    pub intent: Option<types::Code>,
+    pub intent: Option<crate::r5::coded::Coded<crate::r5::codes::RequestIntent>>,
     /// Primitive extension sibling for [`intent`](Self::intent) (FHIR `_intent`).
     #[serde(rename = "_intent")]
     pub intent_ext: Option<types::Element>,
 
     /// routine | urgent | asap | stat
-    pub priority: Option<types::Code>,
+    pub priority: Option<crate::r5::coded::Coded<crate::r5::codes::RequestPriority>>,
     /// Primitive extension sibling for [`priority`](Self::priority) (FHIR `_priority`).
     #[serde(rename = "_priority")]
     pub priority_ext: Option<types::Element>,
@@ -337,7 +337,7 @@ pub struct ActivityDefinitionParticipant {
     pub modifier_extension: Option<Vec<types::Extension>>,
 
     /// careteam | device | group | healthcareservice | location | organization | patient | practitioner | practitionerrole | relatedperson
-    pub r#type: Option<types::Code>,
+    pub r#type: Option<crate::r5::coded::Coded<crate::r5::codes::ActionParticipantType>>,
     /// Primitive extension sibling for [`type`](Self::r#type) (FHIR `_type`).
     #[serde(rename = "_type")]
     pub type_ext: Option<types::Element>,

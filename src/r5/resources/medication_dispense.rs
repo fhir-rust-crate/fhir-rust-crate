@@ -94,7 +94,7 @@ pub struct MedicationDispense {
     pub part_of: Option<Vec<types::Reference>>,
 
     /// Current lifecycle state of the dispense, such as preparation, in-progress, cancelled, on-hold, completed, entered-in-error, stopped, declined, or unknown.
-    pub status: types::Code,
+    pub status: crate::r5::coded::Coded<crate::r5::codes::MedicationdispenseStatus>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,

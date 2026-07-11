@@ -124,7 +124,7 @@ pub struct Citation {
 
     /// The publication status of the citation record itself: draft | active |
     /// retired | unknown. This is a required element.
-    pub status: types::Code,
+    pub status: crate::r5::coded::Coded<crate::r5::codes::PublicationStatus>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,

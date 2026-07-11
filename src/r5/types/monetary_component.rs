@@ -48,7 +48,7 @@ pub struct MonetaryComponent {
     /// Additional content defined by implementations
     pub extension: Option<Vec<types::Extension>>,
     /// base | surcharge | deduction | discount | tax | informational
-    pub r#type: types::Code,
+    pub r#type: crate::r5::coded::Coded<crate::r5::codes::PriceComponentType>,
     /// Primitive extension sibling for [`type`](Self::r#type) (FHIR `_type`).
     #[serde(rename = "_type")]
     pub type_ext: Option<types::Element>,

@@ -41,7 +41,7 @@ pub struct ContactPoint {
     /// Additional content defined by implementations
     pub extension: Option<Vec<types::Extension>>,
     /// The kind of communication medium this contact point represents, e.g. phone, fax, email, pager, url, sms, other.
-    pub system: Option<types::Code>,  // « ContactPointSystem! » « C »
+    pub system: Option<crate::r5::coded::Coded<crate::r5::codes::ContactPointSystem>>, // « ContactPointSystem! » « C »
     /// Primitive extension sibling for [`system`](Self::system) (FHIR `_system`).
     #[serde(rename = "_system")]
     pub system_ext: Option<types::Element>,

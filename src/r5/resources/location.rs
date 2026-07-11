@@ -97,7 +97,7 @@ pub struct Location {
     pub identifier: Option<Vec<types::Identifier>>,
 
     /// Overall availability status of the location as a whole, drawn from the value set active | suspended | inactive.
-    pub status: Option<types::Code>,
+    pub status: Option<crate::r5::coded::Coded<crate::r5::codes::LocationStatus>>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,
@@ -124,7 +124,7 @@ pub struct Location {
     pub description_ext: Option<types::Element>,
 
     /// Whether this record represents a specific physical place (instance) or a general class of places (kind).
-    pub mode: Option<types::Code>,
+    pub mode: Option<crate::r5::coded::Coded<crate::r5::codes::LocationMode>>,
     /// Primitive extension sibling for [`mode`](Self::mode) (FHIR `_mode`).
     #[serde(rename = "_mode")]
     pub mode_ext: Option<types::Element>,

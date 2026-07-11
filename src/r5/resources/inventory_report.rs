@@ -86,13 +86,13 @@ pub struct InventoryReport {
     pub identifier: Option<Vec<types::Identifier>>,
 
     /// The current status of this report in its workflow: draft | requested | active | entered-in-error
-    pub status: types::Code,
+    pub status: crate::r5::coded::Coded<crate::r5::codes::InventoryreportStatus>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,
 
     /// Whether the report is a full snapshot of stock or only the difference from a previous count: snapshot | difference
-    pub count_type: types::Code,
+    pub count_type: crate::r5::coded::Coded<crate::r5::codes::InventoryreportCounttype>,
     /// Primitive extension sibling for [`count_type`](Self::count_type) (FHIR `_countType`).
     #[serde(rename = "_countType")]
     pub count_type_ext: Option<types::Element>,

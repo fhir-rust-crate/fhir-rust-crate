@@ -102,7 +102,7 @@ pub struct DetectedIssue {
     pub code: Option<types::CodeableConcept>,
 
     /// Indicates the potential clinical seriousness of the issue: high | moderate | low
-    pub severity: Option<types::Code>,
+    pub severity: Option<crate::r5::coded::Coded<crate::r5::codes::DetectedissueSeverity>>,
     /// Primitive extension sibling for [`severity`](Self::severity) (FHIR `_severity`).
     #[serde(rename = "_severity")]
     pub severity_ext: Option<types::Element>,

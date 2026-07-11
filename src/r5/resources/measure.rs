@@ -127,7 +127,7 @@ pub struct Measure {
     pub subtitle_ext: Option<types::Element>,
 
     /// Publication lifecycle state of this measure: draft, active, retired, or unknown.
-    pub status: types::Code,
+    pub status: crate::r5::coded::Coded<crate::r5::codes::PublicationStatus>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,

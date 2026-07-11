@@ -176,7 +176,7 @@ pub struct ProvenanceEntity {
     pub modifier_extension: Option<Vec<types::Extension>>,
 
     /// revision | quotation | source | instantiates | removal
-    pub role: types::Code,
+    pub role: crate::r5::coded::Coded<crate::r5::codes::ProvenanceEntityRole>,
     /// Primitive extension sibling for [`role`](Self::role) (FHIR `_role`).
     #[serde(rename = "_role")]
     pub role_ext: Option<types::Element>,

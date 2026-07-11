@@ -151,7 +151,7 @@ pub struct TimingRepeat {
     pub period_unit_ext: Option<types::Element>,
 
     /// mon | tue | wed | thu | fri | sat | sun
-    pub day_of_week: Option<Vec<types::Code>>,
+    pub day_of_week: Option<Vec<crate::r5::coded::Coded<crate::r5::codes::DaysOfWeek>>>,
     /// Primitive extension sibling for [`day_of_week`](Self::day_of_week) (FHIR `_dayOfWeek`).
     #[serde(rename = "_dayOfWeek")]
     pub day_of_week_ext: Option<Vec<Option<types::Element>>>,
@@ -163,7 +163,7 @@ pub struct TimingRepeat {
     pub time_of_day_ext: Option<Vec<Option<types::Element>>>,
 
     /// Code for time period of occurrence
-    pub when: Option<Vec<types::Code>>,
+    pub when: Option<Vec<crate::r5::coded::Coded<crate::r5::codes::EventTiming>>>,
     /// Primitive extension sibling for [`when`](Self::when) (FHIR `_when`).
     #[serde(rename = "_when")]
     pub when_ext: Option<Vec<Option<types::Element>>>,

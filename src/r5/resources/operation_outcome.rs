@@ -105,13 +105,13 @@ pub struct OperationOutcomeIssue {
     pub modifier_extension: Option<Vec<types::Extension>>,
 
     /// Severity of this issue, one of fatal, error, warning, information, or success, indicating how it affects the overall action
-    pub severity: types::Code,
+    pub severity: crate::r5::coded::Coded<crate::r5::codes::IssueSeverity>,
     /// Primitive extension sibling for [`severity`](Self::severity) (FHIR `_severity`).
     #[serde(rename = "_severity")]
     pub severity_ext: Option<types::Element>,
 
     /// Machine-processable code identifying the type of error or warning, drawn from the FHIR IssueType value set
-    pub code: types::Code,
+    pub code: crate::r5::coded::Coded<crate::r5::codes::IssueType>,
     /// Primitive extension sibling for [`code`](Self::code) (FHIR `_code`).
     #[serde(rename = "_code")]
     pub code_ext: Option<types::Element>,

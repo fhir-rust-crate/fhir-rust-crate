@@ -95,7 +95,7 @@ pub struct Specimen {
     pub accession_identifier: Option<types::Identifier>,
 
     /// The availability of the specimen: available | unavailable | unsatisfactory | entered-in-error
-    pub status: Option<types::Code>,
+    pub status: Option<crate::r5::coded::Coded<crate::r5::codes::SpecimenStatus>>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,
@@ -119,7 +119,7 @@ pub struct Specimen {
     pub request: Option<Vec<types::Reference>>,
 
     /// grouped | pooled
-    pub combined: Option<types::Code>,
+    pub combined: Option<crate::r5::coded::Coded<crate::r5::codes::SpecimenCombined>>,
     /// Primitive extension sibling for [`combined`](Self::combined) (FHIR `_combined`).
     #[serde(rename = "_combined")]
     pub combined_ext: Option<types::Element>,

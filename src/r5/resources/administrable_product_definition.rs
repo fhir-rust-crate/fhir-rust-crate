@@ -92,7 +92,7 @@ pub struct AdministrableProductDefinition {
     pub identifier: Option<Vec<types::Identifier>>,
 
     /// The publication lifecycle status of this definition: draft | active | retired | unknown
-    pub status: types::Code,
+    pub status: crate::r5::coded::Coded<crate::r5::codes::PublicationStatus>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,

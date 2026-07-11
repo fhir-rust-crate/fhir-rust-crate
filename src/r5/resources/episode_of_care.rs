@@ -93,7 +93,7 @@ pub struct EpisodeOfCare {
     pub identifier: Option<Vec<types::Identifier>>,
 
     /// Current lifecycle state of the episode: planned | waitlist | active | onhold | finished | cancelled | entered-in-error
-    pub status: types::Code,
+    pub status: crate::r5::coded::Coded<crate::r5::codes::EpisodeOfCareStatus>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,
@@ -148,7 +148,7 @@ pub struct EpisodeOfCareStatusHistory {
     pub modifier_extension: Option<Vec<types::Extension>>,
 
     /// planned | waitlist | active | onhold | finished | cancelled | entered-in-error
-    pub status: types::Code,
+    pub status: crate::r5::coded::Coded<crate::r5::codes::EpisodeOfCareStatus>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,

@@ -130,7 +130,7 @@ pub struct PlanDefinition {
     pub r#type: Option<types::CodeableConcept>,
 
     /// Publication lifecycle state of the plan definition: draft, active, retired, or unknown; this field is required.
-    pub status: types::Code,
+    pub status: crate::r5::coded::Coded<crate::r5::codes::PublicationStatus>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,
@@ -355,7 +355,7 @@ pub struct PlanDefinitionActorOption {
     pub modifier_extension: Option<Vec<types::Extension>>,
 
     /// careteam | device | group | healthcareservice | location | organization | patient | practitioner | practitionerrole | relatedperson
-    pub r#type: Option<types::Code>,
+    pub r#type: Option<crate::r5::coded::Coded<crate::r5::codes::ActionParticipantType>>,
     /// Primitive extension sibling for [`type`](Self::r#type) (FHIR `_type`).
     #[serde(rename = "_type")]
     pub type_ext: Option<types::Element>,
@@ -418,7 +418,7 @@ pub struct PlanDefinitionAction {
     pub text_equivalent_ext: Option<types::Element>,
 
     /// routine | urgent | asap | stat
-    pub priority: Option<types::Code>,
+    pub priority: Option<crate::r5::coded::Coded<crate::r5::codes::RequestPriority>>,
     /// Primitive extension sibling for [`priority`](Self::priority) (FHIR `_priority`).
     #[serde(rename = "_priority")]
     pub priority_ext: Option<types::Element>,
@@ -471,31 +471,31 @@ pub struct PlanDefinitionAction {
     pub r#type: Option<types::CodeableConcept>,
 
     /// visual-group | logical-group | sentence-group
-    pub grouping_behavior: Option<types::Code>,
+    pub grouping_behavior: Option<crate::r5::coded::Coded<crate::r5::codes::ActionGroupingBehavior>>,
     /// Primitive extension sibling for [`grouping_behavior`](Self::grouping_behavior) (FHIR `_groupingBehavior`).
     #[serde(rename = "_groupingBehavior")]
     pub grouping_behavior_ext: Option<types::Element>,
 
     /// any | all | all-or-none | exactly-one | at-most-one | one-or-more
-    pub selection_behavior: Option<types::Code>,
+    pub selection_behavior: Option<crate::r5::coded::Coded<crate::r5::codes::ActionSelectionBehavior>>,
     /// Primitive extension sibling for [`selection_behavior`](Self::selection_behavior) (FHIR `_selectionBehavior`).
     #[serde(rename = "_selectionBehavior")]
     pub selection_behavior_ext: Option<types::Element>,
 
     /// must | could | must-unless-documented
-    pub required_behavior: Option<types::Code>,
+    pub required_behavior: Option<crate::r5::coded::Coded<crate::r5::codes::ActionRequiredBehavior>>,
     /// Primitive extension sibling for [`required_behavior`](Self::required_behavior) (FHIR `_requiredBehavior`).
     #[serde(rename = "_requiredBehavior")]
     pub required_behavior_ext: Option<types::Element>,
 
     /// yes | no
-    pub precheck_behavior: Option<types::Code>,
+    pub precheck_behavior: Option<crate::r5::coded::Coded<crate::r5::codes::ActionPrecheckBehavior>>,
     /// Primitive extension sibling for [`precheck_behavior`](Self::precheck_behavior) (FHIR `_precheckBehavior`).
     #[serde(rename = "_precheckBehavior")]
     pub precheck_behavior_ext: Option<types::Element>,
 
     /// single | multiple
-    pub cardinality_behavior: Option<types::Code>,
+    pub cardinality_behavior: Option<crate::r5::coded::Coded<crate::r5::codes::ActionCardinalityBehavior>>,
     /// Primitive extension sibling for [`cardinality_behavior`](Self::cardinality_behavior) (FHIR `_cardinalityBehavior`).
     #[serde(rename = "_cardinalityBehavior")]
     pub cardinality_behavior_ext: Option<types::Element>,
@@ -532,7 +532,7 @@ pub struct PlanDefinitionActionCondition {
     pub modifier_extension: Option<Vec<types::Extension>>,
 
     /// applicability | start | stop
-    pub kind: types::Code,
+    pub kind: crate::r5::coded::Coded<crate::r5::codes::ActionConditionKind>,
     /// Primitive extension sibling for [`kind`](Self::kind) (FHIR `_kind`).
     #[serde(rename = "_kind")]
     pub kind_ext: Option<types::Element>,
@@ -622,13 +622,13 @@ pub struct PlanDefinitionActionRelatedAction {
     pub target_id_ext: Option<types::Element>,
 
     /// before | before-start | before-end | concurrent | concurrent-with-start | concurrent-with-end | after | after-start | after-end
-    pub relationship: types::Code,
+    pub relationship: crate::r5::coded::Coded<crate::r5::codes::ActionRelationshipType>,
     /// Primitive extension sibling for [`relationship`](Self::relationship) (FHIR `_relationship`).
     #[serde(rename = "_relationship")]
     pub relationship_ext: Option<types::Element>,
 
     /// before | before-start | before-end | concurrent | concurrent-with-start | concurrent-with-end | after | after-start | after-end
-    pub end_relationship: Option<types::Code>,
+    pub end_relationship: Option<crate::r5::coded::Coded<crate::r5::codes::ActionRelationshipType>>,
     /// Primitive extension sibling for [`end_relationship`](Self::end_relationship) (FHIR `_endRelationship`).
     #[serde(rename = "_endRelationship")]
     pub end_relationship_ext: Option<types::Element>,
@@ -659,7 +659,7 @@ pub struct PlanDefinitionActionParticipant {
     pub actor_id_ext: Option<types::Element>,
 
     /// careteam | device | group | healthcareservice | location | organization | patient | practitioner | practitionerrole | relatedperson
-    pub r#type: Option<types::Code>,
+    pub r#type: Option<crate::r5::coded::Coded<crate::r5::codes::ActionParticipantType>>,
     /// Primitive extension sibling for [`type`](Self::r#type) (FHIR `_type`).
     #[serde(rename = "_type")]
     pub type_ext: Option<types::Element>,

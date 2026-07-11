@@ -54,7 +54,7 @@ pub struct Age {
     pub value_ext: Option<types::Element>,
 
     /// < | <= | >= | > | ad - how to understand the value
-    pub comparator: Option<types::Code>,
+    pub comparator: Option<crate::r5::coded::Coded<crate::r5::codes::QuantityComparator>>,
     /// Primitive extension sibling for [`comparator`](Self::comparator) (FHIR `_comparator`).
     #[serde(rename = "_comparator")]
     pub comparator_ext: Option<types::Element>,

@@ -122,19 +122,19 @@ pub struct NutritionOrder {
     pub group_identifier: Option<types::Identifier>,
 
     /// Workflow status of the order: draft | active | on-hold | revoked | completed | entered-in-error | unknown
-    pub status: types::Code,
+    pub status: crate::r5::coded::Coded<crate::r5::codes::RequestStatus>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,
 
     /// How the order should be understood in the request workflow: proposal | plan | directive | order | original-order | reflex-order | filler-order | instance-order | option
-    pub intent: types::Code,
+    pub intent: crate::r5::coded::Coded<crate::r5::codes::RequestIntent>,
     /// Primitive extension sibling for [`intent`](Self::intent) (FHIR `_intent`).
     #[serde(rename = "_intent")]
     pub intent_ext: Option<types::Element>,
 
     /// routine | urgent | asap | stat
-    pub priority: Option<types::Code>,
+    pub priority: Option<crate::r5::coded::Coded<crate::r5::codes::RequestPriority>>,
     /// Primitive extension sibling for [`priority`](Self::priority) (FHIR `_priority`).
     #[serde(rename = "_priority")]
     pub priority_ext: Option<types::Element>,

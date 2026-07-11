@@ -130,7 +130,7 @@ pub struct ConditionDefinition {
     pub subtitle_ext: Option<types::Element>,
 
     /// Publication lifecycle status of this definition: draft, active, retired, or unknown.
-    pub status: types::Code,
+    pub status: crate::r5::coded::Coded<crate::r5::codes::PublicationStatus>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,
@@ -280,7 +280,7 @@ pub struct ConditionDefinitionPrecondition {
     pub modifier_extension: Option<Vec<types::Extension>>,
 
     /// sensitive | specific
-    pub r#type: types::Code,
+    pub r#type: crate::r5::coded::Coded<crate::r5::codes::ConditionPreconditionType>,
     /// Primitive extension sibling for [`type`](Self::r#type) (FHIR `_type`).
     #[serde(rename = "_type")]
     pub type_ext: Option<types::Element>,
@@ -308,7 +308,7 @@ pub struct ConditionDefinitionQuestionnaire {
     pub modifier_extension: Option<Vec<types::Extension>>,
 
     /// preadmit | diff-diagnosis | outcome
-    pub purpose: types::Code,
+    pub purpose: crate::r5::coded::Coded<crate::r5::codes::ConditionQuestionnairePurpose>,
     /// Primitive extension sibling for [`purpose`](Self::purpose) (FHIR `_purpose`).
     #[serde(rename = "_purpose")]
     pub purpose_ext: Option<types::Element>,

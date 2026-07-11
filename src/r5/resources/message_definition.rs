@@ -126,7 +126,7 @@ pub struct MessageDefinition {
     pub replaces_ext: Option<Vec<Option<types::Element>>>,
 
     /// Publication lifecycle state of this definition: draft, active, retired, or unknown.
-    pub status: types::Code,
+    pub status: crate::r5::coded::Coded<crate::r5::codes::PublicationStatus>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,
@@ -199,7 +199,7 @@ pub struct MessageDefinition {
     pub event: Option<MessageDefinitionEvent>,
 
     /// consequence | currency | notification
-    pub category: Option<types::Code>,
+    pub category: Option<crate::r5::coded::Coded<crate::r5::codes::MessageSignificanceCategory>>,
     /// Primitive extension sibling for [`category`](Self::category) (FHIR `_category`).
     #[serde(rename = "_category")]
     pub category_ext: Option<types::Element>,
@@ -208,7 +208,7 @@ pub struct MessageDefinition {
     pub focus: Option<Vec<MessageDefinitionFocus>>,
 
     /// always | on-error | never | on-success
-    pub response_required: Option<types::Code>,
+    pub response_required: Option<crate::r5::coded::Coded<crate::r5::codes::MessageheaderResponseRequest>>,
     /// Primitive extension sibling for [`response_required`](Self::response_required) (FHIR `_responseRequired`).
     #[serde(rename = "_responseRequired")]
     pub response_required_ext: Option<types::Element>,

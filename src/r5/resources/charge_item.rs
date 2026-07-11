@@ -106,7 +106,7 @@ pub struct ChargeItem {
     pub definition_canonical_ext: Option<Vec<Option<types::Element>>>,
 
     /// The current lifecycle status of the charge: planned | billable | not-billable | aborted | billed | entered-in-error | unknown.
-    pub status: types::Code,
+    pub status: crate::r5::coded::Coded<crate::r5::codes::ChargeitemStatus>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,

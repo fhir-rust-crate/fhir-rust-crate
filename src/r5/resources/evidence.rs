@@ -131,7 +131,7 @@ pub struct Evidence {
 
     /// The publication lifecycle status of this evidence: draft | active |
     /// retired | unknown.
-    pub status: types::Code,
+    pub status: crate::r5::coded::Coded<crate::r5::codes::PublicationStatus>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,
@@ -459,7 +459,7 @@ pub struct EvidenceStatisticModelCharacteristicVariable {
     pub variable_definition: types::Reference,
 
     /// continuous | dichotomous | ordinal | polychotomous.
-    pub handling: Option<types::Code>,
+    pub handling: Option<crate::r5::coded::Coded<crate::r5::codes::VariableHandling>>,
     /// Primitive extension sibling for [`handling`](Self::handling) (FHIR `_handling`).
     #[serde(rename = "_handling")]
     pub handling_ext: Option<types::Element>,

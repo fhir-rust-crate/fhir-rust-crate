@@ -108,7 +108,7 @@ pub struct FamilyMemberHistory {
 
     /// The workflow/business status of this record: partial | completed |
     /// entered-in-error | health-unknown.
-    pub status: types::Code,
+    pub status: crate::r5::coded::Coded<crate::r5::codes::HistoryStatus>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,

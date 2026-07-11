@@ -115,7 +115,7 @@ pub struct NutritionIntake {
     pub part_of: Option<Vec<types::Reference>>,
 
     /// Lifecycle state of the intake record: preparation, in-progress, not-done, on-hold, stopped, completed, entered-in-error, or unknown.
-    pub status: types::Code,
+    pub status: crate::r5::coded::Coded<crate::r5::codes::EventStatus>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,

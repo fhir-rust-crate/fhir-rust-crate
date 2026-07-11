@@ -130,7 +130,7 @@ pub struct SubscriptionTopic {
     pub derived_from_ext: Option<Vec<Option<types::Element>>>,
 
     /// The publication lifecycle status of this topic definition: draft | active | retired | unknown
-    pub status: types::Code,
+    pub status: crate::r5::coded::Coded<crate::r5::codes::PublicationStatus>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,
@@ -277,7 +277,7 @@ pub struct SubscriptionTopicResourceTriggerQueryCriteria {
     pub previous_ext: Option<types::Element>,
 
     /// test-passes | test-fails
-    pub result_for_create: Option<types::Code>,
+    pub result_for_create: Option<crate::r5::coded::Coded<crate::r5::codes::SubscriptiontopicCrBehavior>>,
     /// Primitive extension sibling for [`result_for_create`](Self::result_for_create) (FHIR `_resultForCreate`).
     #[serde(rename = "_resultForCreate")]
     pub result_for_create_ext: Option<types::Element>,
@@ -289,7 +289,7 @@ pub struct SubscriptionTopicResourceTriggerQueryCriteria {
     pub current_ext: Option<types::Element>,
 
     /// test-passes | test-fails
-    pub result_for_delete: Option<types::Code>,
+    pub result_for_delete: Option<crate::r5::coded::Coded<crate::r5::codes::SubscriptiontopicCrBehavior>>,
     /// Primitive extension sibling for [`result_for_delete`](Self::result_for_delete) (FHIR `_resultForDelete`).
     #[serde(rename = "_resultForDelete")]
     pub result_for_delete_ext: Option<types::Element>,
@@ -370,13 +370,13 @@ pub struct SubscriptionTopicCanFilterBy {
     pub filter_definition_ext: Option<types::Element>,
 
     /// eq | ne | gt | lt | ge | le | sa | eb | ap
-    pub comparator: Option<Vec<types::Code>>,
+    pub comparator: Option<Vec<crate::r5::coded::Coded<crate::r5::codes::SearchComparator>>>,
     /// Primitive extension sibling for [`comparator`](Self::comparator) (FHIR `_comparator`).
     #[serde(rename = "_comparator")]
     pub comparator_ext: Option<Vec<Option<types::Element>>>,
 
     /// missing | exact | contains | not | text | in | not-in | below | above | type | identifier | of-type | code-text | text-advanced | iterate
-    pub modifier: Option<Vec<types::Code>>,
+    pub modifier: Option<Vec<crate::r5::coded::Coded<crate::r5::codes::SearchModifierCode>>>,
     /// Primitive extension sibling for [`modifier`](Self::modifier) (FHIR `_modifier`).
     #[serde(rename = "_modifier")]
     pub modifier_ext: Option<Vec<Option<types::Element>>>,

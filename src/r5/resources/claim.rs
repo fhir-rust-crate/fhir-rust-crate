@@ -84,7 +84,7 @@ pub struct Claim {
     pub trace_number: Option<Vec<types::Identifier>>,
 
     /// The status of the Claim resource itself: active | cancelled | draft | entered-in-error
-    pub status: types::Code,
+    pub status: crate::r5::coded::Coded<crate::r5::codes::FmStatus>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,
@@ -96,7 +96,7 @@ pub struct Claim {
     pub sub_type: Option<types::CodeableConcept>,
 
     /// Indicates the intent of the request: claim | preauthorization | predetermination
-    pub r#use: types::Code,
+    pub r#use: crate::r5::coded::Coded<crate::r5::codes::ClaimUse>,
     /// Primitive extension sibling for [`use`](Self::r#use) (FHIR `_use`).
     #[serde(rename = "_use")]
     pub use_ext: Option<types::Element>,

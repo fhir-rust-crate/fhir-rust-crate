@@ -84,7 +84,7 @@ pub struct EnrollmentResponse {
     pub identifier: Option<Vec<types::Identifier>>,
 
     /// The status of the resource instance itself: active | cancelled | draft | entered-in-error
-    pub status: Option<types::Code>,
+    pub status: Option<crate::r5::coded::Coded<crate::r5::codes::FmStatus>>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,
@@ -93,7 +93,7 @@ pub struct EnrollmentResponse {
     pub request: Option<types::Reference>,
 
     /// The processing outcome of the enrollment request: queued | complete | error | partial
-    pub outcome: Option<types::Code>,
+    pub outcome: Option<crate::r5::coded::Coded<crate::r5::codes::EnrollmentOutcome>>,
     /// Primitive extension sibling for [`outcome`](Self::outcome) (FHIR `_outcome`).
     #[serde(rename = "_outcome")]
     pub outcome_ext: Option<types::Element>,

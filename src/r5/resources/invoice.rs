@@ -92,7 +92,7 @@ pub struct Invoice {
     pub identifier: Option<Vec<types::Identifier>>,
 
     /// Current state of the invoice in the billing process: draft, issued, balanced, cancelled, or entered-in-error.
-    pub status: types::Code,
+    pub status: crate::r5::coded::Coded<crate::r5::codes::InvoiceStatus>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,

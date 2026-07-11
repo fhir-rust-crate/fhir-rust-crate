@@ -49,3 +49,6 @@ pub mod choice;
 
 /// Parsing and precision-aware comparison for the date/time primitives.
 pub mod temporal;
+
+/// The [`Coded`](coded::Coded) wrapper for `required`-binding coded fields.
+pub mod coded;

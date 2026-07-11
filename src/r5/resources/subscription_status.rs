@@ -85,13 +85,13 @@ pub struct SubscriptionStatus {
     pub modifier_extension: Option<Vec<types::Extension>>,
 
     /// Current state of the underlying Subscription: requested | active | error | off | entered-in-error.
-    pub status: Option<types::Code>,
+    pub status: Option<crate::r5::coded::Coded<crate::r5::codes::SubscriptionStatus>>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,
 
     /// Kind of notification this resource represents: handshake | heartbeat | event-notification | query-status | query-event.
-    pub r#type: types::Code,
+    pub r#type: crate::r5::coded::Coded<crate::r5::codes::SubscriptionNotificationType>,
     /// Primitive extension sibling for [`type`](Self::r#type) (FHIR `_type`).
     #[serde(rename = "_type")]
     pub type_ext: Option<types::Element>,

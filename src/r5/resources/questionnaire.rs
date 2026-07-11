@@ -125,7 +125,7 @@ pub struct Questionnaire {
     pub derived_from_ext: Option<Vec<Option<types::Element>>>,
 
     /// Publication lifecycle state of this questionnaire: draft, active, retired, or unknown.
-    pub status: types::Code,
+    pub status: crate::r5::coded::Coded<crate::r5::codes::PublicationStatus>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,
@@ -258,7 +258,7 @@ pub struct QuestionnaireItem {
     pub text_ext: Option<types::Element>,
 
     /// Kind of item, such as a grouping, display text, or a question of a specific answer data type.
-    pub r#type: types::Code,
+    pub r#type: crate::r5::coded::Coded<crate::r5::codes::ItemType>,
     /// Primitive extension sibling for [`type`](Self::r#type) (FHIR `_type`).
     #[serde(rename = "_type")]
     pub type_ext: Option<types::Element>,
@@ -267,13 +267,13 @@ pub struct QuestionnaireItem {
     pub enable_when: Option<Vec<QuestionnaireItemEnableWhen>>,
 
     /// all | any
-    pub enable_behavior: Option<types::Code>,
+    pub enable_behavior: Option<crate::r5::coded::Coded<crate::r5::codes::QuestionnaireEnableBehavior>>,
     /// Primitive extension sibling for [`enable_behavior`](Self::enable_behavior) (FHIR `_enableBehavior`).
     #[serde(rename = "_enableBehavior")]
     pub enable_behavior_ext: Option<types::Element>,
 
     /// hidden | protected
-    pub disabled_display: Option<types::Code>,
+    pub disabled_display: Option<crate::r5::coded::Coded<crate::r5::codes::QuestionnaireDisabledDisplay>>,
     /// Primitive extension sibling for [`disabled_display`](Self::disabled_display) (FHIR `_disabledDisplay`).
     #[serde(rename = "_disabledDisplay")]
     pub disabled_display_ext: Option<types::Element>,
@@ -303,7 +303,7 @@ pub struct QuestionnaireItem {
     pub max_length_ext: Option<types::Element>,
 
     /// optionsOnly | optionsOrType | optionsOrString
-    pub answer_constraint: Option<types::Code>,
+    pub answer_constraint: Option<crate::r5::coded::Coded<crate::r5::codes::QuestionnaireAnswerConstraint>>,
     /// Primitive extension sibling for [`answer_constraint`](Self::answer_constraint) (FHIR `_answerConstraint`).
     #[serde(rename = "_answerConstraint")]
     pub answer_constraint_ext: Option<types::Element>,
@@ -348,7 +348,7 @@ pub struct QuestionnaireItemEnableWhen {
     pub question_ext: Option<types::Element>,
 
     /// exists | = | != | > | < | >= | <=
-    pub operator: types::Code,
+    pub operator: crate::r5::coded::Coded<crate::r5::codes::QuestionnaireEnableOperator>,
     /// Primitive extension sibling for [`operator`](Self::operator) (FHIR `_operator`).
     #[serde(rename = "_operator")]
     pub operator_ext: Option<types::Element>,

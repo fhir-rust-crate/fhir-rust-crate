@@ -123,7 +123,7 @@ pub struct SearchParameter {
     pub derived_from_ext: Option<types::Element>,
 
     /// Publication status of the search parameter definition: draft | active | retired | unknown
-    pub status: types::Code,
+    pub status: crate::r5::coded::Coded<crate::r5::codes::PublicationStatus>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,
@@ -192,7 +192,7 @@ pub struct SearchParameter {
     pub base_ext: Option<Vec<Option<types::Element>>>,
 
     /// Data type of the search parameter's value: number | date | string | token | reference | composite | quantity | uri | special
-    pub r#type: types::Code,
+    pub r#type: crate::r5::coded::Coded<crate::r5::codes::SearchParamType>,
     /// Primitive extension sibling for [`type`](Self::r#type) (FHIR `_type`).
     #[serde(rename = "_type")]
     pub type_ext: Option<types::Element>,
@@ -204,7 +204,7 @@ pub struct SearchParameter {
     pub expression_ext: Option<types::Element>,
 
     /// normal | phonetic | other
-    pub processing_mode: Option<types::Code>,
+    pub processing_mode: Option<crate::r5::coded::Coded<crate::r5::codes::SearchProcessingmode>>,
     /// Primitive extension sibling for [`processing_mode`](Self::processing_mode) (FHIR `_processingMode`).
     #[serde(rename = "_processingMode")]
     pub processing_mode_ext: Option<types::Element>,
@@ -234,13 +234,13 @@ pub struct SearchParameter {
     pub multiple_and_ext: Option<types::Element>,
 
     /// eq | ne | gt | lt | ge | le | sa | eb | ap
-    pub comparator: Option<Vec<types::Code>>,
+    pub comparator: Option<Vec<crate::r5::coded::Coded<crate::r5::codes::SearchComparator>>>,
     /// Primitive extension sibling for [`comparator`](Self::comparator) (FHIR `_comparator`).
     #[serde(rename = "_comparator")]
     pub comparator_ext: Option<Vec<Option<types::Element>>>,
 
     /// missing | exact | contains | not | text | in | not-in | below | above | type | identifier | of-type | code-text | text-advanced | iterate
-    pub modifier: Option<Vec<types::Code>>,
+    pub modifier: Option<Vec<crate::r5::coded::Coded<crate::r5::codes::SearchModifierCode>>>,
     /// Primitive extension sibling for [`modifier`](Self::modifier) (FHIR `_modifier`).
     #[serde(rename = "_modifier")]
     pub modifier_ext: Option<Vec<Option<types::Element>>>,

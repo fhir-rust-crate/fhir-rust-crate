@@ -93,13 +93,13 @@ pub struct CoverageEligibilityResponse {
     pub identifier: Option<Vec<types::Identifier>>,
 
     /// The status of the resource instance itself: active | cancelled | draft | entered-in-error.
-    pub status: types::Code,
+    pub status: crate::r5::coded::Coded<crate::r5::codes::FmStatus>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,
 
     /// The reason(s) this eligibility check was performed: auth-requirements | benefits | discovery | validation.
-    pub purpose: Vec<types::Code>,
+    pub purpose: Vec<crate::r5::coded::Coded<crate::r5::codes::EligibilityresponsePurpose>>,
     /// Primitive extension sibling for [`purpose`](Self::purpose) (FHIR `_purpose`).
     #[serde(rename = "_purpose")]
     pub purpose_ext: Option<Vec<Option<types::Element>>>,
@@ -127,7 +127,7 @@ pub struct CoverageEligibilityResponse {
     pub request: types::Reference,
 
     /// The outcome of the processing: queued | complete | error | partial.
-    pub outcome: types::Code,
+    pub outcome: crate::r5::coded::Coded<crate::r5::codes::EligibilityOutcome>,
     /// Primitive extension sibling for [`outcome`](Self::outcome) (FHIR `_outcome`).
     #[serde(rename = "_outcome")]
     pub outcome_ext: Option<types::Element>,

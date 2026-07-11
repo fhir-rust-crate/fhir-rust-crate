@@ -112,7 +112,7 @@ pub struct Observation {
     pub part_of: Option<Vec<types::Reference>>,
 
     /// Lifecycle status of the observation, such as registered, preliminary, final, or amended; required.
-    pub status: types::Code,
+    pub status: crate::r5::coded::Coded<crate::r5::codes::ObservationStatus>,
 
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`):
     /// carries `id` and/or `extension` for the primitive value.
@@ -209,7 +209,7 @@ pub struct ObservationTriggeredBy {
     pub observation: types::Reference,
 
     /// reflex | repeat | re-run
-    pub r#type: types::Code,
+    pub r#type: crate::r5::coded::Coded<crate::r5::codes::ObservationTriggeredbytype>,
     /// Primitive extension sibling for [`type`](Self::r#type) (FHIR `_type`).
     #[serde(rename = "_type")]
     pub type_ext: Option<types::Element>,

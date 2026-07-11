@@ -98,7 +98,7 @@ pub struct Subscription {
     pub name_ext: Option<types::Element>,
 
     /// Current lifecycle state of the subscription: requested | active | error | off | entered-in-error
-    pub status: types::Code,
+    pub status: crate::r5::coded::Coded<crate::r5::codes::SubscriptionStatus>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,
@@ -161,7 +161,7 @@ pub struct Subscription {
     pub content_type_ext: Option<types::Element>,
 
     /// empty | id-only | full-resource
-    pub content: Option<types::Code>,
+    pub content: Option<crate::r5::coded::Coded<crate::r5::codes::SubscriptionPayloadContent>>,
     /// Primitive extension sibling for [`content`](Self::content) (FHIR `_content`).
     #[serde(rename = "_content")]
     pub content_ext: Option<types::Element>,
@@ -203,13 +203,13 @@ pub struct SubscriptionFilterBy {
     pub filter_parameter_ext: Option<types::Element>,
 
     /// eq | ne | gt | lt | ge | le | sa | eb | ap
-    pub comparator: Option<types::Code>,
+    pub comparator: Option<crate::r5::coded::Coded<crate::r5::codes::SearchComparator>>,
     /// Primitive extension sibling for [`comparator`](Self::comparator) (FHIR `_comparator`).
     #[serde(rename = "_comparator")]
     pub comparator_ext: Option<types::Element>,
 
     /// missing | exact | contains | not | text | in | not-in | below | above | type | identifier | of-type | code-text | text-advanced | iterate
-    pub modifier: Option<types::Code>,
+    pub modifier: Option<crate::r5::coded::Coded<crate::r5::codes::SearchModifierCode>>,
     /// Primitive extension sibling for [`modifier`](Self::modifier) (FHIR `_modifier`).
     #[serde(rename = "_modifier")]
     pub modifier_ext: Option<types::Element>,

@@ -54,7 +54,7 @@ pub struct ElementDefinition {
     pub path_ext: Option<types::Element>,
 
     /// xmlAttr | xmlText | typeAttr | cdaText | xhtml
-    pub representation: Option<Vec<types::Code>>,
+    pub representation: Option<Vec<crate::r5::coded::Coded<crate::r5::codes::PropertyRepresentation>>>,
     /// Primitive extension sibling for [`representation`](Self::representation) (FHIR `_representation`).
     #[serde(rename = "_representation")]
     pub representation_ext: Option<Vec<Option<types::Element>>>,
@@ -258,7 +258,7 @@ pub struct ElementDefinitionSlicing {
     pub ordered_ext: Option<types::Element>,
 
     /// closed | open | openAtEnd
-    pub rules: types::Code,
+    pub rules: crate::r5::coded::Coded<crate::r5::codes::ResourceSlicingRules>,
     /// Primitive extension sibling for [`rules`](Self::rules) (FHIR `_rules`).
     #[serde(rename = "_rules")]
     pub rules_ext: Option<types::Element>,
@@ -276,7 +276,7 @@ pub struct ElementDefinitionSlicingDiscriminator {
     pub extension: Option<Vec<types::Extension>>,
 
     /// value | exists | type | profile | position
-    pub r#type: types::Code,
+    pub r#type: crate::r5::coded::Coded<crate::r5::codes::DiscriminatorType>,
     /// Primitive extension sibling for [`type`](Self::r#type) (FHIR `_type`).
     #[serde(rename = "_type")]
     pub type_ext: Option<types::Element>,
@@ -350,13 +350,13 @@ pub struct ElementDefinitionType {
     pub target_profile_ext: Option<Vec<Option<types::Element>>>,
 
     /// contained | referenced | bundled - how aggregated
-    pub aggregation: Option<Vec<types::Code>>,
+    pub aggregation: Option<Vec<crate::r5::coded::Coded<crate::r5::codes::ResourceAggregationMode>>>,
     /// Primitive extension sibling for [`aggregation`](Self::aggregation) (FHIR `_aggregation`).
     #[serde(rename = "_aggregation")]
     pub aggregation_ext: Option<Vec<Option<types::Element>>>,
 
     /// either | independent | specific
-    pub versioning: Option<types::Code>,
+    pub versioning: Option<crate::r5::coded::Coded<crate::r5::codes::ReferenceVersionRules>>,
     /// Primitive extension sibling for [`versioning`](Self::versioning) (FHIR `_versioning`).
     #[serde(rename = "_versioning")]
     pub versioning_ext: Option<types::Element>,
@@ -409,7 +409,7 @@ pub struct ElementDefinitionConstraint {
     pub requirements_ext: Option<types::Element>,
 
     /// error | warning
-    pub severity: types::Code,
+    pub severity: crate::r5::coded::Coded<crate::r5::codes::ConstraintSeverity>,
     /// Primitive extension sibling for [`severity`](Self::severity) (FHIR `_severity`).
     #[serde(rename = "_severity")]
     pub severity_ext: Option<types::Element>,
@@ -452,7 +452,7 @@ pub struct ElementDefinitionBinding {
     pub extension: Option<Vec<types::Extension>>,
 
     /// required | extensible | preferred | example
-    pub strength: types::Code,
+    pub strength: crate::r5::coded::Coded<crate::r5::codes::BindingStrength>,
     /// Primitive extension sibling for [`strength`](Self::strength) (FHIR `_strength`).
     #[serde(rename = "_strength")]
     pub strength_ext: Option<types::Element>,
@@ -486,7 +486,7 @@ pub struct ElementDefinitionBindingAdditional {
     pub extension: Option<Vec<types::Extension>>,
 
     /// maximum | minimum | required | extensible | candidate | current | preferred | ui | starter | component
-    pub purpose: types::Code,
+    pub purpose: crate::r5::coded::Coded<crate::r5::codes::AdditionalBindingPurpose>,
     /// Primitive extension sibling for [`purpose`](Self::purpose) (FHIR `_purpose`).
     #[serde(rename = "_purpose")]
     pub purpose_ext: Option<types::Element>,

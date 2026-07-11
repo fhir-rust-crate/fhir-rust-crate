@@ -52,12 +52,14 @@
 //!
 //! ```
 //! use fhir::r5::resources::Patient;
-//! use fhir::r5::types::{Boolean, Code, HumanName, String as FhirString};
+//! use fhir::r5::coded::Coded;
+//! use fhir::r5::codes::AdministrativeGender;
+//! use fhir::r5::types::{Boolean, HumanName, String as FhirString};
 //!
 //! let patient = Patient {
 //!     id: Some(FhirString("pat-1".to_string())),
 //!     active: Some(Boolean(true)),
-//!     gender: Some(Code("male".to_string())),
+//!     gender: Some(Coded::Known(AdministrativeGender::Male)),
 //!     name: Some(vec![HumanName {
 //!         family: Some(FhirString("Chalmers".to_string())),
 //!         given: vec![FhirString("Peter".to_string())],
@@ -99,7 +101,7 @@
 //!
 //! ```
 //! use fhir::r5::resources::Patient;
-//! use fhir::r5::types::{Code, Id};
+//! use fhir::r5::types::{Id, Uri};
 //! use fhir::r5::validate::Validate;
 //!
 //! // Primitive format checks:
@@ -108,14 +110,14 @@
 //!
 //! // Recursive validation of a whole resource:
 //! let mut patient = Patient::default();
-//! patient.gender = Some(Code("male".to_string()));
 //! assert!(patient.validate().is_empty());
 //!
-//! patient.gender = Some(Code(String::new())); // empty code is invalid
+//! // A `uri` may not be surrounded by whitespace.
+//! patient.implicit_rules = Some(Uri(" http://bad ".to_string()));
 //! let issues = patient.validate();
 //! assert_eq!(issues.len(), 1);
 //! // The path is prefixed with the field name, then the primitive's own label.
-//! assert_eq!(issues[0].path, "gender.code");
+//! assert_eq!(issues[0].path, "implicit_rules.uri");
 //! ```
 //!
 //! ## Code systems as enums

@@ -117,7 +117,7 @@ pub struct CodeSystem {
     pub title_ext: Option<types::Element>,
 
     /// draft | active | retired | unknown; governs the publication lifecycle of this code system.
-    pub status: types::Code,
+    pub status: crate::r5::coded::Coded<crate::r5::codes::PublicationStatus>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,
@@ -219,7 +219,7 @@ pub struct CodeSystem {
     pub value_set_ext: Option<types::Element>,
 
     /// grouped-by | is-a | part-of | classified-with
-    pub hierarchy_meaning: Option<types::Code>,
+    pub hierarchy_meaning: Option<crate::r5::coded::Coded<crate::r5::codes::CodesystemHierarchyMeaning>>,
     /// Primitive extension sibling for [`hierarchy_meaning`](Self::hierarchy_meaning) (FHIR `_hierarchyMeaning`).
     #[serde(rename = "_hierarchyMeaning")]
     pub hierarchy_meaning_ext: Option<types::Element>,
@@ -237,7 +237,7 @@ pub struct CodeSystem {
     pub version_needed_ext: Option<types::Element>,
 
     /// not-present | example | fragment | complete | supplement; indicates how much of the underlying code system's content is represented by this resource.
-    pub content: types::Code,
+    pub content: crate::r5::coded::Coded<crate::r5::codes::CodesystemContentMode>,
     /// Primitive extension sibling for [`content`](Self::content) (FHIR `_content`).
     #[serde(rename = "_content")]
     pub content_ext: Option<types::Element>,
@@ -291,7 +291,7 @@ pub struct CodeSystemFilter {
     pub description_ext: Option<types::Element>,
 
     /// = | is-a | descendent-of | is-not-a | regex | in | not-in | generalizes | child-of | descendent-leaf | exists
-    pub operator: Vec<types::Code>,
+    pub operator: Vec<crate::r5::coded::Coded<crate::r5::codes::FilterOperator>>,
     /// Primitive extension sibling for [`operator`](Self::operator) (FHIR `_operator`).
     #[serde(rename = "_operator")]
     pub operator_ext: Option<Vec<Option<types::Element>>>,
@@ -336,7 +336,7 @@ pub struct CodeSystemProperty {
     pub description_ext: Option<types::Element>,
 
     /// code | Coding | string | integer | boolean | dateTime | decimal
-    pub r#type: types::Code,
+    pub r#type: crate::r5::coded::Coded<crate::r5::codes::ConceptPropertyType>,
     /// Primitive extension sibling for [`type`](Self::r#type) (FHIR `_type`).
     #[serde(rename = "_type")]
     pub type_ext: Option<types::Element>,

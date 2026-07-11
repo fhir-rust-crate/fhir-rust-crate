@@ -102,7 +102,7 @@ pub struct Slot {
     pub schedule: types::Reference,
 
     /// Availability status of the interval: busy | free | busy-unavailable | busy-tentative | entered-in-error
-    pub status: types::Code,
+    pub status: crate::r5::coded::Coded<crate::r5::codes::Slotstatus>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,

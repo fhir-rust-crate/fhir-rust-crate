@@ -94,7 +94,7 @@ pub struct MedicationStatement {
     pub part_of: Option<Vec<types::Reference>>,
 
     /// Status of the assertion as a code such as recorded, entered-in-error, or draft, indicating how the statement should be interpreted.
-    pub status: types::Code,
+    pub status: crate::r5::coded::Coded<crate::r5::codes::MedicationStatementStatus>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,

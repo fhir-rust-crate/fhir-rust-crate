@@ -86,7 +86,7 @@ pub struct EnrollmentRequest {
     pub identifier: Option<Vec<types::Identifier>>,
 
     /// The current status of the request: active | cancelled | draft | entered-in-error.
-    pub status: Option<types::Code>,
+    pub status: Option<crate::r5::coded::Coded<crate::r5::codes::FmStatus>>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,

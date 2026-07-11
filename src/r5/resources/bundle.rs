@@ -88,7 +88,7 @@ pub struct Bundle {
     /// | batch | batch-response | history | searchset | collection |
     /// subscription-notification. This value determines how the entries must be
     /// interpreted and processed.
-    pub r#type: types::Code,
+    pub r#type: crate::r5::coded::Coded<crate::r5::codes::BundleType>,
     /// Primitive extension sibling for [`type`](Self::r#type) (FHIR `_type`).
     #[serde(rename = "_type")]
     pub type_ext: Option<types::Element>,
@@ -138,7 +138,7 @@ pub struct BundleLink {
     pub modifier_extension: Option<Vec<types::Extension>>,
 
     /// See http://www.iana.org/assignments/link-relations/link-relations.xhtml#link-relations-1
-    pub relation: types::Code,
+    pub relation: crate::r5::coded::Coded<crate::r5::codes::IanaLinkRelations>,
     /// Primitive extension sibling for [`relation`](Self::relation) (FHIR `_relation`).
     #[serde(rename = "_relation")]
     pub relation_ext: Option<types::Element>,
@@ -207,7 +207,7 @@ pub struct BundleEntrySearch {
     pub modifier_extension: Option<Vec<types::Extension>>,
 
     /// match | include - why this is in the result set
-    pub mode: Option<types::Code>,
+    pub mode: Option<crate::r5::coded::Coded<crate::r5::codes::SearchEntryMode>>,
     /// Primitive extension sibling for [`mode`](Self::mode) (FHIR `_mode`).
     #[serde(rename = "_mode")]
     pub mode_ext: Option<types::Element>,
@@ -238,7 +238,7 @@ pub struct BundleEntryRequest {
     pub modifier_extension: Option<Vec<types::Extension>>,
 
     /// GET | HEAD | POST | PUT | DELETE | PATCH
-    pub method: types::Code,
+    pub method: crate::r5::coded::Coded<crate::r5::codes::HttpVerb>,
     /// Primitive extension sibling for [`method`](Self::method) (FHIR `_method`).
     #[serde(rename = "_method")]
     pub method_ext: Option<types::Element>,

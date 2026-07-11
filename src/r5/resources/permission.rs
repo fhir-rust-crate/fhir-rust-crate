@@ -88,7 +88,7 @@ pub struct Permission {
     pub modifier_extension: Option<Vec<types::Extension>>,
 
     /// Lifecycle state of the permission: active, entered-in-error, draft, or rejected.
-    pub status: types::Code,
+    pub status: crate::r5::coded::Coded<crate::r5::codes::PermissionStatus>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,
@@ -109,7 +109,7 @@ pub struct Permission {
     pub justification: Option<PermissionJustification>,
 
     /// Combining algorithm that reconciles conflicting rules: deny-overrides, permit-overrides, ordered-deny-overrides, ordered-permit-overrides, deny-unless-permit, or permit-unless-deny.
-    pub combining: types::Code,
+    pub combining: crate::r5::coded::Coded<crate::r5::codes::PermissionRuleCombining>,
     /// Primitive extension sibling for [`combining`](Self::combining) (FHIR `_combining`).
     #[serde(rename = "_combining")]
     pub combining_ext: Option<types::Element>,
@@ -154,7 +154,7 @@ pub struct PermissionRule {
     pub modifier_extension: Option<Vec<types::Extension>>,
 
     /// deny | permit
-    pub r#type: Option<types::Code>,
+    pub r#type: Option<crate::r5::coded::Coded<crate::r5::codes::ConsentProvisionType>>,
     /// Primitive extension sibling for [`type`](Self::r#type) (FHIR `_type`).
     #[serde(rename = "_type")]
     pub type_ext: Option<types::Element>,
@@ -211,7 +211,7 @@ pub struct PermissionRuleDataResource {
     pub modifier_extension: Option<Vec<types::Extension>>,
 
     /// instance | related | dependents | authoredby
-    pub meaning: types::Code,
+    pub meaning: crate::r5::coded::Coded<crate::r5::codes::ConsentDataMeaning>,
     /// Primitive extension sibling for [`meaning`](Self::meaning) (FHIR `_meaning`).
     #[serde(rename = "_meaning")]
     pub meaning_ext: Option<types::Element>,

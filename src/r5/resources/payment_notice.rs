@@ -90,7 +90,7 @@ pub struct PaymentNotice {
     pub identifier: Option<Vec<types::Identifier>>,
 
     /// Lifecycle state of this notice: active, cancelled, draft, or entered-in-error.
-    pub status: types::Code,
+    pub status: crate::r5::coded::Coded<crate::r5::codes::FmStatus>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,

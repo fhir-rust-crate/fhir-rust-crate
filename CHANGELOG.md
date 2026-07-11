@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed (breaking)
+- Coded fields with a `required` binding are now typed as their `codes` enum via
+  the new `fhir::r5::coded::Coded<E>` wrapper (`Known(E)` | `Unknown(String)`
+  fallback for wire compatibility), instead of the opaque `types::Code`. 343
+  fields retyped. `Coded::code()` returns the wire string; `Coded::known()` the
+  enum. See `spec/05-code-systems.md`.
+
 ### Added
 - Typed references: `Reference` is now `Reference<T = Any>`, a phantom-typed
   newtype over the same wire form (`Reference<Any>` = the old untyped reference,

@@ -112,7 +112,7 @@ pub struct CarePlan {
     pub part_of: Option<Vec<types::Reference>>,
 
     /// Indicates whether the plan is currently in effect: draft | active | on-hold | revoked | completed | entered-in-error | unknown
-    pub status: types::Code,
+    pub status: crate::r5::coded::Coded<crate::r5::codes::RequestStatus>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,

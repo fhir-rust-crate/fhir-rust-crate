@@ -45,7 +45,7 @@ pub struct TriggerDefinition {
     pub extension: Option<Vec<types::Extension>>,
 
     /// named-event | periodic | data-changed | data-added | data-modified | data-removed | data-accessed | data-access-ended
-    pub r#type: types::Code,
+    pub r#type: crate::r5::coded::Coded<crate::r5::codes::TriggerType>,
     /// Primitive extension sibling for [`type`](Self::r#type) (FHIR `_type`).
     #[serde(rename = "_type")]
     pub type_ext: Option<types::Element>,

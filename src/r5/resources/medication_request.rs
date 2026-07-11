@@ -103,7 +103,7 @@ pub struct MedicationRequest {
     pub group_identifier: Option<types::Identifier>,
 
     /// The current lifecycle status of the request: active | on-hold | ended | stopped | completed | cancelled | entered-in-error | draft | unknown
-    pub status: types::Code,
+    pub status: crate::r5::coded::Coded<crate::r5::codes::MedicationrequestStatus>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
     #[serde(rename = "_status")]
     pub status_ext: Option<types::Element>,
@@ -118,7 +118,7 @@ pub struct MedicationRequest {
     pub status_changed_ext: Option<types::Element>,
 
     /// Whether the request represents a proposal, plan, or an actionable order: proposal | plan | order | original-order | reflex-order | filler-order | instance-order | option
-    pub intent: types::Code,
+    pub intent: crate::r5::coded::Coded<crate::r5::codes::MedicationrequestIntent>,
     /// Primitive extension sibling for [`intent`](Self::intent) (FHIR `_intent`).
     #[serde(rename = "_intent")]
     pub intent_ext: Option<types::Element>,
@@ -127,7 +127,7 @@ pub struct MedicationRequest {
     pub category: Option<Vec<types::CodeableConcept>>,
 
     /// routine | urgent | asap | stat
-    pub priority: Option<types::Code>,
+    pub priority: Option<crate::r5::coded::Coded<crate::r5::codes::RequestPriority>>,
     /// Primitive extension sibling for [`priority`](Self::priority) (FHIR `_priority`).
     #[serde(rename = "_priority")]
     pub priority_ext: Option<types::Element>,
