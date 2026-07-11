@@ -218,11 +218,9 @@ pub struct ClaimResponseEvent {
     /// Specific event
     pub r#type: types::CodeableConcept,
 
-    /// Occurance date or period
-    pub when_date_time: Option<types::DateTime>,
-
-    /// Occurance date or period
-    pub when_period: Option<types::Period>,
+    /// The `ClaimResponse.event.when[x]` choice element (0..1); see [`ClaimResponseEventWhen`].
+    #[serde(flatten)]
+    pub when: Option<ClaimResponseEventWhen>,
 }
 
 /// Adjudication for claim line items.
@@ -452,20 +450,13 @@ pub struct ClaimResponseAddItem {
     /// Program the product or service is provided under
     pub program_code: Option<Vec<types::CodeableConcept>>,
 
-    /// Date or dates of service or product delivery
-    pub serviced_date: Option<types::Date>,
+    /// The `ClaimResponse.addItem.serviced[x]` choice element (0..1); see [`ClaimResponseAddItemServiced`].
+    #[serde(flatten)]
+    pub serviced: Option<ClaimResponseAddItemServiced>,
 
-    /// Date or dates of service or product delivery
-    pub serviced_period: Option<types::Period>,
-
-    /// Place of service or where product was supplied
-    pub location_codeable_concept: Option<types::CodeableConcept>,
-
-    /// Place of service or where product was supplied
-    pub location_address: Option<types::Address>,
-
-    /// Place of service or where product was supplied
-    pub location_reference: Option<types::Reference>,
+    /// The `ClaimResponse.addItem.location[x]` choice element (0..1); see [`ClaimResponseAddItemLocation`].
+    #[serde(flatten)]
+    pub location: Option<ClaimResponseAddItemLocation>,
 
     /// Count of products or services
     pub quantity: Option<types::Quantity>,
@@ -836,4 +827,42 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `ClaimResponse.addItem.location[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum ClaimResponseAddItemLocation {
+    /// `locationCodeableConcept` variant.
+    #[fhir("locationCodeableConcept")]
+    CodeableConcept(Box<types::CodeableConcept>),
+    /// `locationAddress` variant.
+    #[fhir("locationAddress")]
+    Address(Box<types::Address>),
+    /// `locationReference` variant.
+    #[fhir("locationReference")]
+    Reference(Box<types::Reference>),
+}
+
+/// The `ClaimResponse.addItem.serviced[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum ClaimResponseAddItemServiced {
+    /// `servicedDate` variant.
+    #[fhir("servicedDate")]
+    Date(crate::r5::choice::Primitive<types::Date>),
+    /// `servicedPeriod` variant.
+    #[fhir("servicedPeriod")]
+    Period(Box<types::Period>),
+}
+
+/// The `ClaimResponse.event.when[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum ClaimResponseEventWhen {
+    /// `whenDateTime` variant.
+    #[fhir("whenDateTime")]
+    DateTime(crate::r5::choice::Primitive<types::DateTime>),
+    /// `whenPeriod` variant.
+    #[fhir("whenPeriod")]
+    Period(Box<types::Period>),
 }

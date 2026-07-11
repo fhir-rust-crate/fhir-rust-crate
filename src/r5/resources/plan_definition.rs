@@ -104,11 +104,9 @@ pub struct PlanDefinition {
     #[serde(rename = "_version")]
     pub version_ext: Option<types::Element>,
 
-    /// How to compare versions
-    pub version_algorithm_string: Option<types::String>,
-
-    /// How to compare versions
-    pub version_algorithm_coding: Option<types::Coding>,
+    /// The `PlanDefinition.versionAlgorithm[x]` choice element (0..1); see [`PlanDefinitionVersionAlgorithm`].
+    #[serde(flatten)]
+    pub version_algorithm: Option<PlanDefinitionVersionAlgorithm>,
 
     /// Name for this plan definition (computer friendly)
     pub name: Option<types::String>,
@@ -143,14 +141,9 @@ pub struct PlanDefinition {
     #[serde(rename = "_experimental")]
     pub experimental_ext: Option<types::Element>,
 
-    /// Type of individual the plan definition is focused on
-    pub subject_codeable_concept: Option<types::CodeableConcept>,
-
-    /// Type of individual the plan definition is focused on
-    pub subject_reference: Option<types::Reference>,
-
-    /// Type of individual the plan definition is focused on
-    pub subject_canonical: Option<types::Canonical>,
+    /// The `PlanDefinition.subject[x]` choice element (0..1); see [`PlanDefinitionSubject`].
+    #[serde(flatten)]
+    pub subject: Option<PlanDefinitionSubject>,
 
     /// Date last changed
     pub date: Option<types::DateTime>,
@@ -251,11 +244,9 @@ pub struct PlanDefinition {
     /// The ordered, possibly nested actions that make up the plan and define what should be done and when.
     pub action: Option<Vec<PlanDefinitionAction>>,
 
-    /// Preconditions for service
-    pub as_needed_boolean: Option<types::Boolean>,
-
-    /// Preconditions for service
-    pub as_needed_codeable_concept: Option<types::CodeableConcept>,
+    /// The `PlanDefinition.asNeeded[x]` choice element (0..1); see [`PlanDefinitionAsNeeded`].
+    #[serde(flatten)]
+    pub as_needed: Option<PlanDefinitionAsNeeded>,
 }
 
 /// What the plan is trying to accomplish.
@@ -311,26 +302,9 @@ pub struct PlanDefinitionGoalTarget {
     /// The parameter whose value is to be tracked
     pub measure: Option<types::CodeableConcept>,
 
-    /// The target value to be achieved
-    pub detail_quantity: Option<types::Quantity>,
-
-    /// The target value to be achieved
-    pub detail_range: Option<types::Range>,
-
-    /// The target value to be achieved
-    pub detail_codeable_concept: Option<types::CodeableConcept>,
-
-    /// The target value to be achieved
-    pub detail_string: Option<types::String>,
-
-    /// The target value to be achieved
-    pub detail_boolean: Option<types::Boolean>,
-
-    /// The target value to be achieved
-    pub detail_integer: Option<types::Integer>,
-
-    /// The target value to be achieved
-    pub detail_ratio: Option<types::Ratio>,
+    /// The `PlanDefinition.goal.target.detail[x]` choice element (0..1); see [`PlanDefinitionGoalTargetDetail`].
+    #[serde(flatten)]
+    pub detail: Option<PlanDefinitionGoalTargetDetail>,
 
     /// Reach goal within
     pub due: Option<types::Duration>,
@@ -464,14 +438,9 @@ pub struct PlanDefinitionAction {
     #[serde(rename = "_goalId")]
     pub goal_id_ext: Option<Vec<Option<types::Element>>>,
 
-    /// Type of individual the action is focused on
-    pub subject_codeable_concept: Option<types::CodeableConcept>,
-
-    /// Type of individual the action is focused on
-    pub subject_reference: Option<types::Reference>,
-
-    /// Type of individual the action is focused on
-    pub subject_canonical: Option<types::Canonical>,
+    /// The `PlanDefinition.action.subject[x]` choice element (0..1); see [`PlanDefinitionActionSubject`].
+    #[serde(flatten)]
+    pub subject: Option<PlanDefinitionActionSubject>,
 
     /// When the action should be triggered
     pub trigger: Option<Vec<types::TriggerDefinition>>,
@@ -488,17 +457,9 @@ pub struct PlanDefinitionAction {
     /// Relationship to another action
     pub related_action: Option<Vec<PlanDefinitionActionRelatedAction>>,
 
-    /// When the action should take place
-    pub timing_age: Option<types::Age>,
-
-    /// When the action should take place
-    pub timing_duration: Option<types::Duration>,
-
-    /// When the action should take place
-    pub timing_range: Option<types::Range>,
-
-    /// When the action should take place
-    pub timing_timing: Option<types::Timing>,
+    /// The `PlanDefinition.action.timing[x]` choice element (0..1); see [`PlanDefinitionActionTiming`].
+    #[serde(flatten)]
+    pub timing: Option<PlanDefinitionActionTiming>,
 
     /// Where it should happen
     pub location: Option<types::CodeableReference>,
@@ -539,11 +500,9 @@ pub struct PlanDefinitionAction {
     #[serde(rename = "_cardinalityBehavior")]
     pub cardinality_behavior_ext: Option<types::Element>,
 
-    /// Description of the activity to be performed
-    pub definition_canonical: Option<types::Canonical>,
-
-    /// Description of the activity to be performed
-    pub definition_uri: Option<types::Uri>,
+    /// The `PlanDefinition.action.definition[x]` choice element (0..1); see [`PlanDefinitionActionDefinition`].
+    #[serde(flatten)]
+    pub definition: Option<PlanDefinitionActionDefinition>,
 
     /// Transform to apply the template
     pub transform: Option<types::Canonical>,
@@ -674,11 +633,9 @@ pub struct PlanDefinitionActionRelatedAction {
     #[serde(rename = "_endRelationship")]
     pub end_relationship_ext: Option<types::Element>,
 
-    /// Time offset for the relationship
-    pub offset_duration: Option<types::Duration>,
-
-    /// Time offset for the relationship
-    pub offset_range: Option<types::Range>,
+    /// The `PlanDefinition.action.relatedAction.offset[x]` choice element (0..1); see [`PlanDefinitionActionRelatedActionOffset`].
+    #[serde(flatten)]
+    pub offset: Option<PlanDefinitionActionRelatedActionOffset>,
 }
 
 /// Who should participate in the action.
@@ -764,4 +721,126 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `PlanDefinition.action.definition[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum PlanDefinitionActionDefinition {
+    /// `definitionCanonical` variant.
+    #[fhir("definitionCanonical")]
+    Canonical(crate::r5::choice::Primitive<types::Canonical>),
+    /// `definitionUri` variant.
+    #[fhir("definitionUri")]
+    Uri(crate::r5::choice::Primitive<types::Uri>),
+}
+
+/// The `PlanDefinition.action.relatedAction.offset[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum PlanDefinitionActionRelatedActionOffset {
+    /// `offsetDuration` variant.
+    #[fhir("offsetDuration")]
+    Duration(Box<types::Duration>),
+    /// `offsetRange` variant.
+    #[fhir("offsetRange")]
+    Range(Box<types::Range>),
+}
+
+/// The `PlanDefinition.action.subject[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum PlanDefinitionActionSubject {
+    /// `subjectCodeableConcept` variant.
+    #[fhir("subjectCodeableConcept")]
+    CodeableConcept(Box<types::CodeableConcept>),
+    /// `subjectReference` variant.
+    #[fhir("subjectReference")]
+    Reference(Box<types::Reference>),
+    /// `subjectCanonical` variant.
+    #[fhir("subjectCanonical")]
+    Canonical(crate::r5::choice::Primitive<types::Canonical>),
+}
+
+/// The `PlanDefinition.action.timing[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum PlanDefinitionActionTiming {
+    /// `timingAge` variant.
+    #[fhir("timingAge")]
+    Age(Box<types::Age>),
+    /// `timingDuration` variant.
+    #[fhir("timingDuration")]
+    Duration(Box<types::Duration>),
+    /// `timingRange` variant.
+    #[fhir("timingRange")]
+    Range(Box<types::Range>),
+    /// `timingTiming` variant.
+    #[fhir("timingTiming")]
+    Timing(Box<types::Timing>),
+}
+
+/// The `PlanDefinition.asNeeded[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum PlanDefinitionAsNeeded {
+    /// `asNeededBoolean` variant.
+    #[fhir("asNeededBoolean")]
+    Boolean(crate::r5::choice::Primitive<types::Boolean>),
+    /// `asNeededCodeableConcept` variant.
+    #[fhir("asNeededCodeableConcept")]
+    CodeableConcept(Box<types::CodeableConcept>),
+}
+
+/// The `PlanDefinition.goal.target.detail[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum PlanDefinitionGoalTargetDetail {
+    /// `detailQuantity` variant.
+    #[fhir("detailQuantity")]
+    Quantity(Box<types::Quantity>),
+    /// `detailRange` variant.
+    #[fhir("detailRange")]
+    Range(Box<types::Range>),
+    /// `detailCodeableConcept` variant.
+    #[fhir("detailCodeableConcept")]
+    CodeableConcept(Box<types::CodeableConcept>),
+    /// `detailString` variant.
+    #[fhir("detailString")]
+    String(crate::r5::choice::Primitive<types::String>),
+    /// `detailBoolean` variant.
+    #[fhir("detailBoolean")]
+    Boolean(crate::r5::choice::Primitive<types::Boolean>),
+    /// `detailInteger` variant.
+    #[fhir("detailInteger")]
+    Integer(crate::r5::choice::Primitive<types::Integer>),
+    /// `detailRatio` variant.
+    #[fhir("detailRatio")]
+    Ratio(Box<types::Ratio>),
+}
+
+/// The `PlanDefinition.subject[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum PlanDefinitionSubject {
+    /// `subjectCodeableConcept` variant.
+    #[fhir("subjectCodeableConcept")]
+    CodeableConcept(Box<types::CodeableConcept>),
+    /// `subjectReference` variant.
+    #[fhir("subjectReference")]
+    Reference(Box<types::Reference>),
+    /// `subjectCanonical` variant.
+    #[fhir("subjectCanonical")]
+    Canonical(crate::r5::choice::Primitive<types::Canonical>),
+}
+
+/// The `PlanDefinition.versionAlgorithm[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum PlanDefinitionVersionAlgorithm {
+    /// `versionAlgorithmString` variant.
+    #[fhir("versionAlgorithmString")]
+    String(crate::r5::choice::Primitive<types::String>),
+    /// `versionAlgorithmCoding` variant.
+    #[fhir("versionAlgorithmCoding")]
+    Coding(Box<types::Coding>),
 }

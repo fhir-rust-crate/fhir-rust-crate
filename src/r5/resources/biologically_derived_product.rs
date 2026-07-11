@@ -163,11 +163,9 @@ pub struct BiologicallyDerivedProductCollection {
     /// the organization that facilitated the collection
     pub source: Option<types::Reference>,
 
-    /// Time of product collection
-    pub collected_date_time: Option<types::DateTime>,
-
-    /// Time of product collection
-    pub collected_period: Option<types::Period>,
+    /// The `BiologicallyDerivedProduct.collection.collected[x]` choice element (0..1); see [`BiologicallyDerivedProductCollectionCollected`].
+    #[serde(flatten)]
+    pub collected: Option<BiologicallyDerivedProductCollectionCollected>,
 }
 
 /// BiologicallyDerivedProductProperty
@@ -190,32 +188,9 @@ pub struct BiologicallyDerivedProductProperty {
     /// Code that specifies the property
     pub r#type: types::CodeableConcept,
 
-    /// Property values
-    pub value_boolean: Option<types::Boolean>,
-
-    /// Property values
-    pub value_integer: Option<types::Integer>,
-
-    /// Property values
-    pub value_codeable_concept: Option<types::CodeableConcept>,
-
-    /// Property values
-    pub value_period: Option<types::Period>,
-
-    /// Property values
-    pub value_quantity: Option<types::Quantity>,
-
-    /// Property values
-    pub value_range: Option<types::Range>,
-
-    /// Property values
-    pub value_ratio: Option<types::Ratio>,
-
-    /// Property values
-    pub value_string: Option<types::String>,
-
-    /// Property values
-    pub value_attachment: Option<types::Attachment>,
+    /// The `BiologicallyDerivedProduct.property.value[x]` choice element (0..1); see [`BiologicallyDerivedProductPropertyValue`].
+    #[serde(flatten)]
+    pub value: Option<BiologicallyDerivedProductPropertyValue>,
 }
 
 #[cfg(test)]
@@ -235,4 +210,48 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `BiologicallyDerivedProduct.collection.collected[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum BiologicallyDerivedProductCollectionCollected {
+    /// `collectedDateTime` variant.
+    #[fhir("collectedDateTime")]
+    DateTime(crate::r5::choice::Primitive<types::DateTime>),
+    /// `collectedPeriod` variant.
+    #[fhir("collectedPeriod")]
+    Period(Box<types::Period>),
+}
+
+/// The `BiologicallyDerivedProduct.property.value[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum BiologicallyDerivedProductPropertyValue {
+    /// `valueBoolean` variant.
+    #[fhir("valueBoolean")]
+    Boolean(crate::r5::choice::Primitive<types::Boolean>),
+    /// `valueInteger` variant.
+    #[fhir("valueInteger")]
+    Integer(crate::r5::choice::Primitive<types::Integer>),
+    /// `valueCodeableConcept` variant.
+    #[fhir("valueCodeableConcept")]
+    CodeableConcept(Box<types::CodeableConcept>),
+    /// `valuePeriod` variant.
+    #[fhir("valuePeriod")]
+    Period(Box<types::Period>),
+    /// `valueQuantity` variant.
+    #[fhir("valueQuantity")]
+    Quantity(Box<types::Quantity>),
+    /// `valueRange` variant.
+    #[fhir("valueRange")]
+    Range(Box<types::Range>),
+    /// `valueRatio` variant.
+    #[fhir("valueRatio")]
+    Ratio(Box<types::Ratio>),
+    /// `valueString` variant.
+    #[fhir("valueString")]
+    String(crate::r5::choice::Primitive<types::String>),
+    /// `valueAttachment` variant.
+    #[fhir("valueAttachment")]
+    Attachment(Box<types::Attachment>),
 }

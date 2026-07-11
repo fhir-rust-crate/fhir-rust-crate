@@ -121,14 +121,9 @@ pub struct MedicationAdministration {
     /// Additional information to support administration
     pub supporting_information: Option<Vec<types::Reference>>,
 
-    /// Specific date/time or interval of time during which the administration took place (dateTime)
-    pub occurence_date_time: Option<types::DateTime>,
-
-    /// Specific date/time or interval of time during which the administration took place (Period)
-    pub occurence_period: Option<types::Period>,
-
-    /// Specific date/time or interval of time during which the administration took place (Timing)
-    pub occurence_timing: Option<types::Timing>,
+    /// The `MedicationAdministration.occurence[x]` choice element (0..1); see [`MedicationAdministrationOccurence`].
+    #[serde(flatten)]
+    pub occurence: Option<MedicationAdministrationOccurence>,
 
     /// When the MedicationAdministration was first captured in the subject's record
     pub recorded: Option<types::DateTime>,
@@ -221,11 +216,9 @@ pub struct MedicationAdministrationDosage {
     /// Amount of medication per dose
     pub dose: Option<types::Quantity>,
 
-    /// Dose quantity per unit of time (Ratio)
-    pub rate_ratio: Option<types::Ratio>,
-
-    /// Dose quantity per unit of time (Quantity)
-    pub rate_quantity: Option<types::Quantity>,
+    /// The `MedicationAdministration.dosage.rate[x]` choice element (0..1); see [`MedicationAdministrationDosageRate`].
+    #[serde(flatten)]
+    pub rate: Option<MedicationAdministrationDosageRate>,
 }
 
 #[cfg(test)]
@@ -245,4 +238,30 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `MedicationAdministration.dosage.rate[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum MedicationAdministrationDosageRate {
+    /// `rateRatio` variant.
+    #[fhir("rateRatio")]
+    Ratio(Box<types::Ratio>),
+    /// `rateQuantity` variant.
+    #[fhir("rateQuantity")]
+    Quantity(Box<types::Quantity>),
+}
+
+/// The `MedicationAdministration.occurence[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum MedicationAdministrationOccurence {
+    /// `occurenceDateTime` variant.
+    #[fhir("occurenceDateTime")]
+    DateTime(crate::r5::choice::Primitive<types::DateTime>),
+    /// `occurencePeriod` variant.
+    #[fhir("occurencePeriod")]
+    Period(Box<types::Period>),
+    /// `occurenceTiming` variant.
+    #[fhir("occurenceTiming")]
+    Timing(Box<types::Timing>),
 }

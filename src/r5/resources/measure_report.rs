@@ -182,23 +182,9 @@ pub struct MeasureReportGroup {
     /// The populations in the group
     pub population: Option<Vec<MeasureReportGroupPopulation>>,
 
-    /// What score this group achieved
-    pub measure_score_quantity: Option<types::Quantity>,
-
-    /// What score this group achieved
-    pub measure_score_date_time: Option<types::DateTime>,
-
-    /// What score this group achieved
-    pub measure_score_codeable_concept: Option<types::CodeableConcept>,
-
-    /// What score this group achieved
-    pub measure_score_period: Option<types::Period>,
-
-    /// What score this group achieved
-    pub measure_score_range: Option<types::Range>,
-
-    /// What score this group achieved
-    pub measure_score_duration: Option<types::Duration>,
+    /// The `MeasureReport.group.measureScore[x]` choice element (0..1); see [`MeasureReportGroupMeasureScore`].
+    #[serde(flatten)]
+    pub measure_score: Option<MeasureReportGroupMeasureScore>,
 
     /// Stratification results
     pub stratifier: Option<Vec<MeasureReportGroupStratifier>>,
@@ -285,20 +271,9 @@ pub struct MeasureReportGroupStratifierStratum {
     /// Extensions that cannot be ignored even if unrecognized
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// The stratum value, e.g. male
-    pub value_codeable_concept: Option<types::CodeableConcept>,
-
-    /// The stratum value, e.g. male
-    pub value_boolean: Option<types::Boolean>,
-
-    /// The stratum value, e.g. male
-    pub value_quantity: Option<types::Quantity>,
-
-    /// The stratum value, e.g. male
-    pub value_range: Option<types::Range>,
-
-    /// The stratum value, e.g. male
-    pub value_reference: Option<types::Reference>,
+    /// The `MeasureReport.group.stratifier.stratum.value[x]` choice element (0..1); see [`MeasureReportGroupStratifierStratumValue`].
+    #[serde(flatten)]
+    pub value: Option<MeasureReportGroupStratifierStratumValue>,
 
     /// Stratifier component values
     pub component: Option<Vec<MeasureReportGroupStratifierStratumComponent>>,
@@ -306,23 +281,9 @@ pub struct MeasureReportGroupStratifierStratum {
     /// Population results in this stratum
     pub population: Option<Vec<MeasureReportGroupStratifierStratumPopulation>>,
 
-    /// What score this stratum achieved
-    pub measure_score_quantity: Option<types::Quantity>,
-
-    /// What score this stratum achieved
-    pub measure_score_date_time: Option<types::DateTime>,
-
-    /// What score this stratum achieved
-    pub measure_score_codeable_concept: Option<types::CodeableConcept>,
-
-    /// What score this stratum achieved
-    pub measure_score_period: Option<types::Period>,
-
-    /// What score this stratum achieved
-    pub measure_score_range: Option<types::Range>,
-
-    /// What score this stratum achieved
-    pub measure_score_duration: Option<types::Duration>,
+    /// The `MeasureReport.group.stratifier.stratum.measureScore[x]` choice element (0..1); see [`MeasureReportGroupStratifierStratumMeasureScore`].
+    #[serde(flatten)]
+    pub measure_score: Option<MeasureReportGroupStratifierStratumMeasureScore>,
 }
 
 /// Stratifier component values.
@@ -348,20 +309,9 @@ pub struct MeasureReportGroupStratifierStratumComponent {
     /// What stratifier component of the group
     pub code: types::CodeableConcept,
 
-    /// The stratum component value, e.g. male
-    pub value_codeable_concept: Option<types::CodeableConcept>,
-
-    /// The stratum component value, e.g. male
-    pub value_boolean: Option<types::Boolean>,
-
-    /// The stratum component value, e.g. male
-    pub value_quantity: Option<types::Quantity>,
-
-    /// The stratum component value, e.g. male
-    pub value_range: Option<types::Range>,
-
-    /// The stratum component value, e.g. male
-    pub value_reference: Option<types::Reference>,
+    /// The `MeasureReport.group.stratifier.stratum.component.value[x]` choice element (0..1); see [`MeasureReportGroupStratifierStratumComponentValue`].
+    #[serde(flatten)]
+    pub value: Option<MeasureReportGroupStratifierStratumComponentValue>,
 }
 
 /// Population results in this stratum.
@@ -420,4 +370,93 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `MeasureReport.group.measureScore[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum MeasureReportGroupMeasureScore {
+    /// `measureScoreQuantity` variant.
+    #[fhir("measureScoreQuantity")]
+    Quantity(Box<types::Quantity>),
+    /// `measureScoreDateTime` variant.
+    #[fhir("measureScoreDateTime")]
+    DateTime(crate::r5::choice::Primitive<types::DateTime>),
+    /// `measureScoreCodeableConcept` variant.
+    #[fhir("measureScoreCodeableConcept")]
+    CodeableConcept(Box<types::CodeableConcept>),
+    /// `measureScorePeriod` variant.
+    #[fhir("measureScorePeriod")]
+    Period(Box<types::Period>),
+    /// `measureScoreRange` variant.
+    #[fhir("measureScoreRange")]
+    Range(Box<types::Range>),
+    /// `measureScoreDuration` variant.
+    #[fhir("measureScoreDuration")]
+    Duration(Box<types::Duration>),
+}
+
+/// The `MeasureReport.group.stratifier.stratum.component.value[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum MeasureReportGroupStratifierStratumComponentValue {
+    /// `valueCodeableConcept` variant.
+    #[fhir("valueCodeableConcept")]
+    CodeableConcept(Box<types::CodeableConcept>),
+    /// `valueBoolean` variant.
+    #[fhir("valueBoolean")]
+    Boolean(crate::r5::choice::Primitive<types::Boolean>),
+    /// `valueQuantity` variant.
+    #[fhir("valueQuantity")]
+    Quantity(Box<types::Quantity>),
+    /// `valueRange` variant.
+    #[fhir("valueRange")]
+    Range(Box<types::Range>),
+    /// `valueReference` variant.
+    #[fhir("valueReference")]
+    Reference(Box<types::Reference>),
+}
+
+/// The `MeasureReport.group.stratifier.stratum.measureScore[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum MeasureReportGroupStratifierStratumMeasureScore {
+    /// `measureScoreQuantity` variant.
+    #[fhir("measureScoreQuantity")]
+    Quantity(Box<types::Quantity>),
+    /// `measureScoreDateTime` variant.
+    #[fhir("measureScoreDateTime")]
+    DateTime(crate::r5::choice::Primitive<types::DateTime>),
+    /// `measureScoreCodeableConcept` variant.
+    #[fhir("measureScoreCodeableConcept")]
+    CodeableConcept(Box<types::CodeableConcept>),
+    /// `measureScorePeriod` variant.
+    #[fhir("measureScorePeriod")]
+    Period(Box<types::Period>),
+    /// `measureScoreRange` variant.
+    #[fhir("measureScoreRange")]
+    Range(Box<types::Range>),
+    /// `measureScoreDuration` variant.
+    #[fhir("measureScoreDuration")]
+    Duration(Box<types::Duration>),
+}
+
+/// The `MeasureReport.group.stratifier.stratum.value[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum MeasureReportGroupStratifierStratumValue {
+    /// `valueCodeableConcept` variant.
+    #[fhir("valueCodeableConcept")]
+    CodeableConcept(Box<types::CodeableConcept>),
+    /// `valueBoolean` variant.
+    #[fhir("valueBoolean")]
+    Boolean(crate::r5::choice::Primitive<types::Boolean>),
+    /// `valueQuantity` variant.
+    #[fhir("valueQuantity")]
+    Quantity(Box<types::Quantity>),
+    /// `valueRange` variant.
+    #[fhir("valueRange")]
+    Range(Box<types::Range>),
+    /// `valueReference` variant.
+    #[fhir("valueReference")]
+    Reference(Box<types::Reference>),
 }

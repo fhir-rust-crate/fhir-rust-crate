@@ -110,14 +110,9 @@ pub struct SupplyDelivery {
     /// One or more items, with quantity, that were delivered as part of this event
     pub supplied_item: Option<Vec<SupplyDeliverySuppliedItem>>,
 
-    /// When event occurred
-    pub occurrence_date_time: Option<types::DateTime>,
-
-    /// When event occurred
-    pub occurrence_period: Option<types::Period>,
-
-    /// When event occurred
-    pub occurrence_timing: Option<types::Timing>,
+    /// The `SupplyDelivery.occurrence[x]` choice element (0..1); see [`SupplyDeliveryOccurrence`].
+    #[serde(flatten)]
+    pub occurrence: Option<SupplyDeliveryOccurrence>,
 
     /// Reference to the organization or practitioner that supplied the item
     pub supplier: Option<types::Reference>,
@@ -150,11 +145,9 @@ pub struct SupplyDeliverySuppliedItem {
     /// Amount supplied
     pub quantity: Option<types::Quantity>,
 
-    /// Medication, Substance, Device or Biologically Derived Product supplied
-    pub item_codeable_concept: Option<types::CodeableConcept>,
-
-    /// Medication, Substance, Device or Biologically Derived Product supplied
-    pub item_reference: Option<types::Reference>,
+    /// The `SupplyDelivery.suppliedItem.item[x]` choice element (0..1); see [`SupplyDeliverySuppliedItemItem`].
+    #[serde(flatten)]
+    pub item: Option<SupplyDeliverySuppliedItemItem>,
 }
 
 #[cfg(test)]
@@ -174,4 +167,30 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `SupplyDelivery.occurrence[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum SupplyDeliveryOccurrence {
+    /// `occurrenceDateTime` variant.
+    #[fhir("occurrenceDateTime")]
+    DateTime(crate::r5::choice::Primitive<types::DateTime>),
+    /// `occurrencePeriod` variant.
+    #[fhir("occurrencePeriod")]
+    Period(Box<types::Period>),
+    /// `occurrenceTiming` variant.
+    #[fhir("occurrenceTiming")]
+    Timing(Box<types::Timing>),
+}
+
+/// The `SupplyDelivery.suppliedItem.item[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum SupplyDeliverySuppliedItemItem {
+    /// `itemCodeableConcept` variant.
+    #[fhir("itemCodeableConcept")]
+    CodeableConcept(Box<types::CodeableConcept>),
+    /// `itemReference` variant.
+    #[fhir("itemReference")]
+    Reference(Box<types::Reference>),
 }

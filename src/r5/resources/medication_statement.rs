@@ -111,14 +111,9 @@ pub struct MedicationStatement {
     /// Encounter associated with MedicationStatement
     pub encounter: Option<types::Reference>,
 
-    /// The date/time or interval when the medication is/was/will be taken
-    pub effective_date_time: Option<types::DateTime>,
-
-    /// The date/time or interval when the medication is/was/will be taken
-    pub effective_period: Option<types::Period>,
-
-    /// The date/time or interval when the medication is/was/will be taken
-    pub effective_timing: Option<types::Timing>,
+    /// The `MedicationStatement.effective[x]` choice element (0..1); see [`MedicationStatementEffective`].
+    #[serde(flatten)]
+    pub effective: Option<MedicationStatementEffective>,
 
     /// When the usage was asserted?
     pub date_asserted: Option<types::DateTime>,
@@ -195,4 +190,18 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `MedicationStatement.effective[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum MedicationStatementEffective {
+    /// `effectiveDateTime` variant.
+    #[fhir("effectiveDateTime")]
+    DateTime(crate::r5::choice::Primitive<types::DateTime>),
+    /// `effectivePeriod` variant.
+    #[fhir("effectivePeriod")]
+    Period(Box<types::Period>),
+    /// `effectiveTiming` variant.
+    #[fhir("effectiveTiming")]
+    Timing(Box<types::Timing>),
 }

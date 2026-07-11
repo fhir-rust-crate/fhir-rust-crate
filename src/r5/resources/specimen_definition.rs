@@ -98,11 +98,9 @@ pub struct SpecimenDefinition {
     #[serde(rename = "_version")]
     pub version_ext: Option<types::Element>,
 
-    /// How to compare versions
-    pub version_algorithm_string: Option<types::String>,
-
-    /// How to compare versions
-    pub version_algorithm_coding: Option<types::Coding>,
+    /// The `SpecimenDefinition.versionAlgorithm[x]` choice element (0..1); see [`SpecimenDefinitionVersionAlgorithm`].
+    #[serde(flatten)]
+    pub version_algorithm: Option<SpecimenDefinitionVersionAlgorithm>,
 
     /// Name for this {{title}} (computer friendly)
     pub name: Option<types::String>,
@@ -140,11 +138,9 @@ pub struct SpecimenDefinition {
     #[serde(rename = "_experimental")]
     pub experimental_ext: Option<types::Element>,
 
-    /// Type of subject for specimen collection
-    pub subject_codeable_concept: Option<types::CodeableConcept>,
-
-    /// Type of subject for specimen collection
-    pub subject_reference: Option<types::Reference>,
+    /// The `SpecimenDefinition.subject[x]` choice element (0..1); see [`SpecimenDefinitionSubject`].
+    #[serde(flatten)]
+    pub subject: Option<SpecimenDefinitionSubject>,
 
     /// Date status first applied
     pub date: Option<types::DateTime>,
@@ -322,11 +318,9 @@ pub struct SpecimenDefinitionTypeTestedContainer {
     /// The capacity of this kind of container
     pub capacity: Option<types::Quantity>,
 
-    /// Minimum volume
-    pub minimum_volume_quantity: Option<types::Quantity>,
-
-    /// Minimum volume
-    pub minimum_volume_string: Option<types::String>,
+    /// The `SpecimenDefinition.typeTested.container.minimumVolume[x]` choice element (0..1); see [`SpecimenDefinitionTypeTestedContainerMinimumVolume`].
+    #[serde(flatten)]
+    pub minimum_volume: Option<SpecimenDefinitionTypeTestedContainerMinimumVolume>,
 
     /// Additive associated with container
     pub additive: Option<Vec<SpecimenDefinitionTypeTestedContainerAdditive>>,
@@ -356,11 +350,9 @@ pub struct SpecimenDefinitionTypeTestedContainerAdditive {
     /// Extensions that cannot be ignored even if unrecognized
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// Additive associated with container
-    pub additive_codeable_concept: Option<types::CodeableConcept>,
-
-    /// Additive associated with container
-    pub additive_reference: Option<types::Reference>,
+    /// The `SpecimenDefinition.typeTested.container.additive.additive[x]` choice element (0..1); see [`SpecimenDefinitionTypeTestedContainerAdditiveAdditive`].
+    #[serde(flatten)]
+    pub additive: Option<SpecimenDefinitionTypeTestedContainerAdditiveAdditive>,
 }
 
 /// Specimen handling before testing.
@@ -414,4 +406,51 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `SpecimenDefinition.subject[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum SpecimenDefinitionSubject {
+    /// `subjectCodeableConcept` variant.
+    #[fhir("subjectCodeableConcept")]
+    CodeableConcept(Box<types::CodeableConcept>),
+    /// `subjectReference` variant.
+    #[fhir("subjectReference")]
+    Reference(Box<types::Reference>),
+}
+
+/// The `SpecimenDefinition.typeTested.container.additive.additive[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum SpecimenDefinitionTypeTestedContainerAdditiveAdditive {
+    /// `additiveCodeableConcept` variant.
+    #[fhir("additiveCodeableConcept")]
+    CodeableConcept(Box<types::CodeableConcept>),
+    /// `additiveReference` variant.
+    #[fhir("additiveReference")]
+    Reference(Box<types::Reference>),
+}
+
+/// The `SpecimenDefinition.typeTested.container.minimumVolume[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum SpecimenDefinitionTypeTestedContainerMinimumVolume {
+    /// `minimumVolumeQuantity` variant.
+    #[fhir("minimumVolumeQuantity")]
+    Quantity(Box<types::Quantity>),
+    /// `minimumVolumeString` variant.
+    #[fhir("minimumVolumeString")]
+    String(crate::r5::choice::Primitive<types::String>),
+}
+
+/// The `SpecimenDefinition.versionAlgorithm[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum SpecimenDefinitionVersionAlgorithm {
+    /// `versionAlgorithmString` variant.
+    #[fhir("versionAlgorithmString")]
+    String(crate::r5::choice::Primitive<types::String>),
+    /// `versionAlgorithmCoding` variant.
+    #[fhir("versionAlgorithmCoding")]
+    Coding(Box<types::Coding>),
 }

@@ -195,14 +195,9 @@ pub struct CommunicationPayload {
     /// Extensions that cannot be ignored even if unrecognized
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// Message part content
-    pub content_attachment: Option<types::Attachment>,
-
-    /// Message part content
-    pub content_reference: Option<types::Reference>,
-
-    /// Message part content
-    pub content_codeable_concept: Option<types::CodeableConcept>,
+    /// The `Communication.payload.content[x]` choice element (0..1); see [`CommunicationPayloadContent`].
+    #[serde(flatten)]
+    pub content: Option<CommunicationPayloadContent>,
 }
 
 #[cfg(test)]
@@ -222,4 +217,18 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `Communication.payload.content[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum CommunicationPayloadContent {
+    /// `contentAttachment` variant.
+    #[fhir("contentAttachment")]
+    Attachment(Box<types::Attachment>),
+    /// `contentReference` variant.
+    #[fhir("contentReference")]
+    Reference(Box<types::Reference>),
+    /// `contentCodeableConcept` variant.
+    #[fhir("contentCodeableConcept")]
+    CodeableConcept(Box<types::CodeableConcept>),
 }

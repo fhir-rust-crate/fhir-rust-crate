@@ -143,14 +143,9 @@ pub struct MedicationIngredient {
     #[serde(rename = "_isActive")]
     pub is_active_ext: Option<types::Element>,
 
-    /// Quantity of ingredient present, as a Ratio
-    pub strength_ratio: Option<types::Ratio>,
-
-    /// Quantity of ingredient present, as a CodeableConcept
-    pub strength_codeable_concept: Option<types::CodeableConcept>,
-
-    /// Quantity of ingredient present, as a Quantity
-    pub strength_quantity: Option<types::Quantity>,
+    /// The `Medication.ingredient.strength[x]` choice element (0..1); see [`MedicationIngredientStrength`].
+    #[serde(flatten)]
+    pub strength: Option<MedicationIngredientStrength>,
 }
 
 /// Details about the packaged medication, such as the lot number assigned to the
@@ -198,4 +193,18 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `Medication.ingredient.strength[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum MedicationIngredientStrength {
+    /// `strengthRatio` variant.
+    #[fhir("strengthRatio")]
+    Ratio(Box<types::Ratio>),
+    /// `strengthCodeableConcept` variant.
+    #[fhir("strengthCodeableConcept")]
+    CodeableConcept(Box<types::CodeableConcept>),
+    /// `strengthQuantity` variant.
+    #[fhir("strengthQuantity")]
+    Quantity(Box<types::Quantity>),
 }

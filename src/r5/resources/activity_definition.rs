@@ -106,11 +106,9 @@ pub struct ActivityDefinition {
     #[serde(rename = "_version")]
     pub version_ext: Option<types::Element>,
 
-    /// How to compare versions
-    pub version_algorithm_string: Option<types::String>,
-
-    /// How to compare versions
-    pub version_algorithm_coding: Option<types::Coding>,
+    /// The `ActivityDefinition.versionAlgorithm[x]` choice element (0..1); see [`ActivityDefinitionVersionAlgorithm`].
+    #[serde(flatten)]
+    pub version_algorithm: Option<ActivityDefinitionVersionAlgorithm>,
 
     /// Name for this activity definition (computer friendly)
     pub name: Option<types::String>,
@@ -142,14 +140,9 @@ pub struct ActivityDefinition {
     #[serde(rename = "_experimental")]
     pub experimental_ext: Option<types::Element>,
 
-    /// Type of individual the activity definition is intended for
-    pub subject_codeable_concept: Option<types::CodeableConcept>,
-
-    /// Type of individual the activity definition is intended for
-    pub subject_reference: Option<types::Reference>,
-
-    /// Type of individual the activity definition is intended for
-    pub subject_canonical: Option<types::Canonical>,
+    /// The `ActivityDefinition.subject[x]` choice element (0..1); see [`ActivityDefinitionSubject`].
+    #[serde(flatten)]
+    pub subject: Option<ActivityDefinitionSubject>,
 
     /// Date last changed
     pub date: Option<types::DateTime>,
@@ -274,23 +267,13 @@ pub struct ActivityDefinition {
     #[serde(rename = "_doNotPerform")]
     pub do_not_perform_ext: Option<types::Element>,
 
-    /// When activity is to occur
-    pub timing_timing: Option<types::Timing>,
+    /// The `ActivityDefinition.timing[x]` choice element (0..1); see [`ActivityDefinitionTiming`].
+    #[serde(flatten)]
+    pub timing: Option<ActivityDefinitionTiming>,
 
-    /// When activity is to occur
-    pub timing_age: Option<types::Age>,
-
-    /// When activity is to occur
-    pub timing_range: Option<types::Range>,
-
-    /// When activity is to occur
-    pub timing_duration: Option<types::Duration>,
-
-    /// Preconditions for service
-    pub as_needed_boolean: Option<types::Boolean>,
-
-    /// Preconditions for service
-    pub as_needed_codeable_concept: Option<types::CodeableConcept>,
+    /// The `ActivityDefinition.asNeeded[x]` choice element (0..1); see [`ActivityDefinitionAsNeeded`].
+    #[serde(flatten)]
+    pub as_needed: Option<ActivityDefinitionAsNeeded>,
 
     /// Where it should happen
     pub location: Option<types::CodeableReference>,
@@ -298,11 +281,9 @@ pub struct ActivityDefinition {
     /// Who should participate in performing the defined activity, e.g. practitioner, patient, or device
     pub participant: Option<Vec<ActivityDefinitionParticipant>>,
 
-    /// What's administered/supplied
-    pub product_reference: Option<types::Reference>,
-
-    /// What's administered/supplied
-    pub product_codeable_concept: Option<types::CodeableConcept>,
+    /// The `ActivityDefinition.product[x]` choice element (0..1); see [`ActivityDefinitionProduct`].
+    #[serde(flatten)]
+    pub product: Option<ActivityDefinitionProduct>,
 
     /// How much is administered/consumed/supplied
     pub quantity: Option<types::Quantity>,
@@ -419,4 +400,72 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `ActivityDefinition.asNeeded[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum ActivityDefinitionAsNeeded {
+    /// `asNeededBoolean` variant.
+    #[fhir("asNeededBoolean")]
+    Boolean(crate::r5::choice::Primitive<types::Boolean>),
+    /// `asNeededCodeableConcept` variant.
+    #[fhir("asNeededCodeableConcept")]
+    CodeableConcept(Box<types::CodeableConcept>),
+}
+
+/// The `ActivityDefinition.product[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum ActivityDefinitionProduct {
+    /// `productReference` variant.
+    #[fhir("productReference")]
+    Reference(Box<types::Reference>),
+    /// `productCodeableConcept` variant.
+    #[fhir("productCodeableConcept")]
+    CodeableConcept(Box<types::CodeableConcept>),
+}
+
+/// The `ActivityDefinition.subject[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum ActivityDefinitionSubject {
+    /// `subjectCodeableConcept` variant.
+    #[fhir("subjectCodeableConcept")]
+    CodeableConcept(Box<types::CodeableConcept>),
+    /// `subjectReference` variant.
+    #[fhir("subjectReference")]
+    Reference(Box<types::Reference>),
+    /// `subjectCanonical` variant.
+    #[fhir("subjectCanonical")]
+    Canonical(crate::r5::choice::Primitive<types::Canonical>),
+}
+
+/// The `ActivityDefinition.timing[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum ActivityDefinitionTiming {
+    /// `timingTiming` variant.
+    #[fhir("timingTiming")]
+    Timing(Box<types::Timing>),
+    /// `timingAge` variant.
+    #[fhir("timingAge")]
+    Age(Box<types::Age>),
+    /// `timingRange` variant.
+    #[fhir("timingRange")]
+    Range(Box<types::Range>),
+    /// `timingDuration` variant.
+    #[fhir("timingDuration")]
+    Duration(Box<types::Duration>),
+}
+
+/// The `ActivityDefinition.versionAlgorithm[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum ActivityDefinitionVersionAlgorithm {
+    /// `versionAlgorithmString` variant.
+    #[fhir("versionAlgorithmString")]
+    String(crate::r5::choice::Primitive<types::String>),
+    /// `versionAlgorithmCoding` variant.
+    #[fhir("versionAlgorithmCoding")]
+    Coding(Box<types::Coding>),
 }

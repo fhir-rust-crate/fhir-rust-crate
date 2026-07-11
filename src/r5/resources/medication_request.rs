@@ -305,11 +305,9 @@ pub struct MedicationRequestSubstitution {
     /// Extensions that cannot be ignored even if unrecognized
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// Whether substitution is allowed or not
-    pub allowed_boolean: Option<types::Boolean>,
-
-    /// Whether substitution is allowed or not
-    pub allowed_codeable_concept: Option<types::CodeableConcept>,
+    /// The `MedicationRequest.substitution.allowed[x]` choice element (0..1); see [`MedicationRequestSubstitutionAllowed`].
+    #[serde(flatten)]
+    pub allowed: Option<MedicationRequestSubstitutionAllowed>,
 
     /// Why should (not) substitution be made
     pub reason: Option<types::CodeableConcept>,
@@ -332,4 +330,15 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `MedicationRequest.substitution.allowed[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum MedicationRequestSubstitutionAllowed {
+    /// `allowedBoolean` variant.
+    #[fhir("allowedBoolean")]
+    Boolean(crate::r5::choice::Primitive<types::Boolean>),
+    /// `allowedCodeableConcept` variant.
+    #[fhir("allowedCodeableConcept")]
+    CodeableConcept(Box<types::CodeableConcept>),
 }

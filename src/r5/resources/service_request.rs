@@ -144,14 +144,9 @@ pub struct ServiceRequest {
     /// Additional order information
     pub order_detail: Option<Vec<ServiceRequestOrderDetail>>,
 
-    /// Service amount
-    pub quantity_quantity: Option<types::Quantity>,
-
-    /// Service amount
-    pub quantity_ratio: Option<types::Ratio>,
-
-    /// Service amount
-    pub quantity_range: Option<types::Range>,
+    /// The `ServiceRequest.quantity[x]` choice element (0..1); see [`ServiceRequestQuantity`].
+    #[serde(flatten)]
+    pub quantity: Option<ServiceRequestQuantity>,
 
     /// The individual, group, device, or location the service is ordered for, most often a [`Patient`](crate::r5::resources::patient::Patient)
     pub subject: types::Reference,
@@ -162,20 +157,13 @@ pub struct ServiceRequest {
     /// Encounter in which the request was created
     pub encounter: Option<types::Reference>,
 
-    /// When service should occur
-    pub occurrence_date_time: Option<types::DateTime>,
+    /// The `ServiceRequest.occurrence[x]` choice element (0..1); see [`ServiceRequestOccurrence`].
+    #[serde(flatten)]
+    pub occurrence: Option<ServiceRequestOccurrence>,
 
-    /// When service should occur
-    pub occurrence_period: Option<types::Period>,
-
-    /// When service should occur
-    pub occurrence_timing: Option<types::Timing>,
-
-    /// Preconditions for service
-    pub as_needed_boolean: Option<types::Boolean>,
-
-    /// Preconditions for service
-    pub as_needed_codeable_concept: Option<types::CodeableConcept>,
+    /// The `ServiceRequest.asNeeded[x]` choice element (0..1); see [`ServiceRequestAsNeeded`].
+    #[serde(flatten)]
+    pub as_needed: Option<ServiceRequestAsNeeded>,
 
     /// Date request signed
     pub authored_on: Option<types::DateTime>,
@@ -269,26 +257,9 @@ pub struct ServiceRequestOrderDetailParameter {
     /// The detail of the order being requested
     pub code: types::CodeableConcept,
 
-    /// The value for the order detail
-    pub value_quantity: Option<types::Quantity>,
-
-    /// The value for the order detail
-    pub value_ratio: Option<types::Ratio>,
-
-    /// The value for the order detail
-    pub value_range: Option<types::Range>,
-
-    /// The value for the order detail
-    pub value_boolean: Option<types::Boolean>,
-
-    /// The value for the order detail
-    pub value_codeable_concept: Option<types::CodeableConcept>,
-
-    /// The value for the order detail
-    pub value_string: Option<types::String>,
-
-    /// The value for the order detail
-    pub value_period: Option<types::Period>,
+    /// The `ServiceRequest.orderDetail.parameter.value[x]` choice element (0..1); see [`ServiceRequestOrderDetailParameterValue`].
+    #[serde(flatten)]
+    pub value: Option<ServiceRequestOrderDetailParameterValue>,
 }
 
 /// Patient or consumer-oriented instructions for a ServiceRequest.
@@ -309,11 +280,9 @@ pub struct ServiceRequestPatientInstruction {
     /// Extensions that cannot be ignored even if unrecognized
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// Patient or consumer-oriented instructions
-    pub instruction_markdown: Option<types::Markdown>,
-
-    /// Patient or consumer-oriented instructions
-    pub instruction_reference: Option<types::Reference>,
+    /// The `ServiceRequest.patientInstruction.instruction[x]` choice element (0..1); see [`ServiceRequestPatientInstructionInstruction`].
+    #[serde(flatten)]
+    pub instruction: Option<ServiceRequestPatientInstructionInstruction>,
 }
 
 #[cfg(test)]
@@ -333,4 +302,84 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `ServiceRequest.asNeeded[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum ServiceRequestAsNeeded {
+    /// `asNeededBoolean` variant.
+    #[fhir("asNeededBoolean")]
+    Boolean(crate::r5::choice::Primitive<types::Boolean>),
+    /// `asNeededCodeableConcept` variant.
+    #[fhir("asNeededCodeableConcept")]
+    CodeableConcept(Box<types::CodeableConcept>),
+}
+
+/// The `ServiceRequest.occurrence[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum ServiceRequestOccurrence {
+    /// `occurrenceDateTime` variant.
+    #[fhir("occurrenceDateTime")]
+    DateTime(crate::r5::choice::Primitive<types::DateTime>),
+    /// `occurrencePeriod` variant.
+    #[fhir("occurrencePeriod")]
+    Period(Box<types::Period>),
+    /// `occurrenceTiming` variant.
+    #[fhir("occurrenceTiming")]
+    Timing(Box<types::Timing>),
+}
+
+/// The `ServiceRequest.orderDetail.parameter.value[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum ServiceRequestOrderDetailParameterValue {
+    /// `valueQuantity` variant.
+    #[fhir("valueQuantity")]
+    Quantity(Box<types::Quantity>),
+    /// `valueRatio` variant.
+    #[fhir("valueRatio")]
+    Ratio(Box<types::Ratio>),
+    /// `valueRange` variant.
+    #[fhir("valueRange")]
+    Range(Box<types::Range>),
+    /// `valueBoolean` variant.
+    #[fhir("valueBoolean")]
+    Boolean(crate::r5::choice::Primitive<types::Boolean>),
+    /// `valueCodeableConcept` variant.
+    #[fhir("valueCodeableConcept")]
+    CodeableConcept(Box<types::CodeableConcept>),
+    /// `valueString` variant.
+    #[fhir("valueString")]
+    String(crate::r5::choice::Primitive<types::String>),
+    /// `valuePeriod` variant.
+    #[fhir("valuePeriod")]
+    Period(Box<types::Period>),
+}
+
+/// The `ServiceRequest.patientInstruction.instruction[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum ServiceRequestPatientInstructionInstruction {
+    /// `instructionMarkdown` variant.
+    #[fhir("instructionMarkdown")]
+    Markdown(crate::r5::choice::Primitive<types::Markdown>),
+    /// `instructionReference` variant.
+    #[fhir("instructionReference")]
+    Reference(Box<types::Reference>),
+}
+
+/// The `ServiceRequest.quantity[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum ServiceRequestQuantity {
+    /// `quantityQuantity` variant.
+    #[fhir("quantityQuantity")]
+    Quantity(Box<types::Quantity>),
+    /// `quantityRatio` variant.
+    #[fhir("quantityRatio")]
+    Ratio(Box<types::Ratio>),
+    /// `quantityRange` variant.
+    #[fhir("quantityRange")]
+    Range(Box<types::Range>),
 }

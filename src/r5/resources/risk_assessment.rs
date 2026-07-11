@@ -110,11 +110,9 @@ pub struct RiskAssessment {
     /// Where was assessment performed?
     pub encounter: Option<types::Reference>,
 
-    /// When was assessment made?
-    pub occurrence_date_time: Option<types::DateTime>,
-
-    /// When was assessment made?
-    pub occurrence_period: Option<types::Period>,
+    /// The `RiskAssessment.occurrence[x]` choice element (0..1); see [`RiskAssessmentOccurrence`].
+    #[serde(flatten)]
+    pub occurrence: Option<RiskAssessmentOccurrence>,
 
     /// Condition assessed
     pub condition: Option<types::Reference>,
@@ -161,11 +159,9 @@ pub struct RiskAssessmentPrediction {
     /// Possible outcome for the subject
     pub outcome: Option<types::CodeableConcept>,
 
-    /// Likelihood of specified outcome
-    pub probability_decimal: Option<types::Decimal>,
-
-    /// Likelihood of specified outcome
-    pub probability_range: Option<types::Range>,
+    /// The `RiskAssessment.prediction.probability[x]` choice element (0..1); see [`RiskAssessmentPredictionProbability`].
+    #[serde(flatten)]
+    pub probability: Option<RiskAssessmentPredictionProbability>,
 
     /// Likelihood of specified outcome as a qualitative value
     pub qualitative_risk: Option<types::CodeableConcept>,
@@ -176,11 +172,9 @@ pub struct RiskAssessmentPrediction {
     #[serde(rename = "_relativeRisk")]
     pub relative_risk_ext: Option<types::Element>,
 
-    /// Timeframe or age range
-    pub when_period: Option<types::Period>,
-
-    /// Timeframe or age range
-    pub when_range: Option<types::Range>,
+    /// The `RiskAssessment.prediction.when[x]` choice element (0..1); see [`RiskAssessmentPredictionWhen`].
+    #[serde(flatten)]
+    pub when: Option<RiskAssessmentPredictionWhen>,
 
     /// Explanation of prediction
     pub rationale: Option<types::String>,
@@ -206,4 +200,39 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `RiskAssessment.occurrence[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum RiskAssessmentOccurrence {
+    /// `occurrenceDateTime` variant.
+    #[fhir("occurrenceDateTime")]
+    DateTime(crate::r5::choice::Primitive<types::DateTime>),
+    /// `occurrencePeriod` variant.
+    #[fhir("occurrencePeriod")]
+    Period(Box<types::Period>),
+}
+
+/// The `RiskAssessment.prediction.probability[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum RiskAssessmentPredictionProbability {
+    /// `probabilityDecimal` variant.
+    #[fhir("probabilityDecimal")]
+    Decimal(crate::r5::choice::Primitive<types::Decimal>),
+    /// `probabilityRange` variant.
+    #[fhir("probabilityRange")]
+    Range(Box<types::Range>),
+}
+
+/// The `RiskAssessment.prediction.when[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum RiskAssessmentPredictionWhen {
+    /// `whenPeriod` variant.
+    #[fhir("whenPeriod")]
+    Period(Box<types::Period>),
+    /// `whenRange` variant.
+    #[fhir("whenRange")]
+    Range(Box<types::Range>),
 }

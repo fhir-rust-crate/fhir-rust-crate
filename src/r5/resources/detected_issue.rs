@@ -113,11 +113,9 @@ pub struct DetectedIssue {
     /// Encounter detected issue is part of
     pub encounter: Option<types::Reference>,
 
-    /// When identified
-    pub identified_date_time: Option<types::DateTime>,
-
-    /// When identified
-    pub identified_period: Option<types::Period>,
+    /// The `DetectedIssue.identified[x]` choice element (0..1); see [`DetectedIssueIdentified`].
+    #[serde(flatten)]
+    pub identified: Option<DetectedIssueIdentified>,
 
     /// The provider or device that identified the issue
     pub author: Option<types::Reference>,
@@ -218,4 +216,15 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `DetectedIssue.identified[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum DetectedIssueIdentified {
+    /// `identifiedDateTime` variant.
+    #[fhir("identifiedDateTime")]
+    DateTime(crate::r5::choice::Primitive<types::DateTime>),
+    /// `identifiedPeriod` variant.
+    #[fhir("identifiedPeriod")]
+    Period(Box<types::Period>),
 }

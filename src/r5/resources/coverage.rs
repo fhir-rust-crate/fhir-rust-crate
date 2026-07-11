@@ -252,11 +252,9 @@ pub struct CoverageCostToBeneficiary {
     /// Annual or lifetime
     pub term: Option<types::CodeableConcept>,
 
-    /// The amount or percentage due from the beneficiary
-    pub value_quantity: Option<types::Quantity>,
-
-    /// The amount or percentage due from the beneficiary
-    pub value_money: Option<types::Money>,
+    /// The `Coverage.costToBeneficiary.value[x]` choice element (0..1); see [`CoverageCostToBeneficiaryValue`].
+    #[serde(flatten)]
+    pub value: Option<CoverageCostToBeneficiaryValue>,
 
     /// Exceptions for patient payments
     pub exception: Option<Vec<CoverageCostToBeneficiaryException>>,
@@ -301,4 +299,15 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `Coverage.costToBeneficiary.value[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum CoverageCostToBeneficiaryValue {
+    /// `valueQuantity` variant.
+    #[fhir("valueQuantity")]
+    Quantity(Box<types::Quantity>),
+    /// `valueMoney` variant.
+    #[fhir("valueMoney")]
+    Money(Box<types::Money>),
 }

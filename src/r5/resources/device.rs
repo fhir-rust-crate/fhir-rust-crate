@@ -387,26 +387,9 @@ pub struct DeviceProperty {
     /// Code that specifies the property being represented
     pub r#type: types::CodeableConcept,
 
-    /// Value of the property
-    pub value_quantity: Option<types::Quantity>,
-
-    /// Value of the property
-    pub value_codeable_concept: Option<types::CodeableConcept>,
-
-    /// Value of the property
-    pub value_string: Option<types::String>,
-
-    /// Value of the property
-    pub value_boolean: Option<types::Boolean>,
-
-    /// Value of the property
-    pub value_integer: Option<types::Integer>,
-
-    /// Value of the property
-    pub value_range: Option<types::Range>,
-
-    /// Value of the property
-    pub value_attachment: Option<types::Attachment>,
+    /// The `Device.property.value[x]` choice element (0..1); see [`DevicePropertyValue`].
+    #[serde(flatten)]
+    pub value: Option<DevicePropertyValue>,
 }
 
 #[cfg(test)]
@@ -426,4 +409,30 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `Device.property.value[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum DevicePropertyValue {
+    /// `valueQuantity` variant.
+    #[fhir("valueQuantity")]
+    Quantity(Box<types::Quantity>),
+    /// `valueCodeableConcept` variant.
+    #[fhir("valueCodeableConcept")]
+    CodeableConcept(Box<types::CodeableConcept>),
+    /// `valueString` variant.
+    #[fhir("valueString")]
+    String(crate::r5::choice::Primitive<types::String>),
+    /// `valueBoolean` variant.
+    #[fhir("valueBoolean")]
+    Boolean(crate::r5::choice::Primitive<types::Boolean>),
+    /// `valueInteger` variant.
+    #[fhir("valueInteger")]
+    Integer(crate::r5::choice::Primitive<types::Integer>),
+    /// `valueRange` variant.
+    #[fhir("valueRange")]
+    Range(Box<types::Range>),
+    /// `valueAttachment` variant.
+    #[fhir("valueAttachment")]
+    Attachment(Box<types::Attachment>),
 }

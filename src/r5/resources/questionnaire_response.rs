@@ -192,41 +192,9 @@ pub struct QuestionnaireResponseItemAnswer {
     /// Extensions that cannot be ignored even if unrecognized
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// Single-valued answer to the question (boolean)
-    pub value_boolean: Option<types::Boolean>,
-
-    /// Single-valued answer to the question (decimal)
-    pub value_decimal: Option<types::Decimal>,
-
-    /// Single-valued answer to the question (integer)
-    pub value_integer: Option<types::Integer>,
-
-    /// Single-valued answer to the question (date)
-    pub value_date: Option<types::Date>,
-
-    /// Single-valued answer to the question (dateTime)
-    pub value_date_time: Option<types::DateTime>,
-
-    /// Single-valued answer to the question (time)
-    pub value_time: Option<types::Time>,
-
-    /// Single-valued answer to the question (string)
-    pub value_string: Option<types::String>,
-
-    /// Single-valued answer to the question (uri)
-    pub value_uri: Option<types::Uri>,
-
-    /// Single-valued answer to the question (Attachment)
-    pub value_attachment: Option<types::Attachment>,
-
-    /// Single-valued answer to the question (Coding)
-    pub value_coding: Option<types::Coding>,
-
-    /// Single-valued answer to the question (Quantity)
-    pub value_quantity: Option<types::Quantity>,
-
-    /// Single-valued answer to the question (Reference)
-    pub value_reference: Option<types::Reference>,
+    /// The `QuestionnaireResponse.item.answer.value[x]` choice element (0..1); see [`QuestionnaireResponseItemAnswerValue`].
+    #[serde(flatten)]
+    pub value: Option<QuestionnaireResponseItemAnswerValue>,
 
     /// Child items of question
     pub item: Option<Vec<QuestionnaireResponseItem>>,
@@ -249,4 +217,45 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `QuestionnaireResponse.item.answer.value[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum QuestionnaireResponseItemAnswerValue {
+    /// `valueBoolean` variant.
+    #[fhir("valueBoolean")]
+    Boolean(crate::r5::choice::Primitive<types::Boolean>),
+    /// `valueDecimal` variant.
+    #[fhir("valueDecimal")]
+    Decimal(crate::r5::choice::Primitive<types::Decimal>),
+    /// `valueInteger` variant.
+    #[fhir("valueInteger")]
+    Integer(crate::r5::choice::Primitive<types::Integer>),
+    /// `valueDate` variant.
+    #[fhir("valueDate")]
+    Date(crate::r5::choice::Primitive<types::Date>),
+    /// `valueDateTime` variant.
+    #[fhir("valueDateTime")]
+    DateTime(crate::r5::choice::Primitive<types::DateTime>),
+    /// `valueTime` variant.
+    #[fhir("valueTime")]
+    Time(crate::r5::choice::Primitive<types::Time>),
+    /// `valueString` variant.
+    #[fhir("valueString")]
+    String(crate::r5::choice::Primitive<types::String>),
+    /// `valueUri` variant.
+    #[fhir("valueUri")]
+    Uri(crate::r5::choice::Primitive<types::Uri>),
+    /// `valueAttachment` variant.
+    #[fhir("valueAttachment")]
+    Attachment(Box<types::Attachment>),
+    /// `valueCoding` variant.
+    #[fhir("valueCoding")]
+    Coding(Box<types::Coding>),
+    /// `valueQuantity` variant.
+    #[fhir("valueQuantity")]
+    Quantity(Box<types::Quantity>),
+    /// `valueReference` variant.
+    #[fhir("valueReference")]
+    Reference(Box<types::Reference>),
 }

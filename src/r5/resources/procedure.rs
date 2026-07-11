@@ -132,23 +132,9 @@ pub struct Procedure {
     /// The Encounter during which this Procedure was created
     pub encounter: Option<types::Reference>,
 
-    /// When the procedure occurred or is occurring
-    pub occurrence_date_time: Option<types::DateTime>,
-
-    /// When the procedure occurred or is occurring
-    pub occurrence_period: Option<types::Period>,
-
-    /// When the procedure occurred or is occurring
-    pub occurrence_string: Option<types::String>,
-
-    /// When the procedure occurred or is occurring
-    pub occurrence_age: Option<types::Age>,
-
-    /// When the procedure occurred or is occurring
-    pub occurrence_range: Option<types::Range>,
-
-    /// When the procedure occurred or is occurring
-    pub occurrence_timing: Option<types::Timing>,
+    /// The `Procedure.occurrence[x]` choice element (0..1); see [`ProcedureOccurrence`].
+    #[serde(flatten)]
+    pub occurrence: Option<ProcedureOccurrence>,
 
     /// When the procedure was first captured in the subject's record
     pub recorded: Option<types::DateTime>,
@@ -159,11 +145,9 @@ pub struct Procedure {
     /// Who recorded the procedure
     pub recorder: Option<types::Reference>,
 
-    /// Reported rather than primary record
-    pub reported_boolean: Option<types::Boolean>,
-
-    /// Reported rather than primary record
-    pub reported_reference: Option<types::Reference>,
+    /// The `Procedure.reported[x]` choice element (0..1); see [`ProcedureReported`].
+    #[serde(flatten)]
+    pub reported: Option<ProcedureReported>,
 
     /// The people or devices that carried out the procedure and the role each played, as described by ProcedurePerformer.
     pub performer: Option<Vec<ProcedurePerformer>>,
@@ -267,4 +251,39 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `Procedure.occurrence[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum ProcedureOccurrence {
+    /// `occurrenceDateTime` variant.
+    #[fhir("occurrenceDateTime")]
+    DateTime(crate::r5::choice::Primitive<types::DateTime>),
+    /// `occurrencePeriod` variant.
+    #[fhir("occurrencePeriod")]
+    Period(Box<types::Period>),
+    /// `occurrenceString` variant.
+    #[fhir("occurrenceString")]
+    String(crate::r5::choice::Primitive<types::String>),
+    /// `occurrenceAge` variant.
+    #[fhir("occurrenceAge")]
+    Age(Box<types::Age>),
+    /// `occurrenceRange` variant.
+    #[fhir("occurrenceRange")]
+    Range(Box<types::Range>),
+    /// `occurrenceTiming` variant.
+    #[fhir("occurrenceTiming")]
+    Timing(Box<types::Timing>),
+}
+
+/// The `Procedure.reported[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum ProcedureReported {
+    /// `reportedBoolean` variant.
+    #[fhir("reportedBoolean")]
+    Boolean(crate::r5::choice::Primitive<types::Boolean>),
+    /// `reportedReference` variant.
+    #[fhir("reportedReference")]
+    Reference(Box<types::Reference>),
 }

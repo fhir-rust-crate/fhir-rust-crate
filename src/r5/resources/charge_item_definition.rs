@@ -105,11 +105,9 @@ pub struct ChargeItemDefinition {
     #[serde(rename = "_version")]
     pub version_ext: Option<types::Element>,
 
-    /// How to compare versions
-    pub version_algorithm_string: Option<types::String>,
-
-    /// How to compare versions
-    pub version_algorithm_coding: Option<types::Coding>,
+    /// The `ChargeItemDefinition.versionAlgorithm[x]` choice element (0..1); see [`ChargeItemDefinitionVersionAlgorithm`].
+    #[serde(flatten)]
+    pub version_algorithm: Option<ChargeItemDefinitionVersionAlgorithm>,
 
     /// Name for this charge item definition (computer friendly)
     pub name: Option<types::String>,
@@ -287,4 +285,15 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `ChargeItemDefinition.versionAlgorithm[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum ChargeItemDefinitionVersionAlgorithm {
+    /// `versionAlgorithmString` variant.
+    #[fhir("versionAlgorithmString")]
+    String(crate::r5::choice::Primitive<types::String>),
+    /// `versionAlgorithmCoding` variant.
+    #[fhir("versionAlgorithmCoding")]
+    Coding(Box<types::Coding>),
 }

@@ -132,11 +132,9 @@ pub struct NutritionIntake {
     /// Encounter associated with NutritionIntake
     pub encounter: Option<types::Reference>,
 
-    /// The date/time or interval when the food or fluid is/was consumed
-    pub occurrence_date_time: Option<types::DateTime>,
-
-    /// The date/time or interval when the food or fluid is/was consumed
-    pub occurrence_period: Option<types::Period>,
+    /// The `NutritionIntake.occurrence[x]` choice element (0..1); see [`NutritionIntakeOccurrence`].
+    #[serde(flatten)]
+    pub occurrence: Option<NutritionIntakeOccurrence>,
 
     /// When the intake was recorded
     pub recorded: Option<types::DateTime>,
@@ -144,11 +142,9 @@ pub struct NutritionIntake {
     #[serde(rename = "_recorded")]
     pub recorded_ext: Option<types::Element>,
 
-    /// Person or organization that provided the information about the consumption of this food or fluid
-    pub reported_boolean: Option<types::Boolean>,
-
-    /// Person or organization that provided the information about the consumption of this food or fluid
-    pub reported_reference: Option<types::Reference>,
+    /// The `NutritionIntake.reported[x]` choice element (0..1); see [`NutritionIntakeReported`].
+    #[serde(flatten)]
+    pub reported: Option<NutritionIntakeReported>,
 
     /// What food or fluid product or item was consumed, with its type, amount, timing, and rate.
     pub consumed_item: Vec<NutritionIntakeConsumedItem>,
@@ -270,4 +266,27 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `NutritionIntake.occurrence[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum NutritionIntakeOccurrence {
+    /// `occurrenceDateTime` variant.
+    #[fhir("occurrenceDateTime")]
+    DateTime(crate::r5::choice::Primitive<types::DateTime>),
+    /// `occurrencePeriod` variant.
+    #[fhir("occurrencePeriod")]
+    Period(Box<types::Period>),
+}
+
+/// The `NutritionIntake.reported[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum NutritionIntakeReported {
+    /// `reportedBoolean` variant.
+    #[fhir("reportedBoolean")]
+    Boolean(crate::r5::choice::Primitive<types::Boolean>),
+    /// `reportedReference` variant.
+    #[fhir("reportedReference")]
+    Reference(Box<types::Reference>),
 }

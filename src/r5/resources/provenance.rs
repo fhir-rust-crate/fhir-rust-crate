@@ -90,11 +90,9 @@ pub struct Provenance {
     /// The resource(s) whose provenance is being described, usually referenced version-specifically so the assertion applies to an exact state.
     pub target: Vec<types::Reference>,
 
-    /// When the activity occurred
-    pub occurred_period: Option<types::Period>,
-
-    /// When the activity occurred
-    pub occurred_date_time: Option<types::DateTime>,
+    /// The `Provenance.occurred[x]` choice element (0..1); see [`ProvenanceOccurred`].
+    #[serde(flatten)]
+    pub occurred: Option<ProvenanceOccurred>,
 
     /// The instant the provenance assertion was recorded or last updated, which may differ from when the activity itself occurred.
     pub recorded: Option<types::Instant>,
@@ -207,4 +205,15 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `Provenance.occurred[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum ProvenanceOccurred {
+    /// `occurredPeriod` variant.
+    #[fhir("occurredPeriod")]
+    Period(Box<types::Period>),
+    /// `occurredDateTime` variant.
+    #[fhir("occurredDateTime")]
+    DateTime(crate::r5::choice::Primitive<types::DateTime>),
 }

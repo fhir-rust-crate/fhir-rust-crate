@@ -110,11 +110,9 @@ pub struct CoverageEligibilityResponse {
     /// Event information
     pub event: Option<Vec<CoverageEligibilityResponseEvent>>,
 
-    /// Estimated date or dates of service
-    pub serviced_date: Option<types::Date>,
-
-    /// Estimated date or dates of service
-    pub serviced_period: Option<types::Period>,
+    /// The `CoverageEligibilityResponse.serviced[x]` choice element (0..1); see [`CoverageEligibilityResponseServiced`].
+    #[serde(flatten)]
+    pub serviced: Option<CoverageEligibilityResponseServiced>,
 
     /// Response creation date
     pub created: types::DateTime,
@@ -176,11 +174,9 @@ pub struct CoverageEligibilityResponseEvent {
     /// Specific event
     pub r#type: types::CodeableConcept,
 
-    /// Occurance date or period
-    pub when_date_time: Option<types::DateTime>,
-
-    /// Occurance date or period
-    pub when_period: Option<types::Period>,
+    /// The `CoverageEligibilityResponse.event.when[x]` choice element (0..1); see [`CoverageEligibilityResponseEventWhen`].
+    #[serde(flatten)]
+    pub when: Option<CoverageEligibilityResponseEventWhen>,
 }
 
 /// Patient insurance information within a CoverageEligibilityResponse.
@@ -302,23 +298,13 @@ pub struct CoverageEligibilityResponseInsuranceItemBenefit {
     /// Benefit classification
     pub r#type: types::CodeableConcept,
 
-    /// Benefits allowed
-    pub allowed_unsigned_int: Option<types::UnsignedInt>,
+    /// The `CoverageEligibilityResponse.insurance.item.benefit.allowed[x]` choice element (0..1); see [`CoverageEligibilityResponseInsuranceItemBenefitAllowed`].
+    #[serde(flatten)]
+    pub allowed: Option<CoverageEligibilityResponseInsuranceItemBenefitAllowed>,
 
-    /// Benefits allowed
-    pub allowed_string: Option<types::String>,
-
-    /// Benefits allowed
-    pub allowed_money: Option<types::Money>,
-
-    /// Benefits used
-    pub used_unsigned_int: Option<types::UnsignedInt>,
-
-    /// Benefits used
-    pub used_string: Option<types::String>,
-
-    /// Benefits used
-    pub used_money: Option<types::Money>,
+    /// The `CoverageEligibilityResponse.insurance.item.benefit.used[x]` choice element (0..1); see [`CoverageEligibilityResponseInsuranceItemBenefitUsed`].
+    #[serde(flatten)]
+    pub used: Option<CoverageEligibilityResponseInsuranceItemBenefitUsed>,
 }
 
 /// Processing errors reported in a CoverageEligibilityResponse.
@@ -362,4 +348,57 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `CoverageEligibilityResponse.event.when[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum CoverageEligibilityResponseEventWhen {
+    /// `whenDateTime` variant.
+    #[fhir("whenDateTime")]
+    DateTime(crate::r5::choice::Primitive<types::DateTime>),
+    /// `whenPeriod` variant.
+    #[fhir("whenPeriod")]
+    Period(Box<types::Period>),
+}
+
+/// The `CoverageEligibilityResponse.insurance.item.benefit.allowed[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum CoverageEligibilityResponseInsuranceItemBenefitAllowed {
+    /// `allowedUnsignedInt` variant.
+    #[fhir("allowedUnsignedInt")]
+    UnsignedInt(crate::r5::choice::Primitive<types::UnsignedInt>),
+    /// `allowedString` variant.
+    #[fhir("allowedString")]
+    String(crate::r5::choice::Primitive<types::String>),
+    /// `allowedMoney` variant.
+    #[fhir("allowedMoney")]
+    Money(Box<types::Money>),
+}
+
+/// The `CoverageEligibilityResponse.insurance.item.benefit.used[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum CoverageEligibilityResponseInsuranceItemBenefitUsed {
+    /// `usedUnsignedInt` variant.
+    #[fhir("usedUnsignedInt")]
+    UnsignedInt(crate::r5::choice::Primitive<types::UnsignedInt>),
+    /// `usedString` variant.
+    #[fhir("usedString")]
+    String(crate::r5::choice::Primitive<types::String>),
+    /// `usedMoney` variant.
+    #[fhir("usedMoney")]
+    Money(Box<types::Money>),
+}
+
+/// The `CoverageEligibilityResponse.serviced[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum CoverageEligibilityResponseServiced {
+    /// `servicedDate` variant.
+    #[fhir("servicedDate")]
+    Date(crate::r5::choice::Primitive<types::Date>),
+    /// `servicedPeriod` variant.
+    #[fhir("servicedPeriod")]
+    Period(Box<types::Period>),
 }

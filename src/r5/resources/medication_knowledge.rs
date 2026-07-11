@@ -224,11 +224,9 @@ pub struct MedicationKnowledgeCost {
     #[serde(rename = "_source")]
     pub source_ext: Option<types::Element>,
 
-    /// The price or category of the cost of the medication
-    pub cost_money: Option<types::Money>,
-
-    /// The price or category of the cost of the medication
-    pub cost_codeable_concept: Option<types::CodeableConcept>,
+    /// The `MedicationKnowledge.cost.cost[x]` choice element (0..1); see [`MedicationKnowledgeCostCost`].
+    #[serde(flatten)]
+    pub cost: Option<MedicationKnowledgeCostCost>,
 }
 
 /// Program under which a medication is reviewed.
@@ -342,14 +340,9 @@ pub struct MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacter
     /// Categorization of specific characteristic that is relevant to the administration guideline
     pub r#type: types::CodeableConcept,
 
-    /// The specific characteristic
-    pub value_codeable_concept: Option<types::CodeableConcept>,
-
-    /// The specific characteristic
-    pub value_quantity: Option<types::Quantity>,
-
-    /// The specific characteristic
-    pub value_range: Option<types::Range>,
+    /// The `MedicationKnowledge.indicationGuideline.dosingGuideline.patientCharacteristic.value[x]` choice element (0..1); see [`MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristicValue`].
+    #[serde(flatten)]
+    pub value: Option<MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristicValue>,
 }
 
 /// Categorization of the medication within a formulary or classification system.
@@ -369,11 +362,9 @@ pub struct MedicationKnowledgeMedicineClassification {
     /// The type of category for the medication (for example, therapeutic classification, therapeutic sub-classification)
     pub r#type: types::CodeableConcept,
 
-    /// The source of the classification
-    pub source_string: Option<types::String>,
-
-    /// The source of the classification
-    pub source_uri: Option<types::Uri>,
+    /// The `MedicationKnowledge.medicineClassification.source[x]` choice element (0..1); see [`MedicationKnowledgeMedicineClassificationSource`].
+    #[serde(flatten)]
+    pub source: Option<MedicationKnowledgeMedicineClassificationSource>,
 
     /// Specific category assigned to the medication
     pub classification: Option<Vec<types::CodeableConcept>>,
@@ -447,14 +438,9 @@ pub struct MedicationKnowledgeStorageGuidelineEnvironmentalSetting {
     /// Categorization of the setting
     pub r#type: types::CodeableConcept,
 
-    /// Value of the setting
-    pub value_quantity: Option<types::Quantity>,
-
-    /// Value of the setting
-    pub value_range: Option<types::Range>,
-
-    /// Value of the setting
-    pub value_codeable_concept: Option<types::CodeableConcept>,
+    /// The `MedicationKnowledge.storageGuideline.environmentalSetting.value[x]` choice element (0..1); see [`MedicationKnowledgeStorageGuidelineEnvironmentalSettingValue`].
+    #[serde(flatten)]
+    pub value: Option<MedicationKnowledgeStorageGuidelineEnvironmentalSettingValue>,
 }
 
 /// Regulatory information about a medication.
@@ -579,14 +565,9 @@ pub struct MedicationKnowledgeDefinitionalIngredient {
     /// A code that defines the type of ingredient, active, base, etc
     pub r#type: Option<types::CodeableConcept>,
 
-    /// Quantity of ingredient present
-    pub strength_ratio: Option<types::Ratio>,
-
-    /// Quantity of ingredient present
-    pub strength_codeable_concept: Option<types::CodeableConcept>,
-
-    /// Quantity of ingredient present
-    pub strength_quantity: Option<types::Quantity>,
+    /// The `MedicationKnowledge.definitional.ingredient.strength[x]` choice element (0..1); see [`MedicationKnowledgeDefinitionalIngredientStrength`].
+    #[serde(flatten)]
+    pub strength: Option<MedicationKnowledgeDefinitionalIngredientStrength>,
 }
 
 /// Specifies descriptive properties of the medicine.
@@ -606,20 +587,9 @@ pub struct MedicationKnowledgeDefinitionalDrugCharacteristic {
     /// Code specifying the type of characteristic of medication
     pub r#type: Option<types::CodeableConcept>,
 
-    /// Description of the characteristic
-    pub value_codeable_concept: Option<types::CodeableConcept>,
-
-    /// Description of the characteristic
-    pub value_string: Option<types::String>,
-
-    /// Description of the characteristic
-    pub value_quantity: Option<types::Quantity>,
-
-    /// Description of the characteristic
-    pub value_base64_binary: Option<types::Base64Binary>,
-
-    /// Description of the characteristic
-    pub value_attachment: Option<types::Attachment>,
+    /// The `MedicationKnowledge.definitional.drugCharacteristic.value[x]` choice element (0..1); see [`MedicationKnowledgeDefinitionalDrugCharacteristicValue`].
+    #[serde(flatten)]
+    pub value: Option<MedicationKnowledgeDefinitionalDrugCharacteristicValue>,
 }
 
 #[cfg(test)]
@@ -639,4 +609,93 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `MedicationKnowledge.cost.cost[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum MedicationKnowledgeCostCost {
+    /// `costMoney` variant.
+    #[fhir("costMoney")]
+    Money(Box<types::Money>),
+    /// `costCodeableConcept` variant.
+    #[fhir("costCodeableConcept")]
+    CodeableConcept(Box<types::CodeableConcept>),
+}
+
+/// The `MedicationKnowledge.definitional.drugCharacteristic.value[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum MedicationKnowledgeDefinitionalDrugCharacteristicValue {
+    /// `valueCodeableConcept` variant.
+    #[fhir("valueCodeableConcept")]
+    CodeableConcept(Box<types::CodeableConcept>),
+    /// `valueString` variant.
+    #[fhir("valueString")]
+    String(crate::r5::choice::Primitive<types::String>),
+    /// `valueQuantity` variant.
+    #[fhir("valueQuantity")]
+    Quantity(Box<types::Quantity>),
+    /// `valueBase64Binary` variant.
+    #[fhir("valueBase64Binary")]
+    Base64Binary(crate::r5::choice::Primitive<types::Base64Binary>),
+    /// `valueAttachment` variant.
+    #[fhir("valueAttachment")]
+    Attachment(Box<types::Attachment>),
+}
+
+/// The `MedicationKnowledge.definitional.ingredient.strength[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum MedicationKnowledgeDefinitionalIngredientStrength {
+    /// `strengthRatio` variant.
+    #[fhir("strengthRatio")]
+    Ratio(Box<types::Ratio>),
+    /// `strengthCodeableConcept` variant.
+    #[fhir("strengthCodeableConcept")]
+    CodeableConcept(Box<types::CodeableConcept>),
+    /// `strengthQuantity` variant.
+    #[fhir("strengthQuantity")]
+    Quantity(Box<types::Quantity>),
+}
+
+/// The `MedicationKnowledge.indicationGuideline.dosingGuideline.patientCharacteristic.value[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristicValue {
+    /// `valueCodeableConcept` variant.
+    #[fhir("valueCodeableConcept")]
+    CodeableConcept(Box<types::CodeableConcept>),
+    /// `valueQuantity` variant.
+    #[fhir("valueQuantity")]
+    Quantity(Box<types::Quantity>),
+    /// `valueRange` variant.
+    #[fhir("valueRange")]
+    Range(Box<types::Range>),
+}
+
+/// The `MedicationKnowledge.medicineClassification.source[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum MedicationKnowledgeMedicineClassificationSource {
+    /// `sourceString` variant.
+    #[fhir("sourceString")]
+    String(crate::r5::choice::Primitive<types::String>),
+    /// `sourceUri` variant.
+    #[fhir("sourceUri")]
+    Uri(crate::r5::choice::Primitive<types::Uri>),
+}
+
+/// The `MedicationKnowledge.storageGuideline.environmentalSetting.value[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum MedicationKnowledgeStorageGuidelineEnvironmentalSettingValue {
+    /// `valueQuantity` variant.
+    #[fhir("valueQuantity")]
+    Quantity(Box<types::Quantity>),
+    /// `valueRange` variant.
+    #[fhir("valueRange")]
+    Range(Box<types::Range>),
+    /// `valueCodeableConcept` variant.
+    #[fhir("valueCodeableConcept")]
+    CodeableConcept(Box<types::CodeableConcept>),
 }

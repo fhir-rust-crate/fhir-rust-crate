@@ -98,167 +98,9 @@ pub struct ParametersParameter {
     #[serde(rename = "_name")]
     pub name_ext: Option<types::Element>,
 
-    /// If parameter is a data type
-    pub value_base64_binary: Option<types::Base64Binary>,
-
-    /// If parameter is a data type
-    pub value_boolean: Option<types::Boolean>,
-
-    /// If parameter is a data type
-    pub value_canonical: Option<types::Canonical>,
-
-    /// If parameter is a data type
-    pub value_code: Option<types::Code>,
-
-    /// If parameter is a data type
-    pub value_date: Option<types::Date>,
-
-    /// If parameter is a data type
-    pub value_date_time: Option<types::DateTime>,
-
-    /// If parameter is a data type
-    pub value_decimal: Option<types::Decimal>,
-
-    /// If parameter is a data type
-    pub value_id: Option<types::Id>,
-
-    /// If parameter is a data type
-    pub value_instant: Option<types::Instant>,
-
-    /// If parameter is a data type
-    pub value_integer: Option<types::Integer>,
-
-    /// If parameter is a data type
-    pub value_integer64: Option<types::Integer64>,
-
-    /// If parameter is a data type
-    pub value_markdown: Option<types::Markdown>,
-
-    /// If parameter is a data type
-    pub value_oid: Option<types::Oid>,
-
-    /// If parameter is a data type
-    pub value_positive_int: Option<types::PositiveInt>,
-
-    /// If parameter is a data type
-    pub value_string: Option<types::String>,
-
-    /// If parameter is a data type
-    pub value_time: Option<types::Time>,
-
-    /// If parameter is a data type
-    pub value_unsigned_int: Option<types::UnsignedInt>,
-
-    /// If parameter is a data type
-    pub value_uri: Option<types::Uri>,
-
-    /// If parameter is a data type
-    pub value_url: Option<types::Url>,
-
-    /// If parameter is a data type
-    pub value_uuid: Option<types::Uuid>,
-
-    /// If parameter is a data type
-    pub value_address: Option<types::Address>,
-
-    /// If parameter is a data type
-    pub value_age: Option<types::Age>,
-
-    /// If parameter is a data type
-    pub value_annotation: Option<types::Annotation>,
-
-    /// If parameter is a data type
-    pub value_attachment: Option<types::Attachment>,
-
-    /// If parameter is a data type
-    pub value_codeable_concept: Option<types::CodeableConcept>,
-
-    /// If parameter is a data type
-    pub value_codeable_reference: Option<types::CodeableReference>,
-
-    /// If parameter is a data type
-    pub value_coding: Option<types::Coding>,
-
-    /// If parameter is a data type
-    pub value_contact_point: Option<types::ContactPoint>,
-
-    /// If parameter is a data type
-    pub value_count: Option<types::Count>,
-
-    /// If parameter is a data type
-    pub value_distance: Option<types::Distance>,
-
-    /// If parameter is a data type
-    pub value_duration: Option<types::Duration>,
-
-    /// If parameter is a data type
-    pub value_human_name: Option<types::HumanName>,
-
-    /// If parameter is a data type
-    pub value_identifier: Option<types::Identifier>,
-
-    /// If parameter is a data type
-    pub value_money: Option<types::Money>,
-
-    /// If parameter is a data type
-    pub value_period: Option<types::Period>,
-
-    /// If parameter is a data type
-    pub value_quantity: Option<types::Quantity>,
-
-    /// If parameter is a data type
-    pub value_range: Option<types::Range>,
-
-    /// If parameter is a data type
-    pub value_ratio: Option<types::Ratio>,
-
-    /// If parameter is a data type
-    pub value_ratio_range: Option<types::RatioRange>,
-
-    /// If parameter is a data type
-    pub value_reference: Option<types::Reference>,
-
-    /// If parameter is a data type
-    pub value_sampled_data: Option<types::SampledData>,
-
-    /// If parameter is a data type
-    pub value_signature: Option<types::Signature>,
-
-    /// If parameter is a data type
-    pub value_timing: Option<types::Timing>,
-
-    /// If parameter is a data type
-    pub value_contact_detail: Option<types::ContactDetail>,
-
-    /// If parameter is a data type
-    pub value_data_requirement: Option<types::DataRequirement>,
-
-    /// If parameter is a data type
-    pub value_expression: Option<types::Expression>,
-
-    /// If parameter is a data type
-    pub value_parameter_definition: Option<types::ParameterDefinition>,
-
-    /// If parameter is a data type
-    pub value_related_artifact: Option<types::RelatedArtifact>,
-
-    /// If parameter is a data type
-    pub value_trigger_definition: Option<types::TriggerDefinition>,
-
-    /// If parameter is a data type
-    pub value_usage_context: Option<types::UsageContext>,
-
-    /// If parameter is a data type
-    pub value_availability: Option<types::Availability>,
-
-    /// If parameter is a data type
-    pub value_extended_contact_detail: Option<types::ExtendedContactDetail>,
-
-    /// If parameter is a data type
-    pub value_dosage: Option<types::Dosage>,
-
-    /// If parameter is a data type
-    pub value_meta: Option<types::Meta>,
+    /// The `Parameters.parameter.value[x]` choice element (0..1); see [`ParametersParameterValue`].
+    #[serde(flatten)]
+    pub value: Option<ParametersParameterValue>,
 
     /// Used when the parameter value is an entire nested FHIR resource rather than a single data-type value.
     pub resource: Option<::serde_json::Value>,
@@ -284,4 +126,171 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `Parameters.parameter.value[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum ParametersParameterValue {
+    /// `valueBase64Binary` variant.
+    #[fhir("valueBase64Binary")]
+    Base64Binary(crate::r5::choice::Primitive<types::Base64Binary>),
+    /// `valueBoolean` variant.
+    #[fhir("valueBoolean")]
+    Boolean(crate::r5::choice::Primitive<types::Boolean>),
+    /// `valueCanonical` variant.
+    #[fhir("valueCanonical")]
+    Canonical(crate::r5::choice::Primitive<types::Canonical>),
+    /// `valueCode` variant.
+    #[fhir("valueCode")]
+    Code(crate::r5::choice::Primitive<types::Code>),
+    /// `valueDate` variant.
+    #[fhir("valueDate")]
+    Date(crate::r5::choice::Primitive<types::Date>),
+    /// `valueDateTime` variant.
+    #[fhir("valueDateTime")]
+    DateTime(crate::r5::choice::Primitive<types::DateTime>),
+    /// `valueDecimal` variant.
+    #[fhir("valueDecimal")]
+    Decimal(crate::r5::choice::Primitive<types::Decimal>),
+    /// `valueId` variant.
+    #[fhir("valueId")]
+    Id(crate::r5::choice::Primitive<types::Id>),
+    /// `valueInstant` variant.
+    #[fhir("valueInstant")]
+    Instant(crate::r5::choice::Primitive<types::Instant>),
+    /// `valueInteger` variant.
+    #[fhir("valueInteger")]
+    Integer(crate::r5::choice::Primitive<types::Integer>),
+    /// `valueInteger64` variant.
+    #[fhir("valueInteger64")]
+    Integer64(crate::r5::choice::Primitive<types::Integer64>),
+    /// `valueMarkdown` variant.
+    #[fhir("valueMarkdown")]
+    Markdown(crate::r5::choice::Primitive<types::Markdown>),
+    /// `valueOid` variant.
+    #[fhir("valueOid")]
+    Oid(crate::r5::choice::Primitive<types::Oid>),
+    /// `valuePositiveInt` variant.
+    #[fhir("valuePositiveInt")]
+    PositiveInt(crate::r5::choice::Primitive<types::PositiveInt>),
+    /// `valueString` variant.
+    #[fhir("valueString")]
+    String(crate::r5::choice::Primitive<types::String>),
+    /// `valueTime` variant.
+    #[fhir("valueTime")]
+    Time(crate::r5::choice::Primitive<types::Time>),
+    /// `valueUnsignedInt` variant.
+    #[fhir("valueUnsignedInt")]
+    UnsignedInt(crate::r5::choice::Primitive<types::UnsignedInt>),
+    /// `valueUri` variant.
+    #[fhir("valueUri")]
+    Uri(crate::r5::choice::Primitive<types::Uri>),
+    /// `valueUrl` variant.
+    #[fhir("valueUrl")]
+    Url(crate::r5::choice::Primitive<types::Url>),
+    /// `valueUuid` variant.
+    #[fhir("valueUuid")]
+    Uuid(crate::r5::choice::Primitive<types::Uuid>),
+    /// `valueAddress` variant.
+    #[fhir("valueAddress")]
+    Address(Box<types::Address>),
+    /// `valueAge` variant.
+    #[fhir("valueAge")]
+    Age(Box<types::Age>),
+    /// `valueAnnotation` variant.
+    #[fhir("valueAnnotation")]
+    Annotation(Box<types::Annotation>),
+    /// `valueAttachment` variant.
+    #[fhir("valueAttachment")]
+    Attachment(Box<types::Attachment>),
+    /// `valueCodeableConcept` variant.
+    #[fhir("valueCodeableConcept")]
+    CodeableConcept(Box<types::CodeableConcept>),
+    /// `valueCodeableReference` variant.
+    #[fhir("valueCodeableReference")]
+    CodeableReference(Box<types::CodeableReference>),
+    /// `valueCoding` variant.
+    #[fhir("valueCoding")]
+    Coding(Box<types::Coding>),
+    /// `valueContactPoint` variant.
+    #[fhir("valueContactPoint")]
+    ContactPoint(Box<types::ContactPoint>),
+    /// `valueCount` variant.
+    #[fhir("valueCount")]
+    Count(Box<types::Count>),
+    /// `valueDistance` variant.
+    #[fhir("valueDistance")]
+    Distance(Box<types::Distance>),
+    /// `valueDuration` variant.
+    #[fhir("valueDuration")]
+    Duration(Box<types::Duration>),
+    /// `valueHumanName` variant.
+    #[fhir("valueHumanName")]
+    HumanName(Box<types::HumanName>),
+    /// `valueIdentifier` variant.
+    #[fhir("valueIdentifier")]
+    Identifier(Box<types::Identifier>),
+    /// `valueMoney` variant.
+    #[fhir("valueMoney")]
+    Money(Box<types::Money>),
+    /// `valuePeriod` variant.
+    #[fhir("valuePeriod")]
+    Period(Box<types::Period>),
+    /// `valueQuantity` variant.
+    #[fhir("valueQuantity")]
+    Quantity(Box<types::Quantity>),
+    /// `valueRange` variant.
+    #[fhir("valueRange")]
+    Range(Box<types::Range>),
+    /// `valueRatio` variant.
+    #[fhir("valueRatio")]
+    Ratio(Box<types::Ratio>),
+    /// `valueRatioRange` variant.
+    #[fhir("valueRatioRange")]
+    RatioRange(Box<types::RatioRange>),
+    /// `valueReference` variant.
+    #[fhir("valueReference")]
+    Reference(Box<types::Reference>),
+    /// `valueSampledData` variant.
+    #[fhir("valueSampledData")]
+    SampledData(Box<types::SampledData>),
+    /// `valueSignature` variant.
+    #[fhir("valueSignature")]
+    Signature(Box<types::Signature>),
+    /// `valueTiming` variant.
+    #[fhir("valueTiming")]
+    Timing(Box<types::Timing>),
+    /// `valueContactDetail` variant.
+    #[fhir("valueContactDetail")]
+    ContactDetail(Box<types::ContactDetail>),
+    /// `valueDataRequirement` variant.
+    #[fhir("valueDataRequirement")]
+    DataRequirement(Box<types::DataRequirement>),
+    /// `valueExpression` variant.
+    #[fhir("valueExpression")]
+    Expression(Box<types::Expression>),
+    /// `valueParameterDefinition` variant.
+    #[fhir("valueParameterDefinition")]
+    ParameterDefinition(Box<types::ParameterDefinition>),
+    /// `valueRelatedArtifact` variant.
+    #[fhir("valueRelatedArtifact")]
+    RelatedArtifact(Box<types::RelatedArtifact>),
+    /// `valueTriggerDefinition` variant.
+    #[fhir("valueTriggerDefinition")]
+    TriggerDefinition(Box<types::TriggerDefinition>),
+    /// `valueUsageContext` variant.
+    #[fhir("valueUsageContext")]
+    UsageContext(Box<types::UsageContext>),
+    /// `valueAvailability` variant.
+    #[fhir("valueAvailability")]
+    Availability(Box<types::Availability>),
+    /// `valueExtendedContactDetail` variant.
+    #[fhir("valueExtendedContactDetail")]
+    ExtendedContactDetail(Box<types::ExtendedContactDetail>),
+    /// `valueDosage` variant.
+    #[fhir("valueDosage")]
+    Dosage(Box<types::Dosage>),
+    /// `valueMeta` variant.
+    #[fhir("valueMeta")]
+    Meta(Box<types::Meta>),
 }

@@ -243,20 +243,9 @@ pub struct PackagedProductDefinitionPackagingProperty {
     /// A code expressing the type of characteristic
     pub r#type: types::CodeableConcept,
 
-    /// A value for the characteristic (CodeableConcept)
-    pub value_codeable_concept: Option<types::CodeableConcept>,
-
-    /// A value for the characteristic (Quantity)
-    pub value_quantity: Option<types::Quantity>,
-
-    /// A value for the characteristic (date)
-    pub value_date: Option<types::Date>,
-
-    /// A value for the characteristic (boolean)
-    pub value_boolean: Option<types::Boolean>,
-
-    /// A value for the characteristic (Attachment)
-    pub value_attachment: Option<types::Attachment>,
+    /// The `PackagedProductDefinition.packaging.property.value[x]` choice element (0..1); see [`PackagedProductDefinitionPackagingPropertyValue`].
+    #[serde(flatten)]
+    pub value: Option<PackagedProductDefinitionPackagingPropertyValue>,
 }
 
 /// The item(s) within the packaging.
@@ -297,4 +286,24 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `PackagedProductDefinition.packaging.property.value[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum PackagedProductDefinitionPackagingPropertyValue {
+    /// `valueCodeableConcept` variant.
+    #[fhir("valueCodeableConcept")]
+    CodeableConcept(Box<types::CodeableConcept>),
+    /// `valueQuantity` variant.
+    #[fhir("valueQuantity")]
+    Quantity(Box<types::Quantity>),
+    /// `valueDate` variant.
+    #[fhir("valueDate")]
+    Date(crate::r5::choice::Primitive<types::Date>),
+    /// `valueBoolean` variant.
+    #[fhir("valueBoolean")]
+    Boolean(crate::r5::choice::Primitive<types::Boolean>),
+    /// `valueAttachment` variant.
+    #[fhir("valueAttachment")]
+    Attachment(Box<types::Attachment>),
 }

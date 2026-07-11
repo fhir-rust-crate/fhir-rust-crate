@@ -241,23 +241,9 @@ pub struct RequestOrchestrationAction {
     /// Relationship to another action
     pub related_action: Option<Vec<RequestOrchestrationActionRelatedAction>>,
 
-    /// When the action should take place
-    pub timing_date_time: Option<types::DateTime>,
-
-    /// When the action should take place
-    pub timing_age: Option<types::Age>,
-
-    /// When the action should take place
-    pub timing_period: Option<types::Period>,
-
-    /// When the action should take place
-    pub timing_duration: Option<types::Duration>,
-
-    /// When the action should take place
-    pub timing_range: Option<types::Range>,
-
-    /// When the action should take place
-    pub timing_timing: Option<types::Timing>,
+    /// The `RequestOrchestration.action.timing[x]` choice element (0..1); see [`RequestOrchestrationActionTiming`].
+    #[serde(flatten)]
+    pub timing: Option<RequestOrchestrationActionTiming>,
 
     /// Where it should happen
     pub location: Option<types::CodeableReference>,
@@ -301,11 +287,9 @@ pub struct RequestOrchestrationAction {
     /// The target of the action
     pub resource: Option<types::Reference>,
 
-    /// Description of the activity to be performed
-    pub definition_canonical: Option<types::Canonical>,
-
-    /// Description of the activity to be performed
-    pub definition_uri: Option<types::Uri>,
+    /// The `RequestOrchestration.action.definition[x]` choice element (0..1); see [`RequestOrchestrationActionDefinition`].
+    #[serde(flatten)]
+    pub definition: Option<RequestOrchestrationActionDefinition>,
 
     /// Transform to apply the template
     pub transform: Option<types::Canonical>,
@@ -445,11 +429,9 @@ pub struct RequestOrchestrationActionRelatedAction {
     #[serde(rename = "_endRelationship")]
     pub end_relationship_ext: Option<types::Element>,
 
-    /// Time offset for the relationship
-    pub offset_duration: Option<types::Duration>,
-
-    /// Time offset for the relationship
-    pub offset_range: Option<types::Range>,
+    /// The `RequestOrchestration.action.relatedAction.offset[x]` choice element (0..1); see [`RequestOrchestrationActionRelatedActionOffset`].
+    #[serde(flatten)]
+    pub offset: Option<RequestOrchestrationActionRelatedActionOffset>,
 }
 
 /// Who should perform the action.
@@ -489,11 +471,9 @@ pub struct RequestOrchestrationActionParticipant {
     /// E.g. Author, Reviewer, Witness, etc
     pub function: Option<types::CodeableConcept>,
 
-    /// Who/what is participating?
-    pub actor_canonical: Option<types::Canonical>,
-
-    /// Who/what is participating?
-    pub actor_reference: Option<types::Reference>,
+    /// The `RequestOrchestration.action.participant.actor[x]` choice element (0..1); see [`RequestOrchestrationActionParticipantActor`].
+    #[serde(flatten)]
+    pub actor: Option<RequestOrchestrationActionParticipantActor>,
 }
 
 /// Dynamic aspects of the definition.
@@ -540,4 +520,63 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `RequestOrchestration.action.definition[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum RequestOrchestrationActionDefinition {
+    /// `definitionCanonical` variant.
+    #[fhir("definitionCanonical")]
+    Canonical(crate::r5::choice::Primitive<types::Canonical>),
+    /// `definitionUri` variant.
+    #[fhir("definitionUri")]
+    Uri(crate::r5::choice::Primitive<types::Uri>),
+}
+
+/// The `RequestOrchestration.action.participant.actor[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum RequestOrchestrationActionParticipantActor {
+    /// `actorCanonical` variant.
+    #[fhir("actorCanonical")]
+    Canonical(crate::r5::choice::Primitive<types::Canonical>),
+    /// `actorReference` variant.
+    #[fhir("actorReference")]
+    Reference(Box<types::Reference>),
+}
+
+/// The `RequestOrchestration.action.relatedAction.offset[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum RequestOrchestrationActionRelatedActionOffset {
+    /// `offsetDuration` variant.
+    #[fhir("offsetDuration")]
+    Duration(Box<types::Duration>),
+    /// `offsetRange` variant.
+    #[fhir("offsetRange")]
+    Range(Box<types::Range>),
+}
+
+/// The `RequestOrchestration.action.timing[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum RequestOrchestrationActionTiming {
+    /// `timingDateTime` variant.
+    #[fhir("timingDateTime")]
+    DateTime(crate::r5::choice::Primitive<types::DateTime>),
+    /// `timingAge` variant.
+    #[fhir("timingAge")]
+    Age(Box<types::Age>),
+    /// `timingPeriod` variant.
+    #[fhir("timingPeriod")]
+    Period(Box<types::Period>),
+    /// `timingDuration` variant.
+    #[fhir("timingDuration")]
+    Duration(Box<types::Duration>),
+    /// `timingRange` variant.
+    #[fhir("timingRange")]
+    Range(Box<types::Range>),
+    /// `timingTiming` variant.
+    #[fhir("timingTiming")]
+    Timing(Box<types::Timing>),
 }

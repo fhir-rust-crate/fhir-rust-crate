@@ -177,14 +177,9 @@ pub struct MolecularSequenceRelativeStartingSequence {
     /// Chromosome Identifier
     pub chromosome: Option<types::CodeableConcept>,
 
-    /// The reference sequence that represents the starting sequence
-    pub sequence_codeable_concept: Option<types::CodeableConcept>,
-
-    /// The reference sequence that represents the starting sequence
-    pub sequence_string: Option<types::String>,
-
-    /// The reference sequence that represents the starting sequence
-    pub sequence_reference: Option<types::Reference>,
+    /// The `MolecularSequence.relative.startingSequence.sequence[x]` choice element (0..1); see [`MolecularSequenceRelativeStartingSequenceSequence`].
+    #[serde(flatten)]
+    pub sequence: Option<MolecularSequenceRelativeStartingSequenceSequence>,
 
     /// Start position of the window on the starting sequence
     pub window_start: Option<types::Integer>,
@@ -267,4 +262,18 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `MolecularSequence.relative.startingSequence.sequence[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum MolecularSequenceRelativeStartingSequenceSequence {
+    /// `sequenceCodeableConcept` variant.
+    #[fhir("sequenceCodeableConcept")]
+    CodeableConcept(Box<types::CodeableConcept>),
+    /// `sequenceString` variant.
+    #[fhir("sequenceString")]
+    String(crate::r5::choice::Primitive<types::String>),
+    /// `sequenceReference` variant.
+    #[fhir("sequenceReference")]
+    Reference(Box<types::Reference>),
 }

@@ -484,26 +484,9 @@ pub struct DeviceDefinitionProperty {
     /// Code that specifies the property being represented
     pub r#type: types::CodeableConcept,
 
-    /// Value of the property (Quantity)
-    pub value_quantity: Option<types::Quantity>,
-
-    /// Value of the property (CodeableConcept)
-    pub value_codeable_concept: Option<types::CodeableConcept>,
-
-    /// Value of the property (string)
-    pub value_string: Option<types::String>,
-
-    /// Value of the property (boolean)
-    pub value_boolean: Option<types::Boolean>,
-
-    /// Value of the property (integer)
-    pub value_integer: Option<types::Integer>,
-
-    /// Value of the property (Range)
-    pub value_range: Option<types::Range>,
-
-    /// Value of the property (Attachment)
-    pub value_attachment: Option<types::Attachment>,
+    /// The `DeviceDefinition.property.value[x]` choice element (0..1); see [`DeviceDefinitionPropertyValue`].
+    #[serde(flatten)]
+    pub value: Option<DeviceDefinitionPropertyValue>,
 }
 
 /// An associated device, linking a previous or new device model to the focal
@@ -675,4 +658,30 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `DeviceDefinition.property.value[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum DeviceDefinitionPropertyValue {
+    /// `valueQuantity` variant.
+    #[fhir("valueQuantity")]
+    Quantity(Box<types::Quantity>),
+    /// `valueCodeableConcept` variant.
+    #[fhir("valueCodeableConcept")]
+    CodeableConcept(Box<types::CodeableConcept>),
+    /// `valueString` variant.
+    #[fhir("valueString")]
+    String(crate::r5::choice::Primitive<types::String>),
+    /// `valueBoolean` variant.
+    #[fhir("valueBoolean")]
+    Boolean(crate::r5::choice::Primitive<types::Boolean>),
+    /// `valueInteger` variant.
+    #[fhir("valueInteger")]
+    Integer(crate::r5::choice::Primitive<types::Integer>),
+    /// `valueRange` variant.
+    #[fhir("valueRange")]
+    Range(Box<types::Range>),
+    /// `valueAttachment` variant.
+    #[fhir("valueAttachment")]
+    Attachment(Box<types::Attachment>),
 }

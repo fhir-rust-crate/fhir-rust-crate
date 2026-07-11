@@ -106,11 +106,9 @@ pub struct TestScript {
     #[serde(rename = "_version")]
     pub version_ext: Option<types::Element>,
 
-    /// How to compare versions
-    pub version_algorithm_string: Option<types::String>,
-
-    /// How to compare versions
-    pub version_algorithm_coding: Option<types::Coding>,
+    /// The `TestScript.versionAlgorithm[x]` choice element (0..1); see [`TestScriptVersionAlgorithm`].
+    #[serde(flatten)]
+    pub version_algorithm: Option<TestScriptVersionAlgorithm>,
 
     /// Name for this test script (computer friendly)
     pub name: types::String,
@@ -851,11 +849,9 @@ pub struct TestScriptSetupActionAssertRequirement {
     /// Extensions that cannot be ignored even if unrecognized
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// Link or reference to the testing requirement
-    pub link_uri: Option<types::Uri>,
-
-    /// Link or reference to the testing requirement
-    pub link_canonical: Option<types::Canonical>,
+    /// The `TestScript.setup.action.assert.requirement.link[x]` choice element (0..1); see [`TestScriptSetupActionAssertRequirementLink`].
+    #[serde(flatten)]
+    pub link: Option<TestScriptSetupActionAssertRequirementLink>,
 }
 
 /// A test in this script.
@@ -962,4 +958,27 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `TestScript.setup.action.assert.requirement.link[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum TestScriptSetupActionAssertRequirementLink {
+    /// `linkUri` variant.
+    #[fhir("linkUri")]
+    Uri(crate::r5::choice::Primitive<types::Uri>),
+    /// `linkCanonical` variant.
+    #[fhir("linkCanonical")]
+    Canonical(crate::r5::choice::Primitive<types::Canonical>),
+}
+
+/// The `TestScript.versionAlgorithm[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum TestScriptVersionAlgorithm {
+    /// `versionAlgorithmString` variant.
+    #[fhir("versionAlgorithmString")]
+    String(crate::r5::choice::Primitive<types::String>),
+    /// `versionAlgorithmCoding` variant.
+    #[fhir("versionAlgorithmCoding")]
+    Coding(Box<types::Coding>),
 }

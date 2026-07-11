@@ -91,11 +91,9 @@ pub struct ArtifactAssessment {
     #[serde(rename = "_title")]
     pub title_ext: Option<types::Element>,
 
-    /// Recommended citation for referencing this comment or rating, as a reference
-    pub cite_as_reference: Option<types::Reference>,
-
-    /// Recommended citation for referencing this comment or rating, as free text
-    pub cite_as_markdown: Option<types::Markdown>,
+    /// The `ArtifactAssessment.citeAs[x]` choice element (0..1); see [`ArtifactAssessmentCiteAs`].
+    #[serde(flatten)]
+    pub cite_as: Option<ArtifactAssessmentCiteAs>,
 
     /// Date the artifact assessment was last changed
     pub date: Option<types::DateTime>,
@@ -121,14 +119,9 @@ pub struct ArtifactAssessment {
     #[serde(rename = "_lastReviewDate")]
     pub last_review_date_ext: Option<types::Element>,
 
-    /// The artifact assessed, commented upon, or rated, identified by reference
-    pub artifact_reference: Option<types::Reference>,
-
-    /// The artifact assessed, commented upon, or rated, identified by canonical URL
-    pub artifact_canonical: Option<types::Canonical>,
-
-    /// The artifact assessed, commented upon, or rated, identified by plain URI
-    pub artifact_uri: Option<types::Uri>,
+    /// The `ArtifactAssessment.artifact[x]` choice element (0..1); see [`ArtifactAssessmentArtifact`].
+    #[serde(flatten)]
+    pub artifact: Option<ArtifactAssessmentArtifact>,
 
     /// The comment, classifier, or rating content that makes up the assessment
     pub content: Option<Vec<ArtifactAssessmentContent>>,
@@ -225,4 +218,30 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `ArtifactAssessment.artifact[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum ArtifactAssessmentArtifact {
+    /// `artifactReference` variant.
+    #[fhir("artifactReference")]
+    Reference(Box<types::Reference>),
+    /// `artifactCanonical` variant.
+    #[fhir("artifactCanonical")]
+    Canonical(crate::r5::choice::Primitive<types::Canonical>),
+    /// `artifactUri` variant.
+    #[fhir("artifactUri")]
+    Uri(crate::r5::choice::Primitive<types::Uri>),
+}
+
+/// The `ArtifactAssessment.citeAs[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum ArtifactAssessmentCiteAs {
+    /// `citeAsReference` variant.
+    #[fhir("citeAsReference")]
+    Reference(Box<types::Reference>),
+    /// `citeAsMarkdown` variant.
+    #[fhir("citeAsMarkdown")]
+    Markdown(crate::r5::choice::Primitive<types::Markdown>),
 }

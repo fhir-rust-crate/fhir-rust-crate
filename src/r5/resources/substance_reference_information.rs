@@ -178,14 +178,9 @@ pub struct SubstanceReferenceInformationTarget {
     /// Todo
     pub organism_type: Option<types::CodeableConcept>,
 
-    /// Todo
-    pub amount_quantity: Option<types::Quantity>,
-
-    /// Todo
-    pub amount_range: Option<types::Range>,
-
-    /// Todo
-    pub amount_string: Option<types::String>,
+    /// The `SubstanceReferenceInformation.target.amount[x]` choice element (0..1); see [`SubstanceReferenceInformationTargetAmount`].
+    #[serde(flatten)]
+    pub amount: Option<SubstanceReferenceInformationTargetAmount>,
 
     /// Todo
     pub amount_type: Option<types::CodeableConcept>,
@@ -211,4 +206,18 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `SubstanceReferenceInformation.target.amount[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum SubstanceReferenceInformationTargetAmount {
+    /// `amountQuantity` variant.
+    #[fhir("amountQuantity")]
+    Quantity(Box<types::Quantity>),
+    /// `amountRange` variant.
+    #[fhir("amountRange")]
+    Range(Box<types::Range>),
+    /// `amountString` variant.
+    #[fhir("amountString")]
+    String(crate::r5::choice::Primitive<types::String>),
 }

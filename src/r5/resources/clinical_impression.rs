@@ -111,11 +111,9 @@ pub struct ClinicalImpression {
     /// The Encounter during which this ClinicalImpression was created
     pub encounter: Option<types::Reference>,
 
-    /// Time of assessment
-    pub effective_date_time: Option<types::DateTime>,
-
-    /// Time of assessment
-    pub effective_period: Option<types::Period>,
+    /// The `ClinicalImpression.effective[x]` choice element (0..1); see [`ClinicalImpressionEffective`].
+    #[serde(flatten)]
+    pub effective: Option<ClinicalImpressionEffective>,
 
     /// When the assessment was documented
     pub date: Option<types::DateTime>,
@@ -205,4 +203,15 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `ClinicalImpression.effective[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum ClinicalImpressionEffective {
+    /// `effectiveDateTime` variant.
+    #[fhir("effectiveDateTime")]
+    DateTime(crate::r5::choice::Primitive<types::DateTime>),
+    /// `effectivePeriod` variant.
+    #[fhir("effectivePeriod")]
+    Period(Box<types::Period>),
 }

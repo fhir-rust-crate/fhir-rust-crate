@@ -113,11 +113,9 @@ pub struct EvidenceReport {
     /// Identifiers for articles that may relate to more than one evidence report
     pub related_identifier: Option<Vec<types::Identifier>>,
 
-    /// Citation for this report
-    pub cite_as_reference: Option<types::Reference>,
-
-    /// Citation for this report
-    pub cite_as_markdown: Option<types::Markdown>,
+    /// The `EvidenceReport.citeAs[x]` choice element (0..1); see [`EvidenceReportCiteAs`].
+    #[serde(flatten)]
+    pub cite_as: Option<EvidenceReportCiteAs>,
 
     /// Kind of report
     pub r#type: Option<types::CodeableConcept>,
@@ -205,20 +203,9 @@ pub struct EvidenceReportSubjectCharacteristic {
     /// Characteristic code
     pub code: types::CodeableConcept,
 
-    /// Characteristic value
-    pub value_reference: Option<types::Reference>,
-
-    /// Characteristic value
-    pub value_codeable_concept: Option<types::CodeableConcept>,
-
-    /// Characteristic value
-    pub value_boolean: Option<types::Boolean>,
-
-    /// Characteristic value
-    pub value_quantity: Option<types::Quantity>,
-
-    /// Characteristic value
-    pub value_range: Option<types::Range>,
+    /// The `EvidenceReport.subject.characteristic.value[x]` choice element (0..1); see [`EvidenceReportSubjectCharacteristicValue`].
+    #[serde(flatten)]
+    pub value: Option<EvidenceReportSubjectCharacteristicValue>,
 
     /// Is used to express not the characteristic
     pub exclude: Option<types::Boolean>,
@@ -371,4 +358,36 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `EvidenceReport.citeAs[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum EvidenceReportCiteAs {
+    /// `citeAsReference` variant.
+    #[fhir("citeAsReference")]
+    Reference(Box<types::Reference>),
+    /// `citeAsMarkdown` variant.
+    #[fhir("citeAsMarkdown")]
+    Markdown(crate::r5::choice::Primitive<types::Markdown>),
+}
+
+/// The `EvidenceReport.subject.characteristic.value[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum EvidenceReportSubjectCharacteristicValue {
+    /// `valueReference` variant.
+    #[fhir("valueReference")]
+    Reference(Box<types::Reference>),
+    /// `valueCodeableConcept` variant.
+    #[fhir("valueCodeableConcept")]
+    CodeableConcept(Box<types::CodeableConcept>),
+    /// `valueBoolean` variant.
+    #[fhir("valueBoolean")]
+    Boolean(crate::r5::choice::Primitive<types::Boolean>),
+    /// `valueQuantity` variant.
+    #[fhir("valueQuantity")]
+    Quantity(Box<types::Quantity>),
+    /// `valueRange` variant.
+    #[fhir("valueRange")]
+    Range(Box<types::Range>),
 }

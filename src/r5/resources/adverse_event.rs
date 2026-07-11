@@ -118,14 +118,9 @@ pub struct AdverseEvent {
     /// The Encounter associated with the start of the AdverseEvent
     pub encounter: Option<types::Reference>,
 
-    /// When the event occurred
-    pub occurrence_date_time: Option<types::DateTime>,
-
-    /// When the event occurred
-    pub occurrence_period: Option<types::Period>,
-
-    /// When the event occurred
-    pub occurrence_timing: Option<types::Timing>,
+    /// The `AdverseEvent.occurrence[x]` choice element (0..1); see [`AdverseEventOccurrence`].
+    #[serde(flatten)]
+    pub occurrence: Option<AdverseEventOccurrence>,
 
     /// When the event was detected
     pub detected: Option<types::DateTime>,
@@ -224,11 +219,9 @@ pub struct AdverseEventSuspectEntity {
     /// Extensions that cannot be ignored even if unrecognized
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// Refers to the specific entity that caused the adverse event
-    pub instance_codeable_concept: Option<types::CodeableConcept>,
-
-    /// Refers to the specific entity that caused the adverse event
-    pub instance_reference: Option<types::Reference>,
+    /// The `AdverseEvent.suspectEntity.instance[x]` choice element (0..1); see [`AdverseEventSuspectEntityInstance`].
+    #[serde(flatten)]
+    pub instance: Option<AdverseEventSuspectEntityInstance>,
 
     /// Information on the possible cause of the event
     pub causality: Option<AdverseEventSuspectEntityCausality>,
@@ -274,13 +267,9 @@ pub struct AdverseEventContributingFactor {
     /// Extensions that cannot be ignored even if unrecognized
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// Item suspected to have increased the probability or severity of the
-    /// adverse event
-    pub item_reference: Option<types::Reference>,
-
-    /// Item suspected to have increased the probability or severity of the
-    /// adverse event
-    pub item_codeable_concept: Option<types::CodeableConcept>,
+    /// The `AdverseEvent.contributingFactor.item[x]` choice element (0..1); see [`AdverseEventContributingFactorItem`].
+    #[serde(flatten)]
+    pub item: Option<AdverseEventContributingFactorItem>,
 }
 
 /// Preventive actions that contributed to avoiding the adverse event.
@@ -297,11 +286,9 @@ pub struct AdverseEventPreventiveAction {
     /// Extensions that cannot be ignored even if unrecognized
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// Action that contributed to avoiding the adverse event
-    pub item_reference: Option<types::Reference>,
-
-    /// Action that contributed to avoiding the adverse event
-    pub item_codeable_concept: Option<types::CodeableConcept>,
+    /// The `AdverseEvent.preventiveAction.item[x]` choice element (0..1); see [`AdverseEventPreventiveActionItem`].
+    #[serde(flatten)]
+    pub item: Option<AdverseEventPreventiveActionItem>,
 }
 
 /// Ameliorating actions taken after the adverse event occured in order to
@@ -319,13 +306,9 @@ pub struct AdverseEventMitigatingAction {
     /// Extensions that cannot be ignored even if unrecognized
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// Ameliorating action taken after the adverse event occured in order to
-    /// reduce the extent of harm
-    pub item_reference: Option<types::Reference>,
-
-    /// Ameliorating action taken after the adverse event occured in order to
-    /// reduce the extent of harm
-    pub item_codeable_concept: Option<types::CodeableConcept>,
+    /// The `AdverseEvent.mitigatingAction.item[x]` choice element (0..1); see [`AdverseEventMitigatingActionItem`].
+    #[serde(flatten)]
+    pub item: Option<AdverseEventMitigatingActionItem>,
 }
 
 /// Supporting information relevant to the event.
@@ -342,11 +325,9 @@ pub struct AdverseEventSupportingInfo {
     /// Extensions that cannot be ignored even if unrecognized
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// Subject medical history or document relevant to this adverse event
-    pub item_reference: Option<types::Reference>,
-
-    /// Subject medical history or document relevant to this adverse event
-    pub item_codeable_concept: Option<types::CodeableConcept>,
+    /// The `AdverseEvent.supportingInfo.item[x]` choice element (0..1); see [`AdverseEventSupportingInfoItem`].
+    #[serde(flatten)]
+    pub item: Option<AdverseEventSupportingInfoItem>,
 }
 
 #[cfg(test)]
@@ -366,4 +347,78 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `AdverseEvent.contributingFactor.item[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum AdverseEventContributingFactorItem {
+    /// `itemReference` variant.
+    #[fhir("itemReference")]
+    Reference(Box<types::Reference>),
+    /// `itemCodeableConcept` variant.
+    #[fhir("itemCodeableConcept")]
+    CodeableConcept(Box<types::CodeableConcept>),
+}
+
+/// The `AdverseEvent.mitigatingAction.item[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum AdverseEventMitigatingActionItem {
+    /// `itemReference` variant.
+    #[fhir("itemReference")]
+    Reference(Box<types::Reference>),
+    /// `itemCodeableConcept` variant.
+    #[fhir("itemCodeableConcept")]
+    CodeableConcept(Box<types::CodeableConcept>),
+}
+
+/// The `AdverseEvent.occurrence[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum AdverseEventOccurrence {
+    /// `occurrenceDateTime` variant.
+    #[fhir("occurrenceDateTime")]
+    DateTime(crate::r5::choice::Primitive<types::DateTime>),
+    /// `occurrencePeriod` variant.
+    #[fhir("occurrencePeriod")]
+    Period(Box<types::Period>),
+    /// `occurrenceTiming` variant.
+    #[fhir("occurrenceTiming")]
+    Timing(Box<types::Timing>),
+}
+
+/// The `AdverseEvent.preventiveAction.item[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum AdverseEventPreventiveActionItem {
+    /// `itemReference` variant.
+    #[fhir("itemReference")]
+    Reference(Box<types::Reference>),
+    /// `itemCodeableConcept` variant.
+    #[fhir("itemCodeableConcept")]
+    CodeableConcept(Box<types::CodeableConcept>),
+}
+
+/// The `AdverseEvent.supportingInfo.item[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum AdverseEventSupportingInfoItem {
+    /// `itemReference` variant.
+    #[fhir("itemReference")]
+    Reference(Box<types::Reference>),
+    /// `itemCodeableConcept` variant.
+    #[fhir("itemCodeableConcept")]
+    CodeableConcept(Box<types::CodeableConcept>),
+}
+
+/// The `AdverseEvent.suspectEntity.instance[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum AdverseEventSuspectEntityInstance {
+    /// `instanceCodeableConcept` variant.
+    #[fhir("instanceCodeableConcept")]
+    CodeableConcept(Box<types::CodeableConcept>),
+    /// `instanceReference` variant.
+    #[fhir("instanceReference")]
+    Reference(Box<types::Reference>),
 }

@@ -123,14 +123,9 @@ pub struct ChargeItem {
     /// Encounter associated with this ChargeItem
     pub encounter: Option<types::Reference>,
 
-    /// When the charged service was applied
-    pub occurrence_date_time: Option<types::DateTime>,
-
-    /// When the charged service was applied
-    pub occurrence_period: Option<types::Period>,
-
-    /// When the charged service was applied
-    pub occurrence_timing: Option<types::Timing>,
+    /// The `ChargeItem.occurrence[x]` choice element (0..1); see [`ChargeItemOccurrence`].
+    #[serde(flatten)]
+    pub occurrence: Option<ChargeItemOccurrence>,
 
     /// Who performed charged service
     pub performer: Option<Vec<ChargeItemPerformer>>,
@@ -227,4 +222,18 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `ChargeItem.occurrence[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum ChargeItemOccurrence {
+    /// `occurrenceDateTime` variant.
+    #[fhir("occurrenceDateTime")]
+    DateTime(crate::r5::choice::Primitive<types::DateTime>),
+    /// `occurrencePeriod` variant.
+    #[fhir("occurrencePeriod")]
+    Period(Box<types::Period>),
+    /// `occurrenceTiming` variant.
+    #[fhir("occurrenceTiming")]
+    Timing(Box<types::Timing>),
 }

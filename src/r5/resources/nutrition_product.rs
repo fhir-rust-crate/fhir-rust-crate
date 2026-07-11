@@ -183,23 +183,9 @@ pub struct NutritionProductCharacteristic {
     /// Code specifying the type of characteristic
     pub r#type: types::CodeableConcept,
 
-    /// The value of the characteristic (CodeableConcept)
-    pub value_codeable_concept: Option<types::CodeableConcept>,
-
-    /// The value of the characteristic (string)
-    pub value_string: Option<types::String>,
-
-    /// The value of the characteristic (Quantity)
-    pub value_quantity: Option<types::Quantity>,
-
-    /// The value of the characteristic (base64Binary)
-    pub value_base64_binary: Option<types::Base64Binary>,
-
-    /// The value of the characteristic (Attachment)
-    pub value_attachment: Option<types::Attachment>,
-
-    /// The value of the characteristic (boolean)
-    pub value_boolean: Option<types::Boolean>,
+    /// The `NutritionProduct.characteristic.value[x]` choice element (0..1); see [`NutritionProductCharacteristicValue`].
+    #[serde(flatten)]
+    pub value: Option<NutritionProductCharacteristicValue>,
 }
 
 /// One or several physical instances or occurrences of the nutrition product.
@@ -267,4 +253,27 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `NutritionProduct.characteristic.value[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum NutritionProductCharacteristicValue {
+    /// `valueCodeableConcept` variant.
+    #[fhir("valueCodeableConcept")]
+    CodeableConcept(Box<types::CodeableConcept>),
+    /// `valueString` variant.
+    #[fhir("valueString")]
+    String(crate::r5::choice::Primitive<types::String>),
+    /// `valueQuantity` variant.
+    #[fhir("valueQuantity")]
+    Quantity(Box<types::Quantity>),
+    /// `valueBase64Binary` variant.
+    #[fhir("valueBase64Binary")]
+    Base64Binary(crate::r5::choice::Primitive<types::Base64Binary>),
+    /// `valueAttachment` variant.
+    #[fhir("valueAttachment")]
+    Attachment(Box<types::Attachment>),
+    /// `valueBoolean` variant.
+    #[fhir("valueBoolean")]
+    Boolean(crate::r5::choice::Primitive<types::Boolean>),
 }

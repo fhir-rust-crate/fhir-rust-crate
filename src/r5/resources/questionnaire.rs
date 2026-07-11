@@ -102,11 +102,9 @@ pub struct Questionnaire {
     #[serde(rename = "_version")]
     pub version_ext: Option<types::Element>,
 
-    /// How to compare versions
-    pub version_algorithm_string: Option<types::String>,
-
-    /// How to compare versions
-    pub version_algorithm_coding: Option<types::Coding>,
+    /// The `Questionnaire.versionAlgorithm[x]` choice element (0..1); see [`QuestionnaireVersionAlgorithm`].
+    #[serde(flatten)]
+    pub version_algorithm: Option<QuestionnaireVersionAlgorithm>,
 
     /// Name for this questionnaire (computer friendly)
     pub name: Option<types::String>,
@@ -355,35 +353,9 @@ pub struct QuestionnaireItemEnableWhen {
     #[serde(rename = "_operator")]
     pub operator_ext: Option<types::Element>,
 
-    /// Value for question comparison based on operator
-    pub answer_boolean: Option<types::Boolean>,
-
-    /// Value for question comparison based on operator
-    pub answer_decimal: Option<types::Decimal>,
-
-    /// Value for question comparison based on operator
-    pub answer_integer: Option<types::Integer>,
-
-    /// Value for question comparison based on operator
-    pub answer_date: Option<types::Date>,
-
-    /// Value for question comparison based on operator
-    pub answer_date_time: Option<types::DateTime>,
-
-    /// Value for question comparison based on operator
-    pub answer_time: Option<types::Time>,
-
-    /// Value for question comparison based on operator
-    pub answer_string: Option<types::String>,
-
-    /// Value for question comparison based on operator
-    pub answer_coding: Option<types::Coding>,
-
-    /// Value for question comparison based on operator
-    pub answer_quantity: Option<types::Quantity>,
-
-    /// Value for question comparison based on operator
-    pub answer_reference: Option<types::Reference>,
+    /// The `Questionnaire.item.enableWhen.answer[x]` choice element (0..1); see [`QuestionnaireItemEnableWhenAnswer`].
+    #[serde(flatten)]
+    pub answer: Option<QuestionnaireItemEnableWhenAnswer>,
 }
 
 /// Permitted answer.
@@ -403,23 +375,9 @@ pub struct QuestionnaireItemAnswerOption {
     /// Extensions that cannot be ignored even if unrecognized
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// Answer value
-    pub value_integer: Option<types::Integer>,
-
-    /// Answer value
-    pub value_date: Option<types::Date>,
-
-    /// Answer value
-    pub value_time: Option<types::Time>,
-
-    /// Answer value
-    pub value_string: Option<types::String>,
-
-    /// Answer value
-    pub value_coding: Option<types::Coding>,
-
-    /// Answer value
-    pub value_reference: Option<types::Reference>,
+    /// The `Questionnaire.item.answerOption.value[x]` choice element (0..1); see [`QuestionnaireItemAnswerOptionValue`].
+    #[serde(flatten)]
+    pub value: Option<QuestionnaireItemAnswerOptionValue>,
 
     /// Whether option is selected by default
     pub initial_selected: Option<types::Boolean>,
@@ -445,41 +403,9 @@ pub struct QuestionnaireItemInitial {
     /// Extensions that cannot be ignored even if unrecognized
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// Actual value for initializing the question
-    pub value_boolean: Option<types::Boolean>,
-
-    /// Actual value for initializing the question
-    pub value_decimal: Option<types::Decimal>,
-
-    /// Actual value for initializing the question
-    pub value_integer: Option<types::Integer>,
-
-    /// Actual value for initializing the question
-    pub value_date: Option<types::Date>,
-
-    /// Actual value for initializing the question
-    pub value_date_time: Option<types::DateTime>,
-
-    /// Actual value for initializing the question
-    pub value_time: Option<types::Time>,
-
-    /// Actual value for initializing the question
-    pub value_string: Option<types::String>,
-
-    /// Actual value for initializing the question
-    pub value_uri: Option<types::Uri>,
-
-    /// Actual value for initializing the question
-    pub value_attachment: Option<types::Attachment>,
-
-    /// Actual value for initializing the question
-    pub value_coding: Option<types::Coding>,
-
-    /// Actual value for initializing the question
-    pub value_quantity: Option<types::Quantity>,
-
-    /// Actual value for initializing the question
-    pub value_reference: Option<types::Reference>,
+    /// The `Questionnaire.item.initial.value[x]` choice element (0..1); see [`QuestionnaireItemInitialValue`].
+    #[serde(flatten)]
+    pub value: Option<QuestionnaireItemInitialValue>,
 }
 
 #[cfg(test)]
@@ -499,4 +425,117 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `Questionnaire.item.answerOption.value[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum QuestionnaireItemAnswerOptionValue {
+    /// `valueInteger` variant.
+    #[fhir("valueInteger")]
+    Integer(crate::r5::choice::Primitive<types::Integer>),
+    /// `valueDate` variant.
+    #[fhir("valueDate")]
+    Date(crate::r5::choice::Primitive<types::Date>),
+    /// `valueTime` variant.
+    #[fhir("valueTime")]
+    Time(crate::r5::choice::Primitive<types::Time>),
+    /// `valueString` variant.
+    #[fhir("valueString")]
+    String(crate::r5::choice::Primitive<types::String>),
+    /// `valueCoding` variant.
+    #[fhir("valueCoding")]
+    Coding(Box<types::Coding>),
+    /// `valueReference` variant.
+    #[fhir("valueReference")]
+    Reference(Box<types::Reference>),
+}
+
+/// The `Questionnaire.item.enableWhen.answer[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum QuestionnaireItemEnableWhenAnswer {
+    /// `answerBoolean` variant.
+    #[fhir("answerBoolean")]
+    Boolean(crate::r5::choice::Primitive<types::Boolean>),
+    /// `answerDecimal` variant.
+    #[fhir("answerDecimal")]
+    Decimal(crate::r5::choice::Primitive<types::Decimal>),
+    /// `answerInteger` variant.
+    #[fhir("answerInteger")]
+    Integer(crate::r5::choice::Primitive<types::Integer>),
+    /// `answerDate` variant.
+    #[fhir("answerDate")]
+    Date(crate::r5::choice::Primitive<types::Date>),
+    /// `answerDateTime` variant.
+    #[fhir("answerDateTime")]
+    DateTime(crate::r5::choice::Primitive<types::DateTime>),
+    /// `answerTime` variant.
+    #[fhir("answerTime")]
+    Time(crate::r5::choice::Primitive<types::Time>),
+    /// `answerString` variant.
+    #[fhir("answerString")]
+    String(crate::r5::choice::Primitive<types::String>),
+    /// `answerCoding` variant.
+    #[fhir("answerCoding")]
+    Coding(Box<types::Coding>),
+    /// `answerQuantity` variant.
+    #[fhir("answerQuantity")]
+    Quantity(Box<types::Quantity>),
+    /// `answerReference` variant.
+    #[fhir("answerReference")]
+    Reference(Box<types::Reference>),
+}
+
+/// The `Questionnaire.item.initial.value[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum QuestionnaireItemInitialValue {
+    /// `valueBoolean` variant.
+    #[fhir("valueBoolean")]
+    Boolean(crate::r5::choice::Primitive<types::Boolean>),
+    /// `valueDecimal` variant.
+    #[fhir("valueDecimal")]
+    Decimal(crate::r5::choice::Primitive<types::Decimal>),
+    /// `valueInteger` variant.
+    #[fhir("valueInteger")]
+    Integer(crate::r5::choice::Primitive<types::Integer>),
+    /// `valueDate` variant.
+    #[fhir("valueDate")]
+    Date(crate::r5::choice::Primitive<types::Date>),
+    /// `valueDateTime` variant.
+    #[fhir("valueDateTime")]
+    DateTime(crate::r5::choice::Primitive<types::DateTime>),
+    /// `valueTime` variant.
+    #[fhir("valueTime")]
+    Time(crate::r5::choice::Primitive<types::Time>),
+    /// `valueString` variant.
+    #[fhir("valueString")]
+    String(crate::r5::choice::Primitive<types::String>),
+    /// `valueUri` variant.
+    #[fhir("valueUri")]
+    Uri(crate::r5::choice::Primitive<types::Uri>),
+    /// `valueAttachment` variant.
+    #[fhir("valueAttachment")]
+    Attachment(Box<types::Attachment>),
+    /// `valueCoding` variant.
+    #[fhir("valueCoding")]
+    Coding(Box<types::Coding>),
+    /// `valueQuantity` variant.
+    #[fhir("valueQuantity")]
+    Quantity(Box<types::Quantity>),
+    /// `valueReference` variant.
+    #[fhir("valueReference")]
+    Reference(Box<types::Reference>),
+}
+
+/// The `Questionnaire.versionAlgorithm[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum QuestionnaireVersionAlgorithm {
+    /// `versionAlgorithmString` variant.
+    #[fhir("versionAlgorithmString")]
+    String(crate::r5::choice::Primitive<types::String>),
+    /// `versionAlgorithmCoding` variant.
+    #[fhir("versionAlgorithmCoding")]
+    Coding(Box<types::Coding>),
 }

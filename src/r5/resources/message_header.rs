@@ -85,11 +85,9 @@ pub struct MessageHeader {
     /// Extensions that cannot be ignored
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// The event that this message represents, given as a Coding drawn from the message events value set.
-    pub event_coding: Option<types::Coding>,
-
-    /// The event that this message represents, given as a canonical link to an EventDefinition.
-    pub event_canonical: Option<types::Canonical>,
+    /// The `MessageHeader.event[x]` choice element (0..1); see [`MessageHeaderEvent`].
+    #[serde(flatten)]
+    pub event: Option<MessageHeaderEvent>,
 
     /// Message destination application(s)
     pub destination: Option<Vec<MessageHeaderDestination>>,
@@ -140,11 +138,9 @@ pub struct MessageHeaderDestination {
     /// Extensions that cannot be ignored even if unrecognized
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// Actual destination address or Endpoint resource
-    pub endpoint_url: Option<types::Url>,
-
-    /// Actual destination address or Endpoint resource
-    pub endpoint_reference: Option<types::Reference>,
+    /// The `MessageHeader.destination.endpoint[x]` choice element (0..1); see [`MessageHeaderDestinationEndpoint`].
+    #[serde(flatten)]
+    pub endpoint: Option<MessageHeaderDestinationEndpoint>,
 
     /// Name of system
     pub name: Option<types::String>,
@@ -177,11 +173,9 @@ pub struct MessageHeaderSource {
     /// Extensions that cannot be ignored even if unrecognized
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// Actual source address or Endpoint resource
-    pub endpoint_url: Option<types::Url>,
-
-    /// Actual source address or Endpoint resource
-    pub endpoint_reference: Option<types::Reference>,
+    /// The `MessageHeader.source.endpoint[x]` choice element (0..1); see [`MessageHeaderSourceEndpoint`].
+    #[serde(flatten)]
+    pub endpoint: Option<MessageHeaderSourceEndpoint>,
 
     /// Name of system
     pub name: Option<types::String>,
@@ -253,4 +247,39 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `MessageHeader.destination.endpoint[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum MessageHeaderDestinationEndpoint {
+    /// `endpointUrl` variant.
+    #[fhir("endpointUrl")]
+    Url(crate::r5::choice::Primitive<types::Url>),
+    /// `endpointReference` variant.
+    #[fhir("endpointReference")]
+    Reference(Box<types::Reference>),
+}
+
+/// The `MessageHeader.event[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum MessageHeaderEvent {
+    /// `eventCoding` variant.
+    #[fhir("eventCoding")]
+    Coding(Box<types::Coding>),
+    /// `eventCanonical` variant.
+    #[fhir("eventCanonical")]
+    Canonical(crate::r5::choice::Primitive<types::Canonical>),
+}
+
+/// The `MessageHeader.source.endpoint[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum MessageHeaderSourceEndpoint {
+    /// `endpointUrl` variant.
+    #[fhir("endpointUrl")]
+    Url(crate::r5::choice::Primitive<types::Url>),
+    /// `endpointReference` variant.
+    #[fhir("endpointReference")]
+    Reference(Box<types::Reference>),
 }

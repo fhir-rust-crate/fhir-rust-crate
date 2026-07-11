@@ -162,20 +162,9 @@ pub struct GroupCharacteristic {
     /// Kind of characteristic
     pub code: types::CodeableConcept,
 
-    /// Value held by characteristic
-    pub value_codeable_concept: Option<types::CodeableConcept>,
-
-    /// Value held by characteristic
-    pub value_boolean: Option<types::Boolean>,
-
-    /// Value held by characteristic
-    pub value_quantity: Option<types::Quantity>,
-
-    /// Value held by characteristic
-    pub value_range: Option<types::Range>,
-
-    /// Value held by characteristic
-    pub value_reference: Option<types::Reference>,
+    /// The `Group.characteristic.value[x]` choice element (0..1); see [`GroupCharacteristicValue`].
+    #[serde(flatten)]
+    pub value: Option<GroupCharacteristicValue>,
 
     /// Group includes or excludes
     pub exclude: types::Boolean,
@@ -233,4 +222,24 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `Group.characteristic.value[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum GroupCharacteristicValue {
+    /// `valueCodeableConcept` variant.
+    #[fhir("valueCodeableConcept")]
+    CodeableConcept(Box<types::CodeableConcept>),
+    /// `valueBoolean` variant.
+    #[fhir("valueBoolean")]
+    Boolean(crate::r5::choice::Primitive<types::Boolean>),
+    /// `valueQuantity` variant.
+    #[fhir("valueQuantity")]
+    Quantity(Box<types::Quantity>),
+    /// `valueRange` variant.
+    #[fhir("valueRange")]
+    Range(Box<types::Range>),
+    /// `valueReference` variant.
+    #[fhir("valueReference")]
+    Reference(Box<types::Reference>),
 }

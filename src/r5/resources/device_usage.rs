@@ -110,14 +110,9 @@ pub struct DeviceUsage {
     /// The encounter or episode of care that establishes the context for this device use statement
     pub context: Option<types::Reference>,
 
-    /// How often the device was used
-    pub timing_timing: Option<types::Timing>,
-
-    /// How often the device was used
-    pub timing_period: Option<types::Period>,
-
-    /// How often the device was used
-    pub timing_date_time: Option<types::DateTime>,
+    /// The `DeviceUsage.timing[x]` choice element (0..1); see [`DeviceUsageTiming`].
+    #[serde(flatten)]
+    pub timing: Option<DeviceUsageTiming>,
 
     /// When the statement was made (and recorded)
     pub date_asserted: Option<types::DateTime>,
@@ -192,4 +187,18 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `DeviceUsage.timing[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum DeviceUsageTiming {
+    /// `timingTiming` variant.
+    #[fhir("timingTiming")]
+    Timing(Box<types::Timing>),
+    /// `timingPeriod` variant.
+    #[fhir("timingPeriod")]
+    Period(Box<types::Period>),
+    /// `timingDateTime` variant.
+    #[fhir("timingDateTime")]
+    DateTime(crate::r5::choice::Primitive<types::DateTime>),
 }

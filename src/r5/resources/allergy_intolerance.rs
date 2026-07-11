@@ -124,20 +124,9 @@ pub struct AllergyIntolerance {
     /// Encounter when the allergy or intolerance was asserted
     pub encounter: Option<types::Reference>,
 
-    /// When allergy or intolerance was identified
-    pub onset_date_time: Option<types::DateTime>,
-
-    /// When allergy or intolerance was identified
-    pub onset_age: Option<types::Age>,
-
-    /// When allergy or intolerance was identified
-    pub onset_period: Option<types::Period>,
-
-    /// When allergy or intolerance was identified
-    pub onset_range: Option<types::Range>,
-
-    /// When allergy or intolerance was identified
-    pub onset_string: Option<types::String>,
+    /// The `AllergyIntolerance.onset[x]` choice element (0..1); see [`AllergyIntoleranceOnset`].
+    #[serde(flatten)]
+    pub onset: Option<AllergyIntoleranceOnset>,
 
     /// Date allergy or intolerance was first recorded
     pub recorded_date: Option<types::DateTime>,
@@ -248,4 +237,24 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `AllergyIntolerance.onset[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum AllergyIntoleranceOnset {
+    /// `onsetDateTime` variant.
+    #[fhir("onsetDateTime")]
+    DateTime(crate::r5::choice::Primitive<types::DateTime>),
+    /// `onsetAge` variant.
+    #[fhir("onsetAge")]
+    Age(Box<types::Age>),
+    /// `onsetPeriod` variant.
+    #[fhir("onsetPeriod")]
+    Period(Box<types::Period>),
+    /// `onsetRange` variant.
+    #[fhir("onsetRange")]
+    Range(Box<types::Range>),
+    /// `onsetString` variant.
+    #[fhir("onsetString")]
+    String(crate::r5::choice::Primitive<types::String>),
 }

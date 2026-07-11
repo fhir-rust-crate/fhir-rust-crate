@@ -109,11 +109,9 @@ pub struct Evidence {
     #[serde(rename = "_version")]
     pub version_ext: Option<types::Element>,
 
-    /// How to compare versions.
-    pub version_algorithm_string: Option<types::String>,
-
-    /// How to compare versions.
-    pub version_algorithm_coding: Option<types::Coding>,
+    /// The `Evidence.versionAlgorithm[x]` choice element (0..1); see [`EvidenceVersionAlgorithm`].
+    #[serde(flatten)]
+    pub version_algorithm: Option<EvidenceVersionAlgorithm>,
 
     /// Name for this summary (machine friendly).
     pub name: Option<types::String>,
@@ -127,11 +125,9 @@ pub struct Evidence {
     #[serde(rename = "_title")]
     pub title_ext: Option<types::Element>,
 
-    /// Citation for this evidence.
-    pub cite_as_reference: Option<types::Reference>,
-
-    /// Citation for this evidence.
-    pub cite_as_markdown: Option<types::Markdown>,
+    /// The `Evidence.citeAs[x]` choice element (0..1); see [`EvidenceCiteAs`].
+    #[serde(flatten)]
+    pub cite_as: Option<EvidenceCiteAs>,
 
     /// The publication lifecycle status of this evidence: draft | active |
     /// retired | unknown.
@@ -534,4 +530,27 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `Evidence.citeAs[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum EvidenceCiteAs {
+    /// `citeAsReference` variant.
+    #[fhir("citeAsReference")]
+    Reference(Box<types::Reference>),
+    /// `citeAsMarkdown` variant.
+    #[fhir("citeAsMarkdown")]
+    Markdown(crate::r5::choice::Primitive<types::Markdown>),
+}
+
+/// The `Evidence.versionAlgorithm[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum EvidenceVersionAlgorithm {
+    /// `versionAlgorithmString` variant.
+    #[fhir("versionAlgorithmString")]
+    String(crate::r5::choice::Primitive<types::String>),
+    /// `versionAlgorithmCoding` variant.
+    #[fhir("versionAlgorithmCoding")]
+    Coding(Box<types::Coding>),
 }

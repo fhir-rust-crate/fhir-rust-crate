@@ -142,23 +142,13 @@ pub struct FamilyMemberHistory {
     /// male | female | other | unknown
     pub sex: Option<types::CodeableConcept>,
 
-    /// (approximate) date of birth
-    pub born_period: Option<types::Period>,
+    /// The `FamilyMemberHistory.born[x]` choice element (0..1); see [`FamilyMemberHistoryBorn`].
+    #[serde(flatten)]
+    pub born: Option<FamilyMemberHistoryBorn>,
 
-    /// (approximate) date of birth
-    pub born_date: Option<types::Date>,
-
-    /// (approximate) date of birth
-    pub born_string: Option<types::String>,
-
-    /// (approximate) age
-    pub age_age: Option<types::Age>,
-
-    /// (approximate) age
-    pub age_range: Option<types::Range>,
-
-    /// (approximate) age
-    pub age_string: Option<types::String>,
+    /// The `FamilyMemberHistory.age[x]` choice element (0..1); see [`FamilyMemberHistoryAge`].
+    #[serde(flatten)]
+    pub age: Option<FamilyMemberHistoryAge>,
 
     /// Age is estimated?
     pub estimated_age: Option<types::Boolean>,
@@ -166,20 +156,9 @@ pub struct FamilyMemberHistory {
     #[serde(rename = "_estimatedAge")]
     pub estimated_age_ext: Option<types::Element>,
 
-    /// Dead? How old/when?
-    pub deceased_boolean: Option<types::Boolean>,
-
-    /// Dead? How old/when?
-    pub deceased_age: Option<types::Age>,
-
-    /// Dead? How old/when?
-    pub deceased_range: Option<types::Range>,
-
-    /// Dead? How old/when?
-    pub deceased_date: Option<types::Date>,
-
-    /// Dead? How old/when?
-    pub deceased_string: Option<types::String>,
+    /// The `FamilyMemberHistory.deceased[x]` choice element (0..1); see [`FamilyMemberHistoryDeceased`].
+    #[serde(flatten)]
+    pub deceased: Option<FamilyMemberHistoryDeceased>,
 
     /// Why was family member history performed?
     pub reason: Option<Vec<types::CodeableReference>>,
@@ -243,17 +222,9 @@ pub struct FamilyMemberHistoryCondition {
     #[serde(rename = "_contributedToDeath")]
     pub contributed_to_death_ext: Option<types::Element>,
 
-    /// When condition first manifested
-    pub onset_age: Option<types::Age>,
-
-    /// When condition first manifested
-    pub onset_range: Option<types::Range>,
-
-    /// When condition first manifested
-    pub onset_period: Option<types::Period>,
-
-    /// When condition first manifested
-    pub onset_string: Option<types::String>,
+    /// The `FamilyMemberHistory.condition.onset[x]` choice element (0..1); see [`FamilyMemberHistoryConditionOnset`].
+    #[serde(flatten)]
+    pub onset: Option<FamilyMemberHistoryConditionOnset>,
 
     /// Extra information about condition
     pub note: Option<Vec<types::Annotation>>,
@@ -286,20 +257,9 @@ pub struct FamilyMemberHistoryProcedure {
     #[serde(rename = "_contributedToDeath")]
     pub contributed_to_death_ext: Option<types::Element>,
 
-    /// When the procedure was performed
-    pub performed_age: Option<types::Age>,
-
-    /// When the procedure was performed
-    pub performed_range: Option<types::Range>,
-
-    /// When the procedure was performed
-    pub performed_period: Option<types::Period>,
-
-    /// When the procedure was performed
-    pub performed_string: Option<types::String>,
-
-    /// When the procedure was performed
-    pub performed_date_time: Option<types::DateTime>,
+    /// The `FamilyMemberHistory.procedure.performed[x]` choice element (0..1); see [`FamilyMemberHistoryProcedurePerformed`].
+    #[serde(flatten)]
+    pub performed: Option<FamilyMemberHistoryProcedurePerformed>,
 
     /// Extra information about the procedure
     pub note: Option<Vec<types::Annotation>>,
@@ -322,4 +282,93 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `FamilyMemberHistory.age[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum FamilyMemberHistoryAge {
+    /// `ageAge` variant.
+    #[fhir("ageAge")]
+    Age(Box<types::Age>),
+    /// `ageRange` variant.
+    #[fhir("ageRange")]
+    Range(Box<types::Range>),
+    /// `ageString` variant.
+    #[fhir("ageString")]
+    String(crate::r5::choice::Primitive<types::String>),
+}
+
+/// The `FamilyMemberHistory.born[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum FamilyMemberHistoryBorn {
+    /// `bornPeriod` variant.
+    #[fhir("bornPeriod")]
+    Period(Box<types::Period>),
+    /// `bornDate` variant.
+    #[fhir("bornDate")]
+    Date(crate::r5::choice::Primitive<types::Date>),
+    /// `bornString` variant.
+    #[fhir("bornString")]
+    String(crate::r5::choice::Primitive<types::String>),
+}
+
+/// The `FamilyMemberHistory.condition.onset[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum FamilyMemberHistoryConditionOnset {
+    /// `onsetAge` variant.
+    #[fhir("onsetAge")]
+    Age(Box<types::Age>),
+    /// `onsetRange` variant.
+    #[fhir("onsetRange")]
+    Range(Box<types::Range>),
+    /// `onsetPeriod` variant.
+    #[fhir("onsetPeriod")]
+    Period(Box<types::Period>),
+    /// `onsetString` variant.
+    #[fhir("onsetString")]
+    String(crate::r5::choice::Primitive<types::String>),
+}
+
+/// The `FamilyMemberHistory.deceased[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum FamilyMemberHistoryDeceased {
+    /// `deceasedBoolean` variant.
+    #[fhir("deceasedBoolean")]
+    Boolean(crate::r5::choice::Primitive<types::Boolean>),
+    /// `deceasedAge` variant.
+    #[fhir("deceasedAge")]
+    Age(Box<types::Age>),
+    /// `deceasedRange` variant.
+    #[fhir("deceasedRange")]
+    Range(Box<types::Range>),
+    /// `deceasedDate` variant.
+    #[fhir("deceasedDate")]
+    Date(crate::r5::choice::Primitive<types::Date>),
+    /// `deceasedString` variant.
+    #[fhir("deceasedString")]
+    String(crate::r5::choice::Primitive<types::String>),
+}
+
+/// The `FamilyMemberHistory.procedure.performed[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum FamilyMemberHistoryProcedurePerformed {
+    /// `performedAge` variant.
+    #[fhir("performedAge")]
+    Age(Box<types::Age>),
+    /// `performedRange` variant.
+    #[fhir("performedRange")]
+    Range(Box<types::Range>),
+    /// `performedPeriod` variant.
+    #[fhir("performedPeriod")]
+    Period(Box<types::Period>),
+    /// `performedString` variant.
+    #[fhir("performedString")]
+    String(crate::r5::choice::Primitive<types::String>),
+    /// `performedDateTime` variant.
+    #[fhir("performedDateTime")]
+    DateTime(crate::r5::choice::Primitive<types::DateTime>),
 }

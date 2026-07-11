@@ -239,10 +239,9 @@ pub struct ExplanationOfBenefitEvent {
     pub modifier_extension: Option<Vec<types::Extension>>,
     /// Specific event
     pub r#type: types::CodeableConcept,
-    /// Occurance date or period
-    pub when_date_time: Option<types::DateTime>,
-    /// Occurance date or period
-    pub when_period: Option<types::Period>,
+    /// The `ExplanationOfBenefit.event.when[x]` choice element (0..1); see [`ExplanationOfBenefitEventWhen`].
+    #[serde(flatten)]
+    pub when: Option<ExplanationOfBenefitEventWhen>,
 }
 
 /// Recipient of the benefits payable.
@@ -311,22 +310,12 @@ pub struct ExplanationOfBenefitSupportingInfo {
     pub category: types::CodeableConcept,
     /// Type of information
     pub code: Option<types::CodeableConcept>,
-    /// When it occurred
-    pub timing_date: Option<types::Date>,
-    /// When it occurred
-    pub timing_period: Option<types::Period>,
-    /// Data to be provided
-    pub value_boolean: Option<types::Boolean>,
-    /// Data to be provided
-    pub value_string: Option<types::String>,
-    /// Data to be provided
-    pub value_quantity: Option<types::Quantity>,
-    /// Data to be provided
-    pub value_attachment: Option<types::Attachment>,
-    /// Data to be provided
-    pub value_reference: Option<types::Reference>,
-    /// Data to be provided
-    pub value_identifier: Option<types::Identifier>,
+    /// The `ExplanationOfBenefit.supportingInfo.timing[x]` choice element (0..1); see [`ExplanationOfBenefitSupportingInfoTiming`].
+    #[serde(flatten)]
+    pub timing: Option<ExplanationOfBenefitSupportingInfoTiming>,
+    /// The `ExplanationOfBenefit.supportingInfo.value[x]` choice element (0..1); see [`ExplanationOfBenefitSupportingInfoValue`].
+    #[serde(flatten)]
+    pub value: Option<ExplanationOfBenefitSupportingInfoValue>,
     /// Explanation for the information
     pub reason: Option<types::Coding>,
 }
@@ -347,10 +336,9 @@ pub struct ExplanationOfBenefitDiagnosis {
     /// Primitive extension sibling for [`sequence`](Self::sequence) (FHIR `_sequence`).
     #[serde(rename = "_sequence")]
     pub sequence_ext: Option<types::Element>,
-    /// Nature of illness or problem
-    pub diagnosis_codeable_concept: Option<types::CodeableConcept>,
-    /// Nature of illness or problem
-    pub diagnosis_reference: Option<types::Reference>,
+    /// The `ExplanationOfBenefit.diagnosis.diagnosis[x]` choice element (0..1); see [`ExplanationOfBenefitDiagnosisDiagnosis`].
+    #[serde(flatten)]
+    pub diagnosis: Option<ExplanationOfBenefitDiagnosisDiagnosis>,
     /// Timing or nature of the diagnosis
     pub r#type: Option<Vec<types::CodeableConcept>>,
     /// Present on admission
@@ -380,10 +368,9 @@ pub struct ExplanationOfBenefitProcedure {
     /// Primitive extension sibling for [`date`](Self::date) (FHIR `_date`).
     #[serde(rename = "_date")]
     pub date_ext: Option<types::Element>,
-    /// Specific clinical procedure
-    pub procedure_codeable_concept: Option<types::CodeableConcept>,
-    /// Specific clinical procedure
-    pub procedure_reference: Option<types::Reference>,
+    /// The `ExplanationOfBenefit.procedure.procedure[x]` choice element (0..1); see [`ExplanationOfBenefitProcedureProcedure`].
+    #[serde(flatten)]
+    pub procedure: Option<ExplanationOfBenefitProcedureProcedure>,
     /// Unique device identifier
     pub udi: Option<Vec<types::Reference>>,
 }
@@ -431,10 +418,9 @@ pub struct ExplanationOfBenefitAccident {
     pub date_ext: Option<types::Element>,
     /// The nature of the accident
     pub r#type: Option<types::CodeableConcept>,
-    /// Where the event occurred
-    pub location_address: Option<types::Address>,
-    /// Where the event occurred
-    pub location_reference: Option<types::Reference>,
+    /// The `ExplanationOfBenefit.accident.location[x]` choice element (0..1); see [`ExplanationOfBenefitAccidentLocation`].
+    #[serde(flatten)]
+    pub location: Option<ExplanationOfBenefitAccidentLocation>,
 }
 
 /// Product or service line item provided.
@@ -489,16 +475,12 @@ pub struct ExplanationOfBenefitItem {
     pub modifier: Option<Vec<types::CodeableConcept>>,
     /// Program the product or service is provided under
     pub program_code: Option<Vec<types::CodeableConcept>>,
-    /// Date or dates of service or product delivery
-    pub serviced_date: Option<types::Date>,
-    /// Date or dates of service or product delivery
-    pub serviced_period: Option<types::Period>,
-    /// Place of service or where product was supplied
-    pub location_codeable_concept: Option<types::CodeableConcept>,
-    /// Place of service or where product was supplied
-    pub location_address: Option<types::Address>,
-    /// Place of service or where product was supplied
-    pub location_reference: Option<types::Reference>,
+    /// The `ExplanationOfBenefit.item.serviced[x]` choice element (0..1); see [`ExplanationOfBenefitItemServiced`].
+    #[serde(flatten)]
+    pub serviced: Option<ExplanationOfBenefitItemServiced>,
+    /// The `ExplanationOfBenefit.item.location[x]` choice element (0..1); see [`ExplanationOfBenefitItemLocation`].
+    #[serde(flatten)]
+    pub location: Option<ExplanationOfBenefitItemLocation>,
     /// Paid by the patient
     pub patient_paid: Option<types::Money>,
     /// Count of products or services
@@ -755,16 +737,12 @@ pub struct ExplanationOfBenefitAddItem {
     pub modifier: Option<Vec<types::CodeableConcept>>,
     /// Program the product or service is provided under
     pub program_code: Option<Vec<types::CodeableConcept>>,
-    /// Date or dates of service or product delivery
-    pub serviced_date: Option<types::Date>,
-    /// Date or dates of service or product delivery
-    pub serviced_period: Option<types::Period>,
-    /// Place of service or where product was supplied
-    pub location_codeable_concept: Option<types::CodeableConcept>,
-    /// Place of service or where product was supplied
-    pub location_address: Option<types::Address>,
-    /// Place of service or where product was supplied
-    pub location_reference: Option<types::Reference>,
+    /// The `ExplanationOfBenefit.addItem.serviced[x]` choice element (0..1); see [`ExplanationOfBenefitAddItemServiced`].
+    #[serde(flatten)]
+    pub serviced: Option<ExplanationOfBenefitAddItemServiced>,
+    /// The `ExplanationOfBenefit.addItem.location[x]` choice element (0..1); see [`ExplanationOfBenefitAddItemLocation`].
+    #[serde(flatten)]
+    pub location: Option<ExplanationOfBenefitAddItemLocation>,
     /// Paid by the patient
     pub patient_paid: Option<types::Money>,
     /// Count of products or services
@@ -1031,16 +1009,12 @@ pub struct ExplanationOfBenefitBenefitBalanceFinancial {
     pub modifier_extension: Option<Vec<types::Extension>>,
     /// Benefit classification
     pub r#type: types::CodeableConcept,
-    /// Benefits allowed
-    pub allowed_unsigned_int: Option<types::UnsignedInt>,
-    /// Benefits allowed
-    pub allowed_string: Option<types::String>,
-    /// Benefits allowed
-    pub allowed_money: Option<types::Money>,
-    /// Benefits used
-    pub used_unsigned_int: Option<types::UnsignedInt>,
-    /// Benefits used
-    pub used_money: Option<types::Money>,
+    /// The `ExplanationOfBenefit.benefitBalance.financial.allowed[x]` choice element (0..1); see [`ExplanationOfBenefitBenefitBalanceFinancialAllowed`].
+    #[serde(flatten)]
+    pub allowed: Option<ExplanationOfBenefitBenefitBalanceFinancialAllowed>,
+    /// The `ExplanationOfBenefit.benefitBalance.financial.used[x]` choice element (0..1); see [`ExplanationOfBenefitBenefitBalanceFinancialUsed`].
+    #[serde(flatten)]
+    pub used: Option<ExplanationOfBenefitBenefitBalanceFinancialUsed>,
 }
 
 #[cfg(test)]
@@ -1060,4 +1034,168 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `ExplanationOfBenefit.accident.location[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum ExplanationOfBenefitAccidentLocation {
+    /// `locationAddress` variant.
+    #[fhir("locationAddress")]
+    Address(Box<types::Address>),
+    /// `locationReference` variant.
+    #[fhir("locationReference")]
+    Reference(Box<types::Reference>),
+}
+
+/// The `ExplanationOfBenefit.addItem.location[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum ExplanationOfBenefitAddItemLocation {
+    /// `locationCodeableConcept` variant.
+    #[fhir("locationCodeableConcept")]
+    CodeableConcept(Box<types::CodeableConcept>),
+    /// `locationAddress` variant.
+    #[fhir("locationAddress")]
+    Address(Box<types::Address>),
+    /// `locationReference` variant.
+    #[fhir("locationReference")]
+    Reference(Box<types::Reference>),
+}
+
+/// The `ExplanationOfBenefit.addItem.serviced[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum ExplanationOfBenefitAddItemServiced {
+    /// `servicedDate` variant.
+    #[fhir("servicedDate")]
+    Date(crate::r5::choice::Primitive<types::Date>),
+    /// `servicedPeriod` variant.
+    #[fhir("servicedPeriod")]
+    Period(Box<types::Period>),
+}
+
+/// The `ExplanationOfBenefit.benefitBalance.financial.allowed[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum ExplanationOfBenefitBenefitBalanceFinancialAllowed {
+    /// `allowedUnsignedInt` variant.
+    #[fhir("allowedUnsignedInt")]
+    UnsignedInt(crate::r5::choice::Primitive<types::UnsignedInt>),
+    /// `allowedString` variant.
+    #[fhir("allowedString")]
+    String(crate::r5::choice::Primitive<types::String>),
+    /// `allowedMoney` variant.
+    #[fhir("allowedMoney")]
+    Money(Box<types::Money>),
+}
+
+/// The `ExplanationOfBenefit.benefitBalance.financial.used[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum ExplanationOfBenefitBenefitBalanceFinancialUsed {
+    /// `usedUnsignedInt` variant.
+    #[fhir("usedUnsignedInt")]
+    UnsignedInt(crate::r5::choice::Primitive<types::UnsignedInt>),
+    /// `usedMoney` variant.
+    #[fhir("usedMoney")]
+    Money(Box<types::Money>),
+}
+
+/// The `ExplanationOfBenefit.diagnosis.diagnosis[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum ExplanationOfBenefitDiagnosisDiagnosis {
+    /// `diagnosisCodeableConcept` variant.
+    #[fhir("diagnosisCodeableConcept")]
+    CodeableConcept(Box<types::CodeableConcept>),
+    /// `diagnosisReference` variant.
+    #[fhir("diagnosisReference")]
+    Reference(Box<types::Reference>),
+}
+
+/// The `ExplanationOfBenefit.event.when[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum ExplanationOfBenefitEventWhen {
+    /// `whenDateTime` variant.
+    #[fhir("whenDateTime")]
+    DateTime(crate::r5::choice::Primitive<types::DateTime>),
+    /// `whenPeriod` variant.
+    #[fhir("whenPeriod")]
+    Period(Box<types::Period>),
+}
+
+/// The `ExplanationOfBenefit.item.location[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum ExplanationOfBenefitItemLocation {
+    /// `locationCodeableConcept` variant.
+    #[fhir("locationCodeableConcept")]
+    CodeableConcept(Box<types::CodeableConcept>),
+    /// `locationAddress` variant.
+    #[fhir("locationAddress")]
+    Address(Box<types::Address>),
+    /// `locationReference` variant.
+    #[fhir("locationReference")]
+    Reference(Box<types::Reference>),
+}
+
+/// The `ExplanationOfBenefit.item.serviced[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum ExplanationOfBenefitItemServiced {
+    /// `servicedDate` variant.
+    #[fhir("servicedDate")]
+    Date(crate::r5::choice::Primitive<types::Date>),
+    /// `servicedPeriod` variant.
+    #[fhir("servicedPeriod")]
+    Period(Box<types::Period>),
+}
+
+/// The `ExplanationOfBenefit.procedure.procedure[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum ExplanationOfBenefitProcedureProcedure {
+    /// `procedureCodeableConcept` variant.
+    #[fhir("procedureCodeableConcept")]
+    CodeableConcept(Box<types::CodeableConcept>),
+    /// `procedureReference` variant.
+    #[fhir("procedureReference")]
+    Reference(Box<types::Reference>),
+}
+
+/// The `ExplanationOfBenefit.supportingInfo.timing[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum ExplanationOfBenefitSupportingInfoTiming {
+    /// `timingDate` variant.
+    #[fhir("timingDate")]
+    Date(crate::r5::choice::Primitive<types::Date>),
+    /// `timingPeriod` variant.
+    #[fhir("timingPeriod")]
+    Period(Box<types::Period>),
+}
+
+/// The `ExplanationOfBenefit.supportingInfo.value[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum ExplanationOfBenefitSupportingInfoValue {
+    /// `valueBoolean` variant.
+    #[fhir("valueBoolean")]
+    Boolean(crate::r5::choice::Primitive<types::Boolean>),
+    /// `valueString` variant.
+    #[fhir("valueString")]
+    String(crate::r5::choice::Primitive<types::String>),
+    /// `valueQuantity` variant.
+    #[fhir("valueQuantity")]
+    Quantity(Box<types::Quantity>),
+    /// `valueAttachment` variant.
+    #[fhir("valueAttachment")]
+    Attachment(Box<types::Attachment>),
+    /// `valueReference` variant.
+    #[fhir("valueReference")]
+    Reference(Box<types::Reference>),
+    /// `valueIdentifier` variant.
+    #[fhir("valueIdentifier")]
+    Identifier(Box<types::Identifier>),
 }

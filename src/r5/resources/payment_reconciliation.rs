@@ -227,14 +227,9 @@ pub struct PaymentReconciliationAllocation {
     /// Subject of the payment
     pub target: Option<types::Reference>,
 
-    /// Sub-element of the subject
-    pub target_item_string: Option<types::String>,
-
-    /// Sub-element of the subject
-    pub target_item_identifier: Option<types::Identifier>,
-
-    /// Sub-element of the subject
-    pub target_item_positive_int: Option<types::PositiveInt>,
+    /// The `PaymentReconciliation.allocation.targetItem[x]` choice element (0..1); see [`PaymentReconciliationAllocationTargetItem`].
+    #[serde(flatten)]
+    pub target_item: Option<PaymentReconciliationAllocationTargetItem>,
 
     /// Applied-to encounter
     pub encounter: Option<types::Reference>,
@@ -312,4 +307,18 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `PaymentReconciliation.allocation.targetItem[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum PaymentReconciliationAllocationTargetItem {
+    /// `targetItemString` variant.
+    #[fhir("targetItemString")]
+    String(crate::r5::choice::Primitive<types::String>),
+    /// `targetItemIdentifier` variant.
+    #[fhir("targetItemIdentifier")]
+    Identifier(Box<types::Identifier>),
+    /// `targetItemPositiveInt` variant.
+    #[fhir("targetItemPositiveInt")]
+    PositiveInt(crate::r5::choice::Primitive<types::PositiveInt>),
 }

@@ -255,44 +255,9 @@ pub struct InventoryItemCharacteristic {
     /// The characteristic that is being defined
     pub characteristic_type: types::CodeableConcept,
 
-    /// The value of the attribute
-    pub value_string: Option<types::String>,
-
-    /// The value of the attribute
-    pub value_integer: Option<types::Integer>,
-
-    /// The value of the attribute
-    pub value_decimal: Option<types::Decimal>,
-
-    /// The value of the attribute
-    pub value_boolean: Option<types::Boolean>,
-
-    /// The value of the attribute
-    pub value_url: Option<types::Url>,
-
-    /// The value of the attribute
-    pub value_date_time: Option<types::DateTime>,
-
-    /// The value of the attribute
-    pub value_quantity: Option<types::Quantity>,
-
-    /// The value of the attribute
-    pub value_range: Option<types::Range>,
-
-    /// The value of the attribute
-    pub value_ratio: Option<types::Ratio>,
-
-    /// The value of the attribute
-    pub value_annotation: Option<types::Annotation>,
-
-    /// The value of the attribute
-    pub value_address: Option<types::Address>,
-
-    /// The value of the attribute
-    pub value_duration: Option<types::Duration>,
-
-    /// The value of the attribute
-    pub value_codeable_concept: Option<types::CodeableConcept>,
+    /// The `InventoryItem.characteristic.value[x]` choice element (0..1); see [`InventoryItemCharacteristicValue`].
+    #[serde(flatten)]
+    pub value: Option<InventoryItemCharacteristicValue>,
 }
 
 /// Instances or occurrences of the product.
@@ -348,4 +313,48 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `InventoryItem.characteristic.value[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum InventoryItemCharacteristicValue {
+    /// `valueString` variant.
+    #[fhir("valueString")]
+    String(crate::r5::choice::Primitive<types::String>),
+    /// `valueInteger` variant.
+    #[fhir("valueInteger")]
+    Integer(crate::r5::choice::Primitive<types::Integer>),
+    /// `valueDecimal` variant.
+    #[fhir("valueDecimal")]
+    Decimal(crate::r5::choice::Primitive<types::Decimal>),
+    /// `valueBoolean` variant.
+    #[fhir("valueBoolean")]
+    Boolean(crate::r5::choice::Primitive<types::Boolean>),
+    /// `valueUrl` variant.
+    #[fhir("valueUrl")]
+    Url(crate::r5::choice::Primitive<types::Url>),
+    /// `valueDateTime` variant.
+    #[fhir("valueDateTime")]
+    DateTime(crate::r5::choice::Primitive<types::DateTime>),
+    /// `valueQuantity` variant.
+    #[fhir("valueQuantity")]
+    Quantity(Box<types::Quantity>),
+    /// `valueRange` variant.
+    #[fhir("valueRange")]
+    Range(Box<types::Range>),
+    /// `valueRatio` variant.
+    #[fhir("valueRatio")]
+    Ratio(Box<types::Ratio>),
+    /// `valueAnnotation` variant.
+    #[fhir("valueAnnotation")]
+    Annotation(Box<types::Annotation>),
+    /// `valueAddress` variant.
+    #[fhir("valueAddress")]
+    Address(Box<types::Address>),
+    /// `valueDuration` variant.
+    #[fhir("valueDuration")]
+    Duration(Box<types::Duration>),
+    /// `valueCodeableConcept` variant.
+    #[fhir("valueCodeableConcept")]
+    CodeableConcept(Box<types::CodeableConcept>),
 }

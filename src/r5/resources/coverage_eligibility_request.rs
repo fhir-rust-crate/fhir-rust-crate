@@ -111,11 +111,9 @@ pub struct CoverageEligibilityRequest {
     /// Event information
     pub event: Option<Vec<CoverageEligibilityRequestEvent>>,
 
-    /// Estimated date or dates of service
-    pub serviced_date: Option<types::Date>,
-
-    /// Estimated date or dates of service
-    pub serviced_period: Option<types::Period>,
+    /// The `CoverageEligibilityRequest.serviced[x]` choice element (0..1); see [`CoverageEligibilityRequestServiced`].
+    #[serde(flatten)]
+    pub serviced: Option<CoverageEligibilityRequestServiced>,
 
     /// Creation date
     pub created: types::DateTime,
@@ -163,11 +161,9 @@ pub struct CoverageEligibilityRequestEvent {
     /// Specific event
     pub r#type: types::CodeableConcept,
 
-    /// Occurance date or period
-    pub when_date_time: Option<types::DateTime>,
-
-    /// Occurance date or period
-    pub when_period: Option<types::Period>,
+    /// The `CoverageEligibilityRequest.event.when[x]` choice element (0..1); see [`CoverageEligibilityRequestEventWhen`].
+    #[serde(flatten)]
+    pub when: Option<CoverageEligibilityRequestEventWhen>,
 }
 
 /// Additional information codes regarding exceptions, special considerations,
@@ -297,11 +293,9 @@ pub struct CoverageEligibilityRequestItemDiagnosis {
     /// Extensions that cannot be ignored even if unrecognized
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// Nature of illness or problem
-    pub diagnosis_codeable_concept: Option<types::CodeableConcept>,
-
-    /// Nature of illness or problem
-    pub diagnosis_reference: Option<types::Reference>,
+    /// The `CoverageEligibilityRequest.item.diagnosis.diagnosis[x]` choice element (0..1); see [`CoverageEligibilityRequestItemDiagnosisDiagnosis`].
+    #[serde(flatten)]
+    pub diagnosis: Option<CoverageEligibilityRequestItemDiagnosisDiagnosis>,
 }
 
 #[cfg(test)]
@@ -321,4 +315,39 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `CoverageEligibilityRequest.event.when[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum CoverageEligibilityRequestEventWhen {
+    /// `whenDateTime` variant.
+    #[fhir("whenDateTime")]
+    DateTime(crate::r5::choice::Primitive<types::DateTime>),
+    /// `whenPeriod` variant.
+    #[fhir("whenPeriod")]
+    Period(Box<types::Period>),
+}
+
+/// The `CoverageEligibilityRequest.item.diagnosis.diagnosis[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum CoverageEligibilityRequestItemDiagnosisDiagnosis {
+    /// `diagnosisCodeableConcept` variant.
+    #[fhir("diagnosisCodeableConcept")]
+    CodeableConcept(Box<types::CodeableConcept>),
+    /// `diagnosisReference` variant.
+    #[fhir("diagnosisReference")]
+    Reference(Box<types::Reference>),
+}
+
+/// The `CoverageEligibilityRequest.serviced[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum CoverageEligibilityRequestServiced {
+    /// `servicedDate` variant.
+    #[fhir("servicedDate")]
+    Date(crate::r5::choice::Primitive<types::Date>),
+    /// `servicedPeriod` variant.
+    #[fhir("servicedPeriod")]
+    Period(Box<types::Period>),
 }

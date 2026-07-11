@@ -95,14 +95,9 @@ pub struct GuidanceResponse {
     /// Business identifier
     pub identifier: Option<Vec<types::Identifier>>,
 
-    /// What guidance was requested
-    pub module_uri: Option<types::Uri>,
-
-    /// What guidance was requested
-    pub module_canonical: Option<types::Canonical>,
-
-    /// What guidance was requested
-    pub module_codeable_concept: Option<types::CodeableConcept>,
+    /// The `GuidanceResponse.module[x]` choice element (0..1); see [`GuidanceResponseModule`].
+    #[serde(flatten)]
+    pub module: Option<GuidanceResponseModule>,
 
     /// The processing status of the guidance response: success | data-requested | data-required | in-progress | failure | entered-in-error
     pub status: types::Code,
@@ -161,4 +156,18 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `GuidanceResponse.module[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum GuidanceResponseModule {
+    /// `moduleUri` variant.
+    #[fhir("moduleUri")]
+    Uri(crate::r5::choice::Primitive<types::Uri>),
+    /// `moduleCanonical` variant.
+    #[fhir("moduleCanonical")]
+    Canonical(crate::r5::choice::Primitive<types::Canonical>),
+    /// `moduleCodeableConcept` variant.
+    #[fhir("moduleCodeableConcept")]
+    CodeableConcept(Box<types::CodeableConcept>),
 }

@@ -211,11 +211,9 @@ pub struct ClinicalUseDefinitionIndication {
     /// The intended effect, aim or strategy to be achieved
     pub intended_effect: Option<types::CodeableReference>,
 
-    /// Timing or duration information (Range)
-    pub duration_range: Option<types::Range>,
-
-    /// Timing or duration information (string)
-    pub duration_string: Option<types::String>,
+    /// The `ClinicalUseDefinition.indication.duration[x]` choice element (0..1); see [`ClinicalUseDefinitionIndicationDuration`].
+    #[serde(flatten)]
+    pub duration: Option<ClinicalUseDefinitionIndicationDuration>,
 
     /// An unwanted side effect or negative outcome of the subject of this resource when being used for this indication
     pub undesirable_effect: Option<Vec<types::Reference>>,
@@ -272,11 +270,9 @@ pub struct ClinicalUseDefinitionInteractionInteractant {
     /// Extensions that cannot be ignored even if unrecognized
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// The specific medication, product, food etc. or laboratory test that interacts (Reference)
-    pub item_reference: Option<types::Reference>,
-
-    /// The specific medication, product, food etc. or laboratory test that interacts (CodeableConcept)
-    pub item_codeable_concept: Option<types::CodeableConcept>,
+    /// The `ClinicalUseDefinition.interaction.interactant.item[x]` choice element (0..1); see [`ClinicalUseDefinitionInteractionInteractantItem`].
+    #[serde(flatten)]
+    pub item: Option<ClinicalUseDefinitionInteractionInteractantItem>,
 }
 
 /// A possible negative outcome from the use of this treatment.
@@ -345,4 +341,27 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `ClinicalUseDefinition.indication.duration[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum ClinicalUseDefinitionIndicationDuration {
+    /// `durationRange` variant.
+    #[fhir("durationRange")]
+    Range(Box<types::Range>),
+    /// `durationString` variant.
+    #[fhir("durationString")]
+    String(crate::r5::choice::Primitive<types::String>),
+}
+
+/// The `ClinicalUseDefinition.interaction.interactant.item[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum ClinicalUseDefinitionInteractionInteractantItem {
+    /// `itemReference` variant.
+    #[fhir("itemReference")]
+    Reference(Box<types::Reference>),
+    /// `itemCodeableConcept` variant.
+    #[fhir("itemCodeableConcept")]
+    CodeableConcept(Box<types::CodeableConcept>),
 }

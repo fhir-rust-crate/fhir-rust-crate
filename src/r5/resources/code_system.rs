@@ -100,11 +100,9 @@ pub struct CodeSystem {
     #[serde(rename = "_version")]
     pub version_ext: Option<types::Element>,
 
-    /// How to compare versions
-    pub version_algorithm_string: Option<types::String>,
-
-    /// How to compare versions
-    pub version_algorithm_coding: Option<types::Coding>,
+    /// The `CodeSystem.versionAlgorithm[x]` choice element (0..1); see [`CodeSystemVersionAlgorithm`].
+    #[serde(flatten)]
+    pub version_algorithm: Option<CodeSystemVersionAlgorithm>,
 
     /// Name for this code system (computer friendly)
     pub name: Option<types::String>,
@@ -439,26 +437,9 @@ pub struct CodeSystemConceptProperty {
     #[serde(rename = "_code")]
     pub code_ext: Option<types::Element>,
 
-    /// Value of the property for this concept
-    pub value_code: Option<types::Code>,
-
-    /// Value of the property for this concept
-    pub value_coding: Option<types::Coding>,
-
-    /// Value of the property for this concept
-    pub value_string: Option<types::String>,
-
-    /// Value of the property for this concept
-    pub value_integer: Option<types::Integer>,
-
-    /// Value of the property for this concept
-    pub value_boolean: Option<types::Boolean>,
-
-    /// Value of the property for this concept
-    pub value_date_time: Option<types::DateTime>,
-
-    /// Value of the property for this concept
-    pub value_decimal: Option<types::Decimal>,
+    /// The `CodeSystem.concept.property.value[x]` choice element (0..1); see [`CodeSystemConceptPropertyValue`].
+    #[serde(flatten)]
+    pub value: Option<CodeSystemConceptPropertyValue>,
 }
 
 #[cfg(test)]
@@ -478,4 +459,42 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `CodeSystem.concept.property.value[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum CodeSystemConceptPropertyValue {
+    /// `valueCode` variant.
+    #[fhir("valueCode")]
+    Code(crate::r5::choice::Primitive<types::Code>),
+    /// `valueCoding` variant.
+    #[fhir("valueCoding")]
+    Coding(Box<types::Coding>),
+    /// `valueString` variant.
+    #[fhir("valueString")]
+    String(crate::r5::choice::Primitive<types::String>),
+    /// `valueInteger` variant.
+    #[fhir("valueInteger")]
+    Integer(crate::r5::choice::Primitive<types::Integer>),
+    /// `valueBoolean` variant.
+    #[fhir("valueBoolean")]
+    Boolean(crate::r5::choice::Primitive<types::Boolean>),
+    /// `valueDateTime` variant.
+    #[fhir("valueDateTime")]
+    DateTime(crate::r5::choice::Primitive<types::DateTime>),
+    /// `valueDecimal` variant.
+    #[fhir("valueDecimal")]
+    Decimal(crate::r5::choice::Primitive<types::Decimal>),
+}
+
+/// The `CodeSystem.versionAlgorithm[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum CodeSystemVersionAlgorithm {
+    /// `versionAlgorithmString` variant.
+    #[fhir("versionAlgorithmString")]
+    String(crate::r5::choice::Primitive<types::String>),
+    /// `versionAlgorithmCoding` variant.
+    #[fhir("versionAlgorithmCoding")]
+    Coding(Box<types::Coding>),
 }

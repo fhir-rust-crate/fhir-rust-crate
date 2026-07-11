@@ -205,11 +205,9 @@ pub struct SubstanceDefinitionMoiety {
     #[serde(rename = "_molecularFormula")]
     pub molecular_formula_ext: Option<types::Element>,
 
-    /// Quantitative value for this moiety
-    pub amount_quantity: Option<types::Quantity>,
-
-    /// Quantitative value for this moiety
-    pub amount_string: Option<types::String>,
+    /// The `SubstanceDefinition.moiety.amount[x]` choice element (0..1); see [`SubstanceDefinitionMoietyAmount`].
+    #[serde(flatten)]
+    pub amount: Option<SubstanceDefinitionMoietyAmount>,
 
     /// The measurement type of the quantitative value
     pub measurement_type: Option<types::CodeableConcept>,
@@ -262,20 +260,9 @@ pub struct SubstanceDefinitionProperty {
     /// A code expressing the type of property
     pub r#type: types::CodeableConcept,
 
-    /// A value for the property
-    pub value_codeable_concept: Option<types::CodeableConcept>,
-
-    /// A value for the property
-    pub value_quantity: Option<types::Quantity>,
-
-    /// A value for the property
-    pub value_date: Option<types::Date>,
-
-    /// A value for the property
-    pub value_boolean: Option<types::Boolean>,
-
-    /// A value for the property
-    pub value_attachment: Option<types::Attachment>,
+    /// The `SubstanceDefinition.property.value[x]` choice element (0..1); see [`SubstanceDefinitionPropertyValue`].
+    #[serde(flatten)]
+    pub value: Option<SubstanceDefinitionPropertyValue>,
 }
 
 /// SubstanceDefinition.molecularWeight - The average mass of a molecule of a compound
@@ -505,11 +492,9 @@ pub struct SubstanceDefinitionRelationship {
     /// Extensions that cannot be ignored even if unrecognized
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// A pointer to another substance, as a resource or a representational code
-    pub substance_definition_reference: Option<types::Reference>,
-
-    /// A pointer to another substance, as a resource or a representational code
-    pub substance_definition_codeable_concept: Option<types::CodeableConcept>,
+    /// The `SubstanceDefinition.relationship.substanceDefinition[x]` choice element (0..1); see [`SubstanceDefinitionRelationshipSubstanceDefinition`].
+    #[serde(flatten)]
+    pub substance_definition: Option<SubstanceDefinitionRelationshipSubstanceDefinition>,
 
     /// For example "salt to parent", "active moiety"
     pub r#type: types::CodeableConcept,
@@ -520,14 +505,9 @@ pub struct SubstanceDefinitionRelationship {
     #[serde(rename = "_isDefining")]
     pub is_defining_ext: Option<types::Element>,
 
-    /// A numeric factor for the relationship, e.g. that a substance salt has some percentage of active substance in relation to some other
-    pub amount_quantity: Option<types::Quantity>,
-
-    /// A numeric factor for the relationship, e.g. that a substance salt has some percentage of active substance in relation to some other
-    pub amount_ratio: Option<types::Ratio>,
-
-    /// A numeric factor for the relationship, e.g. that a substance salt has some percentage of active substance in relation to some other
-    pub amount_string: Option<types::String>,
+    /// The `SubstanceDefinition.relationship.amount[x]` choice element (0..1); see [`SubstanceDefinitionRelationshipAmount`].
+    #[serde(flatten)]
+    pub amount: Option<SubstanceDefinitionRelationshipAmount>,
 
     /// For use when the numeric has an uncertain range
     pub ratio_high_limit_amount: Option<types::Ratio>,
@@ -586,4 +566,63 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `SubstanceDefinition.moiety.amount[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum SubstanceDefinitionMoietyAmount {
+    /// `amountQuantity` variant.
+    #[fhir("amountQuantity")]
+    Quantity(Box<types::Quantity>),
+    /// `amountString` variant.
+    #[fhir("amountString")]
+    String(crate::r5::choice::Primitive<types::String>),
+}
+
+/// The `SubstanceDefinition.property.value[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum SubstanceDefinitionPropertyValue {
+    /// `valueCodeableConcept` variant.
+    #[fhir("valueCodeableConcept")]
+    CodeableConcept(Box<types::CodeableConcept>),
+    /// `valueQuantity` variant.
+    #[fhir("valueQuantity")]
+    Quantity(Box<types::Quantity>),
+    /// `valueDate` variant.
+    #[fhir("valueDate")]
+    Date(crate::r5::choice::Primitive<types::Date>),
+    /// `valueBoolean` variant.
+    #[fhir("valueBoolean")]
+    Boolean(crate::r5::choice::Primitive<types::Boolean>),
+    /// `valueAttachment` variant.
+    #[fhir("valueAttachment")]
+    Attachment(Box<types::Attachment>),
+}
+
+/// The `SubstanceDefinition.relationship.amount[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum SubstanceDefinitionRelationshipAmount {
+    /// `amountQuantity` variant.
+    #[fhir("amountQuantity")]
+    Quantity(Box<types::Quantity>),
+    /// `amountRatio` variant.
+    #[fhir("amountRatio")]
+    Ratio(Box<types::Ratio>),
+    /// `amountString` variant.
+    #[fhir("amountString")]
+    String(crate::r5::choice::Primitive<types::String>),
+}
+
+/// The `SubstanceDefinition.relationship.substanceDefinition[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum SubstanceDefinitionRelationshipSubstanceDefinition {
+    /// `substanceDefinitionReference` variant.
+    #[fhir("substanceDefinitionReference")]
+    Reference(Box<types::Reference>),
+    /// `substanceDefinitionCodeableConcept` variant.
+    #[fhir("substanceDefinitionCodeableConcept")]
+    CodeableConcept(Box<types::CodeableConcept>),
 }

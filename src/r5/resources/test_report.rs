@@ -299,11 +299,9 @@ pub struct TestReportSetupActionAssertRequirement {
     /// Extensions that cannot be ignored even if unrecognized
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// Link or reference to the testing requirement
-    pub link_uri: Option<types::Uri>,
-
-    /// Link or reference to the testing requirement
-    pub link_canonical: Option<types::Canonical>,
+    /// The `TestReport.setup.action.assert.requirement.link[x]` choice element (0..1); see [`TestReportSetupActionAssertRequirementLink`].
+    #[serde(flatten)]
+    pub link: Option<TestReportSetupActionAssertRequirementLink>,
 }
 
 /// A test executed from the test script.
@@ -410,4 +408,15 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `TestReport.setup.action.assert.requirement.link[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum TestReportSetupActionAssertRequirementLink {
+    /// `linkUri` variant.
+    #[fhir("linkUri")]
+    Uri(crate::r5::choice::Primitive<types::Uri>),
+    /// `linkCanonical` variant.
+    #[fhir("linkCanonical")]
+    Canonical(crate::r5::choice::Primitive<types::Canonical>),
 }

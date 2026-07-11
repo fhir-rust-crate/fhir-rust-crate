@@ -112,11 +112,9 @@ pub struct DiagnosticReport {
     /// Health care event when test ordered
     pub encounter: Option<types::Reference>,
 
-    /// Clinically relevant time/time-period for report (dateTime)
-    pub effective_date_time: Option<types::DateTime>,
-
-    /// Clinically relevant time/time-period for report (Period)
-    pub effective_period: Option<types::Period>,
+    /// The `DiagnosticReport.effective[x]` choice element (0..1); see [`DiagnosticReportEffective`].
+    #[serde(flatten)]
+    pub effective: Option<DiagnosticReportEffective>,
 
     /// DateTime this version was made
     pub issued: Option<types::Instant>,
@@ -232,4 +230,15 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `DiagnosticReport.effective[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum DiagnosticReportEffective {
+    /// `effectiveDateTime` variant.
+    #[fhir("effectiveDateTime")]
+    DateTime(crate::r5::choice::Primitive<types::DateTime>),
+    /// `effectivePeriod` variant.
+    #[fhir("effectivePeriod")]
+    Period(Box<types::Period>),
 }

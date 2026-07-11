@@ -97,11 +97,9 @@ pub struct TestPlan {
     #[serde(rename = "_version")]
     pub version_ext: Option<types::Element>,
 
-    /// How to compare versions
-    pub version_algorithm_string: Option<types::String>,
-
-    /// How to compare versions
-    pub version_algorithm_coding: Option<types::Coding>,
+    /// The `TestPlan.versionAlgorithm[x]` choice element (0..1); see [`TestPlanVersionAlgorithm`].
+    #[serde(flatten)]
+    pub version_algorithm: Option<TestPlanVersionAlgorithm>,
 
     /// Name for this test plan (computer friendly)
     pub name: Option<types::String>,
@@ -334,11 +332,9 @@ pub struct TestPlanTestCaseTestRunScript {
     /// The language for the test cases e.g. 'gherkin', 'testscript'
     pub language: Option<types::CodeableConcept>,
 
-    /// The actual content of the cases - references to TestScripts or externally defined content
-    pub source_string: Option<types::String>,
-
-    /// The actual content of the cases - references to TestScripts or externally defined content
-    pub source_reference: Option<types::Reference>,
+    /// The `TestPlan.testCase.testRun.script.source[x]` choice element (0..1); see [`TestPlanTestCaseTestRunScriptSource`].
+    #[serde(flatten)]
+    pub source: Option<TestPlanTestCaseTestRunScriptSource>,
 }
 
 /// TestPlan.testCase.testData
@@ -363,11 +359,9 @@ pub struct TestPlanTestCaseTestData {
     /// The actual test resources when they exist
     pub content: Option<types::Reference>,
 
-    /// Pointer to a definition of test resources - narrative or structured e.g. synthetic data generation, etc
-    pub source_string: Option<types::String>,
-
-    /// Pointer to a definition of test resources - narrative or structured e.g. synthetic data generation, etc
-    pub source_reference: Option<types::Reference>,
+    /// The `TestPlan.testCase.testData.source[x]` choice element (0..1); see [`TestPlanTestCaseTestDataSource`].
+    #[serde(flatten)]
+    pub source: Option<TestPlanTestCaseTestDataSource>,
 }
 
 /// TestPlan.testCase.assertion
@@ -413,4 +407,39 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `TestPlan.testCase.testData.source[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum TestPlanTestCaseTestDataSource {
+    /// `sourceString` variant.
+    #[fhir("sourceString")]
+    String(crate::r5::choice::Primitive<types::String>),
+    /// `sourceReference` variant.
+    #[fhir("sourceReference")]
+    Reference(Box<types::Reference>),
+}
+
+/// The `TestPlan.testCase.testRun.script.source[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum TestPlanTestCaseTestRunScriptSource {
+    /// `sourceString` variant.
+    #[fhir("sourceString")]
+    String(crate::r5::choice::Primitive<types::String>),
+    /// `sourceReference` variant.
+    #[fhir("sourceReference")]
+    Reference(Box<types::Reference>),
+}
+
+/// The `TestPlan.versionAlgorithm[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum TestPlanVersionAlgorithm {
+    /// `versionAlgorithmString` variant.
+    #[fhir("versionAlgorithmString")]
+    String(crate::r5::choice::Primitive<types::String>),
+    /// `versionAlgorithmCoding` variant.
+    #[fhir("versionAlgorithmCoding")]
+    Coding(Box<types::Coding>),
 }

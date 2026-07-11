@@ -104,11 +104,9 @@ pub struct Measure {
     #[serde(rename = "_version")]
     pub version_ext: Option<types::Element>,
 
-    /// How to compare versions
-    pub version_algorithm_string: Option<types::String>,
-
-    /// How to compare versions
-    pub version_algorithm_coding: Option<types::Coding>,
+    /// The `Measure.versionAlgorithm[x]` choice element (0..1); see [`MeasureVersionAlgorithm`].
+    #[serde(flatten)]
+    pub version_algorithm: Option<MeasureVersionAlgorithm>,
 
     /// Name for this measure (computer friendly)
     pub name: Option<types::String>,
@@ -140,11 +138,9 @@ pub struct Measure {
     #[serde(rename = "_experimental")]
     pub experimental_ext: Option<types::Element>,
 
-    /// E.g. Patient, Practitioner, RelatedPerson, Organization, Location, Device
-    pub subject_codeable_concept: Option<types::CodeableConcept>,
-
-    /// E.g. Patient, Practitioner, RelatedPerson, Organization, Location, Device
-    pub subject_reference: Option<types::Reference>,
+    /// The `Measure.subject[x]` choice element (0..1); see [`MeasureSubject`].
+    #[serde(flatten)]
+    pub subject: Option<MeasureSubject>,
 
     /// Population basis
     pub basis: Option<types::Code>,
@@ -359,11 +355,9 @@ pub struct MeasureGroup {
     /// process | outcome | structure | patient-reported-outcome | composite
     pub r#type: Option<Vec<types::CodeableConcept>>,
 
-    /// E.g. Patient, Practitioner, RelatedPerson, Organization, Location, Device
-    pub subject_codeable_concept: Option<types::CodeableConcept>,
-
-    /// E.g. Patient, Practitioner, RelatedPerson, Organization, Location, Device
-    pub subject_reference: Option<types::Reference>,
+    /// The `Measure.group.subject[x]` choice element (0..1); see [`MeasureGroupSubject`].
+    #[serde(flatten)]
+    pub subject: Option<MeasureGroupSubject>,
 
     /// Population basis
     pub basis: Option<types::Code>,
@@ -572,4 +566,39 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `Measure.group.subject[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum MeasureGroupSubject {
+    /// `subjectCodeableConcept` variant.
+    #[fhir("subjectCodeableConcept")]
+    CodeableConcept(Box<types::CodeableConcept>),
+    /// `subjectReference` variant.
+    #[fhir("subjectReference")]
+    Reference(Box<types::Reference>),
+}
+
+/// The `Measure.subject[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum MeasureSubject {
+    /// `subjectCodeableConcept` variant.
+    #[fhir("subjectCodeableConcept")]
+    CodeableConcept(Box<types::CodeableConcept>),
+    /// `subjectReference` variant.
+    #[fhir("subjectReference")]
+    Reference(Box<types::Reference>),
+}
+
+/// The `Measure.versionAlgorithm[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum MeasureVersionAlgorithm {
+    /// `versionAlgorithmString` variant.
+    #[fhir("versionAlgorithmString")]
+    String(crate::r5::choice::Primitive<types::String>),
+    /// `versionAlgorithmCoding` variant.
+    #[fhir("versionAlgorithmCoding")]
+    Coding(Box<types::Coding>),
 }

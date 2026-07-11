@@ -149,11 +149,9 @@ pub struct SubstanceIngredient {
     /// Optional amount (concentration)
     pub quantity: Option<types::Ratio>,
 
-    /// A component of the substance
-    pub substance_codeable_concept: Option<types::CodeableConcept>,
-
-    /// A component of the substance
-    pub substance_reference: Option<types::Reference>,
+    /// The `Substance.ingredient.substance[x]` choice element (0..1); see [`SubstanceIngredientSubstance`].
+    #[serde(flatten)]
+    pub substance: Option<SubstanceIngredientSubstance>,
 }
 
 #[cfg(test)]
@@ -173,4 +171,15 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `Substance.ingredient.substance[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum SubstanceIngredientSubstance {
+    /// `substanceCodeableConcept` variant.
+    #[fhir("substanceCodeableConcept")]
+    CodeableConcept(Box<types::CodeableConcept>),
+    /// `substanceReference` variant.
+    #[fhir("substanceReference")]
+    Reference(Box<types::Reference>),
 }

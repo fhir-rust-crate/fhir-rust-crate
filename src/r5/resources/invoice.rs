@@ -124,11 +124,9 @@ pub struct Invoice {
     #[serde(rename = "_creation")]
     pub creation_ext: Option<types::Element>,
 
-    /// Billing date or period
-    pub period_date: Option<types::Date>,
-
-    /// Billing date or period
-    pub period_period: Option<types::Period>,
+    /// The `Invoice.period[x]` choice element (0..1); see [`InvoicePeriod`].
+    #[serde(flatten)]
+    pub period: Option<InvoicePeriod>,
 
     /// Participant in creation of this Invoice
     pub participant: Option<Vec<InvoiceParticipant>>,
@@ -208,17 +206,13 @@ pub struct InvoiceLineItem {
     #[serde(rename = "_sequence")]
     pub sequence_ext: Option<types::Element>,
 
-    /// Service data or period
-    pub serviced_date: Option<types::Date>,
+    /// The `Invoice.lineItem.serviced[x]` choice element (0..1); see [`InvoiceLineItemServiced`].
+    #[serde(flatten)]
+    pub serviced: Option<InvoiceLineItemServiced>,
 
-    /// Service data or period
-    pub serviced_period: Option<types::Period>,
-
-    /// Reference to ChargeItem containing details of this line item or an inline billing code
-    pub charge_item_reference: Option<types::Reference>,
-
-    /// Reference to ChargeItem containing details of this line item or an inline billing code
-    pub charge_item_codeable_concept: Option<types::CodeableConcept>,
+    /// The `Invoice.lineItem.chargeItem[x]` choice element (0..1); see [`InvoiceLineItemChargeItem`].
+    #[serde(flatten)]
+    pub charge_item: Option<InvoiceLineItemChargeItem>,
 
     /// Components of total line item price
     pub price_component: Option<Vec<types::MonetaryComponent>>,
@@ -241,4 +235,39 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `Invoice.lineItem.chargeItem[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum InvoiceLineItemChargeItem {
+    /// `chargeItemReference` variant.
+    #[fhir("chargeItemReference")]
+    Reference(Box<types::Reference>),
+    /// `chargeItemCodeableConcept` variant.
+    #[fhir("chargeItemCodeableConcept")]
+    CodeableConcept(Box<types::CodeableConcept>),
+}
+
+/// The `Invoice.lineItem.serviced[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum InvoiceLineItemServiced {
+    /// `servicedDate` variant.
+    #[fhir("servicedDate")]
+    Date(crate::r5::choice::Primitive<types::Date>),
+    /// `servicedPeriod` variant.
+    #[fhir("servicedPeriod")]
+    Period(Box<types::Period>),
+}
+
+/// The `Invoice.period[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum InvoicePeriod {
+    /// `periodDate` variant.
+    #[fhir("periodDate")]
+    Date(crate::r5::choice::Primitive<types::Date>),
+    /// `periodPeriod` variant.
+    #[fhir("periodPeriod")]
+    Period(Box<types::Period>),
 }

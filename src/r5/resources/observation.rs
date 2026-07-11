@@ -98,11 +98,9 @@ pub struct Observation {
     /// Business Identifier for observation
     pub identifier: Option<Vec<types::Identifier>>,
 
-    /// Instantiates FHIR ObservationDefinition
-    pub instantiates_canonical: Option<types::Canonical>,
-
-    /// Instantiates FHIR ObservationDefinition
-    pub instantiates_reference: Option<types::Reference>,
+    /// The `Observation.instantiates[x]` choice element (0..1); see [`ObservationInstantiates`].
+    #[serde(flatten)]
+    pub instantiates: Option<ObservationInstantiates>,
 
     /// Fulfills plan, proposal or order
     pub based_on: Option<Vec<types::Reference>>,
@@ -136,17 +134,9 @@ pub struct Observation {
     /// Healthcare event during which this observation is made
     pub encounter: Option<types::Reference>,
 
-    /// Clinically relevant time/time-period for observation
-    pub effective_date_time: Option<types::DateTime>,
-
-    /// Clinically relevant time/time-period for observation
-    pub effective_period: Option<types::Period>,
-
-    /// Clinically relevant time/time-period for observation
-    pub effective_timing: Option<types::Timing>,
-
-    /// Clinically relevant time/time-period for observation
-    pub effective_instant: Option<types::Instant>,
+    /// The `Observation.effective[x]` choice element (0..1); see [`ObservationEffective`].
+    #[serde(flatten)]
+    pub effective: Option<ObservationEffective>,
 
     /// Date/Time this version was made available
     pub issued: Option<types::Instant>,
@@ -157,44 +147,9 @@ pub struct Observation {
     /// Who is responsible for the observation
     pub performer: Option<Vec<types::Reference>>,
 
-    /// Actual result expressed as a measured quantity with a unit, the most common value form for numeric results.
-    pub value_quantity: Option<types::Quantity>,
-
-    /// Actual result expressed as a coded concept, used when the answer is a term from a value set rather than a number.
-    pub value_codeable_concept: Option<types::CodeableConcept>,
-
-    /// Actual result
-    pub value_string: Option<types::String>,
-
-    /// Actual result
-    pub value_boolean: Option<types::Boolean>,
-
-    /// Actual result
-    pub value_integer: Option<types::Integer>,
-
-    /// Actual result
-    pub value_range: Option<types::Range>,
-
-    /// Actual result
-    pub value_ratio: Option<types::Ratio>,
-
-    /// Actual result
-    pub value_sampled_data: Option<types::SampledData>,
-
-    /// Actual result
-    pub value_time: Option<types::Time>,
-
-    /// Actual result
-    pub value_date_time: Option<types::DateTime>,
-
-    /// Actual result
-    pub value_period: Option<types::Period>,
-
-    /// Actual result
-    pub value_attachment: Option<types::Attachment>,
-
-    /// Actual result
-    pub value_reference: Option<types::Reference>,
+    /// The `Observation.value[x]` choice element (0..1); see [`ObservationValue`].
+    #[serde(flatten)]
+    pub value: Option<ObservationValue>,
 
     /// Why the result is missing
     pub data_absent_reason: Option<types::CodeableConcept>,
@@ -333,44 +288,9 @@ pub struct ObservationComponent {
     /// Type of component observation (code / type)
     pub code: types::CodeableConcept,
 
-    /// Actual component result
-    pub value_quantity: Option<types::Quantity>,
-
-    /// Actual component result
-    pub value_codeable_concept: Option<types::CodeableConcept>,
-
-    /// Actual component result
-    pub value_string: Option<types::String>,
-
-    /// Actual component result
-    pub value_boolean: Option<types::Boolean>,
-
-    /// Actual component result
-    pub value_integer: Option<types::Integer>,
-
-    /// Actual component result
-    pub value_range: Option<types::Range>,
-
-    /// Actual component result
-    pub value_ratio: Option<types::Ratio>,
-
-    /// Actual component result
-    pub value_sampled_data: Option<types::SampledData>,
-
-    /// Actual component result
-    pub value_time: Option<types::Time>,
-
-    /// Actual component result
-    pub value_date_time: Option<types::DateTime>,
-
-    /// Actual component result
-    pub value_period: Option<types::Period>,
-
-    /// Actual component result
-    pub value_attachment: Option<types::Attachment>,
-
-    /// Actual component result
-    pub value_reference: Option<types::Reference>,
+    /// The `Observation.component.value[x]` choice element (0..1); see [`ObservationComponentValue`].
+    #[serde(flatten)]
+    pub value: Option<ObservationComponentValue>,
 
     /// Why the component result is missing
     pub data_absent_reason: Option<types::CodeableConcept>,
@@ -399,4 +319,123 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `Observation.component.value[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum ObservationComponentValue {
+    /// `valueQuantity` variant.
+    #[fhir("valueQuantity")]
+    Quantity(Box<types::Quantity>),
+    /// `valueCodeableConcept` variant.
+    #[fhir("valueCodeableConcept")]
+    CodeableConcept(Box<types::CodeableConcept>),
+    /// `valueString` variant.
+    #[fhir("valueString")]
+    String(crate::r5::choice::Primitive<types::String>),
+    /// `valueBoolean` variant.
+    #[fhir("valueBoolean")]
+    Boolean(crate::r5::choice::Primitive<types::Boolean>),
+    /// `valueInteger` variant.
+    #[fhir("valueInteger")]
+    Integer(crate::r5::choice::Primitive<types::Integer>),
+    /// `valueRange` variant.
+    #[fhir("valueRange")]
+    Range(Box<types::Range>),
+    /// `valueRatio` variant.
+    #[fhir("valueRatio")]
+    Ratio(Box<types::Ratio>),
+    /// `valueSampledData` variant.
+    #[fhir("valueSampledData")]
+    SampledData(Box<types::SampledData>),
+    /// `valueTime` variant.
+    #[fhir("valueTime")]
+    Time(crate::r5::choice::Primitive<types::Time>),
+    /// `valueDateTime` variant.
+    #[fhir("valueDateTime")]
+    DateTime(crate::r5::choice::Primitive<types::DateTime>),
+    /// `valuePeriod` variant.
+    #[fhir("valuePeriod")]
+    Period(Box<types::Period>),
+    /// `valueAttachment` variant.
+    #[fhir("valueAttachment")]
+    Attachment(Box<types::Attachment>),
+    /// `valueReference` variant.
+    #[fhir("valueReference")]
+    Reference(Box<types::Reference>),
+}
+
+/// The `Observation.effective[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum ObservationEffective {
+    /// `effectiveDateTime` variant.
+    #[fhir("effectiveDateTime")]
+    DateTime(crate::r5::choice::Primitive<types::DateTime>),
+    /// `effectivePeriod` variant.
+    #[fhir("effectivePeriod")]
+    Period(Box<types::Period>),
+    /// `effectiveTiming` variant.
+    #[fhir("effectiveTiming")]
+    Timing(Box<types::Timing>),
+    /// `effectiveInstant` variant.
+    #[fhir("effectiveInstant")]
+    Instant(crate::r5::choice::Primitive<types::Instant>),
+}
+
+/// The `Observation.instantiates[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum ObservationInstantiates {
+    /// `instantiatesCanonical` variant.
+    #[fhir("instantiatesCanonical")]
+    Canonical(crate::r5::choice::Primitive<types::Canonical>),
+    /// `instantiatesReference` variant.
+    #[fhir("instantiatesReference")]
+    Reference(Box<types::Reference>),
+}
+
+/// The `Observation.value[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum ObservationValue {
+    /// `valueQuantity` variant.
+    #[fhir("valueQuantity")]
+    Quantity(Box<types::Quantity>),
+    /// `valueCodeableConcept` variant.
+    #[fhir("valueCodeableConcept")]
+    CodeableConcept(Box<types::CodeableConcept>),
+    /// `valueString` variant.
+    #[fhir("valueString")]
+    String(crate::r5::choice::Primitive<types::String>),
+    /// `valueBoolean` variant.
+    #[fhir("valueBoolean")]
+    Boolean(crate::r5::choice::Primitive<types::Boolean>),
+    /// `valueInteger` variant.
+    #[fhir("valueInteger")]
+    Integer(crate::r5::choice::Primitive<types::Integer>),
+    /// `valueRange` variant.
+    #[fhir("valueRange")]
+    Range(Box<types::Range>),
+    /// `valueRatio` variant.
+    #[fhir("valueRatio")]
+    Ratio(Box<types::Ratio>),
+    /// `valueSampledData` variant.
+    #[fhir("valueSampledData")]
+    SampledData(Box<types::SampledData>),
+    /// `valueTime` variant.
+    #[fhir("valueTime")]
+    Time(crate::r5::choice::Primitive<types::Time>),
+    /// `valueDateTime` variant.
+    #[fhir("valueDateTime")]
+    DateTime(crate::r5::choice::Primitive<types::DateTime>),
+    /// `valuePeriod` variant.
+    #[fhir("valuePeriod")]
+    Period(Box<types::Period>),
+    /// `valueAttachment` variant.
+    #[fhir("valueAttachment")]
+    Attachment(Box<types::Attachment>),
+    /// `valueReference` variant.
+    #[fhir("valueReference")]
+    Reference(Box<types::Reference>),
 }

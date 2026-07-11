@@ -109,11 +109,9 @@ pub struct ExampleScenario {
     #[serde(rename = "_version")]
     pub version_ext: Option<types::Element>,
 
-    /// How to compare versions
-    pub version_algorithm_string: Option<types::String>,
-
-    /// How to compare versions
-    pub version_algorithm_coding: Option<types::Coding>,
+    /// The `ExampleScenario.versionAlgorithm[x]` choice element (0..1); see [`ExampleScenarioVersionAlgorithm`].
+    #[serde(flatten)]
+    pub version_algorithm: Option<ExampleScenarioVersionAlgorithm>,
 
     /// To be removed?
     pub name: Option<types::String>,
@@ -267,11 +265,9 @@ pub struct ExampleScenarioInstance {
     #[serde(rename = "_structureVersion")]
     pub structure_version_ext: Option<types::Element>,
 
-    /// Rules instance adheres to
-    pub structure_profile_canonical: Option<types::Canonical>,
-
-    /// Rules instance adheres to
-    pub structure_profile_uri: Option<types::Uri>,
+    /// The `ExampleScenario.instance.structureProfile[x]` choice element (0..1); see [`ExampleScenarioInstanceStructureProfile`].
+    #[serde(flatten)]
+    pub structure_profile: Option<ExampleScenarioInstanceStructureProfile>,
 
     /// Label for instance
     pub title: types::String,
@@ -568,4 +564,27 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `ExampleScenario.instance.structureProfile[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum ExampleScenarioInstanceStructureProfile {
+    /// `structureProfileCanonical` variant.
+    #[fhir("structureProfileCanonical")]
+    Canonical(crate::r5::choice::Primitive<types::Canonical>),
+    /// `structureProfileUri` variant.
+    #[fhir("structureProfileUri")]
+    Uri(crate::r5::choice::Primitive<types::Uri>),
+}
+
+/// The `ExampleScenario.versionAlgorithm[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum ExampleScenarioVersionAlgorithm {
+    /// `versionAlgorithmString` variant.
+    #[fhir("versionAlgorithmString")]
+    String(crate::r5::choice::Primitive<types::String>),
+    /// `versionAlgorithmCoding` variant.
+    #[fhir("versionAlgorithmCoding")]
+    Coding(Box<types::Coding>),
 }

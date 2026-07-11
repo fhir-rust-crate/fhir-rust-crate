@@ -245,11 +245,9 @@ pub struct ClaimEvent {
     /// Specific event
     pub r#type: types::CodeableConcept,
 
-    /// Occurance date or period
-    pub when_date_time: Option<types::DateTime>,
-
-    /// Occurance date or period
-    pub when_period: Option<types::Period>,
+    /// The `Claim.event.when[x]` choice element (0..1); see [`ClaimEventWhen`].
+    #[serde(flatten)]
+    pub when: Option<ClaimEventWhen>,
 }
 
 /// Claim nested backbone element `Claim.careTeam`. Members of the care team
@@ -314,29 +312,13 @@ pub struct ClaimSupportingInfo {
     /// Type of information
     pub code: Option<types::CodeableConcept>,
 
-    /// When it occurred
-    pub timing_date: Option<types::Date>,
+    /// The `Claim.supportingInfo.timing[x]` choice element (0..1); see [`ClaimSupportingInfoTiming`].
+    #[serde(flatten)]
+    pub timing: Option<ClaimSupportingInfoTiming>,
 
-    /// When it occurred
-    pub timing_period: Option<types::Period>,
-
-    /// Data to be provided
-    pub value_boolean: Option<types::Boolean>,
-
-    /// Data to be provided
-    pub value_string: Option<types::String>,
-
-    /// Data to be provided
-    pub value_quantity: Option<types::Quantity>,
-
-    /// Data to be provided
-    pub value_attachment: Option<types::Attachment>,
-
-    /// Data to be provided
-    pub value_reference: Option<types::Reference>,
-
-    /// Data to be provided
-    pub value_identifier: Option<types::Identifier>,
+    /// The `Claim.supportingInfo.value[x]` choice element (0..1); see [`ClaimSupportingInfoValue`].
+    #[serde(flatten)]
+    pub value: Option<ClaimSupportingInfoValue>,
 
     /// Explanation for the information
     pub reason: Option<types::CodeableConcept>,
@@ -362,11 +344,9 @@ pub struct ClaimDiagnosis {
     #[serde(rename = "_sequence")]
     pub sequence_ext: Option<types::Element>,
 
-    /// Nature of illness or problem
-    pub diagnosis_codeable_concept: Option<types::CodeableConcept>,
-
-    /// Nature of illness or problem
-    pub diagnosis_reference: Option<types::Reference>,
+    /// The `Claim.diagnosis.diagnosis[x]` choice element (0..1); see [`ClaimDiagnosisDiagnosis`].
+    #[serde(flatten)]
+    pub diagnosis: Option<ClaimDiagnosisDiagnosis>,
 
     /// Timing or nature of the diagnosis
     pub r#type: Option<Vec<types::CodeableConcept>>,
@@ -404,11 +384,9 @@ pub struct ClaimProcedure {
     #[serde(rename = "_date")]
     pub date_ext: Option<types::Element>,
 
-    /// Specific clinical procedure
-    pub procedure_codeable_concept: Option<types::CodeableConcept>,
-
-    /// Specific clinical procedure
-    pub procedure_reference: Option<types::Reference>,
+    /// The `Claim.procedure.procedure[x]` choice element (0..1); see [`ClaimProcedureProcedure`].
+    #[serde(flatten)]
+    pub procedure: Option<ClaimProcedureProcedure>,
 
     /// Unique device identifier
     pub udi: Option<Vec<types::Reference>>,
@@ -485,11 +463,9 @@ pub struct ClaimAccident {
     /// The nature of the accident
     pub r#type: Option<types::CodeableConcept>,
 
-    /// Where the event occurred
-    pub location_address: Option<types::Address>,
-
-    /// Where the event occurred
-    pub location_reference: Option<types::Reference>,
+    /// The `Claim.accident.location[x]` choice element (0..1); see [`ClaimAccidentLocation`].
+    #[serde(flatten)]
+    pub location: Option<ClaimAccidentLocation>,
 }
 
 /// Claim nested backbone element `Claim.item`. Product or service provided
@@ -560,20 +536,13 @@ pub struct ClaimItem {
     /// Program the product or service is provided under
     pub program_code: Option<Vec<types::CodeableConcept>>,
 
-    /// Date or dates of service or product delivery
-    pub serviced_date: Option<types::Date>,
+    /// The `Claim.item.serviced[x]` choice element (0..1); see [`ClaimItemServiced`].
+    #[serde(flatten)]
+    pub serviced: Option<ClaimItemServiced>,
 
-    /// Date or dates of service or product delivery
-    pub serviced_period: Option<types::Period>,
-
-    /// Place of service or where product was supplied
-    pub location_codeable_concept: Option<types::CodeableConcept>,
-
-    /// Place of service or where product was supplied
-    pub location_address: Option<types::Address>,
-
-    /// Place of service or where product was supplied
-    pub location_reference: Option<types::Reference>,
+    /// The `Claim.item.location[x]` choice element (0..1); see [`ClaimItemLocation`].
+    #[serde(flatten)]
+    pub location: Option<ClaimItemLocation>,
 
     /// Paid by the patient
     pub patient_paid: Option<types::Money>,
@@ -782,4 +751,114 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `Claim.accident.location[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum ClaimAccidentLocation {
+    /// `locationAddress` variant.
+    #[fhir("locationAddress")]
+    Address(Box<types::Address>),
+    /// `locationReference` variant.
+    #[fhir("locationReference")]
+    Reference(Box<types::Reference>),
+}
+
+/// The `Claim.diagnosis.diagnosis[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum ClaimDiagnosisDiagnosis {
+    /// `diagnosisCodeableConcept` variant.
+    #[fhir("diagnosisCodeableConcept")]
+    CodeableConcept(Box<types::CodeableConcept>),
+    /// `diagnosisReference` variant.
+    #[fhir("diagnosisReference")]
+    Reference(Box<types::Reference>),
+}
+
+/// The `Claim.event.when[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum ClaimEventWhen {
+    /// `whenDateTime` variant.
+    #[fhir("whenDateTime")]
+    DateTime(crate::r5::choice::Primitive<types::DateTime>),
+    /// `whenPeriod` variant.
+    #[fhir("whenPeriod")]
+    Period(Box<types::Period>),
+}
+
+/// The `Claim.item.location[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum ClaimItemLocation {
+    /// `locationCodeableConcept` variant.
+    #[fhir("locationCodeableConcept")]
+    CodeableConcept(Box<types::CodeableConcept>),
+    /// `locationAddress` variant.
+    #[fhir("locationAddress")]
+    Address(Box<types::Address>),
+    /// `locationReference` variant.
+    #[fhir("locationReference")]
+    Reference(Box<types::Reference>),
+}
+
+/// The `Claim.item.serviced[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum ClaimItemServiced {
+    /// `servicedDate` variant.
+    #[fhir("servicedDate")]
+    Date(crate::r5::choice::Primitive<types::Date>),
+    /// `servicedPeriod` variant.
+    #[fhir("servicedPeriod")]
+    Period(Box<types::Period>),
+}
+
+/// The `Claim.procedure.procedure[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum ClaimProcedureProcedure {
+    /// `procedureCodeableConcept` variant.
+    #[fhir("procedureCodeableConcept")]
+    CodeableConcept(Box<types::CodeableConcept>),
+    /// `procedureReference` variant.
+    #[fhir("procedureReference")]
+    Reference(Box<types::Reference>),
+}
+
+/// The `Claim.supportingInfo.timing[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum ClaimSupportingInfoTiming {
+    /// `timingDate` variant.
+    #[fhir("timingDate")]
+    Date(crate::r5::choice::Primitive<types::Date>),
+    /// `timingPeriod` variant.
+    #[fhir("timingPeriod")]
+    Period(Box<types::Period>),
+}
+
+/// The `Claim.supportingInfo.value[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum ClaimSupportingInfoValue {
+    /// `valueBoolean` variant.
+    #[fhir("valueBoolean")]
+    Boolean(crate::r5::choice::Primitive<types::Boolean>),
+    /// `valueString` variant.
+    #[fhir("valueString")]
+    String(crate::r5::choice::Primitive<types::String>),
+    /// `valueQuantity` variant.
+    #[fhir("valueQuantity")]
+    Quantity(Box<types::Quantity>),
+    /// `valueAttachment` variant.
+    #[fhir("valueAttachment")]
+    Attachment(Box<types::Attachment>),
+    /// `valueReference` variant.
+    #[fhir("valueReference")]
+    Reference(Box<types::Reference>),
+    /// `valueIdentifier` variant.
+    #[fhir("valueIdentifier")]
+    Identifier(Box<types::Identifier>),
 }

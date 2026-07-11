@@ -116,11 +116,9 @@ pub struct Goal {
     /// The patient, group, or organization for whom this goal is intended
     pub subject: types::Reference,
 
-    /// When goal pursuit begins (date)
-    pub start_date: Option<types::Date>,
-
-    /// When goal pursuit begins (CodeableConcept)
-    pub start_codeable_concept: Option<types::CodeableConcept>,
+    /// The `Goal.start[x]` choice element (0..1); see [`GoalStart`].
+    #[serde(flatten)]
+    pub start: Option<GoalStart>,
 
     /// One or more measurable target outcomes that define what should be achieved
     pub target: Option<Vec<GoalTarget>>,
@@ -170,32 +168,13 @@ pub struct GoalTarget {
     /// The parameter whose value is being tracked
     pub measure: Option<types::CodeableConcept>,
 
-    /// The target value to be achieved (Quantity)
-    pub detail_quantity: Option<types::Quantity>,
+    /// The `Goal.target.detail[x]` choice element (0..1); see [`GoalTargetDetail`].
+    #[serde(flatten)]
+    pub detail: Option<GoalTargetDetail>,
 
-    /// The target value to be achieved (Range)
-    pub detail_range: Option<types::Range>,
-
-    /// The target value to be achieved (CodeableConcept)
-    pub detail_codeable_concept: Option<types::CodeableConcept>,
-
-    /// The target value to be achieved (string)
-    pub detail_string: Option<types::String>,
-
-    /// The target value to be achieved (boolean)
-    pub detail_boolean: Option<types::Boolean>,
-
-    /// The target value to be achieved (integer)
-    pub detail_integer: Option<types::Integer>,
-
-    /// The target value to be achieved (Ratio)
-    pub detail_ratio: Option<types::Ratio>,
-
-    /// Reach goal on or before (date)
-    pub due_date: Option<types::Date>,
-
-    /// Reach goal on or before (Duration)
-    pub due_duration: Option<types::Duration>,
+    /// The `Goal.target.due[x]` choice element (0..1); see [`GoalTargetDue`].
+    #[serde(flatten)]
+    pub due: Option<GoalTargetDue>,
 }
 
 #[cfg(test)]
@@ -215,4 +194,54 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `Goal.start[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum GoalStart {
+    /// `startDate` variant.
+    #[fhir("startDate")]
+    Date(crate::r5::choice::Primitive<types::Date>),
+    /// `startCodeableConcept` variant.
+    #[fhir("startCodeableConcept")]
+    CodeableConcept(Box<types::CodeableConcept>),
+}
+
+/// The `Goal.target.detail[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum GoalTargetDetail {
+    /// `detailQuantity` variant.
+    #[fhir("detailQuantity")]
+    Quantity(Box<types::Quantity>),
+    /// `detailRange` variant.
+    #[fhir("detailRange")]
+    Range(Box<types::Range>),
+    /// `detailCodeableConcept` variant.
+    #[fhir("detailCodeableConcept")]
+    CodeableConcept(Box<types::CodeableConcept>),
+    /// `detailString` variant.
+    #[fhir("detailString")]
+    String(crate::r5::choice::Primitive<types::String>),
+    /// `detailBoolean` variant.
+    #[fhir("detailBoolean")]
+    Boolean(crate::r5::choice::Primitive<types::Boolean>),
+    /// `detailInteger` variant.
+    #[fhir("detailInteger")]
+    Integer(crate::r5::choice::Primitive<types::Integer>),
+    /// `detailRatio` variant.
+    #[fhir("detailRatio")]
+    Ratio(Box<types::Ratio>),
+}
+
+/// The `Goal.target.due[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum GoalTargetDue {
+    /// `dueDate` variant.
+    #[fhir("dueDate")]
+    Date(crate::r5::choice::Primitive<types::Date>),
+    /// `dueDuration` variant.
+    #[fhir("dueDuration")]
+    Duration(Box<types::Duration>),
 }

@@ -189,17 +189,9 @@ pub struct IngredientSubstanceStrength {
     /// Extensions that cannot be ignored even if unrecognized
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// The quantity of substance in the unit of presentation
-    pub presentation_ratio: Option<types::Ratio>,
-
-    /// The quantity of substance in the unit of presentation
-    pub presentation_ratio_range: Option<types::RatioRange>,
-
-    /// The quantity of substance in the unit of presentation
-    pub presentation_codeable_concept: Option<types::CodeableConcept>,
-
-    /// The quantity of substance in the unit of presentation
-    pub presentation_quantity: Option<types::Quantity>,
+    /// The `Ingredient.substance.strength.presentation[x]` choice element (0..1); see [`IngredientSubstanceStrengthPresentation`].
+    #[serde(flatten)]
+    pub presentation: Option<IngredientSubstanceStrengthPresentation>,
 
     /// Text of either the whole presentation strength or a part of it
     pub text_presentation: Option<types::String>,
@@ -207,17 +199,9 @@ pub struct IngredientSubstanceStrength {
     #[serde(rename = "_textPresentation")]
     pub text_presentation_ext: Option<types::Element>,
 
-    /// The strength per unitary volume (or mass)
-    pub concentration_ratio: Option<types::Ratio>,
-
-    /// The strength per unitary volume (or mass)
-    pub concentration_ratio_range: Option<types::RatioRange>,
-
-    /// The strength per unitary volume (or mass)
-    pub concentration_codeable_concept: Option<types::CodeableConcept>,
-
-    /// The strength per unitary volume (or mass)
-    pub concentration_quantity: Option<types::Quantity>,
+    /// The `Ingredient.substance.strength.concentration[x]` choice element (0..1); see [`IngredientSubstanceStrengthConcentration`].
+    #[serde(flatten)]
+    pub concentration: Option<IngredientSubstanceStrengthConcentration>,
 
     /// Text of either the whole concentration strength or a part of it
     pub text_concentration: Option<types::String>,
@@ -258,14 +242,9 @@ pub struct IngredientSubstanceStrengthReferenceStrength {
     /// Relevant reference substance
     pub substance: types::CodeableReference,
 
-    /// Strength expressed in terms of a reference substance
-    pub strength_ratio: Option<types::Ratio>,
-
-    /// Strength expressed in terms of a reference substance
-    pub strength_ratio_range: Option<types::RatioRange>,
-
-    /// Strength expressed in terms of a reference substance
-    pub strength_quantity: Option<types::Quantity>,
+    /// The `Ingredient.substance.strength.referenceStrength.strength[x]` choice element (0..1); see [`IngredientSubstanceStrengthReferenceStrengthStrength`].
+    #[serde(flatten)]
+    pub strength: Option<IngredientSubstanceStrengthReferenceStrengthStrength>,
 
     /// When strength is measured at a particular point or distance
     pub measurement_point: Option<types::String>,
@@ -294,4 +273,54 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `Ingredient.substance.strength.concentration[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum IngredientSubstanceStrengthConcentration {
+    /// `concentrationRatio` variant.
+    #[fhir("concentrationRatio")]
+    Ratio(Box<types::Ratio>),
+    /// `concentrationRatioRange` variant.
+    #[fhir("concentrationRatioRange")]
+    RatioRange(Box<types::RatioRange>),
+    /// `concentrationCodeableConcept` variant.
+    #[fhir("concentrationCodeableConcept")]
+    CodeableConcept(Box<types::CodeableConcept>),
+    /// `concentrationQuantity` variant.
+    #[fhir("concentrationQuantity")]
+    Quantity(Box<types::Quantity>),
+}
+
+/// The `Ingredient.substance.strength.presentation[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum IngredientSubstanceStrengthPresentation {
+    /// `presentationRatio` variant.
+    #[fhir("presentationRatio")]
+    Ratio(Box<types::Ratio>),
+    /// `presentationRatioRange` variant.
+    #[fhir("presentationRatioRange")]
+    RatioRange(Box<types::RatioRange>),
+    /// `presentationCodeableConcept` variant.
+    #[fhir("presentationCodeableConcept")]
+    CodeableConcept(Box<types::CodeableConcept>),
+    /// `presentationQuantity` variant.
+    #[fhir("presentationQuantity")]
+    Quantity(Box<types::Quantity>),
+}
+
+/// The `Ingredient.substance.strength.referenceStrength.strength[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum IngredientSubstanceStrengthReferenceStrengthStrength {
+    /// `strengthRatio` variant.
+    #[fhir("strengthRatio")]
+    Ratio(Box<types::Ratio>),
+    /// `strengthRatioRange` variant.
+    #[fhir("strengthRatioRange")]
+    RatioRange(Box<types::RatioRange>),
+    /// `strengthQuantity` variant.
+    #[fhir("strengthQuantity")]
+    Quantity(Box<types::Quantity>),
 }

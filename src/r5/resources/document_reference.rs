@@ -259,14 +259,9 @@ pub struct DocumentReferenceContentProfile {
     /// Extensions that cannot be ignored even if unrecognized
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// Code|uri|canonical (as Coding)
-    pub value_coding: Option<types::Coding>,
-
-    /// Code|uri|canonical (as uri)
-    pub value_uri: Option<types::Uri>,
-
-    /// Code|uri|canonical (as canonical)
-    pub value_canonical: Option<types::Canonical>,
+    /// The `DocumentReference.content.profile.value[x]` choice element (0..1); see [`DocumentReferenceContentProfileValue`].
+    #[serde(flatten)]
+    pub value: Option<DocumentReferenceContentProfileValue>,
 }
 
 #[cfg(test)]
@@ -286,4 +281,18 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `DocumentReference.content.profile.value[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum DocumentReferenceContentProfileValue {
+    /// `valueCoding` variant.
+    #[fhir("valueCoding")]
+    Coding(Box<types::Coding>),
+    /// `valueUri` variant.
+    #[fhir("valueUri")]
+    Uri(crate::r5::choice::Primitive<types::Uri>),
+    /// `valueCanonical` variant.
+    #[fhir("valueCanonical")]
+    Canonical(crate::r5::choice::Primitive<types::Canonical>),
 }

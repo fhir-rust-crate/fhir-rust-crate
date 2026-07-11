@@ -130,11 +130,9 @@ pub struct Patient {
     #[serde(rename = "_birthDate")]
     pub birth_date_ext: Option<types::Element>,
 
-    /// Indicates if the individual is deceased or not
-    pub deceased_boolean: Option<types::Boolean>,
-
-    /// Indicates if the individual is deceased or not
-    pub deceased_date_time: Option<types::DateTime>,
+    /// The `Patient.deceased[x]` choice element (0..1); see [`PatientDeceased`].
+    #[serde(flatten)]
+    pub deceased: Option<PatientDeceased>,
 
     /// An address for the individual
     pub address: Option<Vec<types::Address>>,
@@ -142,11 +140,9 @@ pub struct Patient {
     /// Marital (civil) status of a patient
     pub marital_status: Option<types::CodeableConcept>,
 
-    /// Whether patient is part of a multiple birth
-    pub multiple_birth_boolean: Option<types::Boolean>,
-
-    /// Whether patient is part of a multiple birth
-    pub multiple_birth_integer: Option<types::Integer>,
+    /// The `Patient.multipleBirth[x]` choice element (0..1); see [`PatientMultipleBirth`].
+    #[serde(flatten)]
+    pub multiple_birth: Option<PatientMultipleBirth>,
 
     /// Image of the patient
     pub photo: Option<Vec<types::Attachment>>,
@@ -273,4 +269,27 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `Patient.deceased[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum PatientDeceased {
+    /// `deceasedBoolean` variant.
+    #[fhir("deceasedBoolean")]
+    Boolean(crate::r5::choice::Primitive<types::Boolean>),
+    /// `deceasedDateTime` variant.
+    #[fhir("deceasedDateTime")]
+    DateTime(crate::r5::choice::Primitive<types::DateTime>),
+}
+
+/// The `Patient.multipleBirth[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum PatientMultipleBirth {
+    /// `multipleBirthBoolean` variant.
+    #[fhir("multipleBirthBoolean")]
+    Boolean(crate::r5::choice::Primitive<types::Boolean>),
+    /// `multipleBirthInteger` variant.
+    #[fhir("multipleBirthInteger")]
+    Integer(crate::r5::choice::Primitive<types::Integer>),
 }

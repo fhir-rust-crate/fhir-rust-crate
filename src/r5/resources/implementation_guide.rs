@@ -105,11 +105,9 @@ pub struct ImplementationGuide {
     #[serde(rename = "_version")]
     pub version_ext: Option<types::Element>,
 
-    /// How to compare versions
-    pub version_algorithm_string: Option<types::String>,
-
-    /// How to compare versions
-    pub version_algorithm_coding: Option<types::Coding>,
+    /// The `ImplementationGuide.versionAlgorithm[x]` choice element (0..1); see [`ImplementationGuideVersionAlgorithm`].
+    #[serde(flatten)]
+    pub version_algorithm: Option<ImplementationGuideVersionAlgorithm>,
 
     /// Name for this implementation guide (computer friendly)
     pub name: types::String,
@@ -409,14 +407,9 @@ pub struct ImplementationGuideDefinitionPage {
     /// Extensions that cannot be ignored even if unrecognized
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// Source for page
-    pub source_url: Option<types::Url>,
-
-    /// Source for page
-    pub source_string: Option<types::String>,
-
-    /// Source for page
-    pub source_markdown: Option<types::Markdown>,
+    /// The `ImplementationGuide.definition.page.source[x]` choice element (0..1); see [`ImplementationGuideDefinitionPageSource`].
+    #[serde(flatten)]
+    pub source: Option<ImplementationGuideDefinitionPageSource>,
 
     /// Name of the page when published
     pub name: types::Url,
@@ -623,4 +616,30 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `ImplementationGuide.definition.page.source[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum ImplementationGuideDefinitionPageSource {
+    /// `sourceUrl` variant.
+    #[fhir("sourceUrl")]
+    Url(crate::r5::choice::Primitive<types::Url>),
+    /// `sourceString` variant.
+    #[fhir("sourceString")]
+    String(crate::r5::choice::Primitive<types::String>),
+    /// `sourceMarkdown` variant.
+    #[fhir("sourceMarkdown")]
+    Markdown(crate::r5::choice::Primitive<types::Markdown>),
+}
+
+/// The `ImplementationGuide.versionAlgorithm[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum ImplementationGuideVersionAlgorithm {
+    /// `versionAlgorithmString` variant.
+    #[fhir("versionAlgorithmString")]
+    String(crate::r5::choice::Primitive<types::String>),
+    /// `versionAlgorithmCoding` variant.
+    #[fhir("versionAlgorithmCoding")]
+    Coding(Box<types::Coding>),
 }

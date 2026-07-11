@@ -143,11 +143,9 @@ pub struct CommunicationRequest {
     /// Message payload
     pub payload: Option<Vec<CommunicationRequestPayload>>,
 
-    /// When scheduled
-    pub occurrence_date_time: Option<types::DateTime>,
-
-    /// When scheduled
-    pub occurrence_period: Option<types::Period>,
+    /// The `CommunicationRequest.occurrence[x]` choice element (0..1); see [`CommunicationRequestOccurrence`].
+    #[serde(flatten)]
+    pub occurrence: Option<CommunicationRequestOccurrence>,
 
     /// When request transitioned to being actionable
     pub authored_on: Option<types::DateTime>,
@@ -187,14 +185,9 @@ pub struct CommunicationRequestPayload {
     /// Extensions that cannot be ignored even if unrecognized
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// Message part content
-    pub content_attachment: Option<types::Attachment>,
-
-    /// Message part content
-    pub content_reference: Option<types::Reference>,
-
-    /// Message part content
-    pub content_codeable_concept: Option<types::CodeableConcept>,
+    /// The `CommunicationRequest.payload.content[x]` choice element (0..1); see [`CommunicationRequestPayloadContent`].
+    #[serde(flatten)]
+    pub content: Option<CommunicationRequestPayloadContent>,
 }
 
 #[cfg(test)]
@@ -214,4 +207,30 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `CommunicationRequest.occurrence[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum CommunicationRequestOccurrence {
+    /// `occurrenceDateTime` variant.
+    #[fhir("occurrenceDateTime")]
+    DateTime(crate::r5::choice::Primitive<types::DateTime>),
+    /// `occurrencePeriod` variant.
+    #[fhir("occurrencePeriod")]
+    Period(Box<types::Period>),
+}
+
+/// The `CommunicationRequest.payload.content[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum CommunicationRequestPayloadContent {
+    /// `contentAttachment` variant.
+    #[fhir("contentAttachment")]
+    Attachment(Box<types::Attachment>),
+    /// `contentReference` variant.
+    #[fhir("contentReference")]
+    Reference(Box<types::Reference>),
+    /// `contentCodeableConcept` variant.
+    #[fhir("contentCodeableConcept")]
+    CodeableConcept(Box<types::CodeableConcept>),
 }

@@ -110,11 +110,9 @@ pub struct AuditEvent {
     #[serde(rename = "_severity")]
     pub severity_ext: Option<types::Element>,
 
-    /// When the activity occurred (Period)
-    pub occurred_period: Option<types::Period>,
-
-    /// When the activity occurred (dateTime)
-    pub occurred_date_time: Option<types::DateTime>,
+    /// The `AuditEvent.occurred[x]` choice element (0..1); see [`AuditEventOccurred`].
+    #[serde(flatten)]
+    pub occurred: Option<AuditEventOccurred>,
 
     /// Time when the event was recorded, which may differ from when the underlying activity actually occurred
     pub recorded: types::Instant,
@@ -213,14 +211,9 @@ pub struct AuditEventAgent {
     #[serde(rename = "_policy")]
     pub policy_ext: Option<Vec<Option<types::Element>>>,
 
-    /// This agent network location for the activity (Reference)
-    pub network_reference: Option<types::Reference>,
-
-    /// This agent network location for the activity (uri)
-    pub network_uri: Option<types::Uri>,
-
-    /// This agent network location for the activity (string)
-    pub network_string: Option<types::String>,
+    /// The `AuditEvent.agent.network[x]` choice element (0..1); see [`AuditEventAgentNetwork`].
+    #[serde(flatten)]
+    pub network: Option<AuditEventAgentNetwork>,
 
     /// Allowable authorization for this agent
     pub authorization: Option<Vec<types::CodeableConcept>>,
@@ -314,38 +307,9 @@ pub struct AuditEventEntityDetail {
     /// Name of the property
     pub r#type: types::CodeableConcept,
 
-    /// Property value (Quantity)
-    pub value_quantity: Option<types::Quantity>,
-
-    /// Property value (CodeableConcept)
-    pub value_codeable_concept: Option<types::CodeableConcept>,
-
-    /// Property value (string)
-    pub value_string: Option<types::String>,
-
-    /// Property value (boolean)
-    pub value_boolean: Option<types::Boolean>,
-
-    /// Property value (integer)
-    pub value_integer: Option<types::Integer>,
-
-    /// Property value (Range)
-    pub value_range: Option<types::Range>,
-
-    /// Property value (Ratio)
-    pub value_ratio: Option<types::Ratio>,
-
-    /// Property value (time)
-    pub value_time: Option<types::Time>,
-
-    /// Property value (dateTime)
-    pub value_date_time: Option<types::DateTime>,
-
-    /// Property value (Period)
-    pub value_period: Option<types::Period>,
-
-    /// Property value (base64Binary)
-    pub value_base64_binary: Option<types::Base64Binary>,
+    /// The `AuditEvent.entity.detail.value[x]` choice element (0..1); see [`AuditEventEntityDetailValue`].
+    #[serde(flatten)]
+    pub value: Option<AuditEventEntityDetailValue>,
 }
 
 #[cfg(test)]
@@ -365,4 +329,69 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `AuditEvent.agent.network[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum AuditEventAgentNetwork {
+    /// `networkReference` variant.
+    #[fhir("networkReference")]
+    Reference(Box<types::Reference>),
+    /// `networkUri` variant.
+    #[fhir("networkUri")]
+    Uri(crate::r5::choice::Primitive<types::Uri>),
+    /// `networkString` variant.
+    #[fhir("networkString")]
+    String(crate::r5::choice::Primitive<types::String>),
+}
+
+/// The `AuditEvent.entity.detail.value[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum AuditEventEntityDetailValue {
+    /// `valueQuantity` variant.
+    #[fhir("valueQuantity")]
+    Quantity(Box<types::Quantity>),
+    /// `valueCodeableConcept` variant.
+    #[fhir("valueCodeableConcept")]
+    CodeableConcept(Box<types::CodeableConcept>),
+    /// `valueString` variant.
+    #[fhir("valueString")]
+    String(crate::r5::choice::Primitive<types::String>),
+    /// `valueBoolean` variant.
+    #[fhir("valueBoolean")]
+    Boolean(crate::r5::choice::Primitive<types::Boolean>),
+    /// `valueInteger` variant.
+    #[fhir("valueInteger")]
+    Integer(crate::r5::choice::Primitive<types::Integer>),
+    /// `valueRange` variant.
+    #[fhir("valueRange")]
+    Range(Box<types::Range>),
+    /// `valueRatio` variant.
+    #[fhir("valueRatio")]
+    Ratio(Box<types::Ratio>),
+    /// `valueTime` variant.
+    #[fhir("valueTime")]
+    Time(crate::r5::choice::Primitive<types::Time>),
+    /// `valueDateTime` variant.
+    #[fhir("valueDateTime")]
+    DateTime(crate::r5::choice::Primitive<types::DateTime>),
+    /// `valuePeriod` variant.
+    #[fhir("valuePeriod")]
+    Period(Box<types::Period>),
+    /// `valueBase64Binary` variant.
+    #[fhir("valueBase64Binary")]
+    Base64Binary(crate::r5::choice::Primitive<types::Base64Binary>),
+}
+
+/// The `AuditEvent.occurred[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum AuditEventOccurred {
+    /// `occurredPeriod` variant.
+    #[fhir("occurredPeriod")]
+    Period(Box<types::Period>),
+    /// `occurredDateTime` variant.
+    #[fhir("occurredDateTime")]
+    DateTime(crate::r5::choice::Primitive<types::DateTime>),
 }

@@ -147,11 +147,9 @@ pub struct CareTeamParticipant {
     /// Organization of the practitioner
     pub on_behalf_of: Option<types::Reference>,
 
-    /// When the member is generally available within this care team
-    pub coverage_period: Option<types::Period>,
-
-    /// When the member is generally available within this care team
-    pub coverage_timing: Option<types::Timing>,
+    /// The `CareTeam.participant.coverage[x]` choice element (0..1); see [`CareTeamParticipantCoverage`].
+    #[serde(flatten)]
+    pub coverage: Option<CareTeamParticipantCoverage>,
 }
 
 #[cfg(test)]
@@ -171,4 +169,15 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `CareTeam.participant.coverage[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum CareTeamParticipantCoverage {
+    /// `coveragePeriod` variant.
+    #[fhir("coveragePeriod")]
+    Period(Box<types::Period>),
+    /// `coverageTiming` variant.
+    #[fhir("coverageTiming")]
+    Timing(Box<types::Timing>),
 }

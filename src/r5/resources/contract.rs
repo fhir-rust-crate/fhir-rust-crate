@@ -177,11 +177,9 @@ pub struct Contract {
     /// Range of Legal Concerns
     pub scope: Option<types::CodeableConcept>,
 
-    /// Focus of contract interest
-    pub topic_codeable_concept: Option<types::CodeableConcept>,
-
-    /// Focus of contract interest
-    pub topic_reference: Option<types::Reference>,
+    /// The `Contract.topic[x]` choice element (0..1); see [`ContractTopic`].
+    #[serde(flatten)]
+    pub topic: Option<ContractTopic>,
 
     /// Legal instrument category
     pub r#type: Option<types::CodeableConcept>,
@@ -213,11 +211,9 @@ pub struct Contract {
     /// Computable Contract Language
     pub rule: Option<Vec<ContractRule>>,
 
-    /// Binding Contract
-    pub legally_binding_attachment: Option<types::Attachment>,
-
-    /// Binding Contract
-    pub legally_binding_reference: Option<types::Reference>,
+    /// The `Contract.legallyBinding[x]` choice element (0..1); see [`ContractLegallyBinding`].
+    #[serde(flatten)]
+    pub legally_binding: Option<ContractLegallyBinding>,
 }
 
 /// Contract precursor content.
@@ -288,11 +284,9 @@ pub struct ContractTerm {
     /// Contract Term Effective Time
     pub applies: Option<types::Period>,
 
-    /// Term Concern
-    pub topic_codeable_concept: Option<types::CodeableConcept>,
-
-    /// Term Concern
-    pub topic_reference: Option<types::Reference>,
+    /// The `Contract.term.topic[x]` choice element (0..1); see [`ContractTermTopic`].
+    #[serde(flatten)]
+    pub topic: Option<ContractTermTopic>,
 
     /// Contract Term Type or Form
     pub r#type: Option<types::CodeableConcept>,
@@ -441,41 +435,9 @@ pub struct ContractTermOfferAnswer {
     /// Extensions that cannot be ignored even if unrecognized
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// The actual answer response
-    pub value_boolean: Option<types::Boolean>,
-
-    /// The actual answer response
-    pub value_decimal: Option<types::Decimal>,
-
-    /// The actual answer response
-    pub value_integer: Option<types::Integer>,
-
-    /// The actual answer response
-    pub value_date: Option<types::Date>,
-
-    /// The actual answer response
-    pub value_date_time: Option<types::DateTime>,
-
-    /// The actual answer response
-    pub value_time: Option<types::Time>,
-
-    /// The actual answer response
-    pub value_string: Option<types::String>,
-
-    /// The actual answer response
-    pub value_uri: Option<types::Uri>,
-
-    /// The actual answer response
-    pub value_attachment: Option<types::Attachment>,
-
-    /// The actual answer response
-    pub value_coding: Option<types::Coding>,
-
-    /// The actual answer response
-    pub value_quantity: Option<types::Quantity>,
-
-    /// The actual answer response
-    pub value_reference: Option<types::Reference>,
+    /// The `Contract.term.offer.answer.value[x]` choice element (0..1); see [`ContractTermOfferAnswerValue`].
+    #[serde(flatten)]
+    pub value: Option<ContractTermOfferAnswerValue>,
 }
 
 /// Contract Term Asset List.
@@ -591,11 +553,9 @@ pub struct ContractTermAssetValuedItem {
     /// Extensions that cannot be ignored even if unrecognized
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// Contract Valued Item Type
-    pub entity_codeable_concept: Option<types::CodeableConcept>,
-
-    /// Contract Valued Item Type
-    pub entity_reference: Option<types::Reference>,
+    /// The `Contract.term.asset.valuedItem.entity[x]` choice element (0..1); see [`ContractTermAssetValuedItemEntity`].
+    #[serde(flatten)]
+    pub entity: Option<ContractTermAssetValuedItemEntity>,
 
     /// Contract Valued Item Number
     pub identifier: Option<types::Identifier>,
@@ -705,14 +665,9 @@ pub struct ContractTermAction {
     #[serde(rename = "_contextLinkId")]
     pub context_link_id_ext: Option<Vec<Option<types::Element>>>,
 
-    /// When action happens
-    pub occurrence_date_time: Option<types::DateTime>,
-
-    /// When action happens
-    pub occurrence_period: Option<types::Period>,
-
-    /// When action happens
-    pub occurrence_timing: Option<types::Timing>,
+    /// The `Contract.term.action.occurrence[x]` choice element (0..1); see [`ContractTermActionOccurrence`].
+    #[serde(flatten)]
+    pub occurrence: Option<ContractTermActionOccurrence>,
 
     /// Who asked for action
     pub requester: Option<Vec<types::Reference>>,
@@ -816,11 +771,9 @@ pub struct ContractFriendly {
     /// Extensions that cannot be ignored even if unrecognized
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// Easily comprehended representation of this Contract
-    pub content_attachment: Option<types::Attachment>,
-
-    /// Easily comprehended representation of this Contract
-    pub content_reference: Option<types::Reference>,
+    /// The `Contract.friendly.content[x]` choice element (0..1); see [`ContractFriendlyContent`].
+    #[serde(flatten)]
+    pub content: Option<ContractFriendlyContent>,
 }
 
 /// Contract Legal Language.
@@ -837,11 +790,9 @@ pub struct ContractLegal {
     /// Extensions that cannot be ignored even if unrecognized
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// Contract Legal Text
-    pub content_attachment: Option<types::Attachment>,
-
-    /// Contract Legal Text
-    pub content_reference: Option<types::Reference>,
+    /// The `Contract.legal.content[x]` choice element (0..1); see [`ContractLegalContent`].
+    #[serde(flatten)]
+    pub content: Option<ContractLegalContent>,
 }
 
 /// Computable Contract Language.
@@ -858,11 +809,9 @@ pub struct ContractRule {
     /// Extensions that cannot be ignored even if unrecognized
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// Computable Contract Rules
-    pub content_attachment: Option<types::Attachment>,
-
-    /// Computable Contract Rules
-    pub content_reference: Option<types::Reference>,
+    /// The `Contract.rule.content[x]` choice element (0..1); see [`ContractRuleContent`].
+    #[serde(flatten)]
+    pub content: Option<ContractRuleContent>,
 }
 
 #[cfg(test)]
@@ -882,4 +831,144 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `Contract.friendly.content[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum ContractFriendlyContent {
+    /// `contentAttachment` variant.
+    #[fhir("contentAttachment")]
+    Attachment(Box<types::Attachment>),
+    /// `contentReference` variant.
+    #[fhir("contentReference")]
+    Reference(Box<types::Reference>),
+}
+
+/// The `Contract.legal.content[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum ContractLegalContent {
+    /// `contentAttachment` variant.
+    #[fhir("contentAttachment")]
+    Attachment(Box<types::Attachment>),
+    /// `contentReference` variant.
+    #[fhir("contentReference")]
+    Reference(Box<types::Reference>),
+}
+
+/// The `Contract.legallyBinding[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum ContractLegallyBinding {
+    /// `legallyBindingAttachment` variant.
+    #[fhir("legallyBindingAttachment")]
+    Attachment(Box<types::Attachment>),
+    /// `legallyBindingReference` variant.
+    #[fhir("legallyBindingReference")]
+    Reference(Box<types::Reference>),
+}
+
+/// The `Contract.rule.content[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum ContractRuleContent {
+    /// `contentAttachment` variant.
+    #[fhir("contentAttachment")]
+    Attachment(Box<types::Attachment>),
+    /// `contentReference` variant.
+    #[fhir("contentReference")]
+    Reference(Box<types::Reference>),
+}
+
+/// The `Contract.term.action.occurrence[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum ContractTermActionOccurrence {
+    /// `occurrenceDateTime` variant.
+    #[fhir("occurrenceDateTime")]
+    DateTime(crate::r5::choice::Primitive<types::DateTime>),
+    /// `occurrencePeriod` variant.
+    #[fhir("occurrencePeriod")]
+    Period(Box<types::Period>),
+    /// `occurrenceTiming` variant.
+    #[fhir("occurrenceTiming")]
+    Timing(Box<types::Timing>),
+}
+
+/// The `Contract.term.asset.valuedItem.entity[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum ContractTermAssetValuedItemEntity {
+    /// `entityCodeableConcept` variant.
+    #[fhir("entityCodeableConcept")]
+    CodeableConcept(Box<types::CodeableConcept>),
+    /// `entityReference` variant.
+    #[fhir("entityReference")]
+    Reference(Box<types::Reference>),
+}
+
+/// The `Contract.term.offer.answer.value[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum ContractTermOfferAnswerValue {
+    /// `valueBoolean` variant.
+    #[fhir("valueBoolean")]
+    Boolean(crate::r5::choice::Primitive<types::Boolean>),
+    /// `valueDecimal` variant.
+    #[fhir("valueDecimal")]
+    Decimal(crate::r5::choice::Primitive<types::Decimal>),
+    /// `valueInteger` variant.
+    #[fhir("valueInteger")]
+    Integer(crate::r5::choice::Primitive<types::Integer>),
+    /// `valueDate` variant.
+    #[fhir("valueDate")]
+    Date(crate::r5::choice::Primitive<types::Date>),
+    /// `valueDateTime` variant.
+    #[fhir("valueDateTime")]
+    DateTime(crate::r5::choice::Primitive<types::DateTime>),
+    /// `valueTime` variant.
+    #[fhir("valueTime")]
+    Time(crate::r5::choice::Primitive<types::Time>),
+    /// `valueString` variant.
+    #[fhir("valueString")]
+    String(crate::r5::choice::Primitive<types::String>),
+    /// `valueUri` variant.
+    #[fhir("valueUri")]
+    Uri(crate::r5::choice::Primitive<types::Uri>),
+    /// `valueAttachment` variant.
+    #[fhir("valueAttachment")]
+    Attachment(Box<types::Attachment>),
+    /// `valueCoding` variant.
+    #[fhir("valueCoding")]
+    Coding(Box<types::Coding>),
+    /// `valueQuantity` variant.
+    #[fhir("valueQuantity")]
+    Quantity(Box<types::Quantity>),
+    /// `valueReference` variant.
+    #[fhir("valueReference")]
+    Reference(Box<types::Reference>),
+}
+
+/// The `Contract.term.topic[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum ContractTermTopic {
+    /// `topicCodeableConcept` variant.
+    #[fhir("topicCodeableConcept")]
+    CodeableConcept(Box<types::CodeableConcept>),
+    /// `topicReference` variant.
+    #[fhir("topicReference")]
+    Reference(Box<types::Reference>),
+}
+
+/// The `Contract.topic[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum ContractTopic {
+    /// `topicCodeableConcept` variant.
+    #[fhir("topicCodeableConcept")]
+    CodeableConcept(Box<types::CodeableConcept>),
+    /// `topicReference` variant.
+    #[fhir("topicReference")]
+    Reference(Box<types::Reference>),
 }

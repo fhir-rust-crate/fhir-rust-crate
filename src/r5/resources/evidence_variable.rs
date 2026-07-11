@@ -105,11 +105,9 @@ pub struct EvidenceVariable {
     #[serde(rename = "_version")]
     pub version_ext: Option<types::Element>,
 
-    /// How to compare versions
-    pub version_algorithm_string: Option<types::String>,
-
-    /// How to compare versions
-    pub version_algorithm_coding: Option<types::Coding>,
+    /// The `EvidenceVariable.versionAlgorithm[x]` choice element (0..1); see [`EvidenceVariableVersionAlgorithm`].
+    #[serde(flatten)]
+    pub version_algorithm: Option<EvidenceVariableVersionAlgorithm>,
 
     /// Name for this evidence variable (computer friendly)
     pub name: Option<types::String>,
@@ -297,17 +295,13 @@ pub struct EvidenceVariableCharacteristic {
     /// Used to specify how two or more characteristics are combined
     pub definition_by_combination: Option<EvidenceVariableCharacteristicDefinitionByCombination>,
 
-    /// Number of occurrences meeting the characteristic
-    pub instances_quantity: Option<types::Quantity>,
+    /// The `EvidenceVariable.characteristic.instances[x]` choice element (0..1); see [`EvidenceVariableCharacteristicInstances`].
+    #[serde(flatten)]
+    pub instances: Option<EvidenceVariableCharacteristicInstances>,
 
-    /// Number of occurrences meeting the characteristic
-    pub instances_range: Option<types::Range>,
-
-    /// Length of time in which the characteristic is met
-    pub duration_quantity: Option<types::Quantity>,
-
-    /// Length of time in which the characteristic is met
-    pub duration_range: Option<types::Range>,
+    /// The `EvidenceVariable.characteristic.duration[x]` choice element (0..1); see [`EvidenceVariableCharacteristicDuration`].
+    #[serde(flatten)]
+    pub duration: Option<EvidenceVariableCharacteristicDuration>,
 
     /// Timing in which the characteristic is determined
     pub time_from_event: Option<Vec<EvidenceVariableCharacteristicTimeFromEvent>>,
@@ -336,23 +330,9 @@ pub struct EvidenceVariableCharacteristicDefinitionByTypeAndValue {
     /// Device used for determining characteristic
     pub device: Option<types::Reference>,
 
-    /// Defines the characteristic when coupled with characteristic.type
-    pub value_codeable_concept: Option<types::CodeableConcept>,
-
-    /// Defines the characteristic when coupled with characteristic.type
-    pub value_boolean: Option<types::Boolean>,
-
-    /// Defines the characteristic when coupled with characteristic.type
-    pub value_quantity: Option<types::Quantity>,
-
-    /// Defines the characteristic when coupled with characteristic.type
-    pub value_range: Option<types::Range>,
-
-    /// Defines the characteristic when coupled with characteristic.type
-    pub value_reference: Option<types::Reference>,
-
-    /// Defines the characteristic when coupled with characteristic.type
-    pub value_id: Option<types::Id>,
+    /// The `EvidenceVariable.characteristic.definitionByTypeAndValue.value[x]` choice element (0..1); see [`EvidenceVariableCharacteristicDefinitionByTypeAndValueValue`].
+    #[serde(flatten)]
+    pub value: Option<EvidenceVariableCharacteristicDefinitionByTypeAndValueValue>,
 
     /// Reference point for valueQuantity or valueRange
     pub offset: Option<types::CodeableConcept>,
@@ -411,17 +391,9 @@ pub struct EvidenceVariableCharacteristicTimeFromEvent {
     /// Used for footnotes or explanatory notes
     pub note: Option<Vec<types::Annotation>>,
 
-    /// The event used as a base point (reference point) in time
-    pub event_codeable_concept: Option<types::CodeableConcept>,
-
-    /// The event used as a base point (reference point) in time
-    pub event_reference: Option<types::Reference>,
-
-    /// The event used as a base point (reference point) in time
-    pub event_date_time: Option<types::DateTime>,
-
-    /// The event used as a base point (reference point) in time
-    pub event_id: Option<types::Id>,
+    /// The `EvidenceVariable.characteristic.timeFromEvent.event[x]` choice element (0..1); see [`EvidenceVariableCharacteristicTimeFromEventEvent`].
+    #[serde(flatten)]
+    pub event: Option<EvidenceVariableCharacteristicTimeFromEventEvent>,
 
     /// Used to express the observation at a defined amount of time before or after the event
     pub quantity: Option<types::Quantity>,
@@ -450,14 +422,9 @@ pub struct EvidenceVariableCategory {
     #[serde(rename = "_name")]
     pub name_ext: Option<types::Element>,
 
-    /// Definition of the grouping
-    pub value_codeable_concept: Option<types::CodeableConcept>,
-
-    /// Definition of the grouping
-    pub value_quantity: Option<types::Quantity>,
-
-    /// Definition of the grouping
-    pub value_range: Option<types::Range>,
+    /// The `EvidenceVariable.category.value[x]` choice element (0..1); see [`EvidenceVariableCategoryValue`].
+    #[serde(flatten)]
+    pub value: Option<EvidenceVariableCategoryValue>,
 }
 
 #[cfg(test)]
@@ -477,4 +444,96 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `EvidenceVariable.category.value[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum EvidenceVariableCategoryValue {
+    /// `valueCodeableConcept` variant.
+    #[fhir("valueCodeableConcept")]
+    CodeableConcept(Box<types::CodeableConcept>),
+    /// `valueQuantity` variant.
+    #[fhir("valueQuantity")]
+    Quantity(Box<types::Quantity>),
+    /// `valueRange` variant.
+    #[fhir("valueRange")]
+    Range(Box<types::Range>),
+}
+
+/// The `EvidenceVariable.characteristic.definitionByTypeAndValue.value[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum EvidenceVariableCharacteristicDefinitionByTypeAndValueValue {
+    /// `valueCodeableConcept` variant.
+    #[fhir("valueCodeableConcept")]
+    CodeableConcept(Box<types::CodeableConcept>),
+    /// `valueBoolean` variant.
+    #[fhir("valueBoolean")]
+    Boolean(crate::r5::choice::Primitive<types::Boolean>),
+    /// `valueQuantity` variant.
+    #[fhir("valueQuantity")]
+    Quantity(Box<types::Quantity>),
+    /// `valueRange` variant.
+    #[fhir("valueRange")]
+    Range(Box<types::Range>),
+    /// `valueReference` variant.
+    #[fhir("valueReference")]
+    Reference(Box<types::Reference>),
+    /// `valueId` variant.
+    #[fhir("valueId")]
+    Id(crate::r5::choice::Primitive<types::Id>),
+}
+
+/// The `EvidenceVariable.characteristic.duration[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum EvidenceVariableCharacteristicDuration {
+    /// `durationQuantity` variant.
+    #[fhir("durationQuantity")]
+    Quantity(Box<types::Quantity>),
+    /// `durationRange` variant.
+    #[fhir("durationRange")]
+    Range(Box<types::Range>),
+}
+
+/// The `EvidenceVariable.characteristic.instances[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum EvidenceVariableCharacteristicInstances {
+    /// `instancesQuantity` variant.
+    #[fhir("instancesQuantity")]
+    Quantity(Box<types::Quantity>),
+    /// `instancesRange` variant.
+    #[fhir("instancesRange")]
+    Range(Box<types::Range>),
+}
+
+/// The `EvidenceVariable.characteristic.timeFromEvent.event[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum EvidenceVariableCharacteristicTimeFromEventEvent {
+    /// `eventCodeableConcept` variant.
+    #[fhir("eventCodeableConcept")]
+    CodeableConcept(Box<types::CodeableConcept>),
+    /// `eventReference` variant.
+    #[fhir("eventReference")]
+    Reference(Box<types::Reference>),
+    /// `eventDateTime` variant.
+    #[fhir("eventDateTime")]
+    DateTime(crate::r5::choice::Primitive<types::DateTime>),
+    /// `eventId` variant.
+    #[fhir("eventId")]
+    Id(crate::r5::choice::Primitive<types::Id>),
+}
+
+/// The `EvidenceVariable.versionAlgorithm[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum EvidenceVariableVersionAlgorithm {
+    /// `versionAlgorithmString` variant.
+    #[fhir("versionAlgorithmString")]
+    String(crate::r5::choice::Primitive<types::String>),
+    /// `versionAlgorithmCoding` variant.
+    #[fhir("versionAlgorithmCoding")]
+    Coding(Box<types::Coding>),
 }

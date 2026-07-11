@@ -105,11 +105,9 @@ pub struct ConceptMap {
     #[serde(rename = "_version")]
     pub version_ext: Option<types::Element>,
 
-    /// How to compare versions
-    pub version_algorithm_string: Option<types::String>,
-
-    /// How to compare versions
-    pub version_algorithm_coding: Option<types::Coding>,
+    /// The `ConceptMap.versionAlgorithm[x]` choice element (0..1); see [`ConceptMapVersionAlgorithm`].
+    #[serde(flatten)]
+    pub version_algorithm: Option<ConceptMapVersionAlgorithm>,
 
     /// Name for this concept map (computer friendly)
     pub name: Option<types::String>,
@@ -219,17 +217,13 @@ pub struct ConceptMap {
     /// Definition of an additional attribute to act as a data source or target
     pub additional_attribute: Option<Vec<ConceptMapAdditionalAttribute>>,
 
-    /// The source value set that contains the concepts that are being mapped
-    pub source_scope_uri: Option<types::Uri>,
+    /// The `ConceptMap.sourceScope[x]` choice element (0..1); see [`ConceptMapSourceScope`].
+    #[serde(flatten)]
+    pub source_scope: Option<ConceptMapSourceScope>,
 
-    /// The source value set that contains the concepts that are being mapped, referenced by its canonical URL
-    pub source_scope_canonical: Option<types::Canonical>,
-
-    /// The target value set which provides context for the mappings
-    pub target_scope_uri: Option<types::Uri>,
-
-    /// The target value set which provides context for the mappings, referenced by its canonical URL
-    pub target_scope_canonical: Option<types::Canonical>,
+    /// The `ConceptMap.targetScope[x]` choice element (0..1); see [`ConceptMapTargetScope`].
+    #[serde(flatten)]
+    pub target_scope: Option<ConceptMapTargetScope>,
 
     /// Same source and target systems; the groups of element-to-target mappings that make up the body of the ConceptMap
     pub group: Option<Vec<ConceptMapGroup>>,
@@ -486,26 +480,9 @@ pub struct ConceptMapGroupElementTargetProperty {
     #[serde(rename = "_code")]
     pub code_ext: Option<types::Element>,
 
-    /// Value of the property for this concept
-    pub value_coding: Option<types::Coding>,
-
-    /// Value of the property for this concept
-    pub value_string: Option<types::String>,
-
-    /// Value of the property for this concept
-    pub value_integer: Option<types::Integer>,
-
-    /// Value of the property for this concept
-    pub value_boolean: Option<types::Boolean>,
-
-    /// Value of the property for this concept
-    pub value_date_time: Option<types::DateTime>,
-
-    /// Value of the property for this concept
-    pub value_decimal: Option<types::Decimal>,
-
-    /// Value of the property for this concept
-    pub value_code: Option<types::Code>,
+    /// The `ConceptMap.group.element.target.property.value[x]` choice element (0..1); see [`ConceptMapGroupElementTargetPropertyValue`].
+    #[serde(flatten)]
+    pub value: Option<ConceptMapGroupElementTargetPropertyValue>,
 }
 
 /// Other properties required for this mapping.
@@ -531,20 +508,9 @@ pub struct ConceptMapGroupElementTargetDependsOn {
     #[serde(rename = "_attribute")]
     pub attribute_ext: Option<types::Element>,
 
-    /// Value of the referenced data element
-    pub value_code: Option<types::Code>,
-
-    /// Value of the referenced data element
-    pub value_coding: Option<types::Coding>,
-
-    /// Value of the referenced data element
-    pub value_string: Option<types::String>,
-
-    /// Value of the referenced data element
-    pub value_boolean: Option<types::Boolean>,
-
-    /// Value of the referenced data element
-    pub value_quantity: Option<types::Quantity>,
+    /// The `ConceptMap.group.element.target.dependsOn.value[x]` choice element (0..1); see [`ConceptMapGroupElementTargetDependsOnValue`].
+    #[serde(flatten)]
+    pub value: Option<ConceptMapGroupElementTargetDependsOnValue>,
 
     /// The mapping depends on a data element with a value from this value set
     pub value_set: Option<types::Canonical>,
@@ -625,4 +591,87 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `ConceptMap.group.element.target.dependsOn.value[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum ConceptMapGroupElementTargetDependsOnValue {
+    /// `valueCode` variant.
+    #[fhir("valueCode")]
+    Code(crate::r5::choice::Primitive<types::Code>),
+    /// `valueCoding` variant.
+    #[fhir("valueCoding")]
+    Coding(Box<types::Coding>),
+    /// `valueString` variant.
+    #[fhir("valueString")]
+    String(crate::r5::choice::Primitive<types::String>),
+    /// `valueBoolean` variant.
+    #[fhir("valueBoolean")]
+    Boolean(crate::r5::choice::Primitive<types::Boolean>),
+    /// `valueQuantity` variant.
+    #[fhir("valueQuantity")]
+    Quantity(Box<types::Quantity>),
+}
+
+/// The `ConceptMap.group.element.target.property.value[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum ConceptMapGroupElementTargetPropertyValue {
+    /// `valueCoding` variant.
+    #[fhir("valueCoding")]
+    Coding(Box<types::Coding>),
+    /// `valueString` variant.
+    #[fhir("valueString")]
+    String(crate::r5::choice::Primitive<types::String>),
+    /// `valueInteger` variant.
+    #[fhir("valueInteger")]
+    Integer(crate::r5::choice::Primitive<types::Integer>),
+    /// `valueBoolean` variant.
+    #[fhir("valueBoolean")]
+    Boolean(crate::r5::choice::Primitive<types::Boolean>),
+    /// `valueDateTime` variant.
+    #[fhir("valueDateTime")]
+    DateTime(crate::r5::choice::Primitive<types::DateTime>),
+    /// `valueDecimal` variant.
+    #[fhir("valueDecimal")]
+    Decimal(crate::r5::choice::Primitive<types::Decimal>),
+    /// `valueCode` variant.
+    #[fhir("valueCode")]
+    Code(crate::r5::choice::Primitive<types::Code>),
+}
+
+/// The `ConceptMap.sourceScope[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum ConceptMapSourceScope {
+    /// `sourceScopeUri` variant.
+    #[fhir("sourceScopeUri")]
+    Uri(crate::r5::choice::Primitive<types::Uri>),
+    /// `sourceScopeCanonical` variant.
+    #[fhir("sourceScopeCanonical")]
+    Canonical(crate::r5::choice::Primitive<types::Canonical>),
+}
+
+/// The `ConceptMap.targetScope[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum ConceptMapTargetScope {
+    /// `targetScopeUri` variant.
+    #[fhir("targetScopeUri")]
+    Uri(crate::r5::choice::Primitive<types::Uri>),
+    /// `targetScopeCanonical` variant.
+    #[fhir("targetScopeCanonical")]
+    Canonical(crate::r5::choice::Primitive<types::Canonical>),
+}
+
+/// The `ConceptMap.versionAlgorithm[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum ConceptMapVersionAlgorithm {
+    /// `versionAlgorithmString` variant.
+    #[fhir("versionAlgorithmString")]
+    String(crate::r5::choice::Primitive<types::String>),
+    /// `versionAlgorithmCoding` variant.
+    #[fhir("versionAlgorithmCoding")]
+    Coding(Box<types::Coding>),
 }

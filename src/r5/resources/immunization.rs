@@ -132,11 +132,9 @@ pub struct Immunization {
     /// Additional information in support of the immunization
     pub supporting_information: Option<Vec<types::Reference>>,
 
-    /// Vaccine administration date
-    pub occurrence_date_time: Option<types::DateTime>,
-
-    /// Vaccine administration date
-    pub occurrence_string: Option<types::String>,
+    /// The `Immunization.occurrence[x]` choice element (0..1); see [`ImmunizationOccurrence`].
+    #[serde(flatten)]
+    pub occurrence: Option<ImmunizationOccurrence>,
 
     /// Indicates context the data was captured in
     pub primary_source: Option<types::Boolean>,
@@ -318,4 +316,15 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `Immunization.occurrence[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum ImmunizationOccurrence {
+    /// `occurrenceDateTime` variant.
+    #[fhir("occurrenceDateTime")]
+    DateTime(crate::r5::choice::Primitive<types::DateTime>),
+    /// `occurrenceString` variant.
+    #[fhir("occurrenceString")]
+    String(crate::r5::choice::Primitive<types::String>),
 }

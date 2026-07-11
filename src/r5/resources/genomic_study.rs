@@ -261,11 +261,9 @@ pub struct GenomicStudyAnalysisInput {
     /// Type of input data (e.g., BAM, CRAM, or FASTA)
     pub r#type: Option<types::CodeableConcept>,
 
-    /// The analysis event or other GenomicStudy that generated this input file
-    pub generated_by_identifier: Option<types::Identifier>,
-
-    /// The analysis event or other GenomicStudy that generated this input file
-    pub generated_by_reference: Option<types::Reference>,
+    /// The `GenomicStudy.analysis.input.generatedBy[x]` choice element (0..1); see [`GenomicStudyAnalysisInputGeneratedBy`].
+    #[serde(flatten)]
+    pub generated_by: Option<GenomicStudyAnalysisInputGeneratedBy>,
 }
 
 /// Outputs for the analysis event
@@ -356,4 +354,15 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `GenomicStudy.analysis.input.generatedBy[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum GenomicStudyAnalysisInputGeneratedBy {
+    /// `generatedByIdentifier` variant.
+    #[fhir("generatedByIdentifier")]
+    Identifier(Box<types::Identifier>),
+    /// `generatedByReference` variant.
+    #[fhir("generatedByReference")]
+    Reference(Box<types::Reference>),
 }

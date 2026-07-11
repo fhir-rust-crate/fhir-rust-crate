@@ -161,11 +161,9 @@ pub struct RegulatedAuthorizationCase {
     /// The status associated with the case
     pub status: Option<types::CodeableConcept>,
 
-    /// Relevant date for this case
-    pub date_period: Option<types::Period>,
-
-    /// Relevant date for this case
-    pub date_date_time: Option<types::DateTime>,
+    /// The `RegulatedAuthorization.case.date[x]` choice element (0..1); see [`RegulatedAuthorizationCaseDate`].
+    #[serde(flatten)]
+    pub date: Option<RegulatedAuthorizationCaseDate>,
 
     /// Applications submitted to obtain a regulated authorization. Steps within the longer running case or procedure
     pub application: Option<Vec<RegulatedAuthorizationCase>>,
@@ -188,4 +186,15 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `RegulatedAuthorization.case.date[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum RegulatedAuthorizationCaseDate {
+    /// `datePeriod` variant.
+    #[fhir("datePeriod")]
+    Period(Box<types::Period>),
+    /// `dateDateTime` variant.
+    #[fhir("dateDateTime")]
+    DateTime(crate::r5::choice::Primitive<types::DateTime>),
 }

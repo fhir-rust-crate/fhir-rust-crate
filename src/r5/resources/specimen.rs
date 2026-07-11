@@ -193,11 +193,9 @@ pub struct SpecimenCollection {
     /// Who collected the specimen
     pub collector: Option<types::Reference>,
 
-    /// Collection time (dateTime)
-    pub collected_date_time: Option<types::DateTime>,
-
-    /// Collection time (Period)
-    pub collected_period: Option<types::Period>,
+    /// The `Specimen.collection.collected[x]` choice element (0..1); see [`SpecimenCollectionCollected`].
+    #[serde(flatten)]
+    pub collected: Option<SpecimenCollectionCollected>,
 
     /// How long it took to collect specimen
     pub duration: Option<types::Duration>,
@@ -217,11 +215,9 @@ pub struct SpecimenCollection {
     /// Anatomical collection site
     pub body_site: Option<types::CodeableReference>,
 
-    /// Whether or how long patient abstained from food and/or drink (CodeableConcept)
-    pub fasting_status_codeable_concept: Option<types::CodeableConcept>,
-
-    /// Whether or how long patient abstained from food and/or drink (Duration)
-    pub fasting_status_duration: Option<types::Duration>,
+    /// The `Specimen.collection.fastingStatus[x]` choice element (0..1); see [`SpecimenCollectionFastingStatus`].
+    #[serde(flatten)]
+    pub fasting_status: Option<SpecimenCollectionFastingStatus>,
 }
 
 /// Processing and processing step details.
@@ -254,11 +250,9 @@ pub struct SpecimenProcessing {
     /// Material used in the processing step
     pub additive: Option<Vec<types::Reference>>,
 
-    /// Date and time of specimen processing (dateTime)
-    pub time_date_time: Option<types::DateTime>,
-
-    /// Date and time of specimen processing (Period)
-    pub time_period: Option<types::Period>,
+    /// The `Specimen.processing.time[x]` choice element (0..1); see [`SpecimenProcessingTime`].
+    #[serde(flatten)]
+    pub time: Option<SpecimenProcessingTime>,
 }
 
 /// Direct container of specimen (tube/slide, etc.).
@@ -305,4 +299,39 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `Specimen.collection.collected[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum SpecimenCollectionCollected {
+    /// `collectedDateTime` variant.
+    #[fhir("collectedDateTime")]
+    DateTime(crate::r5::choice::Primitive<types::DateTime>),
+    /// `collectedPeriod` variant.
+    #[fhir("collectedPeriod")]
+    Period(Box<types::Period>),
+}
+
+/// The `Specimen.collection.fastingStatus[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum SpecimenCollectionFastingStatus {
+    /// `fastingStatusCodeableConcept` variant.
+    #[fhir("fastingStatusCodeableConcept")]
+    CodeableConcept(Box<types::CodeableConcept>),
+    /// `fastingStatusDuration` variant.
+    #[fhir("fastingStatusDuration")]
+    Duration(Box<types::Duration>),
+}
+
+/// The `Specimen.processing.time[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum SpecimenProcessingTime {
+    /// `timeDateTime` variant.
+    #[fhir("timeDateTime")]
+    DateTime(crate::r5::choice::Primitive<types::DateTime>),
+    /// `timePeriod` variant.
+    #[fhir("timePeriod")]
+    Period(Box<types::Period>),
 }

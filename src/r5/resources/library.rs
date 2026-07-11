@@ -99,11 +99,9 @@ pub struct Library {
     #[serde(rename = "_version")]
     pub version_ext: Option<types::Element>,
 
-    /// How to compare versions
-    pub version_algorithm_string: Option<types::String>,
-
-    /// How to compare versions
-    pub version_algorithm_coding: Option<types::Coding>,
+    /// The `Library.versionAlgorithm[x]` choice element (0..1); see [`LibraryVersionAlgorithm`].
+    #[serde(flatten)]
+    pub version_algorithm: Option<LibraryVersionAlgorithm>,
 
     /// Name for this library (computer friendly)
     pub name: Option<types::String>,
@@ -138,11 +136,9 @@ pub struct Library {
     /// Kind of library, such as logic-library, model-definition, asset-collection, or module-definition
     pub r#type: types::CodeableConcept,
 
-    /// Type of individual the library content is focused on
-    pub subject_codeable_concept: Option<types::CodeableConcept>,
-
-    /// Type of individual the library content is focused on
-    pub subject_reference: Option<types::Reference>,
+    /// The `Library.subject[x]` choice element (0..1); see [`LibrarySubject`].
+    #[serde(flatten)]
+    pub subject: Option<LibrarySubject>,
 
     /// Date last changed
     pub date: Option<types::DateTime>,
@@ -255,4 +251,27 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `Library.subject[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum LibrarySubject {
+    /// `subjectCodeableConcept` variant.
+    #[fhir("subjectCodeableConcept")]
+    CodeableConcept(Box<types::CodeableConcept>),
+    /// `subjectReference` variant.
+    #[fhir("subjectReference")]
+    Reference(Box<types::Reference>),
+}
+
+/// The `Library.versionAlgorithm[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum LibraryVersionAlgorithm {
+    /// `versionAlgorithmString` variant.
+    #[fhir("versionAlgorithmString")]
+    String(crate::r5::choice::Primitive<types::String>),
+    /// `versionAlgorithmCoding` variant.
+    #[fhir("versionAlgorithmCoding")]
+    Coding(Box<types::Coding>),
 }

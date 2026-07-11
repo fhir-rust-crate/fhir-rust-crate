@@ -140,26 +140,9 @@ pub struct ManufacturedItemDefinitionProperty {
     /// A code expressing the type of characteristic
     pub r#type: types::CodeableConcept,
 
-    /// A value for the characteristic
-    pub value_codeable_concept: Option<types::CodeableConcept>,
-
-    /// A value for the characteristic
-    pub value_quantity: Option<types::Quantity>,
-
-    /// A value for the characteristic
-    pub value_date: Option<types::Date>,
-
-    /// A value for the characteristic
-    pub value_boolean: Option<types::Boolean>,
-
-    /// A value for the characteristic
-    pub value_markdown: Option<types::Markdown>,
-
-    /// A value for the characteristic
-    pub value_attachment: Option<types::Attachment>,
-
-    /// A value for the characteristic
-    pub value_reference: Option<types::Reference>,
+    /// The `ManufacturedItemDefinition.property.value[x]` choice element (0..1); see [`ManufacturedItemDefinitionPropertyValue`].
+    #[serde(flatten)]
+    pub value: Option<ManufacturedItemDefinitionPropertyValue>,
 }
 
 /// Physical parts of the manufactured item, that it is intrisically made from.
@@ -245,4 +228,30 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `ManufacturedItemDefinition.property.value[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum ManufacturedItemDefinitionPropertyValue {
+    /// `valueCodeableConcept` variant.
+    #[fhir("valueCodeableConcept")]
+    CodeableConcept(Box<types::CodeableConcept>),
+    /// `valueQuantity` variant.
+    #[fhir("valueQuantity")]
+    Quantity(Box<types::Quantity>),
+    /// `valueDate` variant.
+    #[fhir("valueDate")]
+    Date(crate::r5::choice::Primitive<types::Date>),
+    /// `valueBoolean` variant.
+    #[fhir("valueBoolean")]
+    Boolean(crate::r5::choice::Primitive<types::Boolean>),
+    /// `valueMarkdown` variant.
+    #[fhir("valueMarkdown")]
+    Markdown(crate::r5::choice::Primitive<types::Markdown>),
+    /// `valueAttachment` variant.
+    #[fhir("valueAttachment")]
+    Attachment(Box<types::Attachment>),
+    /// `valueReference` variant.
+    #[fhir("valueReference")]
+    Reference(Box<types::Reference>),
 }

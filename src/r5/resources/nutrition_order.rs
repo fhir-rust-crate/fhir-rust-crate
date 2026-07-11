@@ -451,11 +451,9 @@ pub struct NutritionOrderEnteralFormulaAdministration {
     /// The volume of formula to provide
     pub quantity: Option<types::Quantity>,
 
-    /// Speed with which the formula is provided per period of time
-    pub rate_quantity: Option<types::Quantity>,
-
-    /// Speed with which the formula is provided per period of time
-    pub rate_ratio: Option<types::Ratio>,
+    /// The `NutritionOrder.enteralFormula.administration.rate[x]` choice element (0..1); see [`NutritionOrderEnteralFormulaAdministrationRate`].
+    #[serde(flatten)]
+    pub rate: Option<NutritionOrderEnteralFormulaAdministrationRate>,
 }
 
 /// Scheduling information for enteral formula products.
@@ -502,4 +500,15 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `NutritionOrder.enteralFormula.administration.rate[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum NutritionOrderEnteralFormulaAdministrationRate {
+    /// `rateQuantity` variant.
+    #[fhir("rateQuantity")]
+    Quantity(Box<types::Quantity>),
+    /// `rateRatio` variant.
+    #[fhir("rateRatio")]
+    Ratio(Box<types::Ratio>),
 }

@@ -149,14 +149,9 @@ pub struct DeviceRequest {
     /// Encounter motivating request
     pub encounter: Option<types::Reference>,
 
-    /// Desired time or schedule for use
-    pub occurrence_date_time: Option<types::DateTime>,
-
-    /// Desired time or schedule for use
-    pub occurrence_period: Option<types::Period>,
-
-    /// Desired time or schedule for use
-    pub occurrence_timing: Option<types::Timing>,
+    /// The `DeviceRequest.occurrence[x]` choice element (0..1); see [`DeviceRequestOccurrence`].
+    #[serde(flatten)]
+    pub occurrence: Option<DeviceRequestOccurrence>,
 
     /// When recorded
     pub authored_on: Option<types::DateTime>,
@@ -215,17 +210,9 @@ pub struct DeviceRequestParameter {
     /// Device detail
     pub code: Option<types::CodeableConcept>,
 
-    /// Value of detail
-    pub value_codeable_concept: Option<types::CodeableConcept>,
-
-    /// Value of detail
-    pub value_quantity: Option<types::Quantity>,
-
-    /// Value of detail
-    pub value_range: Option<types::Range>,
-
-    /// Value of detail
-    pub value_boolean: Option<types::Boolean>,
+    /// The `DeviceRequest.parameter.value[x]` choice element (0..1); see [`DeviceRequestParameterValue`].
+    #[serde(flatten)]
+    pub value: Option<DeviceRequestParameterValue>,
 }
 
 #[cfg(test)]
@@ -245,4 +232,36 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `DeviceRequest.occurrence[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum DeviceRequestOccurrence {
+    /// `occurrenceDateTime` variant.
+    #[fhir("occurrenceDateTime")]
+    DateTime(crate::r5::choice::Primitive<types::DateTime>),
+    /// `occurrencePeriod` variant.
+    #[fhir("occurrencePeriod")]
+    Period(Box<types::Period>),
+    /// `occurrenceTiming` variant.
+    #[fhir("occurrenceTiming")]
+    Timing(Box<types::Timing>),
+}
+
+/// The `DeviceRequest.parameter.value[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum DeviceRequestParameterValue {
+    /// `valueCodeableConcept` variant.
+    #[fhir("valueCodeableConcept")]
+    CodeableConcept(Box<types::CodeableConcept>),
+    /// `valueQuantity` variant.
+    #[fhir("valueQuantity")]
+    Quantity(Box<types::Quantity>),
+    /// `valueRange` variant.
+    #[fhir("valueRange")]
+    Range(Box<types::Range>),
+    /// `valueBoolean` variant.
+    #[fhir("valueBoolean")]
+    Boolean(crate::r5::choice::Primitive<types::Boolean>),
 }

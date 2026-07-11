@@ -104,11 +104,9 @@ pub struct ValueSet {
     #[serde(rename = "_version")]
     pub version_ext: Option<types::Element>,
 
-    /// How to compare versions
-    pub version_algorithm_string: Option<types::String>,
-
-    /// How to compare versions
-    pub version_algorithm_coding: Option<types::Coding>,
+    /// The `ValueSet.versionAlgorithm[x]` choice element (0..1); see [`ValueSetVersionAlgorithm`].
+    #[serde(flatten)]
+    pub version_algorithm: Option<ValueSetVersionAlgorithm>,
 
     /// Name for this value set (computer friendly)
     pub name: Option<types::String>,
@@ -482,26 +480,9 @@ pub struct ValueSetExpansionParameter {
     #[serde(rename = "_name")]
     pub name_ext: Option<types::Element>,
 
-    /// Value of the named parameter
-    pub value_string: Option<types::String>,
-
-    /// Value of the named parameter
-    pub value_boolean: Option<types::Boolean>,
-
-    /// Value of the named parameter
-    pub value_integer: Option<types::Integer>,
-
-    /// Value of the named parameter
-    pub value_decimal: Option<types::Decimal>,
-
-    /// Value of the named parameter
-    pub value_uri: Option<types::Uri>,
-
-    /// Value of the named parameter
-    pub value_code: Option<types::Code>,
-
-    /// Value of the named parameter
-    pub value_date_time: Option<types::DateTime>,
+    /// The `ValueSet.expansion.parameter.value[x]` choice element (0..1); see [`ValueSetExpansionParameterValue`].
+    #[serde(flatten)]
+    pub value: Option<ValueSetExpansionParameterValue>,
 }
 
 /// Additional information supplied about each concept.
@@ -611,26 +592,9 @@ pub struct ValueSetExpansionContainsProperty {
     #[serde(rename = "_code")]
     pub code_ext: Option<types::Element>,
 
-    /// Value of the property for this concept
-    pub value_code: Option<types::Code>,
-
-    /// Value of the property for this concept
-    pub value_coding: Option<types::Coding>,
-
-    /// Value of the property for this concept
-    pub value_string: Option<types::String>,
-
-    /// Value of the property for this concept
-    pub value_integer: Option<types::Integer>,
-
-    /// Value of the property for this concept
-    pub value_boolean: Option<types::Boolean>,
-
-    /// Value of the property for this concept
-    pub value_date_time: Option<types::DateTime>,
-
-    /// Value of the property for this concept
-    pub value_decimal: Option<types::Decimal>,
+    /// The `ValueSet.expansion.contains.property.value[x]` choice element (0..1); see [`ValueSetExpansionContainsPropertyValue`].
+    #[serde(flatten)]
+    pub value: Option<ValueSetExpansionContainsPropertyValue>,
 
     /// SubProperty value for the concept
     pub sub_property: Option<Vec<ValueSetExpansionContainsPropertySubProperty>>,
@@ -656,26 +620,9 @@ pub struct ValueSetExpansionContainsPropertySubProperty {
     #[serde(rename = "_code")]
     pub code_ext: Option<types::Element>,
 
-    /// Value of the subproperty for this concept
-    pub value_code: Option<types::Code>,
-
-    /// Value of the subproperty for this concept
-    pub value_coding: Option<types::Coding>,
-
-    /// Value of the subproperty for this concept
-    pub value_string: Option<types::String>,
-
-    /// Value of the subproperty for this concept
-    pub value_integer: Option<types::Integer>,
-
-    /// Value of the subproperty for this concept
-    pub value_boolean: Option<types::Boolean>,
-
-    /// Value of the subproperty for this concept
-    pub value_date_time: Option<types::DateTime>,
-
-    /// Value of the subproperty for this concept
-    pub value_decimal: Option<types::Decimal>,
+    /// The `ValueSet.expansion.contains.property.subProperty.value[x]` choice element (0..1); see [`ValueSetExpansionContainsPropertySubPropertyValue`].
+    #[serde(flatten)]
+    pub value: Option<ValueSetExpansionContainsPropertySubPropertyValue>,
 }
 
 /// Description of the semantic space the Value Set Expansion is intended to cover.
@@ -722,4 +669,96 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `ValueSet.expansion.contains.property.subProperty.value[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum ValueSetExpansionContainsPropertySubPropertyValue {
+    /// `valueCode` variant.
+    #[fhir("valueCode")]
+    Code(crate::r5::choice::Primitive<types::Code>),
+    /// `valueCoding` variant.
+    #[fhir("valueCoding")]
+    Coding(Box<types::Coding>),
+    /// `valueString` variant.
+    #[fhir("valueString")]
+    String(crate::r5::choice::Primitive<types::String>),
+    /// `valueInteger` variant.
+    #[fhir("valueInteger")]
+    Integer(crate::r5::choice::Primitive<types::Integer>),
+    /// `valueBoolean` variant.
+    #[fhir("valueBoolean")]
+    Boolean(crate::r5::choice::Primitive<types::Boolean>),
+    /// `valueDateTime` variant.
+    #[fhir("valueDateTime")]
+    DateTime(crate::r5::choice::Primitive<types::DateTime>),
+    /// `valueDecimal` variant.
+    #[fhir("valueDecimal")]
+    Decimal(crate::r5::choice::Primitive<types::Decimal>),
+}
+
+/// The `ValueSet.expansion.contains.property.value[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum ValueSetExpansionContainsPropertyValue {
+    /// `valueCode` variant.
+    #[fhir("valueCode")]
+    Code(crate::r5::choice::Primitive<types::Code>),
+    /// `valueCoding` variant.
+    #[fhir("valueCoding")]
+    Coding(Box<types::Coding>),
+    /// `valueString` variant.
+    #[fhir("valueString")]
+    String(crate::r5::choice::Primitive<types::String>),
+    /// `valueInteger` variant.
+    #[fhir("valueInteger")]
+    Integer(crate::r5::choice::Primitive<types::Integer>),
+    /// `valueBoolean` variant.
+    #[fhir("valueBoolean")]
+    Boolean(crate::r5::choice::Primitive<types::Boolean>),
+    /// `valueDateTime` variant.
+    #[fhir("valueDateTime")]
+    DateTime(crate::r5::choice::Primitive<types::DateTime>),
+    /// `valueDecimal` variant.
+    #[fhir("valueDecimal")]
+    Decimal(crate::r5::choice::Primitive<types::Decimal>),
+}
+
+/// The `ValueSet.expansion.parameter.value[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum ValueSetExpansionParameterValue {
+    /// `valueString` variant.
+    #[fhir("valueString")]
+    String(crate::r5::choice::Primitive<types::String>),
+    /// `valueBoolean` variant.
+    #[fhir("valueBoolean")]
+    Boolean(crate::r5::choice::Primitive<types::Boolean>),
+    /// `valueInteger` variant.
+    #[fhir("valueInteger")]
+    Integer(crate::r5::choice::Primitive<types::Integer>),
+    /// `valueDecimal` variant.
+    #[fhir("valueDecimal")]
+    Decimal(crate::r5::choice::Primitive<types::Decimal>),
+    /// `valueUri` variant.
+    #[fhir("valueUri")]
+    Uri(crate::r5::choice::Primitive<types::Uri>),
+    /// `valueCode` variant.
+    #[fhir("valueCode")]
+    Code(crate::r5::choice::Primitive<types::Code>),
+    /// `valueDateTime` variant.
+    #[fhir("valueDateTime")]
+    DateTime(crate::r5::choice::Primitive<types::DateTime>),
+}
+
+/// The `ValueSet.versionAlgorithm[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum ValueSetVersionAlgorithm {
+    /// `versionAlgorithmString` variant.
+    #[fhir("versionAlgorithmString")]
+    String(crate::r5::choice::Primitive<types::String>),
+    /// `versionAlgorithmCoding` variant.
+    #[fhir("versionAlgorithmCoding")]
+    Coding(Box<types::Coding>),
 }

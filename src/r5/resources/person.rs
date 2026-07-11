@@ -113,11 +113,9 @@ pub struct Person {
     #[serde(rename = "_birthDate")]
     pub birth_date_ext: Option<types::Element>,
 
-    /// Indicates if the individual is deceased or not
-    pub deceased_boolean: Option<types::Boolean>,
-
-    /// Indicates if the individual is deceased or not
-    pub deceased_date_time: Option<types::DateTime>,
+    /// The `Person.deceased[x]` choice element (0..1); see [`PersonDeceased`].
+    #[serde(flatten)]
+    pub deceased: Option<PersonDeceased>,
 
     /// One or more addresses for the person
     pub address: Option<Vec<types::Address>>,
@@ -204,4 +202,15 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `Person.deceased[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum PersonDeceased {
+    /// `deceasedBoolean` variant.
+    #[fhir("deceasedBoolean")]
+    Boolean(crate::r5::choice::Primitive<types::Boolean>),
+    /// `deceasedDateTime` variant.
+    #[fhir("deceasedDateTime")]
+    DateTime(crate::r5::choice::Primitive<types::DateTime>),
 }

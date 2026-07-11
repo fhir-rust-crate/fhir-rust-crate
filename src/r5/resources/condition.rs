@@ -112,35 +112,13 @@ pub struct Condition {
     /// The encounter during which this condition was created or asserted
     pub encounter: Option<types::Reference>,
 
-    /// Estimated or actual date, date-time, or age
-    pub onset_date_time: Option<types::DateTime>,
+    /// The `Condition.onset[x]` choice element (0..1); see [`ConditionOnset`].
+    #[serde(flatten)]
+    pub onset: Option<ConditionOnset>,
 
-    /// Estimated or actual date, date-time, or age
-    pub onset_age: Option<types::Age>,
-
-    /// Estimated or actual date, date-time, or age
-    pub onset_period: Option<types::Period>,
-
-    /// Estimated or actual date, date-time, or age
-    pub onset_range: Option<types::Range>,
-
-    /// Estimated or actual date, date-time, or age
-    pub onset_string: Option<types::String>,
-
-    /// When in resolution/remission
-    pub abatement_date_time: Option<types::DateTime>,
-
-    /// When in resolution/remission
-    pub abatement_age: Option<types::Age>,
-
-    /// When in resolution/remission
-    pub abatement_period: Option<types::Period>,
-
-    /// When in resolution/remission
-    pub abatement_range: Option<types::Range>,
-
-    /// When in resolution/remission
-    pub abatement_string: Option<types::String>,
+    /// The `Condition.abatement[x]` choice element (0..1); see [`ConditionAbatement`].
+    #[serde(flatten)]
+    pub abatement: Option<ConditionAbatement>,
 
     /// Date condition was first recorded
     pub recorded_date: Option<types::DateTime>,
@@ -224,4 +202,45 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `Condition.abatement[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum ConditionAbatement {
+    /// `abatementDateTime` variant.
+    #[fhir("abatementDateTime")]
+    DateTime(crate::r5::choice::Primitive<types::DateTime>),
+    /// `abatementAge` variant.
+    #[fhir("abatementAge")]
+    Age(Box<types::Age>),
+    /// `abatementPeriod` variant.
+    #[fhir("abatementPeriod")]
+    Period(Box<types::Period>),
+    /// `abatementRange` variant.
+    #[fhir("abatementRange")]
+    Range(Box<types::Range>),
+    /// `abatementString` variant.
+    #[fhir("abatementString")]
+    String(crate::r5::choice::Primitive<types::String>),
+}
+
+/// The `Condition.onset[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum ConditionOnset {
+    /// `onsetDateTime` variant.
+    #[fhir("onsetDateTime")]
+    DateTime(crate::r5::choice::Primitive<types::DateTime>),
+    /// `onsetAge` variant.
+    #[fhir("onsetAge")]
+    Age(Box<types::Age>),
+    /// `onsetPeriod` variant.
+    #[fhir("onsetPeriod")]
+    Period(Box<types::Period>),
+    /// `onsetRange` variant.
+    #[fhir("onsetRange")]
+    Range(Box<types::Range>),
+    /// `onsetString` variant.
+    #[fhir("onsetString")]
+    String(crate::r5::choice::Primitive<types::String>),
 }

@@ -108,11 +108,9 @@ pub struct StructureMap {
     #[serde(rename = "_version")]
     pub version_ext: Option<types::Element>,
 
-    /// How to compare versions
-    pub version_algorithm_string: Option<types::String>,
-
-    /// How to compare versions
-    pub version_algorithm_coding: Option<types::Coding>,
+    /// The `StructureMap.versionAlgorithm[x]` choice element (0..1); see [`StructureMapVersionAlgorithm`].
+    #[serde(flatten)]
+    pub version_algorithm: Option<StructureMapVersionAlgorithm>,
 
     /// Name for this structure map (computer friendly)
     pub name: types::String,
@@ -566,29 +564,9 @@ pub struct StructureMapGroupRuleTargetParameter {
     /// Extensions that cannot be ignored even if unrecognized
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// Parameter value - variable or literal
-    pub value_id: Option<types::Id>,
-
-    /// Parameter value - variable or literal
-    pub value_string: Option<types::String>,
-
-    /// Parameter value - variable or literal
-    pub value_boolean: Option<types::Boolean>,
-
-    /// Parameter value - variable or literal
-    pub value_integer: Option<types::Integer>,
-
-    /// Parameter value - variable or literal
-    pub value_decimal: Option<types::Decimal>,
-
-    /// Parameter value - variable or literal
-    pub value_date: Option<types::Date>,
-
-    /// Parameter value - variable or literal
-    pub value_time: Option<types::Time>,
-
-    /// Parameter value - variable or literal
-    pub value_date_time: Option<types::DateTime>,
+    /// The `StructureMap.group.rule.target.parameter.value[x]` choice element (0..1); see [`StructureMapGroupRuleTargetParameterValue`].
+    #[serde(flatten)]
+    pub value: Option<StructureMapGroupRuleTargetParameterValue>,
 }
 
 /// Which other rules to apply in the context of this rule.
@@ -635,4 +613,45 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `StructureMap.group.rule.target.parameter.value[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum StructureMapGroupRuleTargetParameterValue {
+    /// `valueId` variant.
+    #[fhir("valueId")]
+    Id(crate::r5::choice::Primitive<types::Id>),
+    /// `valueString` variant.
+    #[fhir("valueString")]
+    String(crate::r5::choice::Primitive<types::String>),
+    /// `valueBoolean` variant.
+    #[fhir("valueBoolean")]
+    Boolean(crate::r5::choice::Primitive<types::Boolean>),
+    /// `valueInteger` variant.
+    #[fhir("valueInteger")]
+    Integer(crate::r5::choice::Primitive<types::Integer>),
+    /// `valueDecimal` variant.
+    #[fhir("valueDecimal")]
+    Decimal(crate::r5::choice::Primitive<types::Decimal>),
+    /// `valueDate` variant.
+    #[fhir("valueDate")]
+    Date(crate::r5::choice::Primitive<types::Date>),
+    /// `valueTime` variant.
+    #[fhir("valueTime")]
+    Time(crate::r5::choice::Primitive<types::Time>),
+    /// `valueDateTime` variant.
+    #[fhir("valueDateTime")]
+    DateTime(crate::r5::choice::Primitive<types::DateTime>),
+}
+
+/// The `StructureMap.versionAlgorithm[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum StructureMapVersionAlgorithm {
+    /// `versionAlgorithmString` variant.
+    #[fhir("versionAlgorithmString")]
+    String(crate::r5::choice::Primitive<types::String>),
+    /// `versionAlgorithmCoding` variant.
+    #[fhir("versionAlgorithmCoding")]
+    Coding(Box<types::Coding>),
 }
