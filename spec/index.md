@@ -18,7 +18,7 @@ this directory defines **what must be true**, not how to work.
 - Specs are numbered by layer, from the smallest units up to the pipeline that
   produces them.
 
-## The eight specifications
+## The specifications
 
 | # | Spec | Scope |
 | --- | --- | --- |
@@ -30,6 +30,7 @@ this directory defines **what must be true**, not how to work.
 | 06 | [Serialization](06-serialization.md) | JSON mapping, serde, choice `[x]`, cardinality |
 | 07 | [Validation](07-validation.md) | The `Validate` trait and `#[derive(Validate)]` |
 | 08 | [Code generation](08-code-generation.md) | The spec-JSON → Rust generator |
+| 09 | [Primitive extensions](09-primitive-extensions.md) | The `_field` sibling representation |
 
 ## Cross-cutting invariants
 

@@ -110,6 +110,11 @@ pub struct Observation {
     /// Lifecycle status of the observation, such as registered, preliminary, final, or amended; required.
     pub status: types::Code,
 
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`):
+    /// carries `id` and/or `extension` for the primitive value.
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
+
     /// Classification of  type of observation
     pub category: Option<Vec<types::CodeableConcept>>,
 

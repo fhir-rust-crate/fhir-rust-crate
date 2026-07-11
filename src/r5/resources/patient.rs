@@ -97,6 +97,12 @@ pub struct Patient {
     /// Whether this patient's record is in active use; a false value typically marks a record that is retired, merged, or entered in error.
     pub active: Option<types::Boolean>,
 
+    /// Primitive extension sibling for [`active`](Self::active) (FHIR `_active`):
+    /// carries `id` and/or `extension` for the primitive value. See the
+    /// [primitive extensions spec](https://hl7.org/fhir/R5/json.html#primitive).
+    #[serde(rename = "_active")]
+    pub active_ext: Option<types::Element>,
+
     /// One or more names associated with the patient, allowing for official, usual, maiden, and other name uses.
     pub name: Option<Vec<types::HumanName>>,
 
@@ -106,8 +112,17 @@ pub struct Patient {
     /// The administrative gender used for record keeping, coded as male, female, other, or unknown, which may differ from clinical or biological sex.
     pub gender: Option<types::Code>,
 
+    /// Primitive extension sibling for [`gender`](Self::gender) (FHIR `_gender`).
+    #[serde(rename = "_gender")]
+    pub gender_ext: Option<types::Element>,
+
     /// The date of birth for the individual, used for identity matching and age-based clinical decisions.
     pub birth_date: Option<types::Date>,
+
+    /// Primitive extension sibling for [`birth_date`](Self::birth_date) (FHIR
+    /// `_birthDate`). Commonly carries the `patient-birthTime` extension.
+    #[serde(rename = "_birthDate")]
+    pub birth_date_ext: Option<types::Element>,
 
     /// Indicates if the individual is deceased or not
     pub deceased_boolean: Option<types::Boolean>,

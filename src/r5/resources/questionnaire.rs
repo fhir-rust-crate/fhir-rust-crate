@@ -114,6 +114,13 @@ pub struct Questionnaire {
     /// Resource that can be subject of QuestionnaireResponse
     pub subject_type: Option<Vec<types::Code>>,
 
+    /// Primitive extension siblings for [`subject_type`](Self::subject_type)
+    /// (FHIR `_subjectType`). A *repeating* primitive: the array aligns
+    /// element-by-element with `subjectType`, using JSON `null` where a given
+    /// entry has no extension, hence `Vec<Option<Element>>`.
+    #[serde(rename = "_subjectType")]
+    pub subject_type_ext: Option<Vec<Option<types::Element>>>,
+
     /// Date last changed
     pub date: Option<types::DateTime>,
 
