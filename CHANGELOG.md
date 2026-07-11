@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- `fhir::r5::temporal`: precision-aware parsing for the date/time primitives —
+  `Date::parse_parts`/`DateTime::date_parts`/`Instant::date_parts`/`Time::parse_parts`,
+  a `DateParts` type with FHIR precision ordering (`"2024"` vs `"2024-03"` is
+  indeterminate), and `TimeParts`. Storage is unchanged (still `String`).
+- `precise-decimal` feature: back `serde_json::Number` with arbitrary precision
+  to preserve exact `decimal` values.
+
 ## [0.3.0] - 2026-07-11
 
 ### Changed (breaking)

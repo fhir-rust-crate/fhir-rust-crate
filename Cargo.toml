@@ -23,6 +23,12 @@ include = [
 [package.metadata.docs.rs]
 all-features = true
 
+[features]
+# Preserve exact `decimal` precision (trailing zeros, high precision) by backing
+# `serde_json::Number` with arbitrary precision. Off by default because it is a
+# global serde_json effect and changes `Number` equality to be string-based.
+precise-decimal = ["serde_json/arbitrary_precision"]
+
 [workspace]
 members = ["fhir-derive-macros"]
 

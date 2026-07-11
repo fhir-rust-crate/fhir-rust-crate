@@ -46,3 +46,6 @@ pub mod meta;
 
 /// Support types for `value[x]` choice elements (see `spec/11-choice-types.md`).
 pub mod choice;
+
+/// Parsing and precision-aware comparison for the date/time primitives.
+pub mod temporal;
