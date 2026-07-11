@@ -43,3 +43,6 @@ pub mod validate;
 /// Per-element metadata extracted from the FHIR R5 specification (cardinality,
 /// bindings, choice types, reference targets, summary membership).
 pub mod meta;
+
+/// Support types for `value[x]` choice elements (see `spec/11-choice-types.md`).
+pub mod choice;

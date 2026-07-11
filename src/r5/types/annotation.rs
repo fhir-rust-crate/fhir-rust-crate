@@ -42,22 +42,13 @@ pub struct Annotation {
 
     /// Additional content defined by implementations
     pub extension: Option<Vec<types::Extension>>,
-    /// The individual responsible for the annotation, as a reference to a
-    /// resource. This is the `Reference` variant of the `author[x]` choice
-    /// element, serialized as `authorReference`. Cardinality 0..1.
-    ///
-    /// « Reference( Practitioner | PractitionerRole | Patient | RelatedPerson | Organization ) »
-    ///
-    pub author_reference: Option<types::Reference>,
-
-    /// The individual responsible for the annotation, given as free text
-    /// rather than a reference. This is the `string` variant of the
-    /// `author[x]` choice element, serialized as `authorString`. Cardinality
-    /// 0..1.
-    ///
-    /// See [`Self::author_reference`] for the reference variant.
-    ///
-    pub author_string: Option<types::String>,
+    /// The individual responsible for the annotation (`author[x]` choice,
+    /// 0..1): either a [`Reference`](types::Reference) to a Practitioner,
+    /// PractitionerRole, Patient, RelatedPerson, or Organization
+    /// (`authorReference`), or free-text [`String`](types::String)
+    /// (`authorString`).
+    #[serde(flatten)]
+    pub author: Option<AnnotationAuthor>,
 
     /// The date and time this annotation was made. Cardinality 0..1, data
     /// type `dateTime`.
@@ -76,6 +67,39 @@ pub struct Annotation {
     pub text_ext: Option<types::Element>,
 }
 
+/// The `Annotation.author[x]` choice: who made the annotation.
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+pub enum AnnotationAuthor {
+    /// `authorReference` — a reference to the responsible party.
+    #[fhir("authorReference")]
+    Reference(Box<types::Reference>),
+    /// `authorString` — the responsible party as free text.
+    #[fhir("authorString")]
+    String(crate::r5::choice::Primitive<types::String>),
+}
+
+impl Annotation {
+    /// The `authorReference` variant, if set.
+    #[deprecated(note = "match on `author` (the AnnotationAuthor choice enum) instead")]
+    #[must_use]
+    pub fn author_reference(&self) -> Option<&types::Reference> {
+        match &self.author {
+            Some(AnnotationAuthor::Reference(r)) => Some(r),
+            _ => None,
+        }
+    }
+
+    /// The `authorString` variant's value, if set.
+    #[deprecated(note = "match on `author` (the AnnotationAuthor choice enum) instead")]
+    #[must_use]
+    pub fn author_string(&self) -> Option<&types::String> {
+        match &self.author {
+            Some(AnnotationAuthor::String(p)) => Some(&p.value),
+            _ => None,
+        }
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -85,8 +109,7 @@ mod tests {
     fn test_default() {
         let actual = T::default();
         let expect = T {
-            author_reference: None,
-            author_string: None,
+            author: None,
             time: None,
             text: types::Markdown::default(),
             ..Default::default()
