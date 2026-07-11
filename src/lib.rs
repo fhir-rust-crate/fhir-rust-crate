@@ -179,6 +179,7 @@
 //! cargo run --example build_patient
 //! cargo run --example validate_resource
 //! cargo run --example read_bundle
+//! cargo run --example primitive_extensions
 //! ```
 //!
 //! ## Crate layout

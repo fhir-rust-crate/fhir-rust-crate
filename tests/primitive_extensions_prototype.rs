@@ -97,6 +97,38 @@ fn questionnaire_repeating_primitive_extensions() {
 }
 
 #[test]
+fn validate_recurses_into_field_extensions() {
+    // T7d: `#[derive(Validate)]` recurses every field, including the `_field`
+    // sibling `Element`s, so a bad primitive inside a primitive extension is
+    // reported with a path prefixed by the sibling field name.
+    use fhir::r5::resources::Patient;
+    use fhir::r5::types::{Code, Element, Extension, String as FhirString};
+    use fhir::r5::validate::Validate;
+
+    let patient = Patient {
+        birth_date_ext: Some(Element {
+            extension: Some(vec![Extension {
+                url: FhirString(
+                    "http://hl7.org/fhir/StructureDefinition/data-absent-reason".to_string(),
+                ),
+                value_code: Some(Code(String::new())), // empty code is invalid
+                ..Default::default()
+            }]),
+            ..Default::default()
+        }),
+        ..Default::default()
+    };
+
+    let issues = patient.validate();
+    assert!(!issues.is_empty(), "expected a validation issue from the _birthDate extension");
+    assert!(
+        issues.iter().any(|i| i.path.starts_with("birth_date_ext")),
+        "issue path should be prefixed by the sibling field: {:?}",
+        issues.iter().map(|i| &i.path).collect::<Vec<_>>()
+    );
+}
+
+#[test]
 fn questionnaire_no_extensions_still_clean() {
     // Without `_subjectType`, nothing extra is emitted (skip_serializing_none).
     let questionnaire = json!({
