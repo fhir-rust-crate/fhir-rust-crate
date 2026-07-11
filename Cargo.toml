@@ -9,7 +9,7 @@ repository = "https://github.com/joelparkerhenderson/fhir-rust-crate/"
 license = "MIT OR Apache-2.0 OR BSD-3-Clause OR GPL-2.0-only OR GPL-3.0-only"
 keywords = ["medical", "healthcare", "hospital", "patient", "health"]
 categories = ["api-bindings", "data-structures", "science"]
-include = ["src/**/*", "LICENSE.md", "README.md", "llms.txt", "llms.json"]
+include = ["src/**/*", "examples/**/*", "README.md"]
 
 [workspace]
 members = ["fhir-derive-macros"]
