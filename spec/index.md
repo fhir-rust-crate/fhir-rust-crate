@@ -31,6 +31,7 @@ this directory defines **what must be true**, not how to work.
 | 07 | [Validation](07-validation.md) | The `Validate` trait and `#[derive(Validate)]` |
 | 08 | [Code generation](08-code-generation.md) | The spec-JSON → Rust generator |
 | 09 | [Primitive extensions](09-primitive-extensions.md) | The `_field` sibling representation |
+| 11 | [Choice types](11-choice-types.md) | `value[x]` choice elements as enums |
 
 ## Cross-cutting invariants
 
