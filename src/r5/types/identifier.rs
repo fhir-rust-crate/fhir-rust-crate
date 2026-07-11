@@ -47,6 +47,9 @@ pub struct Identifier {
 
     /// usual | official | temp | secondary | old (If known)
     pub r#use: Option<types::Code>,
+    /// Primitive extension sibling for [`use`](Self::r#use) (FHIR `_use`).
+    #[serde(rename = "_use")]
+    pub use_ext: Option<types::Element>,
 
     /// Description of identifier
     pub r#type: Option<types::CodeableConcept>,

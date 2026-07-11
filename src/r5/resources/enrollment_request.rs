@@ -60,9 +60,15 @@ pub struct EnrollmentRequest {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -81,9 +87,15 @@ pub struct EnrollmentRequest {
 
     /// The current status of the request: active | cancelled | draft | entered-in-error.
     pub status: Option<types::Code>,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// The date this enrollment request was created.
     pub created: Option<types::DateTime>,
+    /// Primitive extension sibling for [`created`](Self::created) (FHIR `_created`).
+    #[serde(rename = "_created")]
+    pub created_ext: Option<types::Element>,
 
     /// The insurer that is to be notified and expected to act on this enrollment request.
     pub insurer: Option<types::Reference>,

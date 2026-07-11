@@ -64,9 +64,15 @@ pub struct CommunicationRequest {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -94,21 +100,33 @@ pub struct CommunicationRequest {
 
     /// The current lifecycle status of the request: draft | active | on-hold | revoked | completed | entered-in-error | unknown.
     pub status: types::Code,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// Reason for current status
     pub status_reason: Option<types::CodeableConcept>,
 
     /// Indicates the level of authority the request carries in the workflow, e.g. proposal | plan | directive | order | original-order | reflex-order | filler-order | instance-order | option.
     pub intent: types::Code,
+    /// Primitive extension sibling for [`intent`](Self::intent) (FHIR `_intent`).
+    #[serde(rename = "_intent")]
+    pub intent_ext: Option<types::Element>,
 
     /// Message category
     pub category: Option<Vec<types::CodeableConcept>>,
 
     /// routine | urgent | asap | stat
     pub priority: Option<types::Code>,
+    /// Primitive extension sibling for [`priority`](Self::priority) (FHIR `_priority`).
+    #[serde(rename = "_priority")]
+    pub priority_ext: Option<types::Element>,
 
     /// True if request is prohibiting action
     pub do_not_perform: Option<types::Boolean>,
+    /// Primitive extension sibling for [`do_not_perform`](Self::do_not_perform) (FHIR `_doNotPerform`).
+    #[serde(rename = "_doNotPerform")]
+    pub do_not_perform_ext: Option<types::Element>,
 
     /// A channel of communication
     pub medium: Option<Vec<types::CodeableConcept>>,
@@ -133,6 +151,9 @@ pub struct CommunicationRequest {
 
     /// When request transitioned to being actionable
     pub authored_on: Option<types::DateTime>,
+    /// Primitive extension sibling for [`authored_on`](Self::authored_on) (FHIR `_authoredOn`).
+    #[serde(rename = "_authoredOn")]
+    pub authored_on_ext: Option<types::Element>,
 
     /// Who asks for the information to be shared
     pub requester: Option<types::Reference>,

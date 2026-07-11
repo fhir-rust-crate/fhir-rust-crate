@@ -65,9 +65,15 @@ pub struct CompartmentDefinition {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -85,9 +91,15 @@ pub struct CompartmentDefinition {
     /// URI (globally unique); used to reference this definition from other
     /// artifacts such as a `CapabilityStatement`
     pub url: types::Uri,
+    /// Primitive extension sibling for [`url`](Self::url) (FHIR `_url`).
+    #[serde(rename = "_url")]
+    pub url_ext: Option<types::Element>,
 
     /// Business version of the compartment definition
     pub version: Option<types::String>,
+    /// Primitive extension sibling for [`version`](Self::version) (FHIR `_version`).
+    #[serde(rename = "_version")]
+    pub version_ext: Option<types::Element>,
 
     /// How to compare versions
     pub version_algorithm_string: Option<types::String>,
@@ -97,42 +109,72 @@ pub struct CompartmentDefinition {
 
     /// Name for this compartment definition (computer friendly)
     pub name: types::String,
+    /// Primitive extension sibling for [`name`](Self::name) (FHIR `_name`).
+    #[serde(rename = "_name")]
+    pub name_ext: Option<types::Element>,
 
     /// Name for this compartment definition (human friendly)
     pub title: Option<types::String>,
+    /// Primitive extension sibling for [`title`](Self::title) (FHIR `_title`).
+    #[serde(rename = "_title")]
+    pub title_ext: Option<types::Element>,
 
     /// draft | active | retired | unknown
     pub status: types::Code,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// For testing purposes, not real usage
     pub experimental: Option<types::Boolean>,
+    /// Primitive extension sibling for [`experimental`](Self::experimental) (FHIR `_experimental`).
+    #[serde(rename = "_experimental")]
+    pub experimental_ext: Option<types::Element>,
 
     /// Date last changed
     pub date: Option<types::DateTime>,
+    /// Primitive extension sibling for [`date`](Self::date) (FHIR `_date`).
+    #[serde(rename = "_date")]
+    pub date_ext: Option<types::Element>,
 
     /// Name of the publisher/steward (organization or individual)
     pub publisher: Option<types::String>,
+    /// Primitive extension sibling for [`publisher`](Self::publisher) (FHIR `_publisher`).
+    #[serde(rename = "_publisher")]
+    pub publisher_ext: Option<types::Element>,
 
     /// Contact details for the publisher
     pub contact: Option<Vec<types::ContactDetail>>,
 
     /// Natural language description of the compartment definition
     pub description: Option<types::Markdown>,
+    /// Primitive extension sibling for [`description`](Self::description) (FHIR `_description`).
+    #[serde(rename = "_description")]
+    pub description_ext: Option<types::Element>,
 
     /// The context that the content is intended to support
     pub use_context: Option<Vec<types::UsageContext>>,
 
     /// Why this compartment definition is defined
     pub purpose: Option<types::Markdown>,
+    /// Primitive extension sibling for [`purpose`](Self::purpose) (FHIR `_purpose`).
+    #[serde(rename = "_purpose")]
+    pub purpose_ext: Option<types::Element>,
 
     /// Patient | Encounter | RelatedPerson | Practitioner | Device |
     /// EpisodeOfCare; identifies which resource type defines membership in
     /// this compartment
     pub code: types::Code,
+    /// Primitive extension sibling for [`code`](Self::code) (FHIR `_code`).
+    #[serde(rename = "_code")]
+    pub code_ext: Option<types::Element>,
 
     /// Whether the compartment search syntax (`GET [base]/[type]/{id}/*`) is
     /// supported for this compartment
     pub search: types::Boolean,
+    /// Primitive extension sibling for [`search`](Self::search) (FHIR `_search`).
+    #[serde(rename = "_search")]
+    pub search_ext: Option<types::Element>,
 
     /// How each resource type is related to the compartment, including the
     /// search parameter that links it to the membership resource
@@ -157,18 +199,33 @@ pub struct CompartmentDefinitionResource {
 
     /// Name of resource type
     pub code: types::Code,
+    /// Primitive extension sibling for [`code`](Self::code) (FHIR `_code`).
+    #[serde(rename = "_code")]
+    pub code_ext: Option<types::Element>,
 
     /// Search Parameter Name, or chained parameters
     pub param: Option<Vec<types::String>>,
+    /// Primitive extension sibling for [`param`](Self::param) (FHIR `_param`).
+    #[serde(rename = "_param")]
+    pub param_ext: Option<Vec<Option<types::Element>>>,
 
     /// Additional documentation about the resource and compartment
     pub documentation: Option<types::String>,
+    /// Primitive extension sibling for [`documentation`](Self::documentation) (FHIR `_documentation`).
+    #[serde(rename = "_documentation")]
+    pub documentation_ext: Option<types::Element>,
 
     /// Search Param for interpreting $everything.start
     pub start_param: Option<types::Uri>,
+    /// Primitive extension sibling for [`start_param`](Self::start_param) (FHIR `_startParam`).
+    #[serde(rename = "_startParam")]
+    pub start_param_ext: Option<types::Element>,
 
     /// Search Param for interpreting $everything.end
     pub end_param: Option<types::Uri>,
+    /// Primitive extension sibling for [`end_param`](Self::end_param) (FHIR `_endParam`).
+    #[serde(rename = "_endParam")]
+    pub end_param_ext: Option<types::Element>,
 }
 
 #[cfg(test)]

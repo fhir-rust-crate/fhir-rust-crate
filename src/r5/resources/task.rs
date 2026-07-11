@@ -70,9 +70,15 @@ pub struct Task {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -91,9 +97,15 @@ pub struct Task {
 
     /// Formal definition of task
     pub instantiates_canonical: Option<types::Canonical>,
+    /// Primitive extension sibling for [`instantiates_canonical`](Self::instantiates_canonical) (FHIR `_instantiatesCanonical`).
+    #[serde(rename = "_instantiatesCanonical")]
+    pub instantiates_canonical_ext: Option<types::Element>,
 
     /// Formal definition of task
     pub instantiates_uri: Option<types::Uri>,
+    /// Primitive extension sibling for [`instantiates_uri`](Self::instantiates_uri) (FHIR `_instantiatesUri`).
+    #[serde(rename = "_instantiatesUri")]
+    pub instantiates_uri_ext: Option<types::Element>,
 
     /// Request fulfilled by this task
     pub based_on: Option<Vec<types::Reference>>,
@@ -107,6 +119,9 @@ pub struct Task {
     /// The current lifecycle state of the task, e.g. draft | requested |
     /// received | accepted | in-progress | completed | cancelled | +.
     pub status: types::Code,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// Reason for current status
     pub status_reason: Option<types::CodeableReference>,
@@ -117,19 +132,31 @@ pub struct Task {
     /// Indicates the degree of authority/intentionality behind the task,
     /// e.g. unknown | proposal | plan | order | original-order | reflex-order | +.
     pub intent: types::Code,
+    /// Primitive extension sibling for [`intent`](Self::intent) (FHIR `_intent`).
+    #[serde(rename = "_intent")]
+    pub intent_ext: Option<types::Element>,
 
     /// Indicates how quickly the task should be addressed:
     /// routine | urgent | asap | stat.
     pub priority: Option<types::Code>,
+    /// Primitive extension sibling for [`priority`](Self::priority) (FHIR `_priority`).
+    #[serde(rename = "_priority")]
+    pub priority_ext: Option<types::Element>,
 
     /// True if Task is prohibiting action
     pub do_not_perform: Option<types::Boolean>,
+    /// Primitive extension sibling for [`do_not_perform`](Self::do_not_perform) (FHIR `_doNotPerform`).
+    #[serde(rename = "_doNotPerform")]
+    pub do_not_perform_ext: Option<types::Element>,
 
     /// Task Type
     pub code: Option<types::CodeableConcept>,
 
     /// Human-readable explanation of task
     pub description: Option<types::String>,
+    /// Primitive extension sibling for [`description`](Self::description) (FHIR `_description`).
+    #[serde(rename = "_description")]
+    pub description_ext: Option<types::Element>,
 
     /// The request or resource that this task is seeking to fulfil.
     pub focus: Option<types::Reference>,
@@ -149,9 +176,15 @@ pub struct Task {
 
     /// Task Creation Date
     pub authored_on: Option<types::DateTime>,
+    /// Primitive extension sibling for [`authored_on`](Self::authored_on) (FHIR `_authoredOn`).
+    #[serde(rename = "_authoredOn")]
+    pub authored_on_ext: Option<types::Element>,
 
     /// Task Last Modified Date
     pub last_modified: Option<types::DateTime>,
+    /// Primitive extension sibling for [`last_modified`](Self::last_modified) (FHIR `_lastModified`).
+    #[serde(rename = "_lastModified")]
+    pub last_modified_ext: Option<types::Element>,
 
     /// Who is asking for task to be done
     pub requester: Option<types::Reference>,
@@ -233,6 +266,9 @@ pub struct TaskRestriction {
 
     /// How many times to repeat
     pub repetitions: Option<types::PositiveInt>,
+    /// Primitive extension sibling for [`repetitions`](Self::repetitions) (FHIR `_repetitions`).
+    #[serde(rename = "_repetitions")]
+    pub repetitions_ext: Option<types::Element>,
 
     /// When fulfillment is sought
     pub period: Option<types::Period>,

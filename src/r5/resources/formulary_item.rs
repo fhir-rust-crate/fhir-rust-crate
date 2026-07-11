@@ -66,9 +66,15 @@ pub struct FormularyItem {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -90,6 +96,9 @@ pub struct FormularyItem {
 
     /// The current status of this formulary item entry: active | entered-in-error | inactive.
     pub status: Option<types::Code>,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 }
 
 #[cfg(test)]

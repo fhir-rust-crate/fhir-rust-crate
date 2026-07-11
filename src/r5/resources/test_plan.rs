@@ -60,9 +60,15 @@ pub struct TestPlan {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -78,12 +84,18 @@ pub struct TestPlan {
 
     /// Canonical identifier for this test plan, represented as a URI (globally unique)
     pub url: Option<types::Uri>,
+    /// Primitive extension sibling for [`url`](Self::url) (FHIR `_url`).
+    #[serde(rename = "_url")]
+    pub url_ext: Option<types::Element>,
 
     /// Business identifier identifier for the test plan
     pub identifier: Option<Vec<types::Identifier>>,
 
     /// Business version of the test plan
     pub version: Option<types::String>,
+    /// Primitive extension sibling for [`version`](Self::version) (FHIR `_version`).
+    #[serde(rename = "_version")]
+    pub version_ext: Option<types::Element>,
 
     /// How to compare versions
     pub version_algorithm_string: Option<types::String>,
@@ -93,27 +105,48 @@ pub struct TestPlan {
 
     /// Name for this test plan (computer friendly)
     pub name: Option<types::String>,
+    /// Primitive extension sibling for [`name`](Self::name) (FHIR `_name`).
+    #[serde(rename = "_name")]
+    pub name_ext: Option<types::Element>,
 
     /// Name for this test plan (human friendly)
     pub title: Option<types::String>,
+    /// Primitive extension sibling for [`title`](Self::title) (FHIR `_title`).
+    #[serde(rename = "_title")]
+    pub title_ext: Option<types::Element>,
 
     /// The publication status of this test plan: draft | active | retired | unknown
     pub status: types::Code,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// For testing purposes, not real usage
     pub experimental: Option<types::Boolean>,
+    /// Primitive extension sibling for [`experimental`](Self::experimental) (FHIR `_experimental`).
+    #[serde(rename = "_experimental")]
+    pub experimental_ext: Option<types::Element>,
 
     /// Date last changed
     pub date: Option<types::DateTime>,
+    /// Primitive extension sibling for [`date`](Self::date) (FHIR `_date`).
+    #[serde(rename = "_date")]
+    pub date_ext: Option<types::Element>,
 
     /// Name of the publisher/steward (organization or individual)
     pub publisher: Option<types::String>,
+    /// Primitive extension sibling for [`publisher`](Self::publisher) (FHIR `_publisher`).
+    #[serde(rename = "_publisher")]
+    pub publisher_ext: Option<types::Element>,
 
     /// Contact details for the publisher
     pub contact: Option<Vec<types::ContactDetail>>,
 
     /// Natural language description of the test plan
     pub description: Option<types::Markdown>,
+    /// Primitive extension sibling for [`description`](Self::description) (FHIR `_description`).
+    #[serde(rename = "_description")]
+    pub description_ext: Option<types::Element>,
 
     /// The context that the content is intended to support
     pub use_context: Option<Vec<types::UsageContext>>,
@@ -123,12 +156,21 @@ pub struct TestPlan {
 
     /// Why this test plan is defined
     pub purpose: Option<types::Markdown>,
+    /// Primitive extension sibling for [`purpose`](Self::purpose) (FHIR `_purpose`).
+    #[serde(rename = "_purpose")]
+    pub purpose_ext: Option<types::Element>,
 
     /// Use and/or publishing restrictions
     pub copyright: Option<types::Markdown>,
+    /// Primitive extension sibling for [`copyright`](Self::copyright) (FHIR `_copyright`).
+    #[serde(rename = "_copyright")]
+    pub copyright_ext: Option<types::Element>,
 
     /// Copyright holder and year(s)
     pub copyright_label: Option<types::String>,
+    /// Primitive extension sibling for [`copyright_label`](Self::copyright_label) (FHIR `_copyrightLabel`).
+    #[serde(rename = "_copyrightLabel")]
+    pub copyright_label_ext: Option<types::Element>,
 
     /// The category of the Test Plan, e.g. acceptance, unit, or performance testing
     pub category: Option<Vec<types::CodeableConcept>>,
@@ -138,12 +180,18 @@ pub struct TestPlan {
 
     /// A description of test tools to be used in the test plan - narrative for now
     pub test_tools: Option<types::Markdown>,
+    /// Primitive extension sibling for [`test_tools`](Self::test_tools) (FHIR `_testTools`).
+    #[serde(rename = "_testTools")]
+    pub test_tools_ext: Option<types::Element>,
 
     /// The required criteria to execute the test plan - e.g. preconditions, previous tests
     pub dependency: Option<Vec<TestPlanDependency>>,
 
     /// The threshold or criteria for the test plan to be considered successfully executed - narrative
     pub exit_criteria: Option<types::Markdown>,
+    /// Primitive extension sibling for [`exit_criteria`](Self::exit_criteria) (FHIR `_exitCriteria`).
+    #[serde(rename = "_exitCriteria")]
+    pub exit_criteria_ext: Option<types::Element>,
 
     /// The individual test cases, each with its own scope, dependencies, test run, data, and assertions, that constitute this plan
     pub test_case: Option<Vec<TestPlanTestCase>>,
@@ -168,6 +216,9 @@ pub struct TestPlanDependency {
 
     /// Description of the dependency criterium
     pub description: Option<types::Markdown>,
+    /// Primitive extension sibling for [`description`](Self::description) (FHIR `_description`).
+    #[serde(rename = "_description")]
+    pub description_ext: Option<types::Element>,
 
     /// Link to predecessor test plans
     pub predecessor: Option<types::Reference>,
@@ -191,6 +242,9 @@ pub struct TestPlanTestCase {
 
     /// Sequence of test case in the test plan
     pub sequence: Option<types::Integer>,
+    /// Primitive extension sibling for [`sequence`](Self::sequence) (FHIR `_sequence`).
+    #[serde(rename = "_sequence")]
+    pub sequence_ext: Option<types::Element>,
 
     /// The scope or artifact covered by the case
     pub scope: Option<Vec<types::Reference>>,
@@ -226,6 +280,9 @@ pub struct TestPlanTestCaseDependency {
 
     /// Description of the criteria
     pub description: Option<types::Markdown>,
+    /// Primitive extension sibling for [`description`](Self::description) (FHIR `_description`).
+    #[serde(rename = "_description")]
+    pub description_ext: Option<types::Element>,
 
     /// Link to predecessor test plans
     pub predecessor: Option<types::Reference>,
@@ -249,6 +306,9 @@ pub struct TestPlanTestCaseTestRun {
 
     /// The narrative description of the tests
     pub narrative: Option<types::Markdown>,
+    /// Primitive extension sibling for [`narrative`](Self::narrative) (FHIR `_narrative`).
+    #[serde(rename = "_narrative")]
+    pub narrative_ext: Option<types::Element>,
 
     /// The test cases in a structured language e.g. gherkin, Postman, or FHIR TestScript
     pub script: Option<TestPlanTestCaseTestRunScript>,

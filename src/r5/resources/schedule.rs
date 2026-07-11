@@ -64,9 +64,15 @@ pub struct Schedule {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -85,6 +91,9 @@ pub struct Schedule {
 
     /// Whether this schedule is in active use; inactive schedules should not be offered for booking
     pub active: Option<types::Boolean>,
+    /// Primitive extension sibling for [`active`](Self::active) (FHIR `_active`).
+    #[serde(rename = "_active")]
+    pub active_ext: Option<types::Element>,
 
     /// High-level category of the service or resource this schedule provides, such as general practice or dental
     pub service_category: Option<Vec<types::CodeableConcept>>,
@@ -97,6 +106,9 @@ pub struct Schedule {
 
     /// Human-readable label
     pub name: Option<types::String>,
+    /// Primitive extension sibling for [`name`](Self::name) (FHIR `_name`).
+    #[serde(rename = "_name")]
+    pub name_ext: Option<types::Element>,
 
     /// Resource(s), such as a practitioner, location, device, or patient, whose availability this schedule describes
     pub actor: Vec<types::Reference>,
@@ -106,6 +118,9 @@ pub struct Schedule {
 
     /// Comments on availability
     pub comment: Option<types::Markdown>,
+    /// Primitive extension sibling for [`comment`](Self::comment) (FHIR `_comment`).
+    #[serde(rename = "_comment")]
+    pub comment_ext: Option<types::Element>,
 }
 
 #[cfg(test)]

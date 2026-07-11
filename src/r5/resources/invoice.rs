@@ -66,9 +66,15 @@ pub struct Invoice {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -87,9 +93,15 @@ pub struct Invoice {
 
     /// Current state of the invoice in the billing process: draft, issued, balanced, cancelled, or entered-in-error.
     pub status: types::Code,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// Reason for cancellation of this Invoice
     pub cancelled_reason: Option<types::String>,
+    /// Primitive extension sibling for [`cancelled_reason`](Self::cancelled_reason) (FHIR `_cancelledReason`).
+    #[serde(rename = "_cancelledReason")]
+    pub cancelled_reason_ext: Option<types::Element>,
 
     /// Type of Invoice
     pub r#type: Option<types::CodeableConcept>,
@@ -102,9 +114,15 @@ pub struct Invoice {
 
     /// DEPRICATED
     pub date: Option<types::DateTime>,
+    /// Primitive extension sibling for [`date`](Self::date) (FHIR `_date`).
+    #[serde(rename = "_date")]
+    pub date_ext: Option<types::Element>,
 
     /// When posted
     pub creation: Option<types::DateTime>,
+    /// Primitive extension sibling for [`creation`](Self::creation) (FHIR `_creation`).
+    #[serde(rename = "_creation")]
+    pub creation_ext: Option<types::Element>,
 
     /// Billing date or period
     pub period_date: Option<types::Date>,
@@ -135,6 +153,9 @@ pub struct Invoice {
 
     /// Payment details
     pub payment_terms: Option<types::Markdown>,
+    /// Primitive extension sibling for [`payment_terms`](Self::payment_terms) (FHIR `_paymentTerms`).
+    #[serde(rename = "_paymentTerms")]
+    pub payment_terms_ext: Option<types::Element>,
 
     /// Comments made about the invoice
     pub note: Option<Vec<types::Annotation>>,
@@ -183,6 +204,9 @@ pub struct InvoiceLineItem {
 
     /// Sequence number of line item
     pub sequence: Option<types::PositiveInt>,
+    /// Primitive extension sibling for [`sequence`](Self::sequence) (FHIR `_sequence`).
+    #[serde(rename = "_sequence")]
+    pub sequence_ext: Option<types::Element>,
 
     /// Service data or period
     pub serviced_date: Option<types::Date>,

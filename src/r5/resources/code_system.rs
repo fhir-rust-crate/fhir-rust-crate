@@ -63,9 +63,15 @@ pub struct CodeSystem {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -81,12 +87,18 @@ pub struct CodeSystem {
 
     /// Canonical identifier for this code system, represented as a URI (globally unique) (Coding.system). This is the value used to populate `Coding.system` when referencing codes from this system.
     pub url: Option<types::Uri>,
+    /// Primitive extension sibling for [`url`](Self::url) (FHIR `_url`).
+    #[serde(rename = "_url")]
+    pub url_ext: Option<types::Element>,
 
     /// Additional identifier for the code system (business identifier)
     pub identifier: Option<Vec<types::Identifier>>,
 
     /// Business version of the code system (Coding.version)
     pub version: Option<types::String>,
+    /// Primitive extension sibling for [`version`](Self::version) (FHIR `_version`).
+    #[serde(rename = "_version")]
+    pub version_ext: Option<types::Element>,
 
     /// How to compare versions
     pub version_algorithm_string: Option<types::String>,
@@ -96,27 +108,48 @@ pub struct CodeSystem {
 
     /// Name for this code system (computer friendly)
     pub name: Option<types::String>,
+    /// Primitive extension sibling for [`name`](Self::name) (FHIR `_name`).
+    #[serde(rename = "_name")]
+    pub name_ext: Option<types::Element>,
 
     /// Name for this code system (human friendly)
     pub title: Option<types::String>,
+    /// Primitive extension sibling for [`title`](Self::title) (FHIR `_title`).
+    #[serde(rename = "_title")]
+    pub title_ext: Option<types::Element>,
 
     /// draft | active | retired | unknown; governs the publication lifecycle of this code system.
     pub status: types::Code,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// For testing purposes, not real usage
     pub experimental: Option<types::Boolean>,
+    /// Primitive extension sibling for [`experimental`](Self::experimental) (FHIR `_experimental`).
+    #[serde(rename = "_experimental")]
+    pub experimental_ext: Option<types::Element>,
 
     /// Date last changed
     pub date: Option<types::DateTime>,
+    /// Primitive extension sibling for [`date`](Self::date) (FHIR `_date`).
+    #[serde(rename = "_date")]
+    pub date_ext: Option<types::Element>,
 
     /// Name of the publisher/steward (organization or individual)
     pub publisher: Option<types::String>,
+    /// Primitive extension sibling for [`publisher`](Self::publisher) (FHIR `_publisher`).
+    #[serde(rename = "_publisher")]
+    pub publisher_ext: Option<types::Element>,
 
     /// Contact details for the publisher
     pub contact: Option<Vec<types::ContactDetail>>,
 
     /// Natural language description of the code system
     pub description: Option<types::Markdown>,
+    /// Primitive extension sibling for [`description`](Self::description) (FHIR `_description`).
+    #[serde(rename = "_description")]
+    pub description_ext: Option<types::Element>,
 
     /// The context that the content is intended to support
     pub use_context: Option<Vec<types::UsageContext>>,
@@ -126,18 +159,33 @@ pub struct CodeSystem {
 
     /// Why this code system is defined
     pub purpose: Option<types::Markdown>,
+    /// Primitive extension sibling for [`purpose`](Self::purpose) (FHIR `_purpose`).
+    #[serde(rename = "_purpose")]
+    pub purpose_ext: Option<types::Element>,
 
     /// Use and/or publishing restrictions
     pub copyright: Option<types::Markdown>,
+    /// Primitive extension sibling for [`copyright`](Self::copyright) (FHIR `_copyright`).
+    #[serde(rename = "_copyright")]
+    pub copyright_ext: Option<types::Element>,
 
     /// Copyright holder and year(s)
     pub copyright_label: Option<types::String>,
+    /// Primitive extension sibling for [`copyright_label`](Self::copyright_label) (FHIR `_copyrightLabel`).
+    #[serde(rename = "_copyrightLabel")]
+    pub copyright_label_ext: Option<types::Element>,
 
     /// When the CodeSystem was approved by publisher
     pub approval_date: Option<types::Date>,
+    /// Primitive extension sibling for [`approval_date`](Self::approval_date) (FHIR `_approvalDate`).
+    #[serde(rename = "_approvalDate")]
+    pub approval_date_ext: Option<types::Element>,
 
     /// When the CodeSystem was last reviewed by the publisher
     pub last_review_date: Option<types::Date>,
+    /// Primitive extension sibling for [`last_review_date`](Self::last_review_date) (FHIR `_lastReviewDate`).
+    #[serde(rename = "_lastReviewDate")]
+    pub last_review_date_ext: Option<types::Element>,
 
     /// When the CodeSystem is expected to be used
     pub effective_period: Option<types::Period>,
@@ -162,27 +210,51 @@ pub struct CodeSystem {
 
     /// If code comparison is case sensitive
     pub case_sensitive: Option<types::Boolean>,
+    /// Primitive extension sibling for [`case_sensitive`](Self::case_sensitive) (FHIR `_caseSensitive`).
+    #[serde(rename = "_caseSensitive")]
+    pub case_sensitive_ext: Option<types::Element>,
 
     /// Canonical reference to the value set with entire code system
     pub value_set: Option<types::Canonical>,
+    /// Primitive extension sibling for [`value_set`](Self::value_set) (FHIR `_valueSet`).
+    #[serde(rename = "_valueSet")]
+    pub value_set_ext: Option<types::Element>,
 
     /// grouped-by | is-a | part-of | classified-with
     pub hierarchy_meaning: Option<types::Code>,
+    /// Primitive extension sibling for [`hierarchy_meaning`](Self::hierarchy_meaning) (FHIR `_hierarchyMeaning`).
+    #[serde(rename = "_hierarchyMeaning")]
+    pub hierarchy_meaning_ext: Option<types::Element>,
 
     /// If code system defines a compositional grammar
     pub compositional: Option<types::Boolean>,
+    /// Primitive extension sibling for [`compositional`](Self::compositional) (FHIR `_compositional`).
+    #[serde(rename = "_compositional")]
+    pub compositional_ext: Option<types::Element>,
 
     /// If definitions are not stable
     pub version_needed: Option<types::Boolean>,
+    /// Primitive extension sibling for [`version_needed`](Self::version_needed) (FHIR `_versionNeeded`).
+    #[serde(rename = "_versionNeeded")]
+    pub version_needed_ext: Option<types::Element>,
 
     /// not-present | example | fragment | complete | supplement; indicates how much of the underlying code system's content is represented by this resource.
     pub content: types::Code,
+    /// Primitive extension sibling for [`content`](Self::content) (FHIR `_content`).
+    #[serde(rename = "_content")]
+    pub content_ext: Option<types::Element>,
 
     /// Canonical URL of Code System this adds designations and properties to
     pub supplements: Option<types::Canonical>,
+    /// Primitive extension sibling for [`supplements`](Self::supplements) (FHIR `_supplements`).
+    #[serde(rename = "_supplements")]
+    pub supplements_ext: Option<types::Element>,
 
     /// Total concepts in the code system
     pub count: Option<types::UnsignedInt>,
+    /// Primitive extension sibling for [`count`](Self::count) (FHIR `_count`).
+    #[serde(rename = "_count")]
+    pub count_ext: Option<types::Element>,
 
     /// Filter that can be used in a value set
     pub filter: Option<Vec<CodeSystemFilter>>,
@@ -210,15 +282,27 @@ pub struct CodeSystemFilter {
 
     /// Code that identifies the filter
     pub code: types::Code,
+    /// Primitive extension sibling for [`code`](Self::code) (FHIR `_code`).
+    #[serde(rename = "_code")]
+    pub code_ext: Option<types::Element>,
 
     /// How or why the filter is used
     pub description: Option<types::String>,
+    /// Primitive extension sibling for [`description`](Self::description) (FHIR `_description`).
+    #[serde(rename = "_description")]
+    pub description_ext: Option<types::Element>,
 
     /// = | is-a | descendent-of | is-not-a | regex | in | not-in | generalizes | child-of | descendent-leaf | exists
     pub operator: Vec<types::Code>,
+    /// Primitive extension sibling for [`operator`](Self::operator) (FHIR `_operator`).
+    #[serde(rename = "_operator")]
+    pub operator_ext: Option<Vec<Option<types::Element>>>,
 
     /// What to use for the value
     pub value: types::String,
+    /// Primitive extension sibling for [`value`](Self::value) (FHIR `_value`).
+    #[serde(rename = "_value")]
+    pub value_ext: Option<types::Element>,
 }
 
 /// Additional information supplied about each concept
@@ -237,15 +321,27 @@ pub struct CodeSystemProperty {
 
     /// Identifies the property on the concepts, and when referred to in operations
     pub code: types::Code,
+    /// Primitive extension sibling for [`code`](Self::code) (FHIR `_code`).
+    #[serde(rename = "_code")]
+    pub code_ext: Option<types::Element>,
 
     /// Formal identifier for the property
     pub uri: Option<types::Uri>,
+    /// Primitive extension sibling for [`uri`](Self::uri) (FHIR `_uri`).
+    #[serde(rename = "_uri")]
+    pub uri_ext: Option<types::Element>,
 
     /// Why the property is defined, and/or what it conveys
     pub description: Option<types::String>,
+    /// Primitive extension sibling for [`description`](Self::description) (FHIR `_description`).
+    #[serde(rename = "_description")]
+    pub description_ext: Option<types::Element>,
 
     /// code | Coding | string | integer | boolean | dateTime | decimal
     pub r#type: types::Code,
+    /// Primitive extension sibling for [`type`](Self::r#type) (FHIR `_type`).
+    #[serde(rename = "_type")]
+    pub type_ext: Option<types::Element>,
 }
 
 /// Concepts in the code system
@@ -264,12 +360,21 @@ pub struct CodeSystemConcept {
 
     /// Code that identifies concept
     pub code: types::Code,
+    /// Primitive extension sibling for [`code`](Self::code) (FHIR `_code`).
+    #[serde(rename = "_code")]
+    pub code_ext: Option<types::Element>,
 
     /// Text to display to the user
     pub display: Option<types::String>,
+    /// Primitive extension sibling for [`display`](Self::display) (FHIR `_display`).
+    #[serde(rename = "_display")]
+    pub display_ext: Option<types::Element>,
 
     /// Formal definition
     pub definition: Option<types::String>,
+    /// Primitive extension sibling for [`definition`](Self::definition) (FHIR `_definition`).
+    #[serde(rename = "_definition")]
+    pub definition_ext: Option<types::Element>,
 
     /// Additional representations for the concept
     pub designation: Option<Vec<CodeSystemConceptDesignation>>,
@@ -297,6 +402,9 @@ pub struct CodeSystemConceptDesignation {
 
     /// Human language of the designation
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Details how this designation would be used
     pub r#use: Option<types::Coding>,
@@ -306,6 +414,9 @@ pub struct CodeSystemConceptDesignation {
 
     /// The text value for this designation
     pub value: types::String,
+    /// Primitive extension sibling for [`value`](Self::value) (FHIR `_value`).
+    #[serde(rename = "_value")]
+    pub value_ext: Option<types::Element>,
 }
 
 /// Property value for the concept
@@ -324,6 +435,9 @@ pub struct CodeSystemConceptProperty {
 
     /// Reference to CodeSystem.property.code
     pub code: types::Code,
+    /// Primitive extension sibling for [`code`](Self::code) (FHIR `_code`).
+    #[serde(rename = "_code")]
+    pub code_ext: Option<types::Element>,
 
     /// Value of the property for this concept
     pub value_code: Option<types::Code>,

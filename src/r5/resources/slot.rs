@@ -61,9 +61,15 @@ pub struct Slot {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -97,18 +103,33 @@ pub struct Slot {
 
     /// Availability status of the interval: busy | free | busy-unavailable | busy-tentative | entered-in-error
     pub status: types::Code,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// The instant, including date, time, and timezone offset, at which this slot's interval begins
     pub start: types::Instant,
+    /// Primitive extension sibling for [`start`](Self::start) (FHIR `_start`).
+    #[serde(rename = "_start")]
+    pub start_ext: Option<types::Element>,
 
     /// The instant, including date, time, and timezone offset, at which this slot's interval concludes
     pub end: types::Instant,
+    /// Primitive extension sibling for [`end`](Self::end) (FHIR `_end`).
+    #[serde(rename = "_end")]
+    pub end_ext: Option<types::Element>,
 
     /// This slot has already been overbooked, appointments are unlikely to be accepted for this time
     pub overbooked: Option<types::Boolean>,
+    /// Primitive extension sibling for [`overbooked`](Self::overbooked) (FHIR `_overbooked`).
+    #[serde(rename = "_overbooked")]
+    pub overbooked_ext: Option<types::Element>,
 
     /// Comments on the slot to describe any extended information. Such as custom constraints on the slot
     pub comment: Option<types::String>,
+    /// Primitive extension sibling for [`comment`](Self::comment) (FHIR `_comment`).
+    #[serde(rename = "_comment")]
+    pub comment_ext: Option<types::Element>,
 }
 
 #[cfg(test)]

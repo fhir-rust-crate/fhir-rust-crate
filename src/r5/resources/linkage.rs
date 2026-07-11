@@ -57,9 +57,15 @@ pub struct Linkage {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -75,6 +81,9 @@ pub struct Linkage {
 
     /// Whether this linkage assertion is currently active; an inactive assertion is retained for history but no longer treated as valid.
     pub active: Option<types::Boolean>,
+    /// Primitive extension sibling for [`active`](Self::active) (FHIR `_active`).
+    #[serde(rename = "_active")]
+    pub active_ext: Option<types::Element>,
 
     /// Reference to the party, such as a Practitioner or Organization, responsible for asserting and maintaining these linkages.
     pub author: Option<types::Reference>,
@@ -101,6 +110,9 @@ pub struct LinkageItem {
 
     /// Role of this record within the linkage, coded as source, alternate, or historical.
     pub r#type: types::Code,
+    /// Primitive extension sibling for [`type`](Self::r#type) (FHIR `_type`).
+    #[serde(rename = "_type")]
+    pub type_ext: Option<types::Element>,
 
     /// Reference to the specific resource instance being included in this linkage.
     pub resource: types::Reference,

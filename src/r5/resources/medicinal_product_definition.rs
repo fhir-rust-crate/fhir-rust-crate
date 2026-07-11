@@ -65,9 +65,15 @@ pub struct MedicinalProductDefinition {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -92,15 +98,24 @@ pub struct MedicinalProductDefinition {
 
     /// A business identifier relating to a specific version of the product
     pub version: Option<types::String>,
+    /// Primitive extension sibling for [`version`](Self::version) (FHIR `_version`).
+    #[serde(rename = "_version")]
+    pub version_ext: Option<types::Element>,
 
     /// The lifecycle status of this product record, such as active, retired, or pending
     pub status: Option<types::CodeableConcept>,
 
     /// The date at which the given status became applicable
     pub status_date: Option<types::DateTime>,
+    /// Primitive extension sibling for [`status_date`](Self::status_date) (FHIR `_statusDate`).
+    #[serde(rename = "_statusDate")]
+    pub status_date_ext: Option<types::Element>,
 
     /// General description of this product
     pub description: Option<types::Markdown>,
+    /// Primitive extension sibling for [`description`](Self::description) (FHIR `_description`).
+    #[serde(rename = "_description")]
+    pub description_ext: Option<types::Element>,
 
     /// The dose form for a single part product, or combined form of a multiple part product
     pub combined_pharmaceutical_dose_form: Option<types::CodeableConcept>,
@@ -110,6 +125,9 @@ pub struct MedicinalProductDefinition {
 
     /// Description of indication(s) for this product, used when structured indications are not required
     pub indication: Option<types::Markdown>,
+    /// Primitive extension sibling for [`indication`](Self::indication) (FHIR `_indication`).
+    #[serde(rename = "_indication")]
+    pub indication_ext: Option<types::Element>,
 
     /// The legal status of supply of the medicinal product as classified by the regulator
     pub legal_status_of_supply: Option<types::CodeableConcept>,
@@ -210,6 +228,9 @@ pub struct MedicinalProductDefinitionName {
 
     /// The full product name
     pub product_name: types::String,
+    /// Primitive extension sibling for [`product_name`](Self::product_name) (FHIR `_productName`).
+    #[serde(rename = "_productName")]
+    pub product_name_ext: Option<types::Element>,
 
     /// Type of product name, such as rINN, BAN, Proprietary, Non-Proprietary
     pub r#type: Option<types::CodeableConcept>,
@@ -239,6 +260,9 @@ pub struct MedicinalProductDefinitionNamePart {
 
     /// A fragment of a product name
     pub part: types::String,
+    /// Primitive extension sibling for [`part`](Self::part) (FHIR `_part`).
+    #[serde(rename = "_part")]
+    pub part_ext: Option<types::Element>,
 
     /// Identifying type for this part of the name (e.g. strength part)
     pub r#type: types::CodeableConcept,

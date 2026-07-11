@@ -52,6 +52,9 @@ pub struct ParameterDefinition {
 
     /// Whether the parameter is input or output (in | out)
     pub r#use: types::Code,
+    /// Primitive extension sibling for [`use`](Self::r#use) (FHIR `_use`).
+    #[serde(rename = "_use")]
+    pub use_ext: Option<types::Element>,
 
     /// Minimum cardinality
     pub min: Option<types::Integer>,
@@ -73,6 +76,9 @@ pub struct ParameterDefinition {
 
     /// The FHIR data type or resource type of the parameter value
     pub r#type: types::Code,
+    /// Primitive extension sibling for [`type`](Self::r#type) (FHIR `_type`).
+    #[serde(rename = "_type")]
+    pub type_ext: Option<types::Element>,
 
     /// The profile the parameter value is expected to conform to
     pub profile: Option<types::Canonical>,

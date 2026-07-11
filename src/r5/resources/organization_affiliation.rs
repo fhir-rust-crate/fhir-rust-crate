@@ -66,9 +66,15 @@ pub struct OrganizationAffiliation {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -87,6 +93,9 @@ pub struct OrganizationAffiliation {
 
     /// Whether this organization affiliation record is in active use
     pub active: Option<types::Boolean>,
+    /// Primitive extension sibling for [`active`](Self::active) (FHIR `_active`).
+    #[serde(rename = "_active")]
+    pub active_ext: Option<types::Element>,
 
     /// The period during which the participatingOrganization is affiliated with the primary organization
     pub period: Option<types::Period>,

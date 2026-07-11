@@ -71,9 +71,15 @@ pub struct Bundle {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Persistent identifier for the bundle
     pub identifier: Option<types::Identifier>,
@@ -83,12 +89,21 @@ pub struct Bundle {
     /// subscription-notification. This value determines how the entries must be
     /// interpreted and processed.
     pub r#type: types::Code,
+    /// Primitive extension sibling for [`type`](Self::r#type) (FHIR `_type`).
+    #[serde(rename = "_type")]
+    pub type_ext: Option<types::Element>,
 
     /// When the bundle was assembled
     pub timestamp: Option<types::Instant>,
+    /// Primitive extension sibling for [`timestamp`](Self::timestamp) (FHIR `_timestamp`).
+    #[serde(rename = "_timestamp")]
+    pub timestamp_ext: Option<types::Element>,
 
     /// If search, the total number of matches across all pages of results
     pub total: Option<types::UnsignedInt>,
+    /// Primitive extension sibling for [`total`](Self::total) (FHIR `_total`).
+    #[serde(rename = "_total")]
+    pub total_ext: Option<types::Element>,
 
     /// Links related to this Bundle, such as `self` and `next` for paginated
     /// search results
@@ -124,9 +139,15 @@ pub struct BundleLink {
 
     /// See http://www.iana.org/assignments/link-relations/link-relations.xhtml#link-relations-1
     pub relation: types::Code,
+    /// Primitive extension sibling for [`relation`](Self::relation) (FHIR `_relation`).
+    #[serde(rename = "_relation")]
+    pub relation_ext: Option<types::Element>,
 
     /// Reference details for the link
     pub url: types::Uri,
+    /// Primitive extension sibling for [`url`](Self::url) (FHIR `_url`).
+    #[serde(rename = "_url")]
+    pub url_ext: Option<types::Element>,
 }
 
 /// Entry in the bundle - will have a resource or information.
@@ -152,6 +173,9 @@ pub struct BundleEntry {
     /// URI for resource (e.g. the absolute URL server address, URI for
     /// UUID/OID, etc.)
     pub full_url: Option<types::Uri>,
+    /// Primitive extension sibling for [`full_url`](Self::full_url) (FHIR `_fullUrl`).
+    #[serde(rename = "_fullUrl")]
+    pub full_url_ext: Option<types::Element>,
 
     /// A resource in the bundle
     pub resource: Option<::serde_json::Value>,
@@ -184,9 +208,15 @@ pub struct BundleEntrySearch {
 
     /// match | include - why this is in the result set
     pub mode: Option<types::Code>,
+    /// Primitive extension sibling for [`mode`](Self::mode) (FHIR `_mode`).
+    #[serde(rename = "_mode")]
+    pub mode_ext: Option<types::Element>,
 
     /// Search ranking (between 0 and 1)
     pub score: Option<types::Decimal>,
+    /// Primitive extension sibling for [`score`](Self::score) (FHIR `_score`).
+    #[serde(rename = "_score")]
+    pub score_ext: Option<types::Element>,
 }
 
 /// Additional execution information (transaction/batch/history).
@@ -209,21 +239,39 @@ pub struct BundleEntryRequest {
 
     /// GET | HEAD | POST | PUT | DELETE | PATCH
     pub method: types::Code,
+    /// Primitive extension sibling for [`method`](Self::method) (FHIR `_method`).
+    #[serde(rename = "_method")]
+    pub method_ext: Option<types::Element>,
 
     /// URL for HTTP equivalent of this entry
     pub url: types::Uri,
+    /// Primitive extension sibling for [`url`](Self::url) (FHIR `_url`).
+    #[serde(rename = "_url")]
+    pub url_ext: Option<types::Element>,
 
     /// For managing cache validation
     pub if_none_match: Option<types::String>,
+    /// Primitive extension sibling for [`if_none_match`](Self::if_none_match) (FHIR `_ifNoneMatch`).
+    #[serde(rename = "_ifNoneMatch")]
+    pub if_none_match_ext: Option<types::Element>,
 
     /// For managing cache currency
     pub if_modified_since: Option<types::Instant>,
+    /// Primitive extension sibling for [`if_modified_since`](Self::if_modified_since) (FHIR `_ifModifiedSince`).
+    #[serde(rename = "_ifModifiedSince")]
+    pub if_modified_since_ext: Option<types::Element>,
 
     /// For managing update contention
     pub if_match: Option<types::String>,
+    /// Primitive extension sibling for [`if_match`](Self::if_match) (FHIR `_ifMatch`).
+    #[serde(rename = "_ifMatch")]
+    pub if_match_ext: Option<types::Element>,
 
     /// For conditional creates
     pub if_none_exist: Option<types::String>,
+    /// Primitive extension sibling for [`if_none_exist`](Self::if_none_exist) (FHIR `_ifNoneExist`).
+    #[serde(rename = "_ifNoneExist")]
+    pub if_none_exist_ext: Option<types::Element>,
 }
 
 /// Results of execution (transaction/batch/history).
@@ -246,15 +294,27 @@ pub struct BundleEntryResponse {
 
     /// Status response code (text optional)
     pub status: types::String,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// The location (if the operation returns a location)
     pub location: Option<types::Uri>,
+    /// Primitive extension sibling for [`location`](Self::location) (FHIR `_location`).
+    #[serde(rename = "_location")]
+    pub location_ext: Option<types::Element>,
 
     /// The Etag for the resource (if relevant)
     pub etag: Option<types::String>,
+    /// Primitive extension sibling for [`etag`](Self::etag) (FHIR `_etag`).
+    #[serde(rename = "_etag")]
+    pub etag_ext: Option<types::Element>,
 
     /// Server's date time modified
     pub last_modified: Option<types::Instant>,
+    /// Primitive extension sibling for [`last_modified`](Self::last_modified) (FHIR `_lastModified`).
+    #[serde(rename = "_lastModified")]
+    pub last_modified_ext: Option<types::Element>,
 
     /// OperationOutcome with hints and warnings (for batch/transaction)
     pub outcome: Option<::serde_json::Value>,

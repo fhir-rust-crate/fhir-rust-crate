@@ -63,9 +63,15 @@ pub struct MessageHeader {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -111,6 +117,9 @@ pub struct MessageHeader {
 
     /// Link to the definition for this message
     pub definition: Option<types::Canonical>,
+    /// Primitive extension sibling for [`definition`](Self::definition) (FHIR `_definition`).
+    #[serde(rename = "_definition")]
+    pub definition_ext: Option<types::Element>,
 }
 
 /// Message destination application(s).
@@ -139,6 +148,9 @@ pub struct MessageHeaderDestination {
 
     /// Name of system
     pub name: Option<types::String>,
+    /// Primitive extension sibling for [`name`](Self::name) (FHIR `_name`).
+    #[serde(rename = "_name")]
+    pub name_ext: Option<types::Element>,
 
     /// Particular delivery destination within the destination
     pub target: Option<types::Reference>,
@@ -173,12 +185,21 @@ pub struct MessageHeaderSource {
 
     /// Name of system
     pub name: Option<types::String>,
+    /// Primitive extension sibling for [`name`](Self::name) (FHIR `_name`).
+    #[serde(rename = "_name")]
+    pub name_ext: Option<types::Element>,
 
     /// Name of software running the system
     pub software: Option<types::String>,
+    /// Primitive extension sibling for [`software`](Self::software) (FHIR `_software`).
+    #[serde(rename = "_software")]
+    pub software_ext: Option<types::Element>,
 
     /// Version of software running
     pub version: Option<types::String>,
+    /// Primitive extension sibling for [`version`](Self::version) (FHIR `_version`).
+    #[serde(rename = "_version")]
+    pub version_ext: Option<types::Element>,
 
     /// Human contact for problems
     pub contact: Option<types::ContactPoint>,
@@ -207,6 +228,9 @@ pub struct MessageHeaderResponse {
 
     /// ok | transient-error | fatal-error
     pub code: types::Code,
+    /// Primitive extension sibling for [`code`](Self::code) (FHIR `_code`).
+    #[serde(rename = "_code")]
+    pub code_ext: Option<types::Element>,
 
     /// Specific list of hints/warnings/errors
     pub details: Option<types::Reference>,

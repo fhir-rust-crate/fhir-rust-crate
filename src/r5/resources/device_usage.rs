@@ -64,9 +64,15 @@ pub struct DeviceUsage {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -88,6 +94,9 @@ pub struct DeviceUsage {
 
     /// The current state of this device usage record: active | completed | not-done | entered-in-error +
     pub status: types::Code,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// The category of the statement - classifying how the statement is made
     pub category: Option<Vec<types::CodeableConcept>>,
@@ -112,6 +121,9 @@ pub struct DeviceUsage {
 
     /// When the statement was made (and recorded)
     pub date_asserted: Option<types::DateTime>,
+    /// Primitive extension sibling for [`date_asserted`](Self::date_asserted) (FHIR `_dateAsserted`).
+    #[serde(rename = "_dateAsserted")]
+    pub date_asserted_ext: Option<types::Element>,
 
     /// The status of the device usage, for example always, sometimes, never. This is not the same as the status of the statement
     pub usage_status: Option<types::CodeableConcept>,

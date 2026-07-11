@@ -70,9 +70,15 @@ pub struct GenomicStudy {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -91,6 +97,9 @@ pub struct GenomicStudy {
 
     /// The overall workflow status of the study: registered | available | cancelled | entered-in-error | unknown
     pub status: types::Code,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// The type of the study (e.g., Familial variant segregation, Functional variation detection, or Gene expression profiling)
     pub r#type: Option<Vec<types::CodeableConcept>>,
@@ -103,6 +112,9 @@ pub struct GenomicStudy {
 
     /// When the genomic study was started
     pub start_date: Option<types::DateTime>,
+    /// Primitive extension sibling for [`start_date`](Self::start_date) (FHIR `_startDate`).
+    #[serde(rename = "_startDate")]
+    pub start_date_ext: Option<types::Element>,
 
     /// Event resources that the genomic study is based on
     pub based_on: Option<Vec<types::Reference>>,
@@ -118,15 +130,24 @@ pub struct GenomicStudy {
 
     /// The defined protocol that describes the study
     pub instantiates_canonical: Option<types::Canonical>,
+    /// Primitive extension sibling for [`instantiates_canonical`](Self::instantiates_canonical) (FHIR `_instantiatesCanonical`).
+    #[serde(rename = "_instantiatesCanonical")]
+    pub instantiates_canonical_ext: Option<types::Element>,
 
     /// The URL pointing to an externally maintained protocol that describes the study
     pub instantiates_uri: Option<types::Uri>,
+    /// Primitive extension sibling for [`instantiates_uri`](Self::instantiates_uri) (FHIR `_instantiatesUri`).
+    #[serde(rename = "_instantiatesUri")]
+    pub instantiates_uri_ext: Option<types::Element>,
 
     /// Comments related to the genomic study
     pub note: Option<Vec<types::Annotation>>,
 
     /// Description of the genomic study
     pub description: Option<types::Markdown>,
+    /// Primitive extension sibling for [`description`](Self::description) (FHIR `_description`).
+    #[serde(rename = "_description")]
+    pub description_ext: Option<types::Element>,
 
     /// The one or more genomic analysis events that make up this study
     pub analysis: Option<Vec<GenomicStudyAnalysis>>,
@@ -164,12 +185,21 @@ pub struct GenomicStudyAnalysis {
 
     /// The defined protocol that describes the analysis
     pub instantiates_canonical: Option<types::Canonical>,
+    /// Primitive extension sibling for [`instantiates_canonical`](Self::instantiates_canonical) (FHIR `_instantiatesCanonical`).
+    #[serde(rename = "_instantiatesCanonical")]
+    pub instantiates_canonical_ext: Option<types::Element>,
 
     /// The URL pointing to an externally maintained protocol that describes the analysis
     pub instantiates_uri: Option<types::Uri>,
+    /// Primitive extension sibling for [`instantiates_uri`](Self::instantiates_uri) (FHIR `_instantiatesUri`).
+    #[serde(rename = "_instantiatesUri")]
+    pub instantiates_uri_ext: Option<types::Element>,
 
     /// Name of the analysis event (human friendly)
     pub title: Option<types::String>,
+    /// Primitive extension sibling for [`title`](Self::title) (FHIR `_title`).
+    #[serde(rename = "_title")]
+    pub title_ext: Option<types::Element>,
 
     /// What the genomic analysis is about, when it is not about the subject of record
     pub focus: Option<Vec<types::Reference>>,
@@ -179,6 +209,9 @@ pub struct GenomicStudyAnalysis {
 
     /// The date of the analysis event
     pub date: Option<types::DateTime>,
+    /// Primitive extension sibling for [`date`](Self::date) (FHIR `_date`).
+    #[serde(rename = "_date")]
+    pub date_ext: Option<types::Element>,
 
     /// Any notes capture with the analysis event
     pub note: Option<Vec<types::Annotation>>,

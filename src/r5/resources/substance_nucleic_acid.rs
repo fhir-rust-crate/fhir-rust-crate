@@ -63,9 +63,15 @@ pub struct SubstanceNucleicAcid {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -84,9 +90,15 @@ pub struct SubstanceNucleicAcid {
 
     /// The number of linear nucleotide sequences (subunits) linked through phosphodiester bonds
     pub number_of_subunits: Option<types::Integer>,
+    /// Primitive extension sibling for [`number_of_subunits`](Self::number_of_subunits) (FHIR `_numberOfSubunits`).
+    #[serde(rename = "_numberOfSubunits")]
+    pub number_of_subunits_ext: Option<types::Element>,
 
     /// The area of hybridisation shall be described if applicable for double stranded RNA or DNA
     pub area_of_hybridisation: Option<types::String>,
+    /// Primitive extension sibling for [`area_of_hybridisation`](Self::area_of_hybridisation) (FHIR `_areaOfHybridisation`).
+    #[serde(rename = "_areaOfHybridisation")]
+    pub area_of_hybridisation_ext: Option<types::Element>,
 
     /// (TBC)
     pub oligo_nucleotide_type: Option<types::CodeableConcept>,
@@ -113,12 +125,21 @@ pub struct SubstanceNucleicAcidSubunit {
 
     /// Index of linear sequences of nucleic acids in order of decreasing length
     pub subunit: Option<types::Integer>,
+    /// Primitive extension sibling for [`subunit`](Self::subunit) (FHIR `_subunit`).
+    #[serde(rename = "_subunit")]
+    pub subunit_ext: Option<types::Element>,
 
     /// Actual nucleotide sequence notation from 5' to 3' end using standard single letter codes
     pub sequence: Option<types::String>,
+    /// Primitive extension sibling for [`sequence`](Self::sequence) (FHIR `_sequence`).
+    #[serde(rename = "_sequence")]
+    pub sequence_ext: Option<types::Element>,
 
     /// The length of the sequence shall be captured
     pub length: Option<types::Integer>,
+    /// Primitive extension sibling for [`length`](Self::length) (FHIR `_length`).
+    #[serde(rename = "_length")]
+    pub length_ext: Option<types::Element>,
 
     /// (TBC)
     pub sequence_attachment: Option<types::Attachment>,
@@ -152,15 +173,24 @@ pub struct SubstanceNucleicAcidSubunitLinkage {
 
     /// The entity that links the sugar residues together
     pub connectivity: Option<types::String>,
+    /// Primitive extension sibling for [`connectivity`](Self::connectivity) (FHIR `_connectivity`).
+    #[serde(rename = "_connectivity")]
+    pub connectivity_ext: Option<types::Element>,
 
     /// Each linkage will be registered as a fragment and have an ID
     pub identifier: Option<types::Identifier>,
 
     /// Each linkage will be registered as a fragment and have at least one name
     pub name: Option<types::String>,
+    /// Primitive extension sibling for [`name`](Self::name) (FHIR `_name`).
+    #[serde(rename = "_name")]
+    pub name_ext: Option<types::Element>,
 
     /// Residues shall be captured as described in 5.3.6.8.3
     pub residue_site: Option<types::String>,
+    /// Primitive extension sibling for [`residue_site`](Self::residue_site) (FHIR `_residueSite`).
+    #[serde(rename = "_residueSite")]
+    pub residue_site_ext: Option<types::Element>,
 }
 
 /// 5.3.6.8.1 Sugar ID (Mandatory).
@@ -182,9 +212,15 @@ pub struct SubstanceNucleicAcidSubunitSugar {
 
     /// The name of the sugar or sugar-like component that make up the nucleotide
     pub name: Option<types::String>,
+    /// Primitive extension sibling for [`name`](Self::name) (FHIR `_name`).
+    #[serde(rename = "_name")]
+    pub name_ext: Option<types::Element>,
 
     /// The residues that contain a given sugar will be captured
     pub residue_site: Option<types::String>,
+    /// Primitive extension sibling for [`residue_site`](Self::residue_site) (FHIR `_residueSite`).
+    #[serde(rename = "_residueSite")]
+    pub residue_site_ext: Option<types::Element>,
 }
 
 #[cfg(test)]

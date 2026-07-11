@@ -68,9 +68,15 @@ pub struct ConceptMap {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -86,12 +92,18 @@ pub struct ConceptMap {
 
     /// Canonical identifier for this concept map, represented as a URI (globally unique), used to reference this ConceptMap from other resources
     pub url: Option<types::Uri>,
+    /// Primitive extension sibling for [`url`](Self::url) (FHIR `_url`).
+    #[serde(rename = "_url")]
+    pub url_ext: Option<types::Element>,
 
     /// Additional identifier for the concept map
     pub identifier: Option<Vec<types::Identifier>>,
 
     /// Business version of the concept map
     pub version: Option<types::String>,
+    /// Primitive extension sibling for [`version`](Self::version) (FHIR `_version`).
+    #[serde(rename = "_version")]
+    pub version_ext: Option<types::Element>,
 
     /// How to compare versions
     pub version_algorithm_string: Option<types::String>,
@@ -101,27 +113,48 @@ pub struct ConceptMap {
 
     /// Name for this concept map (computer friendly)
     pub name: Option<types::String>,
+    /// Primitive extension sibling for [`name`](Self::name) (FHIR `_name`).
+    #[serde(rename = "_name")]
+    pub name_ext: Option<types::Element>,
 
     /// Name for this concept map (human friendly)
     pub title: Option<types::String>,
+    /// Primitive extension sibling for [`title`](Self::title) (FHIR `_title`).
+    #[serde(rename = "_title")]
+    pub title_ext: Option<types::Element>,
 
     /// draft | active | retired | unknown; the publication lifecycle status of this ConceptMap
     pub status: types::Code,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// For testing purposes, not real usage
     pub experimental: Option<types::Boolean>,
+    /// Primitive extension sibling for [`experimental`](Self::experimental) (FHIR `_experimental`).
+    #[serde(rename = "_experimental")]
+    pub experimental_ext: Option<types::Element>,
 
     /// Date last changed
     pub date: Option<types::DateTime>,
+    /// Primitive extension sibling for [`date`](Self::date) (FHIR `_date`).
+    #[serde(rename = "_date")]
+    pub date_ext: Option<types::Element>,
 
     /// Name of the publisher/steward (organization or individual)
     pub publisher: Option<types::String>,
+    /// Primitive extension sibling for [`publisher`](Self::publisher) (FHIR `_publisher`).
+    #[serde(rename = "_publisher")]
+    pub publisher_ext: Option<types::Element>,
 
     /// Contact details for the publisher
     pub contact: Option<Vec<types::ContactDetail>>,
 
     /// Natural language description of the concept map
     pub description: Option<types::Markdown>,
+    /// Primitive extension sibling for [`description`](Self::description) (FHIR `_description`).
+    #[serde(rename = "_description")]
+    pub description_ext: Option<types::Element>,
 
     /// The context that the content is intended to support
     pub use_context: Option<Vec<types::UsageContext>>,
@@ -131,18 +164,33 @@ pub struct ConceptMap {
 
     /// Why this concept map is defined
     pub purpose: Option<types::Markdown>,
+    /// Primitive extension sibling for [`purpose`](Self::purpose) (FHIR `_purpose`).
+    #[serde(rename = "_purpose")]
+    pub purpose_ext: Option<types::Element>,
 
     /// Use and/or publishing restrictions
     pub copyright: Option<types::Markdown>,
+    /// Primitive extension sibling for [`copyright`](Self::copyright) (FHIR `_copyright`).
+    #[serde(rename = "_copyright")]
+    pub copyright_ext: Option<types::Element>,
 
     /// Copyright holder and year(s)
     pub copyright_label: Option<types::String>,
+    /// Primitive extension sibling for [`copyright_label`](Self::copyright_label) (FHIR `_copyrightLabel`).
+    #[serde(rename = "_copyrightLabel")]
+    pub copyright_label_ext: Option<types::Element>,
 
     /// When the ConceptMap was approved by publisher
     pub approval_date: Option<types::Date>,
+    /// Primitive extension sibling for [`approval_date`](Self::approval_date) (FHIR `_approvalDate`).
+    #[serde(rename = "_approvalDate")]
+    pub approval_date_ext: Option<types::Element>,
 
     /// When the ConceptMap was last reviewed by the publisher
     pub last_review_date: Option<types::Date>,
+    /// Primitive extension sibling for [`last_review_date`](Self::last_review_date) (FHIR `_lastReviewDate`).
+    #[serde(rename = "_lastReviewDate")]
+    pub last_review_date_ext: Option<types::Element>,
 
     /// When the ConceptMap is expected to be used
     pub effective_period: Option<types::Period>,
@@ -206,18 +254,33 @@ pub struct ConceptMapProperty {
 
     /// Identifies the property on the mappings, and when referred to in the $translate operation
     pub code: types::Code,
+    /// Primitive extension sibling for [`code`](Self::code) (FHIR `_code`).
+    #[serde(rename = "_code")]
+    pub code_ext: Option<types::Element>,
 
     /// Formal identifier for the property
     pub uri: Option<types::Uri>,
+    /// Primitive extension sibling for [`uri`](Self::uri) (FHIR `_uri`).
+    #[serde(rename = "_uri")]
+    pub uri_ext: Option<types::Element>,
 
     /// Why the property is defined, and/or what it conveys
     pub description: Option<types::String>,
+    /// Primitive extension sibling for [`description`](Self::description) (FHIR `_description`).
+    #[serde(rename = "_description")]
+    pub description_ext: Option<types::Element>,
 
     /// Coding | string | integer | boolean | dateTime | decimal | code
     pub r#type: types::Code,
+    /// Primitive extension sibling for [`type`](Self::r#type) (FHIR `_type`).
+    #[serde(rename = "_type")]
+    pub type_ext: Option<types::Element>,
 
     /// The CodeSystem from which code values come
     pub system: Option<types::Canonical>,
+    /// Primitive extension sibling for [`system`](Self::system) (FHIR `_system`).
+    #[serde(rename = "_system")]
+    pub system_ext: Option<types::Element>,
 }
 
 /// Definition of an additional attribute to act as a data source or target.
@@ -239,15 +302,27 @@ pub struct ConceptMapAdditionalAttribute {
 
     /// Identifies this additional attribute through this resource
     pub code: types::Code,
+    /// Primitive extension sibling for [`code`](Self::code) (FHIR `_code`).
+    #[serde(rename = "_code")]
+    pub code_ext: Option<types::Element>,
 
     /// Formal identifier for the data element referred to in this attribte
     pub uri: Option<types::Uri>,
+    /// Primitive extension sibling for [`uri`](Self::uri) (FHIR `_uri`).
+    #[serde(rename = "_uri")]
+    pub uri_ext: Option<types::Element>,
 
     /// Why the additional attribute is defined, and/or what the data element it refers to is
     pub description: Option<types::String>,
+    /// Primitive extension sibling for [`description`](Self::description) (FHIR `_description`).
+    #[serde(rename = "_description")]
+    pub description_ext: Option<types::Element>,
 
     /// code | Coding | string | boolean | Quantity
     pub r#type: types::Code,
+    /// Primitive extension sibling for [`type`](Self::r#type) (FHIR `_type`).
+    #[serde(rename = "_type")]
+    pub type_ext: Option<types::Element>,
 }
 
 /// Same source and target systems.
@@ -269,9 +344,15 @@ pub struct ConceptMapGroup {
 
     /// Source system where concepts to be mapped are defined
     pub source: Option<types::Canonical>,
+    /// Primitive extension sibling for [`source`](Self::source) (FHIR `_source`).
+    #[serde(rename = "_source")]
+    pub source_ext: Option<types::Element>,
 
     /// Target system that the concepts are to be mapped to
     pub target: Option<types::Canonical>,
+    /// Primitive extension sibling for [`target`](Self::target) (FHIR `_target`).
+    #[serde(rename = "_target")]
+    pub target_ext: Option<types::Element>,
 
     /// Mappings for a concept from the source set
     pub element: Vec<ConceptMapGroupElement>,
@@ -299,15 +380,27 @@ pub struct ConceptMapGroupElement {
 
     /// Identifies element being mapped
     pub code: Option<types::Code>,
+    /// Primitive extension sibling for [`code`](Self::code) (FHIR `_code`).
+    #[serde(rename = "_code")]
+    pub code_ext: Option<types::Element>,
 
     /// Display for the code
     pub display: Option<types::String>,
+    /// Primitive extension sibling for [`display`](Self::display) (FHIR `_display`).
+    #[serde(rename = "_display")]
+    pub display_ext: Option<types::Element>,
 
     /// Identifies the set of concepts being mapped
     pub value_set: Option<types::Canonical>,
+    /// Primitive extension sibling for [`value_set`](Self::value_set) (FHIR `_valueSet`).
+    #[serde(rename = "_valueSet")]
+    pub value_set_ext: Option<types::Element>,
 
     /// No mapping to a target concept for this source concept
     pub no_map: Option<types::Boolean>,
+    /// Primitive extension sibling for [`no_map`](Self::no_map) (FHIR `_noMap`).
+    #[serde(rename = "_noMap")]
+    pub no_map_ext: Option<types::Element>,
 
     /// Concept in target system for element
     pub target: Option<Vec<ConceptMapGroupElementTarget>>,
@@ -332,18 +425,33 @@ pub struct ConceptMapGroupElementTarget {
 
     /// Code that identifies the target element
     pub code: Option<types::Code>,
+    /// Primitive extension sibling for [`code`](Self::code) (FHIR `_code`).
+    #[serde(rename = "_code")]
+    pub code_ext: Option<types::Element>,
 
     /// Display for the code
     pub display: Option<types::String>,
+    /// Primitive extension sibling for [`display`](Self::display) (FHIR `_display`).
+    #[serde(rename = "_display")]
+    pub display_ext: Option<types::Element>,
 
     /// Identifies the set of target concepts
     pub value_set: Option<types::Canonical>,
+    /// Primitive extension sibling for [`value_set`](Self::value_set) (FHIR `_valueSet`).
+    #[serde(rename = "_valueSet")]
+    pub value_set_ext: Option<types::Element>,
 
     /// related-to | equivalent | source-is-narrower-than-target | source-is-broader-than-target | not-related-to
     pub relationship: types::Code,
+    /// Primitive extension sibling for [`relationship`](Self::relationship) (FHIR `_relationship`).
+    #[serde(rename = "_relationship")]
+    pub relationship_ext: Option<types::Element>,
 
     /// Description of status/issues in mapping
     pub comment: Option<types::String>,
+    /// Primitive extension sibling for [`comment`](Self::comment) (FHIR `_comment`).
+    #[serde(rename = "_comment")]
+    pub comment_ext: Option<types::Element>,
 
     /// Property value for the source -> target mapping
     pub property: Option<Vec<ConceptMapGroupElementTargetProperty>>,
@@ -374,6 +482,9 @@ pub struct ConceptMapGroupElementTargetProperty {
 
     /// Reference to ConceptMap.property.code
     pub code: types::Code,
+    /// Primitive extension sibling for [`code`](Self::code) (FHIR `_code`).
+    #[serde(rename = "_code")]
+    pub code_ext: Option<types::Element>,
 
     /// Value of the property for this concept
     pub value_coding: Option<types::Coding>,
@@ -416,6 +527,9 @@ pub struct ConceptMapGroupElementTargetDependsOn {
 
     /// A reference to a mapping attribute defined in ConceptMap.additionalAttribute
     pub attribute: types::Code,
+    /// Primitive extension sibling for [`attribute`](Self::attribute) (FHIR `_attribute`).
+    #[serde(rename = "_attribute")]
+    pub attribute_ext: Option<types::Element>,
 
     /// Value of the referenced data element
     pub value_code: Option<types::Code>,
@@ -434,6 +548,9 @@ pub struct ConceptMapGroupElementTargetDependsOn {
 
     /// The mapping depends on a data element with a value from this value set
     pub value_set: Option<types::Canonical>,
+    /// Primitive extension sibling for [`value_set`](Self::value_set) (FHIR `_valueSet`).
+    #[serde(rename = "_valueSet")]
+    pub value_set_ext: Option<types::Element>,
 }
 
 /// What to do when there is no mapping target for the source concept and
@@ -456,21 +573,39 @@ pub struct ConceptMapGroupUnmapped {
 
     /// use-source-code | fixed | other-map
     pub mode: types::Code,
+    /// Primitive extension sibling for [`mode`](Self::mode) (FHIR `_mode`).
+    #[serde(rename = "_mode")]
+    pub mode_ext: Option<types::Element>,
 
     /// Fixed code when mode = fixed
     pub code: Option<types::Code>,
+    /// Primitive extension sibling for [`code`](Self::code) (FHIR `_code`).
+    #[serde(rename = "_code")]
+    pub code_ext: Option<types::Element>,
 
     /// Display for the code
     pub display: Option<types::String>,
+    /// Primitive extension sibling for [`display`](Self::display) (FHIR `_display`).
+    #[serde(rename = "_display")]
+    pub display_ext: Option<types::Element>,
 
     /// Fixed code set when mode = fixed
     pub value_set: Option<types::Canonical>,
+    /// Primitive extension sibling for [`value_set`](Self::value_set) (FHIR `_valueSet`).
+    #[serde(rename = "_valueSet")]
+    pub value_set_ext: Option<types::Element>,
 
     /// related-to | equivalent | source-is-narrower-than-target | source-is-broader-than-target | not-related-to
     pub relationship: Option<types::Code>,
+    /// Primitive extension sibling for [`relationship`](Self::relationship) (FHIR `_relationship`).
+    #[serde(rename = "_relationship")]
+    pub relationship_ext: Option<types::Element>,
 
     /// canonical reference to an additional ConceptMap to use for mapping if the source concept is unmapped
     pub other_map: Option<types::Canonical>,
+    /// Primitive extension sibling for [`other_map`](Self::other_map) (FHIR `_otherMap`).
+    #[serde(rename = "_otherMap")]
+    pub other_map_ext: Option<types::Element>,
 }
 
 #[cfg(test)]

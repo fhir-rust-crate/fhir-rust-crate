@@ -66,9 +66,15 @@ pub struct QuestionnaireResponse {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -93,9 +99,15 @@ pub struct QuestionnaireResponse {
 
     /// Canonical URL of the `Questionnaire` resource that defines the questions being answered
     pub questionnaire: types::Canonical,
+    /// Primitive extension sibling for [`questionnaire`](Self::questionnaire) (FHIR `_questionnaire`).
+    #[serde(rename = "_questionnaire")]
+    pub questionnaire_ext: Option<types::Element>,
 
     /// The lifecycle status of this response: in-progress | completed | amended | entered-in-error | stopped
     pub status: types::Code,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// The [`Patient`](crate::r5::resources::patient::Patient) or other resource the questions are about
     pub subject: Option<types::Reference>,
@@ -105,6 +117,9 @@ pub struct QuestionnaireResponse {
 
     /// Date the answers were gathered
     pub authored: Option<types::DateTime>,
+    /// Primitive extension sibling for [`authored`](Self::authored) (FHIR `_authored`).
+    #[serde(rename = "_authored")]
+    pub authored_ext: Option<types::Element>,
 
     /// The individual or device that received and recorded the answers
     pub author: Option<types::Reference>,
@@ -136,12 +151,21 @@ pub struct QuestionnaireResponseItem {
 
     /// Pointer to specific item from Questionnaire
     pub link_id: types::String,
+    /// Primitive extension sibling for [`link_id`](Self::link_id) (FHIR `_linkId`).
+    #[serde(rename = "_linkId")]
+    pub link_id_ext: Option<types::Element>,
 
     /// ElementDefinition - details for the item
     pub definition: Option<types::Uri>,
+    /// Primitive extension sibling for [`definition`](Self::definition) (FHIR `_definition`).
+    #[serde(rename = "_definition")]
+    pub definition_ext: Option<types::Element>,
 
     /// Name for group or question text
     pub text: Option<types::String>,
+    /// Primitive extension sibling for [`text`](Self::text) (FHIR `_text`).
+    #[serde(rename = "_text")]
+    pub text_ext: Option<types::Element>,
 
     /// The response(s) to the question
     pub answer: Option<Vec<QuestionnaireResponseItemAnswer>>,

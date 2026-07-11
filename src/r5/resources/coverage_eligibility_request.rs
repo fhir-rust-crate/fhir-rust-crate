@@ -65,9 +65,15 @@ pub struct CoverageEligibilityRequest {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -86,12 +92,18 @@ pub struct CoverageEligibilityRequest {
 
     /// The status of this request; one of active | cancelled | draft | entered-in-error
     pub status: types::Code,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// Desired processing priority, such as normal or stat
     pub priority: Option<types::CodeableConcept>,
 
     /// The reason(s) for the request, one or more of auth-requirements | benefits | discovery | validation
     pub purpose: Vec<types::Code>,
+    /// Primitive extension sibling for [`purpose`](Self::purpose) (FHIR `_purpose`).
+    #[serde(rename = "_purpose")]
+    pub purpose_ext: Option<Vec<Option<types::Element>>>,
 
     /// Reference to the [`Patient`](crate::r5::resources::patient::Patient) who is the subject of the eligibility check
     pub patient: types::Reference,
@@ -107,6 +119,9 @@ pub struct CoverageEligibilityRequest {
 
     /// Creation date
     pub created: types::DateTime,
+    /// Primitive extension sibling for [`created`](Self::created) (FHIR `_created`).
+    #[serde(rename = "_created")]
+    pub created_ext: Option<types::Element>,
 
     /// Author
     pub enterer: Option<types::Reference>,
@@ -173,12 +188,18 @@ pub struct CoverageEligibilityRequestSupportingInfo {
 
     /// Information instance identifier
     pub sequence: types::PositiveInt,
+    /// Primitive extension sibling for [`sequence`](Self::sequence) (FHIR `_sequence`).
+    #[serde(rename = "_sequence")]
+    pub sequence_ext: Option<types::Element>,
 
     /// Data to be provided
     pub information: types::Reference,
 
     /// Applies to all items
     pub applies_to_all: Option<types::Boolean>,
+    /// Primitive extension sibling for [`applies_to_all`](Self::applies_to_all) (FHIR `_appliesToAll`).
+    #[serde(rename = "_appliesToAll")]
+    pub applies_to_all_ext: Option<types::Element>,
 }
 
 /// Financial instruments for reimbursement for the health care products and
@@ -198,12 +219,18 @@ pub struct CoverageEligibilityRequestInsurance {
 
     /// Applicable coverage
     pub focal: Option<types::Boolean>,
+    /// Primitive extension sibling for [`focal`](Self::focal) (FHIR `_focal`).
+    #[serde(rename = "_focal")]
+    pub focal_ext: Option<types::Element>,
 
     /// Insurance information
     pub coverage: types::Reference,
 
     /// Additional provider contract number
     pub business_arrangement: Option<types::String>,
+    /// Primitive extension sibling for [`business_arrangement`](Self::business_arrangement) (FHIR `_businessArrangement`).
+    #[serde(rename = "_businessArrangement")]
+    pub business_arrangement_ext: Option<types::Element>,
 }
 
 /// Service categories or billable services for which benefit details and/or an
@@ -223,6 +250,9 @@ pub struct CoverageEligibilityRequestItem {
 
     /// Applicable exception or supporting information
     pub supporting_info_sequence: Option<Vec<types::PositiveInt>>,
+    /// Primitive extension sibling for [`supporting_info_sequence`](Self::supporting_info_sequence) (FHIR `_supportingInfoSequence`).
+    #[serde(rename = "_supportingInfoSequence")]
+    pub supporting_info_sequence_ext: Option<Vec<Option<types::Element>>>,
 
     /// Benefit classification
     pub category: Option<types::CodeableConcept>,

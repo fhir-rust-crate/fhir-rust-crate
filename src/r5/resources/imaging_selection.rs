@@ -65,9 +65,15 @@ pub struct ImagingSelection {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -86,12 +92,18 @@ pub struct ImagingSelection {
 
     /// Status of the imaging selection: available, entered-in-error, or unknown.
     pub status: types::Code,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// Subject of the selected instances, typically the Patient whose images are referenced.
     pub subject: Option<types::Reference>,
 
     /// Date / Time when this imaging selection was created
     pub issued: Option<types::Instant>,
+    /// Primitive extension sibling for [`issued`](Self::issued) (FHIR `_issued`).
+    #[serde(rename = "_issued")]
+    pub issued_ext: Option<types::Element>,
 
     /// Selector of the instances (human or machine)
     pub performer: Option<Vec<ImagingSelectionPerformer>>,
@@ -107,6 +119,9 @@ pub struct ImagingSelection {
 
     /// DICOM Study Instance UID identifying the study that contains the selected instances.
     pub study_uid: Option<types::Id>,
+    /// Primitive extension sibling for [`study_uid`](Self::study_uid) (FHIR `_studyUid`).
+    #[serde(rename = "_studyUid")]
+    pub study_uid_ext: Option<types::Element>,
 
     /// The imaging study, commonly an ImagingStudy, from which this selection is derived.
     pub derived_from: Option<Vec<types::Reference>>,
@@ -116,12 +131,21 @@ pub struct ImagingSelection {
 
     /// DICOM Series Instance UID
     pub series_uid: Option<types::Id>,
+    /// Primitive extension sibling for [`series_uid`](Self::series_uid) (FHIR `_seriesUid`).
+    #[serde(rename = "_seriesUid")]
+    pub series_uid_ext: Option<types::Element>,
 
     /// DICOM Series Number
     pub series_number: Option<types::UnsignedInt>,
+    /// Primitive extension sibling for [`series_number`](Self::series_number) (FHIR `_seriesNumber`).
+    #[serde(rename = "_seriesNumber")]
+    pub series_number_ext: Option<types::Element>,
 
     /// The Frame of Reference UID for the selected images
     pub frame_of_reference_uid: Option<types::Id>,
+    /// Primitive extension sibling for [`frame_of_reference_uid`](Self::frame_of_reference_uid) (FHIR `_frameOfReferenceUid`).
+    #[serde(rename = "_frameOfReferenceUid")]
+    pub frame_of_reference_uid_ext: Option<types::Element>,
 
     /// Body part examined
     pub body_site: Option<types::CodeableReference>,
@@ -170,15 +194,24 @@ pub struct ImagingSelectionInstance {
 
     /// DICOM SOP Instance UID
     pub uid: types::Id,
+    /// Primitive extension sibling for [`uid`](Self::uid) (FHIR `_uid`).
+    #[serde(rename = "_uid")]
+    pub uid_ext: Option<types::Element>,
 
     /// DICOM Instance Number
     pub number: Option<types::UnsignedInt>,
+    /// Primitive extension sibling for [`number`](Self::number) (FHIR `_number`).
+    #[serde(rename = "_number")]
+    pub number_ext: Option<types::Element>,
 
     /// DICOM SOP Class UID
     pub sop_class: Option<types::Coding>,
 
     /// The selected subset of the SOP Instance
     pub subset: Option<Vec<types::String>>,
+    /// Primitive extension sibling for [`subset`](Self::subset) (FHIR `_subset`).
+    #[serde(rename = "_subset")]
+    pub subset_ext: Option<Vec<Option<types::Element>>>,
 
     /// A specific 2D region in a DICOM image / frame
     pub image_region2_d: Option<Vec<ImagingSelectionInstanceImageRegion2D>>,
@@ -203,9 +236,15 @@ pub struct ImagingSelectionInstanceImageRegion2D {
 
     /// point | polyline | interpolated | circle | ellipse
     pub region_type: types::Code,
+    /// Primitive extension sibling for [`region_type`](Self::region_type) (FHIR `_regionType`).
+    #[serde(rename = "_regionType")]
+    pub region_type_ext: Option<types::Element>,
 
     /// Specifies the coordinates that define the image region
     pub coordinate: Vec<types::Decimal>,
+    /// Primitive extension sibling for [`coordinate`](Self::coordinate) (FHIR `_coordinate`).
+    #[serde(rename = "_coordinate")]
+    pub coordinate_ext: Option<Vec<Option<types::Element>>>,
 }
 
 /// A specific 3D region in a DICOM frame of reference.
@@ -224,9 +263,15 @@ pub struct ImagingSelectionInstanceImageRegion3D {
 
     /// point | multipoint | polyline | polygon | ellipse | ellipsoid
     pub region_type: types::Code,
+    /// Primitive extension sibling for [`region_type`](Self::region_type) (FHIR `_regionType`).
+    #[serde(rename = "_regionType")]
+    pub region_type_ext: Option<types::Element>,
 
     /// Specifies the coordinates that define the image region
     pub coordinate: Vec<types::Decimal>,
+    /// Primitive extension sibling for [`coordinate`](Self::coordinate) (FHIR `_coordinate`).
+    #[serde(rename = "_coordinate")]
+    pub coordinate_ext: Option<Vec<Option<types::Element>>>,
 }
 
 #[cfg(test)]

@@ -61,9 +61,15 @@ pub struct ResearchStudy {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -79,18 +85,30 @@ pub struct ResearchStudy {
 
     /// Canonical identifier for this study resource
     pub url: Option<types::Uri>,
+    /// Primitive extension sibling for [`url`](Self::url) (FHIR `_url`).
+    #[serde(rename = "_url")]
+    pub url_ext: Option<types::Element>,
 
     /// Business Identifier for study
     pub identifier: Option<Vec<types::Identifier>>,
 
     /// The business version for the study record
     pub version: Option<types::String>,
+    /// Primitive extension sibling for [`version`](Self::version) (FHIR `_version`).
+    #[serde(rename = "_version")]
+    pub version_ext: Option<types::Element>,
 
     /// Name for this study (computer friendly)
     pub name: Option<types::String>,
+    /// Primitive extension sibling for [`name`](Self::name) (FHIR `_name`).
+    #[serde(rename = "_name")]
+    pub name_ext: Option<types::Element>,
 
     /// Human readable name of the study, typically shown in listings and reports
     pub title: Option<types::String>,
+    /// Primitive extension sibling for [`title`](Self::title) (FHIR `_title`).
+    #[serde(rename = "_title")]
+    pub title_ext: Option<types::Element>,
 
     /// Additional names for the study
     pub label: Option<Vec<ResearchStudyLabel>>,
@@ -106,9 +124,15 @@ pub struct ResearchStudy {
 
     /// Date the resource last changed
     pub date: Option<types::DateTime>,
+    /// Primitive extension sibling for [`date`](Self::date) (FHIR `_date`).
+    #[serde(rename = "_date")]
+    pub date_ext: Option<types::Element>,
 
     /// The current lifecycle status of the study record itself: draft | active | retired | unknown
     pub status: types::Code,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// treatment | prevention | diagnostic | supportive-care | screening | health-services-research | basic-science | device-feasibility
     pub primary_purpose_type: Option<types::CodeableConcept>,
@@ -133,9 +157,15 @@ pub struct ResearchStudy {
 
     /// Brief text explaining the study
     pub description_summary: Option<types::Markdown>,
+    /// Primitive extension sibling for [`description_summary`](Self::description_summary) (FHIR `_descriptionSummary`).
+    #[serde(rename = "_descriptionSummary")]
+    pub description_summary_ext: Option<types::Element>,
 
     /// Detailed narrative of the study
     pub description: Option<types::Markdown>,
+    /// Primitive extension sibling for [`description`](Self::description) (FHIR `_description`).
+    #[serde(rename = "_description")]
+    pub description_ext: Option<types::Element>,
 
     /// When the study began and ended
     pub period: Option<types::Period>,
@@ -196,6 +226,9 @@ pub struct ResearchStudyLabel {
 
     /// The name
     pub value: Option<types::String>,
+    /// Primitive extension sibling for [`value`](Self::value) (FHIR `_value`).
+    #[serde(rename = "_value")]
+    pub value_ext: Option<types::Element>,
 }
 
 /// Sponsors, collaborators, and other parties.
@@ -218,6 +251,9 @@ pub struct ResearchStudyAssociatedParty {
 
     /// Name of associated party
     pub name: Option<types::String>,
+    /// Primitive extension sibling for [`name`](Self::name) (FHIR `_name`).
+    #[serde(rename = "_name")]
+    pub name_ext: Option<types::Element>,
 
     /// sponsor | lead-sponsor | sponsor-investigator | primary-investigator | collaborator | funding-source | general-contact | recruitment-contact | sub-investigator | study-director | study-chair
     pub role: types::CodeableConcept,
@@ -254,6 +290,9 @@ pub struct ResearchStudyProgressStatus {
 
     /// Actual if true else anticipated
     pub actual: Option<types::Boolean>,
+    /// Primitive extension sibling for [`actual`](Self::actual) (FHIR `_actual`).
+    #[serde(rename = "_actual")]
+    pub actual_ext: Option<types::Element>,
 
     /// Date range
     pub period: Option<types::Period>,
@@ -278,9 +317,15 @@ pub struct ResearchStudyRecruitment {
 
     /// Estimated total number of participants to be enrolled
     pub target_number: Option<types::UnsignedInt>,
+    /// Primitive extension sibling for [`target_number`](Self::target_number) (FHIR `_targetNumber`).
+    #[serde(rename = "_targetNumber")]
+    pub target_number_ext: Option<types::Element>,
 
     /// Actual total number of participants enrolled in study
     pub actual_number: Option<types::UnsignedInt>,
+    /// Primitive extension sibling for [`actual_number`](Self::actual_number) (FHIR `_actualNumber`).
+    #[serde(rename = "_actualNumber")]
+    pub actual_number_ext: Option<types::Element>,
 
     /// Inclusion and exclusion criteria
     pub eligibility: Option<types::Reference>,
@@ -308,15 +353,24 @@ pub struct ResearchStudyComparisonGroup {
 
     /// Allows the comparisonGroup for the study and the comparisonGroup for the subject to be linked easily
     pub link_id: Option<types::Id>,
+    /// Primitive extension sibling for [`link_id`](Self::link_id) (FHIR `_linkId`).
+    #[serde(rename = "_linkId")]
+    pub link_id_ext: Option<types::Element>,
 
     /// Label for study comparisonGroup
     pub name: types::String,
+    /// Primitive extension sibling for [`name`](Self::name) (FHIR `_name`).
+    #[serde(rename = "_name")]
+    pub name_ext: Option<types::Element>,
 
     /// Categorization of study comparisonGroup
     pub r#type: Option<types::CodeableConcept>,
 
     /// Short explanation of study path
     pub description: Option<types::Markdown>,
+    /// Primitive extension sibling for [`description`](Self::description) (FHIR `_description`).
+    #[serde(rename = "_description")]
+    pub description_ext: Option<types::Element>,
 
     /// Interventions or exposures in this comparisonGroup or cohort
     pub intended_exposure: Option<Vec<types::Reference>>,
@@ -344,12 +398,18 @@ pub struct ResearchStudyObjective {
 
     /// Label for the objective
     pub name: Option<types::String>,
+    /// Primitive extension sibling for [`name`](Self::name) (FHIR `_name`).
+    #[serde(rename = "_name")]
+    pub name_ext: Option<types::Element>,
 
     /// primary | secondary | exploratory
     pub r#type: Option<types::CodeableConcept>,
 
     /// Description of the objective
     pub description: Option<types::Markdown>,
+    /// Primitive extension sibling for [`description`](Self::description) (FHIR `_description`).
+    #[serde(rename = "_description")]
+    pub description_ext: Option<types::Element>,
 }
 
 /// A variable measured during the study.
@@ -371,12 +431,18 @@ pub struct ResearchStudyOutcomeMeasure {
 
     /// Label for the outcome
     pub name: Option<types::String>,
+    /// Primitive extension sibling for [`name`](Self::name) (FHIR `_name`).
+    #[serde(rename = "_name")]
+    pub name_ext: Option<types::Element>,
 
     /// primary | secondary | exploratory
     pub r#type: Option<Vec<types::CodeableConcept>>,
 
     /// Description of the outcome
     pub description: Option<types::Markdown>,
+    /// Primitive extension sibling for [`description`](Self::description) (FHIR `_description`).
+    #[serde(rename = "_description")]
+    pub description_ext: Option<types::Element>,
 
     /// Structured outcome definition
     pub reference: Option<types::Reference>,

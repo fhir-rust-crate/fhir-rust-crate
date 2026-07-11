@@ -70,9 +70,15 @@ pub struct Evidence {
 
     /// A set of rules under which this content was created.
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content.
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation.
     pub text: Option<types::Narrative>,
@@ -90,12 +96,18 @@ pub struct Evidence {
     /// unique URI, used to reference this specific version of the evidence
     /// from other artifacts.
     pub url: Option<types::Uri>,
+    /// Primitive extension sibling for [`url`](Self::url) (FHIR `_url`).
+    #[serde(rename = "_url")]
+    pub url_ext: Option<types::Element>,
 
     /// Additional identifier for the summary.
     pub identifier: Option<Vec<types::Identifier>>,
 
     /// Business version of this summary.
     pub version: Option<types::String>,
+    /// Primitive extension sibling for [`version`](Self::version) (FHIR `_version`).
+    #[serde(rename = "_version")]
+    pub version_ext: Option<types::Element>,
 
     /// How to compare versions.
     pub version_algorithm_string: Option<types::String>,
@@ -105,9 +117,15 @@ pub struct Evidence {
 
     /// Name for this summary (machine friendly).
     pub name: Option<types::String>,
+    /// Primitive extension sibling for [`name`](Self::name) (FHIR `_name`).
+    #[serde(rename = "_name")]
+    pub name_ext: Option<types::Element>,
 
     /// Name for this summary (human friendly).
     pub title: Option<types::String>,
+    /// Primitive extension sibling for [`title`](Self::title) (FHIR `_title`).
+    #[serde(rename = "_title")]
+    pub title_ext: Option<types::Element>,
 
     /// Citation for this evidence.
     pub cite_as_reference: Option<types::Reference>,
@@ -118,21 +136,39 @@ pub struct Evidence {
     /// The publication lifecycle status of this evidence: draft | active |
     /// retired | unknown.
     pub status: types::Code,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// For testing purposes, not real usage.
     pub experimental: Option<types::Boolean>,
+    /// Primitive extension sibling for [`experimental`](Self::experimental) (FHIR `_experimental`).
+    #[serde(rename = "_experimental")]
+    pub experimental_ext: Option<types::Element>,
 
     /// Date last changed.
     pub date: Option<types::DateTime>,
+    /// Primitive extension sibling for [`date`](Self::date) (FHIR `_date`).
+    #[serde(rename = "_date")]
+    pub date_ext: Option<types::Element>,
 
     /// When the summary was approved by publisher.
     pub approval_date: Option<types::Date>,
+    /// Primitive extension sibling for [`approval_date`](Self::approval_date) (FHIR `_approvalDate`).
+    #[serde(rename = "_approvalDate")]
+    pub approval_date_ext: Option<types::Element>,
 
     /// When the summary was last reviewed by the publisher.
     pub last_review_date: Option<types::Date>,
+    /// Primitive extension sibling for [`last_review_date`](Self::last_review_date) (FHIR `_lastReviewDate`).
+    #[serde(rename = "_lastReviewDate")]
+    pub last_review_date_ext: Option<types::Element>,
 
     /// Name of the publisher/steward (organization or individual).
     pub publisher: Option<types::String>,
+    /// Primitive extension sibling for [`publisher`](Self::publisher) (FHIR `_publisher`).
+    #[serde(rename = "_publisher")]
+    pub publisher_ext: Option<types::Element>,
 
     /// Contact details for the publisher.
     pub contact: Option<Vec<types::ContactDetail>>,
@@ -154,21 +190,36 @@ pub struct Evidence {
 
     /// Why this Evidence is defined.
     pub purpose: Option<types::Markdown>,
+    /// Primitive extension sibling for [`purpose`](Self::purpose) (FHIR `_purpose`).
+    #[serde(rename = "_purpose")]
+    pub purpose_ext: Option<types::Element>,
 
     /// Use and/or publishing restrictions.
     pub copyright: Option<types::Markdown>,
+    /// Primitive extension sibling for [`copyright`](Self::copyright) (FHIR `_copyright`).
+    #[serde(rename = "_copyright")]
+    pub copyright_ext: Option<types::Element>,
 
     /// Copyright holder and year(s).
     pub copyright_label: Option<types::String>,
+    /// Primitive extension sibling for [`copyright_label`](Self::copyright_label) (FHIR `_copyrightLabel`).
+    #[serde(rename = "_copyrightLabel")]
+    pub copyright_label_ext: Option<types::Element>,
 
     /// Link or citation to artifact associated with the summary.
     pub related_artifact: Option<Vec<types::RelatedArtifact>>,
 
     /// Description of the particular summary.
     pub description: Option<types::Markdown>,
+    /// Primitive extension sibling for [`description`](Self::description) (FHIR `_description`).
+    #[serde(rename = "_description")]
+    pub description_ext: Option<types::Element>,
 
     /// Declarative description of the Evidence.
     pub assertion: Option<types::Markdown>,
+    /// Primitive extension sibling for [`assertion`](Self::assertion) (FHIR `_assertion`).
+    #[serde(rename = "_assertion")]
+    pub assertion_ext: Option<types::Element>,
 
     /// Footnotes and/or explanatory notes.
     pub note: Option<Vec<types::Annotation>>,
@@ -208,6 +259,9 @@ pub struct EvidenceVariableDefinition {
 
     /// A text description or summary of the variable.
     pub description: Option<types::Markdown>,
+    /// Primitive extension sibling for [`description`](Self::description) (FHIR `_description`).
+    #[serde(rename = "_description")]
+    pub description_ext: Option<types::Element>,
 
     /// Footnotes and/or explanatory notes.
     pub note: Option<Vec<types::Annotation>>,
@@ -241,6 +295,9 @@ pub struct EvidenceStatistic {
 
     /// Description of content.
     pub description: Option<types::Markdown>,
+    /// Primitive extension sibling for [`description`](Self::description) (FHIR `_description`).
+    #[serde(rename = "_description")]
+    pub description_ext: Option<types::Element>,
 
     /// Footnotes and/or explanatory notes.
     pub note: Option<Vec<types::Annotation>>,
@@ -256,9 +313,15 @@ pub struct EvidenceStatistic {
 
     /// The number of events associated with the statistic.
     pub number_of_events: Option<types::UnsignedInt>,
+    /// Primitive extension sibling for [`number_of_events`](Self::number_of_events) (FHIR `_numberOfEvents`).
+    #[serde(rename = "_numberOfEvents")]
+    pub number_of_events_ext: Option<types::Element>,
 
     /// The number of participants affected.
     pub number_affected: Option<types::UnsignedInt>,
+    /// Primitive extension sibling for [`number_affected`](Self::number_affected) (FHIR `_numberAffected`).
+    #[serde(rename = "_numberAffected")]
+    pub number_affected_ext: Option<types::Element>,
 
     /// Number of samples in the statistic.
     pub sample_size: Option<EvidenceStatisticSampleSize>,
@@ -286,18 +349,30 @@ pub struct EvidenceStatisticSampleSize {
 
     /// Textual description of sample size for statistic.
     pub description: Option<types::Markdown>,
+    /// Primitive extension sibling for [`description`](Self::description) (FHIR `_description`).
+    #[serde(rename = "_description")]
+    pub description_ext: Option<types::Element>,
 
     /// Footnote or explanatory note about the sample size.
     pub note: Option<Vec<types::Annotation>>,
 
     /// Number of contributing studies.
     pub number_of_studies: Option<types::UnsignedInt>,
+    /// Primitive extension sibling for [`number_of_studies`](Self::number_of_studies) (FHIR `_numberOfStudies`).
+    #[serde(rename = "_numberOfStudies")]
+    pub number_of_studies_ext: Option<types::Element>,
 
     /// Cumulative number of participants.
     pub number_of_participants: Option<types::UnsignedInt>,
+    /// Primitive extension sibling for [`number_of_participants`](Self::number_of_participants) (FHIR `_numberOfParticipants`).
+    #[serde(rename = "_numberOfParticipants")]
+    pub number_of_participants_ext: Option<types::Element>,
 
     /// Number of participants with known results for measured variables.
     pub known_data_count: Option<types::UnsignedInt>,
+    /// Primitive extension sibling for [`known_data_count`](Self::known_data_count) (FHIR `_knownDataCount`).
+    #[serde(rename = "_knownDataCount")]
+    pub known_data_count_ext: Option<types::Element>,
 }
 
 /// An attribute of the Statistic.
@@ -316,6 +391,9 @@ pub struct EvidenceStatisticAttributeEstimate {
 
     /// Textual description of the attribute estimate.
     pub description: Option<types::Markdown>,
+    /// Primitive extension sibling for [`description`](Self::description) (FHIR `_description`).
+    #[serde(rename = "_description")]
+    pub description_ext: Option<types::Element>,
 
     /// Footnote or explanatory note about the estimate.
     pub note: Option<Vec<types::Annotation>>,
@@ -329,6 +407,9 @@ pub struct EvidenceStatisticAttributeEstimate {
 
     /// Level of confidence interval, e.g., 0.95 for 95% confidence interval.
     pub level: Option<types::Decimal>,
+    /// Primitive extension sibling for [`level`](Self::level) (FHIR `_level`).
+    #[serde(rename = "_level")]
+    pub level_ext: Option<types::Element>,
 
     /// Lower and upper bound values of the attribute estimate.
     pub range: Option<types::Range>,
@@ -383,6 +464,9 @@ pub struct EvidenceStatisticModelCharacteristicVariable {
 
     /// continuous | dichotomous | ordinal | polychotomous.
     pub handling: Option<types::Code>,
+    /// Primitive extension sibling for [`handling`](Self::handling) (FHIR `_handling`).
+    #[serde(rename = "_handling")]
+    pub handling_ext: Option<types::Element>,
 
     /// Description for grouping of ordinal or polychotomous variables.
     pub value_category: Option<Vec<types::CodeableConcept>>,
@@ -410,6 +494,9 @@ pub struct EvidenceCertainty {
 
     /// Textual description of certainty.
     pub description: Option<types::Markdown>,
+    /// Primitive extension sibling for [`description`](Self::description) (FHIR `_description`).
+    #[serde(rename = "_description")]
+    pub description_ext: Option<types::Element>,
 
     /// Footnotes and/or explanatory notes.
     pub note: Option<Vec<types::Annotation>>,
@@ -422,6 +509,9 @@ pub struct EvidenceCertainty {
 
     /// Individual or group who did the rating.
     pub rater: Option<types::String>,
+    /// Primitive extension sibling for [`rater`](Self::rater) (FHIR `_rater`).
+    #[serde(rename = "_rater")]
+    pub rater_ext: Option<types::Element>,
 
     /// A domain or subdomain of certainty.
     pub subcomponent: Option<Vec<EvidenceCertainty>>,

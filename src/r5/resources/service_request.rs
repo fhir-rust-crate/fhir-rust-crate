@@ -65,9 +65,15 @@ pub struct ServiceRequest {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -86,9 +92,15 @@ pub struct ServiceRequest {
 
     /// Instantiates FHIR protocol or definition
     pub instantiates_canonical: Option<Vec<types::Canonical>>,
+    /// Primitive extension sibling for [`instantiates_canonical`](Self::instantiates_canonical) (FHIR `_instantiatesCanonical`).
+    #[serde(rename = "_instantiatesCanonical")]
+    pub instantiates_canonical_ext: Option<Vec<Option<types::Element>>>,
 
     /// Instantiates external protocol or definition
     pub instantiates_uri: Option<Vec<types::Uri>>,
+    /// Primitive extension sibling for [`instantiates_uri`](Self::instantiates_uri) (FHIR `_instantiatesUri`).
+    #[serde(rename = "_instantiatesUri")]
+    pub instantiates_uri_ext: Option<Vec<Option<types::Element>>>,
 
     /// What request fulfills
     pub based_on: Option<Vec<types::Reference>>,
@@ -101,18 +113,30 @@ pub struct ServiceRequest {
 
     /// The current lifecycle status of the order: draft | active | on-hold | revoked | completed | entered-in-error | unknown
     pub status: types::Code,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// Whether the request is a proposal, plan, directive, order, or similar (proposal | plan | directive | order +)
     pub intent: types::Code,
+    /// Primitive extension sibling for [`intent`](Self::intent) (FHIR `_intent`).
+    #[serde(rename = "_intent")]
+    pub intent_ext: Option<types::Element>,
 
     /// Broad categorization of the type of service requested, e.g. imaging, laboratory, or counseling
     pub category: Option<Vec<types::CodeableConcept>>,
 
     /// routine | urgent | asap | stat
     pub priority: Option<types::Code>,
+    /// Primitive extension sibling for [`priority`](Self::priority) (FHIR `_priority`).
+    #[serde(rename = "_priority")]
+    pub priority_ext: Option<types::Element>,
 
     /// True if service/procedure should not be performed
     pub do_not_perform: Option<types::Boolean>,
+    /// Primitive extension sibling for [`do_not_perform`](Self::do_not_perform) (FHIR `_doNotPerform`).
+    #[serde(rename = "_doNotPerform")]
+    pub do_not_perform_ext: Option<types::Element>,
 
     /// The specific service, procedure, or product being requested/ordered, coded or referenced
     pub code: Option<types::CodeableReference>,
@@ -155,6 +179,9 @@ pub struct ServiceRequest {
 
     /// Date request signed
     pub authored_on: Option<types::DateTime>,
+    /// Primitive extension sibling for [`authored_on`](Self::authored_on) (FHIR `_authoredOn`).
+    #[serde(rename = "_authoredOn")]
+    pub authored_on_ext: Option<types::Element>,
 
     /// Who/what is requesting service
     pub requester: Option<types::Reference>,

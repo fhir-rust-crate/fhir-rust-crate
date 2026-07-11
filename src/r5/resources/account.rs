@@ -65,9 +65,15 @@ pub struct Account {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -87,6 +93,9 @@ pub struct Account {
     /// Indicates whether the account is currently in use: active | inactive |
     /// entered-in-error | on-hold | unknown
     pub status: types::Code,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// Tracks the lifecycle of the account through the billing process
     pub billing_status: Option<types::CodeableConcept>,
@@ -96,6 +105,9 @@ pub struct Account {
 
     /// Human-readable label
     pub name: Option<types::String>,
+    /// Primitive extension sibling for [`name`](Self::name) (FHIR `_name`).
+    #[serde(rename = "_name")]
+    pub name_ext: Option<types::Element>,
 
     /// The entity that caused the expenses, such as a `Patient` or `Device`
     pub subject: Option<Vec<types::Reference>>,
@@ -112,6 +124,9 @@ pub struct Account {
 
     /// Explanation of purpose/use
     pub description: Option<types::Markdown>,
+    /// Primitive extension sibling for [`description`](Self::description) (FHIR `_description`).
+    #[serde(rename = "_description")]
+    pub description_ext: Option<types::Element>,
 
     /// The parties, typically the patient or a family member, ultimately
     /// responsible for balancing the Account
@@ -134,6 +149,9 @@ pub struct Account {
 
     /// Time the balance amount was calculated
     pub calculated_at: Option<types::Instant>,
+    /// Primitive extension sibling for [`calculated_at`](Self::calculated_at) (FHIR `_calculatedAt`).
+    #[serde(rename = "_calculatedAt")]
+    pub calculated_at_ext: Option<types::Element>,
 }
 
 /// The party(s) that are responsible for covering the payment of this account,
@@ -157,6 +175,9 @@ pub struct AccountCoverage {
 
     /// The priority of the coverage in the context of this account
     pub priority: Option<types::PositiveInt>,
+    /// Primitive extension sibling for [`priority`](Self::priority) (FHIR `_priority`).
+    #[serde(rename = "_priority")]
+    pub priority_ext: Option<types::Element>,
 }
 
 /// The parties ultimately responsible for balancing the Account.
@@ -178,6 +199,9 @@ pub struct AccountGuarantor {
 
     /// Credit or other hold applied
     pub on_hold: Option<types::Boolean>,
+    /// Primitive extension sibling for [`on_hold`](Self::on_hold) (FHIR `_onHold`).
+    #[serde(rename = "_onHold")]
+    pub on_hold_ext: Option<types::Element>,
 
     /// Guarantee account during
     pub period: Option<types::Period>,
@@ -199,12 +223,18 @@ pub struct AccountDiagnosis {
 
     /// Ranking of the diagnosis (for each type)
     pub sequence: Option<types::PositiveInt>,
+    /// Primitive extension sibling for [`sequence`](Self::sequence) (FHIR `_sequence`).
+    #[serde(rename = "_sequence")]
+    pub sequence_ext: Option<types::Element>,
 
     /// The diagnosis relevant to the account
     pub condition: types::CodeableReference,
 
     /// Date of the diagnosis (when coded diagnosis)
     pub date_of_diagnosis: Option<types::DateTime>,
+    /// Primitive extension sibling for [`date_of_diagnosis`](Self::date_of_diagnosis) (FHIR `_dateOfDiagnosis`).
+    #[serde(rename = "_dateOfDiagnosis")]
+    pub date_of_diagnosis_ext: Option<types::Element>,
 
     /// Type that this diagnosis has relevant to the account (e.g. admission,
     /// billing, discharge …)
@@ -212,6 +242,9 @@ pub struct AccountDiagnosis {
 
     /// Diagnosis present on Admission
     pub on_admission: Option<types::Boolean>,
+    /// Primitive extension sibling for [`on_admission`](Self::on_admission) (FHIR `_onAdmission`).
+    #[serde(rename = "_onAdmission")]
+    pub on_admission_ext: Option<types::Element>,
 
     /// Package Code specific for billing
     pub package_code: Option<Vec<types::CodeableConcept>>,
@@ -233,12 +266,18 @@ pub struct AccountProcedure {
 
     /// Ranking of the procedure (for each type)
     pub sequence: Option<types::PositiveInt>,
+    /// Primitive extension sibling for [`sequence`](Self::sequence) (FHIR `_sequence`).
+    #[serde(rename = "_sequence")]
+    pub sequence_ext: Option<types::Element>,
 
     /// The procedure relevant to the account
     pub code: types::CodeableReference,
 
     /// Date of the procedure (when coded procedure)
     pub date_of_service: Option<types::DateTime>,
+    /// Primitive extension sibling for [`date_of_service`](Self::date_of_service) (FHIR `_dateOfService`).
+    #[serde(rename = "_dateOfService")]
+    pub date_of_service_ext: Option<types::Element>,
 
     /// How this procedure value should be used in charging the account
     pub r#type: Option<Vec<types::CodeableConcept>>,
@@ -293,6 +332,9 @@ pub struct AccountBalance {
 
     /// Estimated balance
     pub estimate: Option<types::Boolean>,
+    /// Primitive extension sibling for [`estimate`](Self::estimate) (FHIR `_estimate`).
+    #[serde(rename = "_estimate")]
+    pub estimate_ext: Option<types::Element>,
 
     /// Calculated amount
     pub amount: types::Money,

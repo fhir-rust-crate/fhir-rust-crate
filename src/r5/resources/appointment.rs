@@ -71,9 +71,15 @@ pub struct Appointment {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -92,6 +98,9 @@ pub struct Appointment {
 
     /// Lifecycle state of the appointment that drives scheduling workflow: proposed | pending | booked | arrived | fulfilled | cancelled | noshow | entered-in-error | checked-in | waitlist
     pub status: types::Code,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// The coded reason for the appointment being cancelled
     pub cancellation_reason: Option<types::CodeableConcept>,
@@ -119,6 +128,9 @@ pub struct Appointment {
 
     /// Shown on a subject line in a meeting request, or appointment list
     pub description: Option<types::String>,
+    /// Primitive extension sibling for [`description`](Self::description) (FHIR `_description`).
+    #[serde(rename = "_description")]
+    pub description_ext: Option<types::Element>,
 
     /// Appointment replaced by this Appointment
     pub replaces: Option<Vec<types::Reference>>,
@@ -137,12 +149,21 @@ pub struct Appointment {
 
     /// Date and time when the appointment is scheduled to begin, once a fixed time has been set
     pub start: Option<types::Instant>,
+    /// Primitive extension sibling for [`start`](Self::start) (FHIR `_start`).
+    #[serde(rename = "_start")]
+    pub start_ext: Option<types::Element>,
 
     /// Date and time when the appointment is scheduled to conclude, once a fixed time has been set
     pub end: Option<types::Instant>,
+    /// Primitive extension sibling for [`end`](Self::end) (FHIR `_end`).
+    #[serde(rename = "_end")]
+    pub end_ext: Option<types::Element>,
 
     /// Can be less than start/end (e.g. estimate)
     pub minutes_duration: Option<types::PositiveInt>,
+    /// Primitive extension sibling for [`minutes_duration`](Self::minutes_duration) (FHIR `_minutesDuration`).
+    #[serde(rename = "_minutesDuration")]
+    pub minutes_duration_ext: Option<types::Element>,
 
     /// Potential date/time interval(s) requested to allocate the appointment within
     pub requested_period: Option<Vec<types::Period>>,
@@ -155,9 +176,15 @@ pub struct Appointment {
 
     /// The date that this appointment was initially created
     pub created: Option<types::DateTime>,
+    /// Primitive extension sibling for [`created`](Self::created) (FHIR `_created`).
+    #[serde(rename = "_created")]
+    pub created_ext: Option<types::Element>,
 
     /// When the appointment was cancelled
     pub cancellation_date: Option<types::DateTime>,
+    /// Primitive extension sibling for [`cancellation_date`](Self::cancellation_date) (FHIR `_cancellationDate`).
+    #[serde(rename = "_cancellationDate")]
+    pub cancellation_date_ext: Option<types::Element>,
 
     /// Additional comments
     pub note: Option<Vec<types::Annotation>>,
@@ -176,9 +203,15 @@ pub struct Appointment {
 
     /// The sequence number in the recurrence
     pub recurrence_id: Option<types::PositiveInt>,
+    /// Primitive extension sibling for [`recurrence_id`](Self::recurrence_id) (FHIR `_recurrenceId`).
+    #[serde(rename = "_recurrenceId")]
+    pub recurrence_id_ext: Option<types::Element>,
 
     /// Indicates that this appointment varies from a recurrence pattern
     pub occurrence_changed: Option<types::Boolean>,
+    /// Primitive extension sibling for [`occurrence_changed`](Self::occurrence_changed) (FHIR `_occurrenceChanged`).
+    #[serde(rename = "_occurrenceChanged")]
+    pub occurrence_changed_ext: Option<types::Element>,
 
     /// Details of the recurrence pattern/template used to generate occurrences
     pub recurrence_template: Option<Vec<AppointmentRecurrenceTemplate>>,
@@ -213,9 +246,15 @@ pub struct AppointmentParticipant {
 
     /// The participant is required to attend (optional when false)
     pub required: Option<types::Boolean>,
+    /// Primitive extension sibling for [`required`](Self::required) (FHIR `_required`).
+    #[serde(rename = "_required")]
+    pub required_ext: Option<types::Element>,
 
     /// accepted | declined | tentative | needs-action
     pub status: types::Code,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 }
 
 /// Details of the recurrence pattern/template used to generate occurrences.
@@ -244,12 +283,21 @@ pub struct AppointmentRecurrenceTemplate {
 
     /// The date when the recurrence should end
     pub last_occurrence_date: Option<types::Date>,
+    /// Primitive extension sibling for [`last_occurrence_date`](Self::last_occurrence_date) (FHIR `_lastOccurrenceDate`).
+    #[serde(rename = "_lastOccurrenceDate")]
+    pub last_occurrence_date_ext: Option<types::Element>,
 
     /// The number of planned occurrences
     pub occurrence_count: Option<types::PositiveInt>,
+    /// Primitive extension sibling for [`occurrence_count`](Self::occurrence_count) (FHIR `_occurrenceCount`).
+    #[serde(rename = "_occurrenceCount")]
+    pub occurrence_count_ext: Option<types::Element>,
 
     /// Specific dates for a recurring set of appointments (no template)
     pub occurrence_date: Option<Vec<types::Date>>,
+    /// Primitive extension sibling for [`occurrence_date`](Self::occurrence_date) (FHIR `_occurrenceDate`).
+    #[serde(rename = "_occurrenceDate")]
+    pub occurrence_date_ext: Option<Vec<Option<types::Element>>>,
 
     /// Information about weekly recurring appointments
     pub weekly_template: Option<AppointmentRecurrenceTemplateWeeklyTemplate>,
@@ -262,9 +310,15 @@ pub struct AppointmentRecurrenceTemplate {
 
     /// Any dates that should be excluded from the series
     pub excluding_date: Option<Vec<types::Date>>,
+    /// Primitive extension sibling for [`excluding_date`](Self::excluding_date) (FHIR `_excludingDate`).
+    #[serde(rename = "_excludingDate")]
+    pub excluding_date_ext: Option<Vec<Option<types::Element>>>,
 
     /// Any recurrence IDs that should be excluded from the recurrence
     pub excluding_recurrence_id: Option<Vec<types::PositiveInt>>,
+    /// Primitive extension sibling for [`excluding_recurrence_id`](Self::excluding_recurrence_id) (FHIR `_excludingRecurrenceId`).
+    #[serde(rename = "_excludingRecurrenceId")]
+    pub excluding_recurrence_id_ext: Option<Vec<Option<types::Element>>>,
 }
 
 /// Information about weekly recurring appointments.
@@ -286,27 +340,51 @@ pub struct AppointmentRecurrenceTemplateWeeklyTemplate {
 
     /// Recurs on Mondays
     pub monday: Option<types::Boolean>,
+    /// Primitive extension sibling for [`monday`](Self::monday) (FHIR `_monday`).
+    #[serde(rename = "_monday")]
+    pub monday_ext: Option<types::Element>,
 
     /// Recurs on Tuesday
     pub tuesday: Option<types::Boolean>,
+    /// Primitive extension sibling for [`tuesday`](Self::tuesday) (FHIR `_tuesday`).
+    #[serde(rename = "_tuesday")]
+    pub tuesday_ext: Option<types::Element>,
 
     /// Recurs on Wednesday
     pub wednesday: Option<types::Boolean>,
+    /// Primitive extension sibling for [`wednesday`](Self::wednesday) (FHIR `_wednesday`).
+    #[serde(rename = "_wednesday")]
+    pub wednesday_ext: Option<types::Element>,
 
     /// Recurs on Thursday
     pub thursday: Option<types::Boolean>,
+    /// Primitive extension sibling for [`thursday`](Self::thursday) (FHIR `_thursday`).
+    #[serde(rename = "_thursday")]
+    pub thursday_ext: Option<types::Element>,
 
     /// Recurs on Friday
     pub friday: Option<types::Boolean>,
+    /// Primitive extension sibling for [`friday`](Self::friday) (FHIR `_friday`).
+    #[serde(rename = "_friday")]
+    pub friday_ext: Option<types::Element>,
 
     /// Recurs on Saturday
     pub saturday: Option<types::Boolean>,
+    /// Primitive extension sibling for [`saturday`](Self::saturday) (FHIR `_saturday`).
+    #[serde(rename = "_saturday")]
+    pub saturday_ext: Option<types::Element>,
 
     /// Recurs on Sunday
     pub sunday: Option<types::Boolean>,
+    /// Primitive extension sibling for [`sunday`](Self::sunday) (FHIR `_sunday`).
+    #[serde(rename = "_sunday")]
+    pub sunday_ext: Option<types::Element>,
 
     /// Recurs every nth week
     pub week_interval: Option<types::PositiveInt>,
+    /// Primitive extension sibling for [`week_interval`](Self::week_interval) (FHIR `_weekInterval`).
+    #[serde(rename = "_weekInterval")]
+    pub week_interval_ext: Option<types::Element>,
 }
 
 /// Information about monthly recurring appointments.
@@ -329,6 +407,9 @@ pub struct AppointmentRecurrenceTemplateMonthlyTemplate {
 
     /// Recurs on a specific day of the month
     pub day_of_month: Option<types::PositiveInt>,
+    /// Primitive extension sibling for [`day_of_month`](Self::day_of_month) (FHIR `_dayOfMonth`).
+    #[serde(rename = "_dayOfMonth")]
+    pub day_of_month_ext: Option<types::Element>,
 
     /// Indicates which week of the month the appointment should occur
     pub nth_week_of_month: Option<types::Coding>,
@@ -338,6 +419,9 @@ pub struct AppointmentRecurrenceTemplateMonthlyTemplate {
 
     /// Recurs every nth month
     pub month_interval: types::PositiveInt,
+    /// Primitive extension sibling for [`month_interval`](Self::month_interval) (FHIR `_monthInterval`).
+    #[serde(rename = "_monthInterval")]
+    pub month_interval_ext: Option<types::Element>,
 }
 
 /// Information about yearly recurring appointments.
@@ -358,6 +442,9 @@ pub struct AppointmentRecurrenceTemplateYearlyTemplate {
 
     /// Recurs every nth year
     pub year_interval: types::PositiveInt,
+    /// Primitive extension sibling for [`year_interval`](Self::year_interval) (FHIR `_yearInterval`).
+    #[serde(rename = "_yearInterval")]
+    pub year_interval_ext: Option<types::Element>,
 }
 
 #[cfg(test)]

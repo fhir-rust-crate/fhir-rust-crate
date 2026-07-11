@@ -64,9 +64,15 @@ pub struct Goal {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -85,6 +91,9 @@ pub struct Goal {
 
     /// The current lifecycle status of this goal: proposed | planned | accepted | active | on-hold | completed | cancelled | entered-in-error | rejected
     pub lifecycle_status: types::Code,
+    /// Primitive extension sibling for [`lifecycle_status`](Self::lifecycle_status) (FHIR `_lifecycleStatus`).
+    #[serde(rename = "_lifecycleStatus")]
+    pub lifecycle_status_ext: Option<types::Element>,
 
     /// Describes progress toward meeting the goal: in-progress | improving | worsening | no-change | achieved | sustaining | not-achieved | no-progress | not-attainable
     pub achievement_status: Option<types::CodeableConcept>,
@@ -94,6 +103,9 @@ pub struct Goal {
 
     /// After meeting the goal, ongoing activity is needed to sustain the goal objective
     pub continuous: Option<types::Boolean>,
+    /// Primitive extension sibling for [`continuous`](Self::continuous) (FHIR `_continuous`).
+    #[serde(rename = "_continuous")]
+    pub continuous_ext: Option<types::Element>,
 
     /// high-priority | medium-priority | low-priority
     pub priority: Option<types::CodeableConcept>,
@@ -115,9 +127,15 @@ pub struct Goal {
 
     /// When goal status took effect
     pub status_date: Option<types::Date>,
+    /// Primitive extension sibling for [`status_date`](Self::status_date) (FHIR `_statusDate`).
+    #[serde(rename = "_statusDate")]
+    pub status_date_ext: Option<types::Element>,
 
     /// Reason for current status
     pub status_reason: Option<types::String>,
+    /// Primitive extension sibling for [`status_reason`](Self::status_reason) (FHIR `_statusReason`).
+    #[serde(rename = "_statusReason")]
+    pub status_reason_ext: Option<types::Element>,
 
     /// Who's responsible for creating Goal?
     pub source: Option<types::Reference>,

@@ -71,9 +71,15 @@ pub struct Location {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -92,21 +98,36 @@ pub struct Location {
 
     /// Overall availability status of the location as a whole, drawn from the value set active | suspended | inactive.
     pub status: Option<types::Code>,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// The operational status of the location (typically only for a bed/room)
     pub operational_status: Option<types::Coding>,
 
     /// Name of the location as used by humans
     pub name: Option<types::String>,
+    /// Primitive extension sibling for [`name`](Self::name) (FHIR `_name`).
+    #[serde(rename = "_name")]
+    pub name_ext: Option<types::Element>,
 
     /// A list of alternate names that the location is known as, or was known as, in the past
     pub alias: Option<Vec<types::String>>,
+    /// Primitive extension sibling for [`alias`](Self::alias) (FHIR `_alias`).
+    #[serde(rename = "_alias")]
+    pub alias_ext: Option<Vec<Option<types::Element>>>,
 
     /// Additional details about the location that could be displayed as further information to identify the location beyond its name
     pub description: Option<types::Markdown>,
+    /// Primitive extension sibling for [`description`](Self::description) (FHIR `_description`).
+    #[serde(rename = "_description")]
+    pub description_ext: Option<types::Element>,
 
     /// Whether this record represents a specific physical place (instance) or a general class of places (kind).
     pub mode: Option<types::Code>,
+    /// Primitive extension sibling for [`mode`](Self::mode) (FHIR `_mode`).
+    #[serde(rename = "_mode")]
+    pub mode_ext: Option<types::Element>,
 
     /// Type of function performed
     pub r#type: Option<Vec<types::CodeableConcept>>,
@@ -160,12 +181,21 @@ pub struct LocationPosition {
 
     /// Longitude with WGS84 datum
     pub longitude: types::Decimal,
+    /// Primitive extension sibling for [`longitude`](Self::longitude) (FHIR `_longitude`).
+    #[serde(rename = "_longitude")]
+    pub longitude_ext: Option<types::Element>,
 
     /// Latitude with WGS84 datum
     pub latitude: types::Decimal,
+    /// Primitive extension sibling for [`latitude`](Self::latitude) (FHIR `_latitude`).
+    #[serde(rename = "_latitude")]
+    pub latitude_ext: Option<types::Element>,
 
     /// Altitude with WGS84 datum
     pub altitude: Option<types::Decimal>,
+    /// Primitive extension sibling for [`altitude`](Self::altitude) (FHIR `_altitude`).
+    #[serde(rename = "_altitude")]
+    pub altitude_ext: Option<types::Element>,
 }
 
 #[cfg(test)]

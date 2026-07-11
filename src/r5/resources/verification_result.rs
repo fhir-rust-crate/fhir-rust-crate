@@ -71,9 +71,15 @@ pub struct VerificationResult {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -92,15 +98,24 @@ pub struct VerificationResult {
 
     /// The fhirpath location(s) within the resource that was validated
     pub target_location: Option<Vec<types::String>>,
+    /// Primitive extension sibling for [`target_location`](Self::target_location) (FHIR `_targetLocation`).
+    #[serde(rename = "_targetLocation")]
+    pub target_location_ext: Option<Vec<Option<types::Element>>>,
 
     /// The frequency with which the target must be validated: none | initial | periodic
     pub need: Option<types::CodeableConcept>,
 
     /// The current status of this verification: attested | validated | in-process | req-revalid | val-fail | reval-fail | entered-in-error
     pub status: types::Code,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// When the validation status was last updated
     pub status_date: Option<types::DateTime>,
+    /// Primitive extension sibling for [`status_date`](Self::status_date) (FHIR `_statusDate`).
+    #[serde(rename = "_statusDate")]
+    pub status_date_ext: Option<types::Element>,
 
     /// nothing | primary | multiple
     pub validation_type: Option<types::CodeableConcept>,
@@ -113,9 +128,15 @@ pub struct VerificationResult {
 
     /// The date/time validation was last completed (including failed validations)
     pub last_performed: Option<types::DateTime>,
+    /// Primitive extension sibling for [`last_performed`](Self::last_performed) (FHIR `_lastPerformed`).
+    #[serde(rename = "_lastPerformed")]
+    pub last_performed_ext: Option<types::Element>,
 
     /// The date when target is next validated, if appropriate
     pub next_scheduled: Option<types::Date>,
+    /// Primitive extension sibling for [`next_scheduled`](Self::next_scheduled) (FHIR `_nextScheduled`).
+    #[serde(rename = "_nextScheduled")]
+    pub next_scheduled_ext: Option<types::Element>,
 
     /// fatal | warn | rec-only | none
     pub failure_action: Option<types::CodeableConcept>,
@@ -158,6 +179,9 @@ pub struct VerificationResultPrimarySource {
 
     /// When the target was validated against the primary source
     pub validation_date: Option<types::DateTime>,
+    /// Primitive extension sibling for [`validation_date`](Self::validation_date) (FHIR `_validationDate`).
+    #[serde(rename = "_validationDate")]
+    pub validation_date_ext: Option<types::Element>,
 
     /// yes | no | undetermined
     pub can_push_updates: Option<types::CodeableConcept>,
@@ -191,12 +215,21 @@ pub struct VerificationResultAttestation {
 
     /// The date the information was attested to
     pub date: Option<types::Date>,
+    /// Primitive extension sibling for [`date`](Self::date) (FHIR `_date`).
+    #[serde(rename = "_date")]
+    pub date_ext: Option<types::Element>,
 
     /// A digital identity certificate associated with the attestation source
     pub source_identity_certificate: Option<types::String>,
+    /// Primitive extension sibling for [`source_identity_certificate`](Self::source_identity_certificate) (FHIR `_sourceIdentityCertificate`).
+    #[serde(rename = "_sourceIdentityCertificate")]
+    pub source_identity_certificate_ext: Option<types::Element>,
 
     /// A digital identity certificate associated with the proxy entity submitting attested information on behalf of the attestation source
     pub proxy_identity_certificate: Option<types::String>,
+    /// Primitive extension sibling for [`proxy_identity_certificate`](Self::proxy_identity_certificate) (FHIR `_proxyIdentityCertificate`).
+    #[serde(rename = "_proxyIdentityCertificate")]
+    pub proxy_identity_certificate_ext: Option<types::Element>,
 
     /// Proxy signature (digital or image)
     pub proxy_signature: Option<types::Signature>,
@@ -224,6 +257,9 @@ pub struct VerificationResultValidator {
 
     /// A digital identity certificate associated with the validator
     pub identity_certificate: Option<types::String>,
+    /// Primitive extension sibling for [`identity_certificate`](Self::identity_certificate) (FHIR `_identityCertificate`).
+    #[serde(rename = "_identityCertificate")]
+    pub identity_certificate_ext: Option<types::Element>,
 
     /// Validator signature (digital or image)
     pub attestation_signature: Option<types::Signature>,

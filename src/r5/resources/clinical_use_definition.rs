@@ -65,9 +65,15 @@ pub struct ClinicalUseDefinition {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -86,6 +92,9 @@ pub struct ClinicalUseDefinition {
 
     /// The kind of issue this instance describes: indication | contraindication | interaction | undesirable-effect | warning; this determines which of the backbone elements below carries the detail
     pub r#type: types::Code,
+    /// Primitive extension sibling for [`type`](Self::r#type) (FHIR `_type`).
+    #[serde(rename = "_type")]
+    pub type_ext: Option<types::Element>,
 
     /// A categorisation of the issue, primarily for dividing warnings into subject heading areas
     pub category: Option<Vec<types::CodeableConcept>>,
@@ -110,6 +119,9 @@ pub struct ClinicalUseDefinition {
 
     /// Logic used by the clinical use definition
     pub library: Option<Vec<types::Canonical>>,
+    /// Primitive extension sibling for [`library`](Self::library) (FHIR `_library`).
+    #[serde(rename = "_library")]
+    pub library_ext: Option<Vec<Option<types::Element>>>,
 
     /// A possible negative outcome from the use of this treatment
     pub undesirable_effect: Option<ClinicalUseDefinitionUndesirableEffect>,
@@ -308,6 +320,9 @@ pub struct ClinicalUseDefinitionWarning {
 
     /// A textual definition of this warning, with formatting
     pub description: Option<types::Markdown>,
+    /// Primitive extension sibling for [`description`](Self::description) (FHIR `_description`).
+    #[serde(rename = "_description")]
+    pub description_ext: Option<types::Element>,
 
     /// A coded or unformatted textual definition of this warning
     pub code: Option<types::CodeableConcept>,

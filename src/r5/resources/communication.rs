@@ -68,9 +68,15 @@ pub struct Communication {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -89,9 +95,15 @@ pub struct Communication {
 
     /// Instantiates FHIR protocol or definition
     pub instantiates_canonical: Option<Vec<types::Canonical>>,
+    /// Primitive extension sibling for [`instantiates_canonical`](Self::instantiates_canonical) (FHIR `_instantiatesCanonical`).
+    #[serde(rename = "_instantiatesCanonical")]
+    pub instantiates_canonical_ext: Option<Vec<Option<types::Element>>>,
 
     /// Instantiates external protocol or definition
     pub instantiates_uri: Option<Vec<types::Uri>>,
+    /// Primitive extension sibling for [`instantiates_uri`](Self::instantiates_uri) (FHIR `_instantiatesUri`).
+    #[serde(rename = "_instantiatesUri")]
+    pub instantiates_uri_ext: Option<Vec<Option<types::Element>>>,
 
     /// Request fulfilled by this communication
     pub based_on: Option<Vec<types::Reference>>,
@@ -105,6 +117,9 @@ pub struct Communication {
     /// The lifecycle status of this communication: preparation | in-progress
     /// | not-done | on-hold | stopped | completed | entered-in-error | unknown.
     pub status: types::Code,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// Reason for current status
     pub status_reason: Option<types::CodeableConcept>,
@@ -114,6 +129,9 @@ pub struct Communication {
 
     /// routine | urgent | asap | stat
     pub priority: Option<types::Code>,
+    /// Primitive extension sibling for [`priority`](Self::priority) (FHIR `_priority`).
+    #[serde(rename = "_priority")]
+    pub priority_ext: Option<types::Element>,
 
     /// A channel of communication
     pub medium: Option<Vec<types::CodeableConcept>>,
@@ -133,9 +151,15 @@ pub struct Communication {
 
     /// When sent
     pub sent: Option<types::DateTime>,
+    /// Primitive extension sibling for [`sent`](Self::sent) (FHIR `_sent`).
+    #[serde(rename = "_sent")]
+    pub sent_ext: Option<types::Element>,
 
     /// When received
     pub received: Option<types::DateTime>,
+    /// Primitive extension sibling for [`received`](Self::received) (FHIR `_received`).
+    #[serde(rename = "_received")]
+    pub received_ext: Option<types::Element>,
 
     /// Who the information is shared with, such as one or more patients,
     /// practitioners, or other care team members.

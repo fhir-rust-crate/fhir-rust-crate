@@ -68,9 +68,15 @@ pub struct ChargeItem {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -89,12 +95,21 @@ pub struct ChargeItem {
 
     /// Defining information about the code of this charge item
     pub definition_uri: Option<Vec<types::Uri>>,
+    /// Primitive extension sibling for [`definition_uri`](Self::definition_uri) (FHIR `_definitionUri`).
+    #[serde(rename = "_definitionUri")]
+    pub definition_uri_ext: Option<Vec<Option<types::Element>>>,
 
     /// Resource defining the code of this ChargeItem
     pub definition_canonical: Option<Vec<types::Canonical>>,
+    /// Primitive extension sibling for [`definition_canonical`](Self::definition_canonical) (FHIR `_definitionCanonical`).
+    #[serde(rename = "_definitionCanonical")]
+    pub definition_canonical_ext: Option<Vec<Option<types::Element>>>,
 
     /// The current lifecycle status of the charge: planned | billable | not-billable | aborted | billed | entered-in-error | unknown.
     pub status: types::Code,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// Part of referenced ChargeItem
     pub part_of: Option<Vec<types::Reference>>,
@@ -149,6 +164,9 @@ pub struct ChargeItem {
 
     /// Date the charge item was entered
     pub entered_date: Option<types::DateTime>,
+    /// Primitive extension sibling for [`entered_date`](Self::entered_date) (FHIR `_enteredDate`).
+    #[serde(rename = "_enteredDate")]
+    pub entered_date_ext: Option<types::Element>,
 
     /// Why was the charged  service rendered?
     pub reason: Option<Vec<types::CodeableConcept>>,

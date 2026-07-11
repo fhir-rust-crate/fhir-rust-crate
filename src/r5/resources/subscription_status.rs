@@ -62,9 +62,15 @@ pub struct SubscriptionStatus {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -80,12 +86,21 @@ pub struct SubscriptionStatus {
 
     /// Current state of the underlying Subscription: requested | active | error | off | entered-in-error.
     pub status: Option<types::Code>,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// Kind of notification this resource represents: handshake | heartbeat | event-notification | query-status | query-event.
     pub r#type: types::Code,
+    /// Primitive extension sibling for [`type`](Self::r#type) (FHIR `_type`).
+    #[serde(rename = "_type")]
+    pub type_ext: Option<types::Element>,
 
     /// Running count of events delivered since the Subscription was created, useful for detecting gaps.
     pub events_since_subscription_start: Option<types::Integer64>,
+    /// Primitive extension sibling for [`events_since_subscription_start`](Self::events_since_subscription_start) (FHIR `_eventsSinceSubscriptionStart`).
+    #[serde(rename = "_eventsSinceSubscriptionStart")]
+    pub events_since_subscription_start_ext: Option<types::Element>,
 
     /// Detailed information about any events relevant to this notification
     pub notification_event: Option<Vec<SubscriptionStatusNotificationEvent>>,
@@ -95,6 +110,9 @@ pub struct SubscriptionStatus {
 
     /// Canonical reference to the SubscriptionTopic this notification relates to
     pub topic: Option<types::Canonical>,
+    /// Primitive extension sibling for [`topic`](Self::topic) (FHIR `_topic`).
+    #[serde(rename = "_topic")]
+    pub topic_ext: Option<types::Element>,
 
     /// List of errors on the subscription, if any occurred while generating the notification
     pub error: Option<Vec<types::CodeableConcept>>,
@@ -116,9 +134,15 @@ pub struct SubscriptionStatusNotificationEvent {
 
     /// Sequencing index of this event
     pub event_number: types::Integer64,
+    /// Primitive extension sibling for [`event_number`](Self::event_number) (FHIR `_eventNumber`).
+    #[serde(rename = "_eventNumber")]
+    pub event_number_ext: Option<types::Element>,
 
     /// The instant this event occurred
     pub timestamp: Option<types::Instant>,
+    /// Primitive extension sibling for [`timestamp`](Self::timestamp) (FHIR `_timestamp`).
+    #[serde(rename = "_timestamp")]
+    pub timestamp_ext: Option<types::Element>,
 
     /// Reference to the primary resource or information of this event
     pub focus: Option<types::Reference>,

@@ -71,9 +71,15 @@ pub struct SupplyRequest {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -92,6 +98,9 @@ pub struct SupplyRequest {
 
     /// Status of the request: draft | active | suspended | cancelled | completed | entered-in-error | unknown
     pub status: Option<types::Code>,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// What other request is fulfilled by this supply request
     pub based_on: Option<Vec<types::Reference>>,
@@ -101,6 +110,9 @@ pub struct SupplyRequest {
 
     /// Indicates how quickly this SupplyRequest should be addressed: routine | urgent | asap | stat
     pub priority: Option<types::Code>,
+    /// Primitive extension sibling for [`priority`](Self::priority) (FHIR `_priority`).
+    #[serde(rename = "_priority")]
+    pub priority_ext: Option<types::Element>,
 
     /// The patient, or group of patients, for whom the supply request is intended
     pub deliver_for: Option<types::Reference>,
@@ -125,6 +137,9 @@ pub struct SupplyRequest {
 
     /// When the request was made
     pub authored_on: Option<types::DateTime>,
+    /// Primitive extension sibling for [`authored_on`](Self::authored_on) (FHIR `_authoredOn`).
+    #[serde(rename = "_authoredOn")]
+    pub authored_on_ext: Option<types::Element>,
 
     /// Individual making the request
     pub requester: Option<types::Reference>,

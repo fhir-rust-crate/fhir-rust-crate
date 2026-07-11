@@ -67,9 +67,15 @@ pub struct SubstanceSourceMaterial {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -97,18 +103,27 @@ pub struct SubstanceSourceMaterial {
 
     /// The organism accepted scientific (Latin binomial) name shall be provided based on the organism taxonomy
     pub organism_name: Option<types::String>,
+    /// Primitive extension sibling for [`organism_name`](Self::organism_name) (FHIR `_organismName`).
+    #[serde(rename = "_organismName")]
+    pub organism_name_ext: Option<types::Element>,
 
     /// The parent of the herbal drug Ginkgo biloba, Leaf is the substance ID of the substance (fresh) of Ginkgo biloba L. or Ginkgo biloba L. (Whole plant)
     pub parent_substance_id: Option<Vec<types::Identifier>>,
 
     /// The parent substance of the Herbal Drug, or Herbal preparation
     pub parent_substance_name: Option<Vec<types::String>>,
+    /// Primitive extension sibling for [`parent_substance_name`](Self::parent_substance_name) (FHIR `_parentSubstanceName`).
+    #[serde(rename = "_parentSubstanceName")]
+    pub parent_substance_name_ext: Option<Vec<Option<types::Element>>>,
 
     /// The country where the plant material is harvested or the countries where the plasma is sourced from as laid down in accordance with the Plasma Master File
     pub country_of_origin: Option<Vec<types::CodeableConcept>>,
 
     /// The place/region where the plant is harvested or the places/regions where the animal source material has its habitat
     pub geographical_location: Option<Vec<types::String>>,
+    /// Primitive extension sibling for [`geographical_location`](Self::geographical_location) (FHIR `_geographicalLocation`).
+    #[serde(rename = "_geographicalLocation")]
+    pub geographical_location_ext: Option<Vec<Option<types::Element>>>,
 
     /// Stage of life for animals, plants, insects and microorganisms. This information shall be provided only when the substance is significantly different in these stages (e.g. foetal bovine serum)
     pub development_stage: Option<types::CodeableConcept>,
@@ -141,6 +156,9 @@ pub struct SubstanceSourceMaterialFractionDescription {
 
     /// This element is capturing information about the fraction of a plant part, or human plasma for fractionation
     pub fraction: Option<types::String>,
+    /// Primitive extension sibling for [`fraction`](Self::fraction) (FHIR `_fraction`).
+    #[serde(rename = "_fraction")]
+    pub fraction_ext: Option<types::Element>,
 
     /// The specific type of the material constituting the component. For Herbal preparations the particulars of the extracts (liquid/dry) is described in Specified Substance Group 1
     pub material_type: Option<types::CodeableConcept>,
@@ -176,6 +194,9 @@ pub struct SubstanceSourceMaterialOrganism {
 
     /// The intraspecific description of an organism shall be specified based on a controlled vocabulary
     pub intraspecific_description: Option<types::String>,
+    /// Primitive extension sibling for [`intraspecific_description`](Self::intraspecific_description) (FHIR `_intraspecificDescription`).
+    #[serde(rename = "_intraspecificDescription")]
+    pub intraspecific_description_ext: Option<types::Element>,
 
     /// 4.9.13.6.1 Author type (Conditional)
     pub author: Option<Vec<SubstanceSourceMaterialOrganismAuthor>>,
@@ -208,6 +229,9 @@ pub struct SubstanceSourceMaterialOrganismAuthor {
 
     /// The author of an organism species shall be specified. The author year of an organism shall also be specified when applicable
     pub author_description: Option<types::String>,
+    /// Primitive extension sibling for [`author_description`](Self::author_description) (FHIR `_authorDescription`).
+    #[serde(rename = "_authorDescription")]
+    pub author_description_ext: Option<types::Element>,
 }
 
 /// 4.9.13.8.1 Hybrid species maternal organism ID (Optional). Describes the
@@ -227,15 +251,27 @@ pub struct SubstanceSourceMaterialOrganismHybrid {
 
     /// The identifier of the maternal species constituting the hybrid organism shall be specified based on a controlled vocabulary
     pub maternal_organism_id: Option<types::String>,
+    /// Primitive extension sibling for [`maternal_organism_id`](Self::maternal_organism_id) (FHIR `_maternalOrganismId`).
+    #[serde(rename = "_maternalOrganismId")]
+    pub maternal_organism_id_ext: Option<types::Element>,
 
     /// The name of the maternal species constituting the hybrid organism shall be specified
     pub maternal_organism_name: Option<types::String>,
+    /// Primitive extension sibling for [`maternal_organism_name`](Self::maternal_organism_name) (FHIR `_maternalOrganismName`).
+    #[serde(rename = "_maternalOrganismName")]
+    pub maternal_organism_name_ext: Option<types::Element>,
 
     /// The identifier of the paternal species constituting the hybrid organism shall be specified based on a controlled vocabulary
     pub paternal_organism_id: Option<types::String>,
+    /// Primitive extension sibling for [`paternal_organism_id`](Self::paternal_organism_id) (FHIR `_paternalOrganismId`).
+    #[serde(rename = "_paternalOrganismId")]
+    pub paternal_organism_id_ext: Option<types::Element>,
 
     /// The name of the paternal species constituting the hybrid organism shall be specified
     pub paternal_organism_name: Option<types::String>,
+    /// Primitive extension sibling for [`paternal_organism_name`](Self::paternal_organism_name) (FHIR `_paternalOrganismName`).
+    #[serde(rename = "_paternalOrganismName")]
+    pub paternal_organism_name_ext: Option<types::Element>,
 
     /// The hybrid type of an organism shall be specified
     pub hybrid_type: Option<types::CodeableConcept>,

@@ -65,9 +65,15 @@ pub struct Contract {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -86,12 +92,21 @@ pub struct Contract {
 
     /// Basal definition
     pub url: Option<types::Uri>,
+    /// Primitive extension sibling for [`url`](Self::url) (FHIR `_url`).
+    #[serde(rename = "_url")]
+    pub url_ext: Option<types::Element>,
 
     /// Business edition
     pub version: Option<types::String>,
+    /// Primitive extension sibling for [`version`](Self::version) (FHIR `_version`).
+    #[serde(rename = "_version")]
+    pub version_ext: Option<types::Element>,
 
     /// Current lifecycle status of the contract, e.g. amended | appended | cancelled | disputed | entered-in-error | executable +
     pub status: Option<types::Code>,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// Negotiation status
     pub legal_state: Option<types::CodeableConcept>,
@@ -101,12 +116,18 @@ pub struct Contract {
 
     /// External Contract Definition
     pub instantiates_uri: Option<types::Uri>,
+    /// Primitive extension sibling for [`instantiates_uri`](Self::instantiates_uri) (FHIR `_instantiatesUri`).
+    #[serde(rename = "_instantiatesUri")]
+    pub instantiates_uri_ext: Option<types::Element>,
 
     /// Content derived from the basal information
     pub content_derivative: Option<types::CodeableConcept>,
 
     /// When this Contract was issued
     pub issued: Option<types::DateTime>,
+    /// Primitive extension sibling for [`issued`](Self::issued) (FHIR `_issued`).
+    #[serde(rename = "_issued")]
+    pub issued_ext: Option<types::Element>,
 
     /// Effective time
     pub applies: Option<types::Period>,
@@ -128,15 +149,27 @@ pub struct Contract {
 
     /// Computer friendly designation
     pub name: Option<types::String>,
+    /// Primitive extension sibling for [`name`](Self::name) (FHIR `_name`).
+    #[serde(rename = "_name")]
+    pub name_ext: Option<types::Element>,
 
     /// Human Friendly name
     pub title: Option<types::String>,
+    /// Primitive extension sibling for [`title`](Self::title) (FHIR `_title`).
+    #[serde(rename = "_title")]
+    pub title_ext: Option<types::Element>,
 
     /// Subordinate Friendly name
     pub subtitle: Option<types::String>,
+    /// Primitive extension sibling for [`subtitle`](Self::subtitle) (FHIR `_subtitle`).
+    #[serde(rename = "_subtitle")]
+    pub subtitle_ext: Option<types::Element>,
 
     /// Acronym or short name
     pub alias: Option<Vec<types::String>>,
+    /// Primitive extension sibling for [`alias`](Self::alias) (FHIR `_alias`).
+    #[serde(rename = "_alias")]
+    pub alias_ext: Option<Vec<Option<types::Element>>>,
 
     /// Source of Contract
     pub author: Option<types::Reference>,
@@ -212,12 +245,21 @@ pub struct ContractContentDefinition {
 
     /// When published
     pub publication_date: Option<types::DateTime>,
+    /// Primitive extension sibling for [`publication_date`](Self::publication_date) (FHIR `_publicationDate`).
+    #[serde(rename = "_publicationDate")]
+    pub publication_date_ext: Option<types::Element>,
 
     /// amended | appended | cancelled | disputed | entered-in-error | executable +
     pub publication_status: types::Code,
+    /// Primitive extension sibling for [`publication_status`](Self::publication_status) (FHIR `_publicationStatus`).
+    #[serde(rename = "_publicationStatus")]
+    pub publication_status_ext: Option<types::Element>,
 
     /// Publication Ownership
     pub copyright: Option<types::Markdown>,
+    /// Primitive extension sibling for [`copyright`](Self::copyright) (FHIR `_copyright`).
+    #[serde(rename = "_copyright")]
+    pub copyright_ext: Option<types::Element>,
 }
 
 /// Contract Term List.
@@ -239,6 +281,9 @@ pub struct ContractTerm {
 
     /// Contract Term Issue Date Time
     pub issued: Option<types::DateTime>,
+    /// Primitive extension sibling for [`issued`](Self::issued) (FHIR `_issued`).
+    #[serde(rename = "_issued")]
+    pub issued_ext: Option<types::Element>,
 
     /// Contract Term Effective Time
     pub applies: Option<types::Period>,
@@ -257,6 +302,9 @@ pub struct ContractTerm {
 
     /// Term Statement
     pub text: Option<types::String>,
+    /// Primitive extension sibling for [`text`](Self::text) (FHIR `_text`).
+    #[serde(rename = "_text")]
+    pub text_ext: Option<types::Element>,
 
     /// Protection for the Term
     pub security_label: Option<Vec<ContractTermSecurityLabel>>,
@@ -290,6 +338,9 @@ pub struct ContractTermSecurityLabel {
 
     /// Link to Security Labels
     pub number: Option<Vec<types::UnsignedInt>>,
+    /// Primitive extension sibling for [`number`](Self::number) (FHIR `_number`).
+    #[serde(rename = "_number")]
+    pub number_ext: Option<Vec<Option<types::Element>>>,
 
     /// Confidentiality Protection
     pub classification: types::Coding,
@@ -338,12 +389,21 @@ pub struct ContractTermOffer {
 
     /// Human readable offer text
     pub text: Option<types::String>,
+    /// Primitive extension sibling for [`text`](Self::text) (FHIR `_text`).
+    #[serde(rename = "_text")]
+    pub text_ext: Option<types::Element>,
 
     /// Pointer to text
     pub link_id: Option<Vec<types::String>>,
+    /// Primitive extension sibling for [`link_id`](Self::link_id) (FHIR `_linkId`).
+    #[serde(rename = "_linkId")]
+    pub link_id_ext: Option<Vec<Option<types::Element>>>,
 
     /// Offer restriction numbers
     pub security_label_number: Option<Vec<types::UnsignedInt>>,
+    /// Primitive extension sibling for [`security_label_number`](Self::security_label_number) (FHIR `_securityLabelNumber`).
+    #[serde(rename = "_securityLabelNumber")]
+    pub security_label_number_ext: Option<Vec<Option<types::Element>>>,
 }
 
 /// Offer Recipient.
@@ -452,6 +512,9 @@ pub struct ContractTermAsset {
 
     /// Quality desctiption of asset
     pub condition: Option<types::String>,
+    /// Primitive extension sibling for [`condition`](Self::condition) (FHIR `_condition`).
+    #[serde(rename = "_condition")]
+    pub condition_ext: Option<types::Element>,
 
     /// Asset availability types
     pub period_type: Option<Vec<types::CodeableConcept>>,
@@ -464,15 +527,24 @@ pub struct ContractTermAsset {
 
     /// Asset clause or question text
     pub text: Option<types::String>,
+    /// Primitive extension sibling for [`text`](Self::text) (FHIR `_text`).
+    #[serde(rename = "_text")]
+    pub text_ext: Option<types::Element>,
 
     /// Pointer to asset text
     pub link_id: Option<Vec<types::String>>,
+    /// Primitive extension sibling for [`link_id`](Self::link_id) (FHIR `_linkId`).
+    #[serde(rename = "_linkId")]
+    pub link_id_ext: Option<Vec<Option<types::Element>>>,
 
     /// Response to assets
     pub answer: Option<Vec<ContractTermOfferAnswer>>,
 
     /// Asset restriction numbers
     pub security_label_number: Option<Vec<types::UnsignedInt>>,
+    /// Primitive extension sibling for [`security_label_number`](Self::security_label_number) (FHIR `_securityLabelNumber`).
+    #[serde(rename = "_securityLabelNumber")]
+    pub security_label_number_ext: Option<Vec<Option<types::Element>>>,
 
     /// Contract Valued Item List
     pub valued_item: Option<Vec<ContractTermAssetValuedItem>>,
@@ -500,6 +572,9 @@ pub struct ContractTermAssetContext {
 
     /// Context description
     pub text: Option<types::String>,
+    /// Primitive extension sibling for [`text`](Self::text) (FHIR `_text`).
+    #[serde(rename = "_text")]
+    pub text_ext: Option<types::Element>,
 }
 
 /// Contract Valued Item List.
@@ -527,6 +602,9 @@ pub struct ContractTermAssetValuedItem {
 
     /// Contract Valued Item Effective Tiem
     pub effective_time: Option<types::DateTime>,
+    /// Primitive extension sibling for [`effective_time`](Self::effective_time) (FHIR `_effectiveTime`).
+    #[serde(rename = "_effectiveTime")]
+    pub effective_time_ext: Option<types::Element>,
 
     /// Count of Contract Valued Items
     pub quantity: Option<types::Quantity>,
@@ -536,18 +614,30 @@ pub struct ContractTermAssetValuedItem {
 
     /// Contract Valued Item Price Scaling Factor
     pub factor: Option<types::Decimal>,
+    /// Primitive extension sibling for [`factor`](Self::factor) (FHIR `_factor`).
+    #[serde(rename = "_factor")]
+    pub factor_ext: Option<types::Element>,
 
     /// Contract Valued Item Difficulty Scaling Factor
     pub points: Option<types::Decimal>,
+    /// Primitive extension sibling for [`points`](Self::points) (FHIR `_points`).
+    #[serde(rename = "_points")]
+    pub points_ext: Option<types::Element>,
 
     /// Total Contract Valued Item Value
     pub net: Option<types::Money>,
 
     /// Terms of valuation
     pub payment: Option<types::String>,
+    /// Primitive extension sibling for [`payment`](Self::payment) (FHIR `_payment`).
+    #[serde(rename = "_payment")]
+    pub payment_ext: Option<types::Element>,
 
     /// When payment is due
     pub payment_date: Option<types::DateTime>,
+    /// Primitive extension sibling for [`payment_date`](Self::payment_date) (FHIR `_paymentDate`).
+    #[serde(rename = "_paymentDate")]
+    pub payment_date_ext: Option<types::Element>,
 
     /// Who will make payment
     pub responsible: Option<types::Reference>,
@@ -557,9 +647,15 @@ pub struct ContractTermAssetValuedItem {
 
     /// Pointer to specific item
     pub link_id: Option<Vec<types::String>>,
+    /// Primitive extension sibling for [`link_id`](Self::link_id) (FHIR `_linkId`).
+    #[serde(rename = "_linkId")]
+    pub link_id_ext: Option<Vec<Option<types::Element>>>,
 
     /// Security Labels that define affected terms
     pub security_label_number: Option<Vec<types::UnsignedInt>>,
+    /// Primitive extension sibling for [`security_label_number`](Self::security_label_number) (FHIR `_securityLabelNumber`).
+    #[serde(rename = "_securityLabelNumber")]
+    pub security_label_number_ext: Option<Vec<Option<types::Element>>>,
 }
 
 /// Entity being ascribed responsibility.
@@ -578,6 +674,9 @@ pub struct ContractTermAction {
 
     /// True if the term prohibits the action
     pub do_not_perform: Option<types::Boolean>,
+    /// Primitive extension sibling for [`do_not_perform`](Self::do_not_perform) (FHIR `_doNotPerform`).
+    #[serde(rename = "_doNotPerform")]
+    pub do_not_perform_ext: Option<types::Element>,
 
     /// Type or form of the action
     pub r#type: types::CodeableConcept,
@@ -590,6 +689,9 @@ pub struct ContractTermAction {
 
     /// Pointer to specific item
     pub link_id: Option<Vec<types::String>>,
+    /// Primitive extension sibling for [`link_id`](Self::link_id) (FHIR `_linkId`).
+    #[serde(rename = "_linkId")]
+    pub link_id_ext: Option<Vec<Option<types::Element>>>,
 
     /// State of the action
     pub status: types::CodeableConcept,
@@ -599,6 +701,9 @@ pub struct ContractTermAction {
 
     /// Pointer to specific item
     pub context_link_id: Option<Vec<types::String>>,
+    /// Primitive extension sibling for [`context_link_id`](Self::context_link_id) (FHIR `_contextLinkId`).
+    #[serde(rename = "_contextLinkId")]
+    pub context_link_id_ext: Option<Vec<Option<types::Element>>>,
 
     /// When action happens
     pub occurrence_date_time: Option<types::DateTime>,
@@ -614,6 +719,9 @@ pub struct ContractTermAction {
 
     /// Pointer to specific item
     pub requester_link_id: Option<Vec<types::String>>,
+    /// Primitive extension sibling for [`requester_link_id`](Self::requester_link_id) (FHIR `_requesterLinkId`).
+    #[serde(rename = "_requesterLinkId")]
+    pub requester_link_id_ext: Option<Vec<Option<types::Element>>>,
 
     /// Kind of service performer
     pub performer_type: Option<Vec<types::CodeableConcept>>,
@@ -626,18 +734,27 @@ pub struct ContractTermAction {
 
     /// Pointer to specific item
     pub performer_link_id: Option<Vec<types::String>>,
+    /// Primitive extension sibling for [`performer_link_id`](Self::performer_link_id) (FHIR `_performerLinkId`).
+    #[serde(rename = "_performerLinkId")]
+    pub performer_link_id_ext: Option<Vec<Option<types::Element>>>,
 
     /// Why is action (not) needed?
     pub reason: Option<Vec<types::CodeableReference>>,
 
     /// Pointer to specific item
     pub reason_link_id: Option<Vec<types::String>>,
+    /// Primitive extension sibling for [`reason_link_id`](Self::reason_link_id) (FHIR `_reasonLinkId`).
+    #[serde(rename = "_reasonLinkId")]
+    pub reason_link_id_ext: Option<Vec<Option<types::Element>>>,
 
     /// Comments about the action
     pub note: Option<Vec<types::Annotation>>,
 
     /// Action restriction numbers
     pub security_label_number: Option<Vec<types::UnsignedInt>>,
+    /// Primitive extension sibling for [`security_label_number`](Self::security_label_number) (FHIR `_securityLabelNumber`).
+    #[serde(rename = "_securityLabelNumber")]
+    pub security_label_number_ext: Option<Vec<Option<types::Element>>>,
 }
 
 /// Entity of the action.

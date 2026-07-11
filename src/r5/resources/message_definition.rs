@@ -66,9 +66,15 @@ pub struct MessageDefinition {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -84,12 +90,18 @@ pub struct MessageDefinition {
 
     /// The cannonical URL for a given MessageDefinition
     pub url: Option<types::Uri>,
+    /// Primitive extension sibling for [`url`](Self::url) (FHIR `_url`).
+    #[serde(rename = "_url")]
+    pub url_ext: Option<types::Element>,
 
     /// Business Identifier for a given MessageDefinition
     pub identifier: Option<Vec<types::Identifier>>,
 
     /// Business version of the message definition
     pub version: Option<types::String>,
+    /// Primitive extension sibling for [`version`](Self::version) (FHIR `_version`).
+    #[serde(rename = "_version")]
+    pub version_ext: Option<types::Element>,
 
     /// How to compare versions
     pub version_algorithm_string: Option<types::String>,
@@ -99,30 +111,54 @@ pub struct MessageDefinition {
 
     /// Name for this message definition (computer friendly)
     pub name: Option<types::String>,
+    /// Primitive extension sibling for [`name`](Self::name) (FHIR `_name`).
+    #[serde(rename = "_name")]
+    pub name_ext: Option<types::Element>,
 
     /// Name for this message definition (human friendly)
     pub title: Option<types::String>,
+    /// Primitive extension sibling for [`title`](Self::title) (FHIR `_title`).
+    #[serde(rename = "_title")]
+    pub title_ext: Option<types::Element>,
 
     /// Takes the place of
     pub replaces: Option<Vec<types::Canonical>>,
+    /// Primitive extension sibling for [`replaces`](Self::replaces) (FHIR `_replaces`).
+    #[serde(rename = "_replaces")]
+    pub replaces_ext: Option<Vec<Option<types::Element>>>,
 
     /// Publication lifecycle state of this definition: draft, active, retired, or unknown.
     pub status: types::Code,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// For testing purposes, not real usage
     pub experimental: Option<types::Boolean>,
+    /// Primitive extension sibling for [`experimental`](Self::experimental) (FHIR `_experimental`).
+    #[serde(rename = "_experimental")]
+    pub experimental_ext: Option<types::Element>,
 
     /// Date last changed
     pub date: types::DateTime,
+    /// Primitive extension sibling for [`date`](Self::date) (FHIR `_date`).
+    #[serde(rename = "_date")]
+    pub date_ext: Option<types::Element>,
 
     /// Name of the publisher/steward (organization or individual)
     pub publisher: Option<types::String>,
+    /// Primitive extension sibling for [`publisher`](Self::publisher) (FHIR `_publisher`).
+    #[serde(rename = "_publisher")]
+    pub publisher_ext: Option<types::Element>,
 
     /// Contact details for the publisher
     pub contact: Option<Vec<types::ContactDetail>>,
 
     /// Natural language description of the message definition
     pub description: Option<types::Markdown>,
+    /// Primitive extension sibling for [`description`](Self::description) (FHIR `_description`).
+    #[serde(rename = "_description")]
+    pub description_ext: Option<types::Element>,
 
     /// The context that the content is intended to support
     pub use_context: Option<Vec<types::UsageContext>>,
@@ -132,18 +168,33 @@ pub struct MessageDefinition {
 
     /// Why this message definition is defined
     pub purpose: Option<types::Markdown>,
+    /// Primitive extension sibling for [`purpose`](Self::purpose) (FHIR `_purpose`).
+    #[serde(rename = "_purpose")]
+    pub purpose_ext: Option<types::Element>,
 
     /// Use and/or publishing restrictions
     pub copyright: Option<types::Markdown>,
+    /// Primitive extension sibling for [`copyright`](Self::copyright) (FHIR `_copyright`).
+    #[serde(rename = "_copyright")]
+    pub copyright_ext: Option<types::Element>,
 
     /// Copyright holder and year(s)
     pub copyright_label: Option<types::String>,
+    /// Primitive extension sibling for [`copyright_label`](Self::copyright_label) (FHIR `_copyrightLabel`).
+    #[serde(rename = "_copyrightLabel")]
+    pub copyright_label_ext: Option<types::Element>,
 
     /// Definition this one is based on
     pub base: Option<types::Canonical>,
+    /// Primitive extension sibling for [`base`](Self::base) (FHIR `_base`).
+    #[serde(rename = "_base")]
+    pub base_ext: Option<types::Element>,
 
     /// Protocol/workflow this is part of
     pub parent: Option<Vec<types::Canonical>>,
+    /// Primitive extension sibling for [`parent`](Self::parent) (FHIR `_parent`).
+    #[serde(rename = "_parent")]
+    pub parent_ext: Option<Vec<Option<types::Element>>>,
 
     /// The triggering event, expressed as a coding that identifies the message's initiating event.
     pub event_coding: Option<types::Coding>,
@@ -153,18 +204,27 @@ pub struct MessageDefinition {
 
     /// consequence | currency | notification
     pub category: Option<types::Code>,
+    /// Primitive extension sibling for [`category`](Self::category) (FHIR `_category`).
+    #[serde(rename = "_category")]
+    pub category_ext: Option<types::Element>,
 
     /// The focal resources that make up the message payload, with their profiles and cardinality.
     pub focus: Option<Vec<MessageDefinitionFocus>>,
 
     /// always | on-error | never | on-success
     pub response_required: Option<types::Code>,
+    /// Primitive extension sibling for [`response_required`](Self::response_required) (FHIR `_responseRequired`).
+    #[serde(rename = "_responseRequired")]
+    pub response_required_ext: Option<types::Element>,
 
     /// The response messages that are permitted in reply to this message.
     pub allowed_response: Option<Vec<MessageDefinitionAllowedResponse>>,
 
     /// Canonical reference to a GraphDefinition
     pub graph: Option<types::Canonical>,
+    /// Primitive extension sibling for [`graph`](Self::graph) (FHIR `_graph`).
+    #[serde(rename = "_graph")]
+    pub graph_ext: Option<types::Element>,
 }
 
 /// Resource(s) that are the subject of the event, identifying the type of
@@ -184,15 +244,27 @@ pub struct MessageDefinitionFocus {
 
     /// Type of resource
     pub code: types::Code,
+    /// Primitive extension sibling for [`code`](Self::code) (FHIR `_code`).
+    #[serde(rename = "_code")]
+    pub code_ext: Option<types::Element>,
 
     /// Profile that must be adhered to by focus
     pub profile: Option<types::Canonical>,
+    /// Primitive extension sibling for [`profile`](Self::profile) (FHIR `_profile`).
+    #[serde(rename = "_profile")]
+    pub profile_ext: Option<types::Element>,
 
     /// Minimum number of focuses of this type
     pub min: types::UnsignedInt,
+    /// Primitive extension sibling for [`min`](Self::min) (FHIR `_min`).
+    #[serde(rename = "_min")]
+    pub min_ext: Option<types::Element>,
 
     /// Maximum number of focuses of this type
     pub max: Option<types::String>,
+    /// Primitive extension sibling for [`max`](Self::max) (FHIR `_max`).
+    #[serde(rename = "_max")]
+    pub max_ext: Option<types::Element>,
 }
 
 /// Responses to this message, referencing the allowed MessageDefinition
@@ -212,9 +284,15 @@ pub struct MessageDefinitionAllowedResponse {
 
     /// Reference to allowed message definition response
     pub message: types::Canonical,
+    /// Primitive extension sibling for [`message`](Self::message) (FHIR `_message`).
+    #[serde(rename = "_message")]
+    pub message_ext: Option<types::Element>,
 
     /// When should this response be used
     pub situation: Option<types::Markdown>,
+    /// Primitive extension sibling for [`situation`](Self::situation) (FHIR `_situation`).
+    #[serde(rename = "_situation")]
+    pub situation_ext: Option<types::Element>,
 }
 
 #[cfg(test)]

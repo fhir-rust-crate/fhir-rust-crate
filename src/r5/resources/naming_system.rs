@@ -61,9 +61,15 @@ pub struct NamingSystem {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -79,12 +85,18 @@ pub struct NamingSystem {
 
     /// Canonical identifier for this naming system, represented as a URI (globally unique)
     pub url: Option<types::Uri>,
+    /// Primitive extension sibling for [`url`](Self::url) (FHIR `_url`).
+    #[serde(rename = "_url")]
+    pub url_ext: Option<types::Element>,
 
     /// Additional identifier for the naming system (business identifier)
     pub identifier: Option<Vec<types::Identifier>>,
 
     /// Business version of the naming system
     pub version: Option<types::String>,
+    /// Primitive extension sibling for [`version`](Self::version) (FHIR `_version`).
+    #[serde(rename = "_version")]
+    pub version_ext: Option<types::Element>,
 
     /// How to compare versions
     pub version_algorithm_string: Option<types::String>,
@@ -94,36 +106,63 @@ pub struct NamingSystem {
 
     /// Name for this naming system (computer friendly); used internally for cross-references
     pub name: types::String,
+    /// Primitive extension sibling for [`name`](Self::name) (FHIR `_name`).
+    #[serde(rename = "_name")]
+    pub name_ext: Option<types::Element>,
 
     /// Title for this naming system (human friendly)
     pub title: Option<types::String>,
+    /// Primitive extension sibling for [`title`](Self::title) (FHIR `_title`).
+    #[serde(rename = "_title")]
+    pub title_ext: Option<types::Element>,
 
     /// Publication status of this naming system definition: draft | active | retired | unknown
     pub status: types::Code,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// Indicates the purpose of the namespace: codesystem | identifier | root
     pub kind: types::Code,
+    /// Primitive extension sibling for [`kind`](Self::kind) (FHIR `_kind`).
+    #[serde(rename = "_kind")]
+    pub kind_ext: Option<types::Element>,
 
     /// For testing purposes, not real usage
     pub experimental: Option<types::Boolean>,
+    /// Primitive extension sibling for [`experimental`](Self::experimental) (FHIR `_experimental`).
+    #[serde(rename = "_experimental")]
+    pub experimental_ext: Option<types::Element>,
 
     /// Date last changed
     pub date: types::DateTime,
+    /// Primitive extension sibling for [`date`](Self::date) (FHIR `_date`).
+    #[serde(rename = "_date")]
+    pub date_ext: Option<types::Element>,
 
     /// Name of the publisher/steward (organization or individual)
     pub publisher: Option<types::String>,
+    /// Primitive extension sibling for [`publisher`](Self::publisher) (FHIR `_publisher`).
+    #[serde(rename = "_publisher")]
+    pub publisher_ext: Option<types::Element>,
 
     /// Contact details for the publisher
     pub contact: Option<Vec<types::ContactDetail>>,
 
     /// Who maintains system namespace?
     pub responsible: Option<types::String>,
+    /// Primitive extension sibling for [`responsible`](Self::responsible) (FHIR `_responsible`).
+    #[serde(rename = "_responsible")]
+    pub responsible_ext: Option<types::Element>,
 
     /// Human-readable classification of the registered entities, e.g. driver, provider, patient, bank etc
     pub r#type: Option<types::CodeableConcept>,
 
     /// Natural language description of the naming system
     pub description: Option<types::Markdown>,
+    /// Primitive extension sibling for [`description`](Self::description) (FHIR `_description`).
+    #[serde(rename = "_description")]
+    pub description_ext: Option<types::Element>,
 
     /// The context that the content is intended to support
     pub use_context: Option<Vec<types::UsageContext>>,
@@ -133,18 +172,33 @@ pub struct NamingSystem {
 
     /// Why this naming system is defined
     pub purpose: Option<types::Markdown>,
+    /// Primitive extension sibling for [`purpose`](Self::purpose) (FHIR `_purpose`).
+    #[serde(rename = "_purpose")]
+    pub purpose_ext: Option<types::Element>,
 
     /// Use and/or publishing restrictions
     pub copyright: Option<types::Markdown>,
+    /// Primitive extension sibling for [`copyright`](Self::copyright) (FHIR `_copyright`).
+    #[serde(rename = "_copyright")]
+    pub copyright_ext: Option<types::Element>,
 
     /// Copyright holder and year(s)
     pub copyright_label: Option<types::String>,
+    /// Primitive extension sibling for [`copyright_label`](Self::copyright_label) (FHIR `_copyrightLabel`).
+    #[serde(rename = "_copyrightLabel")]
+    pub copyright_label_ext: Option<types::Element>,
 
     /// When the NamingSystem was approved by publisher
     pub approval_date: Option<types::Date>,
+    /// Primitive extension sibling for [`approval_date`](Self::approval_date) (FHIR `_approvalDate`).
+    #[serde(rename = "_approvalDate")]
+    pub approval_date_ext: Option<types::Element>,
 
     /// When the NamingSystem was last reviewed by the publisher
     pub last_review_date: Option<types::Date>,
+    /// Primitive extension sibling for [`last_review_date`](Self::last_review_date) (FHIR `_lastReviewDate`).
+    #[serde(rename = "_lastReviewDate")]
+    pub last_review_date_ext: Option<types::Element>,
 
     /// When the NamingSystem is expected to be used
     pub effective_period: Option<types::Period>,
@@ -169,6 +223,9 @@ pub struct NamingSystem {
 
     /// How/where is it used
     pub usage: Option<types::String>,
+    /// Primitive extension sibling for [`usage`](Self::usage) (FHIR `_usage`).
+    #[serde(rename = "_usage")]
+    pub usage_ext: Option<types::Element>,
 
     /// The unique symbols (such as an OID, UUID, or URI) that may be used to name this system; see NamingSystemUniqueId
     pub unique_id: Vec<NamingSystemUniqueId>,
@@ -192,21 +249,36 @@ pub struct NamingSystemUniqueId {
 
     /// oid | uuid | uri | iri-stem | v2csmnemonic | other
     pub r#type: types::Code,
+    /// Primitive extension sibling for [`type`](Self::r#type) (FHIR `_type`).
+    #[serde(rename = "_type")]
+    pub type_ext: Option<types::Element>,
 
     /// The literal symbol that names the system, formatted according to the given type
     pub value: types::String,
+    /// Primitive extension sibling for [`value`](Self::value) (FHIR `_value`).
+    #[serde(rename = "_value")]
+    pub value_ext: Option<types::Element>,
 
     /// Is this the id that should be used for this type
     pub preferred: Option<types::Boolean>,
+    /// Primitive extension sibling for [`preferred`](Self::preferred) (FHIR `_preferred`).
+    #[serde(rename = "_preferred")]
+    pub preferred_ext: Option<types::Element>,
 
     /// Notes about identifier usage
     pub comment: Option<types::String>,
+    /// Primitive extension sibling for [`comment`](Self::comment) (FHIR `_comment`).
+    #[serde(rename = "_comment")]
+    pub comment_ext: Option<types::Element>,
 
     /// When is identifier valid?
     pub period: Option<types::Period>,
 
     /// Whether the identifier is authoritative
     pub authoritative: Option<types::Boolean>,
+    /// Primitive extension sibling for [`authoritative`](Self::authoritative) (FHIR `_authoritative`).
+    #[serde(rename = "_authoritative")]
+    pub authoritative_ext: Option<types::Element>,
 }
 
 #[cfg(test)]

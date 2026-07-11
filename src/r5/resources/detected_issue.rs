@@ -64,9 +64,15 @@ pub struct DetectedIssue {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -85,6 +91,9 @@ pub struct DetectedIssue {
 
     /// The workflow status of this issue: preliminary | final | entered-in-error | mitigated
     pub status: types::Code,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// Broad category of the detected issue, e.g. drug-drug interaction, duplicate therapy, etc
     pub category: Option<Vec<types::CodeableConcept>>,
@@ -94,6 +103,9 @@ pub struct DetectedIssue {
 
     /// Indicates the potential clinical seriousness of the issue: high | moderate | low
     pub severity: Option<types::Code>,
+    /// Primitive extension sibling for [`severity`](Self::severity) (FHIR `_severity`).
+    #[serde(rename = "_severity")]
+    pub severity_ext: Option<types::Element>,
 
     /// The patient, or other subject, for whom the issue was detected
     pub subject: Option<types::Reference>,
@@ -118,9 +130,15 @@ pub struct DetectedIssue {
 
     /// Description and context
     pub detail: Option<types::Markdown>,
+    /// Primitive extension sibling for [`detail`](Self::detail) (FHIR `_detail`).
+    #[serde(rename = "_detail")]
+    pub detail_ext: Option<types::Element>,
 
     /// Authority for issue
     pub reference: Option<types::Uri>,
+    /// Primitive extension sibling for [`reference`](Self::reference) (FHIR `_reference`).
+    #[serde(rename = "_reference")]
+    pub reference_ext: Option<types::Element>,
 
     /// Step taken to address
     pub mitigation: Option<Vec<DetectedIssueMitigation>>,
@@ -172,6 +190,9 @@ pub struct DetectedIssueMitigation {
 
     /// Date committed
     pub date: Option<types::DateTime>,
+    /// Primitive extension sibling for [`date`](Self::date) (FHIR `_date`).
+    #[serde(rename = "_date")]
+    pub date_ext: Option<types::Element>,
 
     /// Who is committing?
     pub author: Option<types::Reference>,

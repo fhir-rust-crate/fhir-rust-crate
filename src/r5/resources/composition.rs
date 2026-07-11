@@ -68,9 +68,15 @@ pub struct Composition {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -86,15 +92,24 @@ pub struct Composition {
 
     /// Canonical identifier for this Composition, represented as a URI (globally unique)
     pub url: Option<types::Uri>,
+    /// Primitive extension sibling for [`url`](Self::url) (FHIR `_url`).
+    #[serde(rename = "_url")]
+    pub url_ext: Option<types::Element>,
 
     /// Version-independent identifier for the Composition
     pub identifier: Option<Vec<types::Identifier>>,
 
     /// An explicitly assigned identifer of a variation of the content in the Composition
     pub version: Option<types::String>,
+    /// Primitive extension sibling for [`version`](Self::version) (FHIR `_version`).
+    #[serde(rename = "_version")]
+    pub version_ext: Option<types::Element>,
 
     /// The workflow/clinical status of this composition: registered | partial | preliminary | final | amended | corrected | appended | cancelled | entered-in-error | deprecated | unknown
     pub status: types::Code,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// Kind of composition, such as a discharge summary or progress note (LOINC code preferred if possible)
     pub r#type: types::CodeableConcept,
@@ -110,6 +125,9 @@ pub struct Composition {
 
     /// Composition editing time, the time the document was last logically attested or edited
     pub date: types::DateTime,
+    /// Primitive extension sibling for [`date`](Self::date) (FHIR `_date`).
+    #[serde(rename = "_date")]
+    pub date_ext: Option<types::Element>,
 
     /// The context that the content is intended to support
     pub use_context: Option<Vec<types::UsageContext>>,
@@ -119,9 +137,15 @@ pub struct Composition {
 
     /// Name for this Composition (computer friendly)
     pub name: Option<types::String>,
+    /// Primitive extension sibling for [`name`](Self::name) (FHIR `_name`).
+    #[serde(rename = "_name")]
+    pub name_ext: Option<types::Element>,
 
     /// Human readable name/title, for example "Discharge Summary"
     pub title: types::String,
+    /// Primitive extension sibling for [`title`](Self::title) (FHIR `_title`).
+    #[serde(rename = "_title")]
+    pub title_ext: Option<types::Element>,
 
     /// For any additional notes
     pub note: Option<Vec<types::Annotation>>,
@@ -161,6 +185,9 @@ pub struct CompositionAttester {
 
     /// When the composition was attested
     pub time: Option<types::DateTime>,
+    /// Primitive extension sibling for [`time`](Self::time) (FHIR `_time`).
+    #[serde(rename = "_time")]
+    pub time_ext: Option<types::Element>,
 
     /// Who attested the composition
     pub party: Option<types::Reference>,
@@ -203,6 +230,9 @@ pub struct CompositionSection {
 
     /// Label for section (e.g. for ToC)
     pub title: Option<types::String>,
+    /// Primitive extension sibling for [`title`](Self::title) (FHIR `_title`).
+    #[serde(rename = "_title")]
+    pub title_ext: Option<types::Element>,
 
     /// Classification of section (recommended)
     pub code: Option<types::CodeableConcept>,

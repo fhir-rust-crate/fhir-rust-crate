@@ -68,9 +68,15 @@ pub struct MedicationRequest {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -98,24 +104,39 @@ pub struct MedicationRequest {
 
     /// The current lifecycle status of the request: active | on-hold | ended | stopped | completed | cancelled | entered-in-error | draft | unknown
     pub status: types::Code,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// Reason for current status
     pub status_reason: Option<types::CodeableConcept>,
 
     /// When the status was changed
     pub status_changed: Option<types::DateTime>,
+    /// Primitive extension sibling for [`status_changed`](Self::status_changed) (FHIR `_statusChanged`).
+    #[serde(rename = "_statusChanged")]
+    pub status_changed_ext: Option<types::Element>,
 
     /// Whether the request represents a proposal, plan, or an actionable order: proposal | plan | order | original-order | reflex-order | filler-order | instance-order | option
     pub intent: types::Code,
+    /// Primitive extension sibling for [`intent`](Self::intent) (FHIR `_intent`).
+    #[serde(rename = "_intent")]
+    pub intent_ext: Option<types::Element>,
 
     /// Grouping or category of medication request
     pub category: Option<Vec<types::CodeableConcept>>,
 
     /// routine | urgent | asap | stat
     pub priority: Option<types::Code>,
+    /// Primitive extension sibling for [`priority`](Self::priority) (FHIR `_priority`).
+    #[serde(rename = "_priority")]
+    pub priority_ext: Option<types::Element>,
 
     /// True if patient is to stop taking or not to start taking the medication
     pub do_not_perform: Option<types::Boolean>,
+    /// Primitive extension sibling for [`do_not_perform`](Self::do_not_perform) (FHIR `_doNotPerform`).
+    #[serde(rename = "_doNotPerform")]
+    pub do_not_perform_ext: Option<types::Element>,
 
     /// The medication being ordered, referenced or coded via a `CodeableReference`
     pub medication: types::CodeableReference,
@@ -134,12 +155,18 @@ pub struct MedicationRequest {
 
     /// When request was initially authored
     pub authored_on: Option<types::DateTime>,
+    /// Primitive extension sibling for [`authored_on`](Self::authored_on) (FHIR `_authoredOn`).
+    #[serde(rename = "_authoredOn")]
+    pub authored_on_ext: Option<types::Element>,
 
     /// Who/What requested the Request
     pub requester: Option<types::Reference>,
 
     /// Reported rather than primary record
     pub reported: Option<types::Boolean>,
+    /// Primitive extension sibling for [`reported`](Self::reported) (FHIR `_reported`).
+    #[serde(rename = "_reported")]
+    pub reported_ext: Option<types::Element>,
 
     /// Desired kind of performer of the medication administration
     pub performer_type: Option<types::CodeableConcept>,
@@ -167,6 +194,9 @@ pub struct MedicationRequest {
 
     /// Full representation of the dosage instructions
     pub rendered_dosage_instruction: Option<types::Markdown>,
+    /// Primitive extension sibling for [`rendered_dosage_instruction`](Self::rendered_dosage_instruction) (FHIR `_renderedDosageInstruction`).
+    #[serde(rename = "_renderedDosageInstruction")]
+    pub rendered_dosage_instruction_ext: Option<types::Element>,
 
     /// Period over which the medication is to be taken
     pub effective_dose_period: Option<types::Period>,
@@ -213,6 +243,9 @@ pub struct MedicationRequestDispenseRequest {
 
     /// Number of refills authorized
     pub number_of_repeats_allowed: Option<types::UnsignedInt>,
+    /// Primitive extension sibling for [`number_of_repeats_allowed`](Self::number_of_repeats_allowed) (FHIR `_numberOfRepeatsAllowed`).
+    #[serde(rename = "_numberOfRepeatsAllowed")]
+    pub number_of_repeats_allowed_ext: Option<types::Element>,
 
     /// Amount of medication to supply per dispense
     pub quantity: Option<types::Quantity>,

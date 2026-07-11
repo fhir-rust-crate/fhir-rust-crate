@@ -70,9 +70,15 @@ pub struct PackagedProductDefinition {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -91,6 +97,9 @@ pub struct PackagedProductDefinition {
 
     /// A name for this package. Typically as listed in a drug formulary, catalogue, inventory etc
     pub name: Option<types::String>,
+    /// Primitive extension sibling for [`name`](Self::name) (FHIR `_name`).
+    #[serde(rename = "_name")]
+    pub name_ext: Option<types::Element>,
 
     /// A high level category e.g. medicinal product, raw material, shipping container etc
     pub r#type: Option<types::CodeableConcept>,
@@ -103,12 +112,18 @@ pub struct PackagedProductDefinition {
 
     /// The date at which the given status became applicable
     pub status_date: Option<types::DateTime>,
+    /// Primitive extension sibling for [`status_date`](Self::status_date) (FHIR `_statusDate`).
+    #[serde(rename = "_statusDate")]
+    pub status_date_ext: Option<types::Element>,
 
     /// A total of the complete count of contained items of a particular type/form, independent of sub-packaging or organization. This can be considered as the pack size
     pub contained_item_quantity: Option<Vec<types::Quantity>>,
 
     /// Textual description. Note that this is not the name of the package or product
     pub description: Option<types::Markdown>,
+    /// Primitive extension sibling for [`description`](Self::description) (FHIR `_description`).
+    #[serde(rename = "_description")]
+    pub description_ext: Option<types::Element>,
 
     /// The regulator-classified legal status of supply for this pack, optionally scoped by jurisdiction.
     pub legal_status_of_supply: Option<Vec<PackagedProductDefinitionLegalStatusOfSupply>>,
@@ -118,6 +133,9 @@ pub struct PackagedProductDefinition {
 
     /// Identifies if the drug product is supplied with another item such as a diluent or adjuvant
     pub copackaged_indicator: Option<types::Boolean>,
+    /// Primitive extension sibling for [`copackaged_indicator`](Self::copackaged_indicator) (FHIR `_copackagedIndicator`).
+    #[serde(rename = "_copackagedIndicator")]
+    pub copackaged_indicator_ext: Option<types::Element>,
 
     /// Manufacturer of this package type (multiple means these are all possible manufacturers)
     pub manufacturer: Option<Vec<types::Reference>>,
@@ -176,9 +194,15 @@ pub struct PackagedProductDefinitionPackaging {
 
     /// Is this a part of the packaging (e.g. a cap or bottle stopper), rather than the packaging itself (e.g. a bottle or vial)
     pub component_part: Option<types::Boolean>,
+    /// Primitive extension sibling for [`component_part`](Self::component_part) (FHIR `_componentPart`).
+    #[serde(rename = "_componentPart")]
+    pub component_part_ext: Option<types::Element>,
 
     /// The quantity of this level of packaging in the package that contains it (with the outermost level being 1)
     pub quantity: Option<types::Integer>,
+    /// Primitive extension sibling for [`quantity`](Self::quantity) (FHIR `_quantity`).
+    #[serde(rename = "_quantity")]
+    pub quantity_ext: Option<types::Element>,
 
     /// Material type of the package item
     pub material: Option<Vec<types::CodeableConcept>>,

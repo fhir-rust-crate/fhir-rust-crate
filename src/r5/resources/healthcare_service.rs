@@ -68,9 +68,15 @@ pub struct HealthcareService {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -89,6 +95,9 @@ pub struct HealthcareService {
 
     /// Whether this HealthcareService record is currently in active use versus retired or superseded
     pub active: Option<types::Boolean>,
+    /// Primitive extension sibling for [`active`](Self::active) (FHIR `_active`).
+    #[serde(rename = "_active")]
+    pub active_ext: Option<types::Element>,
 
     /// Reference to the [`Organization`](crate::r5::resources::organization::Organization) that provides this service
     pub provided_by: Option<types::Reference>,
@@ -110,12 +119,21 @@ pub struct HealthcareService {
 
     /// Description of service as presented to a consumer while searching
     pub name: Option<types::String>,
+    /// Primitive extension sibling for [`name`](Self::name) (FHIR `_name`).
+    #[serde(rename = "_name")]
+    pub name_ext: Option<types::Element>,
 
     /// Additional description and/or any specific issues not covered elsewhere
     pub comment: Option<types::Markdown>,
+    /// Primitive extension sibling for [`comment`](Self::comment) (FHIR `_comment`).
+    #[serde(rename = "_comment")]
+    pub comment_ext: Option<types::Element>,
 
     /// Extra details about the service that can't be placed in the other fields
     pub extra_details: Option<types::Markdown>,
+    /// Primitive extension sibling for [`extra_details`](Self::extra_details) (FHIR `_extraDetails`).
+    #[serde(rename = "_extraDetails")]
+    pub extra_details_ext: Option<types::Element>,
 
     /// Facilitates quick identification of the service
     pub photo: Option<types::Attachment>,
@@ -146,6 +164,9 @@ pub struct HealthcareService {
 
     /// If an appointment is required for access to this service
     pub appointment_required: Option<types::Boolean>,
+    /// Primitive extension sibling for [`appointment_required`](Self::appointment_required) (FHIR `_appointmentRequired`).
+    #[serde(rename = "_appointmentRequired")]
+    pub appointment_required_ext: Option<types::Element>,
 
     /// Times the healthcare service is available (including exceptions)
     pub availability: Option<Vec<types::Availability>>,
@@ -176,6 +197,9 @@ pub struct HealthcareServiceEligibility {
 
     /// Describes the eligibility conditions for the service
     pub comment: Option<types::Markdown>,
+    /// Primitive extension sibling for [`comment`](Self::comment) (FHIR `_comment`).
+    #[serde(rename = "_comment")]
+    pub comment_ext: Option<types::Element>,
 }
 
 #[cfg(test)]

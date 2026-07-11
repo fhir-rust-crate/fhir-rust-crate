@@ -67,9 +67,15 @@ pub struct VisionPrescription {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -89,9 +95,15 @@ pub struct VisionPrescription {
     /// The current lifecycle status of the prescription: active | cancelled |
     /// draft | entered-in-error.
     pub status: types::Code,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// Response creation date
     pub created: types::DateTime,
+    /// Primitive extension sibling for [`created`](Self::created) (FHIR `_created`).
+    #[serde(rename = "_created")]
+    pub created_ext: Option<types::Element>,
 
     /// Reference to the [`Patient`](crate::r5::resources::patient::Patient)
     /// for whom the vision prescription was written.
@@ -103,6 +115,9 @@ pub struct VisionPrescription {
     /// The date on which the eye examination was performed and the
     /// prescription was authorized by the prescriber.
     pub date_written: types::DateTime,
+    /// Primitive extension sibling for [`date_written`](Self::date_written) (FHIR `_dateWritten`).
+    #[serde(rename = "_dateWritten")]
+    pub date_written_ext: Option<types::Element>,
 
     /// Reference to the practitioner (for example an optometrist or
     /// ophthalmologist) who authorized the vision prescription.
@@ -136,39 +151,69 @@ pub struct VisionPrescriptionLensSpecification {
 
     /// right | left
     pub eye: types::Code,
+    /// Primitive extension sibling for [`eye`](Self::eye) (FHIR `_eye`).
+    #[serde(rename = "_eye")]
+    pub eye_ext: Option<types::Element>,
 
     /// Power of the lens
     pub sphere: Option<types::Decimal>,
+    /// Primitive extension sibling for [`sphere`](Self::sphere) (FHIR `_sphere`).
+    #[serde(rename = "_sphere")]
+    pub sphere_ext: Option<types::Element>,
 
     /// Lens power for astigmatism
     pub cylinder: Option<types::Decimal>,
+    /// Primitive extension sibling for [`cylinder`](Self::cylinder) (FHIR `_cylinder`).
+    #[serde(rename = "_cylinder")]
+    pub cylinder_ext: Option<types::Element>,
 
     /// Lens meridian which contain no power for astigmatism
     pub axis: Option<types::Integer>,
+    /// Primitive extension sibling for [`axis`](Self::axis) (FHIR `_axis`).
+    #[serde(rename = "_axis")]
+    pub axis_ext: Option<types::Element>,
 
     /// Eye alignment compensation
     pub prism: Option<Vec<VisionPrescriptionLensSpecificationPrism>>,
 
     /// Added power for multifocal levels
     pub add: Option<types::Decimal>,
+    /// Primitive extension sibling for [`add`](Self::add) (FHIR `_add`).
+    #[serde(rename = "_add")]
+    pub add_ext: Option<types::Element>,
 
     /// Contact lens power
     pub power: Option<types::Decimal>,
+    /// Primitive extension sibling for [`power`](Self::power) (FHIR `_power`).
+    #[serde(rename = "_power")]
+    pub power_ext: Option<types::Element>,
 
     /// Contact lens back curvature
     pub back_curve: Option<types::Decimal>,
+    /// Primitive extension sibling for [`back_curve`](Self::back_curve) (FHIR `_backCurve`).
+    #[serde(rename = "_backCurve")]
+    pub back_curve_ext: Option<types::Element>,
 
     /// Contact lens diameter
     pub diameter: Option<types::Decimal>,
+    /// Primitive extension sibling for [`diameter`](Self::diameter) (FHIR `_diameter`).
+    #[serde(rename = "_diameter")]
+    pub diameter_ext: Option<types::Element>,
 
     /// Lens wear duration
     pub duration: Option<types::Quantity>,
 
     /// Color required
     pub color: Option<types::String>,
+    /// Primitive extension sibling for [`color`](Self::color) (FHIR `_color`).
+    #[serde(rename = "_color")]
+    pub color_ext: Option<types::Element>,
 
     /// Brand required
     pub brand: Option<types::String>,
+    /// Primitive extension sibling for [`brand`](Self::brand) (FHIR `_brand`).
+    #[serde(rename = "_brand")]
+    pub brand_ext: Option<types::Element>,
 
     /// Notes for coatings
     pub note: Option<Vec<types::Annotation>>,
@@ -193,9 +238,15 @@ pub struct VisionPrescriptionLensSpecificationPrism {
 
     /// Amount of adjustment
     pub amount: types::Decimal,
+    /// Primitive extension sibling for [`amount`](Self::amount) (FHIR `_amount`).
+    #[serde(rename = "_amount")]
+    pub amount_ext: Option<types::Element>,
 
     /// up | down | in | out
     pub base: types::Code,
+    /// Primitive extension sibling for [`base`](Self::base) (FHIR `_base`).
+    #[serde(rename = "_base")]
+    pub base_ext: Option<types::Element>,
 }
 
 #[cfg(test)]

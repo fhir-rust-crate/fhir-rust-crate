@@ -67,9 +67,15 @@ pub struct CoverageEligibilityResponse {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -88,9 +94,15 @@ pub struct CoverageEligibilityResponse {
 
     /// The status of the resource instance itself: active | cancelled | draft | entered-in-error.
     pub status: types::Code,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// The reason(s) this eligibility check was performed: auth-requirements | benefits | discovery | validation.
     pub purpose: Vec<types::Code>,
+    /// Primitive extension sibling for [`purpose`](Self::purpose) (FHIR `_purpose`).
+    #[serde(rename = "_purpose")]
+    pub purpose_ext: Option<Vec<Option<types::Element>>>,
 
     /// Reference to the [`Patient`](crate::r5::resources::patient::Patient) whose coverage is being described.
     pub patient: types::Reference,
@@ -106,6 +118,9 @@ pub struct CoverageEligibilityResponse {
 
     /// Response creation date
     pub created: types::DateTime,
+    /// Primitive extension sibling for [`created`](Self::created) (FHIR `_created`).
+    #[serde(rename = "_created")]
+    pub created_ext: Option<types::Element>,
 
     /// Party responsible for the request
     pub requestor: Option<types::Reference>,
@@ -115,9 +130,15 @@ pub struct CoverageEligibilityResponse {
 
     /// The outcome of the processing: queued | complete | error | partial.
     pub outcome: types::Code,
+    /// Primitive extension sibling for [`outcome`](Self::outcome) (FHIR `_outcome`).
+    #[serde(rename = "_outcome")]
+    pub outcome_ext: Option<types::Element>,
 
     /// Disposition Message
     pub disposition: Option<types::String>,
+    /// Primitive extension sibling for [`disposition`](Self::disposition) (FHIR `_disposition`).
+    #[serde(rename = "_disposition")]
+    pub disposition_ext: Option<types::Element>,
 
     /// Coverage issuer
     pub insurer: types::Reference,
@@ -127,6 +148,9 @@ pub struct CoverageEligibilityResponse {
 
     /// Preauthorization reference
     pub pre_auth_ref: Option<types::String>,
+    /// Primitive extension sibling for [`pre_auth_ref`](Self::pre_auth_ref) (FHIR `_preAuthRef`).
+    #[serde(rename = "_preAuthRef")]
+    pub pre_auth_ref_ext: Option<types::Element>,
 
     /// Printed form identifier
     pub form: Option<types::CodeableConcept>,
@@ -178,6 +202,9 @@ pub struct CoverageEligibilityResponseInsurance {
 
     /// Coverage inforce indicator
     pub inforce: Option<types::Boolean>,
+    /// Primitive extension sibling for [`inforce`](Self::inforce) (FHIR `_inforce`).
+    #[serde(rename = "_inforce")]
+    pub inforce_ext: Option<types::Element>,
 
     /// When the benefits are applicable
     pub benefit_period: Option<types::Period>,
@@ -214,12 +241,21 @@ pub struct CoverageEligibilityResponseInsuranceItem {
 
     /// Excluded from the plan
     pub excluded: Option<types::Boolean>,
+    /// Primitive extension sibling for [`excluded`](Self::excluded) (FHIR `_excluded`).
+    #[serde(rename = "_excluded")]
+    pub excluded_ext: Option<types::Element>,
 
     /// Short name for the benefit
     pub name: Option<types::String>,
+    /// Primitive extension sibling for [`name`](Self::name) (FHIR `_name`).
+    #[serde(rename = "_name")]
+    pub name_ext: Option<types::Element>,
 
     /// Description of the benefit or services covered
     pub description: Option<types::String>,
+    /// Primitive extension sibling for [`description`](Self::description) (FHIR `_description`).
+    #[serde(rename = "_description")]
+    pub description_ext: Option<types::Element>,
 
     /// In or out of network
     pub network: Option<types::CodeableConcept>,
@@ -235,12 +271,18 @@ pub struct CoverageEligibilityResponseInsuranceItem {
 
     /// Authorization required flag
     pub authorization_required: Option<types::Boolean>,
+    /// Primitive extension sibling for [`authorization_required`](Self::authorization_required) (FHIR `_authorizationRequired`).
+    #[serde(rename = "_authorizationRequired")]
+    pub authorization_required_ext: Option<types::Element>,
 
     /// Type of required supporting materials
     pub authorization_supporting: Option<Vec<types::CodeableConcept>>,
 
     /// Preauthorization requirements endpoint
     pub authorization_url: Option<types::Uri>,
+    /// Primitive extension sibling for [`authorization_url`](Self::authorization_url) (FHIR `_authorizationUrl`).
+    #[serde(rename = "_authorizationUrl")]
+    pub authorization_url_ext: Option<types::Element>,
 }
 
 /// Benefit Summary detailing allowed and used amounts.
@@ -298,6 +340,9 @@ pub struct CoverageEligibilityResponseError {
 
     /// FHIRPath of element(s) related to issue
     pub expression: Option<Vec<types::String>>,
+    /// Primitive extension sibling for [`expression`](Self::expression) (FHIR `_expression`).
+    #[serde(rename = "_expression")]
+    pub expression_ext: Option<Vec<Option<types::Element>>>,
 }
 
 #[cfg(test)]

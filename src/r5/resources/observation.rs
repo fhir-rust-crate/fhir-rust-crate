@@ -73,9 +73,15 @@ pub struct Observation {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -144,6 +150,9 @@ pub struct Observation {
 
     /// Date/Time this version was made available
     pub issued: Option<types::Instant>,
+    /// Primitive extension sibling for [`issued`](Self::issued) (FHIR `_issued`).
+    #[serde(rename = "_issued")]
+    pub issued_ext: Option<types::Element>,
 
     /// Who is responsible for the observation
     pub performer: Option<Vec<types::Reference>>,
@@ -246,9 +255,15 @@ pub struct ObservationTriggeredBy {
 
     /// reflex | repeat | re-run
     pub r#type: types::Code,
+    /// Primitive extension sibling for [`type`](Self::r#type) (FHIR `_type`).
+    #[serde(rename = "_type")]
+    pub type_ext: Option<types::Element>,
 
     /// Reason that the observation was triggered
     pub reason: Option<types::String>,
+    /// Primitive extension sibling for [`reason`](Self::reason) (FHIR `_reason`).
+    #[serde(rename = "_reason")]
+    pub reason_ext: Option<types::Element>,
 }
 
 /// Provides guide for interpretation.
@@ -290,6 +305,9 @@ pub struct ObservationReferenceRange {
 
     /// Text based reference range in an observation
     pub text: Option<types::Markdown>,
+    /// Primitive extension sibling for [`text`](Self::text) (FHIR `_text`).
+    #[serde(rename = "_text")]
+    pub text_ext: Option<types::Element>,
 }
 
 /// Component results.

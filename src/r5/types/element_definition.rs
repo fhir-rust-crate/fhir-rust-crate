@@ -626,6 +626,9 @@ pub struct ElementDefinitionSlicingDiscriminator {
 
     /// value | exists | type | profile | position
     pub r#type: types::Code,
+    /// Primitive extension sibling for [`type`](Self::r#type) (FHIR `_type`).
+    #[serde(rename = "_type")]
+    pub type_ext: Option<types::Element>,
 
     /// Path to element value
     pub path: types::String,

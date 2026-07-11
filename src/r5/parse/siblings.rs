@@ -106,13 +106,16 @@ fn is_primitive(el: &meta::ElementMeta) -> bool {
 }
 
 /// A field's value line, parsed from generated source: `    pub <name>: <ty>,`.
+/// Returns the identifier as written, which may be a raw identifier such as
+/// `r#type` (FHIR fields named after Rust keywords).
 fn parse_field_name(line: &str) -> Option<&str> {
     let t = line.trim_start();
     let rest = t.strip_prefix("pub ")?;
     let colon = rest.find(':')?;
     let name = rest[..colon].trim();
-    // Reject anything that isn't a plain identifier (e.g. `pub struct`).
-    if name.is_empty() || !name.chars().all(|c| c.is_ascii_alphanumeric() || c == '_') {
+    // Validate the bare identifier (after any `r#` raw-identifier prefix).
+    let bare = name.strip_prefix("r#").unwrap_or(name);
+    if bare.is_empty() || !bare.chars().all(|c| c.is_ascii_alphanumeric() || c == '_') {
         return None;
     }
     Some(name)
@@ -187,10 +190,12 @@ pub fn plan_file(text: &str, skipped: &mut Vec<(String, String)>) -> Vec<Inserti
             let Some(field) = parse_field_name(line) else {
                 continue;
             };
-            if field == "id" {
+            // Bare identifier without any `r#` raw prefix (e.g. `type`).
+            let bare = field.strip_prefix("r#").unwrap_or(field);
+            if bare == "id" {
                 continue; // Element.id / Resource.id do not take `_id`
             }
-            let json_name = field.to_case(Case::Camel);
+            let json_name = bare.to_case(Case::Camel);
             let path = format!("{prefix}.{json_name}");
             let Some(el) = meta::element(&path) else {
                 // No metadata path: choice variant or non-spec field.
@@ -207,8 +212,8 @@ pub fn plan_file(text: &str, skipped: &mut Vec<(String, String)>) -> Vec<Inserti
             insertions.push(Insertion {
                 struct_name: struct_name.clone(),
                 path,
-                field: field.to_string(),
-                sibling: format!("{field}_ext"),
+                field: field.to_string(), // raw ident, for the Self:: doc link
+                sibling: format!("{bare}_ext"),
                 json_key,
                 repeating: el.is_multiple(),
                 after_line: line_no,
@@ -225,8 +230,9 @@ fn render_sibling(ins: &Insertion) -> String {
     } else {
         "Option<types::Element>"
     };
+    let display = ins.field.strip_prefix("r#").unwrap_or(&ins.field);
     format!(
-        "\n    /// Primitive extension sibling for [`{field}`](Self::{field}) \
+        "\n    /// Primitive extension sibling for [`{display}`](Self::{field}) \
          (FHIR `{json_key}`).\n    #[serde(rename = \"{json_key}\")]\n    pub {sibling}: {ty},",
         field = ins.field,
         json_key = ins.json_key,
@@ -357,6 +363,7 @@ mod tests {
     fn parses_field_names() {
         assert_eq!(parse_field_name("    pub family: Option<types::String>,"), Some("family"));
         assert_eq!(parse_field_name("    pub given: Vec<types::String>, // « C »"), Some("given"));
+        assert_eq!(parse_field_name("    pub r#type: types::Code,"), Some("r#type"));
         assert_eq!(parse_field_name("pub struct HumanName {"), None);
         assert_eq!(parse_field_name("    /// a doc comment"), None);
     }

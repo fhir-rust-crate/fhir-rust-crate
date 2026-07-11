@@ -63,9 +63,15 @@ pub struct Transport {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -84,9 +90,15 @@ pub struct Transport {
 
     /// Formal definition of transport
     pub instantiates_canonical: Option<types::Canonical>,
+    /// Primitive extension sibling for [`instantiates_canonical`](Self::instantiates_canonical) (FHIR `_instantiatesCanonical`).
+    #[serde(rename = "_instantiatesCanonical")]
+    pub instantiates_canonical_ext: Option<types::Element>,
 
     /// Formal definition of transport
     pub instantiates_uri: Option<types::Uri>,
+    /// Primitive extension sibling for [`instantiates_uri`](Self::instantiates_uri) (FHIR `_instantiatesUri`).
+    #[serde(rename = "_instantiatesUri")]
+    pub instantiates_uri_ext: Option<types::Element>,
 
     /// Request fulfilled by this transport
     pub based_on: Option<Vec<types::Reference>>,
@@ -99,21 +111,33 @@ pub struct Transport {
 
     /// Current lifecycle state: in-progress | completed | abandoned | cancelled | planned | entered-in-error
     pub status: Option<types::Code>,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// Reason for current status
     pub status_reason: Option<types::CodeableConcept>,
 
     /// unknown | proposal | plan | order | original-order | reflex-order | filler-order | instance-order | option
     pub intent: types::Code,
+    /// Primitive extension sibling for [`intent`](Self::intent) (FHIR `_intent`).
+    #[serde(rename = "_intent")]
+    pub intent_ext: Option<types::Element>,
 
     /// routine | urgent | asap | stat
     pub priority: Option<types::Code>,
+    /// Primitive extension sibling for [`priority`](Self::priority) (FHIR `_priority`).
+    #[serde(rename = "_priority")]
+    pub priority_ext: Option<types::Element>,
 
     /// Transport Type
     pub code: Option<types::CodeableConcept>,
 
     /// Human-readable explanation of transport
     pub description: Option<types::String>,
+    /// Primitive extension sibling for [`description`](Self::description) (FHIR `_description`).
+    #[serde(rename = "_description")]
+    pub description_ext: Option<types::Element>,
 
     /// The item, resource, or entity that the transport is moving or acting on
     pub focus: Option<types::Reference>,
@@ -126,12 +150,21 @@ pub struct Transport {
 
     /// Completion time of the event (the occurrence)
     pub completion_time: Option<types::DateTime>,
+    /// Primitive extension sibling for [`completion_time`](Self::completion_time) (FHIR `_completionTime`).
+    #[serde(rename = "_completionTime")]
+    pub completion_time_ext: Option<types::Element>,
 
     /// Transport Creation Date
     pub authored_on: Option<types::DateTime>,
+    /// Primitive extension sibling for [`authored_on`](Self::authored_on) (FHIR `_authoredOn`).
+    #[serde(rename = "_authoredOn")]
+    pub authored_on_ext: Option<types::Element>,
 
     /// Transport Last Modified Date
     pub last_modified: Option<types::DateTime>,
+    /// Primitive extension sibling for [`last_modified`](Self::last_modified) (FHIR `_lastModified`).
+    #[serde(rename = "_lastModified")]
+    pub last_modified_ext: Option<types::Element>,
 
     /// Who is asking for transport to be done
     pub requester: Option<types::Reference>,
@@ -196,6 +229,9 @@ pub struct TransportRestriction {
 
     /// How many times to repeat
     pub repetitions: Option<types::PositiveInt>,
+    /// Primitive extension sibling for [`repetitions`](Self::repetitions) (FHIR `_repetitions`).
+    #[serde(rename = "_repetitions")]
+    pub repetitions_ext: Option<types::Element>,
 
     /// When fulfillment sought
     pub period: Option<types::Period>,

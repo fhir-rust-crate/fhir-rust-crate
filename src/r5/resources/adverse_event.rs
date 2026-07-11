@@ -65,9 +65,15 @@ pub struct AdverseEvent {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -87,10 +93,16 @@ pub struct AdverseEvent {
     /// The lifecycle status of the record itself: in-progress | completed |
     /// entered-in-error | unknown
     pub status: types::Code,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// Whether the adverse event actually occurred (actual) or was only a
     /// possible or averted occurrence (potential)
     pub actuality: types::Code,
+    /// Primitive extension sibling for [`actuality`](Self::actuality) (FHIR `_actuality`).
+    #[serde(rename = "_actuality")]
+    pub actuality_ext: Option<types::Element>,
 
     /// wrong-patient | procedure-mishap | medication-mishap | device |
     /// unsafe-physical-environment | hospital-aquired-infection | wrong-body-site
@@ -117,9 +129,15 @@ pub struct AdverseEvent {
 
     /// When the event was detected
     pub detected: Option<types::DateTime>,
+    /// Primitive extension sibling for [`detected`](Self::detected) (FHIR `_detected`).
+    #[serde(rename = "_detected")]
+    pub detected_ext: Option<types::Element>,
 
     /// When the event was recorded
     pub recorded_date: Option<types::DateTime>,
+    /// Primitive extension sibling for [`recorded_date`](Self::recorded_date) (FHIR `_recordedDate`).
+    #[serde(rename = "_recordedDate")]
+    pub recorded_date_ext: Option<types::Element>,
 
     /// Effect on the subject due to this event
     pub resulting_effect: Option<Vec<types::Reference>>,
@@ -145,6 +163,9 @@ pub struct AdverseEvent {
 
     /// Considered likely or probable or anticipated in the research study
     pub expected_in_research_study: Option<types::Boolean>,
+    /// Primitive extension sibling for [`expected_in_research_study`](Self::expected_in_research_study) (FHIR `_expectedInResearchStudy`).
+    #[serde(rename = "_expectedInResearchStudy")]
+    pub expected_in_research_study_ext: Option<types::Element>,
 
     /// The suspected agent causing the adverse event
     pub suspect_entity: Option<Vec<AdverseEventSuspectEntity>>,

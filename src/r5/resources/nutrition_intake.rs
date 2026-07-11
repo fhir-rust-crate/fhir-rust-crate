@@ -71,9 +71,15 @@ pub struct NutritionIntake {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -92,9 +98,15 @@ pub struct NutritionIntake {
 
     /// Instantiates FHIR protocol or definition
     pub instantiates_canonical: Option<Vec<types::Canonical>>,
+    /// Primitive extension sibling for [`instantiates_canonical`](Self::instantiates_canonical) (FHIR `_instantiatesCanonical`).
+    #[serde(rename = "_instantiatesCanonical")]
+    pub instantiates_canonical_ext: Option<Vec<Option<types::Element>>>,
 
     /// Instantiates external protocol or definition
     pub instantiates_uri: Option<Vec<types::Uri>>,
+    /// Primitive extension sibling for [`instantiates_uri`](Self::instantiates_uri) (FHIR `_instantiatesUri`).
+    #[serde(rename = "_instantiatesUri")]
+    pub instantiates_uri_ext: Option<Vec<Option<types::Element>>>,
 
     /// Fulfils plan, proposal or order
     pub based_on: Option<Vec<types::Reference>>,
@@ -104,6 +116,9 @@ pub struct NutritionIntake {
 
     /// Lifecycle state of the intake record: preparation, in-progress, not-done, on-hold, stopped, completed, entered-in-error, or unknown.
     pub status: types::Code,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// Reason for current status
     pub status_reason: Option<Vec<types::CodeableConcept>>,
@@ -125,6 +140,9 @@ pub struct NutritionIntake {
 
     /// When the intake was recorded
     pub recorded: Option<types::DateTime>,
+    /// Primitive extension sibling for [`recorded`](Self::recorded) (FHIR `_recorded`).
+    #[serde(rename = "_recorded")]
+    pub recorded_ext: Option<types::Element>,
 
     /// Person or organization that provided the information about the consumption of this food or fluid
     pub reported_boolean: Option<types::Boolean>,
@@ -185,6 +203,9 @@ pub struct NutritionIntakeConsumedItem {
 
     /// Flag to indicate if the food or fluid item was refused or otherwise not consumed
     pub not_consumed: Option<types::Boolean>,
+    /// Primitive extension sibling for [`not_consumed`](Self::not_consumed) (FHIR `_notConsumed`).
+    #[serde(rename = "_notConsumed")]
+    pub not_consumed_ext: Option<types::Element>,
 
     /// Reason food or fluid was not consumed
     pub not_consumed_reason: Option<types::CodeableConcept>,

@@ -68,9 +68,15 @@ pub struct NutritionProduct {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -89,6 +95,9 @@ pub struct NutritionProduct {
 
     /// Lifecycle state of the product definition: active, inactive, or entered-in-error
     pub status: types::Code,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// Broad product groups or categories used to classify the product, such as Legume and Legume Products, Beverages, or Beef Products
     pub category: Option<Vec<types::CodeableConcept>>,
@@ -215,15 +224,27 @@ pub struct NutritionProductInstance {
 
     /// The name for the specific product
     pub name: Option<types::String>,
+    /// Primitive extension sibling for [`name`](Self::name) (FHIR `_name`).
+    #[serde(rename = "_name")]
+    pub name_ext: Option<types::Element>,
 
     /// The identification of the batch or lot of the product
     pub lot_number: Option<types::String>,
+    /// Primitive extension sibling for [`lot_number`](Self::lot_number) (FHIR `_lotNumber`).
+    #[serde(rename = "_lotNumber")]
+    pub lot_number_ext: Option<types::Element>,
 
     /// The expiry date or date and time for the product
     pub expiry: Option<types::DateTime>,
+    /// Primitive extension sibling for [`expiry`](Self::expiry) (FHIR `_expiry`).
+    #[serde(rename = "_expiry")]
+    pub expiry_ext: Option<types::Element>,
 
     /// The date until which the product is expected to be good for consumption
     pub use_by: Option<types::DateTime>,
+    /// Primitive extension sibling for [`use_by`](Self::use_by) (FHIR `_useBy`).
+    #[serde(rename = "_useBy")]
+    pub use_by_ext: Option<types::Element>,
 
     /// An identifier that supports traceability to the event during which material in this product from one or more biological entities was obtained or pooled
     pub biological_source_event: Option<types::Identifier>,

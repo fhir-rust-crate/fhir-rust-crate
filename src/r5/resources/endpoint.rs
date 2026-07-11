@@ -65,9 +65,15 @@ pub struct Endpoint {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -87,6 +93,9 @@ pub struct Endpoint {
     /// The current operational status of the endpoint: active | suspended |
     /// error | off | entered-in-error | test
     pub status: types::Code,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// One or more protocols, profiles, or standards used to connect to and
     /// exchange data with this endpoint (for example a messaging or REST
@@ -95,10 +104,16 @@ pub struct Endpoint {
 
     /// A human-friendly name that this endpoint can be identified by
     pub name: Option<types::String>,
+    /// Primitive extension sibling for [`name`](Self::name) (FHIR `_name`).
+    #[serde(rename = "_name")]
+    pub name_ext: Option<types::Element>,
 
     /// Additional details about the endpoint that could be displayed as further
     /// information to identify the description beyond its name
     pub description: Option<types::String>,
+    /// Primitive extension sibling for [`description`](Self::description) (FHIR `_description`).
+    #[serde(rename = "_description")]
+    pub description_ext: Option<types::Element>,
 
     /// The type of environment(s) exposed at this endpoint
     pub environment_type: Option<Vec<types::CodeableConcept>>,
@@ -118,9 +133,15 @@ pub struct Endpoint {
 
     /// The technical base address for connecting to this endpoint
     pub address: types::Url,
+    /// Primitive extension sibling for [`address`](Self::address) (FHIR `_address`).
+    #[serde(rename = "_address")]
+    pub address_ext: Option<types::Element>,
 
     /// Usage depends on the channel type
     pub header: Option<Vec<types::String>>,
+    /// Primitive extension sibling for [`header`](Self::header) (FHIR `_header`).
+    #[serde(rename = "_header")]
+    pub header_ext: Option<Vec<Option<types::Element>>>,
 }
 
 /// Set of payloads that are provided by this endpoint. Each payload describes
@@ -146,6 +167,9 @@ pub struct EndpointPayload {
     /// Mimetype to send. If not specified, the content could be anything
     /// (including no payload, if the connectionType defined this)
     pub mime_type: Option<Vec<types::Code>>,
+    /// Primitive extension sibling for [`mime_type`](Self::mime_type) (FHIR `_mimeType`).
+    #[serde(rename = "_mimeType")]
+    pub mime_type_ext: Option<Vec<Option<types::Element>>>,
 }
 
 #[cfg(test)]

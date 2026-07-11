@@ -62,9 +62,15 @@ pub struct MedicationDispense {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -89,12 +95,18 @@ pub struct MedicationDispense {
 
     /// Current lifecycle state of the dispense, such as preparation, in-progress, cancelled, on-hold, completed, entered-in-error, stopped, declined, or unknown.
     pub status: types::Code,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// Why a dispense was not performed
     pub not_performed_reason: Option<types::CodeableReference>,
 
     /// When the status changed
     pub status_changed: Option<types::DateTime>,
+    /// Primitive extension sibling for [`status_changed`](Self::status_changed) (FHIR `_statusChanged`).
+    #[serde(rename = "_statusChanged")]
+    pub status_changed_ext: Option<types::Element>,
 
     /// Type of medication dispense
     pub category: Option<Vec<types::CodeableConcept>>,
@@ -131,12 +143,21 @@ pub struct MedicationDispense {
 
     /// When the recording of the dispense started
     pub recorded: Option<types::DateTime>,
+    /// Primitive extension sibling for [`recorded`](Self::recorded) (FHIR `_recorded`).
+    #[serde(rename = "_recorded")]
+    pub recorded_ext: Option<types::Element>,
 
     /// When product was packaged and reviewed
     pub when_prepared: Option<types::DateTime>,
+    /// Primitive extension sibling for [`when_prepared`](Self::when_prepared) (FHIR `_whenPrepared`).
+    #[serde(rename = "_whenPrepared")]
+    pub when_prepared_ext: Option<types::Element>,
 
     /// When product was given out
     pub when_handed_over: Option<types::DateTime>,
+    /// Primitive extension sibling for [`when_handed_over`](Self::when_handed_over) (FHIR `_whenHandedOver`).
+    #[serde(rename = "_whenHandedOver")]
+    pub when_handed_over_ext: Option<types::Element>,
 
     /// Where the medication was/will be sent
     pub destination: Option<types::Reference>,
@@ -149,6 +170,9 @@ pub struct MedicationDispense {
 
     /// Full representation of the dosage instructions
     pub rendered_dosage_instruction: Option<types::Markdown>,
+    /// Primitive extension sibling for [`rendered_dosage_instruction`](Self::rendered_dosage_instruction) (FHIR `_renderedDosageInstruction`).
+    #[serde(rename = "_renderedDosageInstruction")]
+    pub rendered_dosage_instruction_ext: Option<types::Element>,
 
     /// How the medication is to be used by the patient or administered by the caregiver
     pub dosage_instruction: Option<Vec<types::Dosage>>,
@@ -204,6 +228,9 @@ pub struct MedicationDispenseSubstitution {
 
     /// Whether a substitution was or was not performed on the dispense
     pub was_substituted: types::Boolean,
+    /// Primitive extension sibling for [`was_substituted`](Self::was_substituted) (FHIR `_wasSubstituted`).
+    #[serde(rename = "_wasSubstituted")]
+    pub was_substituted_ext: Option<types::Element>,
 
     /// Code signifying whether a different drug was dispensed from what was prescribed
     pub r#type: Option<types::CodeableConcept>,

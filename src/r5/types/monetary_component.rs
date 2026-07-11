@@ -44,6 +44,9 @@ use fhir_derive_macros::Validate;
 pub struct MonetaryComponent {
     /// base | surcharge | deduction | discount | tax | informational
     pub r#type: types::Code,
+    /// Primitive extension sibling for [`type`](Self::r#type) (FHIR `_type`).
+    #[serde(rename = "_type")]
+    pub type_ext: Option<types::Element>,
 
     /// Codes may be used to differentiate between kinds of taxes, surcharges, discounts etc.
     pub code: Option<types::CodeableConcept>,

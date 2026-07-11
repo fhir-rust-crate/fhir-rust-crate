@@ -68,9 +68,15 @@ pub struct Ingredient {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -89,6 +95,9 @@ pub struct Ingredient {
 
     /// Publication lifecycle status of this Ingredient record, one of draft, active, retired, or unknown.
     pub status: types::Code,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// References to the product or products that this ingredient is a constituent part of.
     pub r#for: Option<Vec<types::Reference>>,
@@ -104,9 +113,15 @@ pub struct Ingredient {
 
     /// If the ingredient is a known or suspected allergen
     pub allergenic_indicator: Option<types::Boolean>,
+    /// Primitive extension sibling for [`allergenic_indicator`](Self::allergenic_indicator) (FHIR `_allergenicIndicator`).
+    #[serde(rename = "_allergenicIndicator")]
+    pub allergenic_indicator_ext: Option<types::Element>,
 
     /// A place for providing any notes that are relevant to the component
     pub comment: Option<types::Markdown>,
+    /// Primitive extension sibling for [`comment`](Self::comment) (FHIR `_comment`).
+    #[serde(rename = "_comment")]
+    pub comment_ext: Option<types::Element>,
 
     /// An organization that manufactures this ingredient
     pub manufacturer: Option<Vec<IngredientManufacturer>>,
@@ -131,6 +146,9 @@ pub struct IngredientManufacturer {
 
     /// allowed | possible | actual
     pub role: Option<types::Code>,
+    /// Primitive extension sibling for [`role`](Self::role) (FHIR `_role`).
+    #[serde(rename = "_role")]
+    pub role_ext: Option<types::Element>,
 
     /// An organization that manufactures this ingredient
     pub manufacturer: types::Reference,
@@ -185,6 +203,9 @@ pub struct IngredientSubstanceStrength {
 
     /// Text of either the whole presentation strength or a part of it
     pub text_presentation: Option<types::String>,
+    /// Primitive extension sibling for [`text_presentation`](Self::text_presentation) (FHIR `_textPresentation`).
+    #[serde(rename = "_textPresentation")]
+    pub text_presentation_ext: Option<types::Element>,
 
     /// The strength per unitary volume (or mass)
     pub concentration_ratio: Option<types::Ratio>,
@@ -200,12 +221,18 @@ pub struct IngredientSubstanceStrength {
 
     /// Text of either the whole concentration strength or a part of it
     pub text_concentration: Option<types::String>,
+    /// Primitive extension sibling for [`text_concentration`](Self::text_concentration) (FHIR `_textConcentration`).
+    #[serde(rename = "_textConcentration")]
+    pub text_concentration_ext: Option<types::Element>,
 
     /// A code that indicates if the strength is based on the ingredient substance as stated or on the substance base
     pub basis: Option<types::CodeableConcept>,
 
     /// When strength is measured at a particular point or distance
     pub measurement_point: Option<types::String>,
+    /// Primitive extension sibling for [`measurement_point`](Self::measurement_point) (FHIR `_measurementPoint`).
+    #[serde(rename = "_measurementPoint")]
+    pub measurement_point_ext: Option<types::Element>,
 
     /// Where the strength range applies
     pub country: Option<Vec<types::CodeableConcept>>,
@@ -242,6 +269,9 @@ pub struct IngredientSubstanceStrengthReferenceStrength {
 
     /// When strength is measured at a particular point or distance
     pub measurement_point: Option<types::String>,
+    /// Primitive extension sibling for [`measurement_point`](Self::measurement_point) (FHIR `_measurementPoint`).
+    #[serde(rename = "_measurementPoint")]
+    pub measurement_point_ext: Option<types::Element>,
 
     /// Where the strength range applies
     pub country: Option<Vec<types::CodeableConcept>>,

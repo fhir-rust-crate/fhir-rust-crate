@@ -66,9 +66,15 @@ pub struct SubstanceProtein {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -87,9 +93,15 @@ pub struct SubstanceProtein {
 
     /// Number of linear sequences of amino acids linked through peptide bonds that together make up this protein
     pub number_of_subunits: Option<types::Integer>,
+    /// Primitive extension sibling for [`number_of_subunits`](Self::number_of_subunits) (FHIR `_numberOfSubunits`).
+    #[serde(rename = "_numberOfSubunits")]
+    pub number_of_subunits_ext: Option<types::Element>,
 
     /// The disulphide bond between two cysteine residues shall be described, identifying the connecting residue positions
     pub disulfide_linkage: Option<Vec<types::String>>,
+    /// Primitive extension sibling for [`disulfide_linkage`](Self::disulfide_linkage) (FHIR `_disulfideLinkage`).
+    #[serde(rename = "_disulfideLinkage")]
+    pub disulfide_linkage_ext: Option<Vec<Option<types::Element>>>,
 
     /// The individual amino acid subunits that together constitute this SubstanceProtein, described in detail by [`SubstanceProteinSubunit`]
     pub subunit: Option<Vec<SubstanceProteinSubunit>>,
@@ -115,12 +127,21 @@ pub struct SubstanceProteinSubunit {
 
     /// Index of primary sequences of amino acids linked through peptide bonds in order of decreasing length
     pub subunit: Option<types::Integer>,
+    /// Primitive extension sibling for [`subunit`](Self::subunit) (FHIR `_subunit`).
+    #[serde(rename = "_subunit")]
+    pub subunit_ext: Option<types::Element>,
 
     /// The sequence information shall be provided enumerating the amino acids from N- to C-terminal end using standard single-letter amino acid codes
     pub sequence: Option<types::String>,
+    /// Primitive extension sibling for [`sequence`](Self::sequence) (FHIR `_sequence`).
+    #[serde(rename = "_sequence")]
+    pub sequence_ext: Option<types::Element>,
 
     /// Length of linear sequences of amino acids contained in the subunit
     pub length: Option<types::Integer>,
+    /// Primitive extension sibling for [`length`](Self::length) (FHIR `_length`).
+    #[serde(rename = "_length")]
+    pub length_ext: Option<types::Element>,
 
     /// The sequence information shall be provided as an attachment
     pub sequence_attachment: Option<types::Attachment>,
@@ -130,12 +151,18 @@ pub struct SubstanceProteinSubunit {
 
     /// The name of the fragment modified at the N-terminal of the SubstanceProtein shall be specified
     pub n_terminal_modification: Option<types::String>,
+    /// Primitive extension sibling for [`n_terminal_modification`](Self::n_terminal_modification) (FHIR `_nTerminalModification`).
+    #[serde(rename = "_nTerminalModification")]
+    pub n_terminal_modification_ext: Option<types::Element>,
 
     /// Unique identifier for molecular fragment modification based on the ISO 11238 Substance ID
     pub c_terminal_modification_id: Option<types::Identifier>,
 
     /// The modification at the C-terminal shall be specified
     pub c_terminal_modification: Option<types::String>,
+    /// Primitive extension sibling for [`c_terminal_modification`](Self::c_terminal_modification) (FHIR `_cTerminalModification`).
+    #[serde(rename = "_cTerminalModification")]
+    pub c_terminal_modification_ext: Option<types::Element>,
 }
 
 #[cfg(test)]

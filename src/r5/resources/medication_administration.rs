@@ -66,9 +66,15 @@ pub struct MedicationAdministration {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -93,6 +99,9 @@ pub struct MedicationAdministration {
 
     /// Current state of the administration event, drawn from the required status value set: in-progress, not-done, on-hold, completed, entered-in-error, stopped, or unknown.
     pub status: types::Code,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// Reason administration not performed
     pub status_reason: Option<Vec<types::CodeableConcept>>,
@@ -123,9 +132,15 @@ pub struct MedicationAdministration {
 
     /// When the MedicationAdministration was first captured in the subject's record
     pub recorded: Option<types::DateTime>,
+    /// Primitive extension sibling for [`recorded`](Self::recorded) (FHIR `_recorded`).
+    #[serde(rename = "_recorded")]
+    pub recorded_ext: Option<types::Element>,
 
     /// Full dose was not administered
     pub is_sub_potent: Option<types::Boolean>,
+    /// Primitive extension sibling for [`is_sub_potent`](Self::is_sub_potent) (FHIR `_isSubPotent`).
+    #[serde(rename = "_isSubPotent")]
+    pub is_sub_potent_ext: Option<types::Element>,
 
     /// Reason full dose was not administered
     pub sub_potent_reason: Option<Vec<types::CodeableConcept>>,
@@ -190,6 +205,9 @@ pub struct MedicationAdministrationDosage {
 
     /// Free text dosage instructions e.g. SIG
     pub text: Option<types::String>,
+    /// Primitive extension sibling for [`text`](Self::text) (FHIR `_text`).
+    #[serde(rename = "_text")]
+    pub text_ext: Option<types::Element>,
 
     /// Body site administered to
     pub site: Option<types::CodeableConcept>,

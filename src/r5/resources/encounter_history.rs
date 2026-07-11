@@ -70,9 +70,15 @@ pub struct EncounterHistory {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -94,6 +100,9 @@ pub struct EncounterHistory {
 
     /// The status of the encounter at this point in its history: planned | in-progress | on-hold | discharged | completed | cancelled | discontinued | entered-in-error | unknown
     pub status: types::Code,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// Classification of the patient encounter at this point in time (e.g. inpatient, outpatient, ambulatory, emergency)
     pub class: types::CodeableConcept,
@@ -115,9 +124,15 @@ pub struct EncounterHistory {
 
     /// The planned start date/time (or admission date) of the encounter
     pub planned_start_date: Option<types::DateTime>,
+    /// Primitive extension sibling for [`planned_start_date`](Self::planned_start_date) (FHIR `_plannedStartDate`).
+    #[serde(rename = "_plannedStartDate")]
+    pub planned_start_date_ext: Option<types::Element>,
 
     /// The planned end date/time (or discharge date) of the encounter
     pub planned_end_date: Option<types::DateTime>,
+    /// Primitive extension sibling for [`planned_end_date`](Self::planned_end_date) (FHIR `_plannedEndDate`).
+    #[serde(rename = "_plannedEndDate")]
+    pub planned_end_date_ext: Option<types::Element>,
 
     /// Actual quantity of time the encounter lasted (less time absent)
     pub length: Option<types::Duration>,

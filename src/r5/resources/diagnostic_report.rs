@@ -66,9 +66,15 @@ pub struct DiagnosticReport {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -90,6 +96,9 @@ pub struct DiagnosticReport {
 
     /// registered | partial | preliminary | modified | final | amended | corrected | appended | cancelled | entered-in-error | unknown; tracks the report's lifecycle status
     pub status: types::Code,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// Service category, such as the performing department (e.g. laboratory, radiology, cardiology)
     pub category: Option<Vec<types::CodeableConcept>>,
@@ -111,6 +120,9 @@ pub struct DiagnosticReport {
 
     /// DateTime this version was made
     pub issued: Option<types::Instant>,
+    /// Primitive extension sibling for [`issued`](Self::issued) (FHIR `_issued`).
+    #[serde(rename = "_issued")]
+    pub issued_ext: Option<types::Element>,
 
     /// Responsible Diagnostic Service
     pub performer: Option<Vec<types::Reference>>,
@@ -141,6 +153,9 @@ pub struct DiagnosticReport {
 
     /// Clinical conclusion (interpretation) of test results, the narrative summary a clinician relies on for decision making
     pub conclusion: Option<types::Markdown>,
+    /// Primitive extension sibling for [`conclusion`](Self::conclusion) (FHIR `_conclusion`).
+    #[serde(rename = "_conclusion")]
+    pub conclusion_ext: Option<types::Element>,
 
     /// Codes for the clinical conclusion of test results
     pub conclusion_code: Option<Vec<types::CodeableConcept>>,
@@ -192,6 +207,9 @@ pub struct DiagnosticReportMedia {
 
     /// Comment about the image or data (e.g. explanation)
     pub comment: Option<types::String>,
+    /// Primitive extension sibling for [`comment`](Self::comment) (FHIR `_comment`).
+    #[serde(rename = "_comment")]
+    pub comment_ext: Option<types::Element>,
 
     /// Reference to the image or data source
     pub link: types::Reference,

@@ -66,9 +66,15 @@ pub struct Specimen {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -90,6 +96,9 @@ pub struct Specimen {
 
     /// The availability of the specimen: available | unavailable | unsatisfactory | entered-in-error
     pub status: Option<types::Code>,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// Kind of material that forms the specimen, for example whole blood or tissue
     pub r#type: Option<types::CodeableConcept>,
@@ -99,6 +108,9 @@ pub struct Specimen {
 
     /// The time when specimen is received by the testing laboratory
     pub received_time: Option<types::DateTime>,
+    /// Primitive extension sibling for [`received_time`](Self::received_time) (FHIR `_receivedTime`).
+    #[serde(rename = "_receivedTime")]
+    pub received_time_ext: Option<types::Element>,
 
     /// Specimen from which this specimen originated
     pub parent: Option<Vec<types::Reference>>,
@@ -108,6 +120,9 @@ pub struct Specimen {
 
     /// grouped | pooled
     pub combined: Option<types::Code>,
+    /// Primitive extension sibling for [`combined`](Self::combined) (FHIR `_combined`).
+    #[serde(rename = "_combined")]
+    pub combined_ext: Option<types::Element>,
 
     /// The role the specimen serves
     pub role: Option<Vec<types::CodeableConcept>>,
@@ -153,6 +168,9 @@ pub struct SpecimenFeature {
 
     /// Information about the feature
     pub description: types::String,
+    /// Primitive extension sibling for [`description`](Self::description) (FHIR `_description`).
+    #[serde(rename = "_description")]
+    pub description_ext: Option<types::Element>,
 }
 
 /// Collection details.
@@ -226,6 +244,9 @@ pub struct SpecimenProcessing {
 
     /// Textual description of procedure
     pub description: Option<types::String>,
+    /// Primitive extension sibling for [`description`](Self::description) (FHIR `_description`).
+    #[serde(rename = "_description")]
+    pub description_ext: Option<types::Element>,
 
     /// Indicates the treatment step applied to the specimen
     pub method: Option<types::CodeableConcept>,

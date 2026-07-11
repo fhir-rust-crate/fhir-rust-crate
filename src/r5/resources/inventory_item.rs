@@ -67,9 +67,15 @@ pub struct InventoryItem {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -88,6 +94,9 @@ pub struct InventoryItem {
 
     /// Lifecycle status of this inventory record: active, inactive, entered-in-error, or unknown.
     pub status: types::Code,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// Category or class of the item
     pub category: Option<Vec<types::CodeableConcept>>,
@@ -146,9 +155,15 @@ pub struct InventoryItemName {
 
     /// The language used to express the item name
     pub language: types::Code,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// The name or designation of the item
     pub name: types::String,
+    /// Primitive extension sibling for [`name`](Self::name) (FHIR `_name`).
+    #[serde(rename = "_name")]
+    pub name_ext: Option<types::Element>,
 }
 
 /// Organization(s) responsible for the product.
@@ -188,9 +203,15 @@ pub struct InventoryItemDescription {
 
     /// The language that is used in the item description
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Textual description of the item
     pub description: Option<types::String>,
+    /// Primitive extension sibling for [`description`](Self::description) (FHIR `_description`).
+    #[serde(rename = "_description")]
+    pub description_ext: Option<types::Element>,
 }
 
 /// Association with other items or products.
@@ -293,9 +314,15 @@ pub struct InventoryItemInstance {
 
     /// The lot or batch number of the item
     pub lot_number: Option<types::String>,
+    /// Primitive extension sibling for [`lot_number`](Self::lot_number) (FHIR `_lotNumber`).
+    #[serde(rename = "_lotNumber")]
+    pub lot_number_ext: Option<types::Element>,
 
     /// The expiry date or date and time for the product
     pub expiry: Option<types::DateTime>,
+    /// Primitive extension sibling for [`expiry`](Self::expiry) (FHIR `_expiry`).
+    #[serde(rename = "_expiry")]
+    pub expiry_ext: Option<types::Element>,
 
     /// The subject that the item is associated with
     pub subject: Option<types::Reference>,

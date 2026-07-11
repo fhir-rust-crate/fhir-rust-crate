@@ -72,9 +72,15 @@ pub struct NutritionOrder {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -93,12 +99,21 @@ pub struct NutritionOrder {
 
     /// Instantiates FHIR protocol or definition
     pub instantiates_canonical: Option<Vec<types::Canonical>>,
+    /// Primitive extension sibling for [`instantiates_canonical`](Self::instantiates_canonical) (FHIR `_instantiatesCanonical`).
+    #[serde(rename = "_instantiatesCanonical")]
+    pub instantiates_canonical_ext: Option<Vec<Option<types::Element>>>,
 
     /// Instantiates external protocol or definition
     pub instantiates_uri: Option<Vec<types::Uri>>,
+    /// Primitive extension sibling for [`instantiates_uri`](Self::instantiates_uri) (FHIR `_instantiatesUri`).
+    #[serde(rename = "_instantiatesUri")]
+    pub instantiates_uri_ext: Option<Vec<Option<types::Element>>>,
 
     /// Instantiates protocol or definition
     pub instantiates: Option<Vec<types::Uri>>,
+    /// Primitive extension sibling for [`instantiates`](Self::instantiates) (FHIR `_instantiates`).
+    #[serde(rename = "_instantiates")]
+    pub instantiates_ext: Option<Vec<Option<types::Element>>>,
 
     /// What this order fulfills
     pub based_on: Option<Vec<types::Reference>>,
@@ -108,12 +123,21 @@ pub struct NutritionOrder {
 
     /// Workflow status of the order: draft | active | on-hold | revoked | completed | entered-in-error | unknown
     pub status: types::Code,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// How the order should be understood in the request workflow: proposal | plan | directive | order | original-order | reflex-order | filler-order | instance-order | option
     pub intent: types::Code,
+    /// Primitive extension sibling for [`intent`](Self::intent) (FHIR `_intent`).
+    #[serde(rename = "_intent")]
+    pub intent_ext: Option<types::Element>,
 
     /// routine | urgent | asap | stat
     pub priority: Option<types::Code>,
+    /// Primitive extension sibling for [`priority`](Self::priority) (FHIR `_priority`).
+    #[serde(rename = "_priority")]
+    pub priority_ext: Option<types::Element>,
 
     /// Who requires the diet, formula or nutritional supplement, typically a reference to a [`Patient`](crate::r5::resources::patient::Patient)
     pub subject: types::Reference,
@@ -126,6 +150,9 @@ pub struct NutritionOrder {
 
     /// Date and time the nutrition order was requested
     pub date_time: types::DateTime,
+    /// Primitive extension sibling for [`date_time`](Self::date_time) (FHIR `_dateTime`).
+    #[serde(rename = "_dateTime")]
+    pub date_time_ext: Option<types::Element>,
 
     /// Who ordered the diet, formula or nutritional supplement
     pub orderer: Option<types::Reference>,
@@ -144,6 +171,9 @@ pub struct NutritionOrder {
 
     /// Capture when a food item is brought in by the patient and/or family
     pub outside_food_allowed: Option<types::Boolean>,
+    /// Primitive extension sibling for [`outside_food_allowed`](Self::outside_food_allowed) (FHIR `_outsideFoodAllowed`).
+    #[serde(rename = "_outsideFoodAllowed")]
+    pub outside_food_allowed_ext: Option<types::Element>,
 
     /// Detailed instructions for an oral diet, including diet type, scheduling, nutrient limits, and texture or fluid consistency modifications
     pub oral_diet: Option<NutritionOrderOralDiet>,
@@ -189,6 +219,9 @@ pub struct NutritionOrderOralDiet {
 
     /// Instructions or additional information about the oral diet
     pub instruction: Option<types::String>,
+    /// Primitive extension sibling for [`instruction`](Self::instruction) (FHIR `_instruction`).
+    #[serde(rename = "_instruction")]
+    pub instruction_ext: Option<types::Element>,
 }
 
 /// Scheduling information for oral diets.
@@ -210,6 +243,9 @@ pub struct NutritionOrderOralDietSchedule {
 
     /// Take 'as needed'
     pub as_needed: Option<types::Boolean>,
+    /// Primitive extension sibling for [`as_needed`](Self::as_needed) (FHIR `_asNeeded`).
+    #[serde(rename = "_asNeeded")]
+    pub as_needed_ext: Option<types::Element>,
 
     /// Take 'as needed' for x
     pub as_needed_for: Option<types::CodeableConcept>,
@@ -276,6 +312,9 @@ pub struct NutritionOrderSupplement {
 
     /// Product or brand name of the nutritional supplement
     pub product_name: Option<types::String>,
+    /// Primitive extension sibling for [`product_name`](Self::product_name) (FHIR `_productName`).
+    #[serde(rename = "_productName")]
+    pub product_name_ext: Option<types::Element>,
 
     /// Scheduling information for supplements
     pub schedule: Option<NutritionOrderSupplementSchedule>,
@@ -285,6 +324,9 @@ pub struct NutritionOrderSupplement {
 
     /// Instructions or additional information about the oral supplement
     pub instruction: Option<types::String>,
+    /// Primitive extension sibling for [`instruction`](Self::instruction) (FHIR `_instruction`).
+    #[serde(rename = "_instruction")]
+    pub instruction_ext: Option<types::Element>,
 }
 
 /// Scheduling information for supplements.
@@ -306,6 +348,9 @@ pub struct NutritionOrderSupplementSchedule {
 
     /// Take 'as needed'
     pub as_needed: Option<types::Boolean>,
+    /// Primitive extension sibling for [`as_needed`](Self::as_needed) (FHIR `_asNeeded`).
+    #[serde(rename = "_asNeeded")]
+    pub as_needed_ext: Option<types::Element>,
 
     /// Take 'as needed' for x
     pub as_needed_for: Option<types::CodeableConcept>,
@@ -330,6 +375,9 @@ pub struct NutritionOrderEnteralFormula {
 
     /// Product or brand name of the enteral or infant formula
     pub base_formula_product_name: Option<types::String>,
+    /// Primitive extension sibling for [`base_formula_product_name`](Self::base_formula_product_name) (FHIR `_baseFormulaProductName`).
+    #[serde(rename = "_baseFormulaProductName")]
+    pub base_formula_product_name_ext: Option<types::Element>,
 
     /// Intended type of device for the administration
     pub delivery_device: Option<Vec<types::CodeableReference>>,
@@ -351,6 +399,9 @@ pub struct NutritionOrderEnteralFormula {
 
     /// Formula feeding instructions expressed as text
     pub administration_instruction: Option<types::Markdown>,
+    /// Primitive extension sibling for [`administration_instruction`](Self::administration_instruction) (FHIR `_administrationInstruction`).
+    #[serde(rename = "_administrationInstruction")]
+    pub administration_instruction_ext: Option<types::Element>,
 }
 
 /// Components to add to the feeding.
@@ -372,6 +423,9 @@ pub struct NutritionOrderEnteralFormulaAdditive {
 
     /// Product or brand name of the modular additive
     pub product_name: Option<types::String>,
+    /// Primitive extension sibling for [`product_name`](Self::product_name) (FHIR `_productName`).
+    #[serde(rename = "_productName")]
+    pub product_name_ext: Option<types::Element>,
 
     /// Amount of additive to be given or mixed in
     pub quantity: Option<types::Quantity>,
@@ -423,6 +477,9 @@ pub struct NutritionOrderEnteralFormulaAdministrationSchedule {
 
     /// Take 'as needed'
     pub as_needed: Option<types::Boolean>,
+    /// Primitive extension sibling for [`as_needed`](Self::as_needed) (FHIR `_asNeeded`).
+    #[serde(rename = "_asNeeded")]
+    pub as_needed_ext: Option<types::Element>,
 
     /// Take 'as needed' for x
     pub as_needed_for: Option<types::CodeableConcept>,

@@ -72,9 +72,15 @@ pub struct ResearchSubject {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -93,6 +99,9 @@ pub struct ResearchSubject {
 
     /// The overall lifecycle status of this record: draft | active | retired | unknown.
     pub status: types::Code,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// A chronological record of the subject's states and milestones (such as
     /// screening, enrollment, or withdrawal) during the study.
@@ -111,9 +120,15 @@ pub struct ResearchSubject {
 
     /// What path should be followed
     pub assigned_comparison_group: Option<types::Id>,
+    /// Primitive extension sibling for [`assigned_comparison_group`](Self::assigned_comparison_group) (FHIR `_assignedComparisonGroup`).
+    #[serde(rename = "_assignedComparisonGroup")]
+    pub assigned_comparison_group_ext: Option<types::Element>,
 
     /// What path was followed
     pub actual_comparison_group: Option<types::Id>,
+    /// Primitive extension sibling for [`actual_comparison_group`](Self::actual_comparison_group) (FHIR `_actualComparisonGroup`).
+    #[serde(rename = "_actualComparisonGroup")]
+    pub actual_comparison_group_ext: Option<types::Element>,
 
     /// Agreement to participate in study
     pub consent: Option<Vec<types::Reference>>,
@@ -153,9 +168,15 @@ pub struct ResearchSubjectProgress {
 
     /// State change date
     pub start_date: Option<types::DateTime>,
+    /// Primitive extension sibling for [`start_date`](Self::start_date) (FHIR `_startDate`).
+    #[serde(rename = "_startDate")]
+    pub start_date_ext: Option<types::Element>,
 
     /// State change date
     pub end_date: Option<types::DateTime>,
+    /// Primitive extension sibling for [`end_date`](Self::end_date) (FHIR `_endDate`).
+    #[serde(rename = "_endDate")]
+    pub end_date_ext: Option<types::Element>,
 }
 
 #[cfg(test)]

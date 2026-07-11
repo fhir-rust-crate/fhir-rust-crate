@@ -64,9 +64,15 @@ pub struct StructureDefinition {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -82,12 +88,18 @@ pub struct StructureDefinition {
 
     /// Canonical identifier for this structure definition, represented as a URI (globally unique); used to reference this definition from other resources
     pub url: types::Uri,
+    /// Primitive extension sibling for [`url`](Self::url) (FHIR `_url`).
+    #[serde(rename = "_url")]
+    pub url_ext: Option<types::Element>,
 
     /// Additional identifier for the structure definition
     pub identifier: Option<Vec<types::Identifier>>,
 
     /// Business version of the structure definition
     pub version: Option<types::String>,
+    /// Primitive extension sibling for [`version`](Self::version) (FHIR `_version`).
+    #[serde(rename = "_version")]
+    pub version_ext: Option<types::Element>,
 
     /// How to compare versions
     pub version_algorithm_string: Option<types::String>,
@@ -97,27 +109,48 @@ pub struct StructureDefinition {
 
     /// Name for this structure definition (computer friendly)
     pub name: types::String,
+    /// Primitive extension sibling for [`name`](Self::name) (FHIR `_name`).
+    #[serde(rename = "_name")]
+    pub name_ext: Option<types::Element>,
 
     /// Name for this structure definition (human friendly)
     pub title: Option<types::String>,
+    /// Primitive extension sibling for [`title`](Self::title) (FHIR `_title`).
+    #[serde(rename = "_title")]
+    pub title_ext: Option<types::Element>,
 
     /// draft | active | retired | unknown; governs whether the definition is usable in production
     pub status: types::Code,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// For testing purposes, not real usage
     pub experimental: Option<types::Boolean>,
+    /// Primitive extension sibling for [`experimental`](Self::experimental) (FHIR `_experimental`).
+    #[serde(rename = "_experimental")]
+    pub experimental_ext: Option<types::Element>,
 
     /// Date last changed
     pub date: Option<types::DateTime>,
+    /// Primitive extension sibling for [`date`](Self::date) (FHIR `_date`).
+    #[serde(rename = "_date")]
+    pub date_ext: Option<types::Element>,
 
     /// Name of the publisher/steward (organization or individual)
     pub publisher: Option<types::String>,
+    /// Primitive extension sibling for [`publisher`](Self::publisher) (FHIR `_publisher`).
+    #[serde(rename = "_publisher")]
+    pub publisher_ext: Option<types::Element>,
 
     /// Contact details for the publisher
     pub contact: Option<Vec<types::ContactDetail>>,
 
     /// Natural language description of the structure definition
     pub description: Option<types::Markdown>,
+    /// Primitive extension sibling for [`description`](Self::description) (FHIR `_description`).
+    #[serde(rename = "_description")]
+    pub description_ext: Option<types::Element>,
 
     /// The context that the content is intended to support
     pub use_context: Option<Vec<types::UsageContext>>,
@@ -127,42 +160,72 @@ pub struct StructureDefinition {
 
     /// Why this structure definition is defined
     pub purpose: Option<types::Markdown>,
+    /// Primitive extension sibling for [`purpose`](Self::purpose) (FHIR `_purpose`).
+    #[serde(rename = "_purpose")]
+    pub purpose_ext: Option<types::Element>,
 
     /// Use and/or publishing restrictions
     pub copyright: Option<types::Markdown>,
+    /// Primitive extension sibling for [`copyright`](Self::copyright) (FHIR `_copyright`).
+    #[serde(rename = "_copyright")]
+    pub copyright_ext: Option<types::Element>,
 
     /// Copyright holder and year(s)
     pub copyright_label: Option<types::String>,
+    /// Primitive extension sibling for [`copyright_label`](Self::copyright_label) (FHIR `_copyrightLabel`).
+    #[serde(rename = "_copyrightLabel")]
+    pub copyright_label_ext: Option<types::Element>,
 
     /// Assist with indexing and finding
     pub keyword: Option<Vec<types::Coding>>,
 
     /// FHIR Version this StructureDefinition targets
     pub fhir_version: Option<types::Code>,
+    /// Primitive extension sibling for [`fhir_version`](Self::fhir_version) (FHIR `_fhirVersion`).
+    #[serde(rename = "_fhirVersion")]
+    pub fhir_version_ext: Option<types::Element>,
 
     /// External specification that the content is mapped to
     pub mapping: Option<Vec<StructureDefinitionMapping>>,
 
     /// primitive-type | complex-type | resource | logical; the category of definition this represents
     pub kind: types::Code,
+    /// Primitive extension sibling for [`kind`](Self::kind) (FHIR `_kind`).
+    #[serde(rename = "_kind")]
+    pub kind_ext: Option<types::Element>,
 
     /// Whether this definition is abstract and cannot be instantiated directly
     pub r#abstract: types::Boolean,
+    /// Primitive extension sibling for [`abstract`](Self::r#abstract) (FHIR `_abstract`).
+    #[serde(rename = "_abstract")]
+    pub abstract_ext: Option<types::Element>,
 
     /// If an extension, where it can be used in instances
     pub context: Option<Vec<StructureDefinitionContext>>,
 
     /// FHIRPath invariants - when the extension can be used
     pub context_invariant: Option<Vec<types::String>>,
+    /// Primitive extension sibling for [`context_invariant`](Self::context_invariant) (FHIR `_contextInvariant`).
+    #[serde(rename = "_contextInvariant")]
+    pub context_invariant_ext: Option<Vec<Option<types::Element>>>,
 
     /// Type defined or constrained by this structure
     pub r#type: types::Uri,
+    /// Primitive extension sibling for [`type`](Self::r#type) (FHIR `_type`).
+    #[serde(rename = "_type")]
+    pub type_ext: Option<types::Element>,
 
     /// Canonical URL of the base definition that this type is constrained or specialized from
     pub base_definition: Option<types::Canonical>,
+    /// Primitive extension sibling for [`base_definition`](Self::base_definition) (FHIR `_baseDefinition`).
+    #[serde(rename = "_baseDefinition")]
+    pub base_definition_ext: Option<types::Element>,
 
     /// specialization | constraint - How relates to base definition
     pub derivation: Option<types::Code>,
+    /// Primitive extension sibling for [`derivation`](Self::derivation) (FHIR `_derivation`).
+    #[serde(rename = "_derivation")]
+    pub derivation_ext: Option<types::Element>,
 
     /// Snapshot view listing the full, expanded set of elements for the structure
     pub snapshot: Option<StructureDefinitionSnapshot>,
@@ -187,15 +250,27 @@ pub struct StructureDefinitionMapping {
 
     /// Internal id when this mapping is used
     pub identity: types::Id,
+    /// Primitive extension sibling for [`identity`](Self::identity) (FHIR `_identity`).
+    #[serde(rename = "_identity")]
+    pub identity_ext: Option<types::Element>,
 
     /// Identifies what this mapping refers to
     pub uri: Option<types::Uri>,
+    /// Primitive extension sibling for [`uri`](Self::uri) (FHIR `_uri`).
+    #[serde(rename = "_uri")]
+    pub uri_ext: Option<types::Element>,
 
     /// Names what this mapping refers to
     pub name: Option<types::String>,
+    /// Primitive extension sibling for [`name`](Self::name) (FHIR `_name`).
+    #[serde(rename = "_name")]
+    pub name_ext: Option<types::Element>,
 
     /// Versions, Issues, Scope limitations etc
     pub comment: Option<types::String>,
+    /// Primitive extension sibling for [`comment`](Self::comment) (FHIR `_comment`).
+    #[serde(rename = "_comment")]
+    pub comment_ext: Option<types::Element>,
 }
 
 /// If an extension, where it can be used in instances.
@@ -214,9 +289,15 @@ pub struct StructureDefinitionContext {
 
     /// fhirpath | element | extension
     pub r#type: types::Code,
+    /// Primitive extension sibling for [`type`](Self::r#type) (FHIR `_type`).
+    #[serde(rename = "_type")]
+    pub type_ext: Option<types::Element>,
 
     /// Where the extension can be used in instances
     pub expression: types::String,
+    /// Primitive extension sibling for [`expression`](Self::expression) (FHIR `_expression`).
+    #[serde(rename = "_expression")]
+    pub expression_ext: Option<types::Element>,
 }
 
 /// Snapshot view of the structure.

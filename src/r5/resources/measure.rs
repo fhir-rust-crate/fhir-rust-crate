@@ -67,9 +67,15 @@ pub struct Measure {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -85,12 +91,18 @@ pub struct Measure {
 
     /// Canonical identifier for this measure, represented as a URI (globally unique)
     pub url: Option<types::Uri>,
+    /// Primitive extension sibling for [`url`](Self::url) (FHIR `_url`).
+    #[serde(rename = "_url")]
+    pub url_ext: Option<types::Element>,
 
     /// Additional identifier for the measure
     pub identifier: Option<Vec<types::Identifier>>,
 
     /// Business version of the measure
     pub version: Option<types::String>,
+    /// Primitive extension sibling for [`version`](Self::version) (FHIR `_version`).
+    #[serde(rename = "_version")]
+    pub version_ext: Option<types::Element>,
 
     /// How to compare versions
     pub version_algorithm_string: Option<types::String>,
@@ -100,18 +112,33 @@ pub struct Measure {
 
     /// Name for this measure (computer friendly)
     pub name: Option<types::String>,
+    /// Primitive extension sibling for [`name`](Self::name) (FHIR `_name`).
+    #[serde(rename = "_name")]
+    pub name_ext: Option<types::Element>,
 
     /// Name for this measure (human friendly)
     pub title: Option<types::String>,
+    /// Primitive extension sibling for [`title`](Self::title) (FHIR `_title`).
+    #[serde(rename = "_title")]
+    pub title_ext: Option<types::Element>,
 
     /// Subordinate title of the measure
     pub subtitle: Option<types::String>,
+    /// Primitive extension sibling for [`subtitle`](Self::subtitle) (FHIR `_subtitle`).
+    #[serde(rename = "_subtitle")]
+    pub subtitle_ext: Option<types::Element>,
 
     /// Publication lifecycle state of this measure: draft, active, retired, or unknown.
     pub status: types::Code,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// For testing purposes, not real usage
     pub experimental: Option<types::Boolean>,
+    /// Primitive extension sibling for [`experimental`](Self::experimental) (FHIR `_experimental`).
+    #[serde(rename = "_experimental")]
+    pub experimental_ext: Option<types::Element>,
 
     /// E.g. Patient, Practitioner, RelatedPerson, Organization, Location, Device
     pub subject_codeable_concept: Option<types::CodeableConcept>,
@@ -121,18 +148,30 @@ pub struct Measure {
 
     /// Population basis
     pub basis: Option<types::Code>,
+    /// Primitive extension sibling for [`basis`](Self::basis) (FHIR `_basis`).
+    #[serde(rename = "_basis")]
+    pub basis_ext: Option<types::Element>,
 
     /// Date last changed
     pub date: Option<types::DateTime>,
+    /// Primitive extension sibling for [`date`](Self::date) (FHIR `_date`).
+    #[serde(rename = "_date")]
+    pub date_ext: Option<types::Element>,
 
     /// Name of the publisher/steward (organization or individual)
     pub publisher: Option<types::String>,
+    /// Primitive extension sibling for [`publisher`](Self::publisher) (FHIR `_publisher`).
+    #[serde(rename = "_publisher")]
+    pub publisher_ext: Option<types::Element>,
 
     /// Contact details for the publisher
     pub contact: Option<Vec<types::ContactDetail>>,
 
     /// Natural language description of the measure
     pub description: Option<types::Markdown>,
+    /// Primitive extension sibling for [`description`](Self::description) (FHIR `_description`).
+    #[serde(rename = "_description")]
+    pub description_ext: Option<types::Element>,
 
     /// The context that the content is intended to support
     pub use_context: Option<Vec<types::UsageContext>>,
@@ -142,21 +181,39 @@ pub struct Measure {
 
     /// Why this measure is defined
     pub purpose: Option<types::Markdown>,
+    /// Primitive extension sibling for [`purpose`](Self::purpose) (FHIR `_purpose`).
+    #[serde(rename = "_purpose")]
+    pub purpose_ext: Option<types::Element>,
 
     /// Describes the clinical usage of the measure
     pub usage: Option<types::Markdown>,
+    /// Primitive extension sibling for [`usage`](Self::usage) (FHIR `_usage`).
+    #[serde(rename = "_usage")]
+    pub usage_ext: Option<types::Element>,
 
     /// Use and/or publishing restrictions
     pub copyright: Option<types::Markdown>,
+    /// Primitive extension sibling for [`copyright`](Self::copyright) (FHIR `_copyright`).
+    #[serde(rename = "_copyright")]
+    pub copyright_ext: Option<types::Element>,
 
     /// Copyright holder and year(s)
     pub copyright_label: Option<types::String>,
+    /// Primitive extension sibling for [`copyright_label`](Self::copyright_label) (FHIR `_copyrightLabel`).
+    #[serde(rename = "_copyrightLabel")]
+    pub copyright_label_ext: Option<types::Element>,
 
     /// When the measure was approved by publisher
     pub approval_date: Option<types::Date>,
+    /// Primitive extension sibling for [`approval_date`](Self::approval_date) (FHIR `_approvalDate`).
+    #[serde(rename = "_approvalDate")]
+    pub approval_date_ext: Option<types::Element>,
 
     /// When the measure was last reviewed by the publisher
     pub last_review_date: Option<types::Date>,
+    /// Primitive extension sibling for [`last_review_date`](Self::last_review_date) (FHIR `_lastReviewDate`).
+    #[serde(rename = "_lastReviewDate")]
+    pub last_review_date_ext: Option<types::Element>,
 
     /// When the measure is expected to be used
     pub effective_period: Option<types::Period>,
@@ -181,9 +238,15 @@ pub struct Measure {
 
     /// Canonical references to the Library resources that hold the measure's computable logic, such as CQL.
     pub library: Option<Vec<types::Canonical>>,
+    /// Primitive extension sibling for [`library`](Self::library) (FHIR `_library`).
+    #[serde(rename = "_library")]
+    pub library_ext: Option<Vec<Option<types::Element>>>,
 
     /// Disclaimer for use of the measure or its referenced content
     pub disclaimer: Option<types::Markdown>,
+    /// Primitive extension sibling for [`disclaimer`](Self::disclaimer) (FHIR `_disclaimer`).
+    #[serde(rename = "_disclaimer")]
+    pub disclaimer_ext: Option<types::Element>,
 
     /// How the measure is scored: proportion, ratio, continuous-variable, or cohort.
     pub scoring: Option<types::CodeableConcept>,
@@ -199,15 +262,27 @@ pub struct Measure {
 
     /// How risk adjustment is applied for this measure
     pub risk_adjustment: Option<types::Markdown>,
+    /// Primitive extension sibling for [`risk_adjustment`](Self::risk_adjustment) (FHIR `_riskAdjustment`).
+    #[serde(rename = "_riskAdjustment")]
+    pub risk_adjustment_ext: Option<types::Element>,
 
     /// How is rate aggregation performed for this measure
     pub rate_aggregation: Option<types::Markdown>,
+    /// Primitive extension sibling for [`rate_aggregation`](Self::rate_aggregation) (FHIR `_rateAggregation`).
+    #[serde(rename = "_rateAggregation")]
+    pub rate_aggregation_ext: Option<types::Element>,
 
     /// Detailed description of why the measure exists
     pub rationale: Option<types::Markdown>,
+    /// Primitive extension sibling for [`rationale`](Self::rationale) (FHIR `_rationale`).
+    #[serde(rename = "_rationale")]
+    pub rationale_ext: Option<types::Element>,
 
     /// Summary of clinical guidelines
     pub clinical_recommendation_statement: Option<types::Markdown>,
+    /// Primitive extension sibling for [`clinical_recommendation_statement`](Self::clinical_recommendation_statement) (FHIR `_clinicalRecommendationStatement`).
+    #[serde(rename = "_clinicalRecommendationStatement")]
+    pub clinical_recommendation_statement_ext: Option<types::Element>,
 
     /// increase | decrease
     pub improvement_notation: Option<types::CodeableConcept>,
@@ -217,6 +292,9 @@ pub struct Measure {
 
     /// Additional guidance for implementers (deprecated)
     pub guidance: Option<types::Markdown>,
+    /// Primitive extension sibling for [`guidance`](Self::guidance) (FHIR `_guidance`).
+    #[serde(rename = "_guidance")]
+    pub guidance_ext: Option<types::Element>,
 
     /// The population criteria groups that define how the measure is scored and evaluated.
     pub group: Option<Vec<MeasureGroup>>,
@@ -244,6 +322,9 @@ pub struct MeasureTerm {
 
     /// Meaning of the term
     pub definition: Option<types::Markdown>,
+    /// Primitive extension sibling for [`definition`](Self::definition) (FHIR `_definition`).
+    #[serde(rename = "_definition")]
+    pub definition_ext: Option<types::Element>,
 }
 
 /// Population criteria group.
@@ -262,12 +343,18 @@ pub struct MeasureGroup {
 
     /// Unique id for group in measure
     pub link_id: Option<types::String>,
+    /// Primitive extension sibling for [`link_id`](Self::link_id) (FHIR `_linkId`).
+    #[serde(rename = "_linkId")]
+    pub link_id_ext: Option<types::Element>,
 
     /// Meaning of the group
     pub code: Option<types::CodeableConcept>,
 
     /// Summary description
     pub description: Option<types::Markdown>,
+    /// Primitive extension sibling for [`description`](Self::description) (FHIR `_description`).
+    #[serde(rename = "_description")]
+    pub description_ext: Option<types::Element>,
 
     /// process | outcome | structure | patient-reported-outcome | composite
     pub r#type: Option<Vec<types::CodeableConcept>>,
@@ -280,6 +367,9 @@ pub struct MeasureGroup {
 
     /// Population basis
     pub basis: Option<types::Code>,
+    /// Primitive extension sibling for [`basis`](Self::basis) (FHIR `_basis`).
+    #[serde(rename = "_basis")]
+    pub basis_ext: Option<types::Element>,
 
     /// proportion | ratio | continuous-variable | cohort
     pub scoring: Option<types::CodeableConcept>,
@@ -289,12 +379,18 @@ pub struct MeasureGroup {
 
     /// How is rate aggregation performed for this measure
     pub rate_aggregation: Option<types::Markdown>,
+    /// Primitive extension sibling for [`rate_aggregation`](Self::rate_aggregation) (FHIR `_rateAggregation`).
+    #[serde(rename = "_rateAggregation")]
+    pub rate_aggregation_ext: Option<types::Element>,
 
     /// increase | decrease
     pub improvement_notation: Option<types::CodeableConcept>,
 
     /// Logic used by the measure group
     pub library: Option<Vec<types::Canonical>>,
+    /// Primitive extension sibling for [`library`](Self::library) (FHIR `_library`).
+    #[serde(rename = "_library")]
+    pub library_ext: Option<Vec<Option<types::Element>>>,
 
     /// Population criteria
     pub population: Option<Vec<MeasureGroupPopulation>>,
@@ -319,12 +415,18 @@ pub struct MeasureGroupPopulation {
 
     /// Unique id for population in measure
     pub link_id: Option<types::String>,
+    /// Primitive extension sibling for [`link_id`](Self::link_id) (FHIR `_linkId`).
+    #[serde(rename = "_linkId")]
+    pub link_id_ext: Option<types::Element>,
 
     /// initial-population | numerator | numerator-exclusion | denominator | ...
     pub code: Option<types::CodeableConcept>,
 
     /// The human readable description of this population criteria
     pub description: Option<types::Markdown>,
+    /// Primitive extension sibling for [`description`](Self::description) (FHIR `_description`).
+    #[serde(rename = "_description")]
+    pub description_ext: Option<types::Element>,
 
     /// The criteria that defines this population
     pub criteria: Option<types::Expression>,
@@ -334,6 +436,9 @@ pub struct MeasureGroupPopulation {
 
     /// Which population
     pub input_population_id: Option<types::String>,
+    /// Primitive extension sibling for [`input_population_id`](Self::input_population_id) (FHIR `_inputPopulationId`).
+    #[serde(rename = "_inputPopulationId")]
+    pub input_population_id_ext: Option<types::Element>,
 
     /// Aggregation method for a measure score (e.g. sum, average, median, ...)
     pub aggregate_method: Option<types::CodeableConcept>,
@@ -355,12 +460,18 @@ pub struct MeasureGroupStratifier {
 
     /// Unique id for stratifier in measure
     pub link_id: Option<types::String>,
+    /// Primitive extension sibling for [`link_id`](Self::link_id) (FHIR `_linkId`).
+    #[serde(rename = "_linkId")]
+    pub link_id_ext: Option<types::Element>,
 
     /// Meaning of the stratifier
     pub code: Option<types::CodeableConcept>,
 
     /// The human readable description of this stratifier
     pub description: Option<types::Markdown>,
+    /// Primitive extension sibling for [`description`](Self::description) (FHIR `_description`).
+    #[serde(rename = "_description")]
+    pub description_ext: Option<types::Element>,
 
     /// How the measure should be stratified
     pub criteria: Option<types::Expression>,
@@ -388,12 +499,18 @@ pub struct MeasureGroupStratifierComponent {
 
     /// Unique id for stratifier component in measure
     pub link_id: Option<types::String>,
+    /// Primitive extension sibling for [`link_id`](Self::link_id) (FHIR `_linkId`).
+    #[serde(rename = "_linkId")]
+    pub link_id_ext: Option<types::Element>,
 
     /// Meaning of the stratifier component
     pub code: Option<types::CodeableConcept>,
 
     /// The human readable description of this stratifier component
     pub description: Option<types::Markdown>,
+    /// Primitive extension sibling for [`description`](Self::description) (FHIR `_description`).
+    #[serde(rename = "_description")]
+    pub description_ext: Option<types::Element>,
 
     /// Component of how the measure should be stratified
     pub criteria: Option<types::Expression>,
@@ -418,6 +535,9 @@ pub struct MeasureSupplementalData {
 
     /// Unique id for supplementalData in measure
     pub link_id: Option<types::String>,
+    /// Primitive extension sibling for [`link_id`](Self::link_id) (FHIR `_linkId`).
+    #[serde(rename = "_linkId")]
+    pub link_id_ext: Option<types::Element>,
 
     /// Meaning of the supplemental data
     pub code: Option<types::CodeableConcept>,
@@ -427,6 +547,9 @@ pub struct MeasureSupplementalData {
 
     /// The human readable description of this supplemental data
     pub description: Option<types::Markdown>,
+    /// Primitive extension sibling for [`description`](Self::description) (FHIR `_description`).
+    #[serde(rename = "_description")]
+    pub description_ext: Option<types::Element>,
 
     /// Expression describing additional data to be reported
     pub criteria: types::Expression,

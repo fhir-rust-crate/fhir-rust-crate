@@ -70,8 +70,14 @@ pub struct ExplanationOfBenefit {
     pub meta: Option<types::Meta>,
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
     /// Contained, inline Resources
@@ -86,18 +92,27 @@ pub struct ExplanationOfBenefit {
     pub trace_number: Option<Vec<types::Identifier>>,
     /// The status of the resource instance: active | cancelled | draft | entered-in-error
     pub status: types::Code,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
     /// The category or discipline of the claim, e.g. institutional, oral, pharmacy, professional, or vision
     pub r#type: types::CodeableConcept,
     /// More granular claim type
     pub sub_type: Option<types::CodeableConcept>,
     /// Whether this represents a claim, a preauthorization request, or a predetermination
     pub r#use: types::Code,
+    /// Primitive extension sibling for [`use`](Self::r#use) (FHIR `_use`).
+    #[serde(rename = "_use")]
+    pub use_ext: Option<types::Element>,
     /// Reference to the patient who is the recipient of the products and services
     pub patient: types::Reference,
     /// Relevant time frame for the claim
     pub billable_period: Option<types::Period>,
     /// Response creation date
     pub created: types::DateTime,
+    /// Primitive extension sibling for [`created`](Self::created) (FHIR `_created`).
+    #[serde(rename = "_created")]
+    pub created_ext: Option<types::Element>,
     /// Author of the claim
     pub enterer: Option<types::Reference>,
     /// Party responsible for reimbursement
@@ -132,12 +147,21 @@ pub struct ExplanationOfBenefit {
     pub claim_response: Option<types::Reference>,
     /// The processing outcome of the adjudication: queued | complete | error | partial
     pub outcome: types::Code,
+    /// Primitive extension sibling for [`outcome`](Self::outcome) (FHIR `_outcome`).
+    #[serde(rename = "_outcome")]
+    pub outcome_ext: Option<types::Element>,
     /// Result of the adjudication
     pub decision: Option<types::CodeableConcept>,
     /// Disposition Message
     pub disposition: Option<types::String>,
+    /// Primitive extension sibling for [`disposition`](Self::disposition) (FHIR `_disposition`).
+    #[serde(rename = "_disposition")]
+    pub disposition_ext: Option<types::Element>,
     /// Preauthorization reference
     pub pre_auth_ref: Option<Vec<types::String>>,
+    /// Primitive extension sibling for [`pre_auth_ref`](Self::pre_auth_ref) (FHIR `_preAuthRef`).
+    #[serde(rename = "_preAuthRef")]
+    pub pre_auth_ref_ext: Option<Vec<Option<types::Element>>>,
     /// Preauthorization in-effect period
     pub pre_auth_ref_period: Option<Vec<types::Period>>,
     /// Package billing code
@@ -152,6 +176,9 @@ pub struct ExplanationOfBenefit {
     pub procedure: Option<Vec<ExplanationOfBenefitProcedure>>,
     /// Precedence (primary, secondary, etc.)
     pub precedence: Option<types::PositiveInt>,
+    /// Primitive extension sibling for [`precedence`](Self::precedence) (FHIR `_precedence`).
+    #[serde(rename = "_precedence")]
+    pub precedence_ext: Option<types::Element>,
     /// Patient insurance information
     pub insurance: Option<Vec<ExplanationOfBenefitInsurance>>,
     /// Details of the event
@@ -248,10 +275,16 @@ pub struct ExplanationOfBenefitCareTeam {
     pub modifier_extension: Option<Vec<types::Extension>>,
     /// Order of care team
     pub sequence: types::PositiveInt,
+    /// Primitive extension sibling for [`sequence`](Self::sequence) (FHIR `_sequence`).
+    #[serde(rename = "_sequence")]
+    pub sequence_ext: Option<types::Element>,
     /// Practitioner or organization
     pub provider: types::Reference,
     /// Indicator of the lead practitioner
     pub responsible: Option<types::Boolean>,
+    /// Primitive extension sibling for [`responsible`](Self::responsible) (FHIR `_responsible`).
+    #[serde(rename = "_responsible")]
+    pub responsible_ext: Option<types::Element>,
     /// Function within the team
     pub role: Option<types::CodeableConcept>,
     /// Practitioner or provider specialization
@@ -271,6 +304,9 @@ pub struct ExplanationOfBenefitSupportingInfo {
     pub modifier_extension: Option<Vec<types::Extension>>,
     /// Information instance identifier
     pub sequence: types::PositiveInt,
+    /// Primitive extension sibling for [`sequence`](Self::sequence) (FHIR `_sequence`).
+    #[serde(rename = "_sequence")]
+    pub sequence_ext: Option<types::Element>,
     /// Classification of the supplied information
     pub category: types::CodeableConcept,
     /// Type of information
@@ -308,6 +344,9 @@ pub struct ExplanationOfBenefitDiagnosis {
     pub modifier_extension: Option<Vec<types::Extension>>,
     /// Diagnosis instance identifier
     pub sequence: types::PositiveInt,
+    /// Primitive extension sibling for [`sequence`](Self::sequence) (FHIR `_sequence`).
+    #[serde(rename = "_sequence")]
+    pub sequence_ext: Option<types::Element>,
     /// Nature of illness or problem
     pub diagnosis_codeable_concept: Option<types::CodeableConcept>,
     /// Nature of illness or problem
@@ -331,10 +370,16 @@ pub struct ExplanationOfBenefitProcedure {
     pub modifier_extension: Option<Vec<types::Extension>>,
     /// Procedure instance identifier
     pub sequence: types::PositiveInt,
+    /// Primitive extension sibling for [`sequence`](Self::sequence) (FHIR `_sequence`).
+    #[serde(rename = "_sequence")]
+    pub sequence_ext: Option<types::Element>,
     /// Category of Procedure
     pub r#type: Option<Vec<types::CodeableConcept>>,
     /// When the procedure was performed
     pub date: Option<types::DateTime>,
+    /// Primitive extension sibling for [`date`](Self::date) (FHIR `_date`).
+    #[serde(rename = "_date")]
+    pub date_ext: Option<types::Element>,
     /// Specific clinical procedure
     pub procedure_codeable_concept: Option<types::CodeableConcept>,
     /// Specific clinical procedure
@@ -356,10 +401,16 @@ pub struct ExplanationOfBenefitInsurance {
     pub modifier_extension: Option<Vec<types::Extension>>,
     /// Coverage to be used for adjudication
     pub focal: types::Boolean,
+    /// Primitive extension sibling for [`focal`](Self::focal) (FHIR `_focal`).
+    #[serde(rename = "_focal")]
+    pub focal_ext: Option<types::Element>,
     /// Insurance information
     pub coverage: types::Reference,
     /// Prior authorization reference number
     pub pre_auth_ref: Option<Vec<types::String>>,
+    /// Primitive extension sibling for [`pre_auth_ref`](Self::pre_auth_ref) (FHIR `_preAuthRef`).
+    #[serde(rename = "_preAuthRef")]
+    pub pre_auth_ref_ext: Option<Vec<Option<types::Element>>>,
 }
 
 /// Details of an accident event that triggered the claim.
@@ -375,6 +426,9 @@ pub struct ExplanationOfBenefitAccident {
     pub modifier_extension: Option<Vec<types::Extension>>,
     /// When the incident occurred
     pub date: Option<types::Date>,
+    /// Primitive extension sibling for [`date`](Self::date) (FHIR `_date`).
+    #[serde(rename = "_date")]
+    pub date_ext: Option<types::Element>,
     /// The nature of the accident
     pub r#type: Option<types::CodeableConcept>,
     /// Where the event occurred
@@ -396,14 +450,29 @@ pub struct ExplanationOfBenefitItem {
     pub modifier_extension: Option<Vec<types::Extension>>,
     /// Item instance identifier
     pub sequence: types::PositiveInt,
+    /// Primitive extension sibling for [`sequence`](Self::sequence) (FHIR `_sequence`).
+    #[serde(rename = "_sequence")]
+    pub sequence_ext: Option<types::Element>,
     /// Applicable care team members
     pub care_team_sequence: Option<Vec<types::PositiveInt>>,
+    /// Primitive extension sibling for [`care_team_sequence`](Self::care_team_sequence) (FHIR `_careTeamSequence`).
+    #[serde(rename = "_careTeamSequence")]
+    pub care_team_sequence_ext: Option<Vec<Option<types::Element>>>,
     /// Applicable diagnoses
     pub diagnosis_sequence: Option<Vec<types::PositiveInt>>,
+    /// Primitive extension sibling for [`diagnosis_sequence`](Self::diagnosis_sequence) (FHIR `_diagnosisSequence`).
+    #[serde(rename = "_diagnosisSequence")]
+    pub diagnosis_sequence_ext: Option<Vec<Option<types::Element>>>,
     /// Applicable procedures
     pub procedure_sequence: Option<Vec<types::PositiveInt>>,
+    /// Primitive extension sibling for [`procedure_sequence`](Self::procedure_sequence) (FHIR `_procedureSequence`).
+    #[serde(rename = "_procedureSequence")]
+    pub procedure_sequence_ext: Option<Vec<Option<types::Element>>>,
     /// Applicable exception and supporting information
     pub information_sequence: Option<Vec<types::PositiveInt>>,
+    /// Primitive extension sibling for [`information_sequence`](Self::information_sequence) (FHIR `_informationSequence`).
+    #[serde(rename = "_informationSequence")]
+    pub information_sequence_ext: Option<Vec<Option<types::Element>>>,
     /// Number for tracking
     pub trace_number: Option<Vec<types::Identifier>>,
     /// Revenue or cost center code
@@ -438,6 +507,9 @@ pub struct ExplanationOfBenefitItem {
     pub unit_price: Option<types::Money>,
     /// Price scaling factor
     pub factor: Option<types::Decimal>,
+    /// Primitive extension sibling for [`factor`](Self::factor) (FHIR `_factor`).
+    #[serde(rename = "_factor")]
+    pub factor_ext: Option<types::Element>,
     /// Total tax
     pub tax: Option<types::Money>,
     /// Total item cost
@@ -450,6 +522,9 @@ pub struct ExplanationOfBenefitItem {
     pub encounter: Option<Vec<types::Reference>>,
     /// Applicable note numbers
     pub note_number: Option<Vec<types::PositiveInt>>,
+    /// Primitive extension sibling for [`note_number`](Self::note_number) (FHIR `_noteNumber`).
+    #[serde(rename = "_noteNumber")]
+    pub note_number_ext: Option<Vec<Option<types::Element>>>,
     /// Adjudication results
     pub review_outcome: Option<ExplanationOfBenefitItemReviewOutcome>,
     /// Adjudication details
@@ -492,6 +567,9 @@ pub struct ExplanationOfBenefitItemReviewOutcome {
     pub reason: Option<Vec<types::CodeableConcept>>,
     /// Preauthorization reference
     pub pre_auth_ref: Option<types::String>,
+    /// Primitive extension sibling for [`pre_auth_ref`](Self::pre_auth_ref) (FHIR `_preAuthRef`).
+    #[serde(rename = "_preAuthRef")]
+    pub pre_auth_ref_ext: Option<types::Element>,
     /// Preauthorization reference effective period
     pub pre_auth_period: Option<types::Period>,
 }
@@ -530,6 +608,9 @@ pub struct ExplanationOfBenefitItemDetail {
     pub modifier_extension: Option<Vec<types::Extension>>,
     /// Product or service provided
     pub sequence: types::PositiveInt,
+    /// Primitive extension sibling for [`sequence`](Self::sequence) (FHIR `_sequence`).
+    #[serde(rename = "_sequence")]
+    pub sequence_ext: Option<types::Element>,
     /// Number for tracking
     pub trace_number: Option<Vec<types::Identifier>>,
     /// Revenue or cost center code
@@ -552,6 +633,9 @@ pub struct ExplanationOfBenefitItemDetail {
     pub unit_price: Option<types::Money>,
     /// Price scaling factor
     pub factor: Option<types::Decimal>,
+    /// Primitive extension sibling for [`factor`](Self::factor) (FHIR `_factor`).
+    #[serde(rename = "_factor")]
+    pub factor_ext: Option<types::Element>,
     /// Total tax
     pub tax: Option<types::Money>,
     /// Total item cost
@@ -560,6 +644,9 @@ pub struct ExplanationOfBenefitItemDetail {
     pub udi: Option<Vec<types::Reference>>,
     /// Applicable note numbers
     pub note_number: Option<Vec<types::PositiveInt>>,
+    /// Primitive extension sibling for [`note_number`](Self::note_number) (FHIR `_noteNumber`).
+    #[serde(rename = "_noteNumber")]
+    pub note_number_ext: Option<Vec<Option<types::Element>>>,
     /// Detail level adjudication results
     pub review_outcome: Option<ExplanationOfBenefitItemReviewOutcome>,
     /// Detail level adjudication details
@@ -581,6 +668,9 @@ pub struct ExplanationOfBenefitItemDetailSubDetail {
     pub modifier_extension: Option<Vec<types::Extension>>,
     /// Product or service provided
     pub sequence: types::PositiveInt,
+    /// Primitive extension sibling for [`sequence`](Self::sequence) (FHIR `_sequence`).
+    #[serde(rename = "_sequence")]
+    pub sequence_ext: Option<types::Element>,
     /// Number for tracking
     pub trace_number: Option<Vec<types::Identifier>>,
     /// Revenue or cost center code
@@ -603,6 +693,9 @@ pub struct ExplanationOfBenefitItemDetailSubDetail {
     pub unit_price: Option<types::Money>,
     /// Price scaling factor
     pub factor: Option<types::Decimal>,
+    /// Primitive extension sibling for [`factor`](Self::factor) (FHIR `_factor`).
+    #[serde(rename = "_factor")]
+    pub factor_ext: Option<types::Element>,
     /// Total tax
     pub tax: Option<types::Money>,
     /// Total item cost
@@ -611,6 +704,9 @@ pub struct ExplanationOfBenefitItemDetailSubDetail {
     pub udi: Option<Vec<types::Reference>>,
     /// Applicable note numbers
     pub note_number: Option<Vec<types::PositiveInt>>,
+    /// Primitive extension sibling for [`note_number`](Self::note_number) (FHIR `_noteNumber`).
+    #[serde(rename = "_noteNumber")]
+    pub note_number_ext: Option<Vec<Option<types::Element>>>,
     /// Subdetail level adjudication results
     pub review_outcome: Option<ExplanationOfBenefitItemReviewOutcome>,
     /// Subdetail level adjudication details
@@ -630,10 +726,19 @@ pub struct ExplanationOfBenefitAddItem {
     pub modifier_extension: Option<Vec<types::Extension>>,
     /// Item sequence number
     pub item_sequence: Option<Vec<types::PositiveInt>>,
+    /// Primitive extension sibling for [`item_sequence`](Self::item_sequence) (FHIR `_itemSequence`).
+    #[serde(rename = "_itemSequence")]
+    pub item_sequence_ext: Option<Vec<Option<types::Element>>>,
     /// Detail sequence number
     pub detail_sequence: Option<Vec<types::PositiveInt>>,
+    /// Primitive extension sibling for [`detail_sequence`](Self::detail_sequence) (FHIR `_detailSequence`).
+    #[serde(rename = "_detailSequence")]
+    pub detail_sequence_ext: Option<Vec<Option<types::Element>>>,
     /// Subdetail sequence number
     pub sub_detail_sequence: Option<Vec<types::PositiveInt>>,
+    /// Primitive extension sibling for [`sub_detail_sequence`](Self::sub_detail_sequence) (FHIR `_subDetailSequence`).
+    #[serde(rename = "_subDetailSequence")]
+    pub sub_detail_sequence_ext: Option<Vec<Option<types::Element>>>,
     /// Number for tracking
     pub trace_number: Option<Vec<types::Identifier>>,
     /// Authorized providers
@@ -668,6 +773,9 @@ pub struct ExplanationOfBenefitAddItem {
     pub unit_price: Option<types::Money>,
     /// Price scaling factor
     pub factor: Option<types::Decimal>,
+    /// Primitive extension sibling for [`factor`](Self::factor) (FHIR `_factor`).
+    #[serde(rename = "_factor")]
+    pub factor_ext: Option<types::Element>,
     /// Total tax
     pub tax: Option<types::Money>,
     /// Total item cost
@@ -676,6 +784,9 @@ pub struct ExplanationOfBenefitAddItem {
     pub body_site: Option<Vec<ExplanationOfBenefitAddItemBodySite>>,
     /// Applicable note numbers
     pub note_number: Option<Vec<types::PositiveInt>>,
+    /// Primitive extension sibling for [`note_number`](Self::note_number) (FHIR `_noteNumber`).
+    #[serde(rename = "_noteNumber")]
+    pub note_number_ext: Option<Vec<Option<types::Element>>>,
     /// Additem level adjudication results
     pub review_outcome: Option<ExplanationOfBenefitItemReviewOutcome>,
     /// Added items adjudication
@@ -730,12 +841,18 @@ pub struct ExplanationOfBenefitAddItemDetail {
     pub unit_price: Option<types::Money>,
     /// Price scaling factor
     pub factor: Option<types::Decimal>,
+    /// Primitive extension sibling for [`factor`](Self::factor) (FHIR `_factor`).
+    #[serde(rename = "_factor")]
+    pub factor_ext: Option<types::Element>,
     /// Total tax
     pub tax: Option<types::Money>,
     /// Total item cost
     pub net: Option<types::Money>,
     /// Applicable note numbers
     pub note_number: Option<Vec<types::PositiveInt>>,
+    /// Primitive extension sibling for [`note_number`](Self::note_number) (FHIR `_noteNumber`).
+    #[serde(rename = "_noteNumber")]
+    pub note_number_ext: Option<Vec<Option<types::Element>>>,
     /// Additem detail level adjudication results
     pub review_outcome: Option<ExplanationOfBenefitItemReviewOutcome>,
     /// Added items adjudication
@@ -773,12 +890,18 @@ pub struct ExplanationOfBenefitAddItemDetailSubDetail {
     pub unit_price: Option<types::Money>,
     /// Price scaling factor
     pub factor: Option<types::Decimal>,
+    /// Primitive extension sibling for [`factor`](Self::factor) (FHIR `_factor`).
+    #[serde(rename = "_factor")]
+    pub factor_ext: Option<types::Element>,
     /// Total tax
     pub tax: Option<types::Money>,
     /// Total item cost
     pub net: Option<types::Money>,
     /// Applicable note numbers
     pub note_number: Option<Vec<types::PositiveInt>>,
+    /// Primitive extension sibling for [`note_number`](Self::note_number) (FHIR `_noteNumber`).
+    #[serde(rename = "_noteNumber")]
+    pub note_number_ext: Option<Vec<Option<types::Element>>>,
     /// Additem subdetail level adjudication results
     pub review_outcome: Option<ExplanationOfBenefitItemReviewOutcome>,
     /// Added items adjudication
@@ -821,6 +944,9 @@ pub struct ExplanationOfBenefitPayment {
     pub adjustment_reason: Option<types::CodeableConcept>,
     /// Expected date of payment
     pub date: Option<types::Date>,
+    /// Primitive extension sibling for [`date`](Self::date) (FHIR `_date`).
+    #[serde(rename = "_date")]
+    pub date_ext: Option<types::Element>,
     /// Payable amount after adjustment
     pub amount: Option<types::Money>,
     /// Business identifier for the payment
@@ -840,10 +966,16 @@ pub struct ExplanationOfBenefitProcessNote {
     pub modifier_extension: Option<Vec<types::Extension>>,
     /// Note instance identifier
     pub number: Option<types::PositiveInt>,
+    /// Primitive extension sibling for [`number`](Self::number) (FHIR `_number`).
+    #[serde(rename = "_number")]
+    pub number_ext: Option<types::Element>,
     /// Note purpose
     pub r#type: Option<types::CodeableConcept>,
     /// Note explanatory text
     pub text: Option<types::String>,
+    /// Primitive extension sibling for [`text`](Self::text) (FHIR `_text`).
+    #[serde(rename = "_text")]
+    pub text_ext: Option<types::Element>,
     /// Language of the text
     pub language: Option<types::CodeableConcept>,
 }
@@ -863,10 +995,19 @@ pub struct ExplanationOfBenefitBenefitBalance {
     pub category: types::CodeableConcept,
     /// Excluded from the plan
     pub excluded: Option<types::Boolean>,
+    /// Primitive extension sibling for [`excluded`](Self::excluded) (FHIR `_excluded`).
+    #[serde(rename = "_excluded")]
+    pub excluded_ext: Option<types::Element>,
     /// Short name for the benefit
     pub name: Option<types::String>,
+    /// Primitive extension sibling for [`name`](Self::name) (FHIR `_name`).
+    #[serde(rename = "_name")]
+    pub name_ext: Option<types::Element>,
     /// Description of the benefit or services covered
     pub description: Option<types::String>,
+    /// Primitive extension sibling for [`description`](Self::description) (FHIR `_description`).
+    #[serde(rename = "_description")]
+    pub description_ext: Option<types::Element>,
     /// In or out of network
     pub network: Option<types::CodeableConcept>,
     /// Individual or family

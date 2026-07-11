@@ -46,6 +46,9 @@ pub struct DataRequirement {
 
     /// The type of the required data
     pub r#type: types::Code,
+    /// Primitive extension sibling for [`type`](Self::r#type) (FHIR `_type`).
+    #[serde(rename = "_type")]
+    pub type_ext: Option<types::Element>,
 
     /// The profile of the required data
     pub profile: Option<Vec<types::Canonical>>,

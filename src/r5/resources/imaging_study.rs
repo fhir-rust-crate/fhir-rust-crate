@@ -65,9 +65,15 @@ pub struct ImagingStudy {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -86,6 +92,9 @@ pub struct ImagingStudy {
 
     /// The overall lifecycle status of the study: registered | available | cancelled | entered-in-error | unknown
     pub status: types::Code,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// All of the distinct values for series' modalities (e.g. CT, MR, US)
     pub modality: Option<Vec<types::CodeableConcept>>,
@@ -98,6 +107,9 @@ pub struct ImagingStudy {
 
     /// The date and time when the study was started (acquisition began)
     pub started: Option<types::DateTime>,
+    /// Primitive extension sibling for [`started`](Self::started) (FHIR `_started`).
+    #[serde(rename = "_started")]
+    pub started_ext: Option<types::Element>,
 
     /// Request fulfilled
     pub based_on: Option<Vec<types::Reference>>,
@@ -113,9 +125,15 @@ pub struct ImagingStudy {
 
     /// Number of Study Related Series
     pub number_of_series: Option<types::UnsignedInt>,
+    /// Primitive extension sibling for [`number_of_series`](Self::number_of_series) (FHIR `_numberOfSeries`).
+    #[serde(rename = "_numberOfSeries")]
+    pub number_of_series_ext: Option<types::Element>,
 
     /// Number of Study Related Instances
     pub number_of_instances: Option<types::UnsignedInt>,
+    /// Primitive extension sibling for [`number_of_instances`](Self::number_of_instances) (FHIR `_numberOfInstances`).
+    #[serde(rename = "_numberOfInstances")]
+    pub number_of_instances_ext: Option<types::Element>,
 
     /// The performed procedure or code
     pub procedure: Option<Vec<types::CodeableReference>>,
@@ -131,6 +149,9 @@ pub struct ImagingStudy {
 
     /// Institution-generated description
     pub description: Option<types::String>,
+    /// Primitive extension sibling for [`description`](Self::description) (FHIR `_description`).
+    #[serde(rename = "_description")]
+    pub description_ext: Option<types::Element>,
 
     /// Each study has one or more series of instances, grouped by modality
     pub series: Option<Vec<ImagingStudySeries>>,
@@ -155,18 +176,30 @@ pub struct ImagingStudySeries {
 
     /// DICOM Series Instance UID for the series
     pub uid: types::Id,
+    /// Primitive extension sibling for [`uid`](Self::uid) (FHIR `_uid`).
+    #[serde(rename = "_uid")]
+    pub uid_ext: Option<types::Element>,
 
     /// Numeric identifier of this series
     pub number: Option<types::UnsignedInt>,
+    /// Primitive extension sibling for [`number`](Self::number) (FHIR `_number`).
+    #[serde(rename = "_number")]
+    pub number_ext: Option<types::Element>,
 
     /// The modality used for this series
     pub modality: types::CodeableConcept,
 
     /// A short human readable summary of the series
     pub description: Option<types::String>,
+    /// Primitive extension sibling for [`description`](Self::description) (FHIR `_description`).
+    #[serde(rename = "_description")]
+    pub description_ext: Option<types::Element>,
 
     /// Number of Series Related Instances
     pub number_of_instances: Option<types::UnsignedInt>,
+    /// Primitive extension sibling for [`number_of_instances`](Self::number_of_instances) (FHIR `_numberOfInstances`).
+    #[serde(rename = "_numberOfInstances")]
+    pub number_of_instances_ext: Option<types::Element>,
 
     /// Series access endpoint
     pub endpoint: Option<Vec<types::Reference>>,
@@ -182,6 +215,9 @@ pub struct ImagingStudySeries {
 
     /// When the series started
     pub started: Option<types::DateTime>,
+    /// Primitive extension sibling for [`started`](Self::started) (FHIR `_started`).
+    #[serde(rename = "_started")]
+    pub started_ext: Option<types::Element>,
 
     /// Who performed the series
     pub performer: Option<Vec<ImagingStudySeriesPerformer>>,
@@ -233,15 +269,24 @@ pub struct ImagingStudySeriesInstance {
 
     /// DICOM SOP Instance UID
     pub uid: types::Id,
+    /// Primitive extension sibling for [`uid`](Self::uid) (FHIR `_uid`).
+    #[serde(rename = "_uid")]
+    pub uid_ext: Option<types::Element>,
 
     /// DICOM class type
     pub sop_class: types::Coding,
 
     /// The number of this instance in the series
     pub number: Option<types::UnsignedInt>,
+    /// Primitive extension sibling for [`number`](Self::number) (FHIR `_number`).
+    #[serde(rename = "_number")]
+    pub number_ext: Option<types::Element>,
 
     /// Description of instance
     pub title: Option<types::String>,
+    /// Primitive extension sibling for [`title`](Self::title) (FHIR `_title`).
+    #[serde(rename = "_title")]
+    pub title_ext: Option<types::Element>,
 }
 
 #[cfg(test)]

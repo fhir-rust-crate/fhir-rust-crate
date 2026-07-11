@@ -66,9 +66,15 @@ pub struct Subscription {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -87,24 +93,39 @@ pub struct Subscription {
 
     /// Human readable name for this subscription
     pub name: Option<types::String>,
+    /// Primitive extension sibling for [`name`](Self::name) (FHIR `_name`).
+    #[serde(rename = "_name")]
+    pub name_ext: Option<types::Element>,
 
     /// Current lifecycle state of the subscription: requested | active | error | off | entered-in-error
     pub status: types::Code,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// Canonical URL of the `SubscriptionTopic` that defines which events this subscription reacts to
     pub topic: types::Canonical,
+    /// Primitive extension sibling for [`topic`](Self::topic) (FHIR `_topic`).
+    #[serde(rename = "_topic")]
+    pub topic_ext: Option<types::Element>,
 
     /// Contact details for source (e.g. troubleshooting)
     pub contact: Option<Vec<types::ContactPoint>>,
 
     /// When to automatically delete the subscription
     pub end: Option<types::Instant>,
+    /// Primitive extension sibling for [`end`](Self::end) (FHIR `_end`).
+    #[serde(rename = "_end")]
+    pub end_ext: Option<types::Element>,
 
     /// Reference to the party (e.g. an Organization or Practitioner) responsible for Subscription changes
     pub managing_entity: Option<types::Reference>,
 
     /// Description of why this subscription was created
     pub reason: Option<types::String>,
+    /// Primitive extension sibling for [`reason`](Self::reason) (FHIR `_reason`).
+    #[serde(rename = "_reason")]
+    pub reason_ext: Option<types::Element>,
 
     /// Criteria for narrowing the subscription topic stream
     pub filter_by: Option<Vec<SubscriptionFilterBy>>,
@@ -114,24 +135,42 @@ pub struct Subscription {
 
     /// URL or address that the notification channel points to (meaning depends on `channel_type`)
     pub endpoint: Option<types::Url>,
+    /// Primitive extension sibling for [`endpoint`](Self::endpoint) (FHIR `_endpoint`).
+    #[serde(rename = "_endpoint")]
+    pub endpoint_ext: Option<types::Element>,
 
     /// Channel type
     pub parameter: Option<Vec<SubscriptionParameter>>,
 
     /// Interval in seconds to send 'heartbeat' notification
     pub heartbeat_period: Option<types::UnsignedInt>,
+    /// Primitive extension sibling for [`heartbeat_period`](Self::heartbeat_period) (FHIR `_heartbeatPeriod`).
+    #[serde(rename = "_heartbeatPeriod")]
+    pub heartbeat_period_ext: Option<types::Element>,
 
     /// Timeout in seconds to attempt notification delivery
     pub timeout: Option<types::UnsignedInt>,
+    /// Primitive extension sibling for [`timeout`](Self::timeout) (FHIR `_timeout`).
+    #[serde(rename = "_timeout")]
+    pub timeout_ext: Option<types::Element>,
 
     /// MIME type to send, or omit for no payload
     pub content_type: Option<types::Code>,
+    /// Primitive extension sibling for [`content_type`](Self::content_type) (FHIR `_contentType`).
+    #[serde(rename = "_contentType")]
+    pub content_type_ext: Option<types::Element>,
 
     /// empty | id-only | full-resource
     pub content: Option<types::Code>,
+    /// Primitive extension sibling for [`content`](Self::content) (FHIR `_content`).
+    #[serde(rename = "_content")]
+    pub content_ext: Option<types::Element>,
 
     /// Maximum number of events that can be combined in a single notification
     pub max_count: Option<types::PositiveInt>,
+    /// Primitive extension sibling for [`max_count`](Self::max_count) (FHIR `_maxCount`).
+    #[serde(rename = "_maxCount")]
+    pub max_count_ext: Option<types::Element>,
 }
 
 /// Criteria for narrowing the subscription topic stream. Each filter references
@@ -153,18 +192,33 @@ pub struct SubscriptionFilterBy {
 
     /// Allowed Resource (reference to definition) for this Subscription filter
     pub resource_type: Option<types::Uri>,
+    /// Primitive extension sibling for [`resource_type`](Self::resource_type) (FHIR `_resourceType`).
+    #[serde(rename = "_resourceType")]
+    pub resource_type_ext: Option<types::Element>,
 
     /// Filter label defined in SubscriptionTopic
     pub filter_parameter: types::String,
+    /// Primitive extension sibling for [`filter_parameter`](Self::filter_parameter) (FHIR `_filterParameter`).
+    #[serde(rename = "_filterParameter")]
+    pub filter_parameter_ext: Option<types::Element>,
 
     /// eq | ne | gt | lt | ge | le | sa | eb | ap
     pub comparator: Option<types::Code>,
+    /// Primitive extension sibling for [`comparator`](Self::comparator) (FHIR `_comparator`).
+    #[serde(rename = "_comparator")]
+    pub comparator_ext: Option<types::Element>,
 
     /// missing | exact | contains | not | text | in | not-in | below | above | type | identifier | of-type | code-text | text-advanced | iterate
     pub modifier: Option<types::Code>,
+    /// Primitive extension sibling for [`modifier`](Self::modifier) (FHIR `_modifier`).
+    #[serde(rename = "_modifier")]
+    pub modifier_ext: Option<types::Element>,
 
     /// Literal value or resource path
     pub value: types::String,
+    /// Primitive extension sibling for [`value`](Self::value) (FHIR `_value`).
+    #[serde(rename = "_value")]
+    pub value_ext: Option<types::Element>,
 }
 
 /// Channel-type-specific parameter used to configure the notification channel.
@@ -185,9 +239,15 @@ pub struct SubscriptionParameter {
 
     /// Name (key) of the parameter
     pub name: types::String,
+    /// Primitive extension sibling for [`name`](Self::name) (FHIR `_name`).
+    #[serde(rename = "_name")]
+    pub name_ext: Option<types::Element>,
 
     /// Value of the parameter to use or pass through
     pub value: types::String,
+    /// Primitive extension sibling for [`value`](Self::value) (FHIR `_value`).
+    #[serde(rename = "_value")]
+    pub value_ext: Option<types::Element>,
 }
 
 #[cfg(test)]

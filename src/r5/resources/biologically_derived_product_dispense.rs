@@ -67,9 +67,15 @@ pub struct BiologicallyDerivedProductDispense {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -94,6 +100,9 @@ pub struct BiologicallyDerivedProductDispense {
 
     /// Status of the dispense: preparation | in-progress | allocated | issued | unfulfilled | returned | entered-in-error | unknown
     pub status: types::Code,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// Relationship between the donor and intended recipient
     pub origin_relationship_type: Option<types::CodeableConcept>,
@@ -118,9 +127,15 @@ pub struct BiologicallyDerivedProductDispense {
 
     /// When product was selected/matched
     pub prepared_date: Option<types::DateTime>,
+    /// Primitive extension sibling for [`prepared_date`](Self::prepared_date) (FHIR `_preparedDate`).
+    #[serde(rename = "_preparedDate")]
+    pub prepared_date_ext: Option<types::Element>,
 
     /// When the product was dispatched
     pub when_handed_over: Option<types::DateTime>,
+    /// Primitive extension sibling for [`when_handed_over`](Self::when_handed_over) (FHIR `_whenHandedOver`).
+    #[serde(rename = "_whenHandedOver")]
+    pub when_handed_over_ext: Option<types::Element>,
 
     /// Where the product was dispatched to
     pub destination: Option<types::Reference>,
@@ -130,6 +145,9 @@ pub struct BiologicallyDerivedProductDispense {
 
     /// Specific instructions for use
     pub usage_instruction: Option<types::String>,
+    /// Primitive extension sibling for [`usage_instruction`](Self::usage_instruction) (FHIR `_usageInstruction`).
+    #[serde(rename = "_usageInstruction")]
+    pub usage_instruction_ext: Option<types::Element>,
 }
 
 /// Indicates who or what performed an action.

@@ -65,9 +65,15 @@ pub struct ClinicalImpression {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -86,12 +92,18 @@ pub struct ClinicalImpression {
 
     /// The workflow state of this assessment: preparation | in-progress | not-done | on-hold | stopped | completed | entered-in-error | unknown
     pub status: types::Code,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// Coded or textual reason explaining why the assessment currently has this status
     pub status_reason: Option<types::CodeableConcept>,
 
     /// Why/how the assessment was performed
     pub description: Option<types::String>,
+    /// Primitive extension sibling for [`description`](Self::description) (FHIR `_description`).
+    #[serde(rename = "_description")]
+    pub description_ext: Option<types::Element>,
 
     /// The [`Patient`](crate::r5::resources::patient::Patient) or group whose condition is being assessed
     pub subject: types::Reference,
@@ -107,6 +119,9 @@ pub struct ClinicalImpression {
 
     /// When the assessment was documented
     pub date: Option<types::DateTime>,
+    /// Primitive extension sibling for [`date`](Self::date) (FHIR `_date`).
+    #[serde(rename = "_date")]
+    pub date_ext: Option<types::Element>,
 
     /// The clinician performing the assessment
     pub performer: Option<types::Reference>,
@@ -123,9 +138,15 @@ pub struct ClinicalImpression {
 
     /// Clinical Protocol followed
     pub protocol: Option<Vec<types::Uri>>,
+    /// Primitive extension sibling for [`protocol`](Self::protocol) (FHIR `_protocol`).
+    #[serde(rename = "_protocol")]
+    pub protocol_ext: Option<Vec<Option<types::Element>>>,
 
     /// Summary of the assessment
     pub summary: Option<types::String>,
+    /// Primitive extension sibling for [`summary`](Self::summary) (FHIR `_summary`).
+    #[serde(rename = "_summary")]
+    pub summary_ext: Option<types::Element>,
 
     /// Possible or likely findings and diagnoses
     pub finding: Option<Vec<ClinicalImpressionFinding>>,
@@ -162,6 +183,9 @@ pub struct ClinicalImpressionFinding {
 
     /// Which investigations support finding
     pub basis: Option<types::String>,
+    /// Primitive extension sibling for [`basis`](Self::basis) (FHIR `_basis`).
+    #[serde(rename = "_basis")]
+    pub basis_ext: Option<types::Element>,
 }
 
 #[cfg(test)]

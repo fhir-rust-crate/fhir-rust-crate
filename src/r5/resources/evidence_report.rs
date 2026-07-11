@@ -69,9 +69,15 @@ pub struct EvidenceReport {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -88,9 +94,15 @@ pub struct EvidenceReport {
     /// Canonical identifier for this EvidenceReport, represented as a globally unique URI
     /// that allows the report to be referenced from other resources.
     pub url: Option<types::Uri>,
+    /// Primitive extension sibling for [`url`](Self::url) (FHIR `_url`).
+    #[serde(rename = "_url")]
+    pub url_ext: Option<types::Element>,
 
     /// The publication lifecycle status of this report: draft | active | retired | unknown.
     pub status: types::Code,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// The context that the content is intended to support
     pub use_context: Option<Vec<types::UsageContext>>,
@@ -122,6 +134,9 @@ pub struct EvidenceReport {
 
     /// Name of the publisher/steward (organization or individual)
     pub publisher: Option<types::String>,
+    /// Primitive extension sibling for [`publisher`](Self::publisher) (FHIR `_publisher`).
+    #[serde(rename = "_publisher")]
+    pub publisher_ext: Option<types::Element>,
 
     /// Contact details for the publisher
     pub contact: Option<Vec<types::ContactDetail>>,
@@ -207,6 +222,9 @@ pub struct EvidenceReportSubjectCharacteristic {
 
     /// Is used to express not the characteristic
     pub exclude: Option<types::Boolean>,
+    /// Primitive extension sibling for [`exclude`](Self::exclude) (FHIR `_exclude`).
+    #[serde(rename = "_exclude")]
+    pub exclude_ext: Option<types::Element>,
 
     /// Timeframe for the characteristic
     pub period: Option<types::Period>,
@@ -231,6 +249,9 @@ pub struct EvidenceReportRelatesTo {
 
     /// replaces | amends | appends | transforms | replacedWith | amendedWith | appendedWith | transformedWith
     pub code: types::Code,
+    /// Primitive extension sibling for [`code`](Self::code) (FHIR `_code`).
+    #[serde(rename = "_code")]
+    pub code_ext: Option<types::Element>,
 
     /// Target of the relationship
     pub target: EvidenceReportRelatesToTarget,
@@ -255,12 +276,18 @@ pub struct EvidenceReportRelatesToTarget {
 
     /// Target of the relationship URL
     pub url: Option<types::Uri>,
+    /// Primitive extension sibling for [`url`](Self::url) (FHIR `_url`).
+    #[serde(rename = "_url")]
+    pub url_ext: Option<types::Element>,
 
     /// Target of the relationship Identifier
     pub identifier: Option<types::Identifier>,
 
     /// Target of the relationship Display
     pub display: Option<types::Markdown>,
+    /// Primitive extension sibling for [`display`](Self::display) (FHIR `_display`).
+    #[serde(rename = "_display")]
+    pub display_ext: Option<types::Element>,
 
     /// Target of the relationship Resource reference
     pub resource: Option<types::Reference>,
@@ -286,6 +313,9 @@ pub struct EvidenceReportSection {
 
     /// Label for section (e.g. for ToC)
     pub title: Option<types::String>,
+    /// Primitive extension sibling for [`title`](Self::title) (FHIR `_title`).
+    #[serde(rename = "_title")]
+    pub title_ext: Option<types::Element>,
 
     /// Classification of section (recommended)
     pub focus: Option<types::CodeableConcept>,
@@ -301,6 +331,9 @@ pub struct EvidenceReportSection {
 
     /// working | snapshot | changes
     pub mode: Option<types::Code>,
+    /// Primitive extension sibling for [`mode`](Self::mode) (FHIR `_mode`).
+    #[serde(rename = "_mode")]
+    pub mode_ext: Option<types::Element>,
 
     /// Order of section entries
     pub ordered_by: Option<types::CodeableConcept>,

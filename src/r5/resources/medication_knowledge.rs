@@ -64,9 +64,15 @@ pub struct MedicationKnowledge {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -88,6 +94,9 @@ pub struct MedicationKnowledge {
 
     /// Lifecycle status of this knowledge record: active, entered-in-error, or inactive
     pub status: Option<types::Code>,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// Creator or owner of the knowledge or information about the medication
     pub author: Option<types::Reference>,
@@ -97,6 +106,9 @@ pub struct MedicationKnowledge {
 
     /// A name associated with the medication being described, such as a brand, generic, or synonym name
     pub name: Option<Vec<types::String>>,
+    /// Primitive extension sibling for [`name`](Self::name) (FHIR `_name`).
+    #[serde(rename = "_name")]
+    pub name_ext: Option<Vec<Option<types::Element>>>,
 
     /// Associated or related medication information
     pub related_medication_knowledge: Option<Vec<MedicationKnowledgeRelatedMedicationKnowledge>>,
@@ -112,6 +124,9 @@ pub struct MedicationKnowledge {
 
     /// The instructions for preparing the medication
     pub preparation_instruction: Option<types::Markdown>,
+    /// Primitive extension sibling for [`preparation_instruction`](Self::preparation_instruction) (FHIR `_preparationInstruction`).
+    #[serde(rename = "_preparationInstruction")]
+    pub preparation_instruction_ext: Option<types::Element>,
 
     /// The pricing of the medication
     pub cost: Option<Vec<MedicationKnowledgeCost>>,
@@ -205,6 +220,9 @@ pub struct MedicationKnowledgeCost {
 
     /// The source or owner for the price information
     pub source: Option<types::String>,
+    /// Primitive extension sibling for [`source`](Self::source) (FHIR `_source`).
+    #[serde(rename = "_source")]
+    pub source_ext: Option<types::Element>,
 
     /// The price or category of the cost of the medication
     pub cost_money: Option<types::Money>,
@@ -232,6 +250,9 @@ pub struct MedicationKnowledgeMonitoringProgram {
 
     /// Name of the reviewing program
     pub name: Option<types::String>,
+    /// Primitive extension sibling for [`name`](Self::name) (FHIR `_name`).
+    #[serde(rename = "_name")]
+    pub name_ext: Option<types::Element>,
 }
 
 /// Guidelines or protocols for administration of the medication for an indication.
@@ -395,6 +416,9 @@ pub struct MedicationKnowledgeStorageGuideline {
 
     /// Reference to additional information
     pub reference: Option<types::Uri>,
+    /// Primitive extension sibling for [`reference`](Self::reference) (FHIR `_reference`).
+    #[serde(rename = "_reference")]
+    pub reference_ext: Option<types::Element>,
 
     /// Additional storage notes
     pub note: Option<Vec<types::Annotation>>,
@@ -479,6 +503,9 @@ pub struct MedicationKnowledgeRegulatorySubstitution {
 
     /// Specifies if regulation allows for changes in the medication when dispensing
     pub allowed: types::Boolean,
+    /// Primitive extension sibling for [`allowed`](Self::allowed) (FHIR `_allowed`).
+    #[serde(rename = "_allowed")]
+    pub allowed_ext: Option<types::Element>,
 }
 
 /// The maximum number of units of the medication that can be dispensed in a period.

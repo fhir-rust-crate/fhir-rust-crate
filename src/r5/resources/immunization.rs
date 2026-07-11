@@ -65,9 +65,15 @@ pub struct Immunization {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -89,6 +95,9 @@ pub struct Immunization {
 
     /// The overall status of the event: completed | entered-in-error | not-done
     pub status: types::Code,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// Reason for current status
     pub status_reason: Option<types::CodeableConcept>,
@@ -104,9 +113,15 @@ pub struct Immunization {
 
     /// Vaccine lot number
     pub lot_number: Option<types::String>,
+    /// Primitive extension sibling for [`lot_number`](Self::lot_number) (FHIR `_lotNumber`).
+    #[serde(rename = "_lotNumber")]
+    pub lot_number_ext: Option<types::Element>,
 
     /// Vaccine expiration date
     pub expiration_date: Option<types::Date>,
+    /// Primitive extension sibling for [`expiration_date`](Self::expiration_date) (FHIR `_expirationDate`).
+    #[serde(rename = "_expirationDate")]
+    pub expiration_date_ext: Option<types::Element>,
 
     /// Reference to the patient who was immunized
     pub patient: types::Reference,
@@ -125,6 +140,9 @@ pub struct Immunization {
 
     /// Indicates context the data was captured in
     pub primary_source: Option<types::Boolean>,
+    /// Primitive extension sibling for [`primary_source`](Self::primary_source) (FHIR `_primarySource`).
+    #[serde(rename = "_primarySource")]
+    pub primary_source_ext: Option<types::Element>,
 
     /// Indicates the source of a reported record
     pub information_source: Option<types::CodeableReference>,
@@ -152,6 +170,9 @@ pub struct Immunization {
 
     /// Dose potency
     pub is_subpotent: Option<types::Boolean>,
+    /// Primitive extension sibling for [`is_subpotent`](Self::is_subpotent) (FHIR `_isSubpotent`).
+    #[serde(rename = "_isSubpotent")]
+    pub is_subpotent_ext: Option<types::Element>,
 
     /// Reason for being subpotent
     pub subpotent_reason: Option<Vec<types::CodeableConcept>>,
@@ -227,12 +248,18 @@ pub struct ImmunizationReaction {
 
     /// When reaction started
     pub date: Option<types::DateTime>,
+    /// Primitive extension sibling for [`date`](Self::date) (FHIR `_date`).
+    #[serde(rename = "_date")]
+    pub date_ext: Option<types::Element>,
 
     /// Additional information on reaction
     pub manifestation: Option<types::CodeableReference>,
 
     /// Indicates self-reported reaction
     pub reported: Option<types::Boolean>,
+    /// Primitive extension sibling for [`reported`](Self::reported) (FHIR `_reported`).
+    #[serde(rename = "_reported")]
+    pub reported_ext: Option<types::Element>,
 }
 
 /// Immunization.protocolApplied: Protocol followed by the provider
@@ -251,6 +278,9 @@ pub struct ImmunizationProtocolApplied {
 
     /// Name of vaccine series
     pub series: Option<types::String>,
+    /// Primitive extension sibling for [`series`](Self::series) (FHIR `_series`).
+    #[serde(rename = "_series")]
+    pub series_ext: Option<types::Element>,
 
     /// Who is responsible for publishing the recommendations
     pub authority: Option<types::Reference>,
@@ -260,9 +290,15 @@ pub struct ImmunizationProtocolApplied {
 
     /// Dose number within series
     pub dose_number: types::String,
+    /// Primitive extension sibling for [`dose_number`](Self::dose_number) (FHIR `_doseNumber`).
+    #[serde(rename = "_doseNumber")]
+    pub dose_number_ext: Option<types::Element>,
 
     /// Recommended number of doses for immunity
     pub series_doses: Option<types::String>,
+    /// Primitive extension sibling for [`series_doses`](Self::series_doses) (FHIR `_seriesDoses`).
+    #[serde(rename = "_seriesDoses")]
+    pub series_doses_ext: Option<types::Element>,
 }
 
 #[cfg(test)]

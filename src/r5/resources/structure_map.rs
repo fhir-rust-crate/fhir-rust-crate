@@ -71,9 +71,15 @@ pub struct StructureMap {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -89,12 +95,18 @@ pub struct StructureMap {
 
     /// Canonical identifier for this structure map, represented as a URI (globally unique); used to reference the map from other resources
     pub url: types::Uri,
+    /// Primitive extension sibling for [`url`](Self::url) (FHIR `_url`).
+    #[serde(rename = "_url")]
+    pub url_ext: Option<types::Element>,
 
     /// Additional identifier for the structure map
     pub identifier: Option<Vec<types::Identifier>>,
 
     /// Business version of the structure map
     pub version: Option<types::String>,
+    /// Primitive extension sibling for [`version`](Self::version) (FHIR `_version`).
+    #[serde(rename = "_version")]
+    pub version_ext: Option<types::Element>,
 
     /// How to compare versions
     pub version_algorithm_string: Option<types::String>,
@@ -104,27 +116,48 @@ pub struct StructureMap {
 
     /// Name for this structure map (computer friendly)
     pub name: types::String,
+    /// Primitive extension sibling for [`name`](Self::name) (FHIR `_name`).
+    #[serde(rename = "_name")]
+    pub name_ext: Option<types::Element>,
 
     /// Name for this structure map (human friendly)
     pub title: Option<types::String>,
+    /// Primitive extension sibling for [`title`](Self::title) (FHIR `_title`).
+    #[serde(rename = "_title")]
+    pub title_ext: Option<types::Element>,
 
     /// The publication lifecycle status of the map: draft | active | retired | unknown
     pub status: types::Code,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// For testing purposes, not real usage
     pub experimental: Option<types::Boolean>,
+    /// Primitive extension sibling for [`experimental`](Self::experimental) (FHIR `_experimental`).
+    #[serde(rename = "_experimental")]
+    pub experimental_ext: Option<types::Element>,
 
     /// Date last changed
     pub date: Option<types::DateTime>,
+    /// Primitive extension sibling for [`date`](Self::date) (FHIR `_date`).
+    #[serde(rename = "_date")]
+    pub date_ext: Option<types::Element>,
 
     /// Name of the publisher/steward (organization or individual)
     pub publisher: Option<types::String>,
+    /// Primitive extension sibling for [`publisher`](Self::publisher) (FHIR `_publisher`).
+    #[serde(rename = "_publisher")]
+    pub publisher_ext: Option<types::Element>,
 
     /// Contact details for the publisher
     pub contact: Option<Vec<types::ContactDetail>>,
 
     /// Natural language description of the structure map
     pub description: Option<types::Markdown>,
+    /// Primitive extension sibling for [`description`](Self::description) (FHIR `_description`).
+    #[serde(rename = "_description")]
+    pub description_ext: Option<types::Element>,
 
     /// The context that the content is intended to support
     pub use_context: Option<Vec<types::UsageContext>>,
@@ -134,18 +167,30 @@ pub struct StructureMap {
 
     /// Why this structure map is defined
     pub purpose: Option<types::Markdown>,
+    /// Primitive extension sibling for [`purpose`](Self::purpose) (FHIR `_purpose`).
+    #[serde(rename = "_purpose")]
+    pub purpose_ext: Option<types::Element>,
 
     /// Use and/or publishing restrictions
     pub copyright: Option<types::Markdown>,
+    /// Primitive extension sibling for [`copyright`](Self::copyright) (FHIR `_copyright`).
+    #[serde(rename = "_copyright")]
+    pub copyright_ext: Option<types::Element>,
 
     /// Copyright holder and year(s)
     pub copyright_label: Option<types::String>,
+    /// Primitive extension sibling for [`copyright_label`](Self::copyright_label) (FHIR `_copyrightLabel`).
+    #[serde(rename = "_copyrightLabel")]
+    pub copyright_label_ext: Option<types::Element>,
 
     /// The source and target structure definitions used by this map, with the mode in which each is used
     pub structure: Option<Vec<StructureMapStructure>>,
 
     /// Other maps used by this map (canonical URLs)
     pub import: Option<Vec<types::Canonical>>,
+    /// Primitive extension sibling for [`import`](Self::import) (FHIR `_import`).
+    #[serde(rename = "_import")]
+    pub import_ext: Option<Vec<Option<types::Element>>>,
 
     /// Definition of the constant value used in the map rules
     pub r#const: Option<Vec<StructureMapConst>>,
@@ -174,15 +219,27 @@ pub struct StructureMapStructure {
 
     /// Canonical reference to structure definition
     pub url: types::Canonical,
+    /// Primitive extension sibling for [`url`](Self::url) (FHIR `_url`).
+    #[serde(rename = "_url")]
+    pub url_ext: Option<types::Element>,
 
     /// source | queried | target | produced
     pub mode: types::Code,
+    /// Primitive extension sibling for [`mode`](Self::mode) (FHIR `_mode`).
+    #[serde(rename = "_mode")]
+    pub mode_ext: Option<types::Element>,
 
     /// Name for type in this map
     pub alias: Option<types::String>,
+    /// Primitive extension sibling for [`alias`](Self::alias) (FHIR `_alias`).
+    #[serde(rename = "_alias")]
+    pub alias_ext: Option<types::Element>,
 
     /// Documentation on use of structure
     pub documentation: Option<types::String>,
+    /// Primitive extension sibling for [`documentation`](Self::documentation) (FHIR `_documentation`).
+    #[serde(rename = "_documentation")]
+    pub documentation_ext: Option<types::Element>,
 }
 
 /// Definition of the constant value used in the map rules.
@@ -205,9 +262,15 @@ pub struct StructureMapConst {
 
     /// Constant name
     pub name: Option<types::Id>,
+    /// Primitive extension sibling for [`name`](Self::name) (FHIR `_name`).
+    #[serde(rename = "_name")]
+    pub name_ext: Option<types::Element>,
 
     /// FHIRPath exression - value of the constant
     pub value: Option<types::String>,
+    /// Primitive extension sibling for [`value`](Self::value) (FHIR `_value`).
+    #[serde(rename = "_value")]
+    pub value_ext: Option<types::Element>,
 }
 
 /// Named sections for reader convenience.
@@ -230,15 +293,27 @@ pub struct StructureMapGroup {
 
     /// Human-readable label
     pub name: types::Id,
+    /// Primitive extension sibling for [`name`](Self::name) (FHIR `_name`).
+    #[serde(rename = "_name")]
+    pub name_ext: Option<types::Element>,
 
     /// Another group that this group adds rules to
     pub extends: Option<types::Id>,
+    /// Primitive extension sibling for [`extends`](Self::extends) (FHIR `_extends`).
+    #[serde(rename = "_extends")]
+    pub extends_ext: Option<types::Element>,
 
     /// types | type-and-types
     pub type_mode: Option<types::Code>,
+    /// Primitive extension sibling for [`type_mode`](Self::type_mode) (FHIR `_typeMode`).
+    #[serde(rename = "_typeMode")]
+    pub type_mode_ext: Option<types::Element>,
 
     /// Additional description/explanation for group
     pub documentation: Option<types::String>,
+    /// Primitive extension sibling for [`documentation`](Self::documentation) (FHIR `_documentation`).
+    #[serde(rename = "_documentation")]
+    pub documentation_ext: Option<types::Element>,
 
     /// Named instance provided when invoking the map
     pub input: Vec<StructureMapGroupInput>,
@@ -266,15 +341,27 @@ pub struct StructureMapGroupInput {
 
     /// Name for this instance of data
     pub name: types::Id,
+    /// Primitive extension sibling for [`name`](Self::name) (FHIR `_name`).
+    #[serde(rename = "_name")]
+    pub name_ext: Option<types::Element>,
 
     /// Type for this instance of data
     pub r#type: Option<types::String>,
+    /// Primitive extension sibling for [`type`](Self::r#type) (FHIR `_type`).
+    #[serde(rename = "_type")]
+    pub type_ext: Option<types::Element>,
 
     /// source | target
     pub mode: types::Code,
+    /// Primitive extension sibling for [`mode`](Self::mode) (FHIR `_mode`).
+    #[serde(rename = "_mode")]
+    pub mode_ext: Option<types::Element>,
 
     /// Documentation for this instance of data
     pub documentation: Option<types::String>,
+    /// Primitive extension sibling for [`documentation`](Self::documentation) (FHIR `_documentation`).
+    #[serde(rename = "_documentation")]
+    pub documentation_ext: Option<types::Element>,
 }
 
 /// Transform Rule from source to target.
@@ -296,6 +383,9 @@ pub struct StructureMapGroupRule {
 
     /// Name of the rule for internal references
     pub name: Option<types::Id>,
+    /// Primitive extension sibling for [`name`](Self::name) (FHIR `_name`).
+    #[serde(rename = "_name")]
+    pub name_ext: Option<types::Element>,
 
     /// Source inputs to the mapping
     pub source: Vec<StructureMapGroupRuleSource>,
@@ -311,6 +401,9 @@ pub struct StructureMapGroupRule {
 
     /// Documentation for this instance of data
     pub documentation: Option<types::String>,
+    /// Primitive extension sibling for [`documentation`](Self::documentation) (FHIR `_documentation`).
+    #[serde(rename = "_documentation")]
+    pub documentation_ext: Option<types::Element>,
 }
 
 /// Source inputs to the mapping.
@@ -333,36 +426,69 @@ pub struct StructureMapGroupRuleSource {
 
     /// Type or variable this rule applies to
     pub context: types::Id,
+    /// Primitive extension sibling for [`context`](Self::context) (FHIR `_context`).
+    #[serde(rename = "_context")]
+    pub context_ext: Option<types::Element>,
 
     /// Specified minimum cardinality
     pub min: Option<types::Integer>,
+    /// Primitive extension sibling for [`min`](Self::min) (FHIR `_min`).
+    #[serde(rename = "_min")]
+    pub min_ext: Option<types::Element>,
 
     /// Specified maximum cardinality (number or *)
     pub max: Option<types::String>,
+    /// Primitive extension sibling for [`max`](Self::max) (FHIR `_max`).
+    #[serde(rename = "_max")]
+    pub max_ext: Option<types::Element>,
 
     /// Rule only applies if source has this type
     pub r#type: Option<types::String>,
+    /// Primitive extension sibling for [`type`](Self::r#type) (FHIR `_type`).
+    #[serde(rename = "_type")]
+    pub type_ext: Option<types::Element>,
 
     /// Default value if no value exists
     pub default_value: Option<types::String>,
+    /// Primitive extension sibling for [`default_value`](Self::default_value) (FHIR `_defaultValue`).
+    #[serde(rename = "_defaultValue")]
+    pub default_value_ext: Option<types::Element>,
 
     /// Optional field for this source
     pub element: Option<types::String>,
+    /// Primitive extension sibling for [`element`](Self::element) (FHIR `_element`).
+    #[serde(rename = "_element")]
+    pub element_ext: Option<types::Element>,
 
     /// first | not_first | last | not_last | only_one
     pub list_mode: Option<types::Code>,
+    /// Primitive extension sibling for [`list_mode`](Self::list_mode) (FHIR `_listMode`).
+    #[serde(rename = "_listMode")]
+    pub list_mode_ext: Option<types::Element>,
 
     /// Named context for field, if a field is specified
     pub variable: Option<types::Id>,
+    /// Primitive extension sibling for [`variable`](Self::variable) (FHIR `_variable`).
+    #[serde(rename = "_variable")]
+    pub variable_ext: Option<types::Element>,
 
     /// FHIRPath expression  - must be true or the rule does not apply
     pub condition: Option<types::String>,
+    /// Primitive extension sibling for [`condition`](Self::condition) (FHIR `_condition`).
+    #[serde(rename = "_condition")]
+    pub condition_ext: Option<types::Element>,
 
     /// FHIRPath expression  - must be true or the mapping engine throws an error instead of completing
     pub check: Option<types::String>,
+    /// Primitive extension sibling for [`check`](Self::check) (FHIR `_check`).
+    #[serde(rename = "_check")]
+    pub check_ext: Option<types::Element>,
 
     /// Message to put in log if source exists (FHIRPath)
     pub log_message: Option<types::String>,
+    /// Primitive extension sibling for [`log_message`](Self::log_message) (FHIR `_logMessage`).
+    #[serde(rename = "_logMessage")]
+    pub log_message_ext: Option<types::Element>,
 }
 
 /// Content to create because of this mapping rule.
@@ -385,21 +511,39 @@ pub struct StructureMapGroupRuleTarget {
 
     /// Variable this rule applies to
     pub context: Option<types::String>,
+    /// Primitive extension sibling for [`context`](Self::context) (FHIR `_context`).
+    #[serde(rename = "_context")]
+    pub context_ext: Option<types::Element>,
 
     /// Field to create in the context
     pub element: Option<types::String>,
+    /// Primitive extension sibling for [`element`](Self::element) (FHIR `_element`).
+    #[serde(rename = "_element")]
+    pub element_ext: Option<types::Element>,
 
     /// Named context for field, if desired, and a field is specified
     pub variable: Option<types::Id>,
+    /// Primitive extension sibling for [`variable`](Self::variable) (FHIR `_variable`).
+    #[serde(rename = "_variable")]
+    pub variable_ext: Option<types::Element>,
 
     /// first | share | last | single
     pub list_mode: Option<Vec<types::Code>>,
+    /// Primitive extension sibling for [`list_mode`](Self::list_mode) (FHIR `_listMode`).
+    #[serde(rename = "_listMode")]
+    pub list_mode_ext: Option<Vec<Option<types::Element>>>,
 
     /// Internal rule reference for shared list items
     pub list_rule_id: Option<types::Id>,
+    /// Primitive extension sibling for [`list_rule_id`](Self::list_rule_id) (FHIR `_listRuleId`).
+    #[serde(rename = "_listRuleId")]
+    pub list_rule_id_ext: Option<types::Element>,
 
     /// create | copy +
     pub transform: Option<types::Code>,
+    /// Primitive extension sibling for [`transform`](Self::transform) (FHIR `_transform`).
+    #[serde(rename = "_transform")]
+    pub transform_ext: Option<types::Element>,
 
     /// Parameters to the transform
     pub parameter: Option<Vec<StructureMapGroupRuleTargetParameter>>,
@@ -466,6 +610,9 @@ pub struct StructureMapGroupRuleDependent {
 
     /// Name of a rule or group to apply
     pub name: types::Id,
+    /// Primitive extension sibling for [`name`](Self::name) (FHIR `_name`).
+    #[serde(rename = "_name")]
+    pub name_ext: Option<types::Element>,
 
     /// Parameter to pass to the rule or group
     pub parameter: Vec<StructureMapGroupRuleTargetParameter>,

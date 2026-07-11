@@ -68,9 +68,15 @@ pub struct Group {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -89,24 +95,42 @@ pub struct Group {
 
     /// Whether this group's record is in active use, as opposed to being retired or entered in error
     pub active: Option<types::Boolean>,
+    /// Primitive extension sibling for [`active`](Self::active) (FHIR `_active`).
+    #[serde(rename = "_active")]
+    pub active_ext: Option<types::Element>,
 
     /// The kind of entities held by this group: person | animal | practitioner | device | careteam | healthcareservice | location | organization | relatedperson | specimen
     pub r#type: types::Code,
+    /// Primitive extension sibling for [`type`](Self::r#type) (FHIR `_type`).
+    #[serde(rename = "_type")]
+    pub type_ext: Option<types::Element>,
 
     /// Basis for membership: definitional (rule-based, via `characteristic`) or enumerated (explicitly listed, via `member`)
     pub membership: types::Code,
+    /// Primitive extension sibling for [`membership`](Self::membership) (FHIR `_membership`).
+    #[serde(rename = "_membership")]
+    pub membership_ext: Option<types::Element>,
 
     /// Kind of Group members
     pub code: Option<types::CodeableConcept>,
 
     /// Label for Group
     pub name: Option<types::String>,
+    /// Primitive extension sibling for [`name`](Self::name) (FHIR `_name`).
+    #[serde(rename = "_name")]
+    pub name_ext: Option<types::Element>,
 
     /// Natural language description of the group
     pub description: Option<types::Markdown>,
+    /// Primitive extension sibling for [`description`](Self::description) (FHIR `_description`).
+    #[serde(rename = "_description")]
+    pub description_ext: Option<types::Element>,
 
     /// Number of members
     pub quantity: Option<types::UnsignedInt>,
+    /// Primitive extension sibling for [`quantity`](Self::quantity) (FHIR `_quantity`).
+    #[serde(rename = "_quantity")]
+    pub quantity_ext: Option<types::Element>,
 
     /// Entity that is the custodian of the Group's definition
     pub managing_entity: Option<types::Reference>,
@@ -155,6 +179,9 @@ pub struct GroupCharacteristic {
 
     /// Group includes or excludes
     pub exclude: types::Boolean,
+    /// Primitive extension sibling for [`exclude`](Self::exclude) (FHIR `_exclude`).
+    #[serde(rename = "_exclude")]
+    pub exclude_ext: Option<types::Element>,
 
     /// Period over which characteristic is tested
     pub period: Option<types::Period>,
@@ -184,6 +211,9 @@ pub struct GroupMember {
 
     /// If member is no longer in group
     pub inactive: Option<types::Boolean>,
+    /// Primitive extension sibling for [`inactive`](Self::inactive) (FHIR `_inactive`).
+    #[serde(rename = "_inactive")]
+    pub inactive_ext: Option<types::Element>,
 }
 
 #[cfg(test)]

@@ -69,9 +69,15 @@ pub struct ActivityDefinition {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -87,12 +93,18 @@ pub struct ActivityDefinition {
 
     /// Canonical identifier for this activity definition, represented as a URI (globally unique)
     pub url: Option<types::Uri>,
+    /// Primitive extension sibling for [`url`](Self::url) (FHIR `_url`).
+    #[serde(rename = "_url")]
+    pub url_ext: Option<types::Element>,
 
     /// Additional identifier for the activity definition
     pub identifier: Option<Vec<types::Identifier>>,
 
     /// Business version of the activity definition
     pub version: Option<types::String>,
+    /// Primitive extension sibling for [`version`](Self::version) (FHIR `_version`).
+    #[serde(rename = "_version")]
+    pub version_ext: Option<types::Element>,
 
     /// How to compare versions
     pub version_algorithm_string: Option<types::String>,
@@ -102,18 +114,33 @@ pub struct ActivityDefinition {
 
     /// Name for this activity definition (computer friendly)
     pub name: Option<types::String>,
+    /// Primitive extension sibling for [`name`](Self::name) (FHIR `_name`).
+    #[serde(rename = "_name")]
+    pub name_ext: Option<types::Element>,
 
     /// Name for this activity definition (human friendly)
     pub title: Option<types::String>,
+    /// Primitive extension sibling for [`title`](Self::title) (FHIR `_title`).
+    #[serde(rename = "_title")]
+    pub title_ext: Option<types::Element>,
 
     /// Subordinate title of the activity definition
     pub subtitle: Option<types::String>,
+    /// Primitive extension sibling for [`subtitle`](Self::subtitle) (FHIR `_subtitle`).
+    #[serde(rename = "_subtitle")]
+    pub subtitle_ext: Option<types::Element>,
 
     /// Publication status of this definition: draft | active | retired | unknown.
     pub status: types::Code,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// For testing purposes, not real usage
     pub experimental: Option<types::Boolean>,
+    /// Primitive extension sibling for [`experimental`](Self::experimental) (FHIR `_experimental`).
+    #[serde(rename = "_experimental")]
+    pub experimental_ext: Option<types::Element>,
 
     /// Type of individual the activity definition is intended for
     pub subject_codeable_concept: Option<types::CodeableConcept>,
@@ -126,15 +153,24 @@ pub struct ActivityDefinition {
 
     /// Date last changed
     pub date: Option<types::DateTime>,
+    /// Primitive extension sibling for [`date`](Self::date) (FHIR `_date`).
+    #[serde(rename = "_date")]
+    pub date_ext: Option<types::Element>,
 
     /// Name of the publisher/steward (organization or individual)
     pub publisher: Option<types::String>,
+    /// Primitive extension sibling for [`publisher`](Self::publisher) (FHIR `_publisher`).
+    #[serde(rename = "_publisher")]
+    pub publisher_ext: Option<types::Element>,
 
     /// Contact details for the publisher
     pub contact: Option<Vec<types::ContactDetail>>,
 
     /// Natural language description of the activity definition
     pub description: Option<types::Markdown>,
+    /// Primitive extension sibling for [`description`](Self::description) (FHIR `_description`).
+    #[serde(rename = "_description")]
+    pub description_ext: Option<types::Element>,
 
     /// The context that the content is intended to support
     pub use_context: Option<Vec<types::UsageContext>>,
@@ -144,21 +180,39 @@ pub struct ActivityDefinition {
 
     /// Why this activity definition is defined
     pub purpose: Option<types::Markdown>,
+    /// Primitive extension sibling for [`purpose`](Self::purpose) (FHIR `_purpose`).
+    #[serde(rename = "_purpose")]
+    pub purpose_ext: Option<types::Element>,
 
     /// Describes the clinical usage of the activity definition
     pub usage: Option<types::Markdown>,
+    /// Primitive extension sibling for [`usage`](Self::usage) (FHIR `_usage`).
+    #[serde(rename = "_usage")]
+    pub usage_ext: Option<types::Element>,
 
     /// Use and/or publishing restrictions
     pub copyright: Option<types::Markdown>,
+    /// Primitive extension sibling for [`copyright`](Self::copyright) (FHIR `_copyright`).
+    #[serde(rename = "_copyright")]
+    pub copyright_ext: Option<types::Element>,
 
     /// Copyright holder and year(s)
     pub copyright_label: Option<types::String>,
+    /// Primitive extension sibling for [`copyright_label`](Self::copyright_label) (FHIR `_copyrightLabel`).
+    #[serde(rename = "_copyrightLabel")]
+    pub copyright_label_ext: Option<types::Element>,
 
     /// When the activity definition was approved by publisher
     pub approval_date: Option<types::Date>,
+    /// Primitive extension sibling for [`approval_date`](Self::approval_date) (FHIR `_approvalDate`).
+    #[serde(rename = "_approvalDate")]
+    pub approval_date_ext: Option<types::Element>,
 
     /// When the activity definition was last reviewed by the publisher
     pub last_review_date: Option<types::Date>,
+    /// Primitive extension sibling for [`last_review_date`](Self::last_review_date) (FHIR `_lastReviewDate`).
+    #[serde(rename = "_lastReviewDate")]
+    pub last_review_date_ext: Option<types::Element>,
 
     /// When the activity definition is expected to be used
     pub effective_period: Option<types::Period>,
@@ -183,24 +237,42 @@ pub struct ActivityDefinition {
 
     /// Logic used by the activity definition
     pub library: Option<Vec<types::Canonical>>,
+    /// Primitive extension sibling for [`library`](Self::library) (FHIR `_library`).
+    #[serde(rename = "_library")]
+    pub library_ext: Option<Vec<Option<types::Element>>>,
 
     /// The FHIR resource type that applying this definition will produce, e.g. MedicationRequest or Task
     pub kind: Option<types::Code>,
+    /// Primitive extension sibling for [`kind`](Self::kind) (FHIR `_kind`).
+    #[serde(rename = "_kind")]
+    pub kind_ext: Option<types::Element>,
 
     /// What profile the resource needs to conform to
     pub profile: Option<types::Canonical>,
+    /// Primitive extension sibling for [`profile`](Self::profile) (FHIR `_profile`).
+    #[serde(rename = "_profile")]
+    pub profile_ext: Option<types::Element>,
 
     /// Detail type of activity, e.g. a specific procedure, medication, or service code
     pub code: Option<types::CodeableConcept>,
 
     /// proposal | plan | directive | order | original-order | reflex-order | filler-order | instance-order | option
     pub intent: Option<types::Code>,
+    /// Primitive extension sibling for [`intent`](Self::intent) (FHIR `_intent`).
+    #[serde(rename = "_intent")]
+    pub intent_ext: Option<types::Element>,
 
     /// routine | urgent | asap | stat
     pub priority: Option<types::Code>,
+    /// Primitive extension sibling for [`priority`](Self::priority) (FHIR `_priority`).
+    #[serde(rename = "_priority")]
+    pub priority_ext: Option<types::Element>,
 
     /// True if the activity should not be performed
     pub do_not_perform: Option<types::Boolean>,
+    /// Primitive extension sibling for [`do_not_perform`](Self::do_not_perform) (FHIR `_doNotPerform`).
+    #[serde(rename = "_doNotPerform")]
+    pub do_not_perform_ext: Option<types::Element>,
 
     /// When activity is to occur
     pub timing_timing: Option<types::Timing>,
@@ -243,15 +315,27 @@ pub struct ActivityDefinition {
 
     /// What specimens are required to perform this action
     pub specimen_requirement: Option<Vec<types::Canonical>>,
+    /// Primitive extension sibling for [`specimen_requirement`](Self::specimen_requirement) (FHIR `_specimenRequirement`).
+    #[serde(rename = "_specimenRequirement")]
+    pub specimen_requirement_ext: Option<Vec<Option<types::Element>>>,
 
     /// What observations are required to perform this action
     pub observation_requirement: Option<Vec<types::Canonical>>,
+    /// Primitive extension sibling for [`observation_requirement`](Self::observation_requirement) (FHIR `_observationRequirement`).
+    #[serde(rename = "_observationRequirement")]
+    pub observation_requirement_ext: Option<Vec<Option<types::Element>>>,
 
     /// What observations must be produced by this action
     pub observation_result_requirement: Option<Vec<types::Canonical>>,
+    /// Primitive extension sibling for [`observation_result_requirement`](Self::observation_result_requirement) (FHIR `_observationResultRequirement`).
+    #[serde(rename = "_observationResultRequirement")]
+    pub observation_result_requirement_ext: Option<Vec<Option<types::Element>>>,
 
     /// Transform to apply the template
     pub transform: Option<types::Canonical>,
+    /// Primitive extension sibling for [`transform`](Self::transform) (FHIR `_transform`).
+    #[serde(rename = "_transform")]
+    pub transform_ext: Option<types::Element>,
 
     /// Dynamic aspects of the definition
     pub dynamic_value: Option<Vec<ActivityDefinitionDynamicValue>>,
@@ -273,9 +357,15 @@ pub struct ActivityDefinitionParticipant {
 
     /// careteam | device | group | healthcareservice | location | organization | patient | practitioner | practitionerrole | relatedperson
     pub r#type: Option<types::Code>,
+    /// Primitive extension sibling for [`type`](Self::r#type) (FHIR `_type`).
+    #[serde(rename = "_type")]
+    pub type_ext: Option<types::Element>,
 
     /// Who or what can participate
     pub type_canonical: Option<types::Canonical>,
+    /// Primitive extension sibling for [`type_canonical`](Self::type_canonical) (FHIR `_typeCanonical`).
+    #[serde(rename = "_typeCanonical")]
+    pub type_canonical_ext: Option<types::Element>,
 
     /// Who or what can participate
     pub type_reference: Option<types::Reference>,
@@ -304,6 +394,9 @@ pub struct ActivityDefinitionDynamicValue {
 
     /// The path to the element to be set dynamically
     pub path: types::String,
+    /// Primitive extension sibling for [`path`](Self::path) (FHIR `_path`).
+    #[serde(rename = "_path")]
+    pub path_ext: Option<types::Element>,
 
     /// An expression that provides the dynamic value for the customization
     pub expression: types::Expression,

@@ -75,9 +75,15 @@ pub struct Patient {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -189,6 +195,9 @@ pub struct PatientContact {
 
     /// male | female | other | unknown
     pub gender: Option<types::Code>,
+    /// Primitive extension sibling for [`gender`](Self::gender) (FHIR `_gender`).
+    #[serde(rename = "_gender")]
+    pub gender_ext: Option<types::Element>,
 
     /// Organization that is associated with the contact
     pub organization: Option<types::Reference>,
@@ -217,6 +226,9 @@ pub struct PatientCommunication {
 
     /// Language preference indicator
     pub preferred: Option<types::Boolean>,
+    /// Primitive extension sibling for [`preferred`](Self::preferred) (FHIR `_preferred`).
+    #[serde(rename = "_preferred")]
+    pub preferred_ext: Option<types::Element>,
 }
 
 /// Link to a Patient or RelatedPerson resource that concerns the same actual
@@ -239,6 +251,9 @@ pub struct PatientLink {
 
     /// replaced-by | replaces | refer | seealso
     pub r#type: types::Code,
+    /// Primitive extension sibling for [`type`](Self::r#type) (FHIR `_type`).
+    #[serde(rename = "_type")]
+    pub type_ext: Option<types::Element>,
 }
 
 #[cfg(test)]

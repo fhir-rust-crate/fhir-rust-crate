@@ -62,9 +62,15 @@ pub struct OperationDefinition {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -80,12 +86,18 @@ pub struct OperationDefinition {
 
     /// Canonical identifier for this operation definition, represented as an absolute URI (globally unique)
     pub url: Option<types::Uri>,
+    /// Primitive extension sibling for [`url`](Self::url) (FHIR `_url`).
+    #[serde(rename = "_url")]
+    pub url_ext: Option<types::Element>,
 
     /// Additional identifier for the implementation guide (business identifier)
     pub identifier: Option<Vec<types::Identifier>>,
 
     /// Business version of the operation definition
     pub version: Option<types::String>,
+    /// Primitive extension sibling for [`version`](Self::version) (FHIR `_version`).
+    #[serde(rename = "_version")]
+    pub version_ext: Option<types::Element>,
 
     /// How to compare versions
     pub version_algorithm_string: Option<types::String>,
@@ -95,30 +107,54 @@ pub struct OperationDefinition {
 
     /// Name for this operation definition (computer friendly)
     pub name: types::String,
+    /// Primitive extension sibling for [`name`](Self::name) (FHIR `_name`).
+    #[serde(rename = "_name")]
+    pub name_ext: Option<types::Element>,
 
     /// Name for this operation definition (human friendly)
     pub title: Option<types::String>,
+    /// Primitive extension sibling for [`title`](Self::title) (FHIR `_title`).
+    #[serde(rename = "_title")]
+    pub title_ext: Option<types::Element>,
 
     /// Publication lifecycle status of this definition: draft, active, retired, or unknown.
     pub status: types::Code,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// Whether this defines an operation invoked at an endpoint or a named query invoked via search.
     pub kind: types::Code,
+    /// Primitive extension sibling for [`kind`](Self::kind) (FHIR `_kind`).
+    #[serde(rename = "_kind")]
+    pub kind_ext: Option<types::Element>,
 
     /// For testing purposes, not real usage
     pub experimental: Option<types::Boolean>,
+    /// Primitive extension sibling for [`experimental`](Self::experimental) (FHIR `_experimental`).
+    #[serde(rename = "_experimental")]
+    pub experimental_ext: Option<types::Element>,
 
     /// Date last changed
     pub date: Option<types::DateTime>,
+    /// Primitive extension sibling for [`date`](Self::date) (FHIR `_date`).
+    #[serde(rename = "_date")]
+    pub date_ext: Option<types::Element>,
 
     /// Name of the publisher/steward (organization or individual)
     pub publisher: Option<types::String>,
+    /// Primitive extension sibling for [`publisher`](Self::publisher) (FHIR `_publisher`).
+    #[serde(rename = "_publisher")]
+    pub publisher_ext: Option<types::Element>,
 
     /// Contact details for the publisher
     pub contact: Option<Vec<types::ContactDetail>>,
 
     /// Natural language description of the operation definition
     pub description: Option<types::Markdown>,
+    /// Primitive extension sibling for [`description`](Self::description) (FHIR `_description`).
+    #[serde(rename = "_description")]
+    pub description_ext: Option<types::Element>,
 
     /// The context that the content is intended to support
     pub use_context: Option<Vec<types::UsageContext>>,
@@ -128,42 +164,81 @@ pub struct OperationDefinition {
 
     /// Why this operation definition is defined
     pub purpose: Option<types::Markdown>,
+    /// Primitive extension sibling for [`purpose`](Self::purpose) (FHIR `_purpose`).
+    #[serde(rename = "_purpose")]
+    pub purpose_ext: Option<types::Element>,
 
     /// Use and/or publishing restrictions
     pub copyright: Option<types::Markdown>,
+    /// Primitive extension sibling for [`copyright`](Self::copyright) (FHIR `_copyright`).
+    #[serde(rename = "_copyright")]
+    pub copyright_ext: Option<types::Element>,
 
     /// Copyright holder and year(s)
     pub copyright_label: Option<types::String>,
+    /// Primitive extension sibling for [`copyright_label`](Self::copyright_label) (FHIR `_copyrightLabel`).
+    #[serde(rename = "_copyrightLabel")]
+    pub copyright_label_ext: Option<types::Element>,
 
     /// Whether content is changed by the operation
     pub affects_state: Option<types::Boolean>,
+    /// Primitive extension sibling for [`affects_state`](Self::affects_state) (FHIR `_affectsState`).
+    #[serde(rename = "_affectsState")]
+    pub affects_state_ext: Option<types::Element>,
 
     /// Token used to name the operation in the invocation URL, following the dollar-sign prefix.
     pub code: types::Code,
+    /// Primitive extension sibling for [`code`](Self::code) (FHIR `_code`).
+    #[serde(rename = "_code")]
+    pub code_ext: Option<types::Element>,
 
     /// Additional information about use
     pub comment: Option<types::Markdown>,
+    /// Primitive extension sibling for [`comment`](Self::comment) (FHIR `_comment`).
+    #[serde(rename = "_comment")]
+    pub comment_ext: Option<types::Element>,
 
     /// Marks this as a profile of the base
     pub base: Option<types::Canonical>,
+    /// Primitive extension sibling for [`base`](Self::base) (FHIR `_base`).
+    #[serde(rename = "_base")]
+    pub base_ext: Option<types::Element>,
 
     /// Types this operation applies to
     pub resource: Option<Vec<types::Code>>,
+    /// Primitive extension sibling for [`resource`](Self::resource) (FHIR `_resource`).
+    #[serde(rename = "_resource")]
+    pub resource_ext: Option<Vec<Option<types::Element>>>,
 
     /// Invoke at the system level?
     pub system: types::Boolean,
+    /// Primitive extension sibling for [`system`](Self::system) (FHIR `_system`).
+    #[serde(rename = "_system")]
+    pub system_ext: Option<types::Element>,
 
     /// Invoke at the type level?
     pub r#type: types::Boolean,
+    /// Primitive extension sibling for [`type`](Self::r#type) (FHIR `_type`).
+    #[serde(rename = "_type")]
+    pub type_ext: Option<types::Element>,
 
     /// Invoke on an instance?
     pub instance: types::Boolean,
+    /// Primitive extension sibling for [`instance`](Self::instance) (FHIR `_instance`).
+    #[serde(rename = "_instance")]
+    pub instance_ext: Option<types::Element>,
 
     /// Validation information for in parameters
     pub input_profile: Option<types::Canonical>,
+    /// Primitive extension sibling for [`input_profile`](Self::input_profile) (FHIR `_inputProfile`).
+    #[serde(rename = "_inputProfile")]
+    pub input_profile_ext: Option<types::Element>,
 
     /// Validation information for out parameters
     pub output_profile: Option<types::Canonical>,
+    /// Primitive extension sibling for [`output_profile`](Self::output_profile) (FHIR `_outputProfile`).
+    #[serde(rename = "_outputProfile")]
+    pub output_profile_ext: Option<types::Element>,
 
     /// The input and output parameters that define the operation or query interface.
     pub parameter: Option<Vec<OperationDefinitionParameter>>,
@@ -191,33 +266,63 @@ pub struct OperationDefinitionParameter {
 
     /// Name in Parameters.parameter.name or in URL
     pub name: types::Code,
+    /// Primitive extension sibling for [`name`](Self::name) (FHIR `_name`).
+    #[serde(rename = "_name")]
+    pub name_ext: Option<types::Element>,
 
     /// in | out
     pub r#use: types::Code,
+    /// Primitive extension sibling for [`use`](Self::r#use) (FHIR `_use`).
+    #[serde(rename = "_use")]
+    pub use_ext: Option<types::Element>,
 
     /// instance | type | system
     pub scope: Option<Vec<types::Code>>,
+    /// Primitive extension sibling for [`scope`](Self::scope) (FHIR `_scope`).
+    #[serde(rename = "_scope")]
+    pub scope_ext: Option<Vec<Option<types::Element>>>,
 
     /// Minimum Cardinality
     pub min: types::Integer,
+    /// Primitive extension sibling for [`min`](Self::min) (FHIR `_min`).
+    #[serde(rename = "_min")]
+    pub min_ext: Option<types::Element>,
 
     /// Maximum Cardinality (a number or *)
     pub max: types::String,
+    /// Primitive extension sibling for [`max`](Self::max) (FHIR `_max`).
+    #[serde(rename = "_max")]
+    pub max_ext: Option<types::Element>,
 
     /// Description of meaning/use
     pub documentation: Option<types::Markdown>,
+    /// Primitive extension sibling for [`documentation`](Self::documentation) (FHIR `_documentation`).
+    #[serde(rename = "_documentation")]
+    pub documentation_ext: Option<types::Element>,
 
     /// What type this parameter has
     pub r#type: Option<types::Code>,
+    /// Primitive extension sibling for [`type`](Self::r#type) (FHIR `_type`).
+    #[serde(rename = "_type")]
+    pub type_ext: Option<types::Element>,
 
     /// Allowed sub-type this parameter can have (if type is abstract)
     pub allowed_type: Option<Vec<types::Code>>,
+    /// Primitive extension sibling for [`allowed_type`](Self::allowed_type) (FHIR `_allowedType`).
+    #[serde(rename = "_allowedType")]
+    pub allowed_type_ext: Option<Vec<Option<types::Element>>>,
 
     /// If type is Reference | canonical, allowed targets. If type is 'Resource', then this constrains the allowed resource types
     pub target_profile: Option<Vec<types::Canonical>>,
+    /// Primitive extension sibling for [`target_profile`](Self::target_profile) (FHIR `_targetProfile`).
+    #[serde(rename = "_targetProfile")]
+    pub target_profile_ext: Option<Vec<Option<types::Element>>>,
 
     /// number | date | string | token | reference | composite | quantity | uri | special
     pub search_type: Option<types::Code>,
+    /// Primitive extension sibling for [`search_type`](Self::search_type) (FHIR `_searchType`).
+    #[serde(rename = "_searchType")]
+    pub search_type_ext: Option<types::Element>,
 
     /// ValueSet details if this is coded
     pub binding: Option<OperationDefinitionParameterBinding>,
@@ -248,9 +353,15 @@ pub struct OperationDefinitionParameterBinding {
 
     /// required | extensible | preferred | example
     pub strength: types::Code,
+    /// Primitive extension sibling for [`strength`](Self::strength) (FHIR `_strength`).
+    #[serde(rename = "_strength")]
+    pub strength_ext: Option<types::Element>,
 
     /// Source of value set
     pub value_set: types::Canonical,
+    /// Primitive extension sibling for [`value_set`](Self::value_set) (FHIR `_valueSet`).
+    #[serde(rename = "_valueSet")]
+    pub value_set_ext: Option<types::Element>,
 }
 
 /// References to this parameter.
@@ -273,9 +384,15 @@ pub struct OperationDefinitionParameterReferencedFrom {
 
     /// Referencing parameter
     pub source: types::String,
+    /// Primitive extension sibling for [`source`](Self::source) (FHIR `_source`).
+    #[serde(rename = "_source")]
+    pub source_ext: Option<types::Element>,
 
     /// Element id of reference
     pub source_id: Option<types::String>,
+    /// Primitive extension sibling for [`source_id`](Self::source_id) (FHIR `_sourceId`).
+    #[serde(rename = "_sourceId")]
+    pub source_id_ext: Option<types::Element>,
 }
 
 /// Define overloaded variants for when generating code.
@@ -297,9 +414,15 @@ pub struct OperationDefinitionOverload {
 
     /// Name of parameter to include in overload
     pub parameter_name: Option<Vec<types::String>>,
+    /// Primitive extension sibling for [`parameter_name`](Self::parameter_name) (FHIR `_parameterName`).
+    #[serde(rename = "_parameterName")]
+    pub parameter_name_ext: Option<Vec<Option<types::Element>>>,
 
     /// Comments to go on overload
     pub comment: Option<types::String>,
+    /// Primitive extension sibling for [`comment`](Self::comment) (FHIR `_comment`).
+    #[serde(rename = "_comment")]
+    pub comment_ext: Option<types::Element>,
 }
 
 #[cfg(test)]

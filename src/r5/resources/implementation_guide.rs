@@ -68,9 +68,15 @@ pub struct ImplementationGuide {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -86,12 +92,18 @@ pub struct ImplementationGuide {
 
     /// Canonical identifier for this implementation guide, represented as a URI (globally unique); used to reference this guide from other artifacts and registries
     pub url: types::Uri,
+    /// Primitive extension sibling for [`url`](Self::url) (FHIR `_url`).
+    #[serde(rename = "_url")]
+    pub url_ext: Option<types::Element>,
 
     /// Additional identifier for the implementation guide (business identifier)
     pub identifier: Option<Vec<types::Identifier>>,
 
     /// Business version of the implementation guide
     pub version: Option<types::String>,
+    /// Primitive extension sibling for [`version`](Self::version) (FHIR `_version`).
+    #[serde(rename = "_version")]
+    pub version_ext: Option<types::Element>,
 
     /// How to compare versions
     pub version_algorithm_string: Option<types::String>,
@@ -101,27 +113,48 @@ pub struct ImplementationGuide {
 
     /// Name for this implementation guide (computer friendly)
     pub name: types::String,
+    /// Primitive extension sibling for [`name`](Self::name) (FHIR `_name`).
+    #[serde(rename = "_name")]
+    pub name_ext: Option<types::Element>,
 
     /// Name for this implementation guide (human friendly)
     pub title: Option<types::String>,
+    /// Primitive extension sibling for [`title`](Self::title) (FHIR `_title`).
+    #[serde(rename = "_title")]
+    pub title_ext: Option<types::Element>,
 
     /// draft | active | retired | unknown; reflects the maturity/publication lifecycle status of this guide
     pub status: types::Code,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// For testing purposes, not real usage
     pub experimental: Option<types::Boolean>,
+    /// Primitive extension sibling for [`experimental`](Self::experimental) (FHIR `_experimental`).
+    #[serde(rename = "_experimental")]
+    pub experimental_ext: Option<types::Element>,
 
     /// Date last changed
     pub date: Option<types::DateTime>,
+    /// Primitive extension sibling for [`date`](Self::date) (FHIR `_date`).
+    #[serde(rename = "_date")]
+    pub date_ext: Option<types::Element>,
 
     /// Name of the publisher/steward (organization or individual)
     pub publisher: Option<types::String>,
+    /// Primitive extension sibling for [`publisher`](Self::publisher) (FHIR `_publisher`).
+    #[serde(rename = "_publisher")]
+    pub publisher_ext: Option<types::Element>,
 
     /// Contact details for the publisher
     pub contact: Option<Vec<types::ContactDetail>>,
 
     /// Natural language description of the implementation guide
     pub description: Option<types::Markdown>,
+    /// Primitive extension sibling for [`description`](Self::description) (FHIR `_description`).
+    #[serde(rename = "_description")]
+    pub description_ext: Option<types::Element>,
 
     /// The context that the content is intended to support
     pub use_context: Option<Vec<types::UsageContext>>,
@@ -131,21 +164,39 @@ pub struct ImplementationGuide {
 
     /// Why this implementation guide is defined
     pub purpose: Option<types::Markdown>,
+    /// Primitive extension sibling for [`purpose`](Self::purpose) (FHIR `_purpose`).
+    #[serde(rename = "_purpose")]
+    pub purpose_ext: Option<types::Element>,
 
     /// Use and/or publishing restrictions
     pub copyright: Option<types::Markdown>,
+    /// Primitive extension sibling for [`copyright`](Self::copyright) (FHIR `_copyright`).
+    #[serde(rename = "_copyright")]
+    pub copyright_ext: Option<types::Element>,
 
     /// Copyright holder and year(s)
     pub copyright_label: Option<types::String>,
+    /// Primitive extension sibling for [`copyright_label`](Self::copyright_label) (FHIR `_copyrightLabel`).
+    #[serde(rename = "_copyrightLabel")]
+    pub copyright_label_ext: Option<types::Element>,
 
     /// NPM Package name for IG; identifies the published npm package used by build and installation tooling
     pub package_id: types::Id,
+    /// Primitive extension sibling for [`package_id`](Self::package_id) (FHIR `_packageId`).
+    #[serde(rename = "_packageId")]
+    pub package_id_ext: Option<types::Element>,
 
     /// SPDX license code for this IG (or not-open-source)
     pub license: Option<types::Code>,
+    /// Primitive extension sibling for [`license`](Self::license) (FHIR `_license`).
+    #[serde(rename = "_license")]
+    pub license_ext: Option<types::Element>,
 
     /// FHIR Version(s) this Implementation Guide targets; conformance artifacts within the guide are validated against these versions
     pub fhir_version: Vec<types::Code>,
+    /// Primitive extension sibling for [`fhir_version`](Self::fhir_version) (FHIR `_fhirVersion`).
+    #[serde(rename = "_fhirVersion")]
+    pub fhir_version_ext: Option<Vec<Option<types::Element>>>,
 
     /// Another Implementation guide this depends on
     pub depends_on: Option<Vec<ImplementationGuideDependsOn>>,
@@ -178,15 +229,27 @@ pub struct ImplementationGuideDependsOn {
 
     /// Identity of the IG that this depends on
     pub uri: types::Canonical,
+    /// Primitive extension sibling for [`uri`](Self::uri) (FHIR `_uri`).
+    #[serde(rename = "_uri")]
+    pub uri_ext: Option<types::Element>,
 
     /// NPM Package name for IG this depends on
     pub package_id: Option<types::Id>,
+    /// Primitive extension sibling for [`package_id`](Self::package_id) (FHIR `_packageId`).
+    #[serde(rename = "_packageId")]
+    pub package_id_ext: Option<types::Element>,
 
     /// Version of the IG
     pub version: Option<types::String>,
+    /// Primitive extension sibling for [`version`](Self::version) (FHIR `_version`).
+    #[serde(rename = "_version")]
+    pub version_ext: Option<types::Element>,
 
     /// Why dependency exists
     pub reason: Option<types::Markdown>,
+    /// Primitive extension sibling for [`reason`](Self::reason) (FHIR `_reason`).
+    #[serde(rename = "_reason")]
+    pub reason_ext: Option<types::Element>,
 }
 
 /// A profile that applies globally to all resources of a given type within the
@@ -206,9 +269,15 @@ pub struct ImplementationGuideGlobal {
 
     /// Type this profile applies to
     pub r#type: types::Code,
+    /// Primitive extension sibling for [`type`](Self::r#type) (FHIR `_type`).
+    #[serde(rename = "_type")]
+    pub type_ext: Option<types::Element>,
 
     /// Profile that all resources must conform to
     pub profile: types::Canonical,
+    /// Primitive extension sibling for [`profile`](Self::profile) (FHIR `_profile`).
+    #[serde(rename = "_profile")]
+    pub profile_ext: Option<types::Element>,
 }
 
 /// The information needed to build the implementation guide, including the
@@ -259,9 +328,15 @@ pub struct ImplementationGuideDefinitionGrouping {
 
     /// Descriptive name for the package
     pub name: types::String,
+    /// Primitive extension sibling for [`name`](Self::name) (FHIR `_name`).
+    #[serde(rename = "_name")]
+    pub name_ext: Option<types::Element>,
 
     /// Human readable text describing the package
     pub description: Option<types::Markdown>,
+    /// Primitive extension sibling for [`description`](Self::description) (FHIR `_description`).
+    #[serde(rename = "_description")]
+    pub description_ext: Option<types::Element>,
 }
 
 /// A resource that is part of the implementation guide, with metadata about how
@@ -284,21 +359,39 @@ pub struct ImplementationGuideDefinitionResource {
 
     /// Versions this applies to (if different to IG)
     pub fhir_version: Option<Vec<types::Code>>,
+    /// Primitive extension sibling for [`fhir_version`](Self::fhir_version) (FHIR `_fhirVersion`).
+    #[serde(rename = "_fhirVersion")]
+    pub fhir_version_ext: Option<Vec<Option<types::Element>>>,
 
     /// Human readable name for the resource
     pub name: Option<types::String>,
+    /// Primitive extension sibling for [`name`](Self::name) (FHIR `_name`).
+    #[serde(rename = "_name")]
+    pub name_ext: Option<types::Element>,
 
     /// Reason why included in guide
     pub description: Option<types::Markdown>,
+    /// Primitive extension sibling for [`description`](Self::description) (FHIR `_description`).
+    #[serde(rename = "_description")]
+    pub description_ext: Option<types::Element>,
 
     /// Is this an example
     pub is_example: Option<types::Boolean>,
+    /// Primitive extension sibling for [`is_example`](Self::is_example) (FHIR `_isExample`).
+    #[serde(rename = "_isExample")]
+    pub is_example_ext: Option<types::Element>,
 
     /// Profile(s) this is an example of
     pub profile: Option<Vec<types::Canonical>>,
+    /// Primitive extension sibling for [`profile`](Self::profile) (FHIR `_profile`).
+    #[serde(rename = "_profile")]
+    pub profile_ext: Option<Vec<Option<types::Element>>>,
 
     /// Grouping this is part of
     pub grouping_id: Option<types::Id>,
+    /// Primitive extension sibling for [`grouping_id`](Self::grouping_id) (FHIR `_groupingId`).
+    #[serde(rename = "_groupingId")]
+    pub grouping_id_ext: Option<types::Element>,
 }
 
 /// A page or section within the implementation guide. Pages nest recursively to
@@ -327,12 +420,21 @@ pub struct ImplementationGuideDefinitionPage {
 
     /// Name of the page when published
     pub name: types::Url,
+    /// Primitive extension sibling for [`name`](Self::name) (FHIR `_name`).
+    #[serde(rename = "_name")]
+    pub name_ext: Option<types::Element>,
 
     /// Short title shown for navigational assistance
     pub title: types::String,
+    /// Primitive extension sibling for [`title`](Self::title) (FHIR `_title`).
+    #[serde(rename = "_title")]
+    pub title_ext: Option<types::Element>,
 
     /// html | markdown | xml | generated
     pub generation: types::Code,
+    /// Primitive extension sibling for [`generation`](Self::generation) (FHIR `_generation`).
+    #[serde(rename = "_generation")]
+    pub generation_ext: Option<types::Element>,
 
     /// Nested Pages / Sections
     pub page: Option<Vec<ImplementationGuideDefinitionPage>>,
@@ -357,6 +459,9 @@ pub struct ImplementationGuideDefinitionParameter {
 
     /// Value for named type
     pub value: types::String,
+    /// Primitive extension sibling for [`value`](Self::value) (FHIR `_value`).
+    #[serde(rename = "_value")]
+    pub value_ext: Option<types::Element>,
 }
 
 /// A template used for building resources within the implementation guide.
@@ -375,12 +480,21 @@ pub struct ImplementationGuideDefinitionTemplate {
 
     /// Type of template specified
     pub code: types::Code,
+    /// Primitive extension sibling for [`code`](Self::code) (FHIR `_code`).
+    #[serde(rename = "_code")]
+    pub code_ext: Option<types::Element>,
 
     /// The source location for the template
     pub source: types::String,
+    /// Primitive extension sibling for [`source`](Self::source) (FHIR `_source`).
+    #[serde(rename = "_source")]
+    pub source_ext: Option<types::Element>,
 
     /// The scope in which the template applies
     pub scope: Option<types::String>,
+    /// Primitive extension sibling for [`scope`](Self::scope) (FHIR `_scope`).
+    #[serde(rename = "_scope")]
+    pub scope_ext: Option<types::Element>,
 }
 
 /// Information about an assembled implementation guide, describing where the
@@ -400,6 +514,9 @@ pub struct ImplementationGuideManifest {
 
     /// Location of rendered implementation guide
     pub rendering: Option<types::Url>,
+    /// Primitive extension sibling for [`rendering`](Self::rendering) (FHIR `_rendering`).
+    #[serde(rename = "_rendering")]
+    pub rendering_ext: Option<types::Element>,
 
     /// Resource in the implementation guide
     pub resource: Vec<ImplementationGuideManifestResource>,
@@ -409,9 +526,15 @@ pub struct ImplementationGuideManifest {
 
     /// Image within the IG
     pub image: Option<Vec<types::String>>,
+    /// Primitive extension sibling for [`image`](Self::image) (FHIR `_image`).
+    #[serde(rename = "_image")]
+    pub image_ext: Option<Vec<Option<types::Element>>>,
 
     /// Additional linkable file in IG
     pub other: Option<Vec<types::String>>,
+    /// Primitive extension sibling for [`other`](Self::other) (FHIR `_other`).
+    #[serde(rename = "_other")]
+    pub other_ext: Option<Vec<Option<types::Element>>>,
 }
 
 /// A resource in the assembled implementation guide, with its rendered location.
@@ -433,12 +556,21 @@ pub struct ImplementationGuideManifestResource {
 
     /// Is this an example
     pub is_example: Option<types::Boolean>,
+    /// Primitive extension sibling for [`is_example`](Self::is_example) (FHIR `_isExample`).
+    #[serde(rename = "_isExample")]
+    pub is_example_ext: Option<types::Element>,
 
     /// Profile(s) this is an example of
     pub profile: Option<Vec<types::Canonical>>,
+    /// Primitive extension sibling for [`profile`](Self::profile) (FHIR `_profile`).
+    #[serde(rename = "_profile")]
+    pub profile_ext: Option<Vec<Option<types::Element>>>,
 
     /// Relative path for page in IG
     pub relative_path: Option<types::Url>,
+    /// Primitive extension sibling for [`relative_path`](Self::relative_path) (FHIR `_relativePath`).
+    #[serde(rename = "_relativePath")]
+    pub relative_path_ext: Option<types::Element>,
 }
 
 /// An HTML page within the assembled implementation guide.
@@ -457,12 +589,21 @@ pub struct ImplementationGuideManifestPage {
 
     /// HTML page name
     pub name: types::String,
+    /// Primitive extension sibling for [`name`](Self::name) (FHIR `_name`).
+    #[serde(rename = "_name")]
+    pub name_ext: Option<types::Element>,
 
     /// Title of the page, for references
     pub title: Option<types::String>,
+    /// Primitive extension sibling for [`title`](Self::title) (FHIR `_title`).
+    #[serde(rename = "_title")]
+    pub title_ext: Option<types::Element>,
 
     /// Anchor available on the page
     pub anchor: Option<Vec<types::String>>,
+    /// Primitive extension sibling for [`anchor`](Self::anchor) (FHIR `_anchor`).
+    #[serde(rename = "_anchor")]
+    pub anchor_ext: Option<Vec<Option<types::Element>>>,
 }
 
 #[cfg(test)]

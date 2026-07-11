@@ -64,9 +64,15 @@ pub struct BodyStructure {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -85,6 +91,9 @@ pub struct BodyStructure {
 
     /// Whether this record is in active use; defaults to true if absent
     pub active: Option<types::Boolean>,
+    /// Primitive extension sibling for [`active`](Self::active) (FHIR `_active`).
+    #[serde(rename = "_active")]
+    pub active_ext: Option<types::Element>,
 
     /// Kind of structure, e.g. tumor, lesion, or excised tissue sample type
     pub morphology: Option<types::CodeableConcept>,
@@ -97,6 +106,9 @@ pub struct BodyStructure {
 
     /// Text description of this structure, for additional human-readable detail
     pub description: Option<types::Markdown>,
+    /// Primitive extension sibling for [`description`](Self::description) (FHIR `_description`).
+    #[serde(rename = "_description")]
+    pub description_ext: Option<types::Element>,
 
     /// Attached images illustrating or documenting the structure
     pub image: Option<Vec<types::Attachment>>,

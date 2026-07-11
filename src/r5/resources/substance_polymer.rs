@@ -61,9 +61,15 @@ pub struct SubstancePolymer {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -91,6 +97,9 @@ pub struct SubstancePolymer {
 
     /// Todo - this is intended to connect to a repeating full modification structure, also used by Protein and Nucleic Acid . String is just a placeholder
     pub modification: Option<types::String>,
+    /// Primitive extension sibling for [`modification`](Self::modification) (FHIR `_modification`).
+    #[serde(rename = "_modification")]
+    pub modification_ext: Option<types::Element>,
 
     /// The monomer sets and their starting materials used to synthesize the polymer
     pub monomer_set: Option<Vec<SubstancePolymerMonomerSet>>,
@@ -146,6 +155,9 @@ pub struct SubstancePolymerMonomerSetStartingMaterial {
 
     /// Used to specify whether the attribute described is a defining element for the unique identification of the polymer
     pub is_defining: Option<types::Boolean>,
+    /// Primitive extension sibling for [`is_defining`](Self::is_defining) (FHIR `_isDefining`).
+    #[serde(rename = "_isDefining")]
+    pub is_defining_ext: Option<types::Element>,
 
     /// A percentage
     pub amount: Option<types::Quantity>,
@@ -169,6 +181,9 @@ pub struct SubstancePolymerRepeat {
 
     /// A representation of an (average) molecular formula from a polymer
     pub average_molecular_formula: Option<types::String>,
+    /// Primitive extension sibling for [`average_molecular_formula`](Self::average_molecular_formula) (FHIR `_averageMolecularFormula`).
+    #[serde(rename = "_averageMolecularFormula")]
+    pub average_molecular_formula_ext: Option<types::Element>,
 
     /// How the quantitative amount of Structural Repeat Units is captured (e.g. Exact, Numeric, Average)
     pub repeat_unit_amount_type: Option<types::CodeableConcept>,
@@ -195,12 +210,18 @@ pub struct SubstancePolymerRepeatRepeatUnit {
 
     /// Structural repeat units are essential elements for defining polymers
     pub unit: Option<types::String>,
+    /// Primitive extension sibling for [`unit`](Self::unit) (FHIR `_unit`).
+    #[serde(rename = "_unit")]
+    pub unit_ext: Option<types::Element>,
 
     /// The orientation of the polymerisation, e.g. head-tail, head-head, random
     pub orientation: Option<types::CodeableConcept>,
 
     /// Number of repeats of this unit
     pub amount: Option<types::Integer>,
+    /// Primitive extension sibling for [`amount`](Self::amount) (FHIR `_amount`).
+    #[serde(rename = "_amount")]
+    pub amount_ext: Option<types::Element>,
 
     /// Applies to homopolymer and block co-polymers where the degree of polymerisation within a block can be described
     pub degree_of_polymerisation: Option<Vec<SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation>>,
@@ -231,12 +252,21 @@ pub struct SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation {
 
     /// An average amount of polymerisation
     pub average: Option<types::Integer>,
+    /// Primitive extension sibling for [`average`](Self::average) (FHIR `_average`).
+    #[serde(rename = "_average")]
+    pub average_ext: Option<types::Element>,
 
     /// A low expected limit of the amount
     pub low: Option<types::Integer>,
+    /// Primitive extension sibling for [`low`](Self::low) (FHIR `_low`).
+    #[serde(rename = "_low")]
+    pub low_ext: Option<types::Element>,
 
     /// A high expected limit of the amount
     pub high: Option<types::Integer>,
+    /// Primitive extension sibling for [`high`](Self::high) (FHIR `_high`).
+    #[serde(rename = "_high")]
+    pub high_ext: Option<types::Element>,
 }
 
 /// SubstancePolymerRepeatRepeatUnitStructuralRepresentation
@@ -260,6 +290,9 @@ pub struct SubstancePolymerRepeatRepeatUnitStructuralRepresentation {
 
     /// The structural representation as text string in a standard format e.g. InChI, SMILES, MOLFILE, CDX, SDF, PDB, mmCIF
     pub representation: Option<types::String>,
+    /// Primitive extension sibling for [`representation`](Self::representation) (FHIR `_representation`).
+    #[serde(rename = "_representation")]
+    pub representation_ext: Option<types::Element>,
 
     /// The format of the representation e.g. InChI, SMILES, MOLFILE, CDX, SDF, PDB, mmCIF
     pub format: Option<types::CodeableConcept>,

@@ -64,9 +64,15 @@ pub struct InsurancePlan {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -85,6 +91,9 @@ pub struct InsurancePlan {
 
     /// The lifecycle status of this plan: draft | active | retired | unknown.
     pub status: Option<types::Code>,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// Kind of product, such as medical or dental, coded as a
     /// [`CodeableConcept`](crate::r5::types::CodeableConcept).
@@ -92,9 +101,15 @@ pub struct InsurancePlan {
 
     /// Official name of the health insurance product or plan.
     pub name: Option<types::String>,
+    /// Primitive extension sibling for [`name`](Self::name) (FHIR `_name`).
+    #[serde(rename = "_name")]
+    pub name_ext: Option<types::Element>,
 
     /// Alternate names
     pub alias: Option<Vec<types::String>>,
+    /// Primitive extension sibling for [`alias`](Self::alias) (FHIR `_alias`).
+    #[serde(rename = "_alias")]
+    pub alias_ext: Option<Vec<Option<types::Element>>>,
 
     /// When the product is available
     pub period: Option<types::Period>,
@@ -169,6 +184,9 @@ pub struct InsurancePlanCoverageBenefit {
 
     /// Referral requirements
     pub requirement: Option<types::String>,
+    /// Primitive extension sibling for [`requirement`](Self::requirement) (FHIR `_requirement`).
+    #[serde(rename = "_requirement")]
+    pub requirement_ext: Option<types::Element>,
 
     /// Benefit limits
     pub limit: Option<Vec<InsurancePlanCoverageBenefitLimit>>,
@@ -247,12 +265,18 @@ pub struct InsurancePlanPlanGeneralCost {
 
     /// Number of enrollees
     pub group_size: Option<types::PositiveInt>,
+    /// Primitive extension sibling for [`group_size`](Self::group_size) (FHIR `_groupSize`).
+    #[serde(rename = "_groupSize")]
+    pub group_size_ext: Option<types::Element>,
 
     /// Cost value
     pub cost: Option<types::Money>,
 
     /// Additional cost information
     pub comment: Option<types::String>,
+    /// Primitive extension sibling for [`comment`](Self::comment) (FHIR `_comment`).
+    #[serde(rename = "_comment")]
+    pub comment_ext: Option<types::Element>,
 }
 
 /// Specific costs: costs associated with the coverage provided by the product.

@@ -60,9 +60,15 @@ pub struct ArtifactAssessment {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -81,6 +87,9 @@ pub struct ArtifactAssessment {
 
     /// A short title for the assessment for use in displaying and selecting
     pub title: Option<types::String>,
+    /// Primitive extension sibling for [`title`](Self::title) (FHIR `_title`).
+    #[serde(rename = "_title")]
+    pub title_ext: Option<types::Element>,
 
     /// Recommended citation for referencing this comment or rating, as a reference
     pub cite_as_reference: Option<types::Reference>,
@@ -90,15 +99,27 @@ pub struct ArtifactAssessment {
 
     /// Date the artifact assessment was last changed
     pub date: Option<types::DateTime>,
+    /// Primitive extension sibling for [`date`](Self::date) (FHIR `_date`).
+    #[serde(rename = "_date")]
+    pub date_ext: Option<types::Element>,
 
     /// Use and/or publishing restrictions
     pub copyright: Option<types::Markdown>,
+    /// Primitive extension sibling for [`copyright`](Self::copyright) (FHIR `_copyright`).
+    #[serde(rename = "_copyright")]
+    pub copyright_ext: Option<types::Element>,
 
     /// When the artifact assessment was approved by publisher
     pub approval_date: Option<types::Date>,
+    /// Primitive extension sibling for [`approval_date`](Self::approval_date) (FHIR `_approvalDate`).
+    #[serde(rename = "_approvalDate")]
+    pub approval_date_ext: Option<types::Element>,
 
     /// When the artifact assessment was last reviewed by the publisher
     pub last_review_date: Option<types::Date>,
+    /// Primitive extension sibling for [`last_review_date`](Self::last_review_date) (FHIR `_lastReviewDate`).
+    #[serde(rename = "_lastReviewDate")]
+    pub last_review_date_ext: Option<types::Element>,
 
     /// The artifact assessed, commented upon, or rated, identified by reference
     pub artifact_reference: Option<types::Reference>,
@@ -114,9 +135,15 @@ pub struct ArtifactAssessment {
 
     /// submitted | triaged | waiting-for-input | resolved-no-change | resolved-change-required | deferred | duplicate | applied | published | entered-in-error
     pub workflow_status: Option<types::Code>,
+    /// Primitive extension sibling for [`workflow_status`](Self::workflow_status) (FHIR `_workflowStatus`).
+    #[serde(rename = "_workflowStatus")]
+    pub workflow_status_ext: Option<types::Element>,
 
     /// unresolved | not-persuasive | persuasive | persuasive-with-modification | not-persuasive-with-modification
     pub disposition: Option<types::Code>,
+    /// Primitive extension sibling for [`disposition`](Self::disposition) (FHIR `_disposition`).
+    #[serde(rename = "_disposition")]
+    pub disposition_ext: Option<types::Element>,
 }
 
 /// Comment, classifier, or rating content of an [`ArtifactAssessment`].
@@ -140,9 +167,15 @@ pub struct ArtifactAssessmentContent {
 
     /// comment | classifier | rating | container | response | change-request
     pub information_type: Option<types::Code>,
+    /// Primitive extension sibling for [`information_type`](Self::information_type) (FHIR `_informationType`).
+    #[serde(rename = "_informationType")]
+    pub information_type_ext: Option<types::Element>,
 
     /// Brief summary of the content
     pub summary: Option<types::Markdown>,
+    /// Primitive extension sibling for [`summary`](Self::summary) (FHIR `_summary`).
+    #[serde(rename = "_summary")]
+    pub summary_ext: Option<types::Element>,
 
     /// What type of content
     pub r#type: Option<types::CodeableConcept>,
@@ -158,12 +191,18 @@ pub struct ArtifactAssessmentContent {
 
     /// What the comment is directed to
     pub path: Option<Vec<types::Uri>>,
+    /// Primitive extension sibling for [`path`](Self::path) (FHIR `_path`).
+    #[serde(rename = "_path")]
+    pub path_ext: Option<Vec<Option<types::Element>>>,
 
     /// Additional information
     pub related_artifact: Option<Vec<types::RelatedArtifact>>,
 
     /// Acceptable to publicly share the resource content
     pub free_to_share: Option<types::Boolean>,
+    /// Primitive extension sibling for [`free_to_share`](Self::free_to_share) (FHIR `_freeToShare`).
+    #[serde(rename = "_freeToShare")]
+    pub free_to_share_ext: Option<types::Element>,
 
     /// Contained content
     pub component: Option<Vec<ArtifactAssessmentContent>>,

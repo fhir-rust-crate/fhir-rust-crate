@@ -65,9 +65,15 @@ pub struct MedicationStatement {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -89,6 +95,9 @@ pub struct MedicationStatement {
 
     /// Status of the assertion as a code such as recorded, entered-in-error, or draft, indicating how the statement should be interpreted.
     pub status: types::Code,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// Type of medication statement
     pub category: Option<Vec<types::CodeableConcept>>,
@@ -113,6 +122,9 @@ pub struct MedicationStatement {
 
     /// When the usage was asserted?
     pub date_asserted: Option<types::DateTime>,
+    /// Primitive extension sibling for [`date_asserted`](Self::date_asserted) (FHIR `_dateAsserted`).
+    #[serde(rename = "_dateAsserted")]
+    pub date_asserted_ext: Option<types::Element>,
 
     /// Person or organization that provided the information about the taking of this medication
     pub information_source: Option<Vec<types::Reference>>,
@@ -131,6 +143,9 @@ pub struct MedicationStatement {
 
     /// Full representation of the dosage instructions
     pub rendered_dosage_instruction: Option<types::Markdown>,
+    /// Primitive extension sibling for [`rendered_dosage_instruction`](Self::rendered_dosage_instruction) (FHIR `_renderedDosageInstruction`).
+    #[serde(rename = "_renderedDosageInstruction")]
+    pub rendered_dosage_instruction_ext: Option<types::Element>,
 
     /// Details of how the medication is, was, or should be taken, including dose, route, and timing.
     pub dosage: Option<Vec<types::Dosage>>,

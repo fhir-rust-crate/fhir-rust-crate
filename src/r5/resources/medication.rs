@@ -66,9 +66,15 @@ pub struct Medication {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -90,6 +96,9 @@ pub struct Medication {
 
     /// Lifecycle status of the record: active, inactive, or entered-in-error
     pub status: Option<types::Code>,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// Organization that has authorization to market medication
     pub marketing_authorization_holder: Option<types::Reference>,
@@ -130,6 +139,9 @@ pub struct MedicationIngredient {
 
     /// Active ingredient indicator
     pub is_active: Option<types::Boolean>,
+    /// Primitive extension sibling for [`is_active`](Self::is_active) (FHIR `_isActive`).
+    #[serde(rename = "_isActive")]
+    pub is_active_ext: Option<types::Element>,
 
     /// Quantity of ingredient present, as a Ratio
     pub strength_ratio: Option<types::Ratio>,
@@ -158,9 +170,15 @@ pub struct MedicationBatch {
 
     /// Identifier assigned to batch
     pub lot_number: Option<types::String>,
+    /// Primitive extension sibling for [`lot_number`](Self::lot_number) (FHIR `_lotNumber`).
+    #[serde(rename = "_lotNumber")]
+    pub lot_number_ext: Option<types::Element>,
 
     /// When batch will expire
     pub expiration_date: Option<types::DateTime>,
+    /// Primitive extension sibling for [`expiration_date`](Self::expiration_date) (FHIR `_expirationDate`).
+    #[serde(rename = "_expirationDate")]
+    pub expiration_date_ext: Option<types::Element>,
 }
 
 #[cfg(test)]

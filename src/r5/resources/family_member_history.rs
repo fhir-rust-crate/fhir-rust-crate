@@ -69,9 +69,15 @@ pub struct FamilyMemberHistory {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -90,13 +96,22 @@ pub struct FamilyMemberHistory {
 
     /// Instantiates FHIR protocol or definition
     pub instantiates_canonical: Option<Vec<types::Canonical>>,
+    /// Primitive extension sibling for [`instantiates_canonical`](Self::instantiates_canonical) (FHIR `_instantiatesCanonical`).
+    #[serde(rename = "_instantiatesCanonical")]
+    pub instantiates_canonical_ext: Option<Vec<Option<types::Element>>>,
 
     /// Instantiates external protocol or definition
     pub instantiates_uri: Option<Vec<types::Uri>>,
+    /// Primitive extension sibling for [`instantiates_uri`](Self::instantiates_uri) (FHIR `_instantiatesUri`).
+    #[serde(rename = "_instantiatesUri")]
+    pub instantiates_uri_ext: Option<Vec<Option<types::Element>>>,
 
     /// The workflow/business status of this record: partial | completed |
     /// entered-in-error | health-unknown.
     pub status: types::Code,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// subject-unknown | withheld | unable-to-obtain | deferred
     pub data_absent_reason: Option<types::CodeableConcept>,
@@ -107,12 +122,18 @@ pub struct FamilyMemberHistory {
 
     /// When history was recorded or last updated
     pub date: Option<types::DateTime>,
+    /// Primitive extension sibling for [`date`](Self::date) (FHIR `_date`).
+    #[serde(rename = "_date")]
+    pub date_ext: Option<types::Element>,
 
     /// Who or what participated in the activities related to the family member history and how they were involved
     pub participant: Option<Vec<FamilyMemberHistoryParticipant>>,
 
     /// The family member described
     pub name: Option<types::String>,
+    /// Primitive extension sibling for [`name`](Self::name) (FHIR `_name`).
+    #[serde(rename = "_name")]
+    pub name_ext: Option<types::Element>,
 
     /// The coded family relationship of this person to the patient, such as
     /// mother, father, or sibling.
@@ -141,6 +162,9 @@ pub struct FamilyMemberHistory {
 
     /// Age is estimated?
     pub estimated_age: Option<types::Boolean>,
+    /// Primitive extension sibling for [`estimated_age`](Self::estimated_age) (FHIR `_estimatedAge`).
+    #[serde(rename = "_estimatedAge")]
+    pub estimated_age_ext: Option<types::Element>,
 
     /// Dead? How old/when?
     pub deceased_boolean: Option<types::Boolean>,
@@ -215,6 +239,9 @@ pub struct FamilyMemberHistoryCondition {
 
     /// Whether the condition contributed to the cause of death
     pub contributed_to_death: Option<types::Boolean>,
+    /// Primitive extension sibling for [`contributed_to_death`](Self::contributed_to_death) (FHIR `_contributedToDeath`).
+    #[serde(rename = "_contributedToDeath")]
+    pub contributed_to_death_ext: Option<types::Element>,
 
     /// When condition first manifested
     pub onset_age: Option<types::Age>,
@@ -255,6 +282,9 @@ pub struct FamilyMemberHistoryProcedure {
 
     /// Whether the procedure contributed to the cause of death
     pub contributed_to_death: Option<types::Boolean>,
+    /// Primitive extension sibling for [`contributed_to_death`](Self::contributed_to_death) (FHIR `_contributedToDeath`).
+    #[serde(rename = "_contributedToDeath")]
+    pub contributed_to_death_ext: Option<types::Element>,
 
     /// When the procedure was performed
     pub performed_age: Option<types::Age>,

@@ -65,9 +65,15 @@ pub struct Provenance {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -92,9 +98,15 @@ pub struct Provenance {
 
     /// The instant the provenance assertion was recorded or last updated, which may differ from when the activity itself occurred.
     pub recorded: Option<types::Instant>,
+    /// Primitive extension sibling for [`recorded`](Self::recorded) (FHIR `_recorded`).
+    #[serde(rename = "_recorded")]
+    pub recorded_ext: Option<types::Element>,
 
     /// Policy or plan the activity was defined by
     pub policy: Option<Vec<types::Uri>>,
+    /// Primitive extension sibling for [`policy`](Self::policy) (FHIR `_policy`).
+    #[serde(rename = "_policy")]
+    pub policy_ext: Option<Vec<Option<types::Element>>>,
 
     /// Where the activity occurred, if relevant
     pub location: Option<types::Reference>,
@@ -167,6 +179,9 @@ pub struct ProvenanceEntity {
 
     /// revision | quotation | source | instantiates | removal
     pub role: types::Code,
+    /// Primitive extension sibling for [`role`](Self::role) (FHIR `_role`).
+    #[serde(rename = "_role")]
+    pub role_ext: Option<types::Element>,
 
     /// Identity of entity
     pub what: types::Reference,

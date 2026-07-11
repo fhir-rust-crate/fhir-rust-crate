@@ -46,6 +46,9 @@ pub struct Reference {
     #[serde(rename = "type")]
     /// Type the reference refers to, e.g. "Patient" (a resource type or absolute URL). // « ResourceType+ »
     pub r#type: Option<types::Uri>, // « ResourceType+ »
+    /// Primitive extension sibling for [`type`](Self::r#type) (FHIR `_type`).
+    #[serde(rename = "_type")]
+    pub type_ext: Option<types::Element>,
     /// Logical reference, when literal reference is not known. // « C »
     pub identifier: Option<Box<types::Identifier>>, // « C » //TODO fix this infinite recursion and also eliminate the Box wrapper.
     /// Text alternative for the resource, for display when the resource cannot be resolved. // « C »

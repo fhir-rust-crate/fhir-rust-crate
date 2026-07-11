@@ -67,9 +67,15 @@ pub struct DeviceDefinition {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -85,6 +91,9 @@ pub struct DeviceDefinition {
 
     /// Additional narrative information to describe the device model, its intended purpose, and general use
     pub description: Option<types::Markdown>,
+    /// Primitive extension sibling for [`description`](Self::description) (FHIR `_description`).
+    #[serde(rename = "_description")]
+    pub description_ext: Option<types::Element>,
 
     /// Business identifier(s) for this device definition, assigned by the manufacturer or a regulatory body
     pub identifier: Option<Vec<types::Identifier>>,
@@ -97,6 +106,9 @@ pub struct DeviceDefinition {
 
     /// The part number or catalog number of the device
     pub part_number: Option<types::String>,
+    /// Primitive extension sibling for [`part_number`](Self::part_number) (FHIR `_partNumber`).
+    #[serde(rename = "_partNumber")]
+    pub part_number_ext: Option<types::Element>,
 
     /// Name of device manufacturer, as a reference to an Organization resource
     pub manufacturer: Option<types::Reference>,
@@ -106,6 +118,9 @@ pub struct DeviceDefinition {
 
     /// The catalog or model number for the device for example as defined by the manufacturer
     pub model_number: Option<types::String>,
+    /// Primitive extension sibling for [`model_number`](Self::model_number) (FHIR `_modelNumber`).
+    #[serde(rename = "_modelNumber")]
+    pub model_number_ext: Option<types::Element>,
 
     /// What kind of device or device system this is, e.g. its risk class or device category
     pub classification: Option<Vec<DeviceDefinitionClassification>>,
@@ -178,12 +193,21 @@ pub struct DeviceDefinitionUdiDeviceIdentifier {
 
     /// The identifier that is to be associated with every Device that references this DeviceDefintiion for the issuer and jurisdiction provided in the DeviceDefinition.udiDeviceIdentifier
     pub device_identifier: types::String,
+    /// Primitive extension sibling for [`device_identifier`](Self::device_identifier) (FHIR `_deviceIdentifier`).
+    #[serde(rename = "_deviceIdentifier")]
+    pub device_identifier_ext: Option<types::Element>,
 
     /// The organization that assigns the identifier algorithm
     pub issuer: types::Uri,
+    /// Primitive extension sibling for [`issuer`](Self::issuer) (FHIR `_issuer`).
+    #[serde(rename = "_issuer")]
+    pub issuer_ext: Option<types::Element>,
 
     /// The jurisdiction to which the deviceIdentifier applies
     pub jurisdiction: types::Uri,
+    /// Primitive extension sibling for [`jurisdiction`](Self::jurisdiction) (FHIR `_jurisdiction`).
+    #[serde(rename = "_jurisdiction")]
+    pub jurisdiction_ext: Option<types::Element>,
 
     /// Indicates whether and when the device is available on the market
     pub market_distribution: Option<Vec<DeviceDefinitionUdiDeviceIdentifierMarketDistribution>>,
@@ -208,6 +232,9 @@ pub struct DeviceDefinitionUdiDeviceIdentifierMarketDistribution {
 
     /// National state or territory where the device is commercialized
     pub sub_jurisdiction: types::Uri,
+    /// Primitive extension sibling for [`sub_jurisdiction`](Self::sub_jurisdiction) (FHIR `_subJurisdiction`).
+    #[serde(rename = "_subJurisdiction")]
+    pub sub_jurisdiction_ext: Option<types::Element>,
 }
 
 /// Regulatory identifier(s) associated with this device.
@@ -226,15 +253,27 @@ pub struct DeviceDefinitionRegulatoryIdentifier {
 
     /// basic | master | license
     pub r#type: types::Code,
+    /// Primitive extension sibling for [`type`](Self::r#type) (FHIR `_type`).
+    #[serde(rename = "_type")]
+    pub type_ext: Option<types::Element>,
 
     /// The identifier itself
     pub device_identifier: types::String,
+    /// Primitive extension sibling for [`device_identifier`](Self::device_identifier) (FHIR `_deviceIdentifier`).
+    #[serde(rename = "_deviceIdentifier")]
+    pub device_identifier_ext: Option<types::Element>,
 
     /// The organization that issued this identifier
     pub issuer: types::Uri,
+    /// Primitive extension sibling for [`issuer`](Self::issuer) (FHIR `_issuer`).
+    #[serde(rename = "_issuer")]
+    pub issuer_ext: Option<types::Element>,
 
     /// The jurisdiction to which the deviceIdentifier applies
     pub jurisdiction: types::Uri,
+    /// Primitive extension sibling for [`jurisdiction`](Self::jurisdiction) (FHIR `_jurisdiction`).
+    #[serde(rename = "_jurisdiction")]
+    pub jurisdiction_ext: Option<types::Element>,
 }
 
 /// The name or names of the device as given by the manufacturer.
@@ -253,9 +292,15 @@ pub struct DeviceDefinitionDeviceName {
 
     /// A name that is used to refer to the device
     pub name: types::String,
+    /// Primitive extension sibling for [`name`](Self::name) (FHIR `_name`).
+    #[serde(rename = "_name")]
+    pub name_ext: Option<types::Element>,
 
     /// registered-name | user-friendly-name | patient-reported-name
     pub r#type: types::Code,
+    /// Primitive extension sibling for [`type`](Self::r#type) (FHIR `_type`).
+    #[serde(rename = "_type")]
+    pub type_ext: Option<types::Element>,
 }
 
 /// What kind of device or device system this is.
@@ -302,6 +347,9 @@ pub struct DeviceDefinitionConformsTo {
 
     /// The specific form or variant of the standard, specification or formal guidance
     pub version: Option<Vec<types::String>>,
+    /// Primitive extension sibling for [`version`](Self::version) (FHIR `_version`).
+    #[serde(rename = "_version")]
+    pub version_ext: Option<Vec<Option<types::Element>>>,
 
     /// Standard, regulation, certification, or guidance website, document, or other publication, or similar, supporting the conformance
     pub source: Option<Vec<types::RelatedArtifact>>,
@@ -326,6 +374,9 @@ pub struct DeviceDefinitionHasPart {
 
     /// Number of occurrences of the part
     pub count: Option<types::Integer>,
+    /// Primitive extension sibling for [`count`](Self::count) (FHIR `_count`).
+    #[serde(rename = "_count")]
+    pub count_ext: Option<types::Element>,
 }
 
 /// Information about the packaging of the device, i.e. how the device is packaged.
@@ -350,6 +401,9 @@ pub struct DeviceDefinitionPackaging {
 
     /// The number of items contained in the package (devices or sub-packages)
     pub count: Option<types::Integer>,
+    /// Primitive extension sibling for [`count`](Self::count) (FHIR `_count`).
+    #[serde(rename = "_count")]
+    pub count_ext: Option<types::Element>,
 
     /// An organization that distributes the packaged device
     pub distributor: Option<Vec<DeviceDefinitionPackagingDistributor>>,
@@ -377,6 +431,9 @@ pub struct DeviceDefinitionPackagingDistributor {
 
     /// Distributor's human-readable name
     pub name: Option<types::String>,
+    /// Primitive extension sibling for [`name`](Self::name) (FHIR `_name`).
+    #[serde(rename = "_name")]
+    pub name_ext: Option<types::Element>,
 
     /// Distributor as an Organization resource
     pub organization_reference: Option<Vec<types::Reference>>,
@@ -404,6 +461,9 @@ pub struct DeviceDefinitionVersion {
 
     /// The version text
     pub value: types::String,
+    /// Primitive extension sibling for [`value`](Self::value) (FHIR `_value`).
+    #[serde(rename = "_value")]
+    pub value_ext: Option<types::Element>,
 }
 
 /// Inherent, essentially fixed, characteristics of this kind of device.
@@ -486,9 +546,15 @@ pub struct DeviceDefinitionMaterial {
 
     /// Indicates an alternative material of the device
     pub alternate: Option<types::Boolean>,
+    /// Primitive extension sibling for [`alternate`](Self::alternate) (FHIR `_alternate`).
+    #[serde(rename = "_alternate")]
+    pub alternate_ext: Option<types::Element>,
 
     /// Whether the substance is a known or suspected allergen
     pub allergenic_indicator: Option<types::Boolean>,
+    /// Primitive extension sibling for [`allergenic_indicator`](Self::allergenic_indicator) (FHIR `_allergenicIndicator`).
+    #[serde(rename = "_allergenicIndicator")]
+    pub allergenic_indicator_ext: Option<types::Element>,
 }
 
 /// Information aimed at providing directions for the usage of this model of
@@ -511,6 +577,9 @@ pub struct DeviceDefinitionGuideline {
 
     /// Detailed written and visual directions for the user on how to use the device
     pub usage_instruction: Option<types::Markdown>,
+    /// Primitive extension sibling for [`usage_instruction`](Self::usage_instruction) (FHIR `_usageInstruction`).
+    #[serde(rename = "_usageInstruction")]
+    pub usage_instruction_ext: Option<types::Element>,
 
     /// A source of information or reference for this guideline
     pub related_artifact: Option<Vec<types::RelatedArtifact>>,
@@ -526,6 +595,9 @@ pub struct DeviceDefinitionGuideline {
 
     /// A description of the general purpose or medical use of the device or its function
     pub intended_use: Option<types::String>,
+    /// Primitive extension sibling for [`intended_use`](Self::intended_use) (FHIR `_intendedUse`).
+    #[serde(rename = "_intendedUse")]
+    pub intended_use_ext: Option<types::Element>,
 }
 
 /// Tracking of latest field safety corrective action.
@@ -544,9 +616,15 @@ pub struct DeviceDefinitionCorrectiveAction {
 
     /// Whether the corrective action was a recall
     pub recall: types::Boolean,
+    /// Primitive extension sibling for [`recall`](Self::recall) (FHIR `_recall`).
+    #[serde(rename = "_recall")]
+    pub recall_ext: Option<types::Element>,
 
     /// model | lot-numbers | serial-numbers
     pub scope: Option<types::Code>,
+    /// Primitive extension sibling for [`scope`](Self::scope) (FHIR `_scope`).
+    #[serde(rename = "_scope")]
+    pub scope_ext: Option<types::Element>,
 
     /// Start and end dates of the corrective action
     pub period: types::Period,

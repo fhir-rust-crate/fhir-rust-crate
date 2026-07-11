@@ -64,9 +64,15 @@ pub struct MeasureReport {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -85,21 +91,36 @@ pub struct MeasureReport {
 
     /// The processing state of the report: complete, pending, or error.
     pub status: types::Code,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// The kind of report: individual, subject-list, summary, or data-exchange.
     pub r#type: types::Code,
+    /// Primitive extension sibling for [`type`](Self::r#type) (FHIR `_type`).
+    #[serde(rename = "_type")]
+    pub type_ext: Option<types::Element>,
 
     /// incremental | snapshot
     pub data_update_type: Option<types::Code>,
+    /// Primitive extension sibling for [`data_update_type`](Self::data_update_type) (FHIR `_dataUpdateType`).
+    #[serde(rename = "_dataUpdateType")]
+    pub data_update_type_ext: Option<types::Element>,
 
     /// Canonical reference to the Measure definition that was calculated.
     pub measure: Option<types::Canonical>,
+    /// Primitive extension sibling for [`measure`](Self::measure) (FHIR `_measure`).
+    #[serde(rename = "_measure")]
+    pub measure_ext: Option<types::Element>,
 
     /// The individual, group, or population that this report concerns.
     pub subject: Option<types::Reference>,
 
     /// When the measure was calculated
     pub date: Option<types::DateTime>,
+    /// Primitive extension sibling for [`date`](Self::date) (FHIR `_date`).
+    #[serde(rename = "_date")]
+    pub date_ext: Option<types::Element>,
 
     /// Who is reporting the data
     pub reporter: Option<types::Reference>,
@@ -148,6 +169,9 @@ pub struct MeasureReportGroup {
 
     /// Pointer to specific group from Measure
     pub link_id: Option<types::String>,
+    /// Primitive extension sibling for [`link_id`](Self::link_id) (FHIR `_linkId`).
+    #[serde(rename = "_linkId")]
+    pub link_id_ext: Option<types::Element>,
 
     /// Meaning of the group
     pub code: Option<types::CodeableConcept>,
@@ -196,12 +220,18 @@ pub struct MeasureReportGroupPopulation {
 
     /// Pointer to specific population from Measure
     pub link_id: Option<types::String>,
+    /// Primitive extension sibling for [`link_id`](Self::link_id) (FHIR `_linkId`).
+    #[serde(rename = "_linkId")]
+    pub link_id_ext: Option<types::Element>,
 
     /// initial-population | numerator | numerator-exclusion | denominator | denominator-exclusion | denominator-exception | measure-population | measure-population-exclusion | measure-observation
     pub code: Option<types::CodeableConcept>,
 
     /// Size of the population
     pub count: Option<types::Integer>,
+    /// Primitive extension sibling for [`count`](Self::count) (FHIR `_count`).
+    #[serde(rename = "_count")]
+    pub count_ext: Option<types::Element>,
 
     /// For subject-list reports, the subject results in this population
     pub subject_results: Option<types::Reference>,
@@ -229,6 +259,9 @@ pub struct MeasureReportGroupStratifier {
 
     /// Pointer to specific stratifier from Measure
     pub link_id: Option<types::String>,
+    /// Primitive extension sibling for [`link_id`](Self::link_id) (FHIR `_linkId`).
+    #[serde(rename = "_linkId")]
+    pub link_id_ext: Option<types::Element>,
 
     /// What stratifier of the group
     pub code: Option<types::CodeableConcept>,
@@ -308,6 +341,9 @@ pub struct MeasureReportGroupStratifierStratumComponent {
 
     /// Pointer to specific stratifier component from Measure
     pub link_id: Option<types::String>,
+    /// Primitive extension sibling for [`link_id`](Self::link_id) (FHIR `_linkId`).
+    #[serde(rename = "_linkId")]
+    pub link_id_ext: Option<types::Element>,
 
     /// What stratifier component of the group
     pub code: types::CodeableConcept,
@@ -344,12 +380,18 @@ pub struct MeasureReportGroupStratifierStratumPopulation {
 
     /// Pointer to specific population from Measure
     pub link_id: Option<types::String>,
+    /// Primitive extension sibling for [`link_id`](Self::link_id) (FHIR `_linkId`).
+    #[serde(rename = "_linkId")]
+    pub link_id_ext: Option<types::Element>,
 
     /// initial-population | numerator | numerator-exclusion | denominator | denominator-exclusion | denominator-exception | measure-population | measure-population-exclusion | measure-observation
     pub code: Option<types::CodeableConcept>,
 
     /// Size of the population
     pub count: Option<types::Integer>,
+    /// Primitive extension sibling for [`count`](Self::count) (FHIR `_count`).
+    #[serde(rename = "_count")]
+    pub count_ext: Option<types::Element>,
 
     /// For subject-list reports, the subject results in this population
     pub subject_results: Option<types::Reference>,

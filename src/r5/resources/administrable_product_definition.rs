@@ -66,9 +66,15 @@ pub struct AdministrableProductDefinition {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -87,6 +93,9 @@ pub struct AdministrableProductDefinition {
 
     /// The publication lifecycle status of this definition: draft | active | retired | unknown
     pub status: types::Code,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// References the overall medicinal product definition from which one or more constituent parts of this administrable product are prepared and used
     pub form_of: Option<Vec<types::Reference>>,
@@ -108,6 +117,9 @@ pub struct AdministrableProductDefinition {
 
     /// A general description of the product, when in its final form, suitable for administration e.g. effervescent blue liquid, to be swallowed
     pub description: Option<types::Markdown>,
+    /// Primitive extension sibling for [`description`](Self::description) (FHIR `_description`).
+    #[serde(rename = "_description")]
+    pub description_ext: Option<types::Element>,
 
     /// Characteristics e.g. a product's onset of action
     pub property: Option<Vec<AdministrableProductDefinitionProperty>>,
@@ -247,6 +259,9 @@ pub struct AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithd
 
     /// Extra information about the withdrawal period
     pub supporting_information: Option<types::String>,
+    /// Primitive extension sibling for [`supporting_information`](Self::supporting_information) (FHIR `_supportingInformation`).
+    #[serde(rename = "_supportingInformation")]
+    pub supporting_information_ext: Option<types::Element>,
 }
 
 #[cfg(test)]

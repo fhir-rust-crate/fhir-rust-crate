@@ -66,9 +66,15 @@ pub struct SubstanceDefinition {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -87,6 +93,9 @@ pub struct SubstanceDefinition {
 
     /// A business level version identifier of the substance
     pub version: Option<types::String>,
+    /// Primitive extension sibling for [`version`](Self::version) (FHIR `_version`).
+    #[serde(rename = "_version")]
+    pub version_ext: Option<types::Element>,
 
     /// Lifecycle status of this substance record within the catalogue, e.g. active, retired
     pub status: Option<types::CodeableConcept>,
@@ -102,6 +111,9 @@ pub struct SubstanceDefinition {
 
     /// Textual description of the substance
     pub description: Option<types::Markdown>,
+    /// Primitive extension sibling for [`description`](Self::description) (FHIR `_description`).
+    #[serde(rename = "_description")]
+    pub description_ext: Option<types::Element>,
 
     /// Supporting literature
     pub information_source: Option<Vec<types::Reference>>,
@@ -177,6 +189,9 @@ pub struct SubstanceDefinitionMoiety {
 
     /// Textual name for this moiety substance
     pub name: Option<types::String>,
+    /// Primitive extension sibling for [`name`](Self::name) (FHIR `_name`).
+    #[serde(rename = "_name")]
+    pub name_ext: Option<types::Element>,
 
     /// Stereochemistry type
     pub stereochemistry: Option<types::CodeableConcept>,
@@ -186,6 +201,9 @@ pub struct SubstanceDefinitionMoiety {
 
     /// Molecular formula for this moiety (e.g. with the Hill system)
     pub molecular_formula: Option<types::String>,
+    /// Primitive extension sibling for [`molecular_formula`](Self::molecular_formula) (FHIR `_molecularFormula`).
+    #[serde(rename = "_molecularFormula")]
+    pub molecular_formula_ext: Option<types::Element>,
 
     /// Quantitative value for this moiety
     pub amount_quantity: Option<types::Quantity>,
@@ -219,6 +237,9 @@ pub struct SubstanceDefinitionCharacterization {
 
     /// The description or justification in support of the interpretation of the data file
     pub description: Option<types::Markdown>,
+    /// Primitive extension sibling for [`description`](Self::description) (FHIR `_description`).
+    #[serde(rename = "_description")]
+    pub description_ext: Option<types::Element>,
 
     /// The data produced by the analytical instrument or a pictorial representation of that data. Examples: a JCAMP, JDX, or ADX file, or a chromatogram or spectrum analysis
     pub file: Option<Vec<types::Attachment>>,
@@ -303,9 +324,15 @@ pub struct SubstanceDefinitionStructure {
 
     /// An expression which states the number and type of atoms present in a molecule of a substance
     pub molecular_formula: Option<types::String>,
+    /// Primitive extension sibling for [`molecular_formula`](Self::molecular_formula) (FHIR `_molecularFormula`).
+    #[serde(rename = "_molecularFormula")]
+    pub molecular_formula_ext: Option<types::Element>,
 
     /// Specified per moiety according to the Hill system
     pub molecular_formula_by_moiety: Option<types::String>,
+    /// Primitive extension sibling for [`molecular_formula_by_moiety`](Self::molecular_formula_by_moiety) (FHIR `_molecularFormulaByMoiety`).
+    #[serde(rename = "_molecularFormulaByMoiety")]
+    pub molecular_formula_by_moiety_ext: Option<types::Element>,
 
     /// The molecular weight or weight range
     pub molecular_weight: Option<SubstanceDefinitionMolecularWeight>,
@@ -339,6 +366,9 @@ pub struct SubstanceDefinitionStructureRepresentation {
 
     /// The structural representation as a text string in a standard format
     pub representation: Option<types::String>,
+    /// Primitive extension sibling for [`representation`](Self::representation) (FHIR `_representation`).
+    #[serde(rename = "_representation")]
+    pub representation_ext: Option<types::Element>,
 
     /// The format of the representation e.g. InChI, SMILES, MOLFILE (note: not the physical file format)
     pub format: Option<types::CodeableConcept>,
@@ -369,6 +399,9 @@ pub struct SubstanceDefinitionCode {
 
     /// The date at which the code status was changed
     pub status_date: Option<types::DateTime>,
+    /// Primitive extension sibling for [`status_date`](Self::status_date) (FHIR `_statusDate`).
+    #[serde(rename = "_statusDate")]
+    pub status_date_ext: Option<types::Element>,
 
     /// Any comment can be provided in this field
     pub note: Option<Vec<types::Annotation>>,
@@ -393,6 +426,9 @@ pub struct SubstanceDefinitionName {
 
     /// The actual name
     pub name: types::String,
+    /// Primitive extension sibling for [`name`](Self::name) (FHIR `_name`).
+    #[serde(rename = "_name")]
+    pub name_ext: Option<types::Element>,
 
     /// Name type e.g. 'systematic',  'scientific, 'brand'
     pub r#type: Option<types::CodeableConcept>,
@@ -402,6 +438,9 @@ pub struct SubstanceDefinitionName {
 
     /// If this is the preferred name for this substance
     pub preferred: Option<types::Boolean>,
+    /// Primitive extension sibling for [`preferred`](Self::preferred) (FHIR `_preferred`).
+    #[serde(rename = "_preferred")]
+    pub preferred_ext: Option<types::Element>,
 
     /// Human language that the name is written in
     pub language: Option<Vec<types::CodeableConcept>>,
@@ -447,6 +486,9 @@ pub struct SubstanceDefinitionNameOfficial {
 
     /// Date of official name change
     pub date: Option<types::DateTime>,
+    /// Primitive extension sibling for [`date`](Self::date) (FHIR `_date`).
+    #[serde(rename = "_date")]
+    pub date_ext: Option<types::Element>,
 }
 
 /// SubstanceDefinition.relationship - A link between this substance and another
@@ -474,6 +516,9 @@ pub struct SubstanceDefinitionRelationship {
 
     /// For example where an enzyme strongly bonds with a particular substance, this is a defining relationship for that enzyme, out of several possible relationships
     pub is_defining: Option<types::Boolean>,
+    /// Primitive extension sibling for [`is_defining`](Self::is_defining) (FHIR `_isDefining`).
+    #[serde(rename = "_isDefining")]
+    pub is_defining_ext: Option<types::Element>,
 
     /// A numeric factor for the relationship, e.g. that a substance salt has some percentage of active substance in relation to some other
     pub amount_quantity: Option<types::Quantity>,

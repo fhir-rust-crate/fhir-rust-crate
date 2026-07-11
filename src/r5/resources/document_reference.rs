@@ -69,9 +69,15 @@ pub struct DocumentReference {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -90,15 +96,24 @@ pub struct DocumentReference {
 
     /// An explicitly assigned identifer of a variation of the content in the DocumentReference
     pub version: Option<types::String>,
+    /// Primitive extension sibling for [`version`](Self::version) (FHIR `_version`).
+    #[serde(rename = "_version")]
+    pub version_ext: Option<types::Element>,
 
     /// Procedure that caused this media to be created
     pub based_on: Option<Vec<types::Reference>>,
 
     /// The status of this document reference (current | superseded | entered-in-error).
     pub status: types::Code,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// registered | partial | preliminary | final | amended | corrected | appended | cancelled | entered-in-error | deprecated | unknown
     pub doc_status: Option<types::Code>,
+    /// Primitive extension sibling for [`doc_status`](Self::doc_status) (FHIR `_docStatus`).
+    #[serde(rename = "_docStatus")]
+    pub doc_status_ext: Option<types::Element>,
 
     /// Imaging modality used
     pub modality: Option<Vec<types::CodeableConcept>>,
@@ -132,6 +147,9 @@ pub struct DocumentReference {
 
     /// When this document reference was created
     pub date: Option<types::Instant>,
+    /// Primitive extension sibling for [`date`](Self::date) (FHIR `_date`).
+    #[serde(rename = "_date")]
+    pub date_ext: Option<types::Element>,
 
     /// Who and/or what authored the document
     pub author: Option<Vec<types::Reference>>,
@@ -147,6 +165,9 @@ pub struct DocumentReference {
 
     /// Human-readable description
     pub description: Option<types::Markdown>,
+    /// Primitive extension sibling for [`description`](Self::description) (FHIR `_description`).
+    #[serde(rename = "_description")]
+    pub description_ext: Option<types::Element>,
 
     /// Document security-tags
     pub security_label: Option<Vec<types::CodeableConcept>>,
@@ -174,6 +195,9 @@ pub struct DocumentReferenceAttester {
 
     /// When the document was attested
     pub time: Option<types::DateTime>,
+    /// Primitive extension sibling for [`time`](Self::time) (FHIR `_time`).
+    #[serde(rename = "_time")]
+    pub time_ext: Option<types::Element>,
 
     /// Who attested the document
     pub party: Option<types::Reference>,

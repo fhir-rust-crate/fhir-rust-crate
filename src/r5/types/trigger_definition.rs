@@ -46,6 +46,9 @@ pub struct TriggerDefinition {
 
     /// named-event | periodic | data-changed | data-added | data-modified | data-removed | data-accessed | data-access-ended
     pub r#type: types::Code,
+    /// Primitive extension sibling for [`type`](Self::r#type) (FHIR `_type`).
+    #[serde(rename = "_type")]
+    pub type_ext: Option<types::Element>,
 
     /// Name or URI that identifies the event
     pub name: Option<types::String>,

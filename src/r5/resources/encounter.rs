@@ -73,9 +73,15 @@ pub struct Encounter {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -94,6 +100,9 @@ pub struct Encounter {
 
     /// Current lifecycle state of the encounter, such as planned, in-progress, on-hold, discharged, completed, cancelled, discontinued, entered-in-error, or unknown.
     pub status: types::Code,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// Classification of the encounter setting, such as inpatient, outpatient, ambulatory, emergency, or virtual.
     pub class: Option<Vec<types::CodeableConcept>>,
@@ -142,9 +151,15 @@ pub struct Encounter {
 
     /// The planned start date/time (or admission date) of the encounter
     pub planned_start_date: Option<types::DateTime>,
+    /// Primitive extension sibling for [`planned_start_date`](Self::planned_start_date) (FHIR `_plannedStartDate`).
+    #[serde(rename = "_plannedStartDate")]
+    pub planned_start_date_ext: Option<types::Element>,
 
     /// The planned end date/time (or discharge date) of the encounter
     pub planned_end_date: Option<types::DateTime>,
+    /// Primitive extension sibling for [`planned_end_date`](Self::planned_end_date) (FHIR `_plannedEndDate`).
+    #[serde(rename = "_plannedEndDate")]
+    pub planned_end_date_ext: Option<types::Element>,
 
     /// Actual quantity of time the encounter lasted (less time absent)
     pub length: Option<types::Duration>,
@@ -293,6 +308,9 @@ pub struct EncounterLocation {
 
     /// planned | active | reserved | completed
     pub status: Option<types::Code>,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// The physical type of the location (usually the level in the location hierarchy - bed, room, ward, virtual etc.)
     pub form: Option<types::CodeableConcept>,

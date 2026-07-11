@@ -61,9 +61,15 @@ pub struct RiskAssessment {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -88,6 +94,9 @@ pub struct RiskAssessment {
 
     /// The status of the RiskAssessment, using the codes registered | preliminary | final | amended +
     pub status: types::Code,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// The algorithm, risk-scoring tool, or evaluation mechanism used to generate the assessment
     pub method: Option<types::CodeableConcept>,
@@ -124,6 +133,9 @@ pub struct RiskAssessment {
 
     /// Recommended steps to reduce the predicted risk, or an indication that no mitigation is available
     pub mitigation: Option<types::String>,
+    /// Primitive extension sibling for [`mitigation`](Self::mitigation) (FHIR `_mitigation`).
+    #[serde(rename = "_mitigation")]
+    pub mitigation_ext: Option<types::Element>,
 
     /// Comments on the risk assessment
     pub note: Option<Vec<types::Annotation>>,
@@ -160,6 +172,9 @@ pub struct RiskAssessmentPrediction {
 
     /// Relative likelihood
     pub relative_risk: Option<types::Decimal>,
+    /// Primitive extension sibling for [`relative_risk`](Self::relative_risk) (FHIR `_relativeRisk`).
+    #[serde(rename = "_relativeRisk")]
+    pub relative_risk_ext: Option<types::Element>,
 
     /// Timeframe or age range
     pub when_period: Option<types::Period>,
@@ -169,6 +184,9 @@ pub struct RiskAssessmentPrediction {
 
     /// Explanation of prediction
     pub rationale: Option<types::String>,
+    /// Primitive extension sibling for [`rationale`](Self::rationale) (FHIR `_rationale`).
+    #[serde(rename = "_rationale")]
+    pub rationale_ext: Option<types::Element>,
 }
 
 #[cfg(test)]

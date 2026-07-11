@@ -64,9 +64,15 @@ pub struct AppointmentResponse {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -88,12 +94,21 @@ pub struct AppointmentResponse {
 
     /// Set when this response proposes a different time than the one requested.
     pub proposed_new_time: Option<types::Boolean>,
+    /// Primitive extension sibling for [`proposed_new_time`](Self::proposed_new_time) (FHIR `_proposedNewTime`).
+    #[serde(rename = "_proposedNewTime")]
+    pub proposed_new_time_ext: Option<types::Element>,
 
     /// Time from appointment, or requested new start time
     pub start: Option<types::Instant>,
+    /// Primitive extension sibling for [`start`](Self::start) (FHIR `_start`).
+    #[serde(rename = "_start")]
+    pub start_ext: Option<types::Element>,
 
     /// Time from appointment, or requested new end time
     pub end: Option<types::Instant>,
+    /// Primitive extension sibling for [`end`](Self::end) (FHIR `_end`).
+    #[serde(rename = "_end")]
+    pub end_ext: Option<types::Element>,
 
     /// Role of participant in the appointment
     pub participant_type: Option<Vec<types::CodeableConcept>>,
@@ -106,18 +121,33 @@ pub struct AppointmentResponse {
     /// The participation status code: accepted | declined | tentative |
     /// needs-action | entered-in-error.
     pub participant_status: types::Code,
+    /// Primitive extension sibling for [`participant_status`](Self::participant_status) (FHIR `_participantStatus`).
+    #[serde(rename = "_participantStatus")]
+    pub participant_status_ext: Option<types::Element>,
 
     /// Additional free-text comments from the participant about the appointment.
     pub comment: Option<types::Markdown>,
+    /// Primitive extension sibling for [`comment`](Self::comment) (FHIR `_comment`).
+    #[serde(rename = "_comment")]
+    pub comment_ext: Option<types::Element>,
 
     /// Whether this response is for all occurrences in a recurring request.
     pub recurring: Option<types::Boolean>,
+    /// Primitive extension sibling for [`recurring`](Self::recurring) (FHIR `_recurring`).
+    #[serde(rename = "_recurring")]
+    pub recurring_ext: Option<types::Element>,
 
     /// Original date within a recurring request
     pub occurrence_date: Option<types::Date>,
+    /// Primitive extension sibling for [`occurrence_date`](Self::occurrence_date) (FHIR `_occurrenceDate`).
+    #[serde(rename = "_occurrenceDate")]
+    pub occurrence_date_ext: Option<types::Element>,
 
     /// The recurrence ID of the specific recurring request
     pub recurrence_id: Option<types::PositiveInt>,
+    /// Primitive extension sibling for [`recurrence_id`](Self::recurrence_id) (FHIR `_recurrenceId`).
+    #[serde(rename = "_recurrenceId")]
+    pub recurrence_id_ext: Option<types::Element>,
 }
 
 #[cfg(test)]

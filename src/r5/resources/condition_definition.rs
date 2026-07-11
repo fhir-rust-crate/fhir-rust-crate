@@ -70,9 +70,15 @@ pub struct ConditionDefinition {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -88,12 +94,18 @@ pub struct ConditionDefinition {
 
     /// Canonical identifier for this condition definition, represented as a URI (globally unique)
     pub url: Option<types::Uri>,
+    /// Primitive extension sibling for [`url`](Self::url) (FHIR `_url`).
+    #[serde(rename = "_url")]
+    pub url_ext: Option<types::Element>,
 
     /// Additional identifier for the condition definition
     pub identifier: Option<Vec<types::Identifier>>,
 
     /// Business version of the condition definition
     pub version: Option<types::String>,
+    /// Primitive extension sibling for [`version`](Self::version) (FHIR `_version`).
+    #[serde(rename = "_version")]
+    pub version_ext: Option<types::Element>,
 
     /// How to compare versions
     pub version_algorithm_string: Option<types::String>,
@@ -103,30 +115,54 @@ pub struct ConditionDefinition {
 
     /// Name for this condition definition (computer friendly)
     pub name: Option<types::String>,
+    /// Primitive extension sibling for [`name`](Self::name) (FHIR `_name`).
+    #[serde(rename = "_name")]
+    pub name_ext: Option<types::Element>,
 
     /// Name for this condition definition (human friendly)
     pub title: Option<types::String>,
+    /// Primitive extension sibling for [`title`](Self::title) (FHIR `_title`).
+    #[serde(rename = "_title")]
+    pub title_ext: Option<types::Element>,
 
     /// Subordinate title of the event definition
     pub subtitle: Option<types::String>,
+    /// Primitive extension sibling for [`subtitle`](Self::subtitle) (FHIR `_subtitle`).
+    #[serde(rename = "_subtitle")]
+    pub subtitle_ext: Option<types::Element>,
 
     /// Publication lifecycle status of this definition: draft, active, retired, or unknown.
     pub status: types::Code,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// For testing purposes, not real usage
     pub experimental: Option<types::Boolean>,
+    /// Primitive extension sibling for [`experimental`](Self::experimental) (FHIR `_experimental`).
+    #[serde(rename = "_experimental")]
+    pub experimental_ext: Option<types::Element>,
 
     /// Date last changed
     pub date: Option<types::DateTime>,
+    /// Primitive extension sibling for [`date`](Self::date) (FHIR `_date`).
+    #[serde(rename = "_date")]
+    pub date_ext: Option<types::Element>,
 
     /// Name of the publisher/steward (organization or individual)
     pub publisher: Option<types::String>,
+    /// Primitive extension sibling for [`publisher`](Self::publisher) (FHIR `_publisher`).
+    #[serde(rename = "_publisher")]
+    pub publisher_ext: Option<types::Element>,
 
     /// Contact details for the publisher
     pub contact: Option<Vec<types::ContactDetail>>,
 
     /// Natural language description of the condition definition
     pub description: Option<types::Markdown>,
+    /// Primitive extension sibling for [`description`](Self::description) (FHIR `_description`).
+    #[serde(rename = "_description")]
+    pub description_ext: Option<types::Element>,
 
     /// The context that the content is intended to support
     pub use_context: Option<Vec<types::UsageContext>>,
@@ -148,15 +184,27 @@ pub struct ConditionDefinition {
 
     /// Whether Severity is appropriate
     pub has_severity: Option<types::Boolean>,
+    /// Primitive extension sibling for [`has_severity`](Self::has_severity) (FHIR `_hasSeverity`).
+    #[serde(rename = "_hasSeverity")]
+    pub has_severity_ext: Option<types::Element>,
 
     /// Whether bodySite is appropriate
     pub has_body_site: Option<types::Boolean>,
+    /// Primitive extension sibling for [`has_body_site`](Self::has_body_site) (FHIR `_hasBodySite`).
+    #[serde(rename = "_hasBodySite")]
+    pub has_body_site_ext: Option<types::Element>,
 
     /// Whether stage is appropriate
     pub has_stage: Option<types::Boolean>,
+    /// Primitive extension sibling for [`has_stage`](Self::has_stage) (FHIR `_hasStage`).
+    #[serde(rename = "_hasStage")]
+    pub has_stage_ext: Option<types::Element>,
 
     /// Formal Definition for the condition
     pub definition: Option<Vec<types::Uri>>,
+    /// Primitive extension sibling for [`definition`](Self::definition) (FHIR `_definition`).
+    #[serde(rename = "_definition")]
+    pub definition_ext: Option<Vec<Option<types::Element>>>,
 
     /// Observations particularly relevant to this condition
     pub observation: Option<Vec<ConditionDefinitionObservation>>,
@@ -235,6 +283,9 @@ pub struct ConditionDefinitionPrecondition {
 
     /// sensitive | specific
     pub r#type: types::Code,
+    /// Primitive extension sibling for [`type`](Self::r#type) (FHIR `_type`).
+    #[serde(rename = "_type")]
+    pub type_ext: Option<types::Element>,
 
     /// Code for relevant Observation
     pub code: types::CodeableConcept,
@@ -262,6 +313,9 @@ pub struct ConditionDefinitionQuestionnaire {
 
     /// preadmit | diff-diagnosis | outcome
     pub purpose: types::Code,
+    /// Primitive extension sibling for [`purpose`](Self::purpose) (FHIR `_purpose`).
+    #[serde(rename = "_purpose")]
+    pub purpose_ext: Option<types::Element>,
 
     /// Specific Questionnaire
     pub reference: types::Reference,

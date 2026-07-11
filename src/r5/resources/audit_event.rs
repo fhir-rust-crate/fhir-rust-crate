@@ -70,9 +70,15 @@ pub struct AuditEvent {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -94,9 +100,15 @@ pub struct AuditEvent {
 
     /// Type of action performed during the event: create (C), read/view (R), update (U), delete (D), or execute (E)
     pub action: Option<types::Code>,
+    /// Primitive extension sibling for [`action`](Self::action) (FHIR `_action`).
+    #[serde(rename = "_action")]
+    pub action_ext: Option<types::Element>,
 
     /// emergency | alert | critical | error | warning | notice | informational | debug
     pub severity: Option<types::Code>,
+    /// Primitive extension sibling for [`severity`](Self::severity) (FHIR `_severity`).
+    #[serde(rename = "_severity")]
+    pub severity_ext: Option<types::Element>,
 
     /// When the activity occurred (Period)
     pub occurred_period: Option<types::Period>,
@@ -106,6 +118,9 @@ pub struct AuditEvent {
 
     /// Time when the event was recorded, which may differ from when the underlying activity actually occurred
     pub recorded: types::Instant,
+    /// Primitive extension sibling for [`recorded`](Self::recorded) (FHIR `_recorded`).
+    #[serde(rename = "_recorded")]
+    pub recorded_ext: Option<types::Element>,
 
     /// Whether the event succeeded or failed, along with any additional outcome detail
     pub outcome: Option<AuditEventOutcome>,
@@ -185,12 +200,18 @@ pub struct AuditEventAgent {
 
     /// Whether user is initiator
     pub requestor: Option<types::Boolean>,
+    /// Primitive extension sibling for [`requestor`](Self::requestor) (FHIR `_requestor`).
+    #[serde(rename = "_requestor")]
+    pub requestor_ext: Option<types::Element>,
 
     /// The agent location when the event occurred
     pub location: Option<types::Reference>,
 
     /// Policy that authorized the agent participation in the event
     pub policy: Option<Vec<types::Uri>>,
+    /// Primitive extension sibling for [`policy`](Self::policy) (FHIR `_policy`).
+    #[serde(rename = "_policy")]
+    pub policy_ext: Option<Vec<Option<types::Element>>>,
 
     /// This agent network location for the activity (Reference)
     pub network_reference: Option<types::Reference>,
@@ -262,6 +283,9 @@ pub struct AuditEventEntity {
 
     /// Query parameters
     pub query: Option<types::Base64Binary>,
+    /// Primitive extension sibling for [`query`](Self::query) (FHIR `_query`).
+    #[serde(rename = "_query")]
+    pub query_ext: Option<types::Element>,
 
     /// Additional Information about the entity
     pub detail: Option<Vec<AuditEventEntityDetail>>,

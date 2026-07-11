@@ -69,9 +69,15 @@ pub struct AllergyIntolerance {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -99,9 +105,15 @@ pub struct AllergyIntolerance {
 
     /// food | medication | environment | biologic
     pub category: Option<Vec<types::Code>>,
+    /// Primitive extension sibling for [`category`](Self::category) (FHIR `_category`).
+    #[serde(rename = "_category")]
+    pub category_ext: Option<Vec<Option<types::Element>>>,
 
     /// low | high | unable-to-assess - estimated risk of harm from future exposure
     pub criticality: Option<types::Code>,
+    /// Primitive extension sibling for [`criticality`](Self::criticality) (FHIR `_criticality`).
+    #[serde(rename = "_criticality")]
+    pub criticality_ext: Option<types::Element>,
 
     /// Code that identifies the allergy or intolerance, e.g. a substance or product code
     pub code: Option<types::CodeableConcept>,
@@ -129,6 +141,9 @@ pub struct AllergyIntolerance {
 
     /// Date allergy or intolerance was first recorded
     pub recorded_date: Option<types::DateTime>,
+    /// Primitive extension sibling for [`recorded_date`](Self::recorded_date) (FHIR `_recordedDate`).
+    #[serde(rename = "_recordedDate")]
+    pub recorded_date_ext: Option<types::Element>,
 
     /// Who or what participated in the activities related to the allergy or
     /// intolerance and how they were involved
@@ -136,6 +151,9 @@ pub struct AllergyIntolerance {
 
     /// Date(/time) of last known occurrence of a reaction
     pub last_occurrence: Option<types::DateTime>,
+    /// Primitive extension sibling for [`last_occurrence`](Self::last_occurrence) (FHIR `_lastOccurrence`).
+    #[serde(rename = "_lastOccurrence")]
+    pub last_occurrence_ext: Option<types::Element>,
 
     /// Additional text not captured in other fields
     pub note: Option<Vec<types::Annotation>>,
@@ -190,12 +208,21 @@ pub struct AllergyIntoleranceReaction {
 
     /// Description of the event as a whole
     pub description: Option<types::String>,
+    /// Primitive extension sibling for [`description`](Self::description) (FHIR `_description`).
+    #[serde(rename = "_description")]
+    pub description_ext: Option<types::Element>,
 
     /// Date(/time) when manifestations showed
     pub onset: Option<types::DateTime>,
+    /// Primitive extension sibling for [`onset`](Self::onset) (FHIR `_onset`).
+    #[serde(rename = "_onset")]
+    pub onset_ext: Option<types::Element>,
 
     /// mild | moderate | severe (of event as a whole)
     pub severity: Option<types::Code>,
+    /// Primitive extension sibling for [`severity`](Self::severity) (FHIR `_severity`).
+    #[serde(rename = "_severity")]
+    pub severity_ext: Option<types::Element>,
 
     /// How the subject was exposed to the substance
     pub exposure_route: Option<types::CodeableConcept>,

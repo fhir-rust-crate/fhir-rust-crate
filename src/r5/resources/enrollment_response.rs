@@ -58,9 +58,15 @@ pub struct EnrollmentResponse {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -79,18 +85,30 @@ pub struct EnrollmentResponse {
 
     /// The status of the resource instance itself: active | cancelled | draft | entered-in-error
     pub status: Option<types::Code>,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// Reference to the originating `EnrollmentRequest` that this response answers
     pub request: Option<types::Reference>,
 
     /// The processing outcome of the enrollment request: queued | complete | error | partial
     pub outcome: Option<types::Code>,
+    /// Primitive extension sibling for [`outcome`](Self::outcome) (FHIR `_outcome`).
+    #[serde(rename = "_outcome")]
+    pub outcome_ext: Option<types::Element>,
 
     /// A human-readable description of the outcome of processing the request
     pub disposition: Option<types::String>,
+    /// Primitive extension sibling for [`disposition`](Self::disposition) (FHIR `_disposition`).
+    #[serde(rename = "_disposition")]
+    pub disposition_ext: Option<types::Element>,
 
     /// The date on which this enrollment response was created
     pub created: Option<types::DateTime>,
+    /// Primitive extension sibling for [`created`](Self::created) (FHIR `_created`).
+    #[serde(rename = "_created")]
+    pub created_ext: Option<types::Element>,
 
     /// Reference to the insurer organization that processed the enrollment request
     pub organization: Option<types::Reference>,

@@ -66,9 +66,15 @@ pub struct Organization {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -87,18 +93,30 @@ pub struct Organization {
 
     /// Whether the organization's record is still in active use; a false value marks records that should no longer be selected for new activity.
     pub active: Option<types::Boolean>,
+    /// Primitive extension sibling for [`active`](Self::active) (FHIR `_active`).
+    #[serde(rename = "_active")]
+    pub active_ext: Option<types::Element>,
 
     /// The kind or category of organization, coded so systems can classify it, for example a healthcare provider, payer, department, or educational institution.
     pub r#type: Option<Vec<types::CodeableConcept>>,
 
     /// The public or human-readable name used to refer to the organization.
     pub name: Option<types::String>,
+    /// Primitive extension sibling for [`name`](Self::name) (FHIR `_name`).
+    #[serde(rename = "_name")]
+    pub name_ext: Option<types::Element>,
 
     /// A list of alternate names that the organization is known as, or was known as in the past
     pub alias: Option<Vec<types::String>>,
+    /// Primitive extension sibling for [`alias`](Self::alias) (FHIR `_alias`).
+    #[serde(rename = "_alias")]
+    pub alias_ext: Option<Vec<Option<types::Element>>>,
 
     /// Additional details about the Organization that could be displayed as further information to identify the Organization beyond its name
     pub description: Option<types::Markdown>,
+    /// Primitive extension sibling for [`description`](Self::description) (FHIR `_description`).
+    #[serde(rename = "_description")]
+    pub description_ext: Option<types::Element>,
 
     /// Official contact details for the Organization
     pub contact: Option<Vec<types::ExtendedContactDetail>>,

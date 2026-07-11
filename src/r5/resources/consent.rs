@@ -65,9 +65,15 @@ pub struct Consent {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -86,6 +92,9 @@ pub struct Consent {
 
     /// The current lifecycle status of this consent record: draft | active | inactive | not-done | entered-in-error | unknown
     pub status: types::Code,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// Classification of the consent statement (e.g. privacy, treatment, research) used for indexing and retrieval
     pub category: Option<Vec<types::CodeableConcept>>,
@@ -95,6 +104,9 @@ pub struct Consent {
 
     /// Fully executed date of the consent
     pub date: Option<types::Date>,
+    /// Primitive extension sibling for [`date`](Self::date) (FHIR `_date`).
+    #[serde(rename = "_date")]
+    pub date_ext: Option<types::Element>,
 
     /// Effective period for this Consent
     pub period: Option<types::Period>,
@@ -131,6 +143,9 @@ pub struct Consent {
 
     /// The overall decision expressed by this consent: deny | permit
     pub decision: Option<types::Code>,
+    /// Primitive extension sibling for [`decision`](Self::decision) (FHIR `_decision`).
+    #[serde(rename = "_decision")]
+    pub decision_ext: Option<types::Element>,
 
     /// Fine-grained constraints and exceptions that scope the base decision, may be nested
     pub provision: Option<Vec<ConsentProvision>>,
@@ -158,6 +173,9 @@ pub struct ConsentPolicyBasis {
 
     /// URL to a computable backing policy
     pub url: Option<types::Url>,
+    /// Primitive extension sibling for [`url`](Self::url) (FHIR `_url`).
+    #[serde(rename = "_url")]
+    pub url_ext: Option<types::Element>,
 }
 
 /// Consent Verified by patient or family.
@@ -179,6 +197,9 @@ pub struct ConsentVerification {
 
     /// Has been verified
     pub verified: types::Boolean,
+    /// Primitive extension sibling for [`verified`](Self::verified) (FHIR `_verified`).
+    #[serde(rename = "_verified")]
+    pub verified_ext: Option<types::Element>,
 
     /// Business case of verification
     pub verification_type: Option<types::CodeableConcept>,
@@ -191,6 +212,9 @@ pub struct ConsentVerification {
 
     /// When consent verified
     pub verification_date: Option<Vec<types::DateTime>>,
+    /// Primitive extension sibling for [`verification_date`](Self::verification_date) (FHIR `_verificationDate`).
+    #[serde(rename = "_verificationDate")]
+    pub verification_date_ext: Option<Vec<Option<types::Element>>>,
 }
 
 /// Constraints to the base Consent.policyRule/Consent.policy.
@@ -291,6 +315,9 @@ pub struct ConsentProvisionData {
 
     /// instance | related | dependents | authoredby
     pub meaning: types::Code,
+    /// Primitive extension sibling for [`meaning`](Self::meaning) (FHIR `_meaning`).
+    #[serde(rename = "_meaning")]
+    pub meaning_ext: Option<types::Element>,
 
     /// The actual data reference
     pub reference: types::Reference,

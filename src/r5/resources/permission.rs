@@ -65,9 +65,15 @@ pub struct Permission {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -83,12 +89,18 @@ pub struct Permission {
 
     /// Lifecycle state of the permission: active, entered-in-error, draft, or rejected.
     pub status: types::Code,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// Reference to the person or entity that asserts this permission and its rules.
     pub asserter: Option<types::Reference>,
 
     /// The date(s) on which the permission was asserted by the asserter.
     pub date: Option<Vec<types::DateTime>>,
+    /// Primitive extension sibling for [`date`](Self::date) (FHIR `_date`).
+    #[serde(rename = "_date")]
+    pub date_ext: Option<Vec<Option<types::Element>>>,
 
     /// The period during which this permission's rules are in effect.
     pub validity: Option<types::Period>,
@@ -98,6 +110,9 @@ pub struct Permission {
 
     /// Combining algorithm that reconciles conflicting rules: deny-overrides, permit-overrides, ordered-deny-overrides, ordered-permit-overrides, deny-unless-permit, or permit-unless-deny.
     pub combining: types::Code,
+    /// Primitive extension sibling for [`combining`](Self::combining) (FHIR `_combining`).
+    #[serde(rename = "_combining")]
+    pub combining_ext: Option<types::Element>,
 
     /// The ordered set of rules that constrain access under this permission.
     pub rule: Option<Vec<PermissionRule>>,
@@ -140,6 +155,9 @@ pub struct PermissionRule {
 
     /// deny | permit
     pub r#type: Option<types::Code>,
+    /// Primitive extension sibling for [`type`](Self::r#type) (FHIR `_type`).
+    #[serde(rename = "_type")]
+    pub type_ext: Option<types::Element>,
 
     /// The selection criteria to identify data that is within scope of this provision
     pub data: Option<Vec<PermissionRuleData>>,
@@ -194,6 +212,9 @@ pub struct PermissionRuleDataResource {
 
     /// instance | related | dependents | authoredby
     pub meaning: types::Code,
+    /// Primitive extension sibling for [`meaning`](Self::meaning) (FHIR `_meaning`).
+    #[serde(rename = "_meaning")]
+    pub meaning_ext: Option<types::Element>,
 
     /// The actual data reference
     pub reference: types::Reference,

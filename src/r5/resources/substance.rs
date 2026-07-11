@@ -67,9 +67,15 @@ pub struct Substance {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -88,9 +94,15 @@ pub struct Substance {
 
     /// True if this represents a specific physical instance/package/lot of the substance rather than a general kind
     pub instance: types::Boolean,
+    /// Primitive extension sibling for [`instance`](Self::instance) (FHIR `_instance`).
+    #[serde(rename = "_instance")]
+    pub instance_ext: Option<types::Element>,
 
     /// The status of the substance record: active | inactive | entered-in-error
     pub status: Option<types::Code>,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// Classification of the substance into one or more categories, e.g. drug, allergen, or biological
     pub category: Option<Vec<types::CodeableConcept>>,
@@ -100,9 +112,15 @@ pub struct Substance {
 
     /// Textual description of the substance, comments
     pub description: Option<types::Markdown>,
+    /// Primitive extension sibling for [`description`](Self::description) (FHIR `_description`).
+    #[serde(rename = "_description")]
+    pub description_ext: Option<types::Element>,
 
     /// When no longer valid to use
     pub expiry: Option<types::DateTime>,
+    /// Primitive extension sibling for [`expiry`](Self::expiry) (FHIR `_expiry`).
+    #[serde(rename = "_expiry")]
+    pub expiry_ext: Option<types::Element>,
 
     /// Amount of substance in the package
     pub quantity: Option<types::Quantity>,

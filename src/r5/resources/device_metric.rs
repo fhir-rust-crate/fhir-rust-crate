@@ -55,9 +55,15 @@ pub struct DeviceMetric {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -85,12 +91,21 @@ pub struct DeviceMetric {
 
     /// Indicates the current operational status of the device metric: on | off | standby | entered-in-error.
     pub operational_status: Option<types::Code>,
+    /// Primitive extension sibling for [`operational_status`](Self::operational_status) (FHIR `_operationalStatus`).
+    #[serde(rename = "_operationalStatus")]
+    pub operational_status_ext: Option<types::Element>,
 
     /// Color name (from CSS4) or #RRGGBB code
     pub color: Option<types::Code>,
+    /// Primitive extension sibling for [`color`](Self::color) (FHIR `_color`).
+    #[serde(rename = "_color")]
+    pub color_ext: Option<types::Element>,
 
     /// Classifies the metric as a measurement, setting, calculation, or unspecified kind.
     pub category: types::Code,
+    /// Primitive extension sibling for [`category`](Self::category) (FHIR `_category`).
+    #[serde(rename = "_category")]
+    pub category_ext: Option<types::Element>,
 
     /// Indicates how often the metric is taken or recorded
     pub measurement_frequency: Option<types::Quantity>,
@@ -115,12 +130,21 @@ pub struct DeviceMetricCalibration {
 
     /// unspecified | offset | gain | two-point
     pub r#type: Option<types::Code>,
+    /// Primitive extension sibling for [`type`](Self::r#type) (FHIR `_type`).
+    #[serde(rename = "_type")]
+    pub type_ext: Option<types::Element>,
 
     /// not-calibrated | calibration-required | calibrated | unspecified
     pub state: Option<types::Code>,
+    /// Primitive extension sibling for [`state`](Self::state) (FHIR `_state`).
+    #[serde(rename = "_state")]
+    pub state_ext: Option<types::Element>,
 
     /// Describes the time last calibration has been performed
     pub time: Option<types::Instant>,
+    /// Primitive extension sibling for [`time`](Self::time) (FHIR `_time`).
+    #[serde(rename = "_time")]
+    pub time_ext: Option<types::Element>,
 }
 
 #[cfg(test)]

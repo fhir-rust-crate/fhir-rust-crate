@@ -64,9 +64,15 @@ pub struct PaymentNotice {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -85,6 +91,9 @@ pub struct PaymentNotice {
 
     /// Lifecycle state of this notice: active, cancelled, draft, or entered-in-error.
     pub status: types::Code,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// Request reference
     pub request: Option<types::Reference>,
@@ -94,6 +103,9 @@ pub struct PaymentNotice {
 
     /// Creation date
     pub created: types::DateTime,
+    /// Primitive extension sibling for [`created`](Self::created) (FHIR `_created`).
+    #[serde(rename = "_created")]
+    pub created_ext: Option<types::Element>,
 
     /// Responsible practitioner
     pub reporter: Option<types::Reference>,
@@ -103,6 +115,9 @@ pub struct PaymentNotice {
 
     /// Payment or clearing date
     pub payment_date: Option<types::Date>,
+    /// Primitive extension sibling for [`payment_date`](Self::payment_date) (FHIR `_paymentDate`).
+    #[serde(rename = "_paymentDate")]
+    pub payment_date_ext: Option<types::Element>,
 
     /// Party being paid
     pub payee: Option<types::Reference>,

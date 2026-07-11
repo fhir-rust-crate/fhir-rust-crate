@@ -60,9 +60,15 @@ pub struct PaymentReconciliation {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -84,6 +90,9 @@ pub struct PaymentReconciliation {
 
     /// Lifecycle status of the reconciliation: active, cancelled, draft, or entered-in-error.
     pub status: types::Code,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// Workflow originating payment
     pub kind: Option<types::CodeableConcept>,
@@ -93,6 +102,9 @@ pub struct PaymentReconciliation {
 
     /// Creation date
     pub created: types::DateTime,
+    /// Primitive extension sibling for [`created`](Self::created) (FHIR `_created`).
+    #[serde(rename = "_created")]
+    pub created_ext: Option<types::Element>,
 
     /// Who entered the payment
     pub enterer: Option<types::Reference>,
@@ -111,12 +123,21 @@ pub struct PaymentReconciliation {
 
     /// queued | complete | error | partial
     pub outcome: Option<types::Code>,
+    /// Primitive extension sibling for [`outcome`](Self::outcome) (FHIR `_outcome`).
+    #[serde(rename = "_outcome")]
+    pub outcome_ext: Option<types::Element>,
 
     /// Disposition message
     pub disposition: Option<types::String>,
+    /// Primitive extension sibling for [`disposition`](Self::disposition) (FHIR `_disposition`).
+    #[serde(rename = "_disposition")]
+    pub disposition_ext: Option<types::Element>,
 
     /// When payment issued
     pub date: types::Date,
+    /// Primitive extension sibling for [`date`](Self::date) (FHIR `_date`).
+    #[serde(rename = "_date")]
+    pub date_ext: Option<types::Element>,
 
     /// Where payment collected
     pub location: Option<types::Reference>,
@@ -126,21 +147,39 @@ pub struct PaymentReconciliation {
 
     /// Type of card
     pub card_brand: Option<types::String>,
+    /// Primitive extension sibling for [`card_brand`](Self::card_brand) (FHIR `_cardBrand`).
+    #[serde(rename = "_cardBrand")]
+    pub card_brand_ext: Option<types::Element>,
 
     /// Digits for verification
     pub account_number: Option<types::String>,
+    /// Primitive extension sibling for [`account_number`](Self::account_number) (FHIR `_accountNumber`).
+    #[serde(rename = "_accountNumber")]
+    pub account_number_ext: Option<types::Element>,
 
     /// Expiration year-month
     pub expiration_date: Option<types::Date>,
+    /// Primitive extension sibling for [`expiration_date`](Self::expiration_date) (FHIR `_expirationDate`).
+    #[serde(rename = "_expirationDate")]
+    pub expiration_date_ext: Option<types::Element>,
 
     /// Processor name
     pub processor: Option<types::String>,
+    /// Primitive extension sibling for [`processor`](Self::processor) (FHIR `_processor`).
+    #[serde(rename = "_processor")]
+    pub processor_ext: Option<types::Element>,
 
     /// Check number or payment reference
     pub reference_number: Option<types::String>,
+    /// Primitive extension sibling for [`reference_number`](Self::reference_number) (FHIR `_referenceNumber`).
+    #[serde(rename = "_referenceNumber")]
+    pub reference_number_ext: Option<types::Element>,
 
     /// Authorization number
     pub authorization: Option<types::String>,
+    /// Primitive extension sibling for [`authorization`](Self::authorization) (FHIR `_authorization`).
+    #[serde(rename = "_authorization")]
+    pub authorization_ext: Option<types::Element>,
 
     /// Amount offered by the issuer
     pub tendered_amount: Option<types::Money>,
@@ -214,6 +253,9 @@ pub struct PaymentReconciliationAllocation {
 
     /// Date of commitment to pay
     pub date: Option<types::Date>,
+    /// Primitive extension sibling for [`date`](Self::date) (FHIR `_date`).
+    #[serde(rename = "_date")]
+    pub date_ext: Option<types::Element>,
 
     /// Contact for the response
     pub responsible: Option<types::Reference>,
@@ -242,9 +284,15 @@ pub struct PaymentReconciliationProcessNote {
 
     /// display | print | printoper
     pub r#type: Option<types::Code>,
+    /// Primitive extension sibling for [`type`](Self::r#type) (FHIR `_type`).
+    #[serde(rename = "_type")]
+    pub type_ext: Option<types::Element>,
 
     /// Note explanatory text
     pub text: Option<types::String>,
+    /// Primitive extension sibling for [`text`](Self::text) (FHIR `_text`).
+    #[serde(rename = "_text")]
+    pub text_ext: Option<types::Element>,
 }
 
 #[cfg(test)]

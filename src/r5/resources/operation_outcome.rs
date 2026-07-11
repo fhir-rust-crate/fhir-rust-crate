@@ -61,9 +61,15 @@ pub struct OperationOutcome {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -100,21 +106,36 @@ pub struct OperationOutcomeIssue {
 
     /// Severity of this issue, one of fatal, error, warning, information, or success, indicating how it affects the overall action
     pub severity: types::Code,
+    /// Primitive extension sibling for [`severity`](Self::severity) (FHIR `_severity`).
+    #[serde(rename = "_severity")]
+    pub severity_ext: Option<types::Element>,
 
     /// Machine-processable code identifying the type of error or warning, drawn from the FHIR IssueType value set
     pub code: types::Code,
+    /// Primitive extension sibling for [`code`](Self::code) (FHIR `_code`).
+    #[serde(rename = "_code")]
+    pub code_ext: Option<types::Element>,
 
     /// Additional details about the error, as a CodeableConcept that may carry a more specific error code and text
     pub details: Option<types::CodeableConcept>,
 
     /// Additional diagnostic information about the issue
     pub diagnostics: Option<types::String>,
+    /// Primitive extension sibling for [`diagnostics`](Self::diagnostics) (FHIR `_diagnostics`).
+    #[serde(rename = "_diagnostics")]
+    pub diagnostics_ext: Option<types::Element>,
 
     /// Deprecated: Path of element(s) related to issue
     pub location: Option<Vec<types::String>>,
+    /// Primitive extension sibling for [`location`](Self::location) (FHIR `_location`).
+    #[serde(rename = "_location")]
+    pub location_ext: Option<Vec<Option<types::Element>>>,
 
     /// FHIRPath of element(s) related to issue
     pub expression: Option<Vec<types::String>>,
+    /// Primitive extension sibling for [`expression`](Self::expression) (FHIR `_expression`).
+    #[serde(rename = "_expression")]
+    pub expression_ext: Option<Vec<Option<types::Element>>>,
 }
 
 #[cfg(test)]

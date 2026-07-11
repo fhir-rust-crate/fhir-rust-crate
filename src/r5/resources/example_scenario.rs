@@ -72,9 +72,15 @@ pub struct ExampleScenario {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -90,12 +96,18 @@ pub struct ExampleScenario {
 
     /// Canonical identifier for this example scenario, represented as a URI (globally unique)
     pub url: Option<types::Uri>,
+    /// Primitive extension sibling for [`url`](Self::url) (FHIR `_url`).
+    #[serde(rename = "_url")]
+    pub url_ext: Option<types::Element>,
 
     /// Additional identifier for the example scenario
     pub identifier: Option<Vec<types::Identifier>>,
 
     /// Business version of the example scenario
     pub version: Option<types::String>,
+    /// Primitive extension sibling for [`version`](Self::version) (FHIR `_version`).
+    #[serde(rename = "_version")]
+    pub version_ext: Option<types::Element>,
 
     /// How to compare versions
     pub version_algorithm_string: Option<types::String>,
@@ -105,27 +117,48 @@ pub struct ExampleScenario {
 
     /// To be removed?
     pub name: Option<types::String>,
+    /// Primitive extension sibling for [`name`](Self::name) (FHIR `_name`).
+    #[serde(rename = "_name")]
+    pub name_ext: Option<types::Element>,
 
     /// Name for this example scenario (human friendly)
     pub title: Option<types::String>,
+    /// Primitive extension sibling for [`title`](Self::title) (FHIR `_title`).
+    #[serde(rename = "_title")]
+    pub title_ext: Option<types::Element>,
 
     /// The publication lifecycle status of this scenario: draft | active | retired | unknown.
     pub status: types::Code,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// For testing purposes, not real usage
     pub experimental: Option<types::Boolean>,
+    /// Primitive extension sibling for [`experimental`](Self::experimental) (FHIR `_experimental`).
+    #[serde(rename = "_experimental")]
+    pub experimental_ext: Option<types::Element>,
 
     /// Date last changed
     pub date: Option<types::DateTime>,
+    /// Primitive extension sibling for [`date`](Self::date) (FHIR `_date`).
+    #[serde(rename = "_date")]
+    pub date_ext: Option<types::Element>,
 
     /// Name of the publisher/steward (organization or individual)
     pub publisher: Option<types::String>,
+    /// Primitive extension sibling for [`publisher`](Self::publisher) (FHIR `_publisher`).
+    #[serde(rename = "_publisher")]
+    pub publisher_ext: Option<types::Element>,
 
     /// Contact details for the publisher
     pub contact: Option<Vec<types::ContactDetail>>,
 
     /// Natural language description summarizing the purpose and content of the ExampleScenario.
     pub description: Option<types::Markdown>,
+    /// Primitive extension sibling for [`description`](Self::description) (FHIR `_description`).
+    #[serde(rename = "_description")]
+    pub description_ext: Option<types::Element>,
 
     /// The context that the content is intended to support
     pub use_context: Option<Vec<types::UsageContext>>,
@@ -135,12 +168,21 @@ pub struct ExampleScenario {
 
     /// The purpose of the example, e.g. to illustrate a scenario
     pub purpose: Option<types::Markdown>,
+    /// Primitive extension sibling for [`purpose`](Self::purpose) (FHIR `_purpose`).
+    #[serde(rename = "_purpose")]
+    pub purpose_ext: Option<types::Element>,
 
     /// Use and/or publishing restrictions
     pub copyright: Option<types::Markdown>,
+    /// Primitive extension sibling for [`copyright`](Self::copyright) (FHIR `_copyright`).
+    #[serde(rename = "_copyright")]
+    pub copyright_ext: Option<types::Element>,
 
     /// Copyright holder and year(s)
     pub copyright_label: Option<types::String>,
+    /// Primitive extension sibling for [`copyright_label`](Self::copyright_label) (FHIR `_copyrightLabel`).
+    #[serde(rename = "_copyrightLabel")]
+    pub copyright_label_ext: Option<types::Element>,
 
     /// The people or systems (actors) that participate in and exchange data within the scenario.
     pub actor: Option<Vec<ExampleScenarioActor>>,
@@ -170,15 +212,27 @@ pub struct ExampleScenarioActor {
 
     /// ID or acronym of the actor
     pub key: types::String,
+    /// Primitive extension sibling for [`key`](Self::key) (FHIR `_key`).
+    #[serde(rename = "_key")]
+    pub key_ext: Option<types::Element>,
 
     /// person | system
     pub r#type: types::Code,
+    /// Primitive extension sibling for [`type`](Self::r#type) (FHIR `_type`).
+    #[serde(rename = "_type")]
+    pub type_ext: Option<types::Element>,
 
     /// Label for actor when rendering
     pub title: types::String,
+    /// Primitive extension sibling for [`title`](Self::title) (FHIR `_title`).
+    #[serde(rename = "_title")]
+    pub title_ext: Option<types::Element>,
 
     /// Details about actor
     pub description: Option<types::Markdown>,
+    /// Primitive extension sibling for [`description`](Self::description) (FHIR `_description`).
+    #[serde(rename = "_description")]
+    pub description_ext: Option<types::Element>,
 }
 
 /// ExampleScenarioInstance
@@ -200,12 +254,18 @@ pub struct ExampleScenarioInstance {
 
     /// ID or acronym of the instance
     pub key: types::String,
+    /// Primitive extension sibling for [`key`](Self::key) (FHIR `_key`).
+    #[serde(rename = "_key")]
+    pub key_ext: Option<types::Element>,
 
     /// Data structure for example
     pub structure_type: types::Coding,
 
     /// E.g. 4.0.1
     pub structure_version: Option<types::String>,
+    /// Primitive extension sibling for [`structure_version`](Self::structure_version) (FHIR `_structureVersion`).
+    #[serde(rename = "_structureVersion")]
+    pub structure_version_ext: Option<types::Element>,
 
     /// Rules instance adheres to
     pub structure_profile_canonical: Option<types::Canonical>,
@@ -215,9 +275,15 @@ pub struct ExampleScenarioInstance {
 
     /// Label for instance
     pub title: types::String,
+    /// Primitive extension sibling for [`title`](Self::title) (FHIR `_title`).
+    #[serde(rename = "_title")]
+    pub title_ext: Option<types::Element>,
 
     /// Human-friendly description of the instance
     pub description: Option<types::Markdown>,
+    /// Primitive extension sibling for [`description`](Self::description) (FHIR `_description`).
+    #[serde(rename = "_description")]
+    pub description_ext: Option<types::Element>,
 
     /// Example instance data
     pub content: Option<types::Reference>,
@@ -248,12 +314,21 @@ pub struct ExampleScenarioInstanceVersion {
 
     /// ID or acronym of the version
     pub key: types::String,
+    /// Primitive extension sibling for [`key`](Self::key) (FHIR `_key`).
+    #[serde(rename = "_key")]
+    pub key_ext: Option<types::Element>,
 
     /// Label for instance version
     pub title: types::String,
+    /// Primitive extension sibling for [`title`](Self::title) (FHIR `_title`).
+    #[serde(rename = "_title")]
+    pub title_ext: Option<types::Element>,
 
     /// Details about version
     pub description: Option<types::Markdown>,
+    /// Primitive extension sibling for [`description`](Self::description) (FHIR `_description`).
+    #[serde(rename = "_description")]
+    pub description_ext: Option<types::Element>,
 
     /// Example instance version data
     pub content: Option<types::Reference>,
@@ -278,9 +353,15 @@ pub struct ExampleScenarioInstanceContainedInstance {
 
     /// Key of contained instance
     pub instance_reference: types::String,
+    /// Primitive extension sibling for [`instance_reference`](Self::instance_reference) (FHIR `_instanceReference`).
+    #[serde(rename = "_instanceReference")]
+    pub instance_reference_ext: Option<types::Element>,
 
     /// Key of contained instance version
     pub version_reference: Option<types::String>,
+    /// Primitive extension sibling for [`version_reference`](Self::version_reference) (FHIR `_versionReference`).
+    #[serde(rename = "_versionReference")]
+    pub version_reference_ext: Option<types::Element>,
 }
 
 /// ExampleScenarioProcess
@@ -302,15 +383,27 @@ pub struct ExampleScenarioProcess {
 
     /// Label for procss
     pub title: types::String,
+    /// Primitive extension sibling for [`title`](Self::title) (FHIR `_title`).
+    #[serde(rename = "_title")]
+    pub title_ext: Option<types::Element>,
 
     /// Human-friendly description of the process
     pub description: Option<types::Markdown>,
+    /// Primitive extension sibling for [`description`](Self::description) (FHIR `_description`).
+    #[serde(rename = "_description")]
+    pub description_ext: Option<types::Element>,
 
     /// Status before process starts
     pub pre_conditions: Option<types::Markdown>,
+    /// Primitive extension sibling for [`pre_conditions`](Self::pre_conditions) (FHIR `_preConditions`).
+    #[serde(rename = "_preConditions")]
+    pub pre_conditions_ext: Option<types::Element>,
 
     /// Status after successful completion
     pub post_conditions: Option<types::Markdown>,
+    /// Primitive extension sibling for [`post_conditions`](Self::post_conditions) (FHIR `_postConditions`).
+    #[serde(rename = "_postConditions")]
+    pub post_conditions_ext: Option<types::Element>,
 
     /// Event within of the process
     pub step: Option<Vec<ExampleScenarioProcessStep>>,
@@ -336,12 +429,18 @@ pub struct ExampleScenarioProcessStep {
 
     /// Sequential number of the step
     pub number: Option<types::String>,
+    /// Primitive extension sibling for [`number`](Self::number) (FHIR `_number`).
+    #[serde(rename = "_number")]
+    pub number_ext: Option<types::Element>,
 
     /// Step is nested process
     pub process: Option<ExampleScenarioProcess>,
 
     /// Step is nested workflow
     pub workflow: Option<types::Canonical>,
+    /// Primitive extension sibling for [`workflow`](Self::workflow) (FHIR `_workflow`).
+    #[serde(rename = "_workflow")]
+    pub workflow_ext: Option<types::Element>,
 
     /// Step is simple action
     pub operation: Option<ExampleScenarioProcessStepOperation>,
@@ -351,6 +450,9 @@ pub struct ExampleScenarioProcessStep {
 
     /// Pause in the flow?
     pub pause: Option<types::Boolean>,
+    /// Primitive extension sibling for [`pause`](Self::pause) (FHIR `_pause`).
+    #[serde(rename = "_pause")]
+    pub pause_ext: Option<types::Element>,
 }
 
 /// ExampleScenarioProcessStepOperation
@@ -375,21 +477,39 @@ pub struct ExampleScenarioProcessStepOperation {
 
     /// Label for step
     pub title: types::String,
+    /// Primitive extension sibling for [`title`](Self::title) (FHIR `_title`).
+    #[serde(rename = "_title")]
+    pub title_ext: Option<types::Element>,
 
     /// Who starts the operation
     pub initiator: Option<types::String>,
+    /// Primitive extension sibling for [`initiator`](Self::initiator) (FHIR `_initiator`).
+    #[serde(rename = "_initiator")]
+    pub initiator_ext: Option<types::Element>,
 
     /// Who receives the operation
     pub receiver: Option<types::String>,
+    /// Primitive extension sibling for [`receiver`](Self::receiver) (FHIR `_receiver`).
+    #[serde(rename = "_receiver")]
+    pub receiver_ext: Option<types::Element>,
 
     /// Human-friendly description of the operation
     pub description: Option<types::Markdown>,
+    /// Primitive extension sibling for [`description`](Self::description) (FHIR `_description`).
+    #[serde(rename = "_description")]
+    pub description_ext: Option<types::Element>,
 
     /// Initiator stays active?
     pub initiator_active: Option<types::Boolean>,
+    /// Primitive extension sibling for [`initiator_active`](Self::initiator_active) (FHIR `_initiatorActive`).
+    #[serde(rename = "_initiatorActive")]
+    pub initiator_active_ext: Option<types::Element>,
 
     /// Receiver stays active?
     pub receiver_active: Option<types::Boolean>,
+    /// Primitive extension sibling for [`receiver_active`](Self::receiver_active) (FHIR `_receiverActive`).
+    #[serde(rename = "_receiverActive")]
+    pub receiver_active_ext: Option<types::Element>,
 
     /// Instance transmitted on invocation
     pub request: Option<ExampleScenarioInstanceContainedInstance>,
@@ -417,9 +537,15 @@ pub struct ExampleScenarioProcessStepAlternative {
 
     /// Label for alternative
     pub title: types::String,
+    /// Primitive extension sibling for [`title`](Self::title) (FHIR `_title`).
+    #[serde(rename = "_title")]
+    pub title_ext: Option<types::Element>,
 
     /// Human-readable description of option
     pub description: Option<types::Markdown>,
+    /// Primitive extension sibling for [`description`](Self::description) (FHIR `_description`).
+    #[serde(rename = "_description")]
+    pub description_ext: Option<types::Element>,
 
     /// Alternative action(s)
     pub step: Option<Vec<ExampleScenarioProcessStep>>,

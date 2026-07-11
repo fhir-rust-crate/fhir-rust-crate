@@ -65,9 +65,15 @@ pub struct Questionnaire {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -83,12 +89,18 @@ pub struct Questionnaire {
 
     /// Canonical identifier for this questionnaire, an absolute globally unique URI used to reference the form.
     pub url: Option<types::Uri>,
+    /// Primitive extension sibling for [`url`](Self::url) (FHIR `_url`).
+    #[serde(rename = "_url")]
+    pub url_ext: Option<types::Element>,
 
     /// Business identifier for questionnaire
     pub identifier: Option<Vec<types::Identifier>>,
 
     /// Business version of the questionnaire
     pub version: Option<types::String>,
+    /// Primitive extension sibling for [`version`](Self::version) (FHIR `_version`).
+    #[serde(rename = "_version")]
+    pub version_ext: Option<types::Element>,
 
     /// How to compare versions
     pub version_algorithm_string: Option<types::String>,
@@ -98,18 +110,33 @@ pub struct Questionnaire {
 
     /// Name for this questionnaire (computer friendly)
     pub name: Option<types::String>,
+    /// Primitive extension sibling for [`name`](Self::name) (FHIR `_name`).
+    #[serde(rename = "_name")]
+    pub name_ext: Option<types::Element>,
 
     /// Name for this questionnaire (human friendly)
     pub title: Option<types::String>,
+    /// Primitive extension sibling for [`title`](Self::title) (FHIR `_title`).
+    #[serde(rename = "_title")]
+    pub title_ext: Option<types::Element>,
 
     /// Based on Questionnaire
     pub derived_from: Option<Vec<types::Canonical>>,
+    /// Primitive extension sibling for [`derived_from`](Self::derived_from) (FHIR `_derivedFrom`).
+    #[serde(rename = "_derivedFrom")]
+    pub derived_from_ext: Option<Vec<Option<types::Element>>>,
 
     /// Publication lifecycle state of this questionnaire: draft, active, retired, or unknown.
     pub status: types::Code,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// For testing purposes, not real usage
     pub experimental: Option<types::Boolean>,
+    /// Primitive extension sibling for [`experimental`](Self::experimental) (FHIR `_experimental`).
+    #[serde(rename = "_experimental")]
+    pub experimental_ext: Option<types::Element>,
 
     /// Resource that can be subject of QuestionnaireResponse
     pub subject_type: Option<Vec<types::Code>>,
@@ -123,15 +150,24 @@ pub struct Questionnaire {
 
     /// Date last changed
     pub date: Option<types::DateTime>,
+    /// Primitive extension sibling for [`date`](Self::date) (FHIR `_date`).
+    #[serde(rename = "_date")]
+    pub date_ext: Option<types::Element>,
 
     /// Name of the publisher/steward (organization or individual)
     pub publisher: Option<types::String>,
+    /// Primitive extension sibling for [`publisher`](Self::publisher) (FHIR `_publisher`).
+    #[serde(rename = "_publisher")]
+    pub publisher_ext: Option<types::Element>,
 
     /// Contact details for the publisher
     pub contact: Option<Vec<types::ContactDetail>>,
 
     /// Natural language description of the questionnaire
     pub description: Option<types::Markdown>,
+    /// Primitive extension sibling for [`description`](Self::description) (FHIR `_description`).
+    #[serde(rename = "_description")]
+    pub description_ext: Option<types::Element>,
 
     /// The context that the content is intended to support
     pub use_context: Option<Vec<types::UsageContext>>,
@@ -141,18 +177,33 @@ pub struct Questionnaire {
 
     /// Why this questionnaire is defined
     pub purpose: Option<types::Markdown>,
+    /// Primitive extension sibling for [`purpose`](Self::purpose) (FHIR `_purpose`).
+    #[serde(rename = "_purpose")]
+    pub purpose_ext: Option<types::Element>,
 
     /// Use and/or publishing restrictions
     pub copyright: Option<types::Markdown>,
+    /// Primitive extension sibling for [`copyright`](Self::copyright) (FHIR `_copyright`).
+    #[serde(rename = "_copyright")]
+    pub copyright_ext: Option<types::Element>,
 
     /// Copyright holder and year(s)
     pub copyright_label: Option<types::String>,
+    /// Primitive extension sibling for [`copyright_label`](Self::copyright_label) (FHIR `_copyrightLabel`).
+    #[serde(rename = "_copyrightLabel")]
+    pub copyright_label_ext: Option<types::Element>,
 
     /// When the questionnaire was approved by publisher
     pub approval_date: Option<types::Date>,
+    /// Primitive extension sibling for [`approval_date`](Self::approval_date) (FHIR `_approvalDate`).
+    #[serde(rename = "_approvalDate")]
+    pub approval_date_ext: Option<types::Element>,
 
     /// When the questionnaire was last reviewed by the publisher
     pub last_review_date: Option<types::Date>,
+    /// Primitive extension sibling for [`last_review_date`](Self::last_review_date) (FHIR `_lastReviewDate`).
+    #[serde(rename = "_lastReviewDate")]
+    pub last_review_date_ext: Option<types::Element>,
 
     /// When the questionnaire is expected to be used
     pub effective_period: Option<types::Period>,
@@ -183,48 +234,87 @@ pub struct QuestionnaireItem {
 
     /// Unique identifier for this item within the questionnaire, used to link answers and enableWhen conditions.
     pub link_id: types::String,
+    /// Primitive extension sibling for [`link_id`](Self::link_id) (FHIR `_linkId`).
+    #[serde(rename = "_linkId")]
+    pub link_id_ext: Option<types::Element>,
 
     /// ElementDefinition - details for the item
     pub definition: Option<types::Uri>,
+    /// Primitive extension sibling for [`definition`](Self::definition) (FHIR `_definition`).
+    #[serde(rename = "_definition")]
+    pub definition_ext: Option<types::Element>,
 
     /// Corresponding concept for this item in a terminology
     pub code: Option<Vec<types::Coding>>,
 
     /// E.g. "1(a)", "2.5.3"
     pub prefix: Option<types::String>,
+    /// Primitive extension sibling for [`prefix`](Self::prefix) (FHIR `_prefix`).
+    #[serde(rename = "_prefix")]
+    pub prefix_ext: Option<types::Element>,
 
     /// Primary text for the item
     pub text: Option<types::String>,
+    /// Primitive extension sibling for [`text`](Self::text) (FHIR `_text`).
+    #[serde(rename = "_text")]
+    pub text_ext: Option<types::Element>,
 
     /// Kind of item, such as a grouping, display text, or a question of a specific answer data type.
     pub r#type: types::Code,
+    /// Primitive extension sibling for [`type`](Self::r#type) (FHIR `_type`).
+    #[serde(rename = "_type")]
+    pub type_ext: Option<types::Element>,
 
     /// Only allow data when
     pub enable_when: Option<Vec<QuestionnaireItemEnableWhen>>,
 
     /// all | any
     pub enable_behavior: Option<types::Code>,
+    /// Primitive extension sibling for [`enable_behavior`](Self::enable_behavior) (FHIR `_enableBehavior`).
+    #[serde(rename = "_enableBehavior")]
+    pub enable_behavior_ext: Option<types::Element>,
 
     /// hidden | protected
     pub disabled_display: Option<types::Code>,
+    /// Primitive extension sibling for [`disabled_display`](Self::disabled_display) (FHIR `_disabledDisplay`).
+    #[serde(rename = "_disabledDisplay")]
+    pub disabled_display_ext: Option<types::Element>,
 
     /// Whether the item must be included in data results
     pub required: Option<types::Boolean>,
+    /// Primitive extension sibling for [`required`](Self::required) (FHIR `_required`).
+    #[serde(rename = "_required")]
+    pub required_ext: Option<types::Element>,
 
     /// Whether the item may repeat
     pub repeats: Option<types::Boolean>,
+    /// Primitive extension sibling for [`repeats`](Self::repeats) (FHIR `_repeats`).
+    #[serde(rename = "_repeats")]
+    pub repeats_ext: Option<types::Element>,
 
     /// Don't allow human editing
     pub read_only: Option<types::Boolean>,
+    /// Primitive extension sibling for [`read_only`](Self::read_only) (FHIR `_readOnly`).
+    #[serde(rename = "_readOnly")]
+    pub read_only_ext: Option<types::Element>,
 
     /// No more than these many characters
     pub max_length: Option<types::Integer>,
+    /// Primitive extension sibling for [`max_length`](Self::max_length) (FHIR `_maxLength`).
+    #[serde(rename = "_maxLength")]
+    pub max_length_ext: Option<types::Element>,
 
     /// optionsOnly | optionsOrType | optionsOrString
     pub answer_constraint: Option<types::Code>,
+    /// Primitive extension sibling for [`answer_constraint`](Self::answer_constraint) (FHIR `_answerConstraint`).
+    #[serde(rename = "_answerConstraint")]
+    pub answer_constraint_ext: Option<types::Element>,
 
     /// ValueSet containing permitted answers
     pub answer_value_set: Option<types::Canonical>,
+    /// Primitive extension sibling for [`answer_value_set`](Self::answer_value_set) (FHIR `_answerValueSet`).
+    #[serde(rename = "_answerValueSet")]
+    pub answer_value_set_ext: Option<types::Element>,
 
     /// Permitted answer
     pub answer_option: Option<Vec<QuestionnaireItemAnswerOption>>,
@@ -255,9 +345,15 @@ pub struct QuestionnaireItemEnableWhen {
 
     /// The linkId of question that determines whether item is enabled/disabled
     pub question: types::String,
+    /// Primitive extension sibling for [`question`](Self::question) (FHIR `_question`).
+    #[serde(rename = "_question")]
+    pub question_ext: Option<types::Element>,
 
     /// exists | = | != | > | < | >= | <=
     pub operator: types::Code,
+    /// Primitive extension sibling for [`operator`](Self::operator) (FHIR `_operator`).
+    #[serde(rename = "_operator")]
+    pub operator_ext: Option<types::Element>,
 
     /// Value for question comparison based on operator
     pub answer_boolean: Option<types::Boolean>,
@@ -327,6 +423,9 @@ pub struct QuestionnaireItemAnswerOption {
 
     /// Whether option is selected by default
     pub initial_selected: Option<types::Boolean>,
+    /// Primitive extension sibling for [`initial_selected`](Self::initial_selected) (FHIR `_initialSelected`).
+    #[serde(rename = "_initialSelected")]
+    pub initial_selected_ext: Option<types::Element>,
 }
 
 /// Initial value(s) when item is first rendered.

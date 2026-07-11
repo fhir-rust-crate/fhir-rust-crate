@@ -48,6 +48,9 @@ pub struct Contributor {
 
     /// author | editor | reviewer | endorser
     pub r#type: types::Code,
+    /// Primitive extension sibling for [`type`](Self::r#type) (FHIR `_type`).
+    #[serde(rename = "_type")]
+    pub type_ext: Option<types::Element>,
 
     /// Who contributed the content
     pub name: types::String,

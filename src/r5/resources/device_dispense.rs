@@ -61,9 +61,15 @@ pub struct DeviceDispense {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -88,6 +94,9 @@ pub struct DeviceDispense {
 
     /// The current lifecycle status of the dispense event: preparation | in-progress | cancelled | on-hold | completed | entered-in-error | stopped | declined | unknown.
     pub status: types::Code,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// Why a dispense was or was not performed
     pub status_reason: Option<types::CodeableReference>,
@@ -124,9 +133,15 @@ pub struct DeviceDispense {
 
     /// When product was packaged and reviewed
     pub prepared_date: Option<types::DateTime>,
+    /// Primitive extension sibling for [`prepared_date`](Self::prepared_date) (FHIR `_preparedDate`).
+    #[serde(rename = "_preparedDate")]
+    pub prepared_date_ext: Option<types::Element>,
 
     /// When product was given out
     pub when_handed_over: Option<types::DateTime>,
+    /// Primitive extension sibling for [`when_handed_over`](Self::when_handed_over) (FHIR `_whenHandedOver`).
+    #[serde(rename = "_whenHandedOver")]
+    pub when_handed_over_ext: Option<types::Element>,
 
     /// Where the device was sent or should be sent
     pub destination: Option<types::Reference>,
@@ -136,6 +151,9 @@ pub struct DeviceDispense {
 
     /// Full representation of the usage instructions
     pub usage_instruction: Option<types::Markdown>,
+    /// Primitive extension sibling for [`usage_instruction`](Self::usage_instruction) (FHIR `_usageInstruction`).
+    #[serde(rename = "_usageInstruction")]
+    pub usage_instruction_ext: Option<types::Element>,
 
     /// A list of relevant lifecycle events
     pub event_history: Option<Vec<types::Reference>>,

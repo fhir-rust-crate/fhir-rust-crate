@@ -60,9 +60,15 @@ pub struct InventoryReport {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -81,9 +87,15 @@ pub struct InventoryReport {
 
     /// The current status of this report in its workflow: draft | requested | active | entered-in-error
     pub status: types::Code,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// Whether the report is a full snapshot of stock or only the difference from a previous count: snapshot | difference
     pub count_type: types::Code,
+    /// Primitive extension sibling for [`count_type`](Self::count_type) (FHIR `_countType`).
+    #[serde(rename = "_countType")]
+    pub count_type_ext: Option<types::Element>,
 
     /// addition | subtraction
     pub operation_type: Option<types::CodeableConcept>,
@@ -93,6 +105,9 @@ pub struct InventoryReport {
 
     /// When the report has been submitted, typically the date and time of finalization rather than data capture
     pub reported_date_time: types::DateTime,
+    /// Primitive extension sibling for [`reported_date_time`](Self::reported_date_time) (FHIR `_reportedDateTime`).
+    #[serde(rename = "_reportedDateTime")]
+    pub reported_date_time_ext: Option<types::Element>,
 
     /// The person, device, or [`Organization`](crate::r5::resources::organization::Organization) that submits the report
     pub reporter: Option<types::Reference>,
@@ -129,6 +144,9 @@ pub struct InventoryReportInventoryListing {
 
     /// The date and time when the items were counted
     pub counting_date_time: Option<types::DateTime>,
+    /// Primitive extension sibling for [`counting_date_time`](Self::counting_date_time) (FHIR `_countingDateTime`).
+    #[serde(rename = "_countingDateTime")]
+    pub counting_date_time_ext: Option<types::Element>,
 
     /// The item or items in this listing
     pub item: Option<Vec<InventoryReportInventoryListingItem>>,

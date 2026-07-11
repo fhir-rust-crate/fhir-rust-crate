@@ -65,9 +65,15 @@ pub struct Coverage {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -86,9 +92,15 @@ pub struct Coverage {
 
     /// The status of the resource instance: active | cancelled | draft | entered-in-error
     pub status: types::Code,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// The nature of the coverage: insurance | self-pay | other
     pub kind: types::Code,
+    /// Primitive extension sibling for [`kind`](Self::kind) (FHIR `_kind`).
+    #[serde(rename = "_kind")]
+    pub kind_ext: Option<types::Element>,
 
     /// Self-pay parties and responsibility
     pub payment_by: Option<Vec<CoveragePaymentBy>>,
@@ -110,6 +122,9 @@ pub struct Coverage {
 
     /// Dependent number
     pub dependent: Option<types::String>,
+    /// Primitive extension sibling for [`dependent`](Self::dependent) (FHIR `_dependent`).
+    #[serde(rename = "_dependent")]
+    pub dependent_ext: Option<types::Element>,
 
     /// Beneficiary relationship to the subscriber
     pub relationship: Option<types::CodeableConcept>,
@@ -125,15 +140,24 @@ pub struct Coverage {
 
     /// Relative order of the coverage
     pub order: Option<types::PositiveInt>,
+    /// Primitive extension sibling for [`order`](Self::order) (FHIR `_order`).
+    #[serde(rename = "_order")]
+    pub order_ext: Option<types::Element>,
 
     /// Insurer network
     pub network: Option<types::String>,
+    /// Primitive extension sibling for [`network`](Self::network) (FHIR `_network`).
+    #[serde(rename = "_network")]
+    pub network_ext: Option<types::Element>,
 
     /// Patient payments for services/products
     pub cost_to_beneficiary: Option<Vec<CoverageCostToBeneficiary>>,
 
     /// Reimbursement to insurer
     pub subrogation: Option<types::Boolean>,
+    /// Primitive extension sibling for [`subrogation`](Self::subrogation) (FHIR `_subrogation`).
+    #[serde(rename = "_subrogation")]
+    pub subrogation_ext: Option<types::Element>,
 
     /// Contract details
     pub contract: Option<Vec<types::Reference>>,
@@ -163,6 +187,9 @@ pub struct CoveragePaymentBy {
 
     /// Party's responsibility
     pub responsibility: Option<types::String>,
+    /// Primitive extension sibling for [`responsibility`](Self::responsibility) (FHIR `_responsibility`).
+    #[serde(rename = "_responsibility")]
+    pub responsibility_ext: Option<types::Element>,
 }
 
 /// Additional coverage classifications. A suite of underwriter-specific
@@ -189,6 +216,9 @@ pub struct CoverageClass {
 
     /// Human readable description of the type and value
     pub name: Option<types::String>,
+    /// Primitive extension sibling for [`name`](Self::name) (FHIR `_name`).
+    #[serde(rename = "_name")]
+    pub name_ext: Option<types::Element>,
 }
 
 /// Patient payments for services/products. A suite of codes indicating the cost

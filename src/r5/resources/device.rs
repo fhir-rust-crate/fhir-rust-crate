@@ -70,9 +70,15 @@ pub struct Device {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -92,6 +98,9 @@ pub struct Device {
 
     /// The name used to display by default when the device is referenced
     pub display_name: Option<types::String>,
+    /// Primitive extension sibling for [`display_name`](Self::display_name) (FHIR `_displayName`).
+    #[serde(rename = "_displayName")]
+    pub display_name_ext: Option<types::Element>,
 
     /// The reference to the definition for the device
     pub definition: Option<types::CodeableReference>,
@@ -103,6 +112,9 @@ pub struct Device {
     /// The record status of this Device instance: active | inactive |
     /// entered-in-error
     pub status: Option<types::Code>,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// lost | damaged | destroyed | available
     pub availability_status: Option<types::CodeableConcept>,
@@ -112,27 +124,48 @@ pub struct Device {
 
     /// Name of the organization or individual that manufactured the device
     pub manufacturer: Option<types::String>,
+    /// Primitive extension sibling for [`manufacturer`](Self::manufacturer) (FHIR `_manufacturer`).
+    #[serde(rename = "_manufacturer")]
+    pub manufacturer_ext: Option<types::Element>,
 
     /// Date when the device was made
     pub manufacture_date: Option<types::DateTime>,
+    /// Primitive extension sibling for [`manufacture_date`](Self::manufacture_date) (FHIR `_manufactureDate`).
+    #[serde(rename = "_manufactureDate")]
+    pub manufacture_date_ext: Option<types::Element>,
 
     /// Date and time of expiry of this device (if applicable)
     pub expiration_date: Option<types::DateTime>,
+    /// Primitive extension sibling for [`expiration_date`](Self::expiration_date) (FHIR `_expirationDate`).
+    #[serde(rename = "_expirationDate")]
+    pub expiration_date_ext: Option<types::Element>,
 
     /// Lot number of manufacture
     pub lot_number: Option<types::String>,
+    /// Primitive extension sibling for [`lot_number`](Self::lot_number) (FHIR `_lotNumber`).
+    #[serde(rename = "_lotNumber")]
+    pub lot_number_ext: Option<types::Element>,
 
     /// Serial number assigned by the manufacturer
     pub serial_number: Option<types::String>,
+    /// Primitive extension sibling for [`serial_number`](Self::serial_number) (FHIR `_serialNumber`).
+    #[serde(rename = "_serialNumber")]
+    pub serial_number_ext: Option<types::Element>,
 
     /// The name or names of the device as known to the manufacturer and/or patient
     pub name: Option<Vec<DeviceName>>,
 
     /// The manufacturer's model number for the device
     pub model_number: Option<types::String>,
+    /// Primitive extension sibling for [`model_number`](Self::model_number) (FHIR `_modelNumber`).
+    #[serde(rename = "_modelNumber")]
+    pub model_number_ext: Option<types::Element>,
 
     /// The part number or catalog number of the device
     pub part_number: Option<types::String>,
+    /// Primitive extension sibling for [`part_number`](Self::part_number) (FHIR `_partNumber`).
+    #[serde(rename = "_partNumber")]
+    pub part_number_ext: Option<types::Element>,
 
     /// Indicates a high-level grouping of the device
     pub category: Option<Vec<types::CodeableConcept>>,
@@ -171,6 +204,9 @@ pub struct Device {
 
     /// Network address to contact device
     pub url: Option<types::Uri>,
+    /// Primitive extension sibling for [`url`](Self::url) (FHIR `_url`).
+    #[serde(rename = "_url")]
+    pub url_ext: Option<types::Element>,
 
     /// Technical endpoints providing access to electronic services provided by the device
     pub endpoint: Option<Vec<types::Reference>>,
@@ -208,12 +244,21 @@ pub struct DeviceUdiCarrier {
 
     /// Mandatory fixed portion of UDI
     pub device_identifier: types::String,
+    /// Primitive extension sibling for [`device_identifier`](Self::device_identifier) (FHIR `_deviceIdentifier`).
+    #[serde(rename = "_deviceIdentifier")]
+    pub device_identifier_ext: Option<types::Element>,
 
     /// UDI Issuing Organization
     pub issuer: types::Uri,
+    /// Primitive extension sibling for [`issuer`](Self::issuer) (FHIR `_issuer`).
+    #[serde(rename = "_issuer")]
+    pub issuer_ext: Option<types::Element>,
 
     /// Regional UDI authority
     pub jurisdiction: Option<types::Uri>,
+    /// Primitive extension sibling for [`jurisdiction`](Self::jurisdiction) (FHIR `_jurisdiction`).
+    #[serde(rename = "_jurisdiction")]
+    pub jurisdiction_ext: Option<types::Element>,
 
     /// UDI Machine Readable Barcode String
     pub carrier_aidc: Option<types::Base64Binary>,
@@ -223,6 +268,9 @@ pub struct DeviceUdiCarrier {
 
     /// barcode | rfid | manual | card | self-reported | electronic-transmission | unknown
     pub entry_type: Option<types::Code>,
+    /// Primitive extension sibling for [`entry_type`](Self::entry_type) (FHIR `_entryType`).
+    #[serde(rename = "_entryType")]
+    pub entry_type_ext: Option<types::Element>,
 }
 
 /// The name or names of the device as known to the manufacturer and/or patient.
@@ -241,12 +289,21 @@ pub struct DeviceName {
 
     /// The term that names the device
     pub value: types::String,
+    /// Primitive extension sibling for [`value`](Self::value) (FHIR `_value`).
+    #[serde(rename = "_value")]
+    pub value_ext: Option<types::Element>,
 
     /// registered-name | user-friendly-name | patient-reported-name
     pub r#type: types::Code,
+    /// Primitive extension sibling for [`type`](Self::r#type) (FHIR `_type`).
+    #[serde(rename = "_type")]
+    pub type_ext: Option<types::Element>,
 
     /// The preferred device name
     pub display: Option<types::Boolean>,
+    /// Primitive extension sibling for [`display`](Self::display) (FHIR `_display`).
+    #[serde(rename = "_display")]
+    pub display_ext: Option<types::Element>,
 }
 
 /// The actual design of the device or software version running on the device.
@@ -271,9 +328,15 @@ pub struct DeviceVersion {
 
     /// The date the version was installed on the device
     pub install_date: Option<types::DateTime>,
+    /// Primitive extension sibling for [`install_date`](Self::install_date) (FHIR `_installDate`).
+    #[serde(rename = "_installDate")]
+    pub install_date_ext: Option<types::Element>,
 
     /// The version text
     pub value: types::String,
+    /// Primitive extension sibling for [`value`](Self::value) (FHIR `_value`).
+    #[serde(rename = "_value")]
+    pub value_ext: Option<types::Element>,
 }
 
 /// Identifies the standards, specifications, or formal guidances for the
@@ -299,6 +362,9 @@ pub struct DeviceConformsTo {
 
     /// Specific form or variant of the standard
     pub version: Option<types::String>,
+    /// Primitive extension sibling for [`version`](Self::version) (FHIR `_version`).
+    #[serde(rename = "_version")]
+    pub version_ext: Option<types::Element>,
 }
 
 /// Inherent, essentially fixed, characteristics of the device, e.g. time

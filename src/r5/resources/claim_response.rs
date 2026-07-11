@@ -64,9 +64,15 @@ pub struct ClaimResponse {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -88,6 +94,9 @@ pub struct ClaimResponse {
 
     /// The status of the resource instance itself: active | cancelled | draft | entered-in-error.
     pub status: types::Code,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// The category of claim, such as institutional, oral, pharmacy, professional, or vision.
     pub r#type: types::CodeableConcept,
@@ -97,12 +106,18 @@ pub struct ClaimResponse {
 
     /// Indicates whether this response adjudicates a claim, preauthorization, or predetermination: claim | preauthorization | predetermination.
     pub r#use: types::Code,
+    /// Primitive extension sibling for [`use`](Self::r#use) (FHIR `_use`).
+    #[serde(rename = "_use")]
+    pub use_ext: Option<types::Element>,
 
     /// Reference to the [`Patient`](crate::r5::resources::patient::Patient) who is the subject of the claim being adjudicated.
     pub patient: types::Reference,
 
     /// The date and time this ClaimResponse was created by the insurer.
     pub created: types::DateTime,
+    /// Primitive extension sibling for [`created`](Self::created) (FHIR `_created`).
+    #[serde(rename = "_created")]
+    pub created_ext: Option<types::Element>,
 
     /// Party responsible for reimbursement
     pub insurer: Option<types::Reference>,
@@ -115,15 +130,24 @@ pub struct ClaimResponse {
 
     /// The high-level processing outcome of the adjudication: queued | complete | error | partial.
     pub outcome: types::Code,
+    /// Primitive extension sibling for [`outcome`](Self::outcome) (FHIR `_outcome`).
+    #[serde(rename = "_outcome")]
+    pub outcome_ext: Option<types::Element>,
 
     /// Result of the adjudication
     pub decision: Option<types::CodeableConcept>,
 
     /// Disposition Message
     pub disposition: Option<types::String>,
+    /// Primitive extension sibling for [`disposition`](Self::disposition) (FHIR `_disposition`).
+    #[serde(rename = "_disposition")]
+    pub disposition_ext: Option<types::Element>,
 
     /// Preauthorization reference
     pub pre_auth_ref: Option<types::String>,
+    /// Primitive extension sibling for [`pre_auth_ref`](Self::pre_auth_ref) (FHIR `_preAuthRef`).
+    #[serde(rename = "_preAuthRef")]
+    pub pre_auth_ref_ext: Option<types::Element>,
 
     /// Preauthorization reference effective period
     pub pre_auth_period: Option<types::Period>,
@@ -217,12 +241,18 @@ pub struct ClaimResponseItem {
 
     /// Claim item instance identifier
     pub item_sequence: types::PositiveInt,
+    /// Primitive extension sibling for [`item_sequence`](Self::item_sequence) (FHIR `_itemSequence`).
+    #[serde(rename = "_itemSequence")]
+    pub item_sequence_ext: Option<types::Element>,
 
     /// Number for tracking
     pub trace_number: Option<Vec<types::Identifier>>,
 
     /// Applicable note numbers
     pub note_number: Option<Vec<types::PositiveInt>>,
+    /// Primitive extension sibling for [`note_number`](Self::note_number) (FHIR `_noteNumber`).
+    #[serde(rename = "_noteNumber")]
+    pub note_number_ext: Option<Vec<Option<types::Element>>>,
 
     /// Adjudication results
     pub review_outcome: Option<ClaimResponseItemReviewOutcome>,
@@ -256,6 +286,9 @@ pub struct ClaimResponseItemReviewOutcome {
 
     /// Preauthorization reference
     pub pre_auth_ref: Option<types::String>,
+    /// Primitive extension sibling for [`pre_auth_ref`](Self::pre_auth_ref) (FHIR `_preAuthRef`).
+    #[serde(rename = "_preAuthRef")]
+    pub pre_auth_ref_ext: Option<types::Element>,
 
     /// Preauthorization reference effective period
     pub pre_auth_period: Option<types::Period>,
@@ -304,12 +337,18 @@ pub struct ClaimResponseItemDetail {
 
     /// Claim detail instance identifier
     pub detail_sequence: types::PositiveInt,
+    /// Primitive extension sibling for [`detail_sequence`](Self::detail_sequence) (FHIR `_detailSequence`).
+    #[serde(rename = "_detailSequence")]
+    pub detail_sequence_ext: Option<types::Element>,
 
     /// Number for tracking
     pub trace_number: Option<Vec<types::Identifier>>,
 
     /// Applicable note numbers
     pub note_number: Option<Vec<types::PositiveInt>>,
+    /// Primitive extension sibling for [`note_number`](Self::note_number) (FHIR `_noteNumber`).
+    #[serde(rename = "_noteNumber")]
+    pub note_number_ext: Option<Vec<Option<types::Element>>>,
 
     /// Detail level adjudication results
     pub review_outcome: Option<ClaimResponseItemReviewOutcome>,
@@ -337,12 +376,18 @@ pub struct ClaimResponseItemDetailSubDetail {
 
     /// Claim sub-detail instance identifier
     pub sub_detail_sequence: types::PositiveInt,
+    /// Primitive extension sibling for [`sub_detail_sequence`](Self::sub_detail_sequence) (FHIR `_subDetailSequence`).
+    #[serde(rename = "_subDetailSequence")]
+    pub sub_detail_sequence_ext: Option<types::Element>,
 
     /// Number for tracking
     pub trace_number: Option<Vec<types::Identifier>>,
 
     /// Applicable note numbers
     pub note_number: Option<Vec<types::PositiveInt>>,
+    /// Primitive extension sibling for [`note_number`](Self::note_number) (FHIR `_noteNumber`).
+    #[serde(rename = "_noteNumber")]
+    pub note_number_ext: Option<Vec<Option<types::Element>>>,
 
     /// Subdetail level adjudication results
     pub review_outcome: Option<ClaimResponseItemReviewOutcome>,
@@ -367,12 +412,21 @@ pub struct ClaimResponseAddItem {
 
     /// Item sequence number
     pub item_sequence: Option<Vec<types::PositiveInt>>,
+    /// Primitive extension sibling for [`item_sequence`](Self::item_sequence) (FHIR `_itemSequence`).
+    #[serde(rename = "_itemSequence")]
+    pub item_sequence_ext: Option<Vec<Option<types::Element>>>,
 
     /// Detail sequence number
     pub detail_sequence: Option<Vec<types::PositiveInt>>,
+    /// Primitive extension sibling for [`detail_sequence`](Self::detail_sequence) (FHIR `_detailSequence`).
+    #[serde(rename = "_detailSequence")]
+    pub detail_sequence_ext: Option<Vec<Option<types::Element>>>,
 
     /// Subdetail sequence number
     pub subdetail_sequence: Option<Vec<types::PositiveInt>>,
+    /// Primitive extension sibling for [`subdetail_sequence`](Self::subdetail_sequence) (FHIR `_subdetailSequence`).
+    #[serde(rename = "_subdetailSequence")]
+    pub subdetail_sequence_ext: Option<Vec<Option<types::Element>>>,
 
     /// Number for tracking
     pub trace_number: Option<Vec<types::Identifier>>,
@@ -421,6 +475,9 @@ pub struct ClaimResponseAddItem {
 
     /// Price scaling factor
     pub factor: Option<types::Decimal>,
+    /// Primitive extension sibling for [`factor`](Self::factor) (FHIR `_factor`).
+    #[serde(rename = "_factor")]
+    pub factor_ext: Option<types::Element>,
 
     /// Total tax
     pub tax: Option<types::Money>,
@@ -433,6 +490,9 @@ pub struct ClaimResponseAddItem {
 
     /// Applicable note numbers
     pub note_number: Option<Vec<types::PositiveInt>>,
+    /// Primitive extension sibling for [`note_number`](Self::note_number) (FHIR `_noteNumber`).
+    #[serde(rename = "_noteNumber")]
+    pub note_number_ext: Option<Vec<Option<types::Element>>>,
 
     /// Added items adjudication results
     pub review_outcome: Option<ClaimResponseItemReviewOutcome>,
@@ -502,6 +562,9 @@ pub struct ClaimResponseAddItemDetail {
 
     /// Price scaling factor
     pub factor: Option<types::Decimal>,
+    /// Primitive extension sibling for [`factor`](Self::factor) (FHIR `_factor`).
+    #[serde(rename = "_factor")]
+    pub factor_ext: Option<types::Element>,
 
     /// Total tax
     pub tax: Option<types::Money>,
@@ -511,6 +574,9 @@ pub struct ClaimResponseAddItemDetail {
 
     /// Applicable note numbers
     pub note_number: Option<Vec<types::PositiveInt>>,
+    /// Primitive extension sibling for [`note_number`](Self::note_number) (FHIR `_noteNumber`).
+    #[serde(rename = "_noteNumber")]
+    pub note_number_ext: Option<Vec<Option<types::Element>>>,
 
     /// Added items detail level adjudication results
     pub review_outcome: Option<ClaimResponseItemReviewOutcome>,
@@ -559,6 +625,9 @@ pub struct ClaimResponseAddItemDetailSubDetail {
 
     /// Price scaling factor
     pub factor: Option<types::Decimal>,
+    /// Primitive extension sibling for [`factor`](Self::factor) (FHIR `_factor`).
+    #[serde(rename = "_factor")]
+    pub factor_ext: Option<types::Element>,
 
     /// Total tax
     pub tax: Option<types::Money>,
@@ -568,6 +637,9 @@ pub struct ClaimResponseAddItemDetailSubDetail {
 
     /// Applicable note numbers
     pub note_number: Option<Vec<types::PositiveInt>>,
+    /// Primitive extension sibling for [`note_number`](Self::note_number) (FHIR `_noteNumber`).
+    #[serde(rename = "_noteNumber")]
+    pub note_number_ext: Option<Vec<Option<types::Element>>>,
 
     /// Added items subdetail level adjudication results
     pub review_outcome: Option<ClaimResponseItemReviewOutcome>,
@@ -622,6 +694,9 @@ pub struct ClaimResponsePayment {
 
     /// Expected date of payment
     pub date: Option<types::Date>,
+    /// Primitive extension sibling for [`date`](Self::date) (FHIR `_date`).
+    #[serde(rename = "_date")]
+    pub date_ext: Option<types::Element>,
 
     /// Payable amount after adjustment
     pub amount: types::Money,
@@ -646,12 +721,18 @@ pub struct ClaimResponseProcessNote {
 
     /// Note instance identifier
     pub number: Option<types::PositiveInt>,
+    /// Primitive extension sibling for [`number`](Self::number) (FHIR `_number`).
+    #[serde(rename = "_number")]
+    pub number_ext: Option<types::Element>,
 
     /// Note purpose
     pub r#type: Option<types::CodeableConcept>,
 
     /// Note explanatory text
     pub text: types::String,
+    /// Primitive extension sibling for [`text`](Self::text) (FHIR `_text`).
+    #[serde(rename = "_text")]
+    pub text_ext: Option<types::Element>,
 
     /// Language of the text
     pub language: Option<types::CodeableConcept>,
@@ -673,15 +754,24 @@ pub struct ClaimResponseInsurance {
 
     /// Insurance instance identifier
     pub sequence: types::PositiveInt,
+    /// Primitive extension sibling for [`sequence`](Self::sequence) (FHIR `_sequence`).
+    #[serde(rename = "_sequence")]
+    pub sequence_ext: Option<types::Element>,
 
     /// Coverage to be used for adjudication
     pub focal: types::Boolean,
+    /// Primitive extension sibling for [`focal`](Self::focal) (FHIR `_focal`).
+    #[serde(rename = "_focal")]
+    pub focal_ext: Option<types::Element>,
 
     /// Insurance information
     pub coverage: types::Reference,
 
     /// Additional provider contract number
     pub business_arrangement: Option<types::String>,
+    /// Primitive extension sibling for [`business_arrangement`](Self::business_arrangement) (FHIR `_businessArrangement`).
+    #[serde(rename = "_businessArrangement")]
+    pub business_arrangement_ext: Option<types::Element>,
 
     /// Adjudication results
     pub claim_response: Option<types::Reference>,
@@ -703,18 +793,30 @@ pub struct ClaimResponseError {
 
     /// Item sequence number
     pub item_sequence: Option<types::PositiveInt>,
+    /// Primitive extension sibling for [`item_sequence`](Self::item_sequence) (FHIR `_itemSequence`).
+    #[serde(rename = "_itemSequence")]
+    pub item_sequence_ext: Option<types::Element>,
 
     /// Detail sequence number
     pub detail_sequence: Option<types::PositiveInt>,
+    /// Primitive extension sibling for [`detail_sequence`](Self::detail_sequence) (FHIR `_detailSequence`).
+    #[serde(rename = "_detailSequence")]
+    pub detail_sequence_ext: Option<types::Element>,
 
     /// Subdetail sequence number
     pub sub_detail_sequence: Option<types::PositiveInt>,
+    /// Primitive extension sibling for [`sub_detail_sequence`](Self::sub_detail_sequence) (FHIR `_subDetailSequence`).
+    #[serde(rename = "_subDetailSequence")]
+    pub sub_detail_sequence_ext: Option<types::Element>,
 
     /// Error code detailing processing issues
     pub code: types::CodeableConcept,
 
     /// FHIRPath of element(s) related to issue
     pub expression: Option<Vec<types::String>>,
+    /// Primitive extension sibling for [`expression`](Self::expression) (FHIR `_expression`).
+    #[serde(rename = "_expression")]
+    pub expression_ext: Option<Vec<Option<types::Element>>>,
 }
 
 #[cfg(test)]

@@ -65,9 +65,15 @@ pub struct MolecularSequence {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -86,6 +92,9 @@ pub struct MolecularSequence {
 
     /// Kind of molecule represented, coded as aa (amino acid), dna, or rna
     pub r#type: Option<types::Code>,
+    /// Primitive extension sibling for [`type`](Self::r#type) (FHIR `_type`).
+    #[serde(rename = "_type")]
+    pub type_ext: Option<types::Element>,
 
     /// Subject the sequence is associated with, typically a Patient or other record target
     pub subject: Option<types::Reference>,
@@ -104,6 +113,9 @@ pub struct MolecularSequence {
 
     /// Sequence that was observed, provided inline as a literal string of residues
     pub literal: Option<types::String>,
+    /// Primitive extension sibling for [`literal`](Self::literal) (FHIR `_literal`).
+    #[serde(rename = "_literal")]
+    pub literal_ext: Option<types::Element>,
 
     /// Embedded file or an external link containing content that represents the sequence, such as a FASTA or VCF file
     pub formatted: Option<Vec<types::Attachment>>,
@@ -131,6 +143,9 @@ pub struct MolecularSequenceRelative {
 
     /// Indicates the order in which the sequence should be considered when putting multiple 'relative' elements together
     pub ordinal_position: Option<types::Integer>,
+    /// Primitive extension sibling for [`ordinal_position`](Self::ordinal_position) (FHIR `_ordinalPosition`).
+    #[serde(rename = "_ordinalPosition")]
+    pub ordinal_position_ext: Option<types::Element>,
 
     /// Indicates the nucleotide range in the composed sequence when multiple 'relative' elements are used together
     pub sequence_range: Option<types::Range>,
@@ -173,15 +188,27 @@ pub struct MolecularSequenceRelativeStartingSequence {
 
     /// Start position of the window on the starting sequence
     pub window_start: Option<types::Integer>,
+    /// Primitive extension sibling for [`window_start`](Self::window_start) (FHIR `_windowStart`).
+    #[serde(rename = "_windowStart")]
+    pub window_start_ext: Option<types::Element>,
 
     /// End position of the window on the starting sequence
     pub window_end: Option<types::Integer>,
+    /// Primitive extension sibling for [`window_end`](Self::window_end) (FHIR `_windowEnd`).
+    #[serde(rename = "_windowEnd")]
+    pub window_end_ext: Option<types::Element>,
 
     /// sense | antisense
     pub orientation: Option<types::Code>,
+    /// Primitive extension sibling for [`orientation`](Self::orientation) (FHIR `_orientation`).
+    #[serde(rename = "_orientation")]
+    pub orientation_ext: Option<types::Element>,
 
     /// watson | crick
     pub strand: Option<types::Code>,
+    /// Primitive extension sibling for [`strand`](Self::strand) (FHIR `_strand`).
+    #[serde(rename = "_strand")]
+    pub strand_ext: Option<types::Element>,
 }
 
 /// Changes in sequence from the starting sequence.
@@ -200,15 +227,27 @@ pub struct MolecularSequenceRelativeEdit {
 
     /// Start position of the edit on the starting sequence
     pub start: Option<types::Integer>,
+    /// Primitive extension sibling for [`start`](Self::start) (FHIR `_start`).
+    #[serde(rename = "_start")]
+    pub start_ext: Option<types::Element>,
 
     /// End position of the edit on the starting sequence
     pub end: Option<types::Integer>,
+    /// Primitive extension sibling for [`end`](Self::end) (FHIR `_end`).
+    #[serde(rename = "_end")]
+    pub end_ext: Option<types::Element>,
 
     /// Allele that was observed
     pub replacement_sequence: Option<types::String>,
+    /// Primitive extension sibling for [`replacement_sequence`](Self::replacement_sequence) (FHIR `_replacementSequence`).
+    #[serde(rename = "_replacementSequence")]
+    pub replacement_sequence_ext: Option<types::Element>,
 
     /// Allele in the starting sequence
     pub replaced_sequence: Option<types::String>,
+    /// Primitive extension sibling for [`replaced_sequence`](Self::replaced_sequence) (FHIR `_replacedSequence`).
+    #[serde(rename = "_replacedSequence")]
+    pub replaced_sequence_ext: Option<types::Element>,
 }
 
 #[cfg(test)]

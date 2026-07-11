@@ -47,6 +47,9 @@ pub struct Address {
     /// address (visiting location).
     #[serde(rename = "type")]
     pub r#type: Option<types::Code>, // « AddressType! »
+    /// Primitive extension sibling for [`type`](Self::r#type) (FHIR `_type`).
+    #[serde(rename = "_type")]
+    pub type_ext: Option<types::Element>,
 
     /// A full text representation of the address, useful when it is not
     /// possible or desired to break the address into its component parts.

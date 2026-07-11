@@ -64,9 +64,15 @@ pub struct Person {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -85,6 +91,9 @@ pub struct Person {
 
     /// Whether this person's record is in active use; a false value indicates the record should no longer be relied upon
     pub active: Option<types::Boolean>,
+    /// Primitive extension sibling for [`active`](Self::active) (FHIR `_active`).
+    #[serde(rename = "_active")]
+    pub active_ext: Option<types::Element>,
 
     /// One or more names associated with the person, each expressed as a structured human name
     pub name: Option<Vec<types::HumanName>>,
@@ -94,9 +103,15 @@ pub struct Person {
 
     /// male | female | other | unknown
     pub gender: Option<types::Code>,
+    /// Primitive extension sibling for [`gender`](Self::gender) (FHIR `_gender`).
+    #[serde(rename = "_gender")]
+    pub gender_ext: Option<types::Element>,
 
     /// The date on which the person was born
     pub birth_date: Option<types::Date>,
+    /// Primitive extension sibling for [`birth_date`](Self::birth_date) (FHIR `_birthDate`).
+    #[serde(rename = "_birthDate")]
+    pub birth_date_ext: Option<types::Element>,
 
     /// Indicates if the individual is deceased or not
     pub deceased_boolean: Option<types::Boolean>,
@@ -143,6 +158,9 @@ pub struct PersonCommunication {
 
     /// Language preference indicator
     pub preferred: Option<types::Boolean>,
+    /// Primitive extension sibling for [`preferred`](Self::preferred) (FHIR `_preferred`).
+    #[serde(rename = "_preferred")]
+    pub preferred_ext: Option<types::Element>,
 }
 
 /// Link to a resource that concerns the same actual person.
@@ -164,6 +182,9 @@ pub struct PersonLink {
 
     /// level1 | level2 | level3 | level4
     pub assurance: Option<types::Code>,
+    /// Primitive extension sibling for [`assurance`](Self::assurance) (FHIR `_assurance`).
+    #[serde(rename = "_assurance")]
+    pub assurance_ext: Option<types::Element>,
 }
 
 #[cfg(test)]

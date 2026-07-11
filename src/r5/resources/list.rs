@@ -66,9 +66,15 @@ pub struct List {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -87,12 +93,21 @@ pub struct List {
 
     /// Lifecycle status of the list: current, retired, or entered-in-error.
     pub status: types::Code,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// How the list was assembled: a working list, a point-in-time snapshot, or a change set.
     pub mode: types::Code,
+    /// Primitive extension sibling for [`mode`](Self::mode) (FHIR `_mode`).
+    #[serde(rename = "_mode")]
+    pub mode_ext: Option<types::Element>,
 
     /// Descriptive name for the list
     pub title: Option<types::String>,
+    /// Primitive extension sibling for [`title`](Self::title) (FHIR `_title`).
+    #[serde(rename = "_title")]
+    pub title_ext: Option<types::Element>,
 
     /// What the purpose of this list is
     pub code: Option<types::CodeableConcept>,
@@ -105,6 +120,9 @@ pub struct List {
 
     /// When the list was prepared
     pub date: Option<types::DateTime>,
+    /// Primitive extension sibling for [`date`](Self::date) (FHIR `_date`).
+    #[serde(rename = "_date")]
+    pub date_ext: Option<types::Element>,
 
     /// Who and/or what defined the list contents (aka Author)
     pub source: Option<types::Reference>,
@@ -145,9 +163,15 @@ pub struct ListEntry {
 
     /// If this item is actually marked as deleted
     pub deleted: Option<types::Boolean>,
+    /// Primitive extension sibling for [`deleted`](Self::deleted) (FHIR `_deleted`).
+    #[serde(rename = "_deleted")]
+    pub deleted_ext: Option<types::Element>,
 
     /// When item added to list
     pub date: Option<types::DateTime>,
+    /// Primitive extension sibling for [`date`](Self::date) (FHIR `_date`).
+    #[serde(rename = "_date")]
+    pub date_ext: Option<types::Element>,
 
     /// Actual entry
     pub item: types::Reference,

@@ -67,9 +67,15 @@ pub struct GuidanceResponse {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -100,6 +106,9 @@ pub struct GuidanceResponse {
 
     /// The processing status of the guidance response: success | data-requested | data-required | in-progress | failure | entered-in-error
     pub status: types::Code,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// The patient (or other subject) the guidance was requested and evaluated for
     pub subject: Option<types::Reference>,
@@ -109,6 +118,9 @@ pub struct GuidanceResponse {
 
     /// When the guidance response was processed
     pub occurrence_date_time: Option<types::DateTime>,
+    /// Primitive extension sibling for [`occurrence_date_time`](Self::occurrence_date_time) (FHIR `_occurrenceDateTime`).
+    #[serde(rename = "_occurrenceDateTime")]
+    pub occurrence_date_time_ext: Option<types::Element>,
 
     /// Device returning the guidance
     pub performer: Option<types::Reference>,

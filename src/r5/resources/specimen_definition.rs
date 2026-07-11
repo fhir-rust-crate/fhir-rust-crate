@@ -61,9 +61,15 @@ pub struct SpecimenDefinition {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -79,12 +85,18 @@ pub struct SpecimenDefinition {
 
     /// Logical canonical URL to reference this SpecimenDefinition (globally unique)
     pub url: Option<types::Uri>,
+    /// Primitive extension sibling for [`url`](Self::url) (FHIR `_url`).
+    #[serde(rename = "_url")]
+    pub url_ext: Option<types::Element>,
 
     /// Business identifier used by catalogs and order systems to identify this kind of specimen
     pub identifier: Option<types::Identifier>,
 
     /// Business version of the SpecimenDefinition
     pub version: Option<types::String>,
+    /// Primitive extension sibling for [`version`](Self::version) (FHIR `_version`).
+    #[serde(rename = "_version")]
+    pub version_ext: Option<types::Element>,
 
     /// How to compare versions
     pub version_algorithm_string: Option<types::String>,
@@ -94,21 +106,39 @@ pub struct SpecimenDefinition {
 
     /// Name for this {{title}} (computer friendly)
     pub name: Option<types::String>,
+    /// Primitive extension sibling for [`name`](Self::name) (FHIR `_name`).
+    #[serde(rename = "_name")]
+    pub name_ext: Option<types::Element>,
 
     /// Name for this SpecimenDefinition (Human friendly)
     pub title: Option<types::String>,
+    /// Primitive extension sibling for [`title`](Self::title) (FHIR `_title`).
+    #[serde(rename = "_title")]
+    pub title_ext: Option<types::Element>,
 
     /// Based on FHIR definition of another SpecimenDefinition
     pub derived_from_canonical: Option<Vec<types::Canonical>>,
+    /// Primitive extension sibling for [`derived_from_canonical`](Self::derived_from_canonical) (FHIR `_derivedFromCanonical`).
+    #[serde(rename = "_derivedFromCanonical")]
+    pub derived_from_canonical_ext: Option<Vec<Option<types::Element>>>,
 
     /// Based on external definition
     pub derived_from_uri: Option<Vec<types::Uri>>,
+    /// Primitive extension sibling for [`derived_from_uri`](Self::derived_from_uri) (FHIR `_derivedFromUri`).
+    #[serde(rename = "_derivedFromUri")]
+    pub derived_from_uri_ext: Option<Vec<Option<types::Element>>>,
 
     /// Publication status of this definition: draft | active | retired | unknown
     pub status: types::Code,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// If this SpecimenDefinition is not for real usage
     pub experimental: Option<types::Boolean>,
+    /// Primitive extension sibling for [`experimental`](Self::experimental) (FHIR `_experimental`).
+    #[serde(rename = "_experimental")]
+    pub experimental_ext: Option<types::Element>,
 
     /// Type of subject for specimen collection
     pub subject_codeable_concept: Option<types::CodeableConcept>,
@@ -118,15 +148,24 @@ pub struct SpecimenDefinition {
 
     /// Date status first applied
     pub date: Option<types::DateTime>,
+    /// Primitive extension sibling for [`date`](Self::date) (FHIR `_date`).
+    #[serde(rename = "_date")]
+    pub date_ext: Option<types::Element>,
 
     /// The name of the individual or organization that published the SpecimenDefinition
     pub publisher: Option<types::String>,
+    /// Primitive extension sibling for [`publisher`](Self::publisher) (FHIR `_publisher`).
+    #[serde(rename = "_publisher")]
+    pub publisher_ext: Option<types::Element>,
 
     /// Contact details for the publisher
     pub contact: Option<Vec<types::ContactDetail>>,
 
     /// Natural language description of the SpecimenDefinition
     pub description: Option<types::Markdown>,
+    /// Primitive extension sibling for [`description`](Self::description) (FHIR `_description`).
+    #[serde(rename = "_description")]
+    pub description_ext: Option<types::Element>,
 
     /// Content intends to support these contexts
     pub use_context: Option<Vec<types::UsageContext>>,
@@ -136,18 +175,33 @@ pub struct SpecimenDefinition {
 
     /// Why this SpecimenDefinition is defined
     pub purpose: Option<types::Markdown>,
+    /// Primitive extension sibling for [`purpose`](Self::purpose) (FHIR `_purpose`).
+    #[serde(rename = "_purpose")]
+    pub purpose_ext: Option<types::Element>,
 
     /// Use and/or publishing restrictions
     pub copyright: Option<types::Markdown>,
+    /// Primitive extension sibling for [`copyright`](Self::copyright) (FHIR `_copyright`).
+    #[serde(rename = "_copyright")]
+    pub copyright_ext: Option<types::Element>,
 
     /// Copyright holder and year(s)
     pub copyright_label: Option<types::String>,
+    /// Primitive extension sibling for [`copyright_label`](Self::copyright_label) (FHIR `_copyrightLabel`).
+    #[serde(rename = "_copyrightLabel")]
+    pub copyright_label_ext: Option<types::Element>,
 
     /// When SpecimenDefinition was approved by publisher
     pub approval_date: Option<types::Date>,
+    /// Primitive extension sibling for [`approval_date`](Self::approval_date) (FHIR `_approvalDate`).
+    #[serde(rename = "_approvalDate")]
+    pub approval_date_ext: Option<types::Element>,
 
     /// The date on which the asset content was last reviewed by the publisher
     pub last_review_date: Option<types::Date>,
+    /// Primitive extension sibling for [`last_review_date`](Self::last_review_date) (FHIR `_lastReviewDate`).
+    #[serde(rename = "_lastReviewDate")]
+    pub last_review_date_ext: Option<types::Element>,
 
     /// The effective date range for the SpecimenDefinition
     pub effective_period: Option<types::Period>,
@@ -160,6 +214,9 @@ pub struct SpecimenDefinition {
 
     /// Time aspect for collection
     pub time_aspect: Option<types::String>,
+    /// Primitive extension sibling for [`time_aspect`](Self::time_aspect) (FHIR `_timeAspect`).
+    #[serde(rename = "_timeAspect")]
+    pub time_aspect_ext: Option<types::Element>,
 
     /// Specimen collection procedure
     pub collection: Option<Vec<types::CodeableConcept>>,
@@ -188,24 +245,36 @@ pub struct SpecimenDefinitionTypeTested {
 
     /// Primary or secondary specimen
     pub is_derived: Option<types::Boolean>,
+    /// Primitive extension sibling for [`is_derived`](Self::is_derived) (FHIR `_isDerived`).
+    #[serde(rename = "_isDerived")]
+    pub is_derived_ext: Option<types::Element>,
 
     /// Type of intended specimen
     pub r#type: Option<types::CodeableConcept>,
 
     /// preferred | alternate
     pub preference: types::Code,
+    /// Primitive extension sibling for [`preference`](Self::preference) (FHIR `_preference`).
+    #[serde(rename = "_preference")]
+    pub preference_ext: Option<types::Element>,
 
     /// The specimen's container
     pub container: Option<SpecimenDefinitionTypeTestedContainer>,
 
     /// Requirements for specimen delivery and special handling
     pub requirement: Option<types::Markdown>,
+    /// Primitive extension sibling for [`requirement`](Self::requirement) (FHIR `_requirement`).
+    #[serde(rename = "_requirement")]
+    pub requirement_ext: Option<types::Element>,
 
     /// The usual time for retaining this kind of specimen
     pub retention_time: Option<types::Duration>,
 
     /// Specimen for single use only
     pub single_use: Option<types::Boolean>,
+    /// Primitive extension sibling for [`single_use`](Self::single_use) (FHIR `_singleUse`).
+    #[serde(rename = "_singleUse")]
+    pub single_use_ext: Option<types::Element>,
 
     /// Criterion specified for specimen rejection
     pub rejection_criterion: Option<Vec<types::CodeableConcept>>,
@@ -246,6 +315,9 @@ pub struct SpecimenDefinitionTypeTestedContainer {
 
     /// The description of the kind of container
     pub description: Option<types::Markdown>,
+    /// Primitive extension sibling for [`description`](Self::description) (FHIR `_description`).
+    #[serde(rename = "_description")]
+    pub description_ext: Option<types::Element>,
 
     /// The capacity of this kind of container
     pub capacity: Option<types::Quantity>,
@@ -261,6 +333,9 @@ pub struct SpecimenDefinitionTypeTestedContainer {
 
     /// Special processing applied to the container for this specimen type
     pub preparation: Option<types::Markdown>,
+    /// Primitive extension sibling for [`preparation`](Self::preparation) (FHIR `_preparation`).
+    #[serde(rename = "_preparation")]
+    pub preparation_ext: Option<types::Element>,
 }
 
 /// Additive associated with container.
@@ -317,6 +392,9 @@ pub struct SpecimenDefinitionTypeTestedHandling {
 
     /// Preservation instruction
     pub instruction: Option<types::Markdown>,
+    /// Primitive extension sibling for [`instruction`](Self::instruction) (FHIR `_instruction`).
+    #[serde(rename = "_instruction")]
+    pub instruction_ext: Option<types::Element>,
 }
 
 #[cfg(test)]

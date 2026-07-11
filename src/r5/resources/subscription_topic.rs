@@ -70,9 +70,15 @@ pub struct SubscriptionTopic {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
@@ -88,12 +94,18 @@ pub struct SubscriptionTopic {
 
     /// Canonical identifier for this subscription topic, represented as an absolute URI (globally unique); this is the value a `Subscription` uses to reference the topic
     pub url: types::Uri,
+    /// Primitive extension sibling for [`url`](Self::url) (FHIR `_url`).
+    #[serde(rename = "_url")]
+    pub url_ext: Option<types::Element>,
 
     /// Business identifier for subscription topic
     pub identifier: Option<Vec<types::Identifier>>,
 
     /// Business version of the subscription topic
     pub version: Option<types::String>,
+    /// Primitive extension sibling for [`version`](Self::version) (FHIR `_version`).
+    #[serde(rename = "_version")]
+    pub version_ext: Option<types::Element>,
 
     /// How to compare versions
     pub version_algorithm_string: Option<types::String>,
@@ -103,30 +115,54 @@ pub struct SubscriptionTopic {
 
     /// Name for this subscription topic (computer friendly)
     pub name: Option<types::String>,
+    /// Primitive extension sibling for [`name`](Self::name) (FHIR `_name`).
+    #[serde(rename = "_name")]
+    pub name_ext: Option<types::Element>,
 
     /// Name for this subscription topic (human friendly)
     pub title: Option<types::String>,
+    /// Primitive extension sibling for [`title`](Self::title) (FHIR `_title`).
+    #[serde(rename = "_title")]
+    pub title_ext: Option<types::Element>,
 
     /// Based on FHIR protocol or definition
     pub derived_from: Option<Vec<types::Canonical>>,
+    /// Primitive extension sibling for [`derived_from`](Self::derived_from) (FHIR `_derivedFrom`).
+    #[serde(rename = "_derivedFrom")]
+    pub derived_from_ext: Option<Vec<Option<types::Element>>>,
 
     /// The publication lifecycle status of this topic definition: draft | active | retired | unknown
     pub status: types::Code,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// If for testing purposes, not real usage
     pub experimental: Option<types::Boolean>,
+    /// Primitive extension sibling for [`experimental`](Self::experimental) (FHIR `_experimental`).
+    #[serde(rename = "_experimental")]
+    pub experimental_ext: Option<types::Element>,
 
     /// Date status first applied
     pub date: Option<types::DateTime>,
+    /// Primitive extension sibling for [`date`](Self::date) (FHIR `_date`).
+    #[serde(rename = "_date")]
+    pub date_ext: Option<types::Element>,
 
     /// The name of the individual or organization that published the SubscriptionTopic
     pub publisher: Option<types::String>,
+    /// Primitive extension sibling for [`publisher`](Self::publisher) (FHIR `_publisher`).
+    #[serde(rename = "_publisher")]
+    pub publisher_ext: Option<types::Element>,
 
     /// Contact details for the publisher
     pub contact: Option<Vec<types::ContactDetail>>,
 
     /// Natural language description of the SubscriptionTopic
     pub description: Option<types::Markdown>,
+    /// Primitive extension sibling for [`description`](Self::description) (FHIR `_description`).
+    #[serde(rename = "_description")]
+    pub description_ext: Option<types::Element>,
 
     /// Content intends to support these contexts
     pub use_context: Option<Vec<types::UsageContext>>,
@@ -136,18 +172,33 @@ pub struct SubscriptionTopic {
 
     /// Why this SubscriptionTopic is defined
     pub purpose: Option<types::Markdown>,
+    /// Primitive extension sibling for [`purpose`](Self::purpose) (FHIR `_purpose`).
+    #[serde(rename = "_purpose")]
+    pub purpose_ext: Option<types::Element>,
 
     /// Use and/or publishing restrictions
     pub copyright: Option<types::Markdown>,
+    /// Primitive extension sibling for [`copyright`](Self::copyright) (FHIR `_copyright`).
+    #[serde(rename = "_copyright")]
+    pub copyright_ext: Option<types::Element>,
 
     /// Copyright holder and year(s)
     pub copyright_label: Option<types::String>,
+    /// Primitive extension sibling for [`copyright_label`](Self::copyright_label) (FHIR `_copyrightLabel`).
+    #[serde(rename = "_copyrightLabel")]
+    pub copyright_label_ext: Option<types::Element>,
 
     /// When SubscriptionTopic is/was approved by publisher
     pub approval_date: Option<types::Date>,
+    /// Primitive extension sibling for [`approval_date`](Self::approval_date) (FHIR `_approvalDate`).
+    #[serde(rename = "_approvalDate")]
+    pub approval_date_ext: Option<types::Element>,
 
     /// Date the Subscription Topic was last reviewed by the publisher
     pub last_review_date: Option<types::Date>,
+    /// Primitive extension sibling for [`last_review_date`](Self::last_review_date) (FHIR `_lastReviewDate`).
+    #[serde(rename = "_lastReviewDate")]
+    pub last_review_date_ext: Option<types::Element>,
 
     /// The effective date range for the SubscriptionTopic
     pub effective_period: Option<types::Period>,
@@ -181,18 +232,30 @@ pub struct SubscriptionTopicResourceTrigger {
 
     /// Text representation of the resource trigger
     pub description: Option<types::Markdown>,
+    /// Primitive extension sibling for [`description`](Self::description) (FHIR `_description`).
+    #[serde(rename = "_description")]
+    pub description_ext: Option<types::Element>,
 
     /// Data Type or Resource (reference to definition) for this trigger definition
     pub resource: types::Uri,
+    /// Primitive extension sibling for [`resource`](Self::resource) (FHIR `_resource`).
+    #[serde(rename = "_resource")]
+    pub resource_ext: Option<types::Element>,
 
     /// create | update | delete
     pub supported_interaction: Option<Vec<types::Code>>,
+    /// Primitive extension sibling for [`supported_interaction`](Self::supported_interaction) (FHIR `_supportedInteraction`).
+    #[serde(rename = "_supportedInteraction")]
+    pub supported_interaction_ext: Option<Vec<Option<types::Element>>>,
 
     /// Query based trigger rule
     pub query_criteria: Option<SubscriptionTopicResourceTriggerQueryCriteria>,
 
     /// FHIRPath based trigger rule
     pub fhir_path_criteria: Option<types::String>,
+    /// Primitive extension sibling for [`fhir_path_criteria`](Self::fhir_path_criteria) (FHIR `_fhirPathCriteria`).
+    #[serde(rename = "_fhirPathCriteria")]
+    pub fhir_path_criteria_ext: Option<types::Element>,
 }
 
 /// Query based trigger rule for a resource-based trigger.
@@ -211,18 +274,33 @@ pub struct SubscriptionTopicResourceTriggerQueryCriteria {
 
     /// Rule applied to previous resource state
     pub previous: Option<types::String>,
+    /// Primitive extension sibling for [`previous`](Self::previous) (FHIR `_previous`).
+    #[serde(rename = "_previous")]
+    pub previous_ext: Option<types::Element>,
 
     /// test-passes | test-fails
     pub result_for_create: Option<types::Code>,
+    /// Primitive extension sibling for [`result_for_create`](Self::result_for_create) (FHIR `_resultForCreate`).
+    #[serde(rename = "_resultForCreate")]
+    pub result_for_create_ext: Option<types::Element>,
 
     /// Rule applied to current resource state
     pub current: Option<types::String>,
+    /// Primitive extension sibling for [`current`](Self::current) (FHIR `_current`).
+    #[serde(rename = "_current")]
+    pub current_ext: Option<types::Element>,
 
     /// test-passes | test-fails
     pub result_for_delete: Option<types::Code>,
+    /// Primitive extension sibling for [`result_for_delete`](Self::result_for_delete) (FHIR `_resultForDelete`).
+    #[serde(rename = "_resultForDelete")]
+    pub result_for_delete_ext: Option<types::Element>,
 
     /// Both must be true flag
     pub require_both: Option<types::Boolean>,
+    /// Primitive extension sibling for [`require_both`](Self::require_both) (FHIR `_requireBoth`).
+    #[serde(rename = "_requireBoth")]
+    pub require_both_ext: Option<types::Element>,
 }
 
 /// Event definitions the SubscriptionTopic.
@@ -241,12 +319,18 @@ pub struct SubscriptionTopicEventTrigger {
 
     /// Text representation of the event trigger
     pub description: Option<types::Markdown>,
+    /// Primitive extension sibling for [`description`](Self::description) (FHIR `_description`).
+    #[serde(rename = "_description")]
+    pub description_ext: Option<types::Element>,
 
     /// Event which can trigger a notification from the SubscriptionTopic
     pub event: types::CodeableConcept,
 
     /// Data Type or Resource (reference to definition) for this trigger definition
     pub resource: types::Uri,
+    /// Primitive extension sibling for [`resource`](Self::resource) (FHIR `_resource`).
+    #[serde(rename = "_resource")]
+    pub resource_ext: Option<types::Element>,
 }
 
 /// Properties by which a Subscription can filter notifications from the SubscriptionTopic.
@@ -265,21 +349,39 @@ pub struct SubscriptionTopicCanFilterBy {
 
     /// Description of this filter parameter
     pub description: Option<types::Markdown>,
+    /// Primitive extension sibling for [`description`](Self::description) (FHIR `_description`).
+    #[serde(rename = "_description")]
+    pub description_ext: Option<types::Element>,
 
     /// URL of the triggering Resource that this filter applies to
     pub resource: Option<types::Uri>,
+    /// Primitive extension sibling for [`resource`](Self::resource) (FHIR `_resource`).
+    #[serde(rename = "_resource")]
+    pub resource_ext: Option<types::Element>,
 
     /// Human-readable and computation-friendly name for a filter parameter usable by subscriptions on this topic, via Subscription.filterBy.filterParameter
     pub filter_parameter: types::String,
+    /// Primitive extension sibling for [`filter_parameter`](Self::filter_parameter) (FHIR `_filterParameter`).
+    #[serde(rename = "_filterParameter")]
+    pub filter_parameter_ext: Option<types::Element>,
 
     /// Canonical URL for a filterParameter definition
     pub filter_definition: Option<types::Uri>,
+    /// Primitive extension sibling for [`filter_definition`](Self::filter_definition) (FHIR `_filterDefinition`).
+    #[serde(rename = "_filterDefinition")]
+    pub filter_definition_ext: Option<types::Element>,
 
     /// eq | ne | gt | lt | ge | le | sa | eb | ap
     pub comparator: Option<Vec<types::Code>>,
+    /// Primitive extension sibling for [`comparator`](Self::comparator) (FHIR `_comparator`).
+    #[serde(rename = "_comparator")]
+    pub comparator_ext: Option<Vec<Option<types::Element>>>,
 
     /// missing | exact | contains | not | text | in | not-in | below | above | type | identifier | of-type | code-text | text-advanced | iterate
     pub modifier: Option<Vec<types::Code>>,
+    /// Primitive extension sibling for [`modifier`](Self::modifier) (FHIR `_modifier`).
+    #[serde(rename = "_modifier")]
+    pub modifier_ext: Option<Vec<Option<types::Element>>>,
 }
 
 /// Properties for describing the shape of notifications generated by this topic.
@@ -298,12 +400,21 @@ pub struct SubscriptionTopicNotificationShape {
 
     /// URL of the Resource that is the focus (main) resource in a notification shape
     pub resource: types::Uri,
+    /// Primitive extension sibling for [`resource`](Self::resource) (FHIR `_resource`).
+    #[serde(rename = "_resource")]
+    pub resource_ext: Option<types::Element>,
 
     /// Include directives, rooted in the resource for this shape
     pub include: Option<Vec<types::String>>,
+    /// Primitive extension sibling for [`include`](Self::include) (FHIR `_include`).
+    #[serde(rename = "_include")]
+    pub include_ext: Option<Vec<Option<types::Element>>>,
 
     /// Reverse include directives, rooted in the resource for this shape
     pub rev_include: Option<Vec<types::String>>,
+    /// Primitive extension sibling for [`rev_include`](Self::rev_include) (FHIR `_revInclude`).
+    #[serde(rename = "_revInclude")]
+    pub rev_include_ext: Option<Vec<Option<types::Element>>>,
 }
 
 #[cfg(test)]

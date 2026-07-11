@@ -64,18 +64,30 @@ pub struct Binary {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// MimeType of the binary content, expressed as a MIME/media type such as `image/png` or `application/pdf`
     pub content_type: types::Code,
+    /// Primitive extension sibling for [`content_type`](Self::content_type) (FHIR `_contentType`).
+    #[serde(rename = "_contentType")]
+    pub content_type_ext: Option<types::Element>,
 
     /// Identifies another resource, such as a Patient, whose access-control policy should govern this content
     pub security_context: Option<types::Reference>,
 
     /// The actual content, base64 encoded, that constitutes this raw artifact
     pub data: Option<types::Base64Binary>,
+    /// Primitive extension sibling for [`data`](Self::data) (FHIR `_data`).
+    #[serde(rename = "_data")]
+    pub data_ext: Option<types::Element>,
 }
 
 #[cfg(test)]

@@ -64,9 +64,15 @@ pub struct Parameters {
 
     /// A set of rules under which this content was created
     pub implicit_rules: Option<types::Uri>,
+    /// Primitive extension sibling for [`implicit_rules`](Self::implicit_rules) (FHIR `_implicitRules`).
+    #[serde(rename = "_implicitRules")]
+    pub implicit_rules_ext: Option<types::Element>,
 
     /// Language of the resource content
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// The ordered set of named operation parameters carried by this resource, each supplying an input to or output from the operation.
     pub parameter: Option<Vec<ParametersParameter>>,
@@ -88,6 +94,9 @@ pub struct ParametersParameter {
 
     /// The parameter name as defined by the operation definition; it identifies which formal parameter this entry supplies.
     pub name: types::String,
+    /// Primitive extension sibling for [`name`](Self::name) (FHIR `_name`).
+    #[serde(rename = "_name")]
+    pub name_ext: Option<types::Element>,
 
     /// If parameter is a data type
     pub value_base64_binary: Option<types::Base64Binary>,
