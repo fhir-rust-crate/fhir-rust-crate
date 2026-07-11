@@ -33,11 +33,13 @@ cargo test --test roundtrip_official_examples -- --ignored --nocapture
 - **Category D** — `Range.low`/`Range.high` are 0..1 in R5 but were modelled as
   required; made `Option` (fixed 9 of 10 deserialize failures).
 
-Remaining (4 files, all deferred to the choice-enum work T9):
-- Choice `value[x]` primitive extensions (`_valueCode` on `Extension.value[x]`)
-  — 2 files.
+Choice `value[x]` primitive extensions (`_valueCode` on `Extension.value[x]`)
+were resolved by T9 (the `ExtensionValue` enum's `Primitive` variants now carry
+`_value<Type>`). Full-set round-trip after T9: **2822/2824 (99.93%)**.
+
+Remaining (2 files):
 - `ConceptMap.group.element.target.product` — reuses the `dependsOn` structure
-  (`attribute` + `value[x]` choice); 1 file.
+  (`attribute` + `value[x]` choice); a genuinely unmodelled field. 1 file.
 - `QuestionnaireResponse.questionnaire` — genuinely 1..1 required in R5 (meta
   confirms `min=1`); `questionnaireresponse-example-f201-lifelines.json` omits it
   and is non-conformant. Left required by design (the last deserialize failure).

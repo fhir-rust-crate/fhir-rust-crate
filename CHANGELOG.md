@@ -7,6 +7,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-07-11
+
+### Changed (breaking)
+- **Choice types (`value[x]`) are now enums.** Every FHIR choice element is
+  modelled as a generated `#[derive(FhirChoice)]` enum (one variant per allowed
+  type), held via `#[serde(flatten)]`, replacing the flattened `value_<type>`
+  fields (e.g. `Observation.value_quantity`/`value_string`/… → `value:
+  Option<ObservationValue>`). This makes "at most one" a compile-time property
+  and models the paired `_value<Type>` primitive extensions. 258 choice elements
+  across all datatypes and resources were converted by the `choice_gen`
+  generator. See `spec/11-choice-types.md`.
+  - Primitive choice variants use `fhir::r5::choice::Primitive<T>` to carry the
+    `_value<Type>` extension; complex variants hold `Box<T>`.
+  - The choice enums live in their type's module (e.g.
+    `resources::observation::ObservationValue`,
+    `types::extension::ExtensionValue`).
+  - Deserialization is lenient (a malformed choice → `None`); see the spec for
+    why strict rejection isn't possible under `flatten`.
+
+### Added
+- `fhir::r5::choice` module with `Primitive<T>` and the `FhirChoice` derive
+  (`fhir-derive-macros`).
+
 ## [0.2.0] - 2026-07-11
 
 ### Added
@@ -56,6 +79,7 @@ Initial release: the complete FHIR R5 (5.0.0) data model in idiomatic,
 - Runnable examples: `build_patient`, `validate_resource`, `read_bundle`,
   `code_systems`.
 
-[Unreleased]: https://github.com/joelparkerhenderson/fhir-rust-crate/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/joelparkerhenderson/fhir-rust-crate/compare/v0.3.0...HEAD
+[0.3.0]: https://github.com/joelparkerhenderson/fhir-rust-crate/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/joelparkerhenderson/fhir-rust-crate/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/joelparkerhenderson/fhir-rust-crate/releases/tag/v0.1.0

@@ -1,6 +1,6 @@
 # 11 — Choice types (`value[x]`)
 
-Status: **design decided (T9a); rollout pending (T9b–e).** This spec defines how
+Status: **implemented (T9a–d, shipped 0.3).** This spec defines how
 the crate will represent FHIR `value[x]` *choice* elements as Rust enums, records
 the serde design validated by the T9a prototype
 (`tests/choice_type_prototype.rs`), and its findings.
@@ -106,10 +106,14 @@ Key limitation found:
   one" is compile-time enforced, and CHANGELOG documents the migration; version
   bump 0.3.
 
-## Rollout plan (T9b–e)
+## Rollout (done)
 
-- **T9b** — generator: emit the enum + serde per choice element (from the
-  `r5::meta` `value[x]` type lists); apply to datatypes.
-- **T9c/T9d** — apply to resources A–M / N–Z.
-- **T9e** — docs and examples (`examples/build_patient.rs`, etc.) compile against
-  the new API.
+- **T9b** — `FhirChoice` derive + `Primitive<T>`; first conversion (Annotation).
+- **T9c** — `src/r5/parse/choice_gen.rs` generator; 17 datatype conversions.
+- **T9d** — 241 resource conversions (258 total).
+- **T9e** — 0.3 ship; examples/tests migrated to the enum API.
+
+Deferred: crate-level re-exports of the choice enums (they are reachable via
+their type's module today), and `#[deprecated]` accessor shims for every old
+field (R6 "where cheap" — provided on the Annotation demonstrator; skipped in the
+bulk to keep the generated surface manageable for a pre-1.0 breaking release).
