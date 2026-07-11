@@ -187,6 +187,7 @@
 //! - [`r5::types`] — the ~50 complex datatypes and 21 primitive newtypes.
 //! - [`r5::codes`] — FHIR `CodeSystem`s as enums.
 //! - [`r5::validate`] — the [`Validate`](r5::validate::Validate) trait and primitive constraints.
+//! - [`r5::meta`] — per-element specification metadata (cardinality, bindings, choice types, reference targets).
 //! - [`r5::parse`] — the code generator that reads [`DEFINITIONS_DIR`].
 
 // Enable Clippy's pedantic lint group across the whole crate.

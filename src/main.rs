@@ -23,4 +23,7 @@ fn generate_profiles_types() {
 
 fn main() {
     generate_profiles_types();
+    // Extract per-element metadata (bindings, choice types, reference targets,
+    // cardinality, summary flags) into tmp/out/meta.json and src/r5/meta/generated.rs.
+    parse::meta::generate();
 }

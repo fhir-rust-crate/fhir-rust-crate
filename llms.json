@@ -18,6 +18,7 @@
     "r5::types": "The ~50 complex datatypes and 21 primitive newtypes. Primitives serialize transparently to their underlying JSON value.",
     "r5::codes": "FHIR CodeSystems as type-safe enums.",
     "r5::validate": "The `Validate` trait and `#[derive(Validate)]`, reporting pathed `ValidationIssue`s.",
+    "r5::meta": "Per-element metadata extracted from the specification (cardinality, bindings, value[x] choice types, reference target profiles, summary membership), queryable by FHIR path.",
     "r5::parse": "The spec-driven code generator that reads the FHIR specification JSON in `DEFINITIONS_DIR`.",
     "r5::abstract_types": "Base/abstract FHIR interfaces used by the generator.",
     "r5::properties": "Generator-internal support module.",

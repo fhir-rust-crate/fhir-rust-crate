@@ -39,3 +39,7 @@ pub mod codes;
 
 /// Lightweight FHIR R5 validation
 pub mod validate;
+
+/// Per-element metadata extracted from the FHIR R5 specification (cardinality,
+/// bindings, choice types, reference targets, summary membership).
+pub mod meta;

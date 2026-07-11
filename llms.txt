@@ -26,6 +26,9 @@ The public API lives under the `r5` module (FHIR Release 5):
 - `r5::validate` — the `Validate` trait and `#[derive(Validate)]`, reporting
   pathed `ValidationIssue`s and checking primitive format constraints
   recursively.
+- `r5::meta` — per-element metadata extracted from the specification
+  (cardinality, coded-value bindings, `value[x]` choice types, reference target
+  profiles, summary membership), queryable by FHIR path.
 - `r5::parse` — the spec-driven code generator that reads the FHIR specification
   JSON in `DEFINITIONS_DIR` and emits the Rust model.
 - `r5::abstract_types` — base/abstract FHIR interfaces used by the generator.
