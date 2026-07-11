@@ -13,20 +13,33 @@ cargo test --test roundtrip_official_examples -- --ignored --nocapture
 
 ## Summary
 
-| Result | T2 baseline | After T7 (`_field`) |
-|---|---:|---:|
-| Files scanned | 2824 | 2824 |
-| **Passed** | **2760** | **2780** |
-| Deserialize failures | 10 | 10 |
-| Round-trip mismatches | 54 | 34 |
+| Result | T2 baseline | After T7 (`_field`) | After C/D fixes |
+|---|---:|---:|---:|
+| Files scanned | 2824 | 2824 | 2824 |
+| **Passed** | **2760** | **2780** | **2801** (99.2%) |
+| Deserialize failures | 10 | 10 | 1 |
+| Round-trip mismatches | 54 | 34 | 22 |
 
-**Status after T7 (`_field` primitive extensions rolled across the model):**
-category A below is essentially resolved — every primitive element now has a
-`_field` sibling. The remaining 34 mismatches are **category B** (`id`/`extension`
-on complex datatypes — not a `_field` issue), **category C** (a few missing
-scalar fields), and choice `value[x]` primitive extensions (e.g. `_valueCode`),
-which are deferred with the choice-enum work (T9). The 10 deserialize failures
-(category D) are unchanged.
+**Status.** Resolved:
+- **Category A** (`_field` primitive extensions) — rolled across the whole model
+  in T6/T7.
+- **Category C** (missing scalar fields) — the fields existed but were dropped by
+  acronym-casing (`carrierAIDC`/`carrierHRF`/`requestURL`/`productionIdentifierInUDI`
+  serialized as `carrierAidc`/…); fixed with explicit `#[serde(rename)]`. Only
+  these four elements in all of R5 have caps acronyms.
+- **Category D** — `Range.low`/`Range.high` are 0..1 in R5 but were modelled as
+  required; made `Option` (fixed 9 of 10 deserialize failures).
+
+Remaining (23 files):
+- **Category B** — `id`/`extension` on complex datatypes (Coding, Reference,
+  Attachment, …). Not a `_field` issue; the datatypes don't model the `Element`
+  base. Biggest remaining bucket.
+- Choice `value[x]` primitive extensions (e.g. `_valueCode`) — deferred with the
+  choice-enum work (T9).
+- ConceptMap `target.product` — entangled with the `value[x]` choice; deferred to T9.
+- `QuestionnaireResponse.questionnaire` — genuinely 1..1 required in R5 (meta
+  confirms `min=1`); `questionnaireresponse-example-f201-lifelines.json` omits it
+  and is non-conformant. Left required by design (the last deserialize failure).
 
 Historical baseline notes (from T2) follow; categories A–E describe the original
 54 mismatches + 10 failures.

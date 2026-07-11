@@ -261,9 +261,11 @@ pub struct DeviceUdiCarrier {
     pub jurisdiction_ext: Option<types::Element>,
 
     /// UDI Machine Readable Barcode String
+    #[serde(rename = "carrierAIDC")]
     pub carrier_aidc: Option<types::Base64Binary>,
 
     /// UDI Human Readable Barcode String
+    #[serde(rename = "carrierHRF")]
     pub carrier_hrf: Option<types::String>,
 
     /// barcode | rfid | manual | card | self-reported | electronic-transmission | unknown

@@ -165,6 +165,7 @@ pub struct DeviceDefinition {
     pub material: Option<Vec<DeviceDefinitionMaterial>>,
 
     /// lot-number | manufactured-date | serial-number | expiration-date | biological-source | software-version
+    #[serde(rename = "productionIdentifierInUDI")]
     pub production_identifier_in_udi: Option<Vec<types::Code>>,
 
     /// Information aimed at providing directions for the usage of this model of device

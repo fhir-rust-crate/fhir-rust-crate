@@ -39,10 +39,10 @@ use fhir_derive_macros::Validate;
 #[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
 pub struct Range {
-    /// The low limit of the range; omitted if the range has no lower bound. // « C »
-    pub low: types::Quantity,
-    /// The high limit of the range; omitted if the range has no upper bound. // « C »
-    pub high: types::Quantity,
+    /// The low limit of the range; omitted if the range has no lower bound (0..1). // « C »
+    pub low: Option<types::Quantity>,
+    /// The high limit of the range; omitted if the range has no upper bound (0..1). // « C »
+    pub high: Option<types::Quantity>,
 }
 
 #[cfg(test)]
@@ -54,8 +54,8 @@ mod tests {
     fn test_default() {
         let actual = T::default();
         let expect = T {
-            low: types::Quantity::default(),
-            high: types::Quantity::default(),
+            low: None,
+            high: None,
         };
         assert_eq!(actual, expect);
     }
@@ -66,12 +66,8 @@ mod tests {
 
         #[test]
         fn test_serde_json_from_value() {
-            let json = json!(
-                {
-                    "low": {},
-                    "high": {}
-                }
-            );
+            // Both bounds are optional (0..1), so an empty object is a valid Range.
+            let json = json!({});
             let actual: T = ::serde_json::from_value(json).expect("from_value");
             let expect: T = T::default();
             assert_eq!(actual, expect);
@@ -81,12 +77,7 @@ mod tests {
         fn test_serde_json_to_value() {
             let actual: ::serde_json::Value =
                 ::serde_json::to_value(T::default()).expect("to_value");
-            let expect: ::serde_json::Value = json!(
-                {
-                    "low": {},
-                    "high": {}
-                }
-            );
+            let expect: ::serde_json::Value = json!({});
             assert_eq!(actual, expect);
         }
     }

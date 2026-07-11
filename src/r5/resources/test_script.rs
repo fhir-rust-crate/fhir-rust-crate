@@ -782,6 +782,7 @@ pub struct TestScriptSetupActionAssert {
     pub request_method_ext: Option<types::Element>,
 
     /// Request URL comparison value
+    #[serde(rename = "requestURL")]
     pub request_url: Option<types::String>,
 
     /// Resource type
