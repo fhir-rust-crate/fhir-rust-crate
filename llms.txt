@@ -1,0 +1,68 @@
+# fhir
+
+> A Rust implementation of the HL7 FHIR® Release 5 (R5) data model, plus a
+> spec-driven code generator that produces it from the official FHIR
+> specification JSON. Every resource and datatype is a `serde`-serializable Rust
+> type that round-trips to and from canonical FHIR JSON. FHIR (Fast Healthcare
+> Interoperability Resources) is the HL7 standard for exchanging electronic
+> health records.
+
+The model is comprehensive: 21 primitive datatypes, 50 complex datatypes,
+158 resources, 400+ code-system enums, and a recursive validation layer. The
+crate is imported as `fhir` (for example `use fhir::r5::resources::Patient;`).
+
+## Crate layout
+
+The public API lives under the `r5` module (FHIR Release 5):
+
+- `r5::resources` — the 158 R5 resources as structs (Patient, Observation,
+  Encounter, …), plus the polymorphic `Resource` enum tagged by `resourceType`
+  for reading a resource of unknown type.
+- `r5::types` — the ~50 complex datatypes (Period, HumanName, CodeableConcept,
+  …) and the 21 primitive newtypes (Code, Id, DateTime, Boolean, Integer64, …).
+  Primitives serialize transparently to their underlying JSON value.
+- `r5::codes` — FHIR `CodeSystem`s as type-safe enums (for example
+  `AdministrativeGender::Female` serializes to `"female"`).
+- `r5::validate` — the `Validate` trait and `#[derive(Validate)]`, reporting
+  pathed `ValidationIssue`s and checking primitive format constraints
+  recursively.
+- `r5::parse` — the spec-driven code generator that reads the FHIR specification
+  JSON in `DEFINITIONS_DIR` and emits the Rust model.
+- `r5::abstract_types` — base/abstract FHIR interfaces used by the generator.
+
+Generator-internal support modules (not part of the consumer API):
+`r5::properties`, `r5::resource`, `r5::todo`.
+
+The crate root also exposes the top-level modules `r5` and `util`, the
+`DEFINITIONS_DIR` path constant, and the `SourceCodeString` type alias.
+
+## Key types
+
+- `fhir::r5::resources::Resource` — polymorphic, `resourceType`-tagged enum.
+- `fhir::r5::resources::Patient`, `Observation`, `Bundle`, … — resource structs.
+- `fhir::r5::types::{Code, Id, DateTime, Boolean, Integer64}` — primitive newtypes.
+- `fhir::r5::types::{HumanName, CodeableConcept, Period}` — complex datatypes.
+- `fhir::r5::validate::{Validate, ValidationIssue}` — validation.
+
+## Cardinality mapping
+
+FHIR element cardinality maps to Rust types: `0..1` → `Option<T>`,
+`1..1` → `T`, `0..*` → `Option<Vec<T>>`, `1..*` → `Vec<T>`. A `value[x]` choice
+element becomes one field per allowed type, named `value_<type>`.
+
+## Examples
+
+Runnable programs in the `examples/` directory (`cargo run --example <name>`):
+
+- `build_patient` — construct a Patient and serialize to canonical FHIR JSON.
+- `validate_resource` — validate a resource and inspect `ValidationIssue`s.
+- `read_bundle` — read a Bundle and dispatch on each entry's resource type.
+- `code_systems` — use `CodeSystem` enums as type-safe coded values.
+
+## Documentation
+
+- `README.md` — overview and quick start.
+- `CONTRIBUTING.md` — build/test commands and the code-generator workflow.
+- `AGENTS.md` — guidance for AI coding agents and contributors.
+- `spec/` — the living specifications (the source of truth).
+- `CHANGELOG.md` — release history.

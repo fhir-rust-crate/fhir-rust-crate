@@ -1,0 +1,63 @@
+{
+  "name": "fhir",
+  "version": "0.1.0",
+  "description": "A Rust implementation of the HL7 FHIR R5 data model, plus a spec-driven code generator that produces it from the official FHIR specification JSON. Every resource and datatype is a serde-serializable Rust type that round-trips to and from canonical FHIR JSON.",
+  "repository": "https://github.com/joelparkerhenderson/fhir-rust-crate/",
+  "import_as": "fhir",
+  "release": "FHIR R5 (5.0.0)",
+  "model_scope": {
+    "primitive_datatypes": 21,
+    "complex_datatypes": 50,
+    "resources": 158,
+    "code_system_enums": 400
+  },
+  "modules": {
+    "r5": "FHIR Release 5 API root.",
+    "util": "Small string helpers.",
+    "r5::resources": "The 158 R5 resources as structs, plus the polymorphic `Resource` enum tagged by `resourceType`.",
+    "r5::types": "The ~50 complex datatypes and 21 primitive newtypes. Primitives serialize transparently to their underlying JSON value.",
+    "r5::codes": "FHIR CodeSystems as type-safe enums.",
+    "r5::validate": "The `Validate` trait and `#[derive(Validate)]`, reporting pathed `ValidationIssue`s.",
+    "r5::parse": "The spec-driven code generator that reads the FHIR specification JSON in `DEFINITIONS_DIR`.",
+    "r5::abstract_types": "Base/abstract FHIR interfaces used by the generator.",
+    "r5::properties": "Generator-internal support module.",
+    "r5::resource": "Generator-internal support module.",
+    "r5::todo": "Generator-internal support module."
+  },
+  "key_types": [
+    "fhir::r5::resources::Resource",
+    "fhir::r5::resources::Patient",
+    "fhir::r5::resources::Observation",
+    "fhir::r5::resources::Bundle",
+    "fhir::r5::types::Code",
+    "fhir::r5::types::Id",
+    "fhir::r5::types::DateTime",
+    "fhir::r5::types::Boolean",
+    "fhir::r5::types::Integer64",
+    "fhir::r5::types::HumanName",
+    "fhir::r5::types::CodeableConcept",
+    "fhir::r5::types::Period",
+    "fhir::r5::validate::Validate",
+    "fhir::r5::validate::ValidationIssue"
+  ],
+  "cardinality_mapping": {
+    "0..1": "Option<T>",
+    "1..1": "T",
+    "0..*": "Option<Vec<T>>",
+    "1..*": "Vec<T>",
+    "value[x]": "one field per allowed type, named value_<type>"
+  },
+  "examples": {
+    "build_patient": "Construct a Patient and serialize to canonical FHIR JSON.",
+    "validate_resource": "Validate a resource and inspect ValidationIssues.",
+    "read_bundle": "Read a Bundle and dispatch on each entry's resource type.",
+    "code_systems": "Use CodeSystem enums as type-safe coded values."
+  },
+  "documentation": {
+    "README.md": "Overview and quick start.",
+    "CONTRIBUTING.md": "Build/test commands and the code-generator workflow.",
+    "AGENTS.md": "Guidance for AI coding agents and contributors.",
+    "spec/": "The living specifications (the source of truth).",
+    "CHANGELOG.md": "Release history."
+  }
+}
