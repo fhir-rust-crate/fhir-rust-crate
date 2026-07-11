@@ -27,6 +27,23 @@ use fhir_derive_macros::Validate;
 /// albumins, coagulation factors, cytokines, growth factors, and similar
 /// biological substances.
 ///
+/// This resource is used within regulated substance definitions and product
+/// authoring to capture the molecular characterization of a protein-based
+/// substance, including how many subunits it comprises and, for each subunit,
+/// its amino acid sequence, length, and any N-terminal or C-terminal
+/// modifications. It supports the identification and comparison of proteins
+/// used as active ingredients, excipients, or reference substances in
+/// pharmaceutical and biologic products.
+///
+/// # Related resources
+///
+/// A `SubstanceProtein` is typically referenced from a substance definition
+/// resource (such as `SubstanceDefinition`) rather than being used directly by
+/// clinical resources; classification and descriptive terms throughout this
+/// resource are represented as [`CodeableConcept`](crate::r5::types::CodeableConcept)
+/// values, and cross-references to other ISO 11238 substance identifiers use
+/// [`Identifier`](crate::r5::types::Identifier).
+///
 /// # Examples
 ///
 /// ```
@@ -65,16 +82,16 @@ pub struct SubstanceProtein {
     /// Extensions that cannot be ignored
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// The SubstanceProtein descriptive elements will only be used when a complete or partial amino acid sequence is available or derivable from a nucleic acid sequence
+    /// The SubstanceProtein descriptive elements will only be used when a complete or partial amino acid sequence is available or derivable from a nucleic acid sequence; coded using a [`CodeableConcept`](crate::r5::types::CodeableConcept)
     pub sequence_type: Option<types::CodeableConcept>,
 
-    /// Number of linear sequences of amino acids linked through peptide bonds
+    /// Number of linear sequences of amino acids linked through peptide bonds that together make up this protein
     pub number_of_subunits: Option<types::Integer>,
 
-    /// The disulphide bond between two cysteine residues shall be described
+    /// The disulphide bond between two cysteine residues shall be described, identifying the connecting residue positions
     pub disulfide_linkage: Option<Vec<types::String>>,
 
-    /// This subclause refers to the description of each subunit constituting the SubstanceProtein
+    /// The individual amino acid subunits that together constitute this SubstanceProtein, described in detail by [`SubstanceProteinSubunit`]
     pub subunit: Option<Vec<SubstanceProteinSubunit>>,
 }
 

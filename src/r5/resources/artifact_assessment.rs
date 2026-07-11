@@ -22,7 +22,21 @@ use fhir_derive_macros::Validate;
 /// the added content. It is used in FHIR R5 to capture reviews, editorial
 /// commentary, quality classifiers, and quantitative ratings that are attached
 /// to a referenced or canonical artifact. Assessments carry workflow status and
-/// disposition to track how comments are processed over their lifecycle.
+/// disposition to track how comments are processed over their lifecycle. In
+/// practice this resource supports evidence appraisal and editorial workflows,
+/// such as peer review comments on a guideline, quality ratings on a piece of
+/// evidence, or structured responses (including proposed changes) to a
+/// published artifact, allowing reviewers and publishers to record, triage,
+/// and resolve feedback in a consistent, machine-readable way.
+///
+/// The artifact under assessment may be identified by reference, canonical
+/// URL, or plain URI, and the substance of the assessment is carried in one or
+/// more [`ArtifactAssessmentContent`] entries, each of which can itself be
+/// classified using a [`CodeableConcept`](crate::r5::types::CodeableConcept)
+/// and nested to build multi-part reviews.
+///
+/// See also: `Citation`, `Basic`, and other assessed resource types, which are
+/// commonly referenced from `artifact_reference` or `artifact_canonical`.
 ///
 /// # Examples
 ///
@@ -68,13 +82,13 @@ pub struct ArtifactAssessment {
     /// A short title for the assessment for use in displaying and selecting
     pub title: Option<types::String>,
 
-    /// How to cite the comment or rating
+    /// Recommended citation for referencing this comment or rating, as a reference
     pub cite_as_reference: Option<types::Reference>,
 
-    /// How to cite the comment or rating
+    /// Recommended citation for referencing this comment or rating, as free text
     pub cite_as_markdown: Option<types::Markdown>,
 
-    /// Date last changed
+    /// Date the artifact assessment was last changed
     pub date: Option<types::DateTime>,
 
     /// Use and/or publishing restrictions
@@ -86,16 +100,16 @@ pub struct ArtifactAssessment {
     /// When the artifact assessment was last reviewed by the publisher
     pub last_review_date: Option<types::Date>,
 
-    /// The artifact assessed, commented upon or rated
+    /// The artifact assessed, commented upon, or rated, identified by reference
     pub artifact_reference: Option<types::Reference>,
 
-    /// The artifact assessed, commented upon or rated
+    /// The artifact assessed, commented upon, or rated, identified by canonical URL
     pub artifact_canonical: Option<types::Canonical>,
 
-    /// The artifact assessed, commented upon or rated
+    /// The artifact assessed, commented upon, or rated, identified by plain URI
     pub artifact_uri: Option<types::Uri>,
 
-    /// Comment, classifier, or rating content
+    /// The comment, classifier, or rating content that makes up the assessment
     pub content: Option<Vec<ArtifactAssessmentContent>>,
 
     /// submitted | triaged | waiting-for-input | resolved-no-change | resolved-change-required | deferred | duplicate | applied | published | entered-in-error

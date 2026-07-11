@@ -26,6 +26,28 @@ use fhir_derive_macros::Validate;
 /// security or activity audit log entry, commonly used to satisfy regulatory
 /// accountability and traceability requirements.
 ///
+/// AuditEvent resources are typically created automatically by systems as a
+/// side effect of other operations (for example, when a record is read,
+/// created, updated, or deleted, or when a user logs in or out) rather than
+/// being authored directly by clinicians. They form the basis of security
+/// audit trails required by regulations such as HIPAA and by security
+/// frameworks like the ATNA (Audit Trail and Node Authentication) profile.
+/// Because audit logs can grow very large and are queried primarily for
+/// compliance and forensic investigation, servers commonly expose AuditEvent
+/// through a dedicated audit-logging endpoint or repository rather than the
+/// main clinical data store.
+///
+/// # Related resources
+///
+/// The `patient` and `encounter` fields commonly
+/// reference [`Patient`](crate::r5::resources::patient::Patient) and
+/// `Encounter` resources respectively, while `agent.who` and `entity.what`
+/// use [`Reference`](crate::r5::types::Reference) to point at the actors and
+/// data objects involved in the event. Coded fields such as `category`,
+/// `code`, and `entity.role` use
+/// [`CodeableConcept`](crate::r5::types::CodeableConcept) to describe the
+/// nature of the event and its participants using standard terminologies.
+///
 /// # Examples
 ///
 /// ```
@@ -67,10 +89,10 @@ pub struct AuditEvent {
     /// Type/identifier of event
     pub category: Option<Vec<types::CodeableConcept>>,
 
-    /// Specific type of event
+    /// Specific type of event, drawn from a coded terminology identifying what happened (e.g. login, patient record access)
     pub code: types::CodeableConcept,
 
-    /// Type of action performed during the event
+    /// Type of action performed during the event: create (C), read/view (R), update (U), delete (D), or execute (E)
     pub action: Option<types::Code>,
 
     /// emergency | alert | critical | error | warning | notice | informational | debug
@@ -82,10 +104,10 @@ pub struct AuditEvent {
     /// When the activity occurred (dateTime)
     pub occurred_date_time: Option<types::DateTime>,
 
-    /// Time when the event was recorded
+    /// Time when the event was recorded, which may differ from when the underlying activity actually occurred
     pub recorded: types::Instant,
 
-    /// Whether the event succeeded or failed
+    /// Whether the event succeeded or failed, along with any additional outcome detail
     pub outcome: Option<AuditEventOutcome>,
 
     /// Authorization related to the event
@@ -100,13 +122,13 @@ pub struct AuditEvent {
     /// Encounter within which this event occurred or which the event is tightly associated
     pub encounter: Option<types::Reference>,
 
-    /// Actor involved in the event
+    /// Actor(s) involved in the event, such as the user, system, or device that performed or participated in the action
     pub agent: Vec<AuditEventAgent>,
 
-    /// Audit Event Reporter
+    /// The system or application that detected and reported the event
     pub source: AuditEventSource,
 
-    /// Data or objects used
+    /// Data or object(s) that the event acted upon, such as a resource, record, or query
     pub entity: Option<Vec<AuditEventEntity>>,
 }
 

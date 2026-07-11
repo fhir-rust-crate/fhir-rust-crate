@@ -27,6 +27,25 @@ use fhir_derive_macros::Validate;
 /// does not constitute a document; it is typically the first entry in a Bundle
 /// of type "document" that packages the referenced resources together.
 ///
+/// Compositions are used to represent discharge summaries, consultation notes,
+/// diagnostic reports, care plans, and other attested clinical or administrative
+/// documents. Each Composition has exactly one `subject` context (commonly a
+/// patient) though implementations may reference multiple related subjects, a
+/// responsible `author`, a `status` reflecting its lifecycle, and one or more
+/// `section` elements that hold the narrative and referenced entries making up
+/// the body of the document. Once a Composition is part of a signed or attested
+/// document, its content is generally considered immutable; a new `version` or a
+/// document addendum is used to record subsequent changes.
+///
+/// # Related resources
+///
+/// A Composition typically references a [`Patient`](crate::r5::resources::patient::Patient)
+/// or other resource as its subject, is authored and attested by practitioners or
+/// organizations via `Reference`, and classifies its type and section codes using
+/// [`CodeableConcept`](crate::r5::types::CodeableConcept). See also the `DocumentReference`
+/// and `Bundle` resources, which are commonly used together with Composition to
+/// index and package a complete clinical document.
+///
 /// # Examples
 ///
 /// ```
@@ -74,34 +93,34 @@ pub struct Composition {
     /// An explicitly assigned identifer of a variation of the content in the Composition
     pub version: Option<types::String>,
 
-    /// registered | partial | preliminary | final | amended | corrected | appended | cancelled | entered-in-error | deprecated | unknown
+    /// The workflow/clinical status of this composition: registered | partial | preliminary | final | amended | corrected | appended | cancelled | entered-in-error | deprecated | unknown
     pub status: types::Code,
 
-    /// Kind of composition (LOINC if possible)
+    /// Kind of composition, such as a discharge summary or progress note (LOINC code preferred if possible)
     pub r#type: types::CodeableConcept,
 
     /// Categorization of Composition
     pub category: Option<Vec<types::CodeableConcept>>,
 
-    /// Who and/or what the composition is about
+    /// Who and/or what the composition is about, most often the patient or subject of the document
     pub subject: Option<Vec<types::Reference>>,
 
     /// Context of the Composition
     pub encounter: Option<types::Reference>,
 
-    /// Composition editing time
+    /// Composition editing time, the time the document was last logically attested or edited
     pub date: types::DateTime,
 
     /// The context that the content is intended to support
     pub use_context: Option<Vec<types::UsageContext>>,
 
-    /// Who and/or what authored the composition
+    /// Who and/or what authored the composition, such as a practitioner or organization
     pub author: Vec<types::Reference>,
 
     /// Name for this Composition (computer friendly)
     pub name: Option<types::String>,
 
-    /// Human Readable name/title
+    /// Human readable name/title, for example "Discharge Summary"
     pub title: types::String,
 
     /// For any additional notes

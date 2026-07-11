@@ -28,6 +28,28 @@ use fhir_derive_macros::Validate;
 /// FHIR R5 it is commonly used to manage enrollment and consent within clinical
 /// trials and other research activities.
 ///
+/// Administratively, ResearchSubject acts as the join point between a research
+/// study and the real-world entity taking part in it, allowing researchers,
+/// coordinators, and downstream systems to answer questions such as who is
+/// currently enrolled, which arm of the study a subject followed, when
+/// participation began and ended, and what consent was obtained. Because the
+/// resource captures identity, status, and study linkage separately from
+/// clinical observations, it can be used alongside other resources to drive
+/// eligibility screening, protocol deviation tracking, and study reporting
+/// without duplicating clinical data already recorded elsewhere.
+///
+/// # Related resources
+///
+/// - `ResearchStudy` — the study this subject is participating in (referenced by `study`).
+/// - [`Patient`](crate::r5::resources::patient::Patient) — a common type of
+///   entity referenced by `subject`, though `subject` may also reference a
+///   group, specimen, or device.
+/// - [`CodeableConcept`](crate::r5::types::CodeableConcept) — used for
+///   `progress.type`, `progress.subject_state`, `progress.milestone`, and
+///   `progress.reason`.
+/// - [`Reference`](crate::r5::types::Reference) — used for `study`, `subject`,
+///   and `consent`.
+///
 /// # Examples
 ///
 /// ```
@@ -69,19 +91,22 @@ pub struct ResearchSubject {
     /// Business Identifier for research subject in a study
     pub identifier: Option<Vec<types::Identifier>>,
 
-    /// draft | active | retired | unknown
+    /// The overall lifecycle status of this record: draft | active | retired | unknown.
     pub status: types::Code,
 
-    /// Subject status
+    /// A chronological record of the subject's states and milestones (such as
+    /// screening, enrollment, or withdrawal) during the study.
     pub progress: Option<Vec<ResearchSubjectProgress>>,
 
-    /// Start and end of participation
+    /// The overall start and end date of the subject's participation in the study.
     pub period: Option<types::Period>,
 
-    /// Study subject is part of
+    /// Reference to the `ResearchStudy` that this subject is participating in.
     pub study: types::Reference,
 
-    /// Who or what is part of study
+    /// Reference to the individual or entity (for example a
+    /// [`Patient`](crate::r5::resources::patient::Patient), group, specimen,
+    /// or device) that is the subject of the research.
     pub subject: types::Reference,
 
     /// What path should be followed

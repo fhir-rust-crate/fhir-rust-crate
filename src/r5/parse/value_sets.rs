@@ -1,3 +1,18 @@
+//! Parser for the FHIR R5 `valuesets.json` specification bundle, i.e. the official
+//! FHIR definitions file that describes `ValueSet` resources and the related
+//! `Bundle`, `Compose`, `Concept`, `Expansion`, and other structures used to
+//! encode terminology bindings. This module organizes the deserialization
+//! target types for that bundle into one submodule per FHIR structure, each of
+//! which mirrors the shape of the JSON so that `serde_json` can parse the
+//! specification file directly into strongly typed Rust values. Those parsed
+//! values are the intermediate representation consumed by the broader code
+//! generation pipeline in `crate::r5::parse`, which reads the official FHIR
+//! specification JSON files and emits the generated Rust source found under
+//! `src/r5/types`. The `DIR` and `DEFINITIONS_FILE` statics locate the
+//! submodule output directory and the source `valuesets.json` file
+//! respectively, and are exercised by the accompanying test to confirm the
+//! bundle can be loaded successfully.
+
 // Namespace conveniences
 
 pub static DIR: std::sync::LazyLock<std::path::PathBuf> =

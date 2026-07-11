@@ -25,6 +25,25 @@ use fhir_derive_macros::Validate;
 /// details such as its business identifier, a code that identifies it, and its
 /// status within the formulary.
 ///
+/// In practice, a formulary is a curated list of drugs, devices, or other
+/// products that an organization (such as a hospital, pharmacy benefit
+/// manager, or health plan) has approved for use or reimbursement. Each
+/// `FormularyItem` acts as an administrative wrapper around a catalog entry,
+/// distinct from the clinical definition of the underlying product itself
+/// (for example a medication resource), and is used by ordering, dispensing,
+/// and billing systems to determine whether an item is currently available
+/// and under what status. The resource is intentionally lightweight: it does
+/// not carry pricing, formulary tier, or coverage rules, which are typically
+/// modeled by related resources or extensions in an implementation guide.
+///
+/// # Related resources
+///
+/// A `FormularyItem` is commonly referenced from, or referenced alongside,
+/// `MedicationKnowledge` and other product-catalog resources, and may be
+/// linked to a `Patient`'s benefit plan through coverage-related resources.
+/// The identifying `code` field typically uses a
+/// [`CodeableConcept`](crate::r5::types::CodeableConcept).
+///
 /// # Examples
 ///
 /// ```
@@ -63,13 +82,13 @@ pub struct FormularyItem {
     /// Extensions that cannot be ignored
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// Business identifier for this formulary item
+    /// Business identifier(s) assigned to this formulary item by the formulary-managing organization or other systems.
     pub identifier: Option<Vec<types::Identifier>>,
 
-    /// Codes that identify this formulary item
+    /// Codes that identify this formulary item, such as a drug or product code, used to match the item to its underlying definition.
     pub code: Option<types::CodeableConcept>,
 
-    /// active | entered-in-error | inactive
+    /// The current status of this formulary item entry: active | entered-in-error | inactive.
     pub status: Option<types::Code>,
 }
 

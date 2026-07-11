@@ -9,6 +9,8 @@
 //! FHIR: <https://build.fhir.org/>
 //!
 //! UML: <https://build.fhir.org/uml.html>
+//!
+//! A compact way to represent a series of measurements taken by a device over time or space, such as an ECG waveform, rather than encoding each reading as a discrete element.
 
 // Allow unused crate::r5::types as types;
 #![allow(unused_imports)]
@@ -17,19 +19,45 @@ use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
 use fhir_derive_macros::Validate;
 
+/// A series of measurements taken by a device, with upper and lower limits, decoded from a
+/// compact `data` string of space-separated values or codes. It is commonly used to represent
+/// waveform-like data such as ECG traces or other device-generated signal readings, where the
+/// interval, factor, and limits describe how to interpret the encoded data points. There may be
+/// more than one dimension in the data.
+///
+/// # Examples
+///
+/// ```
+/// use fhir::r5::types::sampled_data::SampledData;
+///
+/// let value = SampledData::default();
+/// let json = ::serde_json::to_value(&value).unwrap();
+/// let back: SampledData = ::serde_json::from_value(json).unwrap();
+/// assert_eq!(value, back);
+/// ```
 #[serde_with::skip_serializing_none]
 #[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
 pub struct SampledData {
-    pub origin: types::Quantity,          // Quantity(SimpleQuantity) [1..1]
-    pub interval: Option<types::Decimal>, // « C »
-    pub interval_unit: types::Code,       // « UCUMCodes! »
+    /// The base quantity that a measured value of zero represents, using the appropriate units. // Quantity(SimpleQuantity) [1..1]
+    pub origin: types::Quantity,
+    /// Deprecated. The length of time between sampling times, measured in intervalUnit. // « C »
+    pub interval: Option<types::Decimal>,
+    /// The measurement unit in which the sample interval is expressed. // « UCUMCodes! »
+    pub interval_unit: types::Code,
+    /// A correction factor that is applied to the sampled data points before they are added to the origin.
     pub factor: Option<types::Decimal>,
+    /// The lower limit of detection of the measured points; below this, the device did not record.
     pub lower_limit: Option<types::Decimal>,
+    /// The upper limit of detection of the measured points; above this, the device did not record.
     pub upper_limit: Option<types::Decimal>,
+    /// The number of sample points at each time point, allowing for more than one dimension of data.
     pub dimensions: types::PositiveInt,
-    pub code_map: Option<types::Canonical>, // « ConceptMap »
-    pub offsets: Option<types::String>,     // « C »
+    /// Reference to a ConceptMap that defines the codes used in the `data` element, if any. // « ConceptMap »
+    pub code_map: Option<types::Canonical>,
+    /// A series of data points, separated by single spaces, that give the offset from the origin for the corresponding data point. // « C »
+    pub offsets: Option<types::String>,
+    /// A series of data points, separated by single spaces, encoding the measured values, using special codes for out-of-range values.
     pub data: Option<types::String>,
 }
 

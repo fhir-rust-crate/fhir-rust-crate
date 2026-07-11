@@ -28,6 +28,27 @@ use fhir_derive_macros::Validate;
 /// chain and inventory workflows that are distinct from patient-specific
 /// medication or device requests.
 ///
+/// This resource is typically used by pharmacy, materials management, and
+/// central/ward stock replenishment systems to order or reorder items that
+/// keep a healthcare setting supplied, rather than to fulfill an individual
+/// clinical order for a specific patient encounter. A `SupplyRequest` may
+/// still reference a patient (via `deliver_for`) when the supply is intended
+/// for that individual's care, and it can track the lifecycle of the request
+/// through its `status` from creation through to completion or cancellation.
+/// The requested item is described using a `CodeableReference`, allowing
+/// either a coded value or a reference to a more detailed resource (such as
+/// a medication or device definition), and the `parameter` field allows
+/// further characteristics of the item to be specified.
+///
+/// # See also
+///
+/// - [`CodeableConcept`](crate::r5::types::CodeableConcept) — used for the
+///   request `category`, and via `SupplyRequestParameter.code`.
+/// - `SupplyDelivery` — the resource that typically records fulfillment of a
+///   `SupplyRequest`.
+/// - [`Patient`](crate::r5::resources::patient::Patient) — may be referenced
+///   by `deliver_for` when the supply is intended for a specific individual.
+///
 /// # Examples
 ///
 /// ```
@@ -69,7 +90,7 @@ pub struct SupplyRequest {
     /// Business Identifier for SupplyRequest
     pub identifier: Option<Vec<types::Identifier>>,
 
-    /// draft | active | suspended +
+    /// Status of the request: draft | active | suspended | cancelled | completed | entered-in-error | unknown
     pub status: Option<types::Code>,
 
     /// What other request is fulfilled by this supply request
@@ -78,13 +99,13 @@ pub struct SupplyRequest {
     /// The kind of supply (central, non-stock, etc.)
     pub category: Option<types::CodeableConcept>,
 
-    /// routine | urgent | asap | stat
+    /// Indicates how quickly this SupplyRequest should be addressed: routine | urgent | asap | stat
     pub priority: Option<types::Code>,
 
-    /// The patient for who the supply request is for
+    /// The patient, or group of patients, for whom the supply request is intended
     pub deliver_for: Option<types::Reference>,
 
-    /// Medication, Substance, or Device requested to be supplied
+    /// The item being requested, as a coded value or a reference to a resource such as a medication or device
     pub item: types::CodeableReference,
 
     /// The requested amount of the item indicated

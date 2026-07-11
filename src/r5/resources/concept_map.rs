@@ -26,6 +26,26 @@ use fhir_derive_macros::Validate;
 /// systems or value sets during data exchange and terminology operations such
 /// as the `$translate` operation in FHIR R5.
 ///
+/// Clinically and administratively, ConceptMap resources support semantic
+/// interoperability: they let systems that use different coding schemes (for
+/// example, two different lab code systems, or a local code system and a
+/// national or international terminology such as LOINC or SNOMED CT)
+/// exchange data without loss of meaning. Each mapping records not only the
+/// source and target codes but also the nature of the relationship between
+/// them (such as equivalent, narrower, or broader), plus optional conditions,
+/// dependencies, and properties that refine when a mapping applies. A
+/// ConceptMap is a canonical, versioned resource, so it can be published,
+/// discovered, and reused across implementations in the same way as a
+/// `CodeSystem` or `ValueSet`.
+///
+/// # See also
+///
+/// - `CodeSystem` and `ValueSet` — the terminology resources whose codes and
+///   value sets are typically the source and target scopes of a ConceptMap.
+/// - [`CodeableConcept`](crate::r5::types::CodeableConcept) and
+///   [`Coding`](crate::r5::types::Coding) — the data types most commonly
+///   translated using the mappings defined here.
+///
 /// # Examples
 ///
 /// ```
@@ -64,7 +84,7 @@ pub struct ConceptMap {
     /// Extensions that cannot be ignored
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// Canonical identifier for this concept map, represented as a URI (globally unique)
+    /// Canonical identifier for this concept map, represented as a URI (globally unique), used to reference this ConceptMap from other resources
     pub url: Option<types::Uri>,
 
     /// Additional identifier for the concept map
@@ -85,7 +105,7 @@ pub struct ConceptMap {
     /// Name for this concept map (human friendly)
     pub title: Option<types::String>,
 
-    /// draft | active | retired | unknown
+    /// draft | active | retired | unknown; the publication lifecycle status of this ConceptMap
     pub status: types::Code,
 
     /// For testing purposes, not real usage
@@ -154,16 +174,16 @@ pub struct ConceptMap {
     /// The source value set that contains the concepts that are being mapped
     pub source_scope_uri: Option<types::Uri>,
 
-    /// The source value set that contains the concepts that are being mapped
+    /// The source value set that contains the concepts that are being mapped, referenced by its canonical URL
     pub source_scope_canonical: Option<types::Canonical>,
 
     /// The target value set which provides context for the mappings
     pub target_scope_uri: Option<types::Uri>,
 
-    /// The target value set which provides context for the mappings
+    /// The target value set which provides context for the mappings, referenced by its canonical URL
     pub target_scope_canonical: Option<types::Canonical>,
 
-    /// Same source and target systems
+    /// Same source and target systems; the groups of element-to-target mappings that make up the body of the ConceptMap
     pub group: Option<Vec<ConceptMapGroup>>,
 }
 

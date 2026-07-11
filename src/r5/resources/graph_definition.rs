@@ -26,6 +26,25 @@ use fhir_derive_macros::Validate;
 /// tooling to drive operations such as `$graph` and `$graphql`, and to document
 /// and validate the shape of interconnected resource collections.
 ///
+/// Authors typically use a GraphDefinition to formally specify which resources
+/// should be retrieved together when following references from a starting
+/// resource instance, for example when a client asks a server to bundle a
+/// `Patient` together with related clinical resources in a single response.
+/// This is especially useful for defining reusable, machine-checkable
+/// "resource bundles" for exchange scenarios such as prior authorization,
+/// document composition, or data extraction for analytics, without requiring
+/// each consuming system to hand-code the traversal logic.
+///
+/// # Related resources
+///
+/// - [`Patient`](crate::r5::resources::patient::Patient) is a common starting
+///   node for many graph definitions.
+/// - [`CodeableConcept`](crate::r5::types::CodeableConcept) and other data
+///   types referenced by nodes and links are defined in `types`.
+/// - `StructureDefinition` and `CompartmentDefinition` are related artifacts
+///   that a GraphDefinition may draw on when constraining node profiles and
+///   compartment rules.
+///
 /// # Examples
 ///
 /// ```
@@ -64,7 +83,7 @@ pub struct GraphDefinition {
     /// Extensions that cannot be ignored
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// Canonical identifier for this graph definition, represented as a URI (globally unique)
+    /// Canonical identifier for this graph definition, represented as a URI (globally unique), used to reference it from other artifacts
     pub url: Option<types::Uri>,
 
     /// Additional identifier for the GraphDefinition (business identifier)
@@ -79,13 +98,13 @@ pub struct GraphDefinition {
     /// How to compare versions
     pub version_algorithm_coding: Option<types::Coding>,
 
-    /// Name for this graph definition (computer friendly)
+    /// Name for this graph definition (computer friendly), used as the identifier within the code
     pub name: types::String,
 
     /// Name for this graph definition (human friendly)
     pub title: Option<types::String>,
 
-    /// draft | active | retired | unknown
+    /// Publication status of this graph definition: draft | active | retired | unknown
     pub status: types::Code,
 
     /// For testing purposes, not real usage
@@ -118,13 +137,13 @@ pub struct GraphDefinition {
     /// Copyright holder and year(s)
     pub copyright_label: Option<types::String>,
 
-    /// Starting Node
+    /// Id of the node that traversal of this graph starts at
     pub start: Option<types::Id>,
 
-    /// Potential target for the link
+    /// The set of nodes that are potential targets for links within this graph
     pub node: Option<Vec<GraphDefinitionNode>>,
 
-    /// Links this graph makes rules about
+    /// The rules about how references between resources are followed to build this graph
     pub link: Option<Vec<GraphDefinitionLink>>,
 }
 

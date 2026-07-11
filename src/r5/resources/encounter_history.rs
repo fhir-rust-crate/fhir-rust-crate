@@ -28,6 +28,26 @@ use fhir_derive_macros::Validate;
 /// at that moment. In FHIR R5 this supports auditing and reconstructing the
 /// progression of a patient's encounter over time.
 ///
+/// Because an Encounter can change status, class, or location many times over
+/// its lifecycle (for example moving from `planned` to `in-progress` to
+/// `completed`, or transferring between wards), systems can create a new
+/// EncounterHistory record each time such a change occurs rather than
+/// overwriting the prior state on the Encounter itself. This yields an
+/// append-only audit trail that supports retrospective review, billing
+/// reconciliation, and reporting on how long a patient spent in each state or
+/// location during their stay.
+///
+/// # Related resources
+///
+/// - [`Encounter`](crate::r5::resources::encounter::Encounter): the resource
+///   whose evolving status this record captures a snapshot of.
+/// - [`Patient`](crate::r5::resources::patient::Patient): typically the
+///   subject of the referenced Encounter.
+/// - [`CodeableConcept`](crate::r5::types::CodeableConcept): used for the
+///   `class`, `type`, and `service_type` classifications.
+/// - `Location`: referenced from each
+///   [`EncounterHistoryLocation`] entry to describe where the patient was.
+///
 /// # Examples
 ///
 /// ```
@@ -66,16 +86,16 @@ pub struct EncounterHistory {
     /// Extensions that cannot be ignored
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// The Encounter associated with this set of historic values
+    /// A reference to the Encounter whose status/class/location this record snapshots
     pub encounter: Option<types::Reference>,
 
     /// Identifier(s) by which this encounter is known
     pub identifier: Option<Vec<types::Identifier>>,
 
-    /// planned | in-progress | on-hold | discharged | completed | cancelled | discontinued | entered-in-error | unknown
+    /// The status of the encounter at this point in its history: planned | in-progress | on-hold | discharged | completed | cancelled | discontinued | entered-in-error | unknown
     pub status: types::Code,
 
-    /// Classification of patient encounter
+    /// Classification of the patient encounter at this point in time (e.g. inpatient, outpatient, ambulatory, emergency)
     pub class: types::CodeableConcept,
 
     /// Specific type of encounter

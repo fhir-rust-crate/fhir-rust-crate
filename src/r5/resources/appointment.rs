@@ -135,10 +135,10 @@ pub struct Appointment {
     /// The originating appointment in a recurring set of appointments
     pub originating_appointment: Option<types::Reference>,
 
-    /// Date and time when the appointment is scheduled to begin
+    /// Date and time when the appointment is scheduled to begin, once a fixed time has been set
     pub start: Option<types::Instant>,
 
-    /// Date and time when the appointment is scheduled to conclude
+    /// Date and time when the appointment is scheduled to conclude, once a fixed time has been set
     pub end: Option<types::Instant>,
 
     /// Can be less than start/end (e.g. estimate)
@@ -147,7 +147,7 @@ pub struct Appointment {
     /// Potential date/time interval(s) requested to allocate the appointment within
     pub requested_period: Option<Vec<types::Period>>,
 
-    /// The slots that this appointment is filling
+    /// The Slot resource(s) that this appointment is filling, drawn from a Schedule's published availability
     pub slot: Option<Vec<types::Reference>>,
 
     /// The set of accounts that may be used for billing for this Appointment

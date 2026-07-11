@@ -26,6 +26,27 @@ use fhir_derive_macros::Validate;
 /// analogue of the CapabilityStatement resource and is used for conformance
 /// testing and capability negotiation between clients and servers.
 ///
+/// Publishers use `TerminologyCapabilities` to advertise, for a given
+/// terminology server, which code systems and their versions are known,
+/// whether value set expansion supports paging or hierarchical results,
+/// whether concept subsumption testing is available, and how the
+/// `ValueSet/$validate-code`, `ConceptMap/$translate`, and
+/// `ConceptMap/$closure` operations behave. A `kind` of `instance` describes
+/// a specific running server, `capability` describes a general software
+/// capability, and `requirements` describes a desired set of capabilities
+/// that an implementation should satisfy. Clients typically retrieve this
+/// resource from a server's `/metadata` endpoint (or a related terminology
+/// service discovery mechanism) to decide, ahead of time, whether the server
+/// can support the terminology operations a workflow requires.
+///
+/// # Related resources
+///
+/// - Terminology operations described here typically operate on
+///   [`CodeableConcept`](crate::r5::types::CodeableConcept) and `Coding`
+///   values drawn from the code systems and value sets the server supports.
+/// - This resource is the terminology-focused counterpart to the general
+///   `CapabilityStatement` resource, and is commonly published alongside it.
+///
 /// # Examples
 ///
 /// ```
@@ -85,7 +106,7 @@ pub struct TerminologyCapabilities {
     /// Name for this terminology capabilities (human friendly)
     pub title: Option<types::String>,
 
-    /// draft | active | retired | unknown
+    /// Publication status of this statement: draft | active | retired | unknown
     pub status: types::Code,
 
     /// For testing purposes, not real usage
@@ -118,19 +139,19 @@ pub struct TerminologyCapabilities {
     /// Copyright holder and year(s)
     pub copyright_label: Option<types::String>,
 
-    /// instance | capability | requirements
+    /// The way this statement is intended to be used: instance | capability | requirements
     pub kind: types::Code,
 
-    /// Software that is covered by this terminology capability statement
+    /// Identifies the software product (name and version) that this terminology capability statement describes
     pub software: Option<TerminologyCapabilitiesSoftware>,
 
-    /// If this describes a specific instance
+    /// Identifies a specific deployed instance of software this statement applies to, including its base URL
     pub implementation: Option<TerminologyCapabilitiesImplementation>,
 
     /// Whether lockedDate is supported
     pub locked_date: Option<types::Boolean>,
 
-    /// A code system supported by the server
+    /// A code system, with its supported versions and content mode, that the server can resolve terminology operations against
     pub code_system: Option<Vec<TerminologyCapabilitiesCodeSystem>>,
 
     /// Information about the ValueSet/$expand operation

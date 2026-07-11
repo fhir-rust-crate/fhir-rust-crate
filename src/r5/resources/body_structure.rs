@@ -24,6 +24,24 @@ use fhir_derive_macros::Validate;
 /// case. It describes an anatomical location on or in a patient, optionally
 /// including laterality, landmark orientation, qualifiers, and attached images.
 ///
+/// Clinically, `BodyStructure` is commonly referenced by other resources that
+/// need to describe precisely where a procedure, observation, specimen
+/// collection, or device is located, such as a specific lesion, tumor, or
+/// surgical site that cannot be adequately captured by a single coded body
+/// site value alone. Rather than repeating a detailed anatomical description
+/// on every referencing resource, a `BodyStructure` instance can be created
+/// once and then referenced wherever that specific structure needs to be
+/// identified, for example from a `Procedure`, `Observation`, `Specimen`, or
+/// `ImagingStudy`.
+///
+/// Related resources / see also: the subject of a `BodyStructure` is a
+/// [`Patient`](crate::r5::resources::patient::Patient); the `morphology` and
+/// `structure` elements use [`CodeableConcept`](crate::r5::types::CodeableConcept)
+/// values (often drawn from SNOMED CT body site value sets); `image` elements
+/// use [`Attachment`](crate::r5::types::Attachment); and `spatial_reference`
+/// elements use [`Reference`](crate::r5::types::Reference), typically pointing
+/// to an `ImagingSelection` or other resource that provides a spatial anchor.
+///
 /// # Examples
 ///
 /// ```
@@ -65,25 +83,25 @@ pub struct BodyStructure {
     /// Bodystructure identifier
     pub identifier: Option<Vec<types::Identifier>>,
 
-    /// Whether this record is in active use
+    /// Whether this record is in active use; defaults to true if absent
     pub active: Option<types::Boolean>,
 
-    /// Kind of Structure
+    /// Kind of structure, e.g. tumor, lesion, or excised tissue sample type
     pub morphology: Option<types::CodeableConcept>,
 
-    /// Included anatomic location(s)
+    /// Included anatomic location(s) that together define the body structure
     pub included_structure: Vec<BodyStructureIncludedStructure>,
 
     /// Excluded anatomic locations(s)
     pub excluded_structure: Option<Vec<BodyStructureIncludedStructure>>,
 
-    /// Text description
+    /// Text description of this structure, for additional human-readable detail
     pub description: Option<types::Markdown>,
 
-    /// Attached images
+    /// Attached images illustrating or documenting the structure
     pub image: Option<Vec<types::Attachment>>,
 
-    /// Who this is about
+    /// The patient this body structure belongs to
     pub patient: types::Reference,
 }
 

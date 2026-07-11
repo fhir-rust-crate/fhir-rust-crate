@@ -24,6 +24,24 @@ use fhir_derive_macros::Validate;
 /// it is owned and administered by, a coverage area, contact information, etc.
 /// It is distinct from a member's actual Coverage of a given product.
 ///
+/// InsurancePlan is used by payers, health plan directories, and provider
+/// network publications to describe the products and plans an insurer
+/// offers, including the networks that participate in them, the geographic
+/// areas they serve, and the general and specific costs (premiums,
+/// copayments, deductibles, and similar) associated with each plan. It
+/// supports use cases such as plan comparison shopping, network adequacy
+/// reporting, and payer-to-payer or payer-to-provider directory exchange.
+///
+/// # Related resources
+///
+/// - [`Organization`](crate::r5::resources::organization::Organization) is
+///   typically referenced as the product issuer (`owned_by`) and
+///   administrator (`administered_by`).
+/// - `Coverage` represents a member's actual enrollment in a product
+///   described by an InsurancePlan.
+/// - [`CodeableConcept`](crate::r5::types::CodeableConcept) is used
+///   throughout to code plan types, coverage types, and benefit categories.
+///
 /// # Examples
 ///
 /// ```
@@ -65,13 +83,14 @@ pub struct InsurancePlan {
     /// Business Identifier for Product
     pub identifier: Option<Vec<types::Identifier>>,
 
-    /// draft | active | retired | unknown
+    /// The lifecycle status of this plan: draft | active | retired | unknown.
     pub status: Option<types::Code>,
 
-    /// Kind of product
+    /// Kind of product, such as medical or dental, coded as a
+    /// [`CodeableConcept`](crate::r5::types::CodeableConcept).
     pub r#type: Option<Vec<types::CodeableConcept>>,
 
-    /// Official name
+    /// Official name of the health insurance product or plan.
     pub name: Option<types::String>,
 
     /// Alternate names
@@ -80,13 +99,15 @@ pub struct InsurancePlan {
     /// When the product is available
     pub period: Option<types::Period>,
 
-    /// Product issuer
+    /// Reference to the [`Organization`](crate::r5::resources::organization::Organization)
+    /// that is the product issuer.
     pub owned_by: Option<types::Reference>,
 
-    /// Product administrator
+    /// Reference to the [`Organization`](crate::r5::resources::organization::Organization)
+    /// that administers the product.
     pub administered_by: Option<types::Reference>,
 
-    /// Where product applies
+    /// Geographic area(s), typically Location resources, where the product applies.
     pub coverage_area: Option<Vec<types::Reference>>,
 
     /// Official contact details relevant to the health insurance plan/product

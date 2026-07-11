@@ -9,6 +9,8 @@
 //! FHIR: <https://build.fhir.org/>
 //!
 //! UML: <https://build.fhir.org/uml.html>
+//!
+//! A simple wrapper type representing a FHIR `date` value as its raw string form.
 
 // Allow unused crate::r5::types as types;
 #![allow(unused_imports)]
@@ -16,6 +18,23 @@
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
 
+/// A date or partial date (e.g. just year, or year + month), with no time
+/// component and no UTC offset. Precision may be to the year, year and
+/// month, or full year-month-day, and the format is a union of the XML
+/// schema `gYear`, `gYearMonth`, and `date` types. Dates SHALL be valid
+/// dates. Used throughout FHIR resources for date-only elements such as
+/// birth dates or event dates where a time is not applicable.
+///
+/// # Examples
+///
+/// ```
+/// use fhir::r5::types::date::Date;
+///
+/// let value = Date::default();
+/// let json = ::serde_json::to_value(&value).unwrap();
+/// let back: Date = ::serde_json::from_value(json).unwrap();
+/// assert_eq!(value, back);
+/// ```
 #[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq)]
 pub struct Date(pub std::string::String);
 

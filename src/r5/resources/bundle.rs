@@ -26,6 +26,29 @@ use fhir_derive_macros::Validate;
 /// together as history. The `type` element declares which of these uses applies
 /// and governs the expected content and processing of the entries.
 ///
+/// Clinically and administratively, a Bundle is the primary mechanism by which
+/// FHIR systems exchange more than one resource at a time: a clinical document
+/// (such as a discharge summary) is a Bundle whose first entry is a `Composition`
+/// referencing supporting resources such as [`Patient`](crate::r5::resources::patient::Patient)
+/// and observations; a transaction or batch Bundle lets a client submit a set of
+/// create/update/delete operations to a server atomically or independently; and a
+/// searchset Bundle is the standard shape of the results returned from a FHIR
+/// search interaction, including pagination via `link` entries and, optionally,
+/// the `total` number of matches. Each `entry` in the bundle carries either the
+/// resource itself, information about how it should be processed (for
+/// transactions and batches), or the outcome of processing it (for responses and
+/// history).
+///
+/// # See also
+///
+/// - [`Patient`](crate::r5::resources::patient::Patient) is a common resource
+///   referenced from within document and search Bundles.
+/// - `Composition` (when present) typically forms the first entry of a document
+///   Bundle.
+/// - [`Identifier`](crate::r5::types::Identifier), [`Meta`](crate::r5::types::Meta),
+///   and [`Signature`](crate::r5::types::Signature) describe and, optionally,
+///   authenticate the Bundle as a whole.
+///
 /// # Examples
 ///
 /// ```
@@ -55,21 +78,24 @@ pub struct Bundle {
     /// Persistent identifier for the bundle
     pub identifier: Option<types::Identifier>,
 
-    /// document | message | transaction | transaction-response | batch |
-    /// batch-response | history | searchset | collection |
-    /// subscription-notification
+    /// The kind of Bundle: document | message | transaction | transaction-response
+    /// | batch | batch-response | history | searchset | collection |
+    /// subscription-notification. This value determines how the entries must be
+    /// interpreted and processed.
     pub r#type: types::Code,
 
     /// When the bundle was assembled
     pub timestamp: Option<types::Instant>,
 
-    /// If search, the total number of matches
+    /// If search, the total number of matches across all pages of results
     pub total: Option<types::UnsignedInt>,
 
-    /// Links related to this Bundle
+    /// Links related to this Bundle, such as `self` and `next` for paginated
+    /// search results
     pub link: Option<Vec<BundleLink>>,
 
-    /// Entry in the bundle - will have a resource or information
+    /// The entries making up the bundle; each one carries a resource, request,
+    /// response, or search metadata depending on the bundle's `type`
     pub entry: Option<Vec<BundleEntry>>,
 
     /// Digital Signature

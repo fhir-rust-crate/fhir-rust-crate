@@ -28,6 +28,25 @@ use fhir_derive_macros::Validate;
 /// R5 it is typically paired with TestReport, which records the outcome of
 /// executing a TestScript.
 ///
+/// TestScript is used by FHIR implementers, conformance testing tools, and
+/// certification programs to define reusable, machine-executable test suites
+/// that exercise a system's REST API operations (such as create, read,
+/// search, and update) and validate the responses against expected
+/// structural and business-rule assertions. Each abstract `origin` and
+/// `destination` server represents a client or server participant in the
+/// exchange, `fixture` and `variable` elements supply the data used during
+/// execution, and `setup`, `test`, and `teardown` describe the ordered
+/// sequence of operations and assertions to run. Because a TestScript is a
+/// canonical, versionable conformance resource, it can be published,
+/// referenced by an implementation guide, and shared across organizations to
+/// support interoperability testing.
+///
+/// # See also
+///
+/// - `TestReport` — records the outcome of executing a TestScript.
+/// - [`CodeableConcept`](crate::r5::types::CodeableConcept) — used for coded elements such as scope and phase.
+/// - [`Identifier`](crate::r5::types::Identifier) — used for the test script's business identifier.
+///
 /// # Examples
 ///
 /// ```
@@ -66,7 +85,7 @@ pub struct TestScript {
     /// Extensions that cannot be ignored
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// Canonical identifier for this test script, represented as a URI (globally unique)
+    /// Canonical identifier for this test script, represented as a URI (globally unique), used to reference it from other artifacts
     pub url: Option<types::Uri>,
 
     /// Additional identifier for the test script
@@ -87,7 +106,7 @@ pub struct TestScript {
     /// Name for this test script (human friendly)
     pub title: Option<types::String>,
 
-    /// draft | active | retired | unknown
+    /// The publication status of this test script: draft | active | retired | unknown
     pub status: types::Code,
 
     /// For testing purposes, not real usage
@@ -141,13 +160,13 @@ pub struct TestScript {
     /// Placeholder for evaluated elements
     pub variable: Option<Vec<TestScriptVariable>>,
 
-    /// A series of required setup operations before tests are executed
+    /// A series of required setup operations, run once before any tests are executed, that establish the preconditions needed for the test suite
     pub setup: Option<TestScriptSetup>,
 
-    /// A test in this script
+    /// A test in this script, each containing an ordered sequence of operations and assertions that exercise the system under test
     pub test: Option<Vec<TestScriptTest>>,
 
-    /// A series of required clean up steps
+    /// A series of required clean up steps, run once after all tests complete, that remove fixtures and restore the server to its prior state
     pub teardown: Option<TestScriptTeardown>,
 }
 

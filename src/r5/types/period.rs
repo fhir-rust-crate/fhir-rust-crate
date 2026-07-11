@@ -17,11 +17,33 @@ use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
 use fhir_derive_macros::Validate;
 
+/// A time period defined by a start and an end date and, optionally, time.
+///
+/// `Period` is used throughout FHIR resources and other datatypes to express a
+/// span of time, such as when a coverage was in effect, when an address was
+/// valid, or when a condition was active. Either `start` or `end` (or both)
+/// may be present; an absent `start` means the period began at an unknown
+/// time in the past, and an absent `end` means the period is ongoing or open.
+///
+/// # Examples
+///
+/// ```
+/// use fhir::r5::types::period::Period;
+///
+/// let value = Period::default();
+/// let json = ::serde_json::to_value(&value).unwrap();
+/// let back: Period = ::serde_json::from_value(json).unwrap();
+/// assert_eq!(value, back);
+/// ```
 #[serde_with::skip_serializing_none]
 #[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
 pub struct Period {
+    /// The start date/time of the period, if known. If absent, the period is
+    /// assumed to have started at some time before or at its end.
     pub start: Option<types::DateTime>, // « C »
+    /// The end date/time of the period. If absent, the period is ongoing or
+    /// its end is unknown.
     pub end: Option<types::DateTime>,   // « C »
 }
 

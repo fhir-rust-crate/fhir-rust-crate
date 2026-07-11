@@ -9,6 +9,8 @@
 //! FHIR: <https://build.fhir.org/>
 //!
 //! UML: <https://build.fhir.org/uml.html>
+//!
+//! A `canonical` is a URI string that identifies a versionable FHIR resource, such as a `StructureDefinition`, `ValueSet`, or `CodeSystem`, and may include a version suffix after a `|` character.
 
 // Allow unused crate::r5::types as types;
 #![allow(unused_imports)]
@@ -16,6 +18,21 @@
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
 
+/// A URI reference to a canonical FHIR resource, optionally suffixed with `|version` to pin
+/// a specific version of that resource. It is used wherever a FHIR resource needs to refer to
+/// another resource definition (for example a profile, value set, or code system) in a way that
+/// remains stable and resolvable across servers.
+///
+/// # Examples
+///
+/// ```
+/// use fhir::r5::types::canonical::Canonical;
+///
+/// let value = Canonical::default();
+/// let json = ::serde_json::to_value(&value).unwrap();
+/// let back: Canonical = ::serde_json::from_value(json).unwrap();
+/// assert_eq!(value, back);
+/// ```
 #[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq)]
 pub struct Canonical(pub std::string::String);
 

@@ -1,3 +1,14 @@
+//! This module parses `profiles-types.json`, the official FHIR R5 specification bundle that
+//! defines the StructureDefinition resources for all FHIR data types (as opposed to clinical
+//! resources). The bundle is a FHIR `Bundle` whose entries each wrap a `StructureDefinition`,
+//! and this module models that shape via the `Bundle`, `Entry`, `Resource`, `Snapshot`,
+//! `Differential`, `Element`, `Slicing`, `Discriminator`, `Base`, and `Mapping` submodules so
+//! the JSON can be deserialized with `serde_json`. The `resource_into_rust` and
+//! `element_into_rust_struct_attribute` helpers convert those parsed structures into generated
+//! Rust source code for the corresponding type definitions. As part of the overall generation
+//! pipeline, this module is one of several `profiles_*` parsers that read a specific FHIR
+//! definitions file and emit the Rust code that ultimately populates `src/r5/types`.
+
 // Namespace conveniences
 
 pub static DIR: std::sync::LazyLock<std::path::PathBuf> =

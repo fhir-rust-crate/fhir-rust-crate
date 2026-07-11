@@ -80,7 +80,7 @@ pub struct MedicationKnowledge {
     /// Extensions that cannot be ignored
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// Business identifier for this medication
+    /// Business identifier(s) for this medication knowledge record, distinct from any identifiers on a specific Medication product
     pub identifier: Option<Vec<types::Identifier>>,
 
     /// Code that identifies this medication, typically drawn from a drug terminology such as RxNorm or SNOMED CT
@@ -95,7 +95,7 @@ pub struct MedicationKnowledge {
     /// Codes that identify the different jurisdictions for which the information of this resource was created
     pub intended_jurisdiction: Option<Vec<types::CodeableConcept>>,
 
-    /// A name associated with the medication being described
+    /// A name associated with the medication being described, such as a brand, generic, or synonym name
     pub name: Option<Vec<types::String>>,
 
     /// Associated or related medication information
@@ -128,7 +128,7 @@ pub struct MedicationKnowledge {
     /// Details about packaged medications
     pub packaging: Option<Vec<MedicationKnowledgePackaging>>,
 
-    /// Potential clinical issue with or between medication(s)
+    /// Potential clinical issue with or between medication(s), such as a known interaction, contraindication, or warning
     pub clinical_use_issue: Option<Vec<types::Reference>>,
 
     /// How the medication should be stored

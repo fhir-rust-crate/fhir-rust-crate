@@ -26,6 +26,15 @@ use fhir_derive_macros::Validate;
 /// have a specified role, coverage period, and the organization on whose behalf
 /// they act. In FHIR R5 it is frequently referenced by CarePlan and other
 /// workflow resources to describe who is responsible for a patient's care.
+/// A CareTeam is commonly used to answer "who is on the team looking after
+/// this patient" for a given condition, episode of care, or period of time,
+/// and it supports coordination across clinicians, family members, and
+/// community or social service organizations.
+///
+/// See also: [`CodeableConcept`](crate::r5::types::CodeableConcept) for the
+/// `category` and `status`-adjacent coded values, and `Patient` or `Group`
+/// as the typical `subject` of a care team. Related workflow resources
+/// include `CarePlan` and `Encounter`.
 ///
 /// # Examples
 ///
@@ -68,22 +77,22 @@ pub struct CareTeam {
     /// External Ids for this team
     pub identifier: Option<Vec<types::Identifier>>,
 
-    /// proposed | active | suspended | inactive | entered-in-error
+    /// The lifecycle status of the team: proposed | active | suspended | inactive | entered-in-error.
     pub status: Option<types::Code>,
 
-    /// Type of team
+    /// Type or focus of team, such as encounter-focused or condition-focused.
     pub category: Option<Vec<types::CodeableConcept>>,
 
     /// Name of the team, such as crisis assessment team
     pub name: Option<types::String>,
 
-    /// Who care team is for
+    /// The patient or group that this care team is organized to provide care for.
     pub subject: Option<types::Reference>,
 
     /// Time period team covers
     pub period: Option<types::Period>,
 
-    /// Members of the team
+    /// The individual members of the care team, each with an optional role and coverage period.
     pub participant: Option<Vec<CareTeamParticipant>>,
 
     /// Why the care team exists

@@ -23,6 +23,26 @@ use fhir_derive_macros::Validate;
 /// diagnoses, procedures, and balances) needed to bill and reconcile the value
 /// accrued against a subject such as a patient, encounter, or organization.
 ///
+/// An Account represents a grouping of financial transactions and is used
+/// administratively to track charges, payments, and adjustments over a
+/// service period. It is the FHIR analog of a patient or departmental ledger
+/// and is commonly created when a patient is admitted or registered, then
+/// referenced by billable events (such as procedures, encounters, or
+/// invoices) as they occur. An Account may track one or more subjects, list
+/// the coverages and guarantors responsible for payment, and roll up
+/// calculated balances, but it does not itself represent the individual
+/// line-item transactions, which are typically recorded by other resources
+/// such as ChargeItem or Invoice and linked back to the Account.
+///
+/// # Related resources
+///
+/// See also [`Reference`](crate::r5::types::Reference), used to link an
+/// Account to its subject, owner, guarantor, and related accounts, and
+/// [`CodeableConcept`](crate::r5::types::CodeableConcept), used for the
+/// account type, billing status, and currency. Related resources referenced
+/// by an Account commonly include `Patient`, `Encounter`, `Organization`,
+/// `Coverage`, `RelatedPerson`, `ChargeItem`, and `Invoice`.
+///
 /// # Examples
 ///
 /// ```
@@ -64,7 +84,8 @@ pub struct Account {
     /// Account number
     pub identifier: Option<Vec<types::Identifier>>,
 
-    /// active | inactive | entered-in-error | on-hold | unknown
+    /// Indicates whether the account is currently in use: active | inactive |
+    /// entered-in-error | on-hold | unknown
     pub status: types::Code,
 
     /// Tracks the lifecycle of the account through the billing process
@@ -76,7 +97,7 @@ pub struct Account {
     /// Human-readable label
     pub name: Option<types::String>,
 
-    /// The entity that caused the expenses
+    /// The entity that caused the expenses, such as a `Patient` or `Device`
     pub subject: Option<Vec<types::Reference>>,
 
     /// Transaction window
@@ -92,7 +113,8 @@ pub struct Account {
     /// Explanation of purpose/use
     pub description: Option<types::Markdown>,
 
-    /// The parties ultimately responsible for balancing the Account
+    /// The parties, typically the patient or a family member, ultimately
+    /// responsible for balancing the Account
     pub guarantor: Option<Vec<AccountGuarantor>>,
 
     /// The list of diagnoses relevant to this account

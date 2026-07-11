@@ -40,29 +40,19 @@ use fhir_derive_macros::Validate;
 #[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
 pub struct ProductShelfLife {
-    /// This describes the shelf life, taking into account various scenarios such
-    /// as shelf life of the packaged Medicinal Product itself, shelf life after
-    /// transformation where necessary and shelf life after the first opening of
-    /// a bottle, etc. The shelf life type shall be specified using an
-    /// appropriate controlled vocabulary The controlled term and the controlled
-    /// term identifier shall be specified.
+    /// The type of shelf life being described, e.g. in-use or transformation
+    /// shelf life, from an appropriate controlled vocabulary.
     pub r#type: Option<types::CodeableConcept>,
 
-    /// The shelf life time period can be specified using a numerical value for
-    /// the period of time and its unit of time measurement The unit of
-    /// measurement shall be specified in accordance with ISO 11240 and the
-    /// resulting terminology The symbol and the symbol identifier shall be used.
+    /// The shelf life period expressed as a duration.
     /// This is the `Duration` variant of the `period[x]` choice element.
     pub period_duration: Option<types::Duration>,
 
-    /// The shelf life time period can be specified using a numerical value for
-    /// the period of time and its unit of time measurement. This is the
-    /// `string` variant of the `period[x]` choice element.
+    /// The shelf life period expressed as free text.
+    /// This is the `string` variant of the `period[x]` choice element.
     pub period_string: Option<types::String>,
 
-    /// Special precautions for storage, if any, can be specified using an
-    /// appropriate controlled vocabulary The controlled term and the controlled
-    /// term identifier shall be specified.
+    /// Special precautions for storage of the item, if any.
     pub special_precautions_for_storage: Option<Vec<types::CodeableConcept>>,
 }
 

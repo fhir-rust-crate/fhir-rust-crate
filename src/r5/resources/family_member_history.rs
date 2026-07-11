@@ -24,6 +24,29 @@ use fhir_derive_macros::Validate;
 /// assessing hereditary or familial risk. It is commonly used to build a
 /// family health history for genetic or preventive care planning.
 ///
+/// Clinically, FamilyMemberHistory is used to document what is known about a
+/// relative's health rather than to represent the relative as a patient in
+/// their own right; the family member is described inline via the
+/// `relationship`, `name`, `sex`, and age/birth fields rather than by a
+/// separate resource instance. This makes the resource well suited for
+/// genetic risk assessment, pedigree/family tree construction, and clinical
+/// decision support that depends on hereditary risk factors, such as flagging
+/// an elevated likelihood of a condition based on a parent's or sibling's
+/// history. Each significant condition or procedure experienced by the family
+/// member can be recorded as a repeating backbone element
+/// ([`FamilyMemberHistoryCondition`] or [`FamilyMemberHistoryProcedure`]),
+/// including onset, outcome, and whether it contributed to the family
+/// member's death.
+///
+/// # See also
+///
+/// - [`Patient`](crate::r5::resources::patient::Patient) — the subject whose
+///   family history this resource describes, referenced via `patient`.
+/// - [`CodeableConcept`](crate::r5::types::CodeableConcept) — used
+///   extensively here for relationship, sex, condition, and outcome coding.
+/// - `Condition` and `Procedure` — related resources for documenting the
+///   patient's own clinical history, as opposed to a relative's.
+///
 /// # Examples
 ///
 /// ```
@@ -71,13 +94,15 @@ pub struct FamilyMemberHistory {
     /// Instantiates external protocol or definition
     pub instantiates_uri: Option<Vec<types::Uri>>,
 
-    /// partial | completed | entered-in-error | health-unknown
+    /// The workflow/business status of this record: partial | completed |
+    /// entered-in-error | health-unknown.
     pub status: types::Code,
 
     /// subject-unknown | withheld | unable-to-obtain | deferred
     pub data_absent_reason: Option<types::CodeableConcept>,
 
-    /// Patient history is about
+    /// Reference to the [`Patient`](crate::r5::resources::patient::Patient)
+    /// whose family member history is being recorded.
     pub patient: types::Reference,
 
     /// When history was recorded or last updated
@@ -89,7 +114,8 @@ pub struct FamilyMemberHistory {
     /// The family member described
     pub name: Option<types::String>,
 
-    /// Relationship to the subject
+    /// The coded family relationship of this person to the patient, such as
+    /// mother, father, or sibling.
     pub relationship: types::CodeableConcept,
 
     /// male | female | other | unknown

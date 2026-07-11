@@ -26,6 +26,24 @@ use fhir_derive_macros::Validate;
 /// be given. This resource links back to the overall medicinal product and to the
 /// manufactured items from which the administrable form is prepared.
 ///
+/// This resource is typically used in medicinal product and regulatory workflows,
+/// where it bridges the gap between the packaged, manufactured item and the form
+/// that is actually administered to a subject of care, once any reconstitution,
+/// dilution, or mixing has occurred. It captures clinically relevant properties
+/// such as onset of action, allowed routes of administration, dosing limits, and
+/// species-specific withdrawal periods for veterinary products. Consumers such as
+/// prescribing, dispensing, and pharmacovigilance systems reference this resource
+/// to determine how a product may safely and appropriately be given.
+///
+/// # Related resources
+///
+/// The `formOf` and `producedFrom` elements reference the source medicinal
+/// product definition and manufactured item resources, while several fields use
+/// [`CodeableConcept`](crate::r5::types::CodeableConcept) and
+/// [`Reference`](crate::r5::types::Reference) to describe dose forms, routes,
+/// properties, and integral devices. This resource is closely related to
+/// `MedicinalProductDefinition`, `ManufacturedItemDefinition`, and `Ingredient`.
+///
 /// # Examples
 ///
 /// ```
@@ -67,13 +85,13 @@ pub struct AdministrableProductDefinition {
     /// An identifier for the administrable product
     pub identifier: Option<Vec<types::Identifier>>,
 
-    /// draft | active | retired | unknown
+    /// The publication lifecycle status of this definition: draft | active | retired | unknown
     pub status: types::Code,
 
-    /// References a product from which one or more of the constituent parts of that product can be prepared and used as described by this administrable product
+    /// References the overall medicinal product definition from which one or more constituent parts of this administrable product are prepared and used
     pub form_of: Option<Vec<types::Reference>>,
 
-    /// The dose form of the final product after necessary reconstitution or processing
+    /// The dose form of the final product after necessary reconstitution or processing, e.g. solution for injection
     pub administrable_dose_form: Option<types::CodeableConcept>,
 
     /// The presentation type in which this item is given to a patient. e.g. for a spray - 'puff'
@@ -94,7 +112,7 @@ pub struct AdministrableProductDefinition {
     /// Characteristics e.g. a product's onset of action
     pub property: Option<Vec<AdministrableProductDefinitionProperty>>,
 
-    /// The path by which the product is taken into or makes contact with the body
+    /// The path(s) by which the product is taken into or makes contact with the body, along with any associated dosing limits
     pub route_of_administration: Vec<AdministrableProductDefinitionRouteOfAdministration>,
 }
 

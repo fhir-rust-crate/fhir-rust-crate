@@ -26,6 +26,24 @@ use fhir_derive_macros::Validate;
 /// contexts to describe chemicals, polymers, nucleic acids, proteins, and
 /// biological materials in detail.
 ///
+/// `SubstanceDefinition` sits at the reference-data end of the FHIR medicinal
+/// product model: rather than describing a dispensed or administered item, it
+/// records the scientific and regulatory identity of a raw substance, including
+/// its moieties, structure, molecular weight, source material, and synonyms or
+/// translated/official names. Regulators, pharmacovigilance systems, and
+/// pharmaceutical manufacturers use it to maintain authoritative substance
+/// catalogues (for example, aligned with ISO 11238 identification of medicinal
+/// product data) that other resources can reference by identifier or code
+/// rather than duplicating substance detail inline.
+///
+/// See also: substances are commonly referenced from medication and ingredient
+/// resources such as `Medication` and `MedicinalProductDefinition`, and they
+/// make heavy use of shared data types like
+/// [`CodeableConcept`](crate::r5::types::CodeableConcept),
+/// [`Identifier`](crate::r5::types::Identifier), and
+/// [`Reference`](crate::r5::types::Reference) to link to supporting literature,
+/// manufacturers, and suppliers.
+///
 /// # Examples
 ///
 /// ```
@@ -64,13 +82,13 @@ pub struct SubstanceDefinition {
     /// Extensions that cannot be ignored
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// Identifier by which this substance is known
+    /// One or more business identifiers (e.g. CAS number, UNII) by which this substance is known
     pub identifier: Option<Vec<types::Identifier>>,
 
     /// A business level version identifier of the substance
     pub version: Option<types::String>,
 
-    /// Status of substance within the catalogue e.g. active, retired
+    /// Lifecycle status of this substance record within the catalogue, e.g. active, retired
     pub status: Option<types::CodeableConcept>,
 
     /// A categorization, high level e.g. polymer or nucleic acid, or food, chemical, biological, or lower e.g. polymer linear or branch chain, or type of impurity
@@ -112,16 +130,16 @@ pub struct SubstanceDefinition {
     /// The average mass of a molecule of a compound
     pub molecular_weight: Option<Vec<SubstanceDefinitionMolecularWeight>>,
 
-    /// Structural information
+    /// Structural information, such as molecular formula and depictions like SMILES or InChI
     pub structure: Option<SubstanceDefinitionStructure>,
 
-    /// Codes associated with the substance
+    /// Codes associated with the substance, e.g. regulatory or terminology codes and their status
     pub code: Option<Vec<SubstanceDefinitionCode>>,
 
-    /// Names applicable to this substance
+    /// Names applicable to this substance, including synonyms, translations, and official names
     pub name: Option<Vec<SubstanceDefinitionName>>,
 
-    /// A link between this substance and another
+    /// A link between this substance and another, e.g. salt-to-parent or active-moiety relationships
     pub relationship: Option<Vec<SubstanceDefinitionRelationship>>,
 
     /// Data items specific to nucleic acids

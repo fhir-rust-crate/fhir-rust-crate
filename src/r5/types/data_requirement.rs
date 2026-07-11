@@ -50,10 +50,10 @@ pub struct DataRequirement {
     /// The profile of the required data
     pub profile: Option<Vec<types::Canonical>>,
 
-    /// E.g. Patient, Practitioner, RelatedPerson, Organization, Location, Device
+    /// The intended subject of the data requirement, given as a codeable concept (e.g. Patient, Practitioner, Organization, Location, Device)
     pub subject_codeable_concept: Option<types::CodeableConcept>,
 
-    /// E.g. Patient, Practitioner, RelatedPerson, Organization, Location, Device
+    /// The intended subject of the data requirement, given as a reference to a group or specific resource
     pub subject_reference: Option<types::Reference>,
 
     /// Indicates specific structure elements that are referenced by the knowledge module

@@ -9,6 +9,8 @@
 //! FHIR: <https://build.fhir.org/>
 //!
 //! UML: <https://build.fhir.org/uml.html>
+//!
+//! This is the base type used by complex datatypes that need to support modifier extensions.
 
 // Allow unused crate::r5::types as types;
 #![allow(unused_imports)]
@@ -17,10 +19,27 @@ use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
 use fhir_derive_macros::Validate;
 
+/// Base definition for the few FHIR data types that are allowed to carry
+/// modifier extensions. Complex datatypes that represent a "backbone"
+/// element extend this type so that implementations must not ignore any
+/// modifier extension present, since doing so could change the meaning of
+/// the data. It is not used directly as a standalone datatype.
+///
+/// # Examples
+///
+/// ```
+/// use fhir::r5::types::backbone_type::BackboneType;
+///
+/// let value = BackboneType::default();
+/// let json = ::serde_json::to_value(&value).unwrap();
+/// let back: BackboneType = ::serde_json::from_value(json).unwrap();
+/// assert_eq!(value, back);
+/// ```
 #[serde_with::skip_serializing_none]
 #[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
 pub struct BackboneType {
+    /// Extensions that cannot be ignored even if unrecognized, altering the meaning of the containing element.
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub modifier_extension: Vec<types::Extension>,
 }

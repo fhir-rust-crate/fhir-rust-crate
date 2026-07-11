@@ -23,6 +23,29 @@ use fhir_derive_macros::Validate;
 /// are the building blocks referenced by Evidence and related resources to
 /// describe what was studied and how it was measured.
 ///
+/// Conceptually, an EvidenceVariable captures the precise, computable definition
+/// of a PICO(TS) element (Population, Intervention/Exposure, Comparator, Outcome,
+/// Timing, Setting) so that the same variable can be reused consistently across
+/// multiple pieces of evidence, evidence reports, and evidence-based
+/// recommendations. Each `characteristic` describes an inclusion or exclusion
+/// criterion, optionally combined with other characteristics via
+/// `definition_by_combination`, and may specify how a value is determined
+/// (for example, from an observation, condition, or computed expression) as
+/// well as the timing of that determination relative to a reference event.
+/// When the variable represents a categorical or ordinal concept, `category`
+/// groups the possible values, and `handling` indicates whether the variable
+/// is continuous, dichotomous, ordinal, or polychotomous.
+///
+/// # Related resources
+///
+/// EvidenceVariable is typically referenced by `Evidence` and
+/// `EvidenceReport` resources to identify the population, exposure, or
+/// outcome under study, and its characteristics may reference clinical
+/// resources such as [`Patient`](crate::r5::resources::patient::Patient),
+/// `Observation`, or `Condition` via `definition_reference`. Coded concepts
+/// used throughout this resource, such as `handling` and category values,
+/// commonly make use of [`CodeableConcept`](crate::r5::types::CodeableConcept).
+///
 /// # Examples
 ///
 /// ```
@@ -85,7 +108,7 @@ pub struct EvidenceVariable {
     /// Title for use in informal contexts
     pub short_title: Option<types::String>,
 
-    /// draft | active | retired | unknown
+    /// The publication status of this evidence variable: draft | active | retired | unknown.
     pub status: types::Code,
 
     /// For testing purposes, not real usage
@@ -145,10 +168,10 @@ pub struct EvidenceVariable {
     /// Actual or conceptual
     pub actual: Option<types::Boolean>,
 
-    /// A defining factor of the EvidenceVariable
+    /// A defining factor of the EvidenceVariable, such as an inclusion or exclusion criterion
     pub characteristic: Option<Vec<EvidenceVariableCharacteristic>>,
 
-    /// continuous | dichotomous | ordinal | polychotomous
+    /// The type of variable measurement: continuous | dichotomous | ordinal | polychotomous
     pub handling: Option<types::Code>,
 
     /// A grouping for ordinal or polychotomous variables

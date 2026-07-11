@@ -23,7 +23,32 @@ use fhir_derive_macros::Validate;
 ///
 /// An ExplanationOfBenefit is the response to a Claim and combines information
 /// from the original claim request with the payer's adjudication results,
-/// making it central to the FHIR R5 financial and billing workflow.
+/// making it central to the FHIR R5 financial and billing workflow. It is
+/// typically produced by an insurer, health plan, or other adjudicating
+/// system after processing a Claim, and it is returned to the subscriber,
+/// patient, or provider so they can understand what services or products
+/// were billed, how each line item was evaluated, and what amounts (if
+/// any) are payable, denied, or the patient's responsibility. Unlike a
+/// Claim, which represents a request for payment or authorization, the
+/// ExplanationOfBenefit represents the outcome of that request, including
+/// per-item and per-category adjudication, totals, payment information,
+/// and optional account balance data such as benefit limits already used.
+///
+/// The resource mirrors much of the structure of the Claim it responds to
+/// (items, details, sub-details, diagnoses, procedures, and insurance),
+/// while adding adjudication-specific elements such as `adjudication`,
+/// `total`, `payment`, and `benefit_balance` that capture the payer's
+/// determination for each element of the original request.
+///
+/// # See also
+///
+/// - [`Patient`](crate::r5::resources::patient::Patient) — the subject
+///   referenced by the `patient` field.
+/// - [`CodeableConcept`](crate::r5::types::CodeableConcept) — used
+///   throughout for coded categories such as status, type, and adjudication
+///   categories.
+/// - `Claim` and `ClaimResponse` — related resources representing the
+///   original request and the underlying adjudication response.
 ///
 /// # Examples
 ///
@@ -59,15 +84,15 @@ pub struct ExplanationOfBenefit {
     pub identifier: Option<Vec<types::Identifier>>,
     /// Number for tracking
     pub trace_number: Option<Vec<types::Identifier>>,
-    /// active | cancelled | draft | entered-in-error
+    /// The status of the resource instance: active | cancelled | draft | entered-in-error
     pub status: types::Code,
-    /// Category or discipline
+    /// The category or discipline of the claim, e.g. institutional, oral, pharmacy, professional, or vision
     pub r#type: types::CodeableConcept,
     /// More granular claim type
     pub sub_type: Option<types::CodeableConcept>,
-    /// claim | preauthorization | predetermination
+    /// Whether this represents a claim, a preauthorization request, or a predetermination
     pub r#use: types::Code,
-    /// The recipient of the products and services
+    /// Reference to the patient who is the recipient of the products and services
     pub patient: types::Reference,
     /// Relevant time frame for the claim
     pub billable_period: Option<types::Period>,
@@ -101,11 +126,11 @@ pub struct ExplanationOfBenefit {
     pub encounter: Option<Vec<types::Reference>>,
     /// Servicing Facility
     pub facility: Option<types::Reference>,
-    /// Claim reference
+    /// Reference to the Claim resource that this ExplanationOfBenefit is the outcome of
     pub claim: Option<types::Reference>,
     /// Claim response reference
     pub claim_response: Option<types::Reference>,
-    /// queued | complete | error | partial
+    /// The processing outcome of the adjudication: queued | complete | error | partial
     pub outcome: types::Code,
     /// Result of the adjudication
     pub decision: Option<types::CodeableConcept>,

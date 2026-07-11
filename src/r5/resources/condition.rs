@@ -26,6 +26,21 @@ use fhir_derive_macros::Validate;
 /// being managed for, and is central to problem lists, encounter diagnoses, and
 /// clinical assessments in FHIR R5.
 ///
+/// Typical uses include capturing a patient's active and historical problem
+/// list, documenting a diagnosis reached during an encounter, and tracking the
+/// clinical course of a condition over time through fields such as
+/// `clinical_status`, `verification_status`, `onset`, `abatement`, and `stage`.
+/// A `Condition` always refers back to the `subject` (usually a patient) for
+/// whom the condition is asserted, and it may be linked to the `encounter`
+/// during which it was identified or recorded.
+///
+/// # Related resources
+///
+/// - [`Patient`](crate::r5::resources::patient::Patient) — the individual who is typically the subject of a condition.
+/// - `Encounter` — the clinical encounter during which the condition was noted or assessed.
+/// - `Observation` — clinical findings that may support or evidence a condition.
+/// - [`CodeableConcept`](crate::r5::types::CodeableConcept) — used throughout this resource for coded status, category, severity, and body site values.
+///
 /// # Examples
 ///
 /// ```
@@ -67,28 +82,28 @@ pub struct Condition {
     /// External Ids for this condition
     pub identifier: Option<Vec<types::Identifier>>,
 
-    /// active | recurrence | relapse | inactive | remission | resolved | unknown
+    /// The clinical status of the condition, e.g. active | recurrence | relapse | inactive | remission | resolved | unknown.
     pub clinical_status: types::CodeableConcept,
 
-    /// unconfirmed | provisional | differential | confirmed | refuted | entered-in-error
+    /// The degree of confidence in the assertion, e.g. unconfirmed | provisional | differential | confirmed | refuted | entered-in-error.
     pub verification_status: Option<types::CodeableConcept>,
 
-    /// problem-list-item | encounter-diagnosis
+    /// A categorization of the condition, e.g. problem-list-item | encounter-diagnosis.
     pub category: Option<Vec<types::CodeableConcept>>,
 
     /// Subjective severity of condition
     pub severity: Option<types::CodeableConcept>,
 
-    /// Identification of the condition, problem or diagnosis
+    /// Identification of the condition, problem, or diagnosis, typically drawn from a terminology such as ICD-10 or SNOMED CT.
     pub code: Option<types::CodeableConcept>,
 
     /// Anatomical location, if relevant
     pub body_site: Option<Vec<types::CodeableConcept>>,
 
-    /// Who has the condition?
+    /// The patient or group who has the condition; a reference to the relevant [`Patient`](crate::r5::resources::patient::Patient) (or group).
     pub subject: types::Reference,
 
-    /// The Encounter during which this Condition was created
+    /// The encounter during which this condition was created or asserted
     pub encounter: Option<types::Reference>,
 
     /// Estimated or actual date, date-time, or age

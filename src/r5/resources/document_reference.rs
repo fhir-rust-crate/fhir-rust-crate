@@ -27,6 +27,26 @@ use fhir_derive_macros::Validate;
 /// metadata about the document plus one or more content attachments describing
 /// where and how to access the actual bytes.
 ///
+/// Clinically and administratively, `DocumentReference` acts as an index or
+/// pointer resource: rather than embedding the full document content inline,
+/// it typically references externally stored bytes (via an attachment URL or
+/// inline base64 data) and carries descriptive metadata such as the document
+/// type, category, authoring context, subject, time period covered, and
+/// security labeling. This separation allows document management systems,
+/// registries, and repositories (for example, those conforming to IHE XDS or
+/// similar architectures) to catalog, discover, and retrieve documents without
+/// duplicating their content in the FHIR server itself. The resource also
+/// supports versioning and relationships between documents, such as
+/// replacement, transformation, or appending, via its `relates_to` element.
+///
+/// See also: [`Patient`](crate::r5::resources::patient::Patient) or other
+/// resource types are commonly referenced via the `subject` element to
+/// identify who the document is about, and `types::CodeableConcept` values
+/// (for example LOINC codes) are used to describe the document's `type` and
+/// `category`. Related resources with similar indexing purposes include
+/// `Binary` (for raw content storage) and `Composition` (for structured,
+/// FHIR-native clinical documents).
+///
 /// # Examples
 ///
 /// ```
@@ -74,7 +94,7 @@ pub struct DocumentReference {
     /// Procedure that caused this media to be created
     pub based_on: Option<Vec<types::Reference>>,
 
-    /// current | superseded | entered-in-error
+    /// The status of this document reference (current | superseded | entered-in-error).
     pub status: types::Code,
 
     /// registered | partial | preliminary | final | amended | corrected | appended | cancelled | entered-in-error | deprecated | unknown
@@ -83,13 +103,13 @@ pub struct DocumentReference {
     /// Imaging modality used
     pub modality: Option<Vec<types::CodeableConcept>>,
 
-    /// Kind of document (LOINC if possible)
+    /// Kind of document, ideally coded using a LOINC document type code
     pub r#type: Option<types::CodeableConcept>,
 
-    /// Categorization of document
+    /// Categorization of document, such as a broad class like "clinical note"
     pub category: Option<Vec<types::CodeableConcept>>,
 
-    /// Who/what is the subject of the document
+    /// Who/what the document is about, most often a reference to a Patient
     pub subject: Option<types::Reference>,
 
     /// Context of the document content
@@ -122,7 +142,7 @@ pub struct DocumentReference {
     /// Organization which maintains the document
     pub custodian: Option<types::Reference>,
 
-    /// Relationships to other documents
+    /// Relationships this document has to other documents, such as replaces or transforms
     pub relates_to: Option<Vec<DocumentReferenceRelatesTo>>,
 
     /// Human-readable description
@@ -131,7 +151,7 @@ pub struct DocumentReference {
     /// Document security-tags
     pub security_label: Option<Vec<types::CodeableConcept>>,
 
-    /// Document referenced
+    /// The document(s) referenced, each pairing an attachment with optional format/profile details
     pub content: Vec<DocumentReferenceContent>,
 }
 

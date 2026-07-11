@@ -27,7 +27,24 @@ use fhir_derive_macros::Validate;
 /// listing members (an enumerated group). In FHIR R5 it is commonly used for
 /// cohorts, research study populations, herds of animals, or collections of
 /// devices, and is distinct from an Organization, which represents a formally
-/// recognized entity.
+/// or legally recognized entity.
+///
+/// Clinically and administratively, Group is used wherever an action, order,
+/// communication, or observation needs to apply to many entities at once
+/// rather than to a single record — for example targeting a public health
+/// intervention at a cohort of patients, enrolling a herd of animals in a
+/// veterinary study, or scoping a `CarePlan` or `Communication` to a set of
+/// recipients. The `type` and `membership` fields establish what kind of
+/// entities the group contains and whether membership is rule-based
+/// (`characteristic`) or explicitly enumerated (`member`), while `quantity`
+/// and `managingEntity` support cases where the exact membership list is not
+/// tracked by the system.
+///
+/// See also: [`Patient`](crate::r5::resources::patient::Patient) and
+/// `Practitioner`, `Device`, `Specimen`, and `Organization`, which are the
+/// typical kinds of entities referenced as group members, and
+/// [`CodeableConcept`](crate::r5::types::CodeableConcept), used to describe
+/// group characteristics.
 ///
 /// # Examples
 ///
@@ -70,13 +87,13 @@ pub struct Group {
     /// Business Identifier for this Group
     pub identifier: Option<Vec<types::Identifier>>,
 
-    /// Whether this group's record is in active use
+    /// Whether this group's record is in active use, as opposed to being retired or entered in error
     pub active: Option<types::Boolean>,
 
-    /// person | animal | practitioner | device | careteam | healthcareservice | location | organization | relatedperson | specimen
+    /// The kind of entities held by this group: person | animal | practitioner | device | careteam | healthcareservice | location | organization | relatedperson | specimen
     pub r#type: types::Code,
 
-    /// definitional | enumerated
+    /// Basis for membership: definitional (rule-based, via `characteristic`) or enumerated (explicitly listed, via `member`)
     pub membership: types::Code,
 
     /// Kind of Group members
@@ -94,10 +111,10 @@ pub struct Group {
     /// Entity that is the custodian of the Group's definition
     pub managing_entity: Option<types::Reference>,
 
-    /// Include / Exclude group members by Trait
+    /// Rules for including or excluding members of a definitional Group by trait
     pub characteristic: Option<Vec<GroupCharacteristic>>,
 
-    /// Who or what is in group
+    /// The explicit list of entities that are members of an enumerated Group
     pub member: Option<Vec<GroupMember>>,
 }
 

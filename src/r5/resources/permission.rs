@@ -87,13 +87,13 @@ pub struct Permission {
     /// Reference to the person or entity that asserts this permission and its rules.
     pub asserter: Option<types::Reference>,
 
-    /// The date that permission was asserted
+    /// The date(s) on which the permission was asserted by the asserter.
     pub date: Option<Vec<types::DateTime>>,
 
-    /// The period in which the permission is active
+    /// The period during which this permission's rules are in effect.
     pub validity: Option<types::Period>,
 
-    /// The asserted justification for using the data
+    /// The legal or regulatory basis and supporting evidence justifying the use of the data.
     pub justification: Option<PermissionJustification>,
 
     /// Combining algorithm that reconciles conflicting rules: deny-overrides, permit-overrides, ordered-deny-overrides, ordered-permit-overrides, deny-unless-permit, or permit-unless-deny.

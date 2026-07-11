@@ -29,6 +29,23 @@ use fhir_derive_macros::Validate;
 /// commonly used to document notifications, messages, and other information
 /// transfers that are relevant to patient care or business workflow.
 ///
+/// Unlike `CommunicationRequest`, which represents a request or order for a
+/// communication to occur, `Communication` is a record that a communication
+/// event has actually happened (or is happening), whether or not it was
+/// triggered by an order. It is often used for auditing, tracking, and
+/// reporting on information exchange, and it may reference the order that
+/// prompted it via `based_on`.
+///
+/// # See also
+///
+/// - [`CodeableConcept`](crate::r5::types::CodeableConcept) — used for
+///   category, medium, priority, and topic coding.
+/// - [`Reference`](crate::r5::types::Reference) — used to link the subject,
+///   encounter, sender, and recipients, which are commonly resources such as
+///   `Patient`, `Practitioner`, or `Organization`.
+/// - [`Annotation`](crate::r5::types::Annotation) — used for the `note`
+///   field's free-text comments.
+///
 /// # Examples
 ///
 /// ```
@@ -85,7 +102,8 @@ pub struct Communication {
     /// Reply to
     pub in_response_to: Option<Vec<types::Reference>>,
 
-    /// preparation | in-progress | not-done | on-hold | stopped | completed | entered-in-error | unknown
+    /// The lifecycle status of this communication: preparation | in-progress
+    /// | not-done | on-hold | stopped | completed | entered-in-error | unknown.
     pub status: types::Code,
 
     /// Reason for current status
@@ -100,7 +118,8 @@ pub struct Communication {
     /// A channel of communication
     pub medium: Option<Vec<types::CodeableConcept>>,
 
-    /// Focus of message
+    /// Focus of message, typically a reference to a `Patient` or `Group`
+    /// about whom the communication is concerned.
     pub subject: Option<types::Reference>,
 
     /// Description of the purpose/content
@@ -118,10 +137,11 @@ pub struct Communication {
     /// When received
     pub received: Option<types::DateTime>,
 
-    /// Who the information is shared with
+    /// Who the information is shared with, such as one or more patients,
+    /// practitioners, or other care team members.
     pub recipient: Option<Vec<types::Reference>>,
 
-    /// Who shares the information
+    /// Who shares the information, i.e. the originator of the communication.
     pub sender: Option<types::Reference>,
 
     /// Indication for message

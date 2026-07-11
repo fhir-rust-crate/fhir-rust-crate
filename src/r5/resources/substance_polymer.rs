@@ -23,9 +23,21 @@ use fhir_derive_macros::Validate;
 /// captures the structural characteristics of polymeric substances, including
 /// the overall polymer class and geometry, the monomer sets and starting
 /// materials used in synthesis, and the structural repeat units together with
-/// their degree of polymerisation and graphical representations. It is typically
-/// referenced alongside a SubstanceDefinition to describe medicinal or chemical
-/// substances that are polymers.
+/// their degree of polymerisation and graphical representations. It is used
+/// in pharmaceutical, regulatory, and manufacturing contexts to precisely
+/// characterize polymeric excipients and active substances (for example,
+/// biologics, coatings, and drug-delivery polymers) so that their chemical
+/// identity and structure can be compared, verified, and referenced across
+/// systems. It is typically referenced alongside a SubstanceDefinition to
+/// describe medicinal or chemical substances that are polymers, and rarely
+/// stands alone in clinical workflows.
+///
+/// Related resources: `SubstanceDefinition` provides the general substance
+/// identity that this resource extends with polymer-specific detail, while
+/// classifications, connectivity, and unit types throughout this resource
+/// are expressed using [`CodeableConcept`](crate::r5::types::CodeableConcept)
+/// and structural files are attached using
+/// [`Attachment`](crate::r5::types::Attachment).
 ///
 /// # Examples
 ///
@@ -65,10 +77,10 @@ pub struct SubstancePolymer {
     /// Extensions that cannot be ignored
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// A business idenfier for this polymer, but typically this is handled by a SubstanceDefinition identifier
+    /// A business identifier for this polymer, but typically this is handled by a SubstanceDefinition identifier
     pub identifier: Option<types::Identifier>,
 
-    /// Overall type of the polymer
+    /// Overall type of the polymer, e.g. random, block, or graft copolymer
     pub class: Option<types::CodeableConcept>,
 
     /// Polymer geometry, e.g. linear, branched, cross-linked, network or dendritic
@@ -80,10 +92,10 @@ pub struct SubstancePolymer {
     /// Todo - this is intended to connect to a repeating full modification structure, also used by Protein and Nucleic Acid . String is just a placeholder
     pub modification: Option<types::String>,
 
-    /// Todo
+    /// The monomer sets and their starting materials used to synthesize the polymer
     pub monomer_set: Option<Vec<SubstancePolymerMonomerSet>>,
 
-    /// Specifies and quantifies the repeated units and their configuration
+    /// Specifies and quantifies the structural repeat units and their configuration
     pub repeat: Option<Vec<SubstancePolymerRepeat>>,
 }
 

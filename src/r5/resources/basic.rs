@@ -24,6 +24,16 @@ use fhir_derive_macros::Validate;
 /// plus optional subject, author, and creation date — so that implementers can
 /// exchange information that FHIR does not otherwise model. The bulk of the
 /// meaning is typically conveyed through extensions and the narrative text.
+/// Common uses include representing business concepts (such as a household
+/// or a research study protocol step) that have not yet been formalized as
+/// a dedicated FHIR resource type.
+///
+/// # Related resources
+///
+/// The `code` field, of type [`CodeableConcept`](crate::r5::types::CodeableConcept),
+/// identifies what kind of "thing" the instance represents, while `subject`
+/// and `author` are [`Reference`](crate::r5::types::Reference) values that
+/// commonly point to resources such as `Patient`.
 ///
 /// # Examples
 ///
@@ -66,16 +76,16 @@ pub struct Basic {
     /// Business identifier
     pub identifier: Option<Vec<types::Identifier>>,
 
-    /// Kind of Resource
+    /// Kind of Resource; a coded classification describing what this Basic instance represents
     pub code: types::CodeableConcept,
 
-    /// Identifies the focus of this resource
+    /// Identifies the patient, group, or other resource that this instance is about
     pub subject: Option<types::Reference>,
 
-    /// When created
+    /// The date and, optionally, time when this resource instance was created
     pub created: Option<types::DateTime>,
 
-    /// Who created
+    /// Indicates who was responsible for creating the resource instance
     pub author: Option<types::Reference>,
 }
 

@@ -27,6 +27,15 @@ use fhir_derive_macros::Validate;
 /// and the provider that submitted the request. This resource is part of the
 /// FHIR financial module.
 ///
+/// # See also
+///
+/// - `EnrollmentRequest`, the originating request that this resource answers.
+/// - [`Reference`](crate::r5::types::Reference), used to point to the
+///   originating request, the insurer organization, and the requesting
+///   provider.
+/// - [`Patient`](crate::r5::resources::patient::Patient), which is typically
+///   the subject of the coverage referenced by the originating request.
+///
 /// # Examples
 ///
 /// ```
@@ -68,25 +77,25 @@ pub struct EnrollmentResponse {
     /// Business Identifier
     pub identifier: Option<Vec<types::Identifier>>,
 
-    /// active | cancelled | draft | entered-in-error
+    /// The status of the resource instance itself: active | cancelled | draft | entered-in-error
     pub status: Option<types::Code>,
 
-    /// Claim reference
+    /// Reference to the originating `EnrollmentRequest` that this response answers
     pub request: Option<types::Reference>,
 
-    /// queued | complete | error | partial
+    /// The processing outcome of the enrollment request: queued | complete | error | partial
     pub outcome: Option<types::Code>,
 
-    /// Disposition Message
+    /// A human-readable description of the outcome of processing the request
     pub disposition: Option<types::String>,
 
-    /// Creation date
+    /// The date on which this enrollment response was created
     pub created: Option<types::DateTime>,
 
-    /// Insurer
+    /// Reference to the insurer organization that processed the enrollment request
     pub organization: Option<types::Reference>,
 
-    /// Responsible practitioner
+    /// Reference to the practitioner who is responsible for the claim, if applicable
     pub request_provider: Option<types::Reference>,
 }
 

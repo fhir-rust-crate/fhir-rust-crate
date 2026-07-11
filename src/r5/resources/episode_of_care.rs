@@ -28,6 +28,23 @@ use fhir_derive_macros::Validate;
 /// longitudinal programs such as disease management, specialist referrals, or
 /// ongoing treatment relationships.
 ///
+/// Clinically and administratively, an EpisodeOfCare acts as the umbrella
+/// under which individual clinical events are grouped: each
+/// [`Encounter`](crate::r5::resources::encounter::Encounter) that occurs
+/// while the episode is active may reference this resource so that the
+/// visits, orders, and results belonging to the same program of care can be
+/// tracked and reported together. The `status` and `status_history` fields
+/// track the episode's lifecycle from `planned` through `active` to
+/// `finished` or `cancelled`, while `reason` and `diagnosis` capture the
+/// clinical justification and the conditions being managed.
+///
+/// Related resources: the `patient` field references the
+/// [`Patient`](crate::r5::resources::patient::Patient) who is the focus of
+/// the episode, and the type/class of the episode, its reasons, and its
+/// diagnoses are typically coded using
+/// [`CodeableConcept`](crate::r5::types::CodeableConcept). See also
+/// `CareTeam` and `Organization` for related workflow resources.
+///
 /// # Examples
 ///
 /// ```
@@ -69,7 +86,7 @@ pub struct EpisodeOfCare {
     /// Business Identifier(s) relevant for this EpisodeOfCare
     pub identifier: Option<Vec<types::Identifier>>,
 
-    /// planned | waitlist | active | onhold | finished | cancelled | entered-in-error
+    /// Current lifecycle state of the episode: planned | waitlist | active | onhold | finished | cancelled | entered-in-error
     pub status: types::Code,
 
     /// Past list of status codes (the current status may be included to cover the start date of the status)
@@ -84,13 +101,13 @@ pub struct EpisodeOfCare {
     /// The list of medical conditions that were addressed during the episode of care
     pub diagnosis: Option<Vec<EpisodeOfCareDiagnosis>>,
 
-    /// The patient who is the focus of this episode of care
+    /// Reference to the [`Patient`](crate::r5::resources::patient::Patient) who is the focus of this episode of care
     pub patient: types::Reference,
 
-    /// Organization that assumes responsibility for care coordination
+    /// Organization that assumes overall responsibility for care coordination during the episode
     pub managing_organization: Option<types::Reference>,
 
-    /// Interval during responsibility is assumed
+    /// Interval during which the managing organization's responsibility is assumed
     pub period: Option<types::Period>,
 
     /// Originating Referral Request(s)

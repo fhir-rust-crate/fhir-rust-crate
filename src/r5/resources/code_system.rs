@@ -26,6 +26,21 @@ use fhir_derive_macros::Validate;
 /// properties, along with an optional hierarchy of concepts and their
 /// designations.
 ///
+/// Administratively, a CodeSystem is typically authored and maintained by a
+/// standards body, vendor, or local implementer, and is published with a
+/// lifecycle status (draft, active, or retired) and a content mode indicating
+/// whether the resource is a complete, partial, example, or supplemental
+/// representation of the underlying code system. Consumers reference a
+/// CodeSystem by its canonical URL and optional version, and terminology
+/// servers use it to answer `$lookup`, `$validate-code`, and `$subsumes`
+/// operations. Individual codes defined here are commonly bound into other
+/// resources through [`CodeableConcept`](crate::r5::types::CodeableConcept)
+/// or `Coding` elements, for example when coding a condition, observation, or
+/// medication on a [`Patient`](crate::r5::resources::patient::Patient) record.
+///
+/// See also: `ValueSet`, which selects and constrains codes drawn from one or
+/// more CodeSystem resources for use in a particular context.
+///
 /// # Examples
 ///
 /// ```
@@ -64,7 +79,7 @@ pub struct CodeSystem {
     /// Extensions that cannot be ignored
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// Canonical identifier for this code system, represented as a URI (globally unique) (Coding.system)
+    /// Canonical identifier for this code system, represented as a URI (globally unique) (Coding.system). This is the value used to populate `Coding.system` when referencing codes from this system.
     pub url: Option<types::Uri>,
 
     /// Additional identifier for the code system (business identifier)
@@ -85,7 +100,7 @@ pub struct CodeSystem {
     /// Name for this code system (human friendly)
     pub title: Option<types::String>,
 
-    /// draft | active | retired | unknown
+    /// draft | active | retired | unknown; governs the publication lifecycle of this code system.
     pub status: types::Code,
 
     /// For testing purposes, not real usage
@@ -160,7 +175,7 @@ pub struct CodeSystem {
     /// If definitions are not stable
     pub version_needed: Option<types::Boolean>,
 
-    /// not-present | example | fragment | complete | supplement
+    /// not-present | example | fragment | complete | supplement; indicates how much of the underlying code system's content is represented by this resource.
     pub content: types::Code,
 
     /// Canonical URL of Code System this adds designations and properties to
@@ -175,7 +190,7 @@ pub struct CodeSystem {
     /// Additional information supplied about each concept
     pub property: Option<Vec<CodeSystemProperty>>,
 
-    /// Concepts in the code system
+    /// Concepts in the code system; the (optionally hierarchical) list of codes this resource defines or supplements.
     pub concept: Option<Vec<CodeSystemConcept>>,
 }
 

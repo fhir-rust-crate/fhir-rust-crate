@@ -1,3 +1,17 @@
+//! Parser for the FHIR R5 "search-parameters.json" definitions bundle, one of the
+//! official FHIR specification conformance resources published alongside the R5
+//! release. The bundle is a FHIR `Bundle` whose entries wrap `SearchParameter`
+//! resources describing every search parameter defined by the base FHIR
+//! specification, and this module deserializes that JSON directly into typed
+//! structures (`Bundle`, `Entry`, `Resource`, `Snapshot`, `Element`, and related
+//! submodules) via `serde_json`. Those typed structures are then walked by the
+//! code generator to emit corresponding Rust source, most notably struct
+//! attributes produced by `element_into_rust_struct_attribute`, so that search
+//! parameter metadata becomes part of the generated `fhir` crate output. As
+//! such, this module is one of many per-resource parsing modules that make up
+//! the larger generation pipeline turning the official FHIR specification JSON
+//! into idiomatic Rust code.
+
 // Namespace conveniences
 
 pub static DIR: std::sync::LazyLock<std::path::PathBuf> =

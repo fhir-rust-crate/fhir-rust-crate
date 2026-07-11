@@ -24,6 +24,27 @@ use fhir_derive_macros::Validate;
 /// resources. In FHIR R5 it captures both metadata about the citation record
 /// itself and rich descriptive detail about the cited artifact being referenced.
 ///
+/// Citation is a canonical, conformance-like resource that follows the usual
+/// publication lifecycle metadata pattern shared with other knowledge artifact
+/// resources: it carries a `url`, `version`, `status`, `date`, `publisher`, and
+/// `use_context`, in addition to citation-specific detail. The resource is used
+/// to describe bibliographic references (such as journal articles, guidelines,
+/// or other source material) that support clinical decision support artifacts,
+/// evidence summaries, quality measures, and other knowledge artifacts, allowing
+/// implementers to trace claims and recommendations back to their supporting
+/// literature. The `cited_artifact` element carries the substantive
+/// bibliographic detail (titles, abstracts, publication form, and
+/// contributorship), while the top-level elements describe the citation record
+/// itself as a shareable, versionable FHIR artifact.
+///
+/// # Related resources
+///
+/// A `Citation` may reference other resources via [`Reference`](crate::r5::types::Reference)
+/// elements, for example to link a `related_artifact` or `base_citation` back
+/// to another `Citation`, an `Evidence` resource, or a supporting `Organization`.
+/// Descriptive coded elements throughout this resource, such as `classification`
+/// and `jurisdiction`, use [`CodeableConcept`](crate::r5::types::CodeableConcept).
+///
 /// # Examples
 ///
 /// ```
@@ -62,10 +83,12 @@ pub struct Citation {
     /// Extensions that cannot be ignored.
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// Canonical identifier for this citation record, represented as a global URL.
+    /// Canonical identifier for this citation record, represented as a global URL,
+    /// used to reference this citation record across systems and versions.
     pub url: Option<types::Uri>,
 
-    /// Identifier for the citation record itself.
+    /// Business identifier(s) for the citation record itself, distinct from any
+    /// identifier of the cited artifact (such as a DOI or PMID).
     pub identifier: Option<Vec<types::Identifier>>,
 
     /// Business version of the citation record.
@@ -83,7 +106,8 @@ pub struct Citation {
     /// Name for this citation record (human friendly).
     pub title: Option<types::String>,
 
-    /// draft | active | retired | unknown.
+    /// The publication status of the citation record itself: draft | active |
+    /// retired | unknown. This is a required element.
     pub status: types::Code,
 
     /// For testing purposes, not real usage.
@@ -155,7 +179,9 @@ pub struct Citation {
     /// Artifact related to the citation record.
     pub related_artifact: Option<Vec<types::RelatedArtifact>>,
 
-    /// The article or artifact being described.
+    /// The article or artifact being described, carrying the detailed
+    /// bibliographic content (titles, abstracts, publication form, and
+    /// contributorship) about the source referenced by this citation record.
     pub cited_artifact: Option<CitationCitedArtifact>,
 }
 

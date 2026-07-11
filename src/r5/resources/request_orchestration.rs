@@ -26,6 +26,30 @@ use fhir_derive_macros::Validate;
 /// used to drive clinical decision support and workflow orchestration in FHIR
 /// R5.
 ///
+/// Clinically, a RequestOrchestration captures the output of applying a care
+/// pathway, protocol, or order set (typically expressed as a PlanDefinition)
+/// to a particular patient's circumstances. Rather than issuing each order,
+/// referral, or task as an unrelated resource, the orchestration groups them
+/// as nested actions with explicit conditions (such as an applicability
+/// expression that must evaluate true), timing (a fixed date/time, age,
+/// period, duration, range, or full Timing schedule), and relationships to
+/// other actions (for example "start this after that one completes").
+/// Consumers such as order entry or clinical decision support systems walk
+/// the action tree to determine what to propose, schedule, or execute, and
+/// downstream systems create the concrete request resources (for example
+/// MedicationRequest or ServiceRequest) once an action is accepted.
+///
+/// # See also
+///
+/// - The subject of a RequestOrchestration is typically a
+///   [`Patient`](crate::r5::resources::patient::Patient), referenced via the
+///   `subject` field.
+/// - Coded values such as `code`, `priority`, and action `code` use
+///   [`CodeableConcept`](crate::r5::types::CodeableConcept).
+/// - Individual proposed activities are represented by nested
+///   `RequestOrchestrationAction` entries, which may themselves be produced
+///   from a `PlanDefinition`.
+///
 /// # Examples
 ///
 /// ```
@@ -82,19 +106,19 @@ pub struct RequestOrchestration {
     /// Composite request this is part of
     pub group_identifier: Option<types::Identifier>,
 
-    /// draft | active | on-hold | revoked | completed | entered-in-error | unknown
+    /// The lifecycle status of this request orchestration: draft | active | on-hold | revoked | completed | entered-in-error | unknown
     pub status: types::Code,
 
-    /// proposal | plan | directive | order | original-order | reflex-order | filler-order | instance-order | option
+    /// The degree of authority/intentionality of the orchestration: proposal | plan | directive | order | original-order | reflex-order | filler-order | instance-order | option
     pub intent: types::Code,
 
-    /// routine | urgent | asap | stat
+    /// Indicates how quickly the orchestration should be addressed: routine | urgent | asap | stat
     pub priority: Option<types::Code>,
 
-    /// What's being requested/ordered
+    /// A code that identifies what the overall orchestration is meant to accomplish, using a [`CodeableConcept`](crate::r5::types::CodeableConcept)
     pub code: Option<types::CodeableConcept>,
 
-    /// Who the request orchestration is about
+    /// The [`Patient`](crate::r5::resources::patient::Patient) or other subject that the request orchestration is about
     pub subject: Option<types::Reference>,
 
     /// Created as part of

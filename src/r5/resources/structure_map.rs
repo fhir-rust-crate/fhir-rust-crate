@@ -24,6 +24,31 @@ use fhir_derive_macros::Validate;
 /// resource is central to the FHIR Mapping Language and is commonly used in
 /// implementation guides to specify structural data transformations.
 ///
+/// A StructureMap is typically authored using the FHIR Mapping Language
+/// (`.map` syntax) and then compiled into this resource form, or it can be
+/// authored directly as structured content. It is most often used to convert
+/// data between different versions of FHIR, between FHIR and non-FHIR formats
+/// (such as HL7 v2 or CDA), or between a source implementation guide profile
+/// and a target profile. Each map references one or more source
+/// `StructureDefinition`s via the `structure` element, organizes its
+/// transformation logic into named `group` elements, and within each group
+/// defines `rule`s that read from `source` elements and write to `target`
+/// elements, optionally invoking transforms or dependent rules/groups. A
+/// conformant FHIR mapping engine executes the map to produce the
+/// transformed output instance.
+///
+/// # Related resources
+///
+/// A StructureMap's `structure` elements point to
+/// [`StructureDefinition`](crate::r5::resources::structure_definition::StructureDefinition)s
+/// that describe the shape of the source and target data, and its
+/// `jurisdiction` uses
+/// [`CodeableConcept`](crate::r5::types::CodeableConcept) values. Maps that
+/// transform clinical data commonly operate on resources such as
+/// [`Patient`](crate::r5::resources::patient::Patient) or
+/// [`Observation`](crate::r5::resources::observation::Observation),
+/// converting instances of one profile or format into another.
+///
 /// # Examples
 ///
 /// ```
@@ -62,7 +87,7 @@ pub struct StructureMap {
     /// Extensions that cannot be ignored
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// Canonical identifier for this structure map, represented as a URI (globally unique)
+    /// Canonical identifier for this structure map, represented as a URI (globally unique); used to reference the map from other resources
     pub url: types::Uri,
 
     /// Additional identifier for the structure map
@@ -83,7 +108,7 @@ pub struct StructureMap {
     /// Name for this structure map (human friendly)
     pub title: Option<types::String>,
 
-    /// draft | active | retired | unknown
+    /// The publication lifecycle status of the map: draft | active | retired | unknown
     pub status: types::Code,
 
     /// For testing purposes, not real usage
@@ -116,7 +141,7 @@ pub struct StructureMap {
     /// Copyright holder and year(s)
     pub copyright_label: Option<types::String>,
 
-    /// Structure Definition used by this map
+    /// The source and target structure definitions used by this map, with the mode in which each is used
     pub structure: Option<Vec<StructureMapStructure>>,
 
     /// Other maps used by this map (canonical URLs)
@@ -125,7 +150,7 @@ pub struct StructureMap {
     /// Definition of the constant value used in the map rules
     pub r#const: Option<Vec<StructureMapConst>>,
 
-    /// Named sections for reader convenience
+    /// The named groups of transform rules that make up the executable logic of the map
     pub group: Vec<StructureMapGroup>,
 }
 

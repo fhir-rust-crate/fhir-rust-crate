@@ -1,3 +1,13 @@
+//! Parser for the FHIR R5 `profiles-resources.json` definitions bundle, which is the
+//! official specification file that describes the base `Resource` type and its
+//! structural building blocks (such as `Bundle`, `Element`, `Differential`, `Snapshot`,
+//! and related `StructureDefinition` components). This module deserializes that JSON
+//! bundle into the Rust types declared in its submodules, and the `resource_into_rust`
+//! and `element_into_rust_struct_attribute` helpers then translate the parsed data into
+//! generated Rust source for the crate's R5 data model. As one of the `src/r5/parse`
+//! submodules, it plugs into the broader code-generation pipeline that turns the raw
+//! FHIR specification files into the typed structs under `src/r5/types`.
+
 // Namespace conveniences
 
 pub static DIR: std::sync::LazyLock<std::path::PathBuf> =

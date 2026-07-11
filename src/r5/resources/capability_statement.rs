@@ -23,6 +23,27 @@ use fhir_derive_macros::Validate;
 /// desired server implementation. It provides for a degree of automatic
 /// negotiation of features and interoperability between FHIR systems.
 ///
+/// Servers typically publish a `CapabilityStatement` at the `/metadata` endpoint so
+/// that clients can discover which resource types, interactions, search parameters,
+/// and operations are supported before attempting to exchange data. Implementation
+/// guides also use `CapabilityStatement` to express conformance requirements that
+/// implementations must satisfy, distinguishing between the `kind` values of
+/// `instance` (an actual running system), `capability` (a reusable base
+/// definition), and `requirements` (an abstract set of expectations). Because a
+/// `CapabilityStatement` is itself a canonical resource, it carries the usual
+/// metadata fields (`url`, `version`, `status`, `date`, `publisher`) shared with
+/// other conformance resources such as `StructureDefinition` and `OperationDefinition`.
+///
+/// # Related resources
+///
+/// A `CapabilityStatement` describes a server or client's support for other
+/// resource types, such as [`Patient`](crate::r5::resources::patient::Patient),
+/// and it references coded terminology using
+/// [`CodeableConcept`](crate::r5::types::CodeableConcept) and `Coding` for
+/// values like security services and messaging protocols. See also
+/// `StructureDefinition`, `OperationDefinition`, and `SearchParameter`, which
+/// a `CapabilityStatement` may point to via canonical URLs.
+///
 /// # Examples
 ///
 /// ```
@@ -82,7 +103,7 @@ pub struct CapabilityStatement {
     /// Name for this capability statement (human friendly)
     pub title: Option<types::String>,
 
-    /// draft | active | retired | unknown
+    /// The publication lifecycle status of this capability statement, one of draft | active | retired | unknown
     pub status: types::Code,
 
     /// For testing purposes, not real usage
@@ -115,7 +136,7 @@ pub struct CapabilityStatement {
     /// Copyright holder and year(s)
     pub copyright_label: Option<types::String>,
 
-    /// instance | capability | requirements
+    /// Whether this statement describes an actual running instance, a reusable base capability, or a set of requirements, one of instance | capability | requirements
     pub kind: types::Code,
 
     /// Canonical URL of another capability statement this implements
@@ -130,7 +151,7 @@ pub struct CapabilityStatement {
     /// If this describes a specific instance
     pub implementation: Option<CapabilityStatementImplementation>,
 
-    /// FHIR Version the system supports
+    /// The FHIR specification version that this capability statement describes support for
     pub fhir_version: types::Code,
 
     /// formats supported (xml | json | ttl | mime type)
@@ -145,10 +166,10 @@ pub struct CapabilityStatement {
     /// Implementation guides supported
     pub implementation_guide: Option<Vec<types::Canonical>>,
 
-    /// If the endpoint is a RESTful one
+    /// One or more RESTful endpoint descriptions, each covering the resources, interactions, and search parameters supported
     pub rest: Option<Vec<CapabilityStatementRest>>,
 
-    /// If messaging is supported
+    /// Descriptions of messaging-based interfaces this system supports, if any
     pub messaging: Option<Vec<CapabilityStatementMessaging>>,
 
     /// Document definition

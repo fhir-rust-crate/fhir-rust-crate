@@ -26,6 +26,21 @@ use fhir_derive_macros::Validate;
 /// captures the severity, the resources implicated in the issue, supporting
 /// evidence, and any mitigation steps taken to address it. In FHIR R5 it is
 /// commonly produced by decision-support systems and reviewed by clinicians.
+/// A single detected issue may reference one or more implicated resources
+/// (such as a `MedicationRequest` or `Procedure`), and downstream workflows
+/// can track whether the issue is still open or has been mitigated by
+/// recording one or more `DetectedIssueMitigation` entries.
+///
+/// # Related resources
+///
+/// - The `subject` of the detected issue is typically a
+///   [`Patient`](crate::r5::resources::patient::Patient).
+/// - `category`, `code`, and `severity` use
+///   [`CodeableConcept`](crate::r5::types::CodeableConcept) to classify the
+///   nature and seriousness of the issue.
+/// - The `implicated` field references the clinical resources (such as
+///   `MedicationRequest`, `Procedure`, or `Condition`) that are involved in
+///   the issue.
 ///
 /// # Examples
 ///
@@ -68,19 +83,19 @@ pub struct DetectedIssue {
     /// Unique id for the detected issue
     pub identifier: Option<Vec<types::Identifier>>,
 
-    /// preliminary | final | entered-in-error | mitigated
+    /// The workflow status of this issue: preliminary | final | entered-in-error | mitigated
     pub status: types::Code,
 
-    /// Type of detected issue, e.g. drug-drug, duplicate therapy, etc
+    /// Broad category of the detected issue, e.g. drug-drug interaction, duplicate therapy, etc
     pub category: Option<Vec<types::CodeableConcept>>,
 
     /// Specific type of detected issue, e.g. drug-drug, duplicate therapy, etc
     pub code: Option<types::CodeableConcept>,
 
-    /// high | moderate | low
+    /// Indicates the potential clinical seriousness of the issue: high | moderate | low
     pub severity: Option<types::Code>,
 
-    /// Associated subject
+    /// The patient, or other subject, for whom the issue was detected
     pub subject: Option<types::Reference>,
 
     /// Encounter detected issue is part of
@@ -95,7 +110,7 @@ pub struct DetectedIssue {
     /// The provider or device that identified the issue
     pub author: Option<types::Reference>,
 
-    /// Problem resource
+    /// The clinical resource(s), such as a medication order or procedure, that are implicated in the issue
     pub implicated: Option<Vec<types::Reference>>,
 
     /// Supporting evidence

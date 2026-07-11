@@ -27,6 +27,22 @@ use fhir_derive_macros::Validate;
 /// code, subject, timing, requester, performer, and supporting clinical context,
 /// and can be linked to fulfilling results and provenance.
 ///
+/// Clinically, a ServiceRequest represents the intent to have a service
+/// performed and progresses through a lifecycle described by its `status`
+/// (draft, active, on-hold, revoked, completed, entered-in-error, or unknown)
+/// and `intent` (proposal, plan, directive, order, and related values). It is
+/// the FHIR workflow analogue of a paper or electronic order and is commonly
+/// used to drive downstream workflows such as scheduling, specimen collection,
+/// imaging acquisition, and result reporting, with the fulfilling actor
+/// typically producing a DiagnosticReport, Procedure, or Observation that
+/// references the originating request via `basedOn`.
+///
+/// # See also
+///
+/// - [`Patient`](crate::r5::resources::patient::Patient) — often the `subject` of the request.
+/// - [`CodeableConcept`](crate::r5::types::CodeableConcept) — used for `category`, `body_site`, and other coded fields.
+/// - `DiagnosticReport`, `Procedure`, and `Observation` — typical resources that fulfill a ServiceRequest.
+///
 /// # Examples
 ///
 /// ```
@@ -65,7 +81,7 @@ pub struct ServiceRequest {
     /// Extensions that cannot be ignored
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// Identifiers assigned to this order
+    /// Business identifiers assigned to this order by the requester, performer, or other systems
     pub identifier: Option<Vec<types::Identifier>>,
 
     /// Instantiates FHIR protocol or definition
@@ -83,13 +99,13 @@ pub struct ServiceRequest {
     /// Composite Request ID
     pub requisition: Option<types::Identifier>,
 
-    /// draft | active | on-hold | revoked | completed | entered-in-error | unknown
+    /// The current lifecycle status of the order: draft | active | on-hold | revoked | completed | entered-in-error | unknown
     pub status: types::Code,
 
-    /// proposal | plan | directive | order +
+    /// Whether the request is a proposal, plan, directive, order, or similar (proposal | plan | directive | order +)
     pub intent: types::Code,
 
-    /// Classification of service
+    /// Broad categorization of the type of service requested, e.g. imaging, laboratory, or counseling
     pub category: Option<Vec<types::CodeableConcept>>,
 
     /// routine | urgent | asap | stat
@@ -98,7 +114,7 @@ pub struct ServiceRequest {
     /// True if service/procedure should not be performed
     pub do_not_perform: Option<types::Boolean>,
 
-    /// What is being requested/ordered
+    /// The specific service, procedure, or product being requested/ordered, coded or referenced
     pub code: Option<types::CodeableReference>,
 
     /// Additional order information
@@ -113,7 +129,7 @@ pub struct ServiceRequest {
     /// Service amount
     pub quantity_range: Option<types::Range>,
 
-    /// Individual or Entity the service is ordered for
+    /// The individual, group, device, or location the service is ordered for, most often a [`Patient`](crate::r5::resources::patient::Patient)
     pub subject: types::Reference,
 
     /// What the service request is about, when it is not about the subject of record

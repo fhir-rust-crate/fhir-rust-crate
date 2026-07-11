@@ -16,8 +16,28 @@
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
 
+/// An OID (Object Identifier) represented as a URI, using the `urn:oid:` scheme.
+///
+/// This primitive type is used for FHIR elements that reference globally unique
+/// identifiers registered under the ISO/ITU-T OID hierarchy, such as coding
+/// systems or other externally assigned identifiers. The value is a string in
+/// the form `urn:oid:1.2.3.4.5`.
+///
+/// # Examples
+///
+/// ```
+/// use fhir::r5::types::oid::Oid;
+///
+/// let value = Oid::default();
+/// let json = ::serde_json::to_value(&value).unwrap();
+/// let back: Oid = ::serde_json::from_value(json).unwrap();
+/// assert_eq!(value, back);
+/// ```
 #[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq)]
-pub struct Oid(pub std::string::String);
+pub struct Oid(
+    /// The OID value as a URI string, e.g. `urn:oid:1.2.3.4.5`.
+    pub std::string::String,
+);
 
 #[cfg(test)]
 mod tests {

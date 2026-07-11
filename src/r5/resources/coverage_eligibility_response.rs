@@ -24,6 +24,27 @@ use fhir_derive_macros::Validate;
 /// CoverageEligibilityResponse is typically returned in reply to a
 /// CoverageEligibilityRequest.
 ///
+/// Administratively, this resource lets a payer (insurer) communicate, for a
+/// given patient and coverage, whether the requested benefits are currently in
+/// force, what cost-sharing or limits apply, and whether prior authorization is
+/// required before services are rendered. It supports several use cases
+/// distinguished by the `purpose` field: general eligibility discovery,
+/// validation that a coverage is active, benefit detail lookup, and
+/// authorization requirement checks. Because eligibility and benefit data can be
+/// extensive, the response is organized into nested groups covering the events
+/// that occurred during adjudication, the insurance coverages evaluated, the
+/// benefit items and their categories, and any errors encountered while
+/// processing the originating request.
+///
+/// # Related resources
+///
+/// A `CoverageEligibilityResponse` is produced in reply to a
+/// `CoverageEligibilityRequest` and typically references a
+/// [`Patient`](crate::r5::resources::patient::Patient), an insurer and
+/// requestor represented as `Reference` values, and coverage details described
+/// using [`CodeableConcept`](crate::r5::types::CodeableConcept) values for
+/// categories, product or service codes, and benefit types.
+///
 /// # Examples
 ///
 /// ```
@@ -65,13 +86,13 @@ pub struct CoverageEligibilityResponse {
     /// Business Identifier for coverage eligiblity request
     pub identifier: Option<Vec<types::Identifier>>,
 
-    /// active | cancelled | draft | entered-in-error
+    /// The status of the resource instance itself: active | cancelled | draft | entered-in-error.
     pub status: types::Code,
 
-    /// auth-requirements | benefits | discovery | validation
+    /// The reason(s) this eligibility check was performed: auth-requirements | benefits | discovery | validation.
     pub purpose: Vec<types::Code>,
 
-    /// Intended recipient of products and services
+    /// Reference to the [`Patient`](crate::r5::resources::patient::Patient) whose coverage is being described.
     pub patient: types::Reference,
 
     /// Event information
@@ -92,7 +113,7 @@ pub struct CoverageEligibilityResponse {
     /// Eligibility request reference
     pub request: types::Reference,
 
-    /// queued | complete | error | partial
+    /// The outcome of the processing: queued | complete | error | partial.
     pub outcome: types::Code,
 
     /// Disposition Message

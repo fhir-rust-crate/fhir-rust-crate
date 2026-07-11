@@ -25,6 +25,20 @@ use fhir_derive_macros::Validate;
 /// handled prior to testing. It supports laboratory catalogs and order
 /// entry by defining reusable specimen requirements.
 ///
+/// SpecimenDefinition is a canonical, definitional resource: instances are
+/// typically authored and maintained by a laboratory or diagnostic service
+/// as part of its test catalog, and are referenced by orders and by the
+/// resulting `Specimen` instances collected for a given
+/// [`Patient`](crate::r5::resources::patient::Patient) or other subject.
+/// A single SpecimenDefinition may describe several
+/// acceptable specimen/container combinations (via `type_tested`), each
+/// with its own preference, handling, and rejection criteria, allowing an
+/// ordering system to present the range of valid collection options for a
+/// given kind of test. It is closely related to `ServiceRequest` (which
+/// orders a test that requires a specimen of a defined kind) and to
+/// `ObservationDefinition` (which defines the expected observation produced
+/// once the specimen is tested).
+///
 /// # Examples
 ///
 /// ```
@@ -66,7 +80,7 @@ pub struct SpecimenDefinition {
     /// Logical canonical URL to reference this SpecimenDefinition (globally unique)
     pub url: Option<types::Uri>,
 
-    /// Business identifier
+    /// Business identifier used by catalogs and order systems to identify this kind of specimen
     pub identifier: Option<types::Identifier>,
 
     /// Business version of the SpecimenDefinition
@@ -90,7 +104,7 @@ pub struct SpecimenDefinition {
     /// Based on external definition
     pub derived_from_uri: Option<Vec<types::Uri>>,
 
-    /// draft | active | retired | unknown
+    /// Publication status of this definition: draft | active | retired | unknown
     pub status: types::Code,
 
     /// If this SpecimenDefinition is not for real usage
@@ -138,7 +152,7 @@ pub struct SpecimenDefinition {
     /// The effective date range for the SpecimenDefinition
     pub effective_period: Option<types::Period>,
 
-    /// Kind of material to collect
+    /// Kind of material to collect, coded via a [`CodeableConcept`](crate::r5::types::CodeableConcept) such as blood or urine
     pub type_collected: Option<types::CodeableConcept>,
 
     /// Patient preparation for collection
@@ -150,7 +164,7 @@ pub struct SpecimenDefinition {
     /// Specimen collection procedure
     pub collection: Option<Vec<types::CodeableConcept>>,
 
-    /// Specimen in container intended for testing by lab
+    /// One or more acceptable specimen/container combinations for testing by the lab, each with its own preference and handling
     pub type_tested: Option<Vec<SpecimenDefinitionTypeTested>>,
 }
 

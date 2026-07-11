@@ -25,6 +25,25 @@ use fhir_derive_macros::Validate;
 /// collection details, processing steps, and the containers holding the sample.
 /// It is central to laboratory and diagnostic workflows in FHIR R5.
 ///
+/// A Specimen typically originates as the target of a service request (for
+/// example an order for a lab test), is collected from a subject such as a
+/// patient, may pass through one or more processing steps (centrifugation,
+/// fixation, staining, and so on), and is ultimately placed into one or more
+/// containers before being analyzed. The resulting observations and diagnostic
+/// reports commonly reference the Specimen that was used to produce them,
+/// making it a key link between a clinical order and its results.
+///
+/// # Related resources
+///
+/// - [`Patient`](crate::r5::resources::patient::Patient) or other subject from
+///   which the specimen was obtained.
+/// - `ServiceRequest`, which may prompt the collection of a specimen.
+/// - `Observation` and `DiagnosticReport`, which commonly reference the
+///   specimen used to produce their results.
+/// - [`CodeableConcept`](crate::r5::types::CodeableConcept), used throughout
+///   this resource to represent coded concepts such as specimen type, role,
+///   and condition.
+///
 /// # Examples
 ///
 /// ```
@@ -63,19 +82,19 @@ pub struct Specimen {
     /// Extensions that cannot be ignored
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// External Identifier
+    /// External Identifier, such as a specimen collection identifier used by the ordering system
     pub identifier: Option<Vec<types::Identifier>>,
 
-    /// Identifier assigned by the lab
+    /// Identifier assigned by the accessioning laboratory when it receives the specimen
     pub accession_identifier: Option<types::Identifier>,
 
-    /// available | unavailable | unsatisfactory | entered-in-error
+    /// The availability of the specimen: available | unavailable | unsatisfactory | entered-in-error
     pub status: Option<types::Code>,
 
-    /// Kind of material that forms the specimen
+    /// Kind of material that forms the specimen, for example whole blood or tissue
     pub r#type: Option<types::CodeableConcept>,
 
-    /// Where the specimen came from
+    /// Reference to the subject the specimen came from, typically a Patient, but may be a group, device, or location
     pub subject: Option<types::Reference>,
 
     /// The time when specimen is received by the testing laboratory

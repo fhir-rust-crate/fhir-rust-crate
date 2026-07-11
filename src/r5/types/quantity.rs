@@ -17,15 +17,36 @@ use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
 use fhir_derive_macros::Validate;
 
+/// A measured amount, or an amount that can potentially be measured. This
+/// includes amounts that are not precisely quantified, such as amounts
+/// involving arbitrary units or floating currencies. `Quantity` is a base
+/// datatype used throughout FHIR resources for representing dosages,
+/// observation results, and similar numeric measurements with units.
+///
+/// # Examples
+///
+/// ```
+/// use fhir::r5::types::quantity::Quantity;
+///
+/// let value = Quantity::default();
+/// let json = ::serde_json::to_value(&value).unwrap();
+/// let back: Quantity = ::serde_json::from_value(json).unwrap();
+/// assert_eq!(value, back);
+/// ```
 #[serde_with::skip_serializing_none]
 #[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
 pub struct Quantity {
+    /// The numeric value of the quantity, including any arbitrary precision.
     pub value: Option<types::Decimal>,
-    pub comparator: Option<types::Code>, // « QuantityComparator! »
+    /// How the value should be understood, e.g. less than, greater than. // « QuantityComparator! »
+    pub comparator: Option<types::Code>,
+    /// A human-readable form of the unit, as displayed to the user.
     pub unit: Option<types::String>,
-    pub system: Option<types::Uri>, // « C »
-    pub code: Option<types::Code>,  // « C »
+    /// The identification of the system that provides the coded form of the unit. // « C »
+    pub system: Option<types::Uri>,
+    /// A computer-processable form of the unit in the system, matching the system's code. // « C »
+    pub code: Option<types::Code>,
 }
 
 #[cfg(test)]

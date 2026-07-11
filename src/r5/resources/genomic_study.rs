@@ -26,6 +26,28 @@ use fhir_derive_macros::Validate;
 /// input and output files. In FHIR R5 it provides a container that ties together
 /// the workflow, provenance, and results of genomic testing.
 ///
+/// Clinically and administratively, GenomicStudy is used to track the overall
+/// lifecycle of a genomics investigation, from ordering through to the release
+/// of findings. It links the request and reason for testing to the resulting
+/// sequencing or variant-calling analyses, and it records provenance information
+/// such as which protocols, devices, and personnel were involved in producing
+/// each set of input and output files. This makes it possible to trace a
+/// reported genomic finding back to the specific analysis event, specimen, and
+/// method that produced it, which is important for both clinical decision
+/// support and laboratory quality assurance.
+///
+/// # Related resources
+///
+/// A GenomicStudy is commonly referenced from, or references, other resources
+/// such as [`Patient`](crate::r5::resources::patient::Patient) or `Specimen`
+/// (via `subject` and the analysis `specimen` field), `ServiceRequest` or
+/// `Task` (via `basedOn`), `Practitioner` or `PractitionerRole` (via
+/// `referrer`, `interpreter`, and analysis `performer`), `Device` (via analysis
+/// `device`), and `DocumentReference` or `Binary` (via analysis `input` and
+/// `output` files). Coded values throughout the resource, such as the type of
+/// study or the type of genomic change studied, are represented using
+/// [`CodeableConcept`](crate::r5::types::CodeableConcept).
+///
 /// # Examples
 ///
 /// ```
@@ -64,16 +86,16 @@ pub struct GenomicStudy {
     /// Extensions that cannot be ignored
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// Identifiers for this genomic study
+    /// Identifiers assigned to this genomic study by the performing lab or ordering system
     pub identifier: Option<Vec<types::Identifier>>,
 
-    /// registered | available | cancelled | entered-in-error | unknown
+    /// The overall workflow status of the study: registered | available | cancelled | entered-in-error | unknown
     pub status: types::Code,
 
     /// The type of the study (e.g., Familial variant segregation, Functional variation detection, or Gene expression profiling)
     pub r#type: Option<Vec<types::CodeableConcept>>,
 
-    /// The primary subject of the genomic study
+    /// The primary subject of the genomic study, typically a [`Patient`](crate::r5::resources::patient::Patient)
     pub subject: types::Reference,
 
     /// The healthcare event with which this genomics study is associated
@@ -106,7 +128,7 @@ pub struct GenomicStudy {
     /// Description of the genomic study
     pub description: Option<types::Markdown>,
 
-    /// Genomic Analysis Event
+    /// The one or more genomic analysis events that make up this study
     pub analysis: Option<Vec<GenomicStudyAnalysis>>,
 }
 

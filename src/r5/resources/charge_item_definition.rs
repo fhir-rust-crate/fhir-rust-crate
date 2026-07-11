@@ -25,6 +25,27 @@ use fhir_derive_macros::Validate;
 /// components (base price, surcharges, discounts, taxes) associated with a
 /// billing code or product type.
 ///
+/// ChargeItemDefinition acts as a catalog or master-data entry: it is defined
+/// once by a payer, provider, or billing authority and then referenced by
+/// individual `ChargeItem` instances at the point of care or invoicing to
+/// determine which price components and applicability conditions apply. A
+/// definition can be scoped to a specific billing code (via `code`), to
+/// particular instances (via `instance`), and can be conditioned on runtime
+/// facts through the `applicability` expressions, allowing definitions to
+/// vary by context such as payer contract, patient status, or effective
+/// period. Definitions may also derive from, or supersede, other definitions
+/// via `derived_from_uri`, `part_of`, and `replaces`, supporting versioned
+/// and modular billing rule sets.
+///
+/// # Related resources
+///
+/// - [`CodeableConcept`](crate::r5::types::CodeableConcept) is used for the
+///   `code` and `jurisdiction` elements.
+/// - [`Reference`](crate::r5::types::Reference) values in `instance` typically
+///   point to `ChargeItem`, `ActivityDefinition`, `PlanDefinition`, or `DeviceDefinition` resources.
+/// - The related `ChargeItem` resource records an actual billable event and
+///   references a `ChargeItemDefinition` to apply its pricing rules.
+///
 /// # Examples
 ///
 /// ```
@@ -63,7 +84,7 @@ pub struct ChargeItemDefinition {
     /// Extensions that cannot be ignored
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// Canonical identifier for this charge item definition, represented as a URI (globally unique)
+    /// Canonical identifier for this charge item definition, represented as a URI (globally unique); used to reference this definition from a `ChargeItem`
     pub url: Option<types::Uri>,
 
     /// Additional identifier for the charge item definition

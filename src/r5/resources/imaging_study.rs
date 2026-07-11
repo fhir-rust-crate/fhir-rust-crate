@@ -26,6 +26,23 @@ use fhir_derive_macros::Validate;
 /// modalities. In FHIR R5 the resource is used to catalog imaging content and to
 /// provide access endpoints for retrieval from PACS and other DICOM systems.
 ///
+/// Clinically, an `ImagingStudy` acts as an index or manifest over DICOM
+/// content: it does not embed pixel data itself, but instead describes the
+/// study, series, and instance hierarchy along with identifiers (such as the
+/// DICOM Study, Series, and SOP Instance UIDs) and network endpoints that
+/// clients can use to retrieve the actual images from a PACS, VNA, or other
+/// DICOM-capable system (for example via WADO-RS). This makes the resource
+/// useful both for administrative tracking of imaging orders and results, and
+/// for enabling downstream systems to locate and fetch imaging content without
+/// duplicating large binary payloads inside the FHIR server.
+///
+/// Related resources: an `ImagingStudy` is typically ordered via a
+/// `ServiceRequest`, references the imaged individual through `subject`
+/// (commonly a [`Patient`](crate::r5::resources::patient::Patient)), may be
+/// linked to an `Encounter`, and often produces or is referenced by an
+/// `ImagingSelection` or `DiagnosticReport`. Modality and other coded values
+/// on the study and its series use [`CodeableConcept`](crate::r5::types::CodeableConcept).
+///
 /// # Examples
 ///
 /// ```
@@ -64,22 +81,22 @@ pub struct ImagingStudy {
     /// Extensions that cannot be ignored
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// Identifiers for the whole study
+    /// Identifiers for the whole study, such as the DICOM Study Instance UID
     pub identifier: Option<Vec<types::Identifier>>,
 
-    /// registered | available | cancelled | entered-in-error | unknown
+    /// The overall lifecycle status of the study: registered | available | cancelled | entered-in-error | unknown
     pub status: types::Code,
 
-    /// All of the distinct values for series' modalities
+    /// All of the distinct values for series' modalities (e.g. CT, MR, US)
     pub modality: Option<Vec<types::CodeableConcept>>,
 
-    /// Who or what is the subject of the study
+    /// Who or what is the subject of the study, typically a [`Patient`](crate::r5::resources::patient::Patient)
     pub subject: types::Reference,
 
     /// Encounter with which this imaging study is associated
     pub encounter: Option<types::Reference>,
 
-    /// When the study was started
+    /// The date and time when the study was started (acquisition began)
     pub started: Option<types::DateTime>,
 
     /// Request fulfilled
@@ -115,7 +132,7 @@ pub struct ImagingStudy {
     /// Institution-generated description
     pub description: Option<types::String>,
 
-    /// Each study has one or more series of instances
+    /// Each study has one or more series of instances, grouped by modality
     pub series: Option<Vec<ImagingStudySeries>>,
 }
 

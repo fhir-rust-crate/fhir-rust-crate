@@ -24,7 +24,20 @@ use fhir_derive_macros::Validate;
 /// the assessment, the condition or context that prompted it, and one or more
 /// predictions describing the probability, qualitative risk, and timeframe of
 /// each possible outcome. RiskAssessment resources are commonly used to record
-/// clinical decision support results and probabilistic prognoses.
+/// clinical decision support results and probabilistic prognoses, such as the
+/// likelihood of a disease occurring, a treatment succeeding, or a future
+/// clinical event taking place. Assessments may be generated manually by a
+/// clinician, derived from a decision-support tool or predictive algorithm, or
+/// produced by a risk-scoring calculation engine, and can be linked back to the
+/// observations, conditions, or other evidence (`basis`) that informed the
+/// prediction.
+///
+/// Related resources: the subject of a RiskAssessment is typically a
+/// [`Patient`](crate::r5::resources::patient::Patient), the evaluation method and
+/// predicted outcomes are represented using
+/// [`CodeableConcept`](crate::r5::types::CodeableConcept), and a RiskAssessment
+/// may reference a `Condition` being assessed or an `Encounter` during which the
+/// assessment was performed.
 ///
 /// # Examples
 ///
@@ -73,16 +86,16 @@ pub struct RiskAssessment {
     /// Part of this occurrence
     pub parent: Option<types::Reference>,
 
-    /// registered | preliminary | final | amended +
+    /// The status of the RiskAssessment, using the codes registered | preliminary | final | amended +
     pub status: types::Code,
 
-    /// Evaluation mechanism
+    /// The algorithm, risk-scoring tool, or evaluation mechanism used to generate the assessment
     pub method: Option<types::CodeableConcept>,
 
-    /// Type of assessment
+    /// The type of the risk assessment being performed, for example a general clinical risk assessment or a specific screening tool
     pub code: Option<types::CodeableConcept>,
 
-    /// Who/what does assessment apply to?
+    /// The patient or group the risk assessment applies to
     pub subject: types::Reference,
 
     /// Where was assessment performed?
@@ -106,10 +119,10 @@ pub struct RiskAssessment {
     /// Information used in assessment
     pub basis: Option<Vec<types::Reference>>,
 
-    /// Outcome predicted
+    /// One or more predicted outcomes for the subject, each with its own probability, qualitative risk, and timeframe
     pub prediction: Option<Vec<RiskAssessmentPrediction>>,
 
-    /// How to reduce risk
+    /// Recommended steps to reduce the predicted risk, or an indication that no mitigation is available
     pub mitigation: Option<types::String>,
 
     /// Comments on the risk assessment

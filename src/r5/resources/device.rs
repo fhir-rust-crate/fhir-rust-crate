@@ -26,6 +26,28 @@ use fhir_derive_macros::Validate;
 /// physical unit, for example the serial number, manufacturer name, and model
 /// number.
 ///
+/// This resource is used to track individual devices, including implants,
+/// durable medical equipment, and diagnostic or therapeutic instruments,
+/// throughout their lifecycle: identification via Unique Device Identifier
+/// (UDI) barcode, association with an owning organization or physical
+/// location, and linkage into clinical workflows such as procedures,
+/// observations, and device usage. A `Device` instance may also represent a
+/// software-only device, and devices may be linked together via `parent` and
+/// `gateway` relationships to model composite or networked equipment.
+///
+/// # Related resources
+///
+/// - [`Patient`](crate::r5::resources::patient::Patient) — a device may be
+///   implanted in or used by a patient (typically referenced from other
+///   resources such as `DeviceUsage` rather than from `Device` itself).
+/// - `DeviceDefinition` — describes the kind/model of device, of which a
+///   `Device` instance is a specific realization.
+/// - `DeviceMetric` and `DeviceUsage` — reference a `Device` to record
+///   measurements produced by, or usage of, the device.
+/// - [`CodeableConcept`](crate::r5::types::CodeableConcept) — used
+///   throughout this resource, e.g. for `category`, `r#type`, and
+///   `property`, to represent coded classifications of the device.
+///
 /// # Examples
 ///
 /// ```
@@ -64,7 +86,8 @@ pub struct Device {
     /// Extensions that cannot be ignored
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// Instance identifier
+    /// Instance identifier, such as a serial number or asset tag assigned by
+    /// the manufacturer or owning organization
     pub identifier: Option<Vec<types::Identifier>>,
 
     /// The name used to display by default when the device is referenced
@@ -73,10 +96,12 @@ pub struct Device {
     /// The reference to the definition for the device
     pub definition: Option<types::CodeableReference>,
 
-    /// Unique Device Identifier (UDI) Barcode string
+    /// Unique Device Identifier (UDI) Barcode string, as scanned or otherwise
+    /// recorded from the device's UDI carrier
     pub udi_carrier: Option<Vec<DeviceUdiCarrier>>,
 
-    /// active | inactive | entered-in-error
+    /// The record status of this Device instance: active | inactive |
+    /// entered-in-error
     pub status: Option<types::Code>,
 
     /// lost | damaged | destroyed | available
@@ -85,7 +110,7 @@ pub struct Device {
     /// An identifier that supports traceability to the biological source event
     pub biological_source_event: Option<types::Identifier>,
 
-    /// Name of device manufacturer
+    /// Name of the organization or individual that manufactured the device
     pub manufacturer: Option<types::String>,
 
     /// Date when the device was made
@@ -112,7 +137,8 @@ pub struct Device {
     /// Indicates a high-level grouping of the device
     pub category: Option<Vec<types::CodeableConcept>>,
 
-    /// The kind or type of device
+    /// The kind or type of device, e.g. from a device nomenclature system
+    /// such as SNOMED CT or GMDN
     pub r#type: Option<Vec<types::CodeableConcept>>,
 
     /// The actual design of the device or software version running on the device
@@ -133,7 +159,8 @@ pub struct Device {
     /// A measurement of time during the device's operation
     pub duration: Option<types::Duration>,
 
-    /// Organization responsible for device
+    /// Organization responsible for the device, such as the entity that
+    /// owns, procures, or maintains it
     pub owner: Option<types::Reference>,
 
     /// Details for human/organization for support

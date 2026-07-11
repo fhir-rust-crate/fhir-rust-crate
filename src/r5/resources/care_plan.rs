@@ -25,8 +25,23 @@ use fhir_derive_macros::Validate;
 /// planned and ongoing activities directed at addressing a patient's health
 /// concerns. It links the subject of care to the goals, addressed conditions,
 /// care team, and the set of intended or performed activities that make up the
-/// plan. In FHIR R5 it commonly references Goal, CareTeam, and Condition
+/// plan. A CarePlan may be created by a single practitioner for straightforward
+/// needs, or it may be built collaboratively by a multi-disciplinary care team
+/// spanning several encounters and organizations, and it can be nested or
+/// chained via `part_of` and `replaces` so that plans can be superseded or
+/// composed of sub-plans over time. Because it is intentional in nature, a
+/// CarePlan records what is planned or has occurred, not the clinical findings
+/// themselves, and it is often driven by, or drives, order and workflow
+/// resources through its `based_on` and `activity` elements.
+///
+/// In FHIR R5 it commonly references `Goal`, `CareTeam`, and `Condition`
 /// resources to build a comprehensive, longitudinal view of a patient's care.
+///
+/// # Related resources
+///
+/// - [`Patient`](crate::r5::resources::patient::Patient) - the typical subject of a care plan.
+/// - [`CodeableConcept`](crate::r5::types::CodeableConcept) - used for the plan's category.
+/// - `Goal`, `CareTeam`, `Condition`, and `Encounter` - frequently associated resources.
 ///
 /// # Examples
 ///
@@ -84,13 +99,13 @@ pub struct CarePlan {
     /// Part of referenced CarePlan
     pub part_of: Option<Vec<types::Reference>>,
 
-    /// draft | active | on-hold | revoked | completed | entered-in-error | unknown
+    /// Indicates whether the plan is currently in effect: draft | active | on-hold | revoked | completed | entered-in-error | unknown
     pub status: types::Code,
 
-    /// proposal | plan | order | option | directive
+    /// Indicates the level of authority/intentionality behind the plan: proposal | plan | order | option | directive
     pub intent: types::Code,
 
-    /// Type of plan
+    /// Type of plan, such as a disease-specific or discharge-oriented plan of care
     pub category: Option<Vec<types::CodeableConcept>>,
 
     /// Human-friendly name for the care plan
@@ -99,7 +114,7 @@ pub struct CarePlan {
     /// Summary of nature of plan
     pub description: Option<types::String>,
 
-    /// Who the care plan is for
+    /// Who the care plan is for, typically a reference to a [`Patient`](crate::r5::resources::patient::Patient) or group
     pub subject: types::Reference,
 
     /// The Encounter during which this CarePlan was created
@@ -129,7 +144,7 @@ pub struct CarePlan {
     /// Desired outcome of plan
     pub goal: Option<Vec<types::Reference>>,
 
-    /// Action to occur or has occurred as part of plan
+    /// The individual planned or performed activities that make up the plan of care
     pub activity: Option<Vec<CarePlanActivity>>,
 
     /// Comments about the plan

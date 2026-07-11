@@ -26,6 +26,27 @@ use fhir_derive_macros::Validate;
 /// capture the allergy or intolerance itself along with any reaction events that
 /// have been observed and the participants who asserted or recorded the record.
 ///
+/// Clinically, this resource supports decision support and safety checking (for
+/// example, prescribing or order-entry alerts), and it distinguishes between an
+/// allergy (an immune-mediated response) and an intolerance (a non-immune
+/// adverse reaction), while also allowing the underlying mechanism to be left
+/// unspecified when it is not known. A single resource instance describes one
+/// propensity for a subject; each observed occurrence of a reaction is recorded
+/// as a repeating `reaction` component with details such as manifestation,
+/// severity, and onset, and the individuals who reported or verified the
+/// assessment can be captured via the `participant` component.
+///
+/// # Related resources
+///
+/// - [`Patient`](crate::r5::resources::patient::Patient) — the subject for whom
+///   the allergy or intolerance is recorded, referenced via the `patient` field.
+/// - [`CodeableConcept`](crate::r5::types::CodeableConcept) — used for coded
+///   values such as `clinical_status`, `verification_status`, `type`, and `code`.
+/// - `Encounter` — optionally referenced via `encounter` to indicate the
+///   clinical context in which the allergy or intolerance was asserted.
+/// - `Condition` and `Observation` — related clinical resources that may also
+///   reference or corroborate an allergy or intolerance assessment.
+///
 /// # Examples
 ///
 /// ```
@@ -67,10 +88,10 @@ pub struct AllergyIntolerance {
     /// External ids for this item
     pub identifier: Option<Vec<types::Identifier>>,
 
-    /// active | inactive | resolved
+    /// active | inactive | resolved - current clinical status of this allergy or intolerance
     pub clinical_status: Option<types::CodeableConcept>,
 
-    /// unconfirmed | presumed | confirmed | refuted | entered-in-error
+    /// unconfirmed | presumed | confirmed | refuted | entered-in-error - assertion confidence
     pub verification_status: Option<types::CodeableConcept>,
 
     /// allergy | intolerance - Underlying mechanism (if known)
@@ -79,13 +100,13 @@ pub struct AllergyIntolerance {
     /// food | medication | environment | biologic
     pub category: Option<Vec<types::Code>>,
 
-    /// low | high | unable-to-assess
+    /// low | high | unable-to-assess - estimated risk of harm from future exposure
     pub criticality: Option<types::Code>,
 
-    /// Code that identifies the allergy or intolerance
+    /// Code that identifies the allergy or intolerance, e.g. a substance or product code
     pub code: Option<types::CodeableConcept>,
 
-    /// Who the allergy or intolerance is for
+    /// Who the allergy or intolerance is for; typically a reference to a [`Patient`](crate::r5::resources::patient::Patient)
     pub patient: types::Reference,
 
     /// Encounter when the allergy or intolerance was asserted

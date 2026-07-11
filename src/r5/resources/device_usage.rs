@@ -26,6 +26,22 @@ use fhir_derive_macros::Validate;
 /// information supplied by the patient or a clinician. It is commonly used to
 /// track patient-reported or clinician-reported device use over time.
 ///
+/// Unlike [`DeviceRequest`](crate::r5::resources::device_request::DeviceRequest),
+/// which represents an order or proposal for device use, DeviceUsage is a
+/// statement of fact describing actual (or historical) use as reported by the
+/// patient, a caregiver, or a clinician; it is not itself an authorization. It
+/// is administratively useful for medication-reconciliation-style workflows for
+/// durable medical equipment and other devices, for tracking compliance with a
+/// prescribed device regimen, and for capturing why a patient stopped, changed,
+/// or continued using a device.
+///
+/// # Related resources
+///
+/// - [`Patient`](crate::r5::resources::patient::Patient) — the subject who is using the device.
+/// - `Device` — the physical or virtual device being used, referenced via the `device` field.
+/// - [`CodeableConcept`](crate::r5::types::CodeableConcept) — used for coded values such as `usage_status` and `usage_reason`.
+/// - `Encounter` — the encounter or episode of care providing context, referenced via `context`.
+///
 /// # Examples
 ///
 /// ```
@@ -70,13 +86,13 @@ pub struct DeviceUsage {
     /// Fulfills plan, proposal or order
     pub based_on: Option<Vec<types::Reference>>,
 
-    /// active | completed | not-done | entered-in-error +
+    /// The current state of this device usage record: active | completed | not-done | entered-in-error +
     pub status: types::Code,
 
     /// The category of the statement - classifying how the statement is made
     pub category: Option<Vec<types::CodeableConcept>>,
 
-    /// Patient using device
+    /// A reference to the [`Patient`](crate::r5::resources::patient::Patient) (or group) reported to be using the device
     pub patient: types::Reference,
 
     /// Supporting information
@@ -109,7 +125,7 @@ pub struct DeviceUsage {
     /// Who made the statement
     pub information_source: Option<types::Reference>,
 
-    /// Code or Reference to device used
+    /// The device that was used, given either as a coded value or as a reference to a `Device` resource
     pub device: types::CodeableReference,
 
     /// Why device was used

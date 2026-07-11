@@ -23,7 +23,23 @@ use fhir_derive_macros::Validate;
 /// item (such as a specimen, a device, or a patient) from one location to
 /// another, capturing who requested it, its current status, the desired and
 /// current locations, and any inputs and outputs associated with performing the
-/// transport. It is used in FHIR R5 to coordinate and audit logistics workflows.
+/// transport. It is used in FHIR R5 to coordinate and audit logistics workflows,
+/// such as moving a specimen from a collection site to a laboratory, relocating
+/// equipment between departments, or transporting a patient between care areas.
+/// Transport is a "worker" resource similar in spirit to `Task`: it is created,
+/// assigned to an owner, tracked through its lifecycle (from `in-progress` to
+/// `completed`, `abandoned`, or `cancelled`), and may reference the request it
+/// fulfills via `basedOn`, as well as capture the requester, the responsible
+/// performer, and the reason the transport is needed.
+///
+/// # Related resources
+///
+/// The entity being moved, or the beneficiary of the transport, is commonly
+/// referenced through `focus` or `for`, which may point at a
+/// [`Patient`](crate::r5::resources::patient::Patient), a `Specimen`, or a
+/// `Device`. Classification and status details are typically expressed using
+/// [`CodeableConcept`](crate::r5::types::CodeableConcept) values such as
+/// `code`, `statusReason`, and `performerType`.
 ///
 /// # Examples
 ///
@@ -81,7 +97,7 @@ pub struct Transport {
     /// Part of referenced event
     pub part_of: Option<Vec<types::Reference>>,
 
-    /// in-progress | completed | abandoned | cancelled | planned | entered-in-error
+    /// Current lifecycle state: in-progress | completed | abandoned | cancelled | planned | entered-in-error
     pub status: Option<types::Code>,
 
     /// Reason for current status
@@ -99,10 +115,10 @@ pub struct Transport {
     /// Human-readable explanation of transport
     pub description: Option<types::String>,
 
-    /// What transport is acting on
+    /// The item, resource, or entity that the transport is moving or acting on
     pub focus: Option<types::Reference>,
 
-    /// Beneficiary of the Transport
+    /// The individual for whose benefit the transport is being performed, such as a patient
     pub r#for: Option<types::Reference>,
 
     /// Healthcare event during which this transport originated
@@ -120,13 +136,13 @@ pub struct Transport {
     /// Who is asking for transport to be done
     pub requester: Option<types::Reference>,
 
-    /// Requested performer
+    /// The kind of participant expected to carry out the transport
     pub performer_type: Option<Vec<types::CodeableConcept>>,
 
-    /// Responsible individual
+    /// The individual or organization responsible for carrying out the transport
     pub owner: Option<types::Reference>,
 
-    /// Where transport occurs
+    /// The principal physical location where the transport is performed
     pub location: Option<types::Reference>,
 
     /// Associated insurance coverage
@@ -147,13 +163,13 @@ pub struct Transport {
     /// Information produced as part of transport
     pub output: Option<Vec<TransportOutput>>,
 
-    /// The desired location
+    /// The location to which the focus of the transport should be moved
     pub requested_location: types::Reference,
 
-    /// The entity current location
+    /// The current physical location of the focus of the transport
     pub current_location: types::Reference,
 
-    /// Why transport is needed
+    /// The clinical or administrative reason the transport is needed
     pub reason: Option<types::CodeableReference>,
 
     /// Parent (or preceding) transport

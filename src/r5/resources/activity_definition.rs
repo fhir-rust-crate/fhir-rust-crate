@@ -25,6 +25,28 @@ use fhir_derive_macros::Validate;
 /// FHIR R5. It carries clinical detail such as timing, dosage, participants, and
 /// dynamic values used to customize the instantiated activity.
 ///
+/// ActivityDefinition is a knowledge-artifact resource: it is authored once,
+/// versioned, and published (typically alongside a `Library` of decision-support
+/// logic) so that it can be applied repeatedly at the point of care. Clinical
+/// decision support and order-set tooling reference an ActivityDefinition by its
+/// canonical `url` and "apply" it against a specific subject to produce a
+/// concrete resource, such as a `MedicationRequest`, `ServiceRequest`, or
+/// `Task`, tailored to that patient's context. The `dynamic_value` elements
+/// allow expressions (for example, in FHIRPath or CQL) to customize fields of
+/// the generated resource at apply time, and the `participant` elements
+/// describe who is expected to be involved in carrying out the activity.
+///
+/// Related resources / See also:
+/// - [`PlanDefinition`](crate::r5::resources::plan_definition::PlanDefinition) —
+///   often groups one or more ActivityDefinitions into an ordered or
+///   conditional plan of care.
+/// - [`Patient`](crate::r5::resources::patient::Patient) — the typical subject
+///   an ActivityDefinition is applied against, referenced via
+///   `subject_reference` or described via `subject_codeable_concept`.
+/// - [`CodeableConcept`](crate::r5::types::CodeableConcept) — used throughout
+///   this resource (e.g. `code`, `topic`, `body_site`) to represent coded
+///   clinical concepts.
+///
 /// # Examples
 ///
 /// ```
@@ -87,7 +109,7 @@ pub struct ActivityDefinition {
     /// Subordinate title of the activity definition
     pub subtitle: Option<types::String>,
 
-    /// draft | active | retired | unknown
+    /// Publication status of this definition: draft | active | retired | unknown.
     pub status: types::Code,
 
     /// For testing purposes, not real usage
@@ -162,13 +184,13 @@ pub struct ActivityDefinition {
     /// Logic used by the activity definition
     pub library: Option<Vec<types::Canonical>>,
 
-    /// Kind of resource
+    /// The FHIR resource type that applying this definition will produce, e.g. MedicationRequest or Task
     pub kind: Option<types::Code>,
 
     /// What profile the resource needs to conform to
     pub profile: Option<types::Canonical>,
 
-    /// Detail type of activity
+    /// Detail type of activity, e.g. a specific procedure, medication, or service code
     pub code: Option<types::CodeableConcept>,
 
     /// proposal | plan | directive | order | original-order | reflex-order | filler-order | instance-order | option
@@ -201,7 +223,7 @@ pub struct ActivityDefinition {
     /// Where it should happen
     pub location: Option<types::CodeableReference>,
 
-    /// Who should participate in the action
+    /// Who should participate in performing the defined activity, e.g. practitioner, patient, or device
     pub participant: Option<Vec<ActivityDefinitionParticipant>>,
 
     /// What's administered/supplied

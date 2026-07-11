@@ -1,5 +1,9 @@
 //! Availability
 //!
+//! Describes when an item, such as a location or healthcare service, is
+//! available, including recurring open times and specific periods when it is
+//! not available.
+//!
 //! URL: http://hl7.org/fhir/StructureDefinition/Availability
 //!
 //! Version: 5.0.0

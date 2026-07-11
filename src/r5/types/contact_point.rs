@@ -9,6 +9,8 @@
 //! FHIR: <https://build.fhir.org/>
 //!
 //! UML: <https://build.fhir.org/uml.html>
+//!
+//! A ContactPoint captures a single technology-mediated way of reaching a person or organization, such as a phone number, email address, fax, or pager.
 
 // Allow unused crate::r5::types as types;
 #![allow(unused_imports)]
@@ -17,15 +19,32 @@ use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
 use fhir_derive_macros::Validate;
 
+/// Details for a technology mediated contact point for a person or organization, such as a phone number, email, fax, or pager, including its use, rank among alternatives, and the period during which it is valid.
+///
+/// # Examples
+///
+/// ```
+/// use fhir::r5::types::contact_point::ContactPoint;
+///
+/// let value = ContactPoint::default();
+/// let json = ::serde_json::to_value(&value).unwrap();
+/// let back: ContactPoint = ::serde_json::from_value(json).unwrap();
+/// assert_eq!(value, back);
+/// ```
 #[serde_with::skip_serializing_none]
 #[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
 pub struct ContactPoint {
+    /// The kind of communication medium this contact point represents, e.g. phone, fax, email, pager, url, sms, other.
     pub system: Option<types::Code>,  // « ContactPointSystem! » « C »
+    /// The actual contact point value, such as a phone number or email address, in the format appropriate for the system.
     pub value: Option<types::String>, // « C »
     #[serde(rename = "use")]
+    /// The purpose or context for this contact point, e.g. home, work, temp, old, mobile.
     pub use1: Option<types::Code>, // « ContactPointUse! »
+    /// The relative preference order for use of this contact point among an ordered set of alternatives, with lower values indicating higher preference.
     pub rank: Option<types::PositiveInt>,
+    /// The time period during which this contact point is or was in use.
     pub period: Option<types::Period>,
 }
 

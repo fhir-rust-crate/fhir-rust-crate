@@ -26,6 +26,30 @@ use fhir_derive_macros::Validate;
 /// those instances are exchanged. This makes it a documentation and testing
 /// artifact rather than something used directly in production data exchange.
 ///
+/// In FHIR R5, `ExampleScenario` is a canonical, conformance resource used
+/// mainly by implementation guide authors, tooling vendors, and reviewers to
+/// illustrate how a set of exchanges should work end to end. An actor
+/// (`ExampleScenarioActor`) represents a person or system taking part; an
+/// instance (`ExampleScenarioInstance`) represents a piece of example data,
+/// optionally with versions showing how it changes over time
+/// (`ExampleScenarioInstanceVersion`); and a process (`ExampleScenarioProcess`)
+/// groups the ordered steps (`ExampleScenarioProcessStep`) that move those
+/// instances between actors, including nested processes, referenced workflows,
+/// simple request/response operations (`ExampleScenarioProcessStepOperation`),
+/// and alternative branches (`ExampleScenarioProcessStepAlternative`). Because
+/// it is a narrative and testing artifact rather than clinical data, it is
+/// typically published alongside profiles and capability statements in an
+/// implementation guide rather than exchanged during routine patient care.
+///
+/// # Related resources
+///
+/// The example instances referenced within a scenario commonly represent other
+/// FHIR resources, such as [`Patient`](crate::r5::resources::patient::Patient),
+/// and scenario elements such as jurisdiction make use of shared data types
+/// like [`CodeableConcept`](crate::r5::types::CodeableConcept). See also the
+/// related conformance resources `StructureDefinition` and
+/// `ImplementationGuide`, which `ExampleScenario` is often published alongside.
+///
 /// # Examples
 ///
 /// ```
@@ -85,7 +109,7 @@ pub struct ExampleScenario {
     /// Name for this example scenario (human friendly)
     pub title: Option<types::String>,
 
-    /// draft | active | retired | unknown
+    /// The publication lifecycle status of this scenario: draft | active | retired | unknown.
     pub status: types::Code,
 
     /// For testing purposes, not real usage
@@ -100,7 +124,7 @@ pub struct ExampleScenario {
     /// Contact details for the publisher
     pub contact: Option<Vec<types::ContactDetail>>,
 
-    /// Natural language description of the ExampleScenario
+    /// Natural language description summarizing the purpose and content of the ExampleScenario.
     pub description: Option<types::Markdown>,
 
     /// The context that the content is intended to support
@@ -118,13 +142,13 @@ pub struct ExampleScenario {
     /// Copyright holder and year(s)
     pub copyright_label: Option<types::String>,
 
-    /// Individual involved in exchange
+    /// The people or systems (actors) that participate in and exchange data within the scenario.
     pub actor: Option<Vec<ExampleScenarioActor>>,
 
-    /// Data used in the scenario
+    /// The example data instances, and their versions over time, that are exchanged in the scenario.
     pub instance: Option<Vec<ExampleScenarioInstance>>,
 
-    /// Major process within scenario
+    /// The major, ordered processes composed of steps that describe how the scenario unfolds.
     pub process: Option<Vec<ExampleScenarioProcess>>,
 }
 

@@ -25,6 +25,26 @@ use fhir_derive_macros::Validate;
 /// canonical, publishable terminology artifact used throughout the specification
 /// to constrain the allowed values of coded elements.
 ///
+/// Clinically and administratively, a ValueSet is the mechanism by which
+/// implementers bind a narrower, purpose-specific set of terms (for example,
+/// permissible marital-status codes, or laboratory result codes for a
+/// particular panel) to a coded data element on a resource, such as an
+/// element bound via a terminology binding in a profile or extension.
+/// Rather than reimplementing every concept from scratch, a value set's
+/// `compose` element assembles its content by including or excluding codes
+/// from one or more code systems (or by referencing other value sets), while
+/// the optional `expansion` element records the fully enumerated list of
+/// concepts that satisfy that definition at a point in time. Servers commonly
+/// use the `$expand`, `$validate-code`, and `$lookup` terminology operations
+/// against a ValueSet to drive form pick-lists, validate submitted codes, and
+/// support decision support and reporting logic.
+///
+/// See also: value sets typically draw their content from one or more
+/// [`CodeSystem`](crate::r5::resources::code_system::CodeSystem) resources,
+/// and the codes they constrain are frequently carried on other resources
+/// using the [`CodeableConcept`](crate::r5::types::CodeableConcept) and
+/// [`Coding`](crate::r5::types::Coding) data types.
+///
 /// # Examples
 ///
 /// ```
@@ -63,7 +83,7 @@ pub struct ValueSet {
     /// Extensions that cannot be ignored
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// Canonical identifier for this value set, represented as a URI (globally unique)
+    /// Canonical identifier for this value set, represented as a URI (globally unique); used to reference this value set from bindings and other artifacts
     pub url: Option<types::Uri>,
 
     /// Additional identifier for the value set (business identifier)
@@ -84,7 +104,7 @@ pub struct ValueSet {
     /// Name for this value set (human friendly)
     pub title: Option<types::String>,
 
-    /// draft | active | retired | unknown
+    /// Publication lifecycle status of this value set: draft | active | retired | unknown
     pub status: types::Code,
 
     /// For testing purposes, not real usage
@@ -147,10 +167,10 @@ pub struct ValueSet {
     /// Additional documentation, citations, etc
     pub related_artifact: Option<Vec<types::RelatedArtifact>>,
 
-    /// Content logical definition of the value set (CLD)
+    /// Content logical definition of the value set (CLD); the rules that determine which codes are included or excluded
     pub compose: Option<ValueSetCompose>,
 
-    /// Used when the value set is "expanded"
+    /// Used when the value set is "expanded"; holds the pre-computed, fully enumerated list of concepts
     pub expansion: Option<ValueSetExpansion>,
 
     /// Description of the semantic space the Value Set Expansion is intended to cover and should further clarify the text in ValueSet.description

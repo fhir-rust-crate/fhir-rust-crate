@@ -25,6 +25,13 @@ use fhir_derive_macros::Validate;
 /// Domain Information Model standard but is more widely applicable. Each metric
 /// links to its parent Device and can describe its unit of measure, operational
 /// status, category, measurement frequency, and any calibrations performed.
+/// DeviceMetric instances are commonly referenced by observation and monitoring
+/// workflows, where a device produces one or more metrics that are subsequently
+/// reported as clinical measurements for a subject such as a [`Patient`](crate::r5::resources::patient::Patient).
+///
+/// See also: the parent `Device` resource that this metric describes, and
+/// [`CodeableConcept`](crate::r5::types::CodeableConcept) for the coded `type`,
+/// `unit`, and `category` values used throughout this resource.
 ///
 /// # Examples
 ///
@@ -67,28 +74,28 @@ pub struct DeviceMetric {
     /// Instance identifier
     pub identifier: Option<Vec<types::Identifier>>,
 
-    /// Identity of metric, for example Heart Rate or PEEP Setting
+    /// Identity of metric, for example Heart Rate or PEEP Setting; a coded concept identifying what is measured.
     pub r#type: types::CodeableConcept,
 
     /// Unit of Measure for the Metric
     pub unit: Option<types::CodeableConcept>,
 
-    /// Describes the link to the Device
+    /// Reference to the parent Device that this metric describes and produces measurements for.
     pub device: types::Reference,
 
-    /// on | off | standby | entered-in-error
+    /// Indicates the current operational status of the device metric: on | off | standby | entered-in-error.
     pub operational_status: Option<types::Code>,
 
     /// Color name (from CSS4) or #RRGGBB code
     pub color: Option<types::Code>,
 
-    /// measurement | setting | calculation | unspecified
+    /// Classifies the metric as a measurement, setting, calculation, or unspecified kind.
     pub category: types::Code,
 
     /// Indicates how often the metric is taken or recorded
     pub measurement_frequency: Option<types::Quantity>,
 
-    /// Describes the calibrations that have been performed or that are required to be performed
+    /// Describes any calibrations that have been performed, or that are required, for this metric.
     pub calibration: Option<Vec<DeviceMetricCalibration>>,
 }
 

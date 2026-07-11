@@ -26,6 +26,27 @@ use fhir_derive_macros::Validate;
 /// instance-specific properties. It supports traceability of the material from
 /// its biological source event through processing and distribution.
 ///
+/// In clinical and administrative workflows, `BiologicallyDerivedProduct` is
+/// typically used by blood banks, tissue banks, organ procurement organizations,
+/// and cellular therapy laboratories to record and track individual product
+/// instances as they move from collection through processing, storage, and
+/// eventual transplantation or infusion. Each instance may reference a parent
+/// product (for example, an aliquot derived from a larger donation), carry a
+/// biological source event identifier that links related products back to a
+/// single donation or pooling event, and record the processing facilities
+/// responsible for labeling and distribution. The resource is commonly
+/// referenced by other resources that order or perform the transplant or
+/// infusion procedure.
+///
+/// # Related resources
+///
+/// - [`Patient`](crate::r5::resources::patient::Patient) — often the source or
+///   recipient referenced via the `collection.source` or `request` elements.
+/// - [`CodeableConcept`](crate::r5::types::CodeableConcept) — used for
+///   `product_code` and property `type` codes.
+/// - `Procedure` and `ServiceRequest` — commonly reference this resource to
+///   describe the collection or the transplant/infusion request.
+///
 /// # Examples
 ///
 /// ```
@@ -64,13 +85,13 @@ pub struct BiologicallyDerivedProduct {
     /// Extensions that cannot be ignored
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// organ | tissue | fluid | cells | biologicalAgent
+    /// Broad classification of the product: organ | tissue | fluid | cells | biologicalAgent
     pub product_category: Option<types::Coding>,
 
-    /// A code that identifies the kind of this biologically derived product
+    /// A code that identifies the specific kind of this biologically derived product, such as a whole organ or a specific tissue or cell type
     pub product_code: Option<types::CodeableConcept>,
 
-    /// The parent biologically-derived product
+    /// The parent biologically-derived product, when this instance is an aliquot or derivative of another product
     pub parent: Option<Vec<types::Reference>>,
 
     /// Request to obtain and/or infuse this product
@@ -96,7 +117,7 @@ pub struct BiologicallyDerivedProduct {
     /// Date, and where relevant time, of expiration
     pub expiration_date: Option<types::DateTime>,
 
-    /// How this product was collected
+    /// How and by whom this product was collected, and from what source
     pub collection: Option<BiologicallyDerivedProductCollection>,
 
     /// Product storage temperature requirements

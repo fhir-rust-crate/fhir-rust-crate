@@ -25,6 +25,31 @@ use fhir_derive_macros::Validate;
 /// commonly used within implementation guides to formally define the systems
 /// and people that a specification expects to interact.
 ///
+/// An ActorDefinition does not describe a specific individual, organization,
+/// or software product; rather it defines a role or category of participant
+/// (for example a "client" or "server" system, or a "patient" or "provider"
+/// person) that other conformance resources, such as CapabilityStatement or
+/// StructureDefinition-based profiles, can reference. Implementation guide
+/// authors use ActorDefinition to give each participant in an interoperability
+/// scenario a stable, citable identity, and to document the expected
+/// capabilities, behaviors, and constraints associated with fulfilling that
+/// role. The `type` field distinguishes whether the actor is a `person` or a
+/// `system`, and narrative fields such as `documentation` and `reference`
+/// describe the actor's responsibilities and point implementers to further
+/// guidance.
+///
+/// # Related resources
+///
+/// ActorDefinition is a conformance/terminology-infrastructure resource. It is
+/// commonly referenced alongside `CapabilityStatement` (via `capabilities`)
+/// and other canonical definitional resources within an implementation guide,
+/// and it uses shared types such as
+/// [`CodeableConcept`](crate::r5::types::CodeableConcept),
+/// [`Identifier`](crate::r5::types::Identifier), and
+/// [`ContactDetail`](crate::r5::types::ContactDetail) for metadata. It is
+/// distinct from resources that describe real-world participants, such as
+/// [`Patient`](crate::r5::resources::patient::Patient) or `Practitioner`.
+///
 /// # Examples
 ///
 /// ```
@@ -63,7 +88,7 @@ pub struct ActorDefinition {
     /// Extensions that cannot be ignored
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// Canonical identifier for this actor definition, represented as a URI (globally unique)
+    /// Canonical identifier for this actor definition, represented as a URI (globally unique), used to reference this actor from other resources
     pub url: Option<types::Uri>,
 
     /// Additional identifier for the actor definition (business identifier)
@@ -84,7 +109,7 @@ pub struct ActorDefinition {
     /// Name for this actor definition (human friendly)
     pub title: Option<types::String>,
 
-    /// draft | active | retired | unknown
+    /// The publication status of this actor definition: draft | active | retired | unknown
     pub status: types::Code,
 
     /// For testing purposes, not real usage
@@ -117,7 +142,7 @@ pub struct ActorDefinition {
     /// Copyright holder and year(s)
     pub copyright_label: Option<types::String>,
 
-    /// person | system
+    /// Whether the actor represents a human participant or a software system: person | system
     pub r#type: types::Code,
 
     /// Functionality associated with the actor
@@ -126,7 +151,7 @@ pub struct ActorDefinition {
     /// Reference to more information about the actor
     pub reference: Option<Vec<types::Url>>,
 
-    /// CapabilityStatement for the actor (if applicable)
+    /// Canonical reference to a CapabilityStatement describing the actor's expected behavior (if applicable)
     pub capabilities: Option<types::Canonical>,
 
     /// Definition of this actor in another context / IG

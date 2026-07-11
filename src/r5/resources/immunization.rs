@@ -26,6 +26,23 @@ use fhir_derive_macros::Validate;
 /// program eligibility. This resource supports both first-hand administration
 /// records and reported immunization histories.
 ///
+/// Clinically, an Immunization is used to build and maintain a patient's
+/// vaccination history, drive clinical decision support such as forecasting
+/// which vaccines are due or overdue, support public health reporting to
+/// immunization registries, and document adverse reactions observed after
+/// administration. A single event is normally represented by one instance of
+/// this resource; entries reported without direct observation (for example,
+/// self-reported by the patient) are distinguished from first-hand records via
+/// the `primary_source` and `information_source` elements. Multi-dose series
+/// tracking and clinical protocol context are captured through the nested
+/// `protocol_applied` and `program_eligibility` structures.
+///
+/// See also: [`Patient`](crate::r5::resources::patient::Patient) is the
+/// typical subject of the `patient` reference, and vaccine, site, and route
+/// details are represented using [`CodeableConcept`](crate::r5::types::CodeableConcept).
+/// Related workflow resources include `ImmunizationEvaluation` and
+/// `ImmunizationRecommendation`.
+///
 /// # Examples
 ///
 /// ```
@@ -70,13 +87,13 @@ pub struct Immunization {
     /// Authority that the immunization event is based on
     pub based_on: Option<Vec<types::Reference>>,
 
-    /// completed | entered-in-error | not-done
+    /// The overall status of the event: completed | entered-in-error | not-done
     pub status: types::Code,
 
     /// Reason for current status
     pub status_reason: Option<types::CodeableConcept>,
 
-    /// Vaccine administered
+    /// The vaccine product that was administered, expressed as a coded concept
     pub vaccine_code: types::CodeableConcept,
 
     /// Product that was administered
@@ -91,7 +108,7 @@ pub struct Immunization {
     /// Vaccine expiration date
     pub expiration_date: Option<types::Date>,
 
-    /// Who was immunized
+    /// Reference to the patient who was immunized
     pub patient: types::Reference,
 
     /// Encounter immunization was part of

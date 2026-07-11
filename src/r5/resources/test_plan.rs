@@ -24,7 +24,19 @@ use fhir_derive_macros::Validate;
 /// data and assertions, and the exit criteria for considering the plan
 /// successfully executed. TestPlan is typically used to document and coordinate
 /// conformance, acceptance, unit, or performance testing of FHIR resources and
-/// other specifications.
+/// other specifications. It captures the overall test strategy for an artifact
+/// such as an implementation guide, capability statement, or profile, including
+/// the tools required, the dependencies that must be satisfied before testing
+/// begins, and the individual test cases (each with its own scope, test data,
+/// test run instructions, and assertions) that together demonstrate conformance.
+/// A TestPlan is often referenced by, or paired with, one or more TestScript
+/// resources that provide the executable, machine-readable steps for a given
+/// test case.
+///
+/// See also: [`CodeableConcept`](crate::r5::types::CodeableConcept) for
+/// categorizing the plan, and [`Reference`](crate::r5::types::Reference) for
+/// linking to the scoped artifacts, predecessor test plans, or `TestScript`
+/// resources under test.
 ///
 /// # Examples
 ///
@@ -85,7 +97,7 @@ pub struct TestPlan {
     /// Name for this test plan (human friendly)
     pub title: Option<types::String>,
 
-    /// draft | active | retired | unknown
+    /// The publication status of this test plan: draft | active | retired | unknown
     pub status: types::Code,
 
     /// For testing purposes, not real usage
@@ -118,10 +130,10 @@ pub struct TestPlan {
     /// Copyright holder and year(s)
     pub copyright_label: Option<types::String>,
 
-    /// The category of the Test Plan - can be acceptance, unit, performance
+    /// The category of the Test Plan, e.g. acceptance, unit, or performance testing
     pub category: Option<Vec<types::CodeableConcept>>,
 
-    /// What is being tested with this Test Plan - a conformance resource, or narrative criteria, or an external reference
+    /// The artifact(s) under test, referenced via a conformance resource, narrative criteria, or an external reference
     pub scope: Option<Vec<types::Reference>>,
 
     /// A description of test tools to be used in the test plan - narrative for now
@@ -133,7 +145,7 @@ pub struct TestPlan {
     /// The threshold or criteria for the test plan to be considered successfully executed - narrative
     pub exit_criteria: Option<types::Markdown>,
 
-    /// The test cases that constitute this plan
+    /// The individual test cases, each with its own scope, dependencies, test run, data, and assertions, that constitute this plan
     pub test_case: Option<Vec<TestPlanTestCase>>,
 }
 

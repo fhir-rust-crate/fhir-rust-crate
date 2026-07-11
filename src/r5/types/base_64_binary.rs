@@ -9,6 +9,8 @@
 //! FHIR: <https://build.fhir.org/>
 //!
 //! UML: <https://build.fhir.org/uml.html>
+//!
+//! This module defines the base64Binary primitive type, used to carry raw binary content encoded as base64 text.
 
 // Allow unused crate::r5::types as types;
 #![allow(unused_imports)]
@@ -16,8 +18,25 @@
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
 
+/// A stream of bytes, base64 encoded as a string. This FHIR primitive type is used
+/// wherever an element needs to carry arbitrary binary content, such as attachments,
+/// signatures, or other opaque data, in a JSON- and XML-safe textual form.
+///
+/// # Examples
+///
+/// ```
+/// use fhir::r5::types::base_64_binary::Base64Binary;
+///
+/// let value = Base64Binary::default();
+/// let json = ::serde_json::to_value(&value).unwrap();
+/// let back: Base64Binary = ::serde_json::from_value(json).unwrap();
+/// assert_eq!(value, back);
+/// ```
 #[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq)]
-pub struct Base64Binary(pub std::string::String);
+pub struct Base64Binary(
+    /// The base64-encoded string representation of the binary content.
+    pub std::string::String,
+);
 
 #[cfg(test)]
 mod tests {

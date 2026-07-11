@@ -46,22 +46,22 @@ pub struct VirtualServiceDetail {
     /// Additional content defined by implementations
     pub extension: Option<Vec<types::Extension>>,
 
-    /// Channel Type
+    /// The type of virtual service to connect to (for example a specific vendor's platform)
     pub channel_type: Option<types::Coding>,
 
-    /// Contact address/number
+    /// Contact address/number to reach the virtual service, expressed as a URL
     pub address_url: Option<types::Url>,
 
-    /// Contact address/number
+    /// Contact address/number to reach the virtual service, expressed as free text
     pub address_string: Option<types::String>,
 
-    /// Contact address/number
+    /// Contact address/number to reach the virtual service, expressed as a ContactPoint
     pub address_contact_point: Option<types::ContactPoint>,
 
-    /// Contact address/number
+    /// Contact address/number to reach the virtual service, expressed as an extended contact detail
     pub address_extended_contact_detail: Option<types::ExtendedContactDetail>,
 
-    /// Address to see alternative connection details
+    /// Address(es) with additional information on alternate connection details
     pub additional_info: Option<Vec<types::Url>>,
 
     /// Maximum number of participants supported by the virtual service

@@ -25,6 +25,23 @@ use fhir_derive_macros::Validate;
 /// communicate, who should be involved, and what payload should be conveyed, and is
 /// commonly used to schedule or prompt future communications within a workflow.
 ///
+/// Clinically and administratively, `CommunicationRequest` supports order-driven or
+/// decision-support-driven messaging: it captures the requester, the intended
+/// recipient(s) or information provider(s), the subject the communication concerns,
+/// the reason it is needed, and the timing (either a fixed date/time or a period)
+/// during which the communication should occur. Its status and intent codes track
+/// the request through a typical workflow lifecycle, from `draft` or `proposal`
+/// through to `active`, `completed`, or `revoked`. Once the communication has
+/// actually taken place, the corresponding event is recorded using the related
+/// `Communication` resource, which references the fulfilled request via `based_on`.
+///
+/// # Related resources
+///
+/// - `Communication` — records the actual communication event that fulfills this request.
+/// - [`Patient`](crate::r5::resources::patient::Patient) — commonly referenced as the `subject` or `about` this request concerns.
+/// - [`CodeableConcept`](crate::r5::types::CodeableConcept) — used for `category`, `medium`, and `status_reason`.
+/// - [`Reference`](crate::r5::types::Reference) — used for `requester`, `recipient`, and `information_provider`.
+///
 /// # Examples
 ///
 /// ```
@@ -75,13 +92,13 @@ pub struct CommunicationRequest {
     /// Composite request this is part of
     pub group_identifier: Option<types::Identifier>,
 
-    /// draft | active | on-hold | revoked | completed | entered-in-error | unknown
+    /// The current lifecycle status of the request: draft | active | on-hold | revoked | completed | entered-in-error | unknown.
     pub status: types::Code,
 
     /// Reason for current status
     pub status_reason: Option<types::CodeableConcept>,
 
-    /// proposal | plan | directive | order | original-order | reflex-order | filler-order | instance-order | option
+    /// Indicates the level of authority the request carries in the workflow, e.g. proposal | plan | directive | order | original-order | reflex-order | filler-order | instance-order | option.
     pub intent: types::Code,
 
     /// Message category
@@ -96,7 +113,7 @@ pub struct CommunicationRequest {
     /// A channel of communication
     pub medium: Option<Vec<types::CodeableConcept>>,
 
-    /// Focus of message
+    /// The patient or group that is the focus of this communication request.
     pub subject: Option<types::Reference>,
 
     /// Resources that pertain to this communication request

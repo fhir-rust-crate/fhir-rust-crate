@@ -19,6 +19,20 @@ use fhir_derive_macros::Validate;
 
 /// A provider issued list of professional services and products which have been provided, or are to be provided, to a patient which is sent to an insurer for reimbursement. In FHIR R5 the Claim resource requests adjudication, pre-authorization, or pre-determination of health, dental, pharmacy, vision, or professional services from an insurer. It carries the billable items, supporting information, diagnoses, procedures, and coverage details needed for processing.
 ///
+/// A `Claim` is submitted by a provider or provider organization to a payer (insurer) to request payment,
+/// pre-authorization, or pre-determination for services and products rendered, or to be rendered, to a
+/// patient. The resource captures the parties involved (patient, provider, insurer, payee), the clinical
+/// context (diagnoses, procedures, accident details, care team), the billable line items with their
+/// pricing, and any supporting information or related claims needed by the adjudicator. The `use` element
+/// distinguishes an actual claim submission from a preauthorization or predetermination request, while
+/// `status` tracks the lifecycle of the claim resource itself (not the adjudication outcome, which is
+/// represented separately by the `ClaimResponse` resource).
+///
+/// Related resources / See also: the subject of a claim is typically a [`Patient`](crate::r5::resources::patient::Patient);
+/// coded values throughout the resource (such as `type`, `category`, and `product_or_service`) use
+/// [`CodeableConcept`](crate::r5::types::CodeableConcept); monetary amounts use `Money`; and the adjudication
+/// result for a claim is returned in a corresponding `ClaimResponse` resource.
+///
 /// # Examples
 ///
 /// ```
@@ -63,19 +77,19 @@ pub struct Claim {
     /// Number for tracking
     pub trace_number: Option<Vec<types::Identifier>>,
 
-    /// active | cancelled | draft | entered-in-error
+    /// The status of the Claim resource itself: active | cancelled | draft | entered-in-error
     pub status: types::Code,
 
-    /// Category or discipline
+    /// The category or discipline of the claim, e.g. institutional, oral, pharmacy, professional, or vision
     pub r#type: types::CodeableConcept,
 
     /// More granular claim type
     pub sub_type: Option<types::CodeableConcept>,
 
-    /// claim | preauthorization | predetermination
+    /// Indicates the intent of the request: claim | preauthorization | predetermination
     pub r#use: types::Code,
 
-    /// The recipient of the products and services
+    /// The [`Patient`](crate::r5::resources::patient::Patient) who is the recipient of the products and services
     pub patient: types::Reference,
 
     /// Relevant time frame for the claim
@@ -87,10 +101,10 @@ pub struct Claim {
     /// Author of the claim
     pub enterer: Option<types::Reference>,
 
-    /// Target
+    /// The insurer (payer) who is the target of the claim submission
     pub insurer: Option<types::Reference>,
 
-    /// Party responsible for the claim
+    /// The practitioner or organization responsible for the claim
     pub provider: Option<types::Reference>,
 
     /// Desired processing urgency
@@ -147,10 +161,10 @@ pub struct Claim {
     /// Paid by the patient
     pub patient_paid: Option<types::Money>,
 
-    /// Product or service provided
+    /// The individual line items of products or services being claimed for
     pub item: Option<Vec<ClaimItem>>,
 
-    /// Total claim cost
+    /// The total cost of the claim, summed across all line items
     pub total: Option<types::Money>,
 }
 

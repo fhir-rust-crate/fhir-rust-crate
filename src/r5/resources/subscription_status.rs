@@ -24,6 +24,22 @@ use fhir_derive_macros::Validate;
 /// about the events that triggered it. It also carries any errors relevant to
 /// the subscription.
 ///
+/// In practice a server sends a SubscriptionStatus as the first entry of every
+/// notification bundle it delivers for a subscription, whether that
+/// notification is a handshake confirming the channel is ready, a periodic
+/// heartbeat, an event notification carrying matching resources, or the
+/// response to a query-status request. Clients use the `status`, `type`, and
+/// `events_since_subscription_start` fields to track delivery health and
+/// detect missed events, and use `notification_event` to correlate the
+/// notification with the resources that triggered it.
+///
+/// # Related resources
+///
+/// - `Subscription` — the criteria and channel configuration this status reports on.
+/// - `SubscriptionTopic` — the topic definition referenced by `topic`.
+/// - [`Reference`](crate::r5::types::Reference) — used by `subscription` and event `focus`/`additional_context`.
+/// - [`CodeableConcept`](crate::r5::types::CodeableConcept) — used to represent entries in `error`.
+///
 /// # Examples
 ///
 /// ```
@@ -62,13 +78,13 @@ pub struct SubscriptionStatus {
     /// Extensions that cannot be ignored
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// requested | active | error | off | entered-in-error
+    /// Current state of the underlying Subscription: requested | active | error | off | entered-in-error.
     pub status: Option<types::Code>,
 
-    /// handshake | heartbeat | event-notification | query-status | query-event
+    /// Kind of notification this resource represents: handshake | heartbeat | event-notification | query-status | query-event.
     pub r#type: types::Code,
 
-    /// Events since the Subscription was created
+    /// Running count of events delivered since the Subscription was created, useful for detecting gaps.
     pub events_since_subscription_start: Option<types::Integer64>,
 
     /// Detailed information about any events relevant to this notification
@@ -77,10 +93,10 @@ pub struct SubscriptionStatus {
     /// Reference to the Subscription responsible for this notification
     pub subscription: types::Reference,
 
-    /// Reference to the SubscriptionTopic this notification relates to
+    /// Canonical reference to the SubscriptionTopic this notification relates to
     pub topic: Option<types::Canonical>,
 
-    /// List of errors on the subscription
+    /// List of errors on the subscription, if any occurred while generating the notification
     pub error: Option<Vec<types::CodeableConcept>>,
 }
 

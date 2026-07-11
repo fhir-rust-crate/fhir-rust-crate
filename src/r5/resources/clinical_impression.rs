@@ -24,6 +24,25 @@ use fhir_derive_macros::Validate;
 /// depending on the clinical workflow. This resource is called
 /// "ClinicalImpression" rather than "ClinicalAssessment" to avoid confusion.
 ///
+/// A `ClinicalImpression` captures the narrative and structured reasoning a
+/// clinician goes through while evaluating a patient: the problems or
+/// conditions considered, the evidence and findings that support or rule out
+/// those problems, the prognosis, and any change in the patient's condition
+/// relative to a previous assessment. It is a point-in-time snapshot of
+/// clinical thinking, typically produced during or shortly after an encounter,
+/// and is often used to justify subsequent orders, referrals, or care plans.
+///
+/// # Related resources
+///
+/// A `ClinicalImpression` is usually linked to the [`Patient`](crate::r5::resources::patient::Patient)
+/// or group being assessed via `subject`, and may reference the `Encounter`
+/// during which it was formed, the performing practitioner via
+/// `performer`, and a prior `ClinicalImpression` via `previous`. Findings and
+/// status information are commonly expressed using
+/// [`CodeableConcept`](crate::r5::types::CodeableConcept), while supporting
+/// evidence may reference `Observation`, `Condition`, or other diagnostic
+/// resources through `supporting_info`.
+///
 /// # Examples
 ///
 /// ```
@@ -65,16 +84,16 @@ pub struct ClinicalImpression {
     /// Business identifier
     pub identifier: Option<Vec<types::Identifier>>,
 
-    /// preparation | in-progress | not-done | on-hold | stopped | completed | entered-in-error | unknown
+    /// The workflow state of this assessment: preparation | in-progress | not-done | on-hold | stopped | completed | entered-in-error | unknown
     pub status: types::Code,
 
-    /// Reason for current status
+    /// Coded or textual reason explaining why the assessment currently has this status
     pub status_reason: Option<types::CodeableConcept>,
 
     /// Why/how the assessment was performed
     pub description: Option<types::String>,
 
-    /// Patient or group assessed
+    /// The [`Patient`](crate::r5::resources::patient::Patient) or group whose condition is being assessed
     pub subject: types::Reference,
 
     /// The Encounter during which this ClinicalImpression was created

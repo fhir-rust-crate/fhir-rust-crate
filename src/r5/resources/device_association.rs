@@ -24,6 +24,28 @@ use fhir_derive_macros::Validate;
 /// that association and its anatomical location. It is commonly used to track
 /// implantable, wearable, and attached devices throughout their lifecycle.
 ///
+/// Clinically and administratively, DeviceAssociation supersedes the narrower
+/// `Device.patient` and `Device.location` linkages used in earlier FHIR
+/// versions by providing a dedicated, time-bounded record that can express
+/// multiple concurrent or historical associations for the same device. This
+/// supports use cases such as tracking when an implantable device was
+/// implanted and later explanted, recording who is operating or wearing a
+/// device, and noting the body site where a device is currently located. The
+/// `status` element conveys the associations lifecycle (for example,
+/// implanted, explanted, or attached), while `operation` can describe periods
+/// during which the device was actively in use and by whom.
+///
+/// # See also
+///
+/// - [`Patient`](crate::r5::resources::patient::Patient) or `Group` — typical
+///   subjects that a device is associated with.
+/// - [`CodeableConcept`](crate::r5::types::CodeableConcept) — used for the
+///   association `status`, `status_reason`, and `category`.
+/// - [`Reference`](crate::r5::types::Reference) — used to point to the
+///   associated `device`, `subject`, and `body_structure`.
+/// - `Device` and `DeviceUsage` — related resources describing the device
+///   itself and its usage over time.
+///
 /// # Examples
 ///
 /// ```
@@ -65,22 +87,22 @@ pub struct DeviceAssociation {
     /// Instance identifier
     pub identifier: Option<Vec<types::Identifier>>,
 
-    /// Reference to the devices associated with the patient or group
+    /// Reference to the device that is the subject of this association
     pub device: types::Reference,
 
-    /// Describes the relationship between the device and subject
+    /// Describes the relationship between the device and subject, such as parent/child or usage relationships
     pub category: Option<Vec<types::CodeableConcept>>,
 
-    /// implanted | explanted | attached | entered-in-error | unknown
+    /// The current lifecycle status of the association: implanted | explanted | attached | entered-in-error | unknown
     pub status: types::CodeableConcept,
 
     /// The reasons given for the current association status
     pub status_reason: Option<Vec<types::CodeableConcept>>,
 
-    /// The individual, group of individuals or device that the device is on or associated with
+    /// The patient, group, or other individual that the device is on or associated with
     pub subject: Option<types::Reference>,
 
-    /// Current anatomical location of the device in/on subject
+    /// Current anatomical location of the device in/on subject, when applicable
     pub body_structure: Option<types::Reference>,
 
     /// Begin and end dates and times for the device association

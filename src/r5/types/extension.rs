@@ -1,5 +1,8 @@
 //! Extension
 //!
+//! Represents optional additional information attached to a FHIR element via a
+//! URL-identified extension carrying a single typed value.
+//!
 //! URL: http://hl7.org/fhir/StructureDefinition/Extension
 //!
 //! Version: 5.0.0

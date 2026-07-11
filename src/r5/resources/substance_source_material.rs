@@ -25,6 +25,26 @@ use fhir_derive_macros::Validate;
 /// the characterization of complex substances derived from plants, animals, and
 /// other biological sources in FHIR R5.
 ///
+/// `SubstanceSourceMaterial` is typically used within pharmaceutical and
+/// regulatory workflows to document the provenance of raw materials used to
+/// manufacture herbal, biological, or otherwise naturally derived medicinal
+/// products, such as vaccines, plasma-derived products, and herbal drugs. It
+/// records the organism (kingdom through species and intraspecific type,
+/// including author and hybrid parentage), the anatomical part and
+/// geographical origin harvested, the developmental stage of the source, and
+/// any fractions or parts extracted, enabling traceability from a finished
+/// substance back to its biological or mineral origin.
+///
+/// # Related resources
+///
+/// `SubstanceSourceMaterial` is one of several substance-related resources
+/// (alongside `Substance`, `SubstanceDefinition`, and
+/// `SubstanceNucleicAcid`/`SubstancePolymer`/`SubstanceProtein`) that together
+/// describe manufactured and natural substances. Coded elements throughout
+/// this resource, such as organism taxonomy and material type, use
+/// [`CodeableConcept`](crate::r5::types::CodeableConcept), and cross-resource
+/// references use [`Identifier`](crate::r5::types::Identifier).
+///
 /// # Examples
 ///
 /// ```
@@ -63,10 +83,10 @@ pub struct SubstanceSourceMaterial {
     /// Extensions that cannot be ignored
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// General high level classification of the source material specific to the origin of the material
+    /// General high level classification of the source material specific to the origin of the material (e.g. plant, animal, mineral)
     pub source_material_class: Option<types::CodeableConcept>,
 
-    /// The type of the source material shall be specified based on a controlled vocabulary. For vaccines, this subclause refers to the class of infectious agent
+    /// The type of the source material shall be specified based on a controlled vocabulary; for vaccines, this subclause refers to the class of infectious agent
     pub source_material_type: Option<types::CodeableConcept>,
 
     /// The state of the source material when extracted
@@ -75,7 +95,7 @@ pub struct SubstanceSourceMaterial {
     /// The unique identifier associated with the source material parent organism shall be specified
     pub organism_id: Option<types::Identifier>,
 
-    /// The organism accepted Scientific name shall be provided based on the organism taxonomy
+    /// The organism accepted scientific (Latin binomial) name shall be provided based on the organism taxonomy
     pub organism_name: Option<types::String>,
 
     /// The parent of the herbal drug Ginkgo biloba, Leaf is the substance ID of the substance (fresh) of Ginkgo biloba L. or Ginkgo biloba L. (Whole plant)
@@ -96,7 +116,7 @@ pub struct SubstanceSourceMaterial {
     /// Many complex materials are fractions of parts of plants, animals, or minerals
     pub fraction_description: Option<Vec<SubstanceSourceMaterialFractionDescription>>,
 
-    /// This subclause describes the organism which the substance is derived from
+    /// This subclause describes the organism which the substance is derived from, including its full taxonomic classification
     pub organism: Option<SubstanceSourceMaterialOrganism>,
 
     /// To do

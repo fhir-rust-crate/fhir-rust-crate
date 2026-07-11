@@ -111,7 +111,7 @@ pub struct Requirements {
     /// Contact details for the publisher
     pub contact: Option<Vec<types::ContactDetail>>,
 
-    /// Natural language description of the requirements
+    /// Natural language description summarizing what this Requirements resource covers and why
     pub description: Option<types::Markdown>,
 
     /// The context that the content is intended to support
@@ -120,7 +120,7 @@ pub struct Requirements {
     /// Intended jurisdiction for Requirements (if applicable)
     pub jurisdiction: Option<Vec<types::CodeableConcept>>,
 
-    /// Why this Requirements is defined
+    /// Explanation of why this Requirements is needed and the intent behind its use
     pub purpose: Option<types::Markdown>,
 
     /// Use and/or publishing restrictions
@@ -187,7 +187,7 @@ pub struct RequirementsStatement {
     /// External artifact (rule/document etc. that) created this requirement
     pub reference: Option<Vec<types::Url>>,
 
-    /// Who asked for this statement
+    /// The person, organization, or other actor who requested or originated this statement
     pub source: Option<Vec<types::Reference>>,
 }
 

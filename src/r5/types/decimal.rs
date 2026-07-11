@@ -9,6 +9,8 @@
 //! FHIR: <https://build.fhir.org/>
 //!
 //! UML: <https://build.fhir.org/uml.html>
+//!
+//! Represents a signed rational number, typically used to represent measurement values.
 
 // Allow unused crate::r5::types as types;
 #![allow(unused_imports)]
@@ -16,6 +18,22 @@
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
 
+/// A rational number with implicit precision, used to represent measurement values and
+/// other quantities where the number of significant digits carries meaning.
+///
+/// The value is preserved as a `serde_json::Number` so that trailing zeros and the
+/// original decimal representation are not lost during round-trip serialization.
+///
+/// # Examples
+///
+/// ```
+/// use fhir::r5::types::decimal::Decimal;
+///
+/// let value = Decimal::default();
+/// let json = ::serde_json::to_value(&value).unwrap();
+/// let back: Decimal = ::serde_json::from_value(json).unwrap();
+/// assert_eq!(value, back);
+/// ```
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq)]
 pub struct Decimal(pub ::serde_json::Number);
 

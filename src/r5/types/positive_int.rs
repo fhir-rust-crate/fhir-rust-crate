@@ -9,6 +9,8 @@
 //! FHIR: <https://build.fhir.org/>
 //!
 //! UML: <https://build.fhir.org/uml.html>
+//!
+//! A primitive FHIR datatype wrapping a 32-bit unsigned integer restricted to positive values.
 
 // Allow unused crate::r5::types as types;
 #![allow(unused_imports)]
@@ -16,6 +18,20 @@
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
 
+/// An integer with a value that must be positive (i.e. greater than zero), used for FHIR
+/// elements such as repeat counts, durations, or ordinal positions where zero or negative
+/// values are not meaningful. Serializes as a plain JSON number.
+///
+/// # Examples
+///
+/// ```
+/// use fhir::r5::types::positive_int::PositiveInt;
+///
+/// let value = PositiveInt::default();
+/// let json = ::serde_json::to_value(&value).unwrap();
+/// let back: PositiveInt = ::serde_json::from_value(json).unwrap();
+/// assert_eq!(value, back);
+/// ```
 #[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq)]
 pub struct PositiveInt(pub u32);
 

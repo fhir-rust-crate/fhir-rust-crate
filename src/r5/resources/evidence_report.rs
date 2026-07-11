@@ -27,6 +27,26 @@ use fhir_derive_macros::Validate;
 /// systematic reviews, evidence syntheses, and structured summaries of clinical
 /// research.
 ///
+/// Like the general-purpose `Composition` resource, an EvidenceReport is organized
+/// as a hierarchy of sections (see [`EvidenceReportSection`]) that may carry
+/// narrative text, coded entries, quantities, or references to other resources.
+/// Its `subject` element characterizes the population, exposure, or other focus
+/// that the report addresses, and its `relatesTo` element expresses relationships
+/// (such as replaces, amends, or appends) to other reports or compositions,
+/// supporting versioning and provenance of published evidence syntheses.
+///
+/// # Related resources
+///
+/// - [`Citation`](crate::r5::resources::citation::Citation) — bibliographic
+///   citation for the artifacts an EvidenceReport summarizes or references.
+/// - [`Evidence`](crate::r5::resources::evidence::Evidence) — a single
+///   evidence concept that may be included or discussed within a report.
+/// - [`EvidenceVariable`](crate::r5::resources::evidence_variable::EvidenceVariable) —
+///   population, exposure, or outcome definitions referenced by the report's
+///   subject characteristics.
+/// - [`Composition`](crate::r5::resources::composition::Composition) — the
+///   general-purpose document resource that EvidenceReport specializes.
+///
 /// # Examples
 ///
 /// ```
@@ -66,9 +86,10 @@ pub struct EvidenceReport {
     pub modifier_extension: Option<Vec<types::Extension>>,
 
     /// Canonical identifier for this EvidenceReport, represented as a globally unique URI
+    /// that allows the report to be referenced from other resources.
     pub url: Option<types::Uri>,
 
-    /// draft | active | retired | unknown
+    /// The publication lifecycle status of this report: draft | active | retired | unknown.
     pub status: types::Code,
 
     /// The context that the content is intended to support
@@ -95,7 +116,8 @@ pub struct EvidenceReport {
     /// Link, description or reference to artifact associated with the report
     pub related_artifact: Option<Vec<types::RelatedArtifact>>,
 
-    /// Focus of the report
+    /// Focus of the report, describing the population, exposure, or other
+    /// characteristics the evidence addresses.
     pub subject: EvidenceReportSubject,
 
     /// Name of the publisher/steward (organization or individual)
@@ -116,10 +138,11 @@ pub struct EvidenceReport {
     /// Who endorsed the content
     pub endorser: Option<Vec<types::ContactDetail>>,
 
-    /// Relationships to other compositions/documents
+    /// Relationships to other compositions/documents, such as prior versions
+    /// this report replaces or amends.
     pub relates_to: Option<Vec<EvidenceReportRelatesTo>>,
 
-    /// Composition is broken into sections
+    /// The hierarchical sections that make up the body of the report.
     pub section: Option<Vec<EvidenceReportSection>>,
 }
 

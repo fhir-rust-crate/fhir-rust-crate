@@ -9,6 +9,8 @@
 //! FHIR: <https://build.fhir.org/>
 //!
 //! UML: <https://build.fhir.org/uml.html>
+//!
+//! A `Ratio` datatype pairs a numerator and denominator `Quantity` to express a rate or proportion, such as a lab result ratio or a dosage rate.
 
 // Allow unused crate::r5::types as types;
 #![allow(unused_imports)]
@@ -17,12 +19,26 @@ use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
 use fhir_derive_macros::Validate;
 
+/// A relationship of two `Quantity` values, expressed as a numerator and a denominator, used to represent ratios and rates such as concentrations or infusion rates.
+///
+/// # Examples
+///
+/// ```
+/// use fhir::r5::types::ratio::Ratio;
+///
+/// let value = Ratio::default();
+/// let json = ::serde_json::to_value(&value).unwrap();
+/// let back: Ratio = ::serde_json::from_value(json).unwrap();
+/// assert_eq!(value, back);
+/// ```
 #[serde_with::skip_serializing_none]
 #[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
 pub struct Ratio {
-    pub numerator: Option<types::Quantity>, // « C »
-    pub denominator: types::Quantity,       // Quantity(SimpleQuantity)
+    /// The value of the numerator, i.e. the value that is on the top of the ratio expression. // « C »
+    pub numerator: Option<types::Quantity>,
+    /// The value of the denominator, i.e. the value that is on the bottom of the ratio expression. // Quantity(SimpleQuantity)
+    pub denominator: types::Quantity,
 }
 
 #[cfg(test)]

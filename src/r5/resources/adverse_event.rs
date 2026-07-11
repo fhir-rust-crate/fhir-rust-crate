@@ -24,6 +24,25 @@ use fhir_derive_macros::Validate;
 /// avoided events that could have had such effects, and is used in both
 /// clinical care and research safety domains.
 ///
+/// AdverseEvent supports both direct patient safety reporting (for example,
+/// medication mishaps, procedure complications, or hospital-acquired
+/// infections) and clinical research pharmacovigilance, where investigators
+/// must record whether an event actually occurred or was only a potential
+/// occurrence (see `actuality`). It captures when the event happened, who was
+/// involved, the suspected causal agents, contributing factors, and any
+/// preventive or mitigating actions taken, making it a central resource for
+/// safety surveillance and quality-improvement workflows.
+///
+/// # See also
+///
+/// - [`Patient`](crate::r5::resources::patient::Patient) — the `subject` of
+///   an adverse event is commonly a patient or research participant.
+/// - [`CodeableConcept`](crate::r5::types::CodeableConcept) — used
+///   throughout this resource for coded values such as `category`, `code`,
+///   `seriousness`, and `outcome`.
+/// - `Encounter` and `ResearchStudy` — referenced via `encounter` and
+///   `study` to relate the event to a care episode or research context.
+///
 /// # Examples
 ///
 /// ```
@@ -65,10 +84,12 @@ pub struct AdverseEvent {
     /// Business identifier for the event
     pub identifier: Option<Vec<types::Identifier>>,
 
-    /// in-progress | completed | entered-in-error | unknown
+    /// The lifecycle status of the record itself: in-progress | completed |
+    /// entered-in-error | unknown
     pub status: types::Code,
 
-    /// actual | potential
+    /// Whether the adverse event actually occurred (actual) or was only a
+    /// possible or averted occurrence (potential)
     pub actuality: types::Code,
 
     /// wrong-patient | procedure-mishap | medication-mishap | device |
@@ -78,7 +99,8 @@ pub struct AdverseEvent {
     /// Event or incident that occurred or was averted
     pub code: Option<types::CodeableConcept>,
 
-    /// Subject impacted by event
+    /// The patient or research participant impacted by the event; see also
+    /// [`Patient`](crate::r5::resources::patient::Patient)
     pub subject: types::Reference,
 
     /// The Encounter associated with the start of the AdverseEvent

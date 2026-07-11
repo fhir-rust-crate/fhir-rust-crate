@@ -115,7 +115,7 @@ pub struct NutritionOrder {
     /// routine | urgent | asap | stat
     pub priority: Option<types::Code>,
 
-    /// Who requires the diet, formula or nutritional supplement, typically a reference to a Patient
+    /// Who requires the diet, formula or nutritional supplement, typically a reference to a [`Patient`](crate::r5::resources::patient::Patient)
     pub subject: types::Reference,
 
     /// The encounter associated with this nutrition order
@@ -145,13 +145,13 @@ pub struct NutritionOrder {
     /// Capture when a food item is brought in by the patient and/or family
     pub outside_food_allowed: Option<types::Boolean>,
 
-    /// Oral diet components
+    /// Detailed instructions for an oral diet, including diet type, scheduling, nutrient limits, and texture or fluid consistency modifications
     pub oral_diet: Option<NutritionOrderOralDiet>,
 
-    /// Supplement components
+    /// One or more oral nutritional supplements to be provided, such as a specific product, quantity, and administration schedule
     pub supplement: Option<Vec<NutritionOrderSupplement>>,
 
-    /// Enteral formula components
+    /// Formula feeding instructions for enteral (tube) nutrition, including formula type, additives, caloric density, route, and delivery rate
     pub enteral_formula: Option<NutritionOrderEnteralFormula>,
 
     /// Comments

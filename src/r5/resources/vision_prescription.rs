@@ -27,6 +27,24 @@ use fhir_derive_macros::Validate;
 /// supports both spectacle and contact lens prescriptions and is commonly used
 /// in claims, dispensing, and ordering workflows.
 ///
+/// Clinically, a VisionPrescription is generated after an eye examination and
+/// is the authoritative order used downstream by opticians, optical labs, and
+/// dispensing systems to manufacture or fit glasses or contact lenses. It is
+/// analogous in role to a `MedicationRequest`, but scoped specifically to
+/// ophthalmic devices. The resource distinguishes the clinical encounter in
+/// which the prescription was written from the date the order itself was
+/// authorized, and it associates a status (active, cancelled, draft, or
+/// entered-in-error) to track the order's lifecycle.
+///
+/// # See also
+///
+/// - [`Patient`](crate::r5::resources::patient::Patient) — the subject for whom
+///   the prescription is written.
+/// - [`CodeableConcept`](crate::r5::types::CodeableConcept) — used to describe
+///   the product supplied in each lens specification.
+/// - `Encounter` and `Practitioner` — referenced, respectively, as the
+///   originating encounter and the prescriber.
+///
 /// # Examples
 ///
 /// ```
@@ -68,25 +86,30 @@ pub struct VisionPrescription {
     /// Business Identifier for vision prescription
     pub identifier: Option<Vec<types::Identifier>>,
 
-    /// active | cancelled | draft | entered-in-error
+    /// The current lifecycle status of the prescription: active | cancelled |
+    /// draft | entered-in-error.
     pub status: types::Code,
 
     /// Response creation date
     pub created: types::DateTime,
 
-    /// Who prescription is for
+    /// Reference to the [`Patient`](crate::r5::resources::patient::Patient)
+    /// for whom the vision prescription was written.
     pub patient: types::Reference,
 
     /// Created during encounter / admission / stay
     pub encounter: Option<types::Reference>,
 
-    /// When prescription was authorized
+    /// The date on which the eye examination was performed and the
+    /// prescription was authorized by the prescriber.
     pub date_written: types::DateTime,
 
-    /// Who authorized the vision prescription
+    /// Reference to the practitioner (for example an optometrist or
+    /// ophthalmologist) who authorized the vision prescription.
     pub prescriber: types::Reference,
 
-    /// Vision lens authorization
+    /// One or more lens authorizations, each describing the optical
+    /// parameters prescribed for a single eye.
     pub lens_specification: Vec<VisionPrescriptionLensSpecification>,
 }
 

@@ -60,14 +60,12 @@ pub struct MarketingStatus {
     /// medicinal product. See ISO/TS 20443 for more information and examples.
     pub status: types::CodeableConcept,
 
-    /// The date when the Medicinal Product is placed on the market by the
-    /// Marketing Authorization Holder (or where applicable, the
-    /// manufacturer/distributor) in a country and/or jurisdiction.
+    /// The date range during which this marketing status applies, from when
+    /// the product was placed on the market to when it ceased to be marketed, if applicable.
     pub date_range: Option<types::Period>,
 
-    /// The date when the Medicinal Product is placed on the market by the
-    /// Marketing Authorization Holder (or where applicable, the
-    /// manufacturer/distributor) in a country and/or jurisdiction.
+    /// The date when a temporarily withdrawn medicinal product's marketing
+    /// authorization and status are due to be restored.
     pub restore_date: Option<types::DateTime>,
 }
 

@@ -23,6 +23,26 @@ use fhir_derive_macros::Validate;
 /// warning. In FHIR R5 it is used chiefly within regulated medicine and product
 /// information to capture structured, machine-readable clinical usage details.
 ///
+/// Each instance records exactly one such issue via the `type` element, with
+/// the corresponding detail carried in one of the `contraindication`,
+/// `indication`, `interaction`, `undesirable_effect`, or `warning`
+/// backbone elements. This granular, one-issue-per-resource model lets
+/// publishers of drug and device knowledge bases (such as national
+/// formularies or product labeling authorities) describe, cross-reference,
+/// and version individual clinical facts independently, rather than bundling
+/// them into a single monolithic document. Consuming systems, including
+/// clinical decision support and e-prescribing tools, can then query for
+/// specific issues relevant to a given subject or population.
+///
+/// Related resources: the `subject` element typically references a
+/// `MedicinalProductDefinition`, `Medication`, `ActivityDefinition`,
+/// `PlanDefinition`, `Device`, `DeviceDefinition`, or `Substance`, while
+/// `population` typically references a `Group` describing the affected
+/// patient population. See also [`CodeableConcept`](crate::r5::types::CodeableConcept)
+/// and [`CodeableReference`](crate::r5::types::CodeableReference), which are
+/// used extensively throughout the nested backbone elements to convey coded
+/// or free-text clinical detail.
+///
 /// # Examples
 ///
 /// ```
@@ -64,16 +84,16 @@ pub struct ClinicalUseDefinition {
     /// Business identifier for this issue
     pub identifier: Option<Vec<types::Identifier>>,
 
-    /// indication | contraindication | interaction | undesirable-effect | warning
+    /// The kind of issue this instance describes: indication | contraindication | interaction | undesirable-effect | warning; this determines which of the backbone elements below carries the detail
     pub r#type: types::Code,
 
     /// A categorisation of the issue, primarily for dividing warnings into subject heading areas
     pub category: Option<Vec<types::CodeableConcept>>,
 
-    /// The medication, product, substance, device, procedure etc. for which this is an indication
+    /// The medication, product, substance, device, procedure etc. for which this is an indication; typically a reference to a product or activity definition resource
     pub subject: Option<Vec<types::Reference>>,
 
-    /// Whether this is a current issue or one that has been retired etc
+    /// Whether this is a current issue or one that has been retired, withdrawn, or superseded etc
     pub status: Option<types::CodeableConcept>,
 
     /// Specifics for when this is a contraindication

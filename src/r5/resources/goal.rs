@@ -23,6 +23,25 @@ use fhir_derive_macros::Validate;
 /// objective, etc. A Goal captures the desired outcome and, optionally, the
 /// specific measurable targets that indicate progress toward that outcome.
 ///
+/// Goals are used throughout clinical and administrative workflows to record
+/// what a care team, patient, or organization is trying to achieve, and to
+/// track progress over time. A Goal is often referenced from a care plan and
+/// may be associated with one or more conditions, observations, or other
+/// clinical findings that motivated it. Each Goal has a lifecycle status
+/// (such as `proposed`, `active`, or `completed`) and, separately, an
+/// optional achievement status describing how well the goal is being met.
+/// The `target` element allows one or more measurable outcomes to be
+/// specified, each expressed using a quantity, range, ratio, or other value
+/// type, optionally with a due date or duration by which it should be met.
+///
+/// # Related resources
+///
+/// A Goal's `subject` is commonly a [`Patient`](crate::r5::resources::patient::Patient),
+/// though it may also reference a group or organization. Goals are typically
+/// linked from a care plan and may reference conditions or observations as
+/// the basis for the goal; codes describing categories, priority, and
+/// achievement status use [`CodeableConcept`](crate::r5::types::CodeableConcept).
+///
 /// # Examples
 ///
 /// ```
@@ -64,10 +83,10 @@ pub struct Goal {
     /// External Ids for this goal
     pub identifier: Option<Vec<types::Identifier>>,
 
-    /// proposed | planned | accepted | active | on-hold | completed | cancelled | entered-in-error | rejected
+    /// The current lifecycle status of this goal: proposed | planned | accepted | active | on-hold | completed | cancelled | entered-in-error | rejected
     pub lifecycle_status: types::Code,
 
-    /// in-progress | improving | worsening | no-change | achieved | sustaining | not-achieved | no-progress | not-attainable
+    /// Describes progress toward meeting the goal: in-progress | improving | worsening | no-change | achieved | sustaining | not-achieved | no-progress | not-attainable
     pub achievement_status: Option<types::CodeableConcept>,
 
     /// E.g. Treatment, dietary, behavioral, etc
@@ -79,10 +98,10 @@ pub struct Goal {
     /// high-priority | medium-priority | low-priority
     pub priority: Option<types::CodeableConcept>,
 
-    /// Code or text describing goal
+    /// Human-readable code or text describing the goal to be achieved
     pub description: types::CodeableConcept,
 
-    /// Who this goal is intended for
+    /// The patient, group, or organization for whom this goal is intended
     pub subject: types::Reference,
 
     /// When goal pursuit begins (date)
@@ -91,7 +110,7 @@ pub struct Goal {
     /// When goal pursuit begins (CodeableConcept)
     pub start_codeable_concept: Option<types::CodeableConcept>,
 
-    /// Target outcome for the goal
+    /// One or more measurable target outcomes that define what should be achieved
     pub target: Option<Vec<GoalTarget>>,
 
     /// When goal status took effect

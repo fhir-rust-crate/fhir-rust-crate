@@ -9,6 +9,8 @@
 //! FHIR: <https://build.fhir.org/>
 //!
 //! UML: <https://build.fhir.org/uml.html>
+//!
+//! A date, date-time, or partial date value used throughout FHIR resources to record when events occurred.
 
 // Allow unused crate::r5::types as types;
 #![allow(unused_imports)]
@@ -16,8 +18,28 @@
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
 
+/// A date, date-time, or partial date (e.g. just a year, or a year and month).
+///
+/// If hours and minutes are specified, a UTC offset must be present. The
+/// underlying value follows a union of the ISO 8601 gYear, gYearMonth, date,
+/// and dateTime formats, and any date component present must be a valid
+/// calendar date.
+///
+/// # Examples
+///
+/// ```
+/// use fhir::r5::types::date_time::DateTime;
+///
+/// let value = DateTime::default();
+/// let json = ::serde_json::to_value(&value).unwrap();
+/// let back: DateTime = ::serde_json::from_value(json).unwrap();
+/// assert_eq!(value, back);
+/// ```
 #[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq)]
-pub struct DateTime(pub std::string::String);
+pub struct DateTime(
+    /// The literal date/time string value, e.g. "2015-02-07T13:28:17-05:00".
+    pub std::string::String,
+);
 
 #[cfg(test)]
 mod tests {

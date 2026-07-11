@@ -25,6 +25,23 @@ use fhir_derive_macros::Validate;
 /// it, and where it was sent. It is commonly used in supply chain and inventory
 /// workflows to record fulfillment of a supply request or order.
 ///
+/// Clinically and administratively, SupplyDelivery represents the actual event
+/// of an item changing hands, as distinct from the request or plan for that
+/// item (typically expressed as a `SupplyRequest`). A single supply request may
+/// be fulfilled by one or more SupplyDelivery instances, for example when a
+/// large order is dispatched in multiple partial shipments. The resource tracks
+/// the status of the delivery event (in-progress, completed, abandoned, or
+/// entered-in-error), the party responsible for supplying the item, and the
+/// destination or recipient, making it useful for supply chain tracking,
+/// pharmacy dispensing logistics, and equipment or product distribution
+/// workflows.
+///
+/// Related resources: the recipient of a delivery is often a
+/// [`Patient`](crate::r5::resources::patient::Patient); category and item
+/// codes are typically represented with
+/// [`CodeableConcept`](crate::r5::types::CodeableConcept); and the requesting
+/// order that this delivery fulfills is commonly a `SupplyRequest`.
+///
 /// # Examples
 ///
 /// ```
@@ -72,16 +89,16 @@ pub struct SupplyDelivery {
     /// Part of referenced event
     pub part_of: Option<Vec<types::Reference>>,
 
-    /// in-progress | completed | abandoned | entered-in-error
+    /// Lifecycle status of the delivery event: in-progress | completed | abandoned | entered-in-error
     pub status: Option<types::Code>,
 
-    /// Patient for whom the item is supplied
+    /// Reference to the patient for whom the supplied item is intended
     pub patient: Option<types::Reference>,
 
-    /// Category of supply event
+    /// Category of supply event, e.g. medication, device, or resupply
     pub r#type: Option<types::CodeableConcept>,
 
-    /// The item that is delivered or supplied
+    /// One or more items, with quantity, that were delivered as part of this event
     pub supplied_item: Option<Vec<SupplyDeliverySuppliedItem>>,
 
     /// When event occurred
@@ -93,10 +110,10 @@ pub struct SupplyDelivery {
     /// When event occurred
     pub occurrence_timing: Option<types::Timing>,
 
-    /// The item supplier
+    /// Reference to the organization or practitioner that supplied the item
     pub supplier: Option<types::Reference>,
 
-    /// Where the delivery was sent
+    /// Reference to the location where the delivery was sent
     pub destination: Option<types::Reference>,
 
     /// Who received the delivery

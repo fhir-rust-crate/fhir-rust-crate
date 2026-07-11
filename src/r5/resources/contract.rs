@@ -25,6 +25,24 @@ use fhir_derive_macros::Validate;
 /// the assets and actions covered, security labels, and human-friendly and
 /// machine-computable representations of the agreement.
 ///
+/// A Contract is used to record the full lifecycle of an agreement: its
+/// authoring, the offer and acceptance between parties, the assets or
+/// services in scope, the actions each party is obligated (or forbidden) to
+/// perform, and the signatures that bind it. Typical uses include consent
+/// directives, data sharing and privacy agreements, insurance policies,
+/// service level agreements, and other legal or administrative contracts
+/// that link real-world parties to computable and human-readable terms.
+///
+/// # Related resources
+///
+/// The parties, subjects, and supporting evidence referenced by a Contract
+/// are typically other resources such as
+/// [`Patient`](crate::r5::resources::patient::Patient),
+/// `Organization`, `Practitioner`, or `RelatedPerson`, connected via
+/// [`Reference`](crate::r5::types::Reference) elements. Terms and offers are
+/// classified using [`CodeableConcept`](crate::r5::types::CodeableConcept),
+/// and signatures use [`Signature`](crate::r5::types::Signature).
+///
 /// # Examples
 ///
 /// ```
@@ -72,7 +90,7 @@ pub struct Contract {
     /// Business edition
     pub version: Option<types::String>,
 
-    /// amended | appended | cancelled | disputed | entered-in-error | executable +
+    /// Current lifecycle status of the contract, e.g. amended | appended | cancelled | disputed | entered-in-error | executable +
     pub status: Option<types::Code>,
 
     /// Negotiation status
@@ -96,7 +114,7 @@ pub struct Contract {
     /// Contract cessation cause
     pub expiration_type: Option<types::CodeableConcept>,
 
-    /// Contract Target Entity
+    /// The entity or entities the contract governs, such as a [`Patient`](crate::r5::resources::patient::Patient) or other party
     pub subject: Option<Vec<types::Reference>>,
 
     /// Authority under which this Contract has standing
@@ -141,7 +159,7 @@ pub struct Contract {
     /// Contract precursor content
     pub content_definition: Option<ContractContentDefinition>,
 
-    /// Contract Term List
+    /// The ordered list of individual terms that make up the substantive content of the contract
     pub term: Option<Vec<ContractTerm>>,
 
     /// Extra Information
@@ -150,7 +168,7 @@ pub struct Contract {
     /// Key event in Contract History
     pub relevant_history: Option<Vec<types::Reference>>,
 
-    /// Contract Signatory
+    /// The parties who have signed the contract, along with their role and signature
     pub signer: Option<Vec<ContractSigner>>,
 
     /// Contract Friendly Language

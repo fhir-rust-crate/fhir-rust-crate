@@ -9,6 +9,8 @@
 //! FHIR: <https://build.fhir.org/>
 //!
 //! UML: <https://build.fhir.org/uml.html>
+//!
+//! Represents a monetary amount paired with an ISO 4217 currency code.
 
 // Allow unused crate::r5::types as types;
 #![allow(unused_imports)]
@@ -17,11 +19,28 @@ use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
 use fhir_derive_macros::Validate;
 
+/// An amount of economic utility in some recognized currency, used
+/// throughout FHIR resources to represent prices, costs, balances, and
+/// other financial values. The numeric `value` is paired with a
+/// `currency` code so the amount can be interpreted unambiguously.
+///
+/// # Examples
+///
+/// ```
+/// use fhir::r5::types::money::Money;
+///
+/// let value = Money::default();
+/// let json = ::serde_json::to_value(&value).unwrap();
+/// let back: Money = ::serde_json::from_value(json).unwrap();
+/// assert_eq!(value, back);
+/// ```
 #[serde_with::skip_serializing_none]
 #[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
 pub struct Money {
+    /// Numerical value (with implicit precision).
     pub value: Option<types::Decimal>,
+    /// ISO 4217 currency code identifying the currency of the value.
     pub currency: Option<types::Code>, // « Currencies! »
 }
 

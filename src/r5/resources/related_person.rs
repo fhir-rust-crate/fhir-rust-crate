@@ -84,10 +84,10 @@ pub struct RelatedPerson {
     /// Extensions that cannot be ignored
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// A human identifier for this person
+    /// Business identifier(s) assigned to this related person, distinct from any identifiers held for the patient
     pub identifier: Option<Vec<types::Identifier>>,
 
-    /// Whether this related person's record is in active use
+    /// Whether this related person's record is currently in active use for care coordination
     pub active: Option<types::Boolean>,
 
     /// Required reference to the patient this person is related to, anchoring the record to a single patient
@@ -96,7 +96,7 @@ pub struct RelatedPerson {
     /// Coded nature of the relationship to the patient, such as parent, spouse, guardian, or emergency contact
     pub relationship: Option<Vec<types::CodeableConcept>>,
 
-    /// A name associated with the person
+    /// Name(s) by which this related person is known, using the same `HumanName` structure as on `Patient`
     pub name: Option<Vec<types::HumanName>>,
 
     /// A contact detail for the person

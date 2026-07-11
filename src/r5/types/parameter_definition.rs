@@ -47,7 +47,7 @@ pub struct ParameterDefinition {
     /// Name used to access the parameter value
     pub name: Option<types::Code>,
 
-    /// in | out
+    /// Whether the parameter is input or output (in | out)
     pub r#use: types::Code,
 
     /// Minimum cardinality
@@ -59,10 +59,10 @@ pub struct ParameterDefinition {
     /// A brief description of the parameter
     pub documentation: Option<types::String>,
 
-    /// What type of value
+    /// The FHIR data type or resource type of the parameter value
     pub r#type: types::Code,
 
-    /// What profile the value is expected to be
+    /// The profile the parameter value is expected to conform to
     pub profile: Option<types::Canonical>,
 }
 

@@ -25,6 +25,30 @@ use fhir_derive_macros::Validate;
 /// revalidation is due. This resource is commonly used in provider directory
 /// and credentialing workflows to track the trustworthiness of data.
 ///
+/// A `VerificationResult` does not itself carry the data being checked;
+/// instead it points, via `target`, at one or more other resources (or
+/// specific elements within them, identified by `target_location`) and
+/// captures the outcome of the verification process applied to that data.
+/// This includes the kind of validation performed (`validation_type` and
+/// `validation_process`), the primary source(s) consulted
+/// (`primary_source`), any attestation supplied by the subject or a
+/// representative (`attestation`), and the organization(s) that performed
+/// the validation (`validator`). Typical uses include verifying practitioner
+/// licenses and credentials, confirming organization registrations, and
+/// checking that demographic or contact information for a person or
+/// organization is accurate and current.
+///
+/// # Related resources
+///
+/// The `target` of a `VerificationResult` is frequently a
+/// [`Patient`](crate::r5::resources::patient::Patient),
+/// [`Practitioner`](crate::r5::resources::practitioner::Practitioner), or
+/// `Organization` resource, or an element within one of those resources.
+/// Codeable fields such as `need`, `validation_type`, and
+/// `failure_action` use [`CodeableConcept`](crate::r5::types::CodeableConcept),
+/// while `target` and the `who`/`organization` fields on the nested
+/// components use [`Reference`](crate::r5::types::Reference).
+///
 /// # Examples
 ///
 /// ```
@@ -63,19 +87,19 @@ pub struct VerificationResult {
     /// Extensions that cannot be ignored
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// A resource that was validated
+    /// A resource, or resources, whose data is the subject of this verification
     pub target: Option<Vec<types::Reference>>,
 
     /// The fhirpath location(s) within the resource that was validated
     pub target_location: Option<Vec<types::String>>,
 
-    /// none | initial | periodic
+    /// The frequency with which the target must be validated: none | initial | periodic
     pub need: Option<types::CodeableConcept>,
 
-    /// attested | validated | in-process | req-revalid | val-fail | reval-fail | entered-in-error
+    /// The current status of this verification: attested | validated | in-process | req-revalid | val-fail | reval-fail | entered-in-error
     pub status: types::Code,
 
-    /// When the validation status was updated
+    /// When the validation status was last updated
     pub status_date: Option<types::DateTime>,
 
     /// nothing | primary | multiple

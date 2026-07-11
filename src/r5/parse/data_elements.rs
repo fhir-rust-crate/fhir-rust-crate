@@ -1,3 +1,13 @@
+//! Parses the FHIR R5 "Data Elements" specification bundle, loaded from
+//! `definitions/dataelements.json`, which is a FHIR `Bundle` resource whose entries hold the
+//! `StructureDefinition`s for reusable data elements. The submodules here (`Bundle`, `Entry`,
+//! `Resource`, `Element`, `Snapshot`, `Differential`, `Slicing`, `Discriminator`, and `Base`)
+//! mirror the JSON shape of that bundle and its nested structure definitions, with each type
+//! deriving `serde::Deserialize` so the raw specification file can be loaded directly into
+//! Rust values. This parsed representation is the input that the crate's code generator walks
+//! in order to emit the strongly typed FHIR data-element model used elsewhere in the crate,
+//! making this module one stage in the overall specification-to-Rust generation pipeline.
+
 // Namespace conveniences
 
 pub static DIR: std::sync::LazyLock<std::path::PathBuf> =

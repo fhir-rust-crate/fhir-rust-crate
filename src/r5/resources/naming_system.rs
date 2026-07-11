@@ -92,13 +92,13 @@ pub struct NamingSystem {
     /// How to compare versions
     pub version_algorithm_coding: Option<types::Coding>,
 
-    /// Name for this naming system (computer friendly)
+    /// Name for this naming system (computer friendly); used internally for cross-references
     pub name: types::String,
 
     /// Title for this naming system (human friendly)
     pub title: Option<types::String>,
 
-    /// draft | active | retired | unknown
+    /// Publication status of this naming system definition: draft | active | retired | unknown
     pub status: types::Code,
 
     /// Indicates the purpose of the namespace: codesystem | identifier | root
@@ -119,7 +119,7 @@ pub struct NamingSystem {
     /// Who maintains system namespace?
     pub responsible: Option<types::String>,
 
-    /// e.g. driver, provider, patient, bank etc
+    /// Human-readable classification of the registered entities, e.g. driver, provider, patient, bank etc
     pub r#type: Option<types::CodeableConcept>,
 
     /// Natural language description of the naming system

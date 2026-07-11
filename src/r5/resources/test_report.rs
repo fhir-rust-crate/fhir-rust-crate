@@ -24,6 +24,24 @@ use fhir_derive_macros::Validate;
 /// involved in the execution (test engine, client, server), and the detailed
 /// per-action results for the setup, test, and teardown phases.
 ///
+/// TestReport is central to FHIR conformance and interoperability testing: it
+/// provides an auditable, machine-readable record of how a target system
+/// behaved when exercised by a corresponding `TestScript`, including which
+/// setup preconditions were satisfied, which individual tests passed or
+/// failed, and which teardown cleanup steps were run. Implementers and
+/// certification programs use TestReport instances to verify conformance to
+/// implementation guides, to diagnose interoperability failures between
+/// systems, and to build dashboards or CI pipelines that track test coverage
+/// and pass rates over time. Because each TestReport references the specific
+/// version of the TestScript that produced it (via `test_script`), reports
+/// remain reproducible and traceable even as test suites evolve.
+///
+/// # See also
+///
+/// - `TestScript` — the executable test definition that a TestReport is the result of running.
+/// - [`Identifier`](crate::r5::types::Identifier) — used for the report's external identifier.
+/// - [`CodeableConcept`](crate::r5::types::CodeableConcept) and related coded types used throughout the FHIR data model.
+///
 /// # Examples
 ///
 /// ```
@@ -68,13 +86,13 @@ pub struct TestReport {
     /// Informal name of the executed TestReport
     pub name: Option<types::String>,
 
-    /// completed | in-progress | waiting | stopped | entered-in-error
+    /// Lifecycle status of this report's execution: completed | in-progress | waiting | stopped | entered-in-error.
     pub status: types::Code,
 
-    /// Canonical URL to the version-specific TestScript that was executed to produce this TestReport
+    /// Canonical URL to the version-specific TestScript that was executed to produce this TestReport.
     pub test_script: types::Canonical,
 
-    /// pass | fail | pending
+    /// Overall outcome of the executed test run: pass | fail | pending.
     pub result: types::Code,
 
     /// The final score (percentage of tests passed) resulting from the execution of the TestScript
@@ -83,7 +101,7 @@ pub struct TestReport {
     /// Name of the tester producing this report (Organization or individual)
     pub tester: Option<types::String>,
 
-    /// When the TestScript was executed and this TestReport was generated
+    /// The date and time at which the TestScript was executed and this TestReport was generated.
     pub issued: Option<types::DateTime>,
 
     /// A participant in the test execution, either the execution engine, a client, or a server

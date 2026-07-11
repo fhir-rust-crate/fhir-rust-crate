@@ -9,6 +9,8 @@
 //! FHIR: <https://build.fhir.org/>
 //!
 //! UML: <https://build.fhir.org/uml.html>
+//!
+//! A simple wrapper around a primitive true/false value, used throughout FHIR resources.
 
 // Allow unused crate::r5::types as types;
 #![allow(unused_imports)]
@@ -16,6 +18,20 @@
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
 
+/// A FHIR primitive datatype representing a value of "true" or "false".
+/// It is used wherever a resource or data type element needs to convey a simple
+/// binary flag or condition, such as `active`, `deceased`, or `experimental`.
+///
+/// # Examples
+///
+/// ```
+/// use fhir::r5::types::boolean::Boolean;
+///
+/// let value = Boolean::default();
+/// let json = ::serde_json::to_value(&value).unwrap();
+/// let back: Boolean = ::serde_json::from_value(json).unwrap();
+/// assert_eq!(value, back);
+/// ```
 #[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq)]
 pub struct Boolean(pub bool);
 

@@ -16,8 +16,27 @@
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
 
+/// A FHIR primitive datatype representing a string of text that may contain
+/// GitHub Flavored Markdown syntax, intended for optional rendering by a
+/// markdown-aware presentation engine. It is used wherever richer, human
+/// authored text (such as descriptions, purposes, or usage notes) needs to
+/// support basic formatting like emphasis, lists, and links.
+///
+/// # Examples
+///
+/// ```
+/// use fhir::r5::types::markdown::Markdown;
+///
+/// let value = Markdown::default();
+/// let json = ::serde_json::to_value(&value).unwrap();
+/// let back: Markdown = ::serde_json::from_value(json).unwrap();
+/// assert_eq!(value, back);
+/// ```
 #[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq)]
-pub struct Markdown(pub std::string::String);
+pub struct Markdown(
+    /// The raw markdown-formatted text content.
+    pub std::string::String,
+);
 
 #[cfg(test)]
 mod tests {

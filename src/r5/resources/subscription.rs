@@ -24,6 +24,26 @@ use fhir_derive_macros::Validate;
 /// or messaging endpoint) through which the server delivers notifications when
 /// matching events occur.
 ///
+/// Administratively, a Subscription represents an agreement between a client
+/// and a server: the client asks to be told when resources matching the
+/// referenced topic change, and the server manages the subscription's
+/// lifecycle (`requested`, `active`, `error`, `off`, or `entered-in-error`),
+/// delivering periodic heartbeat and handshake notifications as needed to
+/// confirm the channel is healthy. This is the R5 successor to the R4
+/// subscription mechanism, decoupling the general subscription request from
+/// the topic-specific trigger criteria defined by a `SubscriptionTopic`.
+/// Because the events delivered may reference clinical resources such as
+/// [`Patient`](crate::r5::resources::patient::Patient) records, servers
+/// typically apply the same security and consent constraints to
+/// notifications as they would to a direct read of those resources.
+///
+/// # See also
+///
+/// - `SubscriptionTopic` — defines the event trigger criteria a Subscription refers to via `topic`.
+/// - `SubscriptionStatus` — the resource used to report handshake, heartbeat, and event notifications.
+/// - [`Reference`](crate::r5::types::Reference) — used for `managing_entity`.
+/// - [`Coding`](crate::r5::types::Coding) — used for `channel_type`.
+///
 /// # Examples
 ///
 /// ```
@@ -68,10 +88,10 @@ pub struct Subscription {
     /// Human readable name for this subscription
     pub name: Option<types::String>,
 
-    /// requested | active | error | off | entered-in-error
+    /// Current lifecycle state of the subscription: requested | active | error | off | entered-in-error
     pub status: types::Code,
 
-    /// Reference to the subscription topic being subscribed to
+    /// Canonical URL of the `SubscriptionTopic` that defines which events this subscription reacts to
     pub topic: types::Canonical,
 
     /// Contact details for source (e.g. troubleshooting)
@@ -80,7 +100,7 @@ pub struct Subscription {
     /// When to automatically delete the subscription
     pub end: Option<types::Instant>,
 
-    /// Entity responsible for Subscription changes
+    /// Reference to the party (e.g. an Organization or Practitioner) responsible for Subscription changes
     pub managing_entity: Option<types::Reference>,
 
     /// Description of why this subscription was created
@@ -89,10 +109,10 @@ pub struct Subscription {
     /// Criteria for narrowing the subscription topic stream
     pub filter_by: Option<Vec<SubscriptionFilterBy>>,
 
-    /// Channel type for notifications
+    /// Coded type of notification channel, such as a REST hook, WebSocket, email, or messaging endpoint
     pub channel_type: types::Coding,
 
-    /// Where the channel points to
+    /// URL or address that the notification channel points to (meaning depends on `channel_type`)
     pub endpoint: Option<types::Url>,
 
     /// Channel type

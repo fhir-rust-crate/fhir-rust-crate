@@ -26,6 +26,23 @@ use fhir_derive_macros::Validate;
 /// is used in FHIR R5 to drive access, filtering, and `$everything`-style
 /// operations by identifying the resources that belong together.
 ///
+/// A server declares its supported compartments as a set of
+/// CompartmentDefinition resources so that clients and other systems can
+/// discover, for a given compartment code (for example `Patient`), which
+/// resource types participate in that compartment and which search
+/// parameter on each resource type links it back to the compartment's
+/// membership resource. This underpins compartment-based search (such as
+/// `GET /Patient/{id}/*`) and access-control policies that scope visibility
+/// to the resources belonging to a particular patient, practitioner, or
+/// other compartment-defining resource.
+///
+/// See also: the compartment's membership resource is typically
+/// [`Patient`](crate::r5::resources::patient::Patient) or a similar resource
+/// such as `Encounter`, `Practitioner`, `RelatedPerson`, `Device`, or
+/// `EpisodeOfCare`; compartment membership rules are commonly consumed
+/// alongside `SearchParameter` definitions and access-control mechanisms
+/// such as `CapabilityStatement`.
+///
 /// # Examples
 ///
 /// ```
@@ -65,7 +82,8 @@ pub struct CompartmentDefinition {
     pub modifier_extension: Option<Vec<types::Extension>>,
 
     /// Canonical identifier for this compartment definition, represented as a
-    /// URI (globally unique)
+    /// URI (globally unique); used to reference this definition from other
+    /// artifacts such as a `CapabilityStatement`
     pub url: types::Uri,
 
     /// Business version of the compartment definition
@@ -108,13 +126,16 @@ pub struct CompartmentDefinition {
     pub purpose: Option<types::Markdown>,
 
     /// Patient | Encounter | RelatedPerson | Practitioner | Device |
-    /// EpisodeOfCare
+    /// EpisodeOfCare; identifies which resource type defines membership in
+    /// this compartment
     pub code: types::Code,
 
-    /// Whether the search syntax is supported
+    /// Whether the compartment search syntax (`GET [base]/[type]/{id}/*`) is
+    /// supported for this compartment
     pub search: types::Boolean,
 
-    /// How a resource is related to the compartment
+    /// How each resource type is related to the compartment, including the
+    /// search parameter that links it to the membership resource
     pub resource: Option<Vec<CompartmentDefinitionResource>>,
 }
 

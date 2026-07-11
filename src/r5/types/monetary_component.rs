@@ -6,6 +6,9 @@
 //!
 //! MonetaryComponent Type: Availability data for an {item}.
 //!
+//! Represents a single component (such as a base price, tax, surcharge, or
+//! discount) that contributes to an overall monetary total.
+//!
 //! FHIR: <https://build.fhir.org/>
 //!
 //! UML: <https://build.fhir.org/uml.html>

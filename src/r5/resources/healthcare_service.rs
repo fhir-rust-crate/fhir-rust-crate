@@ -19,11 +19,32 @@ use fhir_derive_macros::Validate;
 
 /// The details of a healthcare service available at a location or in a catalog.
 ///
+/// `HealthcareService` is used to describe a service, or grouping of services,
+/// that a healthcare organization makes available for delivery of care. It
+/// captures administrative and clinical metadata such as the type and
+/// specialty of service, the organization and location(s) that offer it,
+/// contact details, eligibility criteria, referral methods, and the
+/// availability schedule under which the service can be accessed. It is
+/// commonly published in provider directories and service catalogs so that
+/// systems and practitioners can discover and refer patients to appropriate
+/// care.
+///
 /// In the case where there is a hierarchy of services (for example, Lab ->
 /// Pathology -> Wound Cultures), this can be represented using a set of linked
 /// HealthcareServices. It describes the type of service, where it is offered,
 /// who provides it, and the conditions and availability under which the service
 /// can be accessed.
+///
+/// # Related resources
+///
+/// - [`Organization`](crate::r5::resources::organization::Organization) — the
+///   entity that typically provides the service via `provided_by`.
+/// - [`Location`](crate::r5::resources::location::Location) — the place(s)
+///   where the service is delivered.
+/// - [`Endpoint`](crate::r5::resources::endpoint::Endpoint) — technical
+///   endpoints for electronic access to the service.
+/// - [`CodeableConcept`](crate::r5::types::CodeableConcept) — used throughout
+///   for coded categories, types, and specialties.
 ///
 /// # Examples
 ///
@@ -66,13 +87,13 @@ pub struct HealthcareService {
     /// External identifiers for this item
     pub identifier: Option<Vec<types::Identifier>>,
 
-    /// Whether this HealthcareService record is in active use
+    /// Whether this HealthcareService record is currently in active use versus retired or superseded
     pub active: Option<types::Boolean>,
 
-    /// Organization that provides this service
+    /// Reference to the [`Organization`](crate::r5::resources::organization::Organization) that provides this service
     pub provided_by: Option<types::Reference>,
 
-    /// The service within which this service is offered
+    /// The service within which this service is offered, supporting hierarchical service catalogs
     pub offered_in: Option<Vec<types::Reference>>,
 
     /// Broad category of service being performed or delivered
@@ -84,7 +105,7 @@ pub struct HealthcareService {
     /// Specialties handled by the HealthcareService
     pub specialty: Option<Vec<types::CodeableConcept>>,
 
-    /// Location(s) where service may be provided
+    /// References to the [`Location`](crate::r5::resources::location::Location) resource(s) where the service may be provided
     pub location: Option<Vec<types::Reference>>,
 
     /// Description of service as presented to a consumer while searching

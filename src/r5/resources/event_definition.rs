@@ -24,6 +24,28 @@ use fhir_derive_macros::Validate;
 /// definition captures the conditions under which the event fires along with
 /// the metadata needed to publish and maintain it as a reusable resource.
 ///
+/// Clinically and administratively, an EventDefinition acts as a shareable,
+/// versionable building block: rather than embedding trigger logic directly
+/// inside every plan or rule that needs it, authors can define the trigger
+/// once and reference it by canonical URL from other artifacts, such as
+/// `PlanDefinition` or `EventDefinition`-aware clinical decision support
+/// modules. This supports consistent behavior across systems that need to
+/// react to the same real-world or clinical occurrence (for example, "a
+/// patient is admitted" or "a lab result is received"), while still allowing
+/// each definition to carry its own publication status, jurisdiction,
+/// authorship, and review metadata like a knowledge artifact.
+///
+/// # Related resources
+///
+/// - [`PlanDefinition`](crate::r5::resources::plan_definition::PlanDefinition)
+///   often references an `EventDefinition` (directly or by canonical URL) to
+///   describe when its actions should be triggered.
+/// - The `subject` may be expressed as a [`CodeableConcept`](crate::r5::types::CodeableConcept)
+///   or as a [`Reference`](crate::r5::types::Reference), for example to a
+///   [`Patient`](crate::r5::resources::patient::Patient) or `Group`.
+/// - The trigger conditions themselves are represented using
+///   `TriggerDefinition`.
+///
 /// # Examples
 ///
 /// ```
@@ -62,7 +84,7 @@ pub struct EventDefinition {
     /// Extensions that cannot be ignored
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// Canonical identifier for this event definition, represented as a URI (globally unique)
+    /// Canonical identifier for this event definition, represented as a URI (globally unique); used by other artifacts to reference this definition
     pub url: Option<types::Uri>,
 
     /// Additional identifier for the event definition
@@ -86,16 +108,16 @@ pub struct EventDefinition {
     /// Subordinate title of the event definition
     pub subtitle: Option<types::String>,
 
-    /// draft | active | retired | unknown
+    /// Publication status of this definition: draft | active | retired | unknown, governing whether it is safe to reference and use
     pub status: types::Code,
 
     /// For testing purposes, not real usage
     pub experimental: Option<types::Boolean>,
 
-    /// Type of individual the event definition is focused on
+    /// Type of individual the event definition is focused on, expressed as a coded concept (for example, a population)
     pub subject_codeable_concept: Option<types::CodeableConcept>,
 
-    /// Type of individual the event definition is focused on
+    /// Type of individual the event definition is focused on, expressed as a reference (for example, to a [`Patient`](crate::r5::resources::patient::Patient) or Group)
     pub subject_reference: Option<types::Reference>,
 
     /// Date last changed
@@ -155,7 +177,7 @@ pub struct EventDefinition {
     /// Additional documentation, citations, etc
     pub related_artifact: Option<Vec<types::RelatedArtifact>>,
 
-    /// "when" the event occurs (multiple = 'or')
+    /// The condition(s) that define "when" the event occurs; if more than one trigger is present, they are combined with 'or' semantics
     pub trigger: Vec<types::TriggerDefinition>,
 }
 

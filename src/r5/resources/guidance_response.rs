@@ -25,6 +25,26 @@ use fhir_derive_macros::Validate;
 /// patient's data, and may carry proposed actions, data requirements, or
 /// evaluation messages.
 ///
+/// Within the FHIR R5 clinical decision support workflow, a
+/// `GuidanceResponse` is generated as the result of invoking a CDS Hooks
+/// service, a `$evaluate` operation on a `PlanDefinition`, or an equivalent
+/// knowledge artifact. It correlates back to the originating request via
+/// `request_identifier`, references the subject and encounter the guidance
+/// applies to, and reports its processing outcome through `status`
+/// (for example `success`, `data-required`, or `failure`). The response may
+/// bundle structured output parameters, proposed follow-up actions as
+/// `result` references, evaluation `note`s, and any `data_requirement`s the
+/// evaluating module still needs in order to complete its assessment.
+///
+/// # Related resources
+///
+/// - The `subject` is typically a [`Patient`](crate::r5::resources::patient::Patient).
+/// - The guidance module itself may be identified via `module_codeable_concept`
+///   using a [`CodeableConcept`](crate::r5::types::CodeableConcept), or by
+///   canonical/absolute URI referencing a `PlanDefinition` or `ActivityDefinition`.
+/// - `evaluation_message` and `output_parameters` typically reference an
+///   `OperationOutcome` and a `Parameters` resource, respectively.
+///
 /// # Examples
 ///
 /// ```
@@ -63,7 +83,7 @@ pub struct GuidanceResponse {
     /// Extensions that cannot be ignored
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// The identifier of the request associated with this response, if any
+    /// The identifier of the original guidance request that this response correlates to, if any
     pub request_identifier: Option<types::Identifier>,
 
     /// Business identifier
@@ -78,10 +98,10 @@ pub struct GuidanceResponse {
     /// What guidance was requested
     pub module_codeable_concept: Option<types::CodeableConcept>,
 
-    /// success | data-requested | data-required | in-progress | failure | entered-in-error
+    /// The processing status of the guidance response: success | data-requested | data-required | in-progress | failure | entered-in-error
     pub status: types::Code,
 
-    /// Patient the request was performed for
+    /// The patient (or other subject) the guidance was requested and evaluated for
     pub subject: Option<types::Reference>,
 
     /// Encounter during which the response was returned
@@ -99,16 +119,16 @@ pub struct GuidanceResponse {
     /// Additional notes about the response
     pub note: Option<Vec<types::Annotation>>,
 
-    /// Messages resulting from the evaluation of the artifact or artifacts
+    /// Reference to an OperationOutcome containing messages resulting from the evaluation of the artifact or artifacts
     pub evaluation_message: Option<types::Reference>,
 
-    /// The output parameters of the evaluation, if any
+    /// Reference to a Parameters resource containing the output parameters of the evaluation, if any
     pub output_parameters: Option<types::Reference>,
 
-    /// Proposed actions, if any
+    /// Proposed actions resulting from the evaluation, such as RequestGroup resources, if any
     pub result: Option<Vec<types::Reference>>,
 
-    /// Additional required data
+    /// Additional data that was requested by the evaluating module but was not supplied with the original request
     pub data_requirement: Option<Vec<types::DataRequirement>>,
 }
 

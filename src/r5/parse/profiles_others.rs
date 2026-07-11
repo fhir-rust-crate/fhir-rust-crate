@@ -1,3 +1,17 @@
+//! Parser for the FHIR R5 `profiles-others.json` definitions bundle.
+//!
+//! This module reads the official FHIR specification file `profiles-others.json`
+//! (located under the crate's definitions directory) into a typed [`Bundle`] of
+//! [`Entry`] items, each wrapping a [`Resource`] whose differential and snapshot
+//! elements describe structure definitions that do not belong to the core
+//! resources or datatypes bundles. The submodules here mirror the JSON schema
+//! of that bundle, including `Element`, `Slicing`, `Discriminator`, `Differential`,
+//! and `Snapshot`, so the file can be deserialized faithfully via `serde_json`.
+//! Once parsed, `resource_into_rust` and `element_into_rust_struct_attribute`
+//! convert each resource's structure definition into generated Rust source
+//! code, making this module one of the code-generation entry points that
+//! turns the official FHIR specification JSON into the crate's Rust types.
+
 // Namespace conveniences
 
 pub static DIR: std::sync::LazyLock<std::path::PathBuf> =

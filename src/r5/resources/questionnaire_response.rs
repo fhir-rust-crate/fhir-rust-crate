@@ -26,6 +26,24 @@ use fhir_derive_macros::Validate;
 /// with a nested tree of items that hold the individual answers and their child
 /// items.
 ///
+/// Clinically and administratively, a QuestionnaireResponse is used to capture
+/// structured data collected through forms such as intake assessments, patient
+/// reported outcomes, screening tools, surveys, and consent or eligibility
+/// questionnaires. It links back to the originating `Questionnaire` definition
+/// via a canonical URL and, through its `item` elements, mirrors the grouping
+/// and ordering of that definition so that each answer can be traced to the
+/// specific question that prompted it. The resource tracks lifecycle state
+/// through its `status` element (for example in-progress, completed, or
+/// amended), records when the answers were authored, and identifies both who
+/// or what recorded the response and who or what actually supplied the
+/// answers, which may differ (for example, a clinician recording answers
+/// given verbally by a patient).
+///
+/// See also: the response subject is typically a [`Patient`](crate::r5::resources::patient::Patient)
+/// or other resource referenced via `subject`, coded answer values commonly use
+/// [`CodeableConcept`](crate::r5::types::CodeableConcept) or `Coding`, and the
+/// structure of `item` mirrors the corresponding `Questionnaire` resource.
+///
 /// # Examples
 ///
 /// ```
@@ -73,13 +91,13 @@ pub struct QuestionnaireResponse {
     /// Part of referenced event
     pub part_of: Option<Vec<types::Reference>>,
 
-    /// Canonical URL of Questionnaire being answered
+    /// Canonical URL of the `Questionnaire` resource that defines the questions being answered
     pub questionnaire: types::Canonical,
 
-    /// in-progress | completed | amended | entered-in-error | stopped
+    /// The lifecycle status of this response: in-progress | completed | amended | entered-in-error | stopped
     pub status: types::Code,
 
-    /// The subject of the questions
+    /// The [`Patient`](crate::r5::resources::patient::Patient) or other resource the questions are about
     pub subject: Option<types::Reference>,
 
     /// Encounter the questionnaire response is part of
@@ -94,7 +112,7 @@ pub struct QuestionnaireResponse {
     /// The individual or device that answered the questions
     pub source: Option<types::Reference>,
 
-    /// Groups and questions
+    /// The top-level tree of groups and questions, mirroring the structure of the source `Questionnaire`
     pub item: Option<Vec<QuestionnaireResponseItem>>,
 }
 

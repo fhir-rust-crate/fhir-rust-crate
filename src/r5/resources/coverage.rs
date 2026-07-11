@@ -25,6 +25,24 @@ use fhir_derive_macros::Validate;
 /// payment. It is referenced by billing and adjudication resources such as
 /// Claim, ExplanationOfBenefit, and CoverageEligibilityRequest.
 ///
+/// Coverage captures the administrative and financial details needed to
+/// determine who will pay for a beneficiary's health care: the subscriber and
+/// beneficiary, the insurer or other responsible party, the coverage period,
+/// classification information such as group or plan identifiers, and any
+/// patient cost-sharing rules (for example copays, deductibles, or
+/// exceptions). Systems typically use it to check eligibility, to populate
+/// claims and pre-authorization requests, and to reconcile payments during
+/// adjudication.
+///
+/// # Related resources
+///
+/// - [`Patient`](crate::r5::resources::patient::Patient) is commonly the
+///   `beneficiary` or `subscriber` referenced by this resource.
+/// - [`CodeableConcept`](crate::r5::types::CodeableConcept) is used for coded
+///   fields such as `type`, `relationship`, and cost category classifications.
+/// - `Claim`, `ExplanationOfBenefit`, and `CoverageEligibilityRequest` are
+///   related billing and adjudication resources that reference a Coverage.
+///
 /// # Examples
 ///
 /// ```
@@ -63,13 +81,13 @@ pub struct Coverage {
     /// Extensions that cannot be ignored
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// Business identifier(s) for this coverage
+    /// Business identifier(s) for this coverage, such as a member or policy number
     pub identifier: Option<Vec<types::Identifier>>,
 
-    /// active | cancelled | draft | entered-in-error
+    /// The status of the resource instance: active | cancelled | draft | entered-in-error
     pub status: types::Code,
 
-    /// insurance | self-pay | other
+    /// The nature of the coverage: insurance | self-pay | other
     pub kind: types::Code,
 
     /// Self-pay parties and responsibility
@@ -87,7 +105,7 @@ pub struct Coverage {
     /// ID assigned to the subscriber
     pub subscriber_id: Option<Vec<types::Identifier>>,
 
-    /// Plan beneficiary
+    /// Plan beneficiary, typically a reference to a Patient
     pub beneficiary: types::Reference,
 
     /// Dependent number
@@ -99,7 +117,7 @@ pub struct Coverage {
     /// Coverage start and end dates
     pub period: Option<types::Period>,
 
-    /// Issuer of the policy
+    /// Issuer of the policy, such as the insurance organization or program
     pub insurer: Option<types::Reference>,
 
     /// Additional coverage classifications

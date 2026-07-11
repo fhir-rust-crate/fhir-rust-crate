@@ -25,6 +25,20 @@ use fhir_derive_macros::Validate;
 /// timing, and supporting clinical context for the order. In FHIR R5 it is a
 /// request workflow resource frequently used to drive device supply and fulfillment.
 ///
+/// Clinically, a DeviceRequest is created by an ordering clinician or system to
+/// communicate that a device is needed for a particular patient, and to track that
+/// order through its lifecycle (from draft, through active fulfillment, to
+/// completion or revocation). It participates in the FHIR request/event workflow
+/// pattern alongside resources that report on the resulting event, and it may
+/// reference prior requests it fulfills or replaces via `based_on` and `replaces`.
+///
+/// Related resources: the `subject` is typically a
+/// [`Patient`](crate::r5::resources::patient::Patient); the requested item is
+/// described via [`CodeableReference`](crate::r5::types::CodeableReference), which
+/// may point to a `Device` or `DeviceDefinition`; and detailed dosing/usage-style
+/// parameters use [`CodeableConcept`](crate::r5::types::CodeableConcept) and
+/// [`Quantity`](crate::r5::types::Quantity) values.
+///
 /// # Examples
 ///
 /// ```
@@ -81,10 +95,10 @@ pub struct DeviceRequest {
     /// Identifier of composite request
     pub group_identifier: Option<types::Identifier>,
 
-    /// draft | active | on-hold | revoked | completed | entered-in-error | unknown
+    /// Status of the request in its lifecycle: draft | active | on-hold | revoked | completed | entered-in-error | unknown
     pub status: Option<types::Code>,
 
-    /// proposal | plan | directive | order | original-order | reflex-order | filler-order | instance-order | option
+    /// Indicates the level of authority of the request, e.g. proposal | plan | directive | order | original-order | reflex-order | filler-order | instance-order | option
     pub intent: types::Code,
 
     /// routine | urgent | asap | stat
@@ -93,7 +107,7 @@ pub struct DeviceRequest {
     /// True if the request is to stop or not to start using the device
     pub do_not_perform: Option<types::Boolean>,
 
-    /// Device requested
+    /// The device being requested, as a coded concept and/or reference to a Device or DeviceDefinition
     pub code: types::CodeableReference,
 
     /// Quantity of devices to supply
@@ -102,7 +116,7 @@ pub struct DeviceRequest {
     /// Device details
     pub parameter: Option<Vec<DeviceRequestParameter>>,
 
-    /// Focus of request
+    /// The patient (or group/location/device) for whom the device is being requested
     pub subject: types::Reference,
 
     /// Encounter motivating request
@@ -120,10 +134,10 @@ pub struct DeviceRequest {
     /// When recorded
     pub authored_on: Option<types::DateTime>,
 
-    /// Who/what submitted the device request
+    /// The individual or entity who initiated the request and is responsible for its activation
     pub requester: Option<types::Reference>,
 
-    /// Requested Filler
+    /// The desired individual or entity to perform the fulfillment of the request
     pub performer: Option<types::CodeableReference>,
 
     /// Coded/Linked Reason for request

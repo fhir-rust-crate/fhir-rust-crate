@@ -24,6 +24,23 @@ use fhir_derive_macros::Validate;
 /// foundational part of the FHIR RESTful search framework and are commonly
 /// published within implementation guides and capability statements.
 ///
+/// Conceptually, a SearchParameter binds a short `code` (the token that
+/// appears in a search URL, for example `?status=active`) to the underlying
+/// element(s) of a resource that the code queries against, along with the
+/// data `type` (such as token, date, reference, or composite) that governs
+/// how the value is parsed and compared. Servers advertise the search
+/// parameters they support for each resource type in their CapabilityStatement,
+/// and clients use that information to construct valid search requests.
+/// Composite search parameters combine two or more component parameters,
+/// each with its own subexpression, to allow matching on the relationship
+/// between values (for example, an observation's code and its value together).
+///
+/// # See also
+///
+/// - [`CodeableConcept`](crate::r5::types::CodeableConcept) is used for the jurisdiction of a search parameter.
+/// - `CapabilityStatement`, which typically enumerates the search parameters a server supports.
+/// - `Observation` and other resource types, which are the common subjects of search parameter definitions.
+///
 /// # Examples
 ///
 /// ```
@@ -62,7 +79,7 @@ pub struct SearchParameter {
     /// Extensions that cannot be ignored
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// Canonical identifier for this search parameter, represented as a URI (globally unique)
+    /// Canonical identifier for this search parameter, represented as a globally unique URI used to reference it from other artifacts
     pub url: types::Uri,
 
     /// Additional identifier for the search parameter (business identifier)
@@ -77,7 +94,7 @@ pub struct SearchParameter {
     /// How to compare versions
     pub version_algorithm_coding: Option<types::Coding>,
 
-    /// Name for this search parameter (computer friendly)
+    /// Computer-friendly name for this search parameter, used as the base for the machine-readable name
     pub name: types::String,
 
     /// Name for this search parameter (human friendly)
@@ -86,7 +103,7 @@ pub struct SearchParameter {
     /// Original definition for the search parameter
     pub derived_from: Option<types::Canonical>,
 
-    /// draft | active | retired | unknown
+    /// Publication status of the search parameter definition: draft | active | retired | unknown
     pub status: types::Code,
 
     /// For testing purposes, not real usage
@@ -101,7 +118,7 @@ pub struct SearchParameter {
     /// Contact details for the publisher
     pub contact: Option<Vec<types::ContactDetail>>,
 
-    /// Natural language description of the search parameter
+    /// Natural language description of the search parameter, explaining what it matches and how it is intended to be used
     pub description: types::Markdown,
 
     /// The context that the content is intended to support
@@ -119,16 +136,16 @@ pub struct SearchParameter {
     /// Copyright holder and year(s)
     pub copyright_label: Option<types::String>,
 
-    /// Recommended name for parameter in search url
+    /// Recommended name for the parameter as it appears in a search URL, for example `?code=...`
     pub code: types::Code,
 
-    /// The resource type(s) this search parameter applies to
+    /// The resource type(s) this search parameter applies to, such as `Patient` or `Observation`
     pub base: Vec<types::Code>,
 
-    /// number | date | string | token | reference | composite | quantity | uri | special
+    /// Data type of the search parameter's value: number | date | string | token | reference | composite | quantity | uri | special
     pub r#type: types::Code,
 
-    /// FHIRPath expression that extracts the values
+    /// FHIRPath expression, relative to the resource, that extracts the values matched by this search parameter
     pub expression: Option<types::String>,
 
     /// normal | phonetic | other

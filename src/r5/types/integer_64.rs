@@ -9,6 +9,8 @@
 //! FHIR: <https://build.fhir.org/>
 //!
 //! UML: <https://build.fhir.org/uml.html>
+//!
+//! A primitive datatype for a signed 64-bit whole number, larger than the range supported by the `integer` type.
 
 // Allow unused crate::r5::types as types;
 #![allow(unused_imports)]
@@ -18,6 +20,21 @@ use ::serde::{Deserialize, Serialize};
 
 use ::serde_with::{serde_as, DisplayFromStr};
 
+/// A signed 64-bit integer value. Used for FHIR elements that need whole numbers
+/// larger than the 32-bit range supported by the `integer` type, such as very large
+/// counts or identifiers. On the wire it is represented as a JSON string to avoid
+/// precision loss in JSON number parsers.
+///
+/// # Examples
+///
+/// ```
+/// use fhir::r5::types::integer_64::Integer64;
+///
+/// let value = Integer64::default();
+/// let json = ::serde_json::to_value(&value).unwrap();
+/// let back: Integer64 = ::serde_json::from_value(json).unwrap();
+/// assert_eq!(value, back);
+/// ```
 #[serde_as]
 #[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq)]
 pub struct Integer64(#[serde_as(as = "DisplayFromStr")] pub i64);

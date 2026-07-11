@@ -24,7 +24,19 @@ use fhir_derive_macros::Validate;
 /// from a previous count. It groups items into inventory listing sections and,
 /// within each section, records the item type, category, and counted quantity.
 /// In FHIR R5 it supports supply-chain and stock-management workflows such as
-/// periodic counts, receipt of new arrivals, and reconciliation.
+/// periodic counts, receipt of new arrivals, and reconciliation. Each report
+/// carries a status and a count type (snapshot or difference), is tied to a
+/// reporting period and a reporter, and organizes the counted stock into one
+/// or more inventory listing sections, each containing individual items with
+/// their category, quantity, and item type or reference.
+///
+/// # See also
+///
+/// - [`types::Reference`] — used for the `reporter` and listing `location`.
+/// - [`types::CodeableConcept`] and [`types::CodeableReference`] — used to
+///   describe item categories, statuses, and item types.
+/// - `SupplyRequest` and `SupplyDelivery` — related supply-chain resources
+///   that this report may reconcile against.
 ///
 /// # Examples
 ///
@@ -67,10 +79,10 @@ pub struct InventoryReport {
     /// Business identifier for the report
     pub identifier: Option<Vec<types::Identifier>>,
 
-    /// draft | requested | active | entered-in-error
+    /// The current status of this report in its workflow: draft | requested | active | entered-in-error
     pub status: types::Code,
 
-    /// snapshot | difference
+    /// Whether the report is a full snapshot of stock or only the difference from a previous count: snapshot | difference
     pub count_type: types::Code,
 
     /// addition | subtraction
@@ -79,16 +91,16 @@ pub struct InventoryReport {
     /// The reason for this count - regular count, ad-hoc count, new arrivals, etc
     pub operation_type_reason: Option<types::CodeableConcept>,
 
-    /// When the report has been submitted
+    /// When the report has been submitted, typically the date and time of finalization rather than data capture
     pub reported_date_time: types::DateTime,
 
-    /// Who submits the report
+    /// The person, device, or [`Organization`](crate::r5::resources::organization::Organization) that submits the report
     pub reporter: Option<types::Reference>,
 
     /// The period the report refers to
     pub reporting_period: Option<types::Period>,
 
-    /// An inventory listing section (grouped by any of the attributes)
+    /// One or more inventory listing sections, each grouping counted items by location, status, and/or count date
     pub inventory_listing: Option<Vec<InventoryReportInventoryListing>>,
 
     /// A note associated with the InventoryReport

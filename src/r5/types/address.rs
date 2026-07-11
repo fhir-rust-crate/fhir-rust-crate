@@ -9,6 +9,8 @@
 //! FHIR: <https://build.fhir.org/>
 //!
 //! UML: <https://build.fhir.org/uml.html>
+//!
+//! This module defines the `Address` complex data type used to represent postal addresses.
 
 // Allow unused crate::r5::types as types;
 #![allow(unused_imports)]
@@ -17,126 +19,63 @@ use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
 use fhir_derive_macros::Validate;
 
+/// An address expressed using postal conventions (as opposed to GPS or other
+/// location definition formats). This data type may be used to convey addresses
+/// for use in delivering mail as well as for visiting locations which might not
+/// be valid for mail delivery. There are a variety of postal address formats
+/// defined around the world, so the individual line elements are flexible.
+///
+/// # Examples
+///
+/// ```
+/// use fhir::r5::types::address::Address;
+///
+/// let value = Address::default();
+/// let json = ::serde_json::to_value(&value).unwrap();
+/// let back: Address = ::serde_json::from_value(json).unwrap();
+/// assert_eq!(value, back);
+/// ```
 #[serde_with::skip_serializing_none]
 #[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
 pub struct Address {
+    /// The purpose of this address (home, work, temp, old, billing).
     #[serde(rename = "use")]
     pub use1: Option<types::Code>, // « AddressUse! »
 
+    /// Distinguishes between a postal address (physical/mailing) and a physical
+    /// address (visiting location).
     #[serde(rename = "type")]
     pub r#type: Option<types::Code>, // « AddressType! »
 
-    /// # text
-    /// 
-    /// ## Description
-    /// 
-    /// The `text` attribute provides a human-readable narrative summary of a
-    /// FHIR resource's content in XHTML format. This narrative serves as a
-    /// fallback representation that ensures the essential information remains
-    /// accessible even when systems cannot process all the structured data
-    /// elements. The text element is particularly important for clinical
-    /// safety, regulatory compliance, and systems interoperability where human
-    /// readability is required.
-    /// 
-    /// ## Purpose
-    /// 
-    /// The `text` exists to:
-    /// 
-    /// - Provide human-readable summaries of structured resource content
-    /// - Ensure clinical information remains accessible when structured data
-    ///   cannot be processed
-    /// - Support regulatory requirements for human-readable clinical documents
-    /// - Enable fallback display when rendering systems have limited
-    ///   capabilities
-    /// - Provide narrative context that complements structured data
-    /// - Support clinical safety by ensuring critical information is always
-    ///   readable
-    /// - Enable content review and validation by healthcare professionals
-    /// 
-    /// ## Usage
-    /// 
-    /// Use the `text` attribute when:
-    /// 
-    /// - Creating clinical resources that require human-readable summaries
-    /// - Supporting regulatory compliance for clinical documentation
-    /// - Ensuring accessibility across diverse healthcare systems
-    /// - Providing narrative context for complex structured data
-    /// - Creating resources for patient-facing applications
-    /// - Supporting clinical review workflows that need readable content
-    /// - Implementing systems that require both structured and narrative
-    ///   representations
-    /// 
-    /// The narrative should accurately summarize the key information from the
-    /// structured elements.
-    /// 
-    /// ## Data Type
-    /// 
-    /// **Narrative** - A complex structure containing:
-    /// 
-    /// - `status` (code): The generation status of the narrative
-    ///   (generated|extensions|additional|empty)
-    /// - `div` (xhtml): The XHTML content of the narrative
-    /// 
-    /// **Status Values:**
-    /// 
-    /// - `generated`: Generated from structured data, no additional information
-    /// - `extensions`: Generated from structured data with additional extension
-    ///   content
-    /// - `additional`: Contains additional information not in structured data
-    /// - `empty`: No narrative content provided
-    /// 
-    /// ## Constraints
-    /// 
-    /// - **Required**: Optional but strongly recommended for most clinical
-    ///   resources
-    /// - **Cardinality**: 0..1 (at most one narrative per resource)
-    /// - **XHTML Format**: The div element must contain valid XHTML content
-    /// - **Safety**: Should include all critical information from structured
-    ///   data
-    /// - **Consistency**: Should accurately reflect the structured data content
-    /// - **Language**: Should match the language specified in the resource
-    /// - **Security**: XHTML content must be safe and not contain executable
-    ///   scripts
-    /// 
-    /// ## Examples
-    /// 
-    /// See the accompanying `example.json` file for complete resources
-    /// demonstrating text narratives for different resource types including
-    /// clinical observations, medications, and patient information.
-    /// 
-    /// ## Related Keys
-    /// 
-    /// - `div` - The XHTML content portion of the narrative
-    /// - `status` - Indicates how the narrative was generated and its
-    ///   relationship to structured data
-    /// - `language` - Language code that may affect narrative content
-    /// - `meta` - Resource metadata that may influence narrative generation
-    /// - `contained` - Inline resources that may be referenced in the narrative
-    /// - `extension` - Extensions that may be included in "extensions" status
-    ///   narratives
-    /// 
-    /// ## Specification Reference
-    /// 
-    /// Based on FHIR R5 specification. For complete details, refer to the
-    /// official FHIR R5 documentation for Narrative data type and narrative
-    /// generation requirements.
-    /// 
+    /// A full text representation of the address, useful when it is not
+    /// possible or desired to break the address into its component parts.
     pub text: Option<types::String>,
 
+    /// The street address lines, in the order in which they appear on labels
+    /// (e.g. street name, number, direction, or post office box).
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub line: Vec<types::String>,
 
+    /// The name of the city, town, suburb, village, or other community or
+    /// delivery center.
     pub city: Option<types::String>,
 
+    /// The name of the administrative area, such as a county, that is a
+    /// subdivision of the state and is not usually included in postal addresses.
     pub district: Option<types::String>,
 
+    /// The sub-unit of the country, such as a state, province, or county.
     pub state: Option<types::String>,
 
+    /// A postal code designating the region, used for mail sorting.
     pub postal_code: Option<types::String>,
 
+    /// The name of the country, using ISO 3166 codes or the full name where
+    /// there is no known code.
     pub country: Option<types::String>,
 
+    /// The time period during which this address was, or is, in use.
     pub period: Option<types::Period>,
 }
 

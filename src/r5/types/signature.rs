@@ -9,6 +9,8 @@
 //! FHIR: <https://build.fhir.org/>
 //!
 //! UML: <https://build.fhir.org/uml.html>
+//!
+//! This datatype captures a digital or other signature together with the metadata needed to interpret and verify it.
 
 // Allow unused crate::r5::types as types;
 #![allow(unused_imports)]
@@ -17,24 +19,48 @@ use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
 use fhir_derive_macros::Validate;
 
+/// A signature along with supporting context, recorded to indicate that a resource or
+/// a set of content has been endorsed or attested by a particular party. The signature
+/// may be a cryptographic digital signature, or any other signature acceptable to the
+/// domain, such as a graphical image of a hand-written signature or a signature
+/// ceremony record. This type is typically used within `Provenance` resources or
+/// attached to specific content to establish authorship and integrity.
+///
+/// # Examples
+///
+/// ```
+/// use fhir::r5::types::signature::Signature;
+///
+/// let value = Signature::default();
+/// let json = ::serde_json::to_value(&value).unwrap();
+/// let back: Signature = ::serde_json::from_value(json).unwrap();
+/// assert_eq!(value, back);
+/// ```
 #[serde_with::skip_serializing_none]
 #[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
 pub struct Signature {
+    /// Indication of the reason the entity signed the object(s), e.g. author, coauthor.
     #[serde(rename = "type")]
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub r#type: Vec<types::Coding>, // « SignatureTypeCodes? »
 
+    /// When the signature was created.
     pub when: Option<types::Instant>,
 
+    /// Who signed the content, referencing the individual or system involved.
     pub who: Option<types::Reference>, // « Practitioner | PractitionerRole | RelatedPerson | Patient | Device | Organization »
 
+    /// The party represented by the signer, when the signer acts on behalf of another.
     pub on_behalf_of: Option<types::Reference>, // « Practitioner | PractitionerRole | RelatedPerson | Patient | Device | Organization »
 
+    /// The technical MIME type format of the signed content that was signed.
     pub target_format: Option<types::Code>, // « MimeTypes! »
 
+    /// The technical MIME type format of the signature data itself, e.g. an image or XML-DSig format.
     pub sig_format: Option<types::Code>, // « MimeTypes! »
 
+    /// The base64-encoded actual signature content, e.g. XML DigSig or a JWT.
     pub data: Option<types::Base64Binary>,
 }
 

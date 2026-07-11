@@ -78,13 +78,13 @@ pub struct ManufacturedItemDefinition {
     /// Extensions that cannot be ignored
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// Unique identifier
+    /// Business identifier for this manufactured item, distinct from the resource's logical id
     pub identifier: Option<Vec<types::Identifier>>,
 
     /// Publication status of this definition, one of draft, active, retired, or unknown
     pub status: types::Code,
 
-    /// A descriptive name applied to this item
+    /// A descriptive name applied to this item, suitable for labeling or catalog display
     pub name: Option<types::String>,
 
     /// Dose form of the item as manufactured, such as tablet or capsule, before any transformation needed for administration
@@ -93,7 +93,7 @@ pub struct ManufacturedItemDefinition {
     /// The "real-world" units in which the quantity of the item is described
     pub unit_of_presentation: Option<types::CodeableConcept>,
 
-    /// Manufacturer of the item, one of several possible
+    /// Manufacturer of the item, one of several possible, referencing an Organization
     pub manufacturer: Option<Vec<types::Reference>>,
 
     /// Allows specifying that an item is on the market for sale, or that it is

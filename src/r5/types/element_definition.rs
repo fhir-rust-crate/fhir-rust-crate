@@ -510,6 +510,8 @@ pub struct ElementDefinition {
     pub mapping: Option<Vec<ElementDefinitionMapping>>,
 }
 
+/// Indicates that the element is sliced into a set of alternative definitions, and describes
+/// the rules used to distinguish and (optionally) order the slices.
 #[serde_with::skip_serializing_none]
 #[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
@@ -533,6 +535,7 @@ pub struct ElementDefinitionSlicing {
     pub rules: types::Code,
 }
 
+/// Designates which children of the element are used to discriminate the slices.
 #[serde_with::skip_serializing_none]
 #[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
@@ -550,6 +553,8 @@ pub struct ElementDefinitionSlicingDiscriminator {
     pub path: types::String,
 }
 
+/// Identifies the definition of this element in the base specification, used to track
+/// changes made when a profile or extension constrains an inherited element.
 #[serde_with::skip_serializing_none]
 #[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
@@ -570,6 +575,8 @@ pub struct ElementDefinitionBase {
     pub max: types::String,
 }
 
+/// Identifies a data type or resource that the element may refer to, along with any
+/// applicable profiles, target profiles, and aggregation or versioning rules.
 #[serde_with::skip_serializing_none]
 #[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
@@ -596,6 +603,7 @@ pub struct ElementDefinitionType {
     pub versioning: Option<types::Code>,
 }
 
+/// A sample value for this element demonstrating the intended use of the element.
 #[serde_with::skip_serializing_none]
 #[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
@@ -719,6 +727,8 @@ pub struct ElementDefinitionExample {
     pub value_meta: Option<types::Meta>,
 }
 
+/// A formal invariant (often expressed in FHIRPath) that must hold true for instances
+/// of this element.
 #[serde_with::skip_serializing_none]
 #[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
@@ -751,6 +761,8 @@ pub struct ElementDefinitionConstraint {
     pub source: Option<types::Canonical>,
 }
 
+/// Specifies the ValueSet that this element's coded values must, should, or may be
+/// drawn from, along with the strength of that binding.
 #[serde_with::skip_serializing_none]
 #[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
@@ -774,6 +786,8 @@ pub struct ElementDefinitionBinding {
     pub additional: Option<Vec<ElementDefinitionBindingAdditional>>,
 }
 
+/// Describes additional bindings that provide more specific rules about the value set
+/// to use in particular contexts, beyond the primary binding.
 #[serde_with::skip_serializing_none]
 #[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
@@ -803,6 +817,8 @@ pub struct ElementDefinitionBindingAdditional {
     pub any: Option<types::Boolean>,
 }
 
+/// Identifies a concrete correspondence between this element and an element in another
+/// specification or coding system, per a named mapping declared on the StructureDefinition.
 #[serde_with::skip_serializing_none]
 #[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]

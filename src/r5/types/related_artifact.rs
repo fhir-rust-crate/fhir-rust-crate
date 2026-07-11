@@ -43,10 +43,11 @@ pub struct RelatedArtifact {
     /// Additional content defined by implementations
     pub extension: Option<Vec<types::Extension>>,
 
+    /// The type of relationship to the related artifact.
     /// documentation | justification | citation | predecessor | successor | derived-from | depends-on | composed-of | part-of | amends | amended-with | appends | appended-with | cites | cited-by | comments-on | comment-in | contains | contained-in | corrects | correction-in | replaces | replaced-with | retracts | retracted-by | signs | similar-to | supports | supported-with | transforms | transformed-into | transformed-with | documents | specification-of | created-with | cite-as
     pub r#type: types::Code,
 
-    /// Additional classifiers
+    /// Additional classifiers, such as trust, evidence quality, or usage classification.
     pub classifier: Option<Vec<types::CodeableConcept>>,
 
     /// Short label
@@ -67,6 +68,7 @@ pub struct RelatedArtifact {
     /// What artifact, if not a conformance resource
     pub resource_reference: Option<types::Reference>,
 
+    /// The publication status of the artifact being referred to.
     /// draft | active | retired | unknown
     pub publication_status: Option<types::Code>,
 

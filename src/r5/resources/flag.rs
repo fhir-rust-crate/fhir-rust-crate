@@ -24,6 +24,23 @@ use fhir_derive_macros::Validate;
 /// textual message, a status, an optional active period, and references to the
 /// subject, relevant encounter, and author.
 ///
+/// Unlike a `Condition` or `AllergyIntolerance`, a Flag is not a clinical finding
+/// in itself; rather it is a mechanism for surfacing important information — such
+/// as "patient is a fall risk" or "record requires special handling" — prominently
+/// to anyone accessing the subject's record, regardless of the specific clinical
+/// context being reviewed. Flags are commonly rendered by clinical systems as
+/// banners or alerts on a patient's chart, and their `status` element tracks
+/// whether the alert is currently `active`, `inactive`, or was `entered-in-error`.
+///
+/// # See also
+///
+/// - [`Patient`](crate::r5::resources::patient::Patient) and
+///   [`Group`](crate::r5::resources::group::Group), which are common subjects of a Flag.
+/// - [`CodeableConcept`](crate::r5::types::CodeableConcept), used for the flag's
+///   category and coded message.
+/// - [`Reference`](crate::r5::types::Reference), used to link the flag to its
+///   subject, encounter, and author.
+///
 /// # Examples
 ///
 /// ```
@@ -65,19 +82,19 @@ pub struct Flag {
     /// Business identifier
     pub identifier: Option<Vec<types::Identifier>>,
 
-    /// active | inactive | entered-in-error
+    /// The lifecycle status of the flag: active | inactive | entered-in-error.
     pub status: types::Code,
 
-    /// Clinical, administrative, etc
+    /// A broad classification of the flag, such as clinical, administrative, or safety.
     pub category: Option<Vec<types::CodeableConcept>>,
 
-    /// Coded or textual message to display to user
+    /// The coded or free-text message that the flag is intended to convey to a reader.
     pub code: types::CodeableConcept,
 
-    /// Who/What is flag about?
+    /// A reference to the person, group, or other resource the flag concerns.
     pub subject: types::Reference,
 
-    /// Time period when flag is active
+    /// The time period during which the flag should be considered active.
     pub period: Option<types::Period>,
 
     /// Alert relevant during encounter

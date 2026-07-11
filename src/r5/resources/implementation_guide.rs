@@ -25,6 +25,27 @@ use fhir_derive_macros::Validate;
 /// parameters so that a specification can be rendered, validated, and
 /// distributed as an NPM package.
 ///
+/// Authors of national base specifications, domain-specific implementation
+/// guides, and local/regional profiles use `ImplementationGuide` to declare the
+/// scope of their work: which artifacts (profiles, extensions, value sets,
+/// examples, and other resources) belong to the guide, which other guides it
+/// depends on, any profiles that apply globally across the guide, and the page
+/// structure and build parameters consumed by publication tooling such as the
+/// FHIR IG Publisher. The `definition` element captures the authoring-time
+/// content of the guide, while the `manifest` element describes a already
+/// assembled/published guide, including the rendered location of each
+/// contained resource and page.
+///
+/// # Related resources
+///
+/// An `ImplementationGuide` typically references and constrains other
+/// conformance resources such as `StructureDefinition`, `ValueSet`,
+/// `CodeSystem`, `CapabilityStatement`, and `SearchParameter`, and it may
+/// include example instances of clinical or administrative resources (for
+/// example [`Patient`](crate::r5::resources::patient::Patient)). Coded
+/// metadata elements on this resource, such as jurisdiction, are represented
+/// using [`CodeableConcept`](crate::r5::types::CodeableConcept).
+///
 /// # Examples
 ///
 /// ```
@@ -63,7 +84,7 @@ pub struct ImplementationGuide {
     /// Extensions that cannot be ignored
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// Canonical identifier for this implementation guide, represented as a URI (globally unique)
+    /// Canonical identifier for this implementation guide, represented as a URI (globally unique); used to reference this guide from other artifacts and registries
     pub url: types::Uri,
 
     /// Additional identifier for the implementation guide (business identifier)
@@ -84,7 +105,7 @@ pub struct ImplementationGuide {
     /// Name for this implementation guide (human friendly)
     pub title: Option<types::String>,
 
-    /// draft | active | retired | unknown
+    /// draft | active | retired | unknown; reflects the maturity/publication lifecycle status of this guide
     pub status: types::Code,
 
     /// For testing purposes, not real usage
@@ -117,13 +138,13 @@ pub struct ImplementationGuide {
     /// Copyright holder and year(s)
     pub copyright_label: Option<types::String>,
 
-    /// NPM Package name for IG
+    /// NPM Package name for IG; identifies the published npm package used by build and installation tooling
     pub package_id: types::Id,
 
     /// SPDX license code for this IG (or not-open-source)
     pub license: Option<types::Code>,
 
-    /// FHIR Version(s) this Implementation Guide targets
+    /// FHIR Version(s) this Implementation Guide targets; conformance artifacts within the guide are validated against these versions
     pub fhir_version: Vec<types::Code>,
 
     /// Another Implementation guide this depends on
@@ -132,10 +153,10 @@ pub struct ImplementationGuide {
     /// Profiles that apply globally
     pub global: Option<Vec<ImplementationGuideGlobal>>,
 
-    /// Information needed to build the IG
+    /// Information needed to build the IG; the authoring-time content, including groupings, resources, pages, and parameters
     pub definition: Option<ImplementationGuideDefinition>,
 
-    /// Information about an assembled IG
+    /// Information about an assembled IG; describes the rendered, published output of the guide
     pub manifest: Option<ImplementationGuideManifest>,
 }
 

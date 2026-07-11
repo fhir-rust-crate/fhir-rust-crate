@@ -27,6 +27,24 @@ use fhir_derive_macros::Validate;
 /// of that device model. It is used to catalog and reference device models across
 /// clinical, administrative, and supply workflows.
 ///
+/// Administratively, DeviceDefinition acts as a master catalog or product entry
+/// that manufacturers, distributors, and healthcare organizations can publish and
+/// reference so that individual device instances, orders, and regulatory
+/// submissions do not need to repeat shared model-level data. Clinically, it
+/// helps ensure that the correct kind of device (with its intended use,
+/// contraindications, warnings, and conformance to standards) is selected and
+/// tracked wherever it is used, for example in medication administration,
+/// implant tracking, or supply chain management.
+///
+/// # See also
+///
+/// - [`types::Identifier`] for the business identifiers used across device
+///   definitions and their UDI entries.
+/// - [`types::CodeableConcept`] for coded classifications, properties, and
+///   safety characteristics.
+/// - [`types::Reference`] for links to related resources such as the owning
+///   organization or manufacturer.
+///
 /// # Examples
 ///
 /// ```
@@ -65,10 +83,10 @@ pub struct DeviceDefinition {
     /// Extensions that cannot be ignored
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// Additional information to describe the device
+    /// Additional narrative information to describe the device model, its intended purpose, and general use
     pub description: Option<types::Markdown>,
 
-    /// Instance identifier
+    /// Business identifier(s) for this device definition, assigned by the manufacturer or a regulatory body
     pub identifier: Option<Vec<types::Identifier>>,
 
     /// Unique Device Identifier (UDI) Barcode string
@@ -80,7 +98,7 @@ pub struct DeviceDefinition {
     /// The part number or catalog number of the device
     pub part_number: Option<types::String>,
 
-    /// Name of device manufacturer
+    /// Name of device manufacturer, as a reference to an Organization resource
     pub manufacturer: Option<types::Reference>,
 
     /// The name or names of the device as given by the manufacturer
@@ -89,7 +107,7 @@ pub struct DeviceDefinition {
     /// The catalog or model number for the device for example as defined by the manufacturer
     pub model_number: Option<types::String>,
 
-    /// What kind of device or device system this is
+    /// What kind of device or device system this is, e.g. its risk class or device category
     pub classification: Option<Vec<DeviceDefinitionClassification>>,
 
     /// Identifies the standards, specifications, or formal guidances for the capabilities supported by the device
@@ -116,7 +134,7 @@ pub struct DeviceDefinition {
     /// Inherent, essentially fixed, characteristics of this kind of device, e.g., time properties, size, etc
     pub property: Option<Vec<DeviceDefinitionProperty>>,
 
-    /// Organization responsible for device
+    /// The organization responsible for device, typically the manufacturer or its authorized representative
     pub owner: Option<types::Reference>,
 
     /// Details for human/organization for support

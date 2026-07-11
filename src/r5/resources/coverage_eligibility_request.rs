@@ -25,6 +25,24 @@ use fhir_derive_macros::Validate;
 /// benefits, coverage discovery, or validation prior to delivering products
 /// and services.
 ///
+/// This resource is typically sent by a provider, biller, or patient to a
+/// payor system as a pre-check before rendering care, so that the requesting
+/// party can confirm eligibility, understand what is covered, and avoid
+/// claim denials. A single request may bundle multiple `purpose` values
+/// (for example checking both benefits and prior authorization
+/// requirements) and may reference one or more items or services, along
+/// with any diagnoses, supporting information, or applicable insurance
+/// policies needed by the payor to evaluate the inquiry.
+///
+/// # Related resources
+///
+/// The `patient` field references [`Patient`](crate::r5::resources::patient::Patient),
+/// the `insurer` and `provider` fields reference organizations or
+/// practitioners, and coded elements such as `status`, `purpose`, and
+/// `priority` use [`CodeableConcept`](crate::r5::types::CodeableConcept) or
+/// coded types. A payor typically answers this request with a
+/// `CoverageEligibilityResponse` resource.
+///
 /// # Examples
 ///
 /// ```
@@ -66,16 +84,16 @@ pub struct CoverageEligibilityRequest {
     /// Business Identifier for coverage eligiblity request
     pub identifier: Option<Vec<types::Identifier>>,
 
-    /// active | cancelled | draft | entered-in-error
+    /// The status of this request; one of active | cancelled | draft | entered-in-error
     pub status: types::Code,
 
-    /// Desired processing priority
+    /// Desired processing priority, such as normal or stat
     pub priority: Option<types::CodeableConcept>,
 
-    /// auth-requirements | benefits | discovery | validation
+    /// The reason(s) for the request, one or more of auth-requirements | benefits | discovery | validation
     pub purpose: Vec<types::Code>,
 
-    /// Intended recipient of products and services
+    /// Reference to the [`Patient`](crate::r5::resources::patient::Patient) who is the subject of the eligibility check
     pub patient: types::Reference,
 
     /// Event information
@@ -96,7 +114,7 @@ pub struct CoverageEligibilityRequest {
     /// Party responsible for the request
     pub provider: Option<types::Reference>,
 
-    /// Coverage issuer
+    /// Reference to the insurer organization that will process this request
     pub insurer: types::Reference,
 
     /// Servicing facility

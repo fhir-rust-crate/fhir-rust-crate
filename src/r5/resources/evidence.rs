@@ -24,6 +24,30 @@ use fhir_derive_macros::Validate;
 /// It is used to summarize research findings and support evidence-based
 /// clinical decision making and knowledge management in FHIR R5.
 ///
+/// Conceptually, an `Evidence` resource packages the outcome of a single
+/// piece of research or a synthesis of research (such as a systematic review
+/// or meta-analysis) into a structured, shareable form. It captures what was
+/// studied (via `variable_definition`), the resulting numeric findings (via
+/// `statistic`), and an assessment of how much confidence can be placed in
+/// those findings (via `certainty`). This allows clinical decision support
+/// tools, guideline authors, and evidence synthesis platforms to reference
+/// and reason about evidence programmatically rather than relying solely on
+/// free-text publications. `Evidence` is part of the FHIR Evidence-Based
+/// Medicine (EBM) framework and is commonly referenced from, or used
+/// alongside, other knowledge artifacts such as `EvidenceReport` and
+/// `EvidenceVariable`, as well as citation metadata expressed via
+/// `RelatedArtifact`.
+///
+/// # Related resources
+///
+/// - [`CodeableConcept`](crate::r5::types::CodeableConcept) is used
+///   throughout this resource to represent coded concepts such as variable
+///   roles, statistic types, and certainty ratings.
+/// - `EvidenceReport` and `EvidenceVariable` are companion resources in the
+///   same Evidence-Based Medicine framework.
+/// - [`Reference`](crate::r5::types::Reference) fields link an `Evidence`
+///   resource to the underlying observed and intended variables.
+///
 /// # Examples
 ///
 /// ```
@@ -62,7 +86,9 @@ pub struct Evidence {
     /// Extensions that cannot be ignored.
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// Canonical identifier for this evidence, represented as a globally unique URI.
+    /// Canonical identifier for this evidence, represented as a globally
+    /// unique URI, used to reference this specific version of the evidence
+    /// from other artifacts.
     pub url: Option<types::Uri>,
 
     /// Additional identifier for the summary.
@@ -89,7 +115,8 @@ pub struct Evidence {
     /// Citation for this evidence.
     pub cite_as_markdown: Option<types::Markdown>,
 
-    /// draft | active | retired | unknown.
+    /// The publication lifecycle status of this evidence: draft | active |
+    /// retired | unknown.
     pub status: types::Code,
 
     /// For testing purposes, not real usage.
@@ -146,7 +173,8 @@ pub struct Evidence {
     /// Footnotes and/or explanatory notes.
     pub note: Option<Vec<types::Annotation>>,
 
-    /// Evidence variable such as population, exposure, or outcome.
+    /// Evidence variables such as population, exposure, or outcome, that
+    /// define what this evidence measured or compared.
     pub variable_definition: Vec<EvidenceVariableDefinition>,
 
     /// The method to combine studies.
@@ -155,10 +183,12 @@ pub struct Evidence {
     /// The design of the study that produced this evidence.
     pub study_design: Option<Vec<types::CodeableConcept>>,
 
-    /// Values and parameters for a single statistic.
+    /// The quantitative findings of the evidence: values and parameters for
+    /// each single statistic produced by the study or synthesis.
     pub statistic: Option<Vec<EvidenceStatistic>>,
 
-    /// Certainty or quality of the evidence.
+    /// Certainty, confidence, or quality of the evidence, typically graded
+    /// using a framework such as GRADE.
     pub certainty: Option<Vec<EvidenceCertainty>>,
 }
 

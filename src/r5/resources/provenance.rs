@@ -102,7 +102,7 @@ pub struct Provenance {
     /// Authorization (purposeOfUse) related to the event
     pub authorization: Option<Vec<types::CodeableReference>>,
 
-    /// Activity that occurred
+    /// The activity that is involved in producing the target, e.g. assemble, copy, transmit, or sign.
     pub activity: Option<types::CodeableConcept>,
 
     /// Workflow authorization within which this event occurred
@@ -144,7 +144,7 @@ pub struct ProvenanceAgent {
     /// What the agents role was
     pub role: Option<Vec<types::CodeableConcept>>,
 
-    /// The agent that participated in the event
+    /// The individual, device, or organization that participated in the event, referenced e.g. via [`Patient`](crate::r5::resources::patient::Patient) or Practitioner.
     pub who: types::Reference,
 
     /// The agent that delegated

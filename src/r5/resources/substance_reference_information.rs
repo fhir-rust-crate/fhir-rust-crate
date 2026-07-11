@@ -19,10 +19,26 @@ use fhir_derive_macros::Validate;
 
 /// SubstanceReferenceInformation resource.
 ///
-/// Todo. This resource is used to capture reference information for a substance,
-/// including related genes, gene elements, and biological targets. It is part of
-/// the FHIR R5 substance definition family used in medicinal product regulation
-/// and pharmaceutical data exchange.
+/// Captures supporting scientific reference information about a substance that
+/// is not itself part of the substance's formal definition, such as the genes,
+/// gene elements, and biological targets that the substance is known to
+/// interact with. This information is commonly sourced from pharmacological
+/// and genomic databases and is used to describe mechanism-of-action data,
+/// pharmacogenomic associations, and target interactions for a substance in
+/// medicinal product regulation and pharmaceutical data exchange. It is
+/// typically referenced from, or referenced by, other substance and medicinal
+/// product definition resources rather than being used as a standalone
+/// clinical record.
+///
+/// # Related resources
+///
+/// - [`CodeableConcept`](crate::r5::types::CodeableConcept) is used throughout
+///   this resource to code genes, targets, organisms, and interaction types.
+/// - [`Reference`](crate::r5::types::Reference) is used to cite the source
+///   material (e.g. literature or documents) supporting each gene, gene
+///   element, or target entry.
+/// - `SubstanceDefinition` and `MedicinalProductDefinition` are the resources
+///   that most commonly link to this reference information.
 ///
 /// # Examples
 ///
@@ -62,20 +78,20 @@ pub struct SubstanceReferenceInformation {
     /// Extensions that cannot be ignored
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// Todo
+    /// Textual comment about the substance's reference information.
     pub comment: Option<types::String>,
 
-    /// Todo
+    /// Genes associated with the substance, such as those it modulates.
     pub gene: Option<Vec<SubstanceReferenceInformationGene>>,
 
-    /// Todo
+    /// Specific gene elements (e.g. codons, introns) related to the substance.
     pub gene_element: Option<Vec<SubstanceReferenceInformationGeneElement>>,
 
-    /// Todo
+    /// Biological targets the substance is known to interact with.
     pub target: Option<Vec<SubstanceReferenceInformationTarget>>,
 }
 
-/// Todo
+/// A gene associated with the substance, including its sequence origin.
 #[serde_with::skip_serializing_none]
 #[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
@@ -123,7 +139,8 @@ pub struct SubstanceReferenceInformationGeneElement {
     pub source: Option<Vec<types::Reference>>,
 }
 
-/// Todo
+/// A biological target that the substance interacts with, and the nature of
+/// that interaction.
 #[serde_with::skip_serializing_none]
 #[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
@@ -137,13 +154,13 @@ pub struct SubstanceReferenceInformationTarget {
     /// Extensions that cannot be ignored even if unrecognized
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// Todo
+    /// Identifier for the biological target (e.g. a receptor or enzyme).
     pub target: Option<types::Identifier>,
 
-    /// Todo
+    /// Type of the target, such as receptor, enzyme, or transporter.
     pub r#type: Option<types::CodeableConcept>,
 
-    /// Todo
+    /// Type of interaction between the substance and the target.
     pub interaction: Option<types::CodeableConcept>,
 
     /// Todo

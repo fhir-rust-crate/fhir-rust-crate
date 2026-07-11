@@ -81,7 +81,7 @@ pub struct MolecularSequence {
     /// Extensions that cannot be ignored
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// Unique ID for this particular sequence
+    /// Unique business identifier(s) assigned to this particular sequence, distinct from the resource's logical id
     pub identifier: Option<Vec<types::Identifier>>,
 
     /// Kind of molecule represented, coded as aa (amino acid), dna, or rna
@@ -96,7 +96,7 @@ pub struct MolecularSequence {
     /// Specimen used for sequencing
     pub specimen: Option<types::Reference>,
 
-    /// The method for sequencing
+    /// The method or platform used for sequencing, referencing the Device that performed it
     pub device: Option<types::Reference>,
 
     /// Who should be responsible for test result
@@ -105,7 +105,7 @@ pub struct MolecularSequence {
     /// Sequence that was observed, provided inline as a literal string of residues
     pub literal: Option<types::String>,
 
-    /// Embedded file or a link (URL) which contains content to represent the sequence
+    /// Embedded file or an external link containing content that represents the sequence, such as a FASTA or VCF file
     pub formatted: Option<Vec<types::Attachment>>,
 
     /// A sequence defined relative to a starting sequence via a set of edits

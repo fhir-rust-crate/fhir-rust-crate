@@ -24,7 +24,24 @@ use fhir_derive_macros::Validate;
 ///
 /// In FHIR R5, the Consent resource is used to capture privacy, treatment,
 /// research, and advance-care directives, along with the provisions that
-/// constrain how data and actions are governed by the consent.
+/// constrain how data and actions are governed by the consent. It records
+/// who granted the consent, who is authorized to act on it, the overall
+/// decision (permit or deny), and any fine-grained provisions that scope
+/// the permission or denial by actor, action, purpose, time period, or
+/// data. A consent may reference an external or computable backing policy
+/// via `policy_basis`, and may be verified by the patient, a family member,
+/// or another authorized person via `verification`. Consent is commonly
+/// used to drive access-control decisions, to document informed consent
+/// for treatment or research participation, and to represent advance
+/// directives such as do-not-resuscitate instructions.
+///
+/// # Related resources
+///
+/// The `subject` of a `Consent` is frequently a
+/// [`Patient`](crate::r5::resources::patient::Patient). Classification and
+/// action coding elsewhere in this resource, such as `category` and
+/// `action`, use [`CodeableConcept`](crate::r5::types::CodeableConcept).
+/// See also `Provenance` and `Contract` for related governance resources.
 ///
 /// # Examples
 ///
@@ -67,13 +84,13 @@ pub struct Consent {
     /// Identifier for this record (external references)
     pub identifier: Option<Vec<types::Identifier>>,
 
-    /// draft | active | inactive | not-done | entered-in-error | unknown
+    /// The current lifecycle status of this consent record: draft | active | inactive | not-done | entered-in-error | unknown
     pub status: types::Code,
 
-    /// Classification of the consent statement - for indexing/retrieval
+    /// Classification of the consent statement (e.g. privacy, treatment, research) used for indexing and retrieval
     pub category: Option<Vec<types::CodeableConcept>>,
 
-    /// Who the consent applies to
+    /// The individual or entity to whom the consent applies, typically a [`Patient`](crate::r5::resources::patient::Patient)
     pub subject: Option<types::Reference>,
 
     /// Fully executed date of the consent
@@ -112,10 +129,10 @@ pub struct Consent {
     /// Consent Verified by patient or family
     pub verification: Option<Vec<ConsentVerification>>,
 
-    /// deny | permit
+    /// The overall decision expressed by this consent: deny | permit
     pub decision: Option<types::Code>,
 
-    /// Constraints to the base Consent.policyRule/Consent.policy
+    /// Fine-grained constraints and exceptions that scope the base decision, may be nested
     pub provision: Option<Vec<ConsentProvision>>,
 }
 

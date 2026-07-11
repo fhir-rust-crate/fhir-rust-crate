@@ -24,6 +24,25 @@ use fhir_derive_macros::Validate;
 /// connect to a system, the protocols it uses, the payloads it accepts, and the
 /// organization that manages it.
 ///
+/// Endpoint is primarily an administrative/technical resource rather than a
+/// clinical one: it is referenced by other resources (for example a
+/// `Subscription`, a `HealthcareService`, or an exchange-related resource)
+/// wherever an application needs to know where and how to send or retrieve
+/// data electronically. A single Endpoint typically records the address
+/// (URL or other technical address), the connection type/protocol, the
+/// accepted payload types and MIME types, and the organization responsible
+/// for the endpoint's operation, along with an interval during which the
+/// endpoint is expected to be usable.
+///
+/// # See also
+///
+/// - [`types::Reference`] is commonly used by other resources to point at an
+///   `Endpoint`.
+/// - [`types::CodeableConcept`] is used here to describe the connection type
+///   and environment type.
+/// - [`types::Period`] describes the interval during which the endpoint is
+///   expected to be operational.
+///
 /// # Examples
 ///
 /// ```
@@ -65,13 +84,16 @@ pub struct Endpoint {
     /// Identifies this endpoint across multiple systems
     pub identifier: Option<Vec<types::Identifier>>,
 
-    /// active | suspended | error | off | entered-in-error | test
+    /// The current operational status of the endpoint: active | suspended |
+    /// error | off | entered-in-error | test
     pub status: types::Code,
 
-    /// Protocol/Profile/Standard to be used with this endpoint connection
+    /// One or more protocols, profiles, or standards used to connect to and
+    /// exchange data with this endpoint (for example a messaging or REST
+    /// protocol)
     pub connection_type: Vec<types::CodeableConcept>,
 
-    /// A name that this endpoint can be identified by
+    /// A human-friendly name that this endpoint can be identified by
     pub name: Option<types::String>,
 
     /// Additional details about the endpoint that could be displayed as further

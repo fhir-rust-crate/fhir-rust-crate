@@ -24,6 +24,23 @@ use fhir_derive_macros::Validate;
 /// direction. This resource is primarily used in medicinal product regulatory
 /// submissions to characterize substances such as oligonucleotides.
 ///
+/// Structurally, a nucleic acid substance is composed of one or more subunits
+/// (linear chains of nucleotides), each of which may in turn describe its
+/// constituent sugars and the linkages connecting them. This layered model
+/// mirrors the way regulators and manufacturers document complex synthetic
+/// oligonucleotide therapeutics (for example antisense oligonucleotides or
+/// siRNA drug substances), where the exact sequence, stereochemistry, and
+/// chemical linkages must be precisely characterized for identity and quality
+/// control purposes. As with other substance-family resources, instances of
+/// `SubstanceNucleicAcid` are typically referenced from a general `Substance`
+/// or from medicinal product definition resources rather than being used
+/// directly in clinical patient records.
+///
+/// See also: [`CodeableConcept`](crate::r5::types::CodeableConcept) for
+/// coded elements such as `sequence_type`, and the related `Substance`,
+/// `SubstanceProtein`, and `SubstancePolymer` resources that together model
+/// the composition of complex substances.
+///
 /// # Examples
 ///
 /// ```
@@ -62,10 +79,10 @@ pub struct SubstanceNucleicAcid {
     /// Extensions that cannot be ignored
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// The type of the sequence shall be specified based on a controlled vocabulary
+    /// The type of the sequence, e.g. DNA or RNA, specified using a controlled vocabulary
     pub sequence_type: Option<types::CodeableConcept>,
 
-    /// The number of linear sequences of nucleotides linked through phosphodiester bonds
+    /// The number of linear nucleotide sequences (subunits) linked through phosphodiester bonds
     pub number_of_subunits: Option<types::Integer>,
 
     /// The area of hybridisation shall be described if applicable for double stranded RNA or DNA
@@ -74,7 +91,7 @@ pub struct SubstanceNucleicAcid {
     /// (TBC)
     pub oligo_nucleotide_type: Option<types::CodeableConcept>,
 
-    /// Subunits are listed in order of decreasing length
+    /// The individual nucleotide subunits that make up this substance, listed in order of decreasing length
     pub subunit: Option<Vec<SubstanceNucleicAcidSubunit>>,
 }
 

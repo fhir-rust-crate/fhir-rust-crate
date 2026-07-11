@@ -27,6 +27,18 @@ use fhir_derive_macros::Validate;
 /// captures the design, sponsors, objectives, outcome measures, comparison
 /// groups, recruitment, and status of such an investigation.
 ///
+/// A `ResearchStudy` acts as the administrative and organizational record for a
+/// study protocol: it tracks the study's lifecycle status, phase, and type of
+/// investigation; who sponsors and conducts it; where and when it takes place;
+/// what conditions or focuses it addresses; how participants are recruited and
+/// grouped for comparison; and what objectives and outcome measures define
+/// success. It is commonly referenced by other resources that represent
+/// individual participation or data collected under the study, such as
+/// `ResearchSubject`, and it may reference [`Patient`](crate::r5::resources::patient::Patient)
+/// or `Group` resources for enrolled or observed populations, as well as
+/// [`CodeableConcept`](crate::r5::types::CodeableConcept) values for
+/// classifying status, phase, condition, and role information throughout.
+///
 /// # Examples
 ///
 /// ```
@@ -77,7 +89,7 @@ pub struct ResearchStudy {
     /// Name for this study (computer friendly)
     pub name: Option<types::String>,
 
-    /// Human readable name of the study
+    /// Human readable name of the study, typically shown in listings and reports
     pub title: Option<types::String>,
 
     /// Additional names for the study
@@ -95,7 +107,7 @@ pub struct ResearchStudy {
     /// Date the resource last changed
     pub date: Option<types::DateTime>,
 
-    /// draft | active | retired | unknown
+    /// The current lifecycle status of the study record itself: draft | active | retired | unknown
     pub status: types::Code,
 
     /// treatment | prevention | diagnostic | supportive-care | screening | health-services-research | basic-science | device-feasibility
@@ -110,7 +122,7 @@ pub struct ResearchStudy {
     /// Drugs, devices, etc. under study
     pub focus: Option<Vec<types::CodeableReference>>,
 
-    /// Condition being studied
+    /// Condition, disease, or health concern being studied
     pub condition: Option<Vec<types::CodeableConcept>>,
 
     /// Used to search for the study

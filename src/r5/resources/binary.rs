@@ -26,6 +26,22 @@ use fhir_derive_macros::Validate;
 /// type. In FHIR R5 it is typically used to serve document attachments,
 /// images, or other blobs that other resources reference.
 ///
+/// Binary is unusual among FHIR resources in that it has no narrative and
+/// almost no structured metadata; its identity is essentially the pairing
+/// of a MIME type with a payload. Other resources typically point at a
+/// Binary indirectly through an `Attachment.url` or a `Reference`, rather
+/// than embedding the raw bytes inline, which keeps larger payloads (such
+/// as scanned documents, photographs, or PDFs) out of the primary clinical
+/// or administrative resource. Because access to the raw content may need
+/// to be governed independently of the referencing resource, Binary also
+/// carries an optional `security_context` that servers can use to apply
+/// access control consistent with another resource, such as a
+/// [`Patient`](crate::r5::resources::patient::Patient) or a `Document`.
+///
+/// See also: `DocumentReference` and `Media`, which commonly reference a
+/// Binary for their underlying content, and `Attachment`, the data type
+/// often used elsewhere to carry a URL pointing at a Binary resource.
+///
 /// # Examples
 ///
 /// ```
@@ -52,13 +68,13 @@ pub struct Binary {
     /// Language of the resource content
     pub language: Option<types::Code>,
 
-    /// MimeType of the binary content
+    /// MimeType of the binary content, expressed as a MIME/media type such as `image/png` or `application/pdf`
     pub content_type: types::Code,
 
-    /// Identifies another resource to use as proxy when enforcing access control
+    /// Identifies another resource, such as a Patient, whose access-control policy should govern this content
     pub security_context: Option<types::Reference>,
 
-    /// The actual content
+    /// The actual content, base64 encoded, that constitutes this raw artifact
     pub data: Option<types::Base64Binary>,
 }
 

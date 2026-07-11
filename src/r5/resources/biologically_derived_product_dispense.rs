@@ -26,6 +26,25 @@ use fhir_derive_macros::Validate;
 /// used within FHIR R5 workflows that track the movement and delivery of such
 /// products for clinical use.
 ///
+/// Dispensation is a discrete administrative and clinical event that occurs
+/// after a `BiologicallyDerivedProduct` has been requested, matched, and
+/// prepared for a specific recipient. The resource records who requested the
+/// dispense (`based_on`), what was dispensed (`product`), for whom
+/// (`patient`), who carried out the dispense (`performer`), where it took
+/// place (`location`), and the key timestamps for preparation and hand-over.
+/// It also tracks lifecycle status (for example `preparation`,
+/// `in-progress`, or `issued`) so that downstream systems, such as blood
+/// bank or transfusion services, can monitor the product from allocation
+/// through delivery to the point of use.
+///
+/// # Related resources
+///
+/// This resource commonly references a `BiologicallyDerivedProduct` (the
+/// item dispensed), a [`Patient`](crate::r5::resources::patient::Patient) as
+/// the intended recipient, and uses
+/// [`CodeableConcept`](crate::r5::types::CodeableConcept) values to describe
+/// donor/recipient relationships and match status.
+///
 /// # Examples
 ///
 /// ```
@@ -73,16 +92,16 @@ pub struct BiologicallyDerivedProductDispense {
     /// Short description
     pub part_of: Option<Vec<types::Reference>>,
 
-    /// preparation | in-progress | allocated | issued | unfulfilled | returned | entered-in-error | unknown
+    /// Status of the dispense: preparation | in-progress | allocated | issued | unfulfilled | returned | entered-in-error | unknown
     pub status: types::Code,
 
     /// Relationship between the donor and intended recipient
     pub origin_relationship_type: Option<types::CodeableConcept>,
 
-    /// The BiologicallyDerivedProduct that is dispensed
+    /// Reference to the specific BiologicallyDerivedProduct being dispensed
     pub product: types::Reference,
 
-    /// The intended recipient of the dispensed product
+    /// Reference to the patient who is the intended recipient of the product
     pub patient: types::Reference,
 
     /// Indicates the type of matching associated with the dispense

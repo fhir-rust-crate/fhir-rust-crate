@@ -23,7 +23,20 @@ use fhir_derive_macros::Validate;
 /// regarding a specified coverage. It is used to request that an insurer enroll
 /// a candidate subject under a particular coverage, and is typically exchanged
 /// between a provider and an insurer as part of the eligibility and enrollment
-/// workflow in FHIR R5.
+/// workflow in FHIR R5. The request identifies the candidate to be enrolled,
+/// the responsible provider submitting the request, the insurer that is
+/// expected to act on it, and the coverage under which enrollment is sought,
+/// and it is normally answered with a corresponding `EnrollmentResponse`
+/// indicating whether the request was accepted, rejected, or requires
+/// further review.
+///
+/// # See also
+///
+/// - [`Patient`](crate::r5::resources::patient::Patient), which is commonly
+///   referenced as the enrollment candidate.
+/// - [`Reference`](crate::r5::types::Reference), used to point to the
+///   insurer, provider, candidate, and coverage participants.
+/// - `EnrollmentResponse`, the typical reply resource to this request.
 ///
 /// # Examples
 ///
@@ -63,25 +76,25 @@ pub struct EnrollmentRequest {
     /// Extensions that cannot be ignored
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// Business Identifier
+    /// Business Identifier assigned to this enrollment request by the submitter or receiver.
     pub identifier: Option<Vec<types::Identifier>>,
 
-    /// active | cancelled | draft | entered-in-error
+    /// The current status of the request: active | cancelled | draft | entered-in-error.
     pub status: Option<types::Code>,
 
-    /// Creation date
+    /// The date this enrollment request was created.
     pub created: Option<types::DateTime>,
 
-    /// Target
+    /// The insurer that is to be notified and expected to act on this enrollment request.
     pub insurer: Option<types::Reference>,
 
-    /// Responsible practitioner
+    /// The practitioner or organization who is responsible for submitting the request.
     pub provider: Option<types::Reference>,
 
-    /// The subject to be enrolled
+    /// A reference to the subject (typically a [`Patient`](crate::r5::resources::patient::Patient)) to be enrolled.
     pub candidate: Option<types::Reference>,
 
-    /// Insurance information
+    /// A reference to the specific coverage under which enrollment is to be applied.
     pub coverage: Option<types::Reference>,
 }
 

@@ -9,6 +9,8 @@
 //! FHIR: <https://build.fhir.org/>
 //!
 //! UML: <https://build.fhir.org/uml.html>
+//!
+//! A Coding is a single, atomic value representing a code from a specific terminology system.
 
 // Allow unused crate::r5::types as types;
 #![allow(unused_imports)]
@@ -17,14 +19,34 @@ use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
 use fhir_derive_macros::Validate;
 
+/// A reference to a code defined by a terminology system, capturing the code system,
+/// version, code value, human-readable display text, and whether the code was picked
+/// directly by a user. Coding is used within CodeableConcept and directly on elements
+/// wherever a single coded value from a known system needs to be represented.
+///
+/// # Examples
+///
+/// ```
+/// use fhir::r5::types::coding::Coding;
+///
+/// let value = Coding::default();
+/// let json = ::serde_json::to_value(&value).unwrap();
+/// let back: Coding = ::serde_json::from_value(json).unwrap();
+/// assert_eq!(value, back);
+/// ```
 #[serde_with::skip_serializing_none]
 #[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
 pub struct Coding {
+    /// The identification of the code system that defines the meaning of the symbol in the code.
     pub system: Option<types::Uri>,
+    /// The version of the code system which was used when choosing this code.
     pub version: Option<types::String>,
+    /// A symbol in the syntax defined by the code system, representing the specific code.
     pub code: Option<types::Code>, // « C »
+    /// A human-readable representation of the meaning of the code, following the code system's rules.
     pub display: Option<String>,   // « C »
+    /// Indicates that this coding was chosen by a user directly, rather than by an algorithm.
     pub user_selected: Option<types::Boolean>,
 }
 

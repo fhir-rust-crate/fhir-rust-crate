@@ -8,8 +8,12 @@
 //! extensions, and related metadata. For each of these building blocks this
 //! module exposes a corresponding Rust type, defined in a dedicated submodule
 //! and re-exported here for convenient access, for example `Coding`,
-//! `CodeableConcept`, `Identifier`, `Period`, and `Quantity`. Within the wider
-//! generation pipeline this module is one of several parsers under
+//! `CodeableConcept`, `Identifier`, `Period`, and `Quantity`. Each submodule
+//! deserializes its slice of the `all.json` bundle into an intermediate Rust
+//! struct and then renders that struct as formatted Rust source code, which the
+//! generator writes out under the crate's tracked `tmp/out` directory for later
+//! use, or hand-adaptation, as part of the `src/r5/types` datatype layer. Within
+//! the wider generation pipeline this module is one of several parsers under
 //! `crate::r5::parse`, alongside the parsers for concept maps, data elements,
 //! profiles, search parameters, and value sets, that together turn the raw FHIR
 //! JSON specifications into strongly typed Rust source code.

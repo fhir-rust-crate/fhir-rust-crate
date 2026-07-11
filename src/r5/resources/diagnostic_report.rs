@@ -26,6 +26,24 @@ use fhir_derive_macros::Validate;
 /// textual and coded interpretations, and formatted representations. It is
 /// used to convey lab, imaging, pathology, and other diagnostic outcomes.
 ///
+/// A DiagnosticReport is typically generated once testing on a request is
+/// complete, and it acts as the aggregation point that ties together the
+/// individual `Observation` results, any supporting images or documents, and
+/// a narrative or coded conclusion into a single, clinically reviewable
+/// report. Reports move through a lifecycle expressed by the `status` field
+/// (for example `registered`, `preliminary`, `final`, and `amended`), so
+/// consumers can track whether a report is still in progress or has been
+/// finalized. Reports are commonly produced by laboratory, imaging,
+/// pathology, cardiology, and other diagnostic services, and they are
+/// referenced by ordering workflows and clinical summaries.
+///
+/// See also: [`Patient`](crate::r5::resources::patient::Patient) or `Group`
+/// as the typical `subject` of a report, `Observation` for individual
+/// result entries referenced via `result`, `ServiceRequest` for the order
+/// referenced via `based_on`, and
+/// [`CodeableConcept`](crate::r5::types::CodeableConcept) for the coded
+/// `code`, `category`, and `conclusion_code` values.
+///
 /// # Examples
 ///
 /// ```
@@ -70,16 +88,16 @@ pub struct DiagnosticReport {
     /// What was requested
     pub based_on: Option<Vec<types::Reference>>,
 
-    /// registered | partial | preliminary | modified | final | amended | corrected | appended | cancelled | entered-in-error | unknown
+    /// registered | partial | preliminary | modified | final | amended | corrected | appended | cancelled | entered-in-error | unknown; tracks the report's lifecycle status
     pub status: types::Code,
 
-    /// Service category
+    /// Service category, such as the performing department (e.g. laboratory, radiology, cardiology)
     pub category: Option<Vec<types::CodeableConcept>>,
 
-    /// Name/Code for this diagnostic report
+    /// Name/Code for this diagnostic report, identifying the type of report or panel being reported
     pub code: types::CodeableConcept,
 
-    /// The subject of the report - usually, but not always, the patient
+    /// The subject of the report - usually, but not always, the patient; may also reference a Group, Device, Location, or other subject
     pub subject: Option<types::Reference>,
 
     /// Health care event when test ordered
@@ -103,7 +121,7 @@ pub struct DiagnosticReport {
     /// Specimens this report is based on
     pub specimen: Option<Vec<types::Reference>>,
 
-    /// Observations
+    /// Observations that make up the individual results contributing to this report
     pub result: Option<Vec<types::Reference>>,
 
     /// Comments about the diagnostic report
@@ -121,7 +139,7 @@ pub struct DiagnosticReport {
     /// Reference to a Composition resource for the DiagnosticReport structure
     pub composition: Option<types::Reference>,
 
-    /// Clinical conclusion (interpretation) of test results
+    /// Clinical conclusion (interpretation) of test results, the narrative summary a clinician relies on for decision making
     pub conclusion: Option<types::Markdown>,
 
     /// Codes for the clinical conclusion of test results

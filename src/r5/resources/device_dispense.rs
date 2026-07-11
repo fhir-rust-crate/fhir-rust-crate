@@ -23,6 +23,22 @@ use fhir_derive_macros::Validate;
 /// event of dispensing devices such as durable medical equipment or
 /// point-of-care supplies to a patient or their caregiver.
 ///
+/// `DeviceDispense` is used in supply chain and patient care workflows to
+/// capture the actual handoff of a device, distinct from the `DeviceRequest`
+/// that authorizes it and the `DeviceUsage` that records subsequent use.
+/// It tracks who dispensed and received the device, the quantity supplied,
+/// the preparation and hand-over dates, and any usage instructions, and it
+/// can reference the fulfilled order via `based_on` and the encounter during
+/// which dispensing occurred.
+///
+/// See also: [`Patient`](crate::r5::resources::patient::Patient) as the
+/// typical `subject` of a dispensation, and
+/// [`CodeableConcept`](crate::r5::types::CodeableConcept) which is used for
+/// coded fields such as `category` and `type`. Related resources include
+/// `DeviceRequest`, `DeviceUsage`, and `Device` itself (referenced via
+/// [`CodeableReference`](crate::r5::types::CodeableReference) in the
+/// `device` field).
+///
 /// # Examples
 ///
 /// ```
@@ -70,7 +86,7 @@ pub struct DeviceDispense {
     /// The bigger event that this dispense is a part of
     pub part_of: Option<Vec<types::Reference>>,
 
-    /// preparation | in-progress | cancelled | on-hold | completed | entered-in-error | stopped | declined | unknown
+    /// The current lifecycle status of the dispense event: preparation | in-progress | cancelled | on-hold | completed | entered-in-error | stopped | declined | unknown.
     pub status: types::Code,
 
     /// Why a dispense was or was not performed
@@ -79,10 +95,10 @@ pub struct DeviceDispense {
     /// Type of device dispense
     pub category: Option<Vec<types::CodeableConcept>>,
 
-    /// What device was supplied
+    /// The specific device (or type of device) that was supplied to the subject.
     pub device: types::CodeableReference,
 
-    /// Who the dispense is for
+    /// The person, typically a [`Patient`](crate::r5::resources::patient::Patient), for whom the device is intended.
     pub subject: types::Reference,
 
     /// Who collected the device or where the medication was delivered

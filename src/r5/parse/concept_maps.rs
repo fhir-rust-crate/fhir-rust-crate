@@ -1,3 +1,13 @@
+//! Code generator module for the FHIR R5 "concept maps" specification bundle.
+//!
+//! This module parses `conceptmaps.json`, the official FHIR R5 definitions file that
+//! contains the `ConceptMap` example bundle, and drives generation of the corresponding
+//! Rust source types. The JSON is deserialized into a `Bundle` of `Entry` values, each
+//! wrapping a `Resource` (a `ConceptMap`) built from nested `Group`, `Element`, `Unmapped`,
+//! and other structures declared in the submodules below. As part of the broader generation
+//! pipeline under `src/r5/parse`, this module's output is used to emit or validate the
+//! statically typed representations found under `src/r5/types` for concept maps.
+
 // Namespace conveniences
 
 pub static DIR: std::sync::LazyLock<std::path::PathBuf> =

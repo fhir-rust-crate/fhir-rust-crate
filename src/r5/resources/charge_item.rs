@@ -23,6 +23,29 @@ use fhir_derive_macros::Validate;
 /// amounts and participating organizations and persons. The main usage of the
 /// ChargeItem is to enable the billing process and internal cost allocation.
 ///
+/// A ChargeItem is typically generated automatically or semi-automatically
+/// whenever a billable event occurs during patient care, such as the
+/// performance of a procedure, the dispensing of a medication, or the use of
+/// a device or facility resource. It captures who or what performed the
+/// service, when it occurred, the quantity and pricing information, and the
+/// organizations that requested and performed the service, as well as any
+/// override reasons applied to standard pricing rules. Downstream systems
+/// aggregate ChargeItem instances, typically via an Invoice or similar
+/// billing resource, to produce claims or patient statements.
+///
+/// # Related resources
+///
+/// - The `subject` of a ChargeItem is usually a
+///   [`Patient`](crate::r5::resources::patient::Patient), and the `encounter`
+///   field commonly references an `Encounter` during which the service was
+///   rendered.
+/// - Pricing and reason fields such as `code`, `bodysite`, `reason`, and
+///   `override_reason` are represented using
+///   [`CodeableConcept`](crate::r5::types::CodeableConcept).
+/// - The `performer`, `enterer`, `cost_center`, `requesting_organization`,
+///   and `performing_organization` fields link to actors via
+///   [`Reference`](crate::r5::types::Reference).
+///
 /// # Examples
 ///
 /// ```
@@ -70,7 +93,7 @@ pub struct ChargeItem {
     /// Resource defining the code of this ChargeItem
     pub definition_canonical: Option<Vec<types::Canonical>>,
 
-    /// planned | billable | not-billable | aborted | billed | entered-in-error | unknown
+    /// The current lifecycle status of the charge: planned | billable | not-billable | aborted | billed | entered-in-error | unknown.
     pub status: types::Code,
 
     /// Part of referenced ChargeItem
@@ -79,7 +102,7 @@ pub struct ChargeItem {
     /// A code that identifies the charge, like a billing code
     pub code: types::CodeableConcept,
 
-    /// Individual service was done for/to
+    /// The individual, typically a `Patient`, for whom the charged service was performed
     pub subject: types::Reference,
 
     /// Encounter associated with this ChargeItem
@@ -106,7 +129,7 @@ pub struct ChargeItem {
     /// Organization that has ownership of the (potential, future) revenue
     pub cost_center: Option<types::Reference>,
 
-    /// Quantity of which the charge item has been serviced
+    /// Quantity of the item or service being charged, e.g. the number of units administered
     pub quantity: Option<types::Quantity>,
 
     /// Anatomical location, if relevant

@@ -25,6 +25,26 @@ use fhir_derive_macros::Validate;
 /// records the substance code, category, quantity, expiry, and its constituent
 /// ingredients along with their relative amounts.
 ///
+/// Substances are used across many clinical and administrative workflows: as the
+/// active or inactive ingredients that make up a medication, as allergens or
+/// irritants referenced from an allergy or intolerance record, as specimens or
+/// samples handled by a laboratory, or as raw materials tracked through supply
+/// and manufacturing processes. A `Substance` instance may represent either a
+/// specific physical package or lot (an "instance") or a general category of
+/// material (a "kind"), as indicated by the `instance` field. The `code` field
+/// identifies what the substance is, typically using a standard terminology
+/// such as SNOMED CT or a national drug/substance coding system, while
+/// `ingredient` describes the substance's own composition when it is itself a
+/// mixture or compound.
+///
+/// # See also
+///
+/// Substances are commonly referenced from medication and clinical resources
+/// such as `Medication`, `MedicationKnowledge`, and `AllergyIntolerance`, and
+/// use shared data types including [`CodeableConcept`](crate::r5::types::CodeableConcept),
+/// [`CodeableReference`](crate::r5::types::CodeableReference), and
+/// [`Quantity`](crate::r5::types::Quantity) to describe classification and amount.
+///
 /// # Examples
 ///
 /// ```
@@ -66,16 +86,16 @@ pub struct Substance {
     /// Unique identifier
     pub identifier: Option<Vec<types::Identifier>>,
 
-    /// Is this an instance of a substance or a kind of one
+    /// True if this represents a specific physical instance/package/lot of the substance rather than a general kind
     pub instance: types::Boolean,
 
-    /// active | inactive | entered-in-error
+    /// The status of the substance record: active | inactive | entered-in-error
     pub status: Option<types::Code>,
 
-    /// What class/type of substance this is
+    /// Classification of the substance into one or more categories, e.g. drug, allergen, or biological
     pub category: Option<Vec<types::CodeableConcept>>,
 
-    /// What substance this is
+    /// The substance's identity, coded using a terminology such as SNOMED CT, optionally with a direct reference
     pub code: types::CodeableReference,
 
     /// Textual description of the substance, comments
@@ -87,7 +107,7 @@ pub struct Substance {
     /// Amount of substance in the package
     pub quantity: Option<types::Quantity>,
 
-    /// Composition information about the substance
+    /// Composition information about the substance, describing its constituent components and their relative amounts
     pub ingredient: Option<Vec<SubstanceIngredient>>,
 }
 

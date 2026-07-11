@@ -26,6 +26,28 @@ use fhir_derive_macros::Validate;
 /// Tasks are commonly used to coordinate work between systems and participants in
 /// clinical and administrative processes in FHIR R5.
 ///
+/// A Task can represent free-standing work (for example, an administrative
+/// to-do item) or it can represent the fulfillment of another request resource
+/// such as a `ServiceRequest`, `MedicationRequest`, or `Communication`, in which
+/// case `focus` points to the resource being actioned. Task instances progress
+/// through a defined lifecycle expressed by the `status` and `intent` elements,
+/// moving from creation through acceptance, execution, and completion (or
+/// cancellation/failure), which allows both the requester and the performer to
+/// track and coordinate the work. Because Task is a general-purpose workflow
+/// resource, it is frequently referenced by other resources' `basedOn` or
+/// `partOf` elements to build up chains and hierarchies of related work.
+///
+/// # Related resources
+///
+/// - [`Patient`](crate::r5::resources::patient::Patient) is often the subject
+///   referenced via `for` when the task concerns care for a specific patient.
+/// - [`CodeableConcept`](crate::r5::types::CodeableConcept) is used for the
+///   `code` and `business_status` elements to classify the task and its
+///   current business state.
+/// - [`Reference`](crate::r5::types::Reference) is used extensively (for
+///   `focus`, `owner`, `requester`, `based_on`, and similar elements) to link
+///   a Task to the resources and actors it involves.
+///
 /// # Examples
 ///
 /// ```
@@ -82,19 +104,22 @@ pub struct Task {
     /// Composite task
     pub part_of: Option<Vec<types::Reference>>,
 
-    /// draft | requested | received | accepted | +
+    /// The current lifecycle state of the task, e.g. draft | requested |
+    /// received | accepted | in-progress | completed | cancelled | +.
     pub status: types::Code,
 
     /// Reason for current status
     pub status_reason: Option<types::CodeableReference>,
 
-    /// E.g. "Specimen collected", "IV prepped"
+    /// A locally meaningful business status, e.g. "Specimen collected", "IV prepped".
     pub business_status: Option<types::CodeableConcept>,
 
-    /// unknown | proposal | plan | order | original-order | reflex-order | +
+    /// Indicates the degree of authority/intentionality behind the task,
+    /// e.g. unknown | proposal | plan | order | original-order | reflex-order | +.
     pub intent: types::Code,
 
-    /// routine | urgent | asap | stat
+    /// Indicates how quickly the task should be addressed:
+    /// routine | urgent | asap | stat.
     pub priority: Option<types::Code>,
 
     /// True if Task is prohibiting action
@@ -106,10 +131,11 @@ pub struct Task {
     /// Human-readable explanation of task
     pub description: Option<types::String>,
 
-    /// What task is acting on
+    /// The request or resource that this task is seeking to fulfil.
     pub focus: Option<types::Reference>,
 
-    /// Beneficiary of the Task
+    /// The entity (often a [`Patient`](crate::r5::resources::patient::Patient))
+    /// who benefits from performing the task.
     pub r#for: Option<types::Reference>,
 
     /// Healthcare event during which this task originated

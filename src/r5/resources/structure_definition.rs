@@ -26,6 +26,22 @@ use fhir_derive_macros::Validate;
 /// expressed as StructureDefinition resources, holding both the snapshot and
 /// differential views of the elements they define or constrain.
 ///
+/// A StructureDefinition may describe a base resource or data type shipped
+/// with the specification, or it may constrain and specialize an existing
+/// definition to create a profile (for example, a national or organizational
+/// profile on [`Patient`](crate::r5::resources::patient::Patient)) or to
+/// define a reusable extension. Tooling such as validators, code generators,
+/// and implementation guide publishers consume StructureDefinition resources
+/// to understand the cardinality, data types, terminology bindings, and
+/// invariants that apply to each element of a resource or type. The
+/// `snapshot` element gives the fully expanded set of elements, while the
+/// `differential` element records only the elements that differ from the
+/// base definition referenced by `base_definition`.
+///
+/// See also: `ElementDefinition` for individual element constraints, and
+/// [`CodeableConcept`](crate::r5::types::CodeableConcept) which is commonly
+/// used in `jurisdiction` and similar coded fields.
+///
 /// # Examples
 ///
 /// ```
@@ -64,7 +80,7 @@ pub struct StructureDefinition {
     /// Extensions that cannot be ignored
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// Canonical identifier for this structure definition, represented as a URI (globally unique)
+    /// Canonical identifier for this structure definition, represented as a URI (globally unique); used to reference this definition from other resources
     pub url: types::Uri,
 
     /// Additional identifier for the structure definition
@@ -85,7 +101,7 @@ pub struct StructureDefinition {
     /// Name for this structure definition (human friendly)
     pub title: Option<types::String>,
 
-    /// draft | active | retired | unknown
+    /// draft | active | retired | unknown; governs whether the definition is usable in production
     pub status: types::Code,
 
     /// For testing purposes, not real usage
@@ -127,10 +143,10 @@ pub struct StructureDefinition {
     /// External specification that the content is mapped to
     pub mapping: Option<Vec<StructureDefinitionMapping>>,
 
-    /// primitive-type | complex-type | resource | logical
+    /// primitive-type | complex-type | resource | logical; the category of definition this represents
     pub kind: types::Code,
 
-    /// Whether the structure is abstract
+    /// Whether this definition is abstract and cannot be instantiated directly
     pub r#abstract: types::Boolean,
 
     /// If an extension, where it can be used in instances
@@ -142,16 +158,16 @@ pub struct StructureDefinition {
     /// Type defined or constrained by this structure
     pub r#type: types::Uri,
 
-    /// Definition that this type is constrained/specialized from
+    /// Canonical URL of the base definition that this type is constrained or specialized from
     pub base_definition: Option<types::Canonical>,
 
     /// specialization | constraint - How relates to base definition
     pub derivation: Option<types::Code>,
 
-    /// Snapshot view of the structure
+    /// Snapshot view listing the full, expanded set of elements for the structure
     pub snapshot: Option<StructureDefinitionSnapshot>,
 
-    /// Differential view of the structure
+    /// Differential view listing only the elements that differ from the base definition
     pub differential: Option<StructureDefinitionDifferential>,
 }
 

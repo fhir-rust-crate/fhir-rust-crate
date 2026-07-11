@@ -9,6 +9,8 @@
 //! FHIR: <https://build.fhir.org/>
 //!
 //! UML: <https://build.fhir.org/uml.html>
+//!
+//! A range of ratios expressed as a low and high numerator over a common denominator, used where a quantity varies within bounds relative to another quantity (e.g. a dosage range per body weight).
 
 // Allow unused crate::r5::types as types;
 #![allow(unused_imports)]
@@ -17,12 +19,30 @@ use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
 use fhir_derive_macros::Validate;
 
+/// A range of ratios expressed as a low and high numerator and a denominator, such as
+/// a minimum and maximum dose relative to body weight. Used when a ratio-based value can
+/// vary within a range, rather than being fixed. Each numerator and the denominator are
+/// expressed as simple quantities.
+///
+/// # Examples
+///
+/// ```
+/// use fhir::r5::types::ratio_range::RatioRange;
+///
+/// let value = RatioRange::default();
+/// let json = ::serde_json::to_value(&value).unwrap();
+/// let back: RatioRange = ::serde_json::from_value(json).unwrap();
+/// assert_eq!(value, back);
+/// ```
 #[serde_with::skip_serializing_none]
 #[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
 pub struct RatioRange {
+    /// The lower limit of the numerator quantity, forming the low bound of the ratio range.
     pub low_numerator: Option<types::Quantity>, // Quantity(SimpleQuantity) [0..1] « C »
+    /// The upper limit of the numerator quantity, forming the high bound of the ratio range.
     pub high_numerator: Option<types::Quantity>, // Quantity(SimpleQuantity) [0..1] « C »
+    /// The denominator quantity that both the low and high numerators are ratioed against.
     pub denominator: Option<types::Quantity>,   // Quantity(SimpleQuantity) [0..1] « C »
 }
 

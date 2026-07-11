@@ -24,6 +24,28 @@ use fhir_derive_macros::Validate;
 /// settings, including care plans, etc., and to harmonize with workflow
 /// patterns.
 ///
+/// A MedicationRequest represents an order or request for the supply of a
+/// medication and instructions for its administration, and it also serves to
+/// document that a patient is expected to be taking a medication (whether or
+/// not it was formally ordered) or that treatment with a medication has been
+/// stopped. Clinically it is used to capture prescriptions written in
+/// outpatient settings as well as medication orders placed during an
+/// inpatient encounter, and it drives downstream workflows such as pharmacy
+/// dispensing (see `MedicationDispense`), medication administration records
+/// (see `MedicationAdministration`), and the patient's overall medication
+/// list. The resource tracks the requester, the intended subject, the
+/// dosage and timing instructions, dispense authorization details such as
+/// refills and validity period, and any substitution restrictions, allowing
+/// systems to reason about the full lifecycle of a medication order from
+/// authoring through fulfillment.
+///
+/// # See also
+///
+/// - [`Patient`](crate::r5::resources::patient::Patient) — typically referenced by `subject` as the individual for whom the medication is requested.
+/// - [`Encounter`](crate::r5::resources::encounter::Encounter) — the clinical encounter during which the request was created, referenced by `encounter`.
+/// - [`CodeableConcept`](crate::r5::types::CodeableConcept) — used throughout for coded values such as `status_reason`, `category`, and `performer_type`.
+/// - `MedicationDispense` and `MedicationAdministration` — related resources that record fulfillment of this request.
+///
 /// # Examples
 ///
 /// ```
@@ -74,7 +96,7 @@ pub struct MedicationRequest {
     /// Composite request this is part of
     pub group_identifier: Option<types::Identifier>,
 
-    /// active | on-hold | ended | stopped | completed | cancelled | entered-in-error | draft | unknown
+    /// The current lifecycle status of the request: active | on-hold | ended | stopped | completed | cancelled | entered-in-error | draft | unknown
     pub status: types::Code,
 
     /// Reason for current status
@@ -83,7 +105,7 @@ pub struct MedicationRequest {
     /// When the status was changed
     pub status_changed: Option<types::DateTime>,
 
-    /// proposal | plan | order | original-order | reflex-order | filler-order | instance-order | option
+    /// Whether the request represents a proposal, plan, or an actionable order: proposal | plan | order | original-order | reflex-order | filler-order | instance-order | option
     pub intent: types::Code,
 
     /// Grouping or category of medication request
@@ -95,10 +117,10 @@ pub struct MedicationRequest {
     /// True if patient is to stop taking or not to start taking the medication
     pub do_not_perform: Option<types::Boolean>,
 
-    /// Medication to be taken
+    /// The medication being ordered, referenced or coded via a `CodeableReference`
     pub medication: types::CodeableReference,
 
-    /// Individual or group for whom the medication has been requested
+    /// The individual or group for whom the medication has been requested, typically a [`Patient`](crate::r5::resources::patient::Patient)
     pub subject: types::Reference,
 
     /// The person or organization who provided the information about this request, if the source is someone other than the requestor

@@ -9,6 +9,8 @@
 //! FHIR: <https://build.fhir.org/>
 //!
 //! UML: <https://build.fhir.org/uml.html>
+//!
+//! A Range represents a bounded interval of quantities, expressed as a low and high limit, and is used wherever a value is best described as falling somewhere between two measured or observed quantities.
 
 // Allow unused crate::r5::types as types;
 #![allow(unused_imports)]
@@ -17,12 +19,30 @@ use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
 use fhir_derive_macros::Validate;
 
+/// A set of ordered quantities defined by a low and high limit, used to express a value that
+/// falls somewhere within a bounded interval, such as a normal reference range for an
+/// observation or a dosage range. Both the low and high limits are simple quantities that
+/// share the same unit of measure, and either limit may be omitted when the range is
+/// open-ended.
+///
+/// # Examples
+///
+/// ```
+/// use fhir::r5::types::range::Range;
+///
+/// let value = Range::default();
+/// let json = ::serde_json::to_value(&value).unwrap();
+/// let back: Range = ::serde_json::from_value(json).unwrap();
+/// assert_eq!(value, back);
+/// ```
 #[serde_with::skip_serializing_none]
 #[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
 pub struct Range {
-    pub low: types::Quantity,  // Quantity(SimpleQuantity) [0..1] « C »
-    pub high: types::Quantity, // Quantity(SimpleQuantity) [0..1] « C »
+    /// The low limit of the range; omitted if the range has no lower bound. // « C »
+    pub low: types::Quantity,
+    /// The high limit of the range; omitted if the range has no upper bound. // « C »
+    pub high: types::Quantity,
 }
 
 #[cfg(test)]

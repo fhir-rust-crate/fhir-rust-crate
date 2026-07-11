@@ -53,7 +53,7 @@ pub struct TriggerDefinition {
     /// Coded definition of the event
     pub code: Option<types::CodeableConcept>,
 
-    /// What event
+    /// Reference to a SubscriptionTopic resource that defines this event
     pub subscription_topic: Option<types::Canonical>,
 
     /// Timing of the event (Timing variant)
