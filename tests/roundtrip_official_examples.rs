@@ -152,6 +152,23 @@ fn diff_json(path: &str, orig: &Value, got: &Value, out: &mut Vec<String>) {
     }
 }
 
+/// Run `f` on a thread with a large stack.
+///
+/// `serde_json` deserializes by recursive descent, and the deepest official
+/// examples are recursively-nested `Questionnaire`s (item within item, ~24
+/// levels). As the model grows more fields per struct, each level's stack frame
+/// grows too, so the default 2 MiB test-harness stack can overflow. A generous
+/// stack keeps this test robust regardless of build profile or field count.
+/// Panics from `f` propagate so failing assertions still fail the test.
+fn with_large_stack(f: impl FnOnce() + Send + 'static) {
+    std::thread::Builder::new()
+        .stack_size(64 * 1024 * 1024)
+        .spawn(f)
+        .expect("spawn")
+        .join()
+        .expect("round-trip thread panicked");
+}
+
 /// List `*.json` files in a directory (non-recursive), sorted.
 fn json_files(dir: &Path) -> Vec<PathBuf> {
     let mut files: Vec<PathBuf> = match fs::read_dir(dir) {
@@ -168,6 +185,10 @@ fn json_files(dir: &Path) -> Vec<PathBuf> {
 
 #[test]
 fn roundtrip_curated_subset() {
+    with_large_stack(roundtrip_curated_subset_impl);
+}
+
+fn roundtrip_curated_subset_impl() {
     let dir = curated_dir();
     let files = json_files(&dir);
     assert!(
@@ -207,6 +228,10 @@ fn roundtrip_curated_subset() {
 #[test]
 #[ignore = "requires the full official example set; run bin/fetch-examples first"]
 fn roundtrip_full_official_examples() {
+    with_large_stack(roundtrip_full_official_examples_impl);
+}
+
+fn roundtrip_full_official_examples_impl() {
     let dir = full_dir();
     let files = json_files(&dir);
     assert!(

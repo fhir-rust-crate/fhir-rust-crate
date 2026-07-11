@@ -45,18 +45,33 @@ pub struct Expression {
 
     /// Natural language description of the condition
     pub description: Option<types::String>,
+    /// Primitive extension sibling for [`description`](Self::description) (FHIR `_description`).
+    #[serde(rename = "_description")]
+    pub description_ext: Option<types::Element>,
 
     /// Short name assigned to expression for reuse
     pub name: Option<types::Code>,
+    /// Primitive extension sibling for [`name`](Self::name) (FHIR `_name`).
+    #[serde(rename = "_name")]
+    pub name_ext: Option<types::Element>,
 
     /// text/cql | text/fhirpath | application/x-fhir-query | etc.
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Expression in specified language
     pub expression: Option<types::String>,
+    /// Primitive extension sibling for [`expression`](Self::expression) (FHIR `_expression`).
+    #[serde(rename = "_expression")]
+    pub expression_ext: Option<types::Element>,
 
     /// Where the expression is found
     pub reference: Option<types::Uri>,
+    /// Primitive extension sibling for [`reference`](Self::reference) (FHIR `_reference`).
+    #[serde(rename = "_reference")]
+    pub reference_ext: Option<types::Element>,
 }
 
 #[cfg(test)]

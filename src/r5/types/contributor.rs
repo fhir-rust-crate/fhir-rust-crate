@@ -51,6 +51,9 @@ pub struct Contributor {
 
     /// Who contributed the content
     pub name: types::String,
+    /// Primitive extension sibling for [`name`](Self::name) (FHIR `_name`).
+    #[serde(rename = "_name")]
+    pub name_ext: Option<types::Element>,
 
     /// Contact details of the contributor
     pub contact: Option<Vec<types::ContactDetail>>,

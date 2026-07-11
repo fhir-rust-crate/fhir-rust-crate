@@ -52,18 +52,30 @@ pub struct RelatedArtifact {
 
     /// Short label
     pub label: Option<types::String>,
+    /// Primitive extension sibling for [`label`](Self::label) (FHIR `_label`).
+    #[serde(rename = "_label")]
+    pub label_ext: Option<types::Element>,
 
     /// Brief description of the related artifact
     pub display: Option<types::String>,
+    /// Primitive extension sibling for [`display`](Self::display) (FHIR `_display`).
+    #[serde(rename = "_display")]
+    pub display_ext: Option<types::Element>,
 
     /// Bibliographic citation for the artifact
     pub citation: Option<types::Markdown>,
+    /// Primitive extension sibling for [`citation`](Self::citation) (FHIR `_citation`).
+    #[serde(rename = "_citation")]
+    pub citation_ext: Option<types::Element>,
 
     /// What document is being referenced
     pub document: Option<types::Attachment>,
 
     /// What artifact is being referenced
     pub resource: Option<types::Canonical>,
+    /// Primitive extension sibling for [`resource`](Self::resource) (FHIR `_resource`).
+    #[serde(rename = "_resource")]
+    pub resource_ext: Option<types::Element>,
 
     /// What artifact, if not a conformance resource
     pub resource_reference: Option<types::Reference>,
@@ -71,9 +83,15 @@ pub struct RelatedArtifact {
     /// The publication status of the artifact being referred to.
     /// draft | active | retired | unknown
     pub publication_status: Option<types::Code>,
+    /// Primitive extension sibling for [`publication_status`](Self::publication_status) (FHIR `_publicationStatus`).
+    #[serde(rename = "_publicationStatus")]
+    pub publication_status_ext: Option<types::Element>,
 
     /// Date of publication of the artifact being referred to
     pub publication_date: Option<types::Date>,
+    /// Primitive extension sibling for [`publication_date`](Self::publication_date) (FHIR `_publicationDate`).
+    #[serde(rename = "_publicationDate")]
+    pub publication_date_ext: Option<types::Element>,
 }
 
 #[cfg(test)]

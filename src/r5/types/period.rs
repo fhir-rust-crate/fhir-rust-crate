@@ -42,9 +42,15 @@ pub struct Period {
     /// The start date/time of the period, if known. If absent, the period is
     /// assumed to have started at some time before or at its end.
     pub start: Option<types::DateTime>, // « C »
+    /// Primitive extension sibling for [`start`](Self::start) (FHIR `_start`).
+    #[serde(rename = "_start")]
+    pub start_ext: Option<types::Element>,
     /// The end date/time of the period. If absent, the period is ongoing or
     /// its end is unknown.
     pub end: Option<types::DateTime>,   // « C »
+    /// Primitive extension sibling for [`end`](Self::end) (FHIR `_end`).
+    #[serde(rename = "_end")]
+    pub end_ext: Option<types::Element>,
 }
 
 #[cfg(test)]
@@ -58,6 +64,7 @@ mod tests {
         let expect = T {
             start: None,
             end: None,
+            ..Default::default()
         };
         assert_eq!(actual, expect);
     }

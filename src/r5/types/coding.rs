@@ -40,14 +40,29 @@ use fhir_derive_macros::Validate;
 pub struct Coding {
     /// The identification of the code system that defines the meaning of the symbol in the code.
     pub system: Option<types::Uri>,
+    /// Primitive extension sibling for [`system`](Self::system) (FHIR `_system`).
+    #[serde(rename = "_system")]
+    pub system_ext: Option<types::Element>,
     /// The version of the code system which was used when choosing this code.
     pub version: Option<types::String>,
+    /// Primitive extension sibling for [`version`](Self::version) (FHIR `_version`).
+    #[serde(rename = "_version")]
+    pub version_ext: Option<types::Element>,
     /// A symbol in the syntax defined by the code system, representing the specific code.
     pub code: Option<types::Code>, // « C »
+    /// Primitive extension sibling for [`code`](Self::code) (FHIR `_code`).
+    #[serde(rename = "_code")]
+    pub code_ext: Option<types::Element>,
     /// A human-readable representation of the meaning of the code, following the code system's rules.
     pub display: Option<String>,   // « C »
+    /// Primitive extension sibling for [`display`](Self::display) (FHIR `_display`).
+    #[serde(rename = "_display")]
+    pub display_ext: Option<types::Element>,
     /// Indicates that this coding was chosen by a user directly, rather than by an algorithm.
     pub user_selected: Option<types::Boolean>,
+    /// Primitive extension sibling for [`user_selected`](Self::user_selected) (FHIR `_userSelected`).
+    #[serde(rename = "_userSelected")]
+    pub user_selected_ext: Option<types::Element>,
 }
 
 #[cfg(test)]
@@ -64,6 +79,7 @@ mod tests {
             code: None,
             display: None,
             user_selected: None,
+            ..Default::default()
         };
         assert_eq!(actual, expect);
     }

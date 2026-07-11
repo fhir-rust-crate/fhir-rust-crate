@@ -46,15 +46,27 @@ pub struct Meta {
 
     /// Version specific identifier
     pub version_id: Option<types::Id>,
+    /// Primitive extension sibling for [`version_id`](Self::version_id) (FHIR `_versionId`).
+    #[serde(rename = "_versionId")]
+    pub version_id_ext: Option<types::Element>,
 
     /// When the resource version last changed
     pub last_updated: Option<types::Instant>,
+    /// Primitive extension sibling for [`last_updated`](Self::last_updated) (FHIR `_lastUpdated`).
+    #[serde(rename = "_lastUpdated")]
+    pub last_updated_ext: Option<types::Element>,
 
     /// Identifies where the resource comes from
     pub source: Option<types::Uri>,
+    /// Primitive extension sibling for [`source`](Self::source) (FHIR `_source`).
+    #[serde(rename = "_source")]
+    pub source_ext: Option<types::Element>,
 
     /// Profiles this resource claims to conform to
     pub profile: Option<Vec<types::Canonical>>,
+    /// Primitive extension sibling for [`profile`](Self::profile) (FHIR `_profile`).
+    #[serde(rename = "_profile")]
+    pub profile_ext: Option<Vec<Option<types::Element>>>,
 
     /// Security Labels applied to this resource
     pub security: Option<Vec<types::Coding>>,

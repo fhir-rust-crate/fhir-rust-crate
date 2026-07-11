@@ -37,13 +37,22 @@ use fhir_derive_macros::Validate;
 pub struct ContactPoint {
     /// The kind of communication medium this contact point represents, e.g. phone, fax, email, pager, url, sms, other.
     pub system: Option<types::Code>,  // « ContactPointSystem! » « C »
+    /// Primitive extension sibling for [`system`](Self::system) (FHIR `_system`).
+    #[serde(rename = "_system")]
+    pub system_ext: Option<types::Element>,
     /// The actual contact point value, such as a phone number or email address, in the format appropriate for the system.
     pub value: Option<types::String>, // « C »
+    /// Primitive extension sibling for [`value`](Self::value) (FHIR `_value`).
+    #[serde(rename = "_value")]
+    pub value_ext: Option<types::Element>,
     #[serde(rename = "use")]
     /// The purpose or context for this contact point, e.g. home, work, temp, old, mobile.
     pub use1: Option<types::Code>, // « ContactPointUse! »
     /// The relative preference order for use of this contact point among an ordered set of alternatives, with lower values indicating higher preference.
     pub rank: Option<types::PositiveInt>,
+    /// Primitive extension sibling for [`rank`](Self::rank) (FHIR `_rank`).
+    #[serde(rename = "_rank")]
+    pub rank_ext: Option<types::Element>,
     /// The time period during which this contact point is or was in use.
     pub period: Option<types::Period>,
 }
@@ -62,6 +71,7 @@ mod tests {
             use1: None,
             rank: None,
             period: None,
+            ..Default::default()
         };
         assert_eq!(actual, expect);
     }

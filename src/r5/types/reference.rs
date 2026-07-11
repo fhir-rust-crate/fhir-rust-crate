@@ -40,6 +40,9 @@ use fhir_derive_macros::Validate;
 pub struct Reference {
     /// Literal reference, relative, internal or absolute URL. // « C »
     pub reference: Option<types::String>, //  « C »
+    /// Primitive extension sibling for [`reference`](Self::reference) (FHIR `_reference`).
+    #[serde(rename = "_reference")]
+    pub reference_ext: Option<types::Element>,
     #[serde(rename = "type")]
     /// Type the reference refers to, e.g. "Patient" (a resource type or absolute URL). // « ResourceType+ »
     pub r#type: Option<types::Uri>, // « ResourceType+ »
@@ -47,6 +50,9 @@ pub struct Reference {
     pub identifier: Option<Box<types::Identifier>>, // « C » //TODO fix this infinite recursion and also eliminate the Box wrapper.
     /// Text alternative for the resource, for display when the resource cannot be resolved. // « C »
     pub display: Option<types::String>,             // « C »
+    /// Primitive extension sibling for [`display`](Self::display) (FHIR `_display`).
+    #[serde(rename = "_display")]
+    pub display_ext: Option<types::Element>,
 }
 
 #[cfg(test)]
@@ -62,6 +68,7 @@ mod tests {
             r#type: None,
             identifier: None,
             display: None,
+            ..Default::default()
         };
         assert_eq!(actual, expect);
     }

@@ -49,18 +49,33 @@ pub struct Duration {
 
     /// Numerical value (with implicit precision)
     pub value: Option<types::Decimal>,
+    /// Primitive extension sibling for [`value`](Self::value) (FHIR `_value`).
+    #[serde(rename = "_value")]
+    pub value_ext: Option<types::Element>,
 
     /// < | <= | >= | > | ad - how to understand the value
     pub comparator: Option<types::Code>,
+    /// Primitive extension sibling for [`comparator`](Self::comparator) (FHIR `_comparator`).
+    #[serde(rename = "_comparator")]
+    pub comparator_ext: Option<types::Element>,
 
     /// Unit representation
     pub unit: Option<types::String>,
+    /// Primitive extension sibling for [`unit`](Self::unit) (FHIR `_unit`).
+    #[serde(rename = "_unit")]
+    pub unit_ext: Option<types::Element>,
 
     /// System that defines coded unit form
     pub system: Option<types::Uri>,
+    /// Primitive extension sibling for [`system`](Self::system) (FHIR `_system`).
+    #[serde(rename = "_system")]
+    pub system_ext: Option<types::Element>,
 
     /// Coded form of the unit
     pub code: Option<types::Code>,
+    /// Primitive extension sibling for [`code`](Self::code) (FHIR `_code`).
+    #[serde(rename = "_code")]
+    pub code_ext: Option<types::Element>,
 }
 
 #[cfg(test)]

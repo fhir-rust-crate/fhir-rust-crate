@@ -71,15 +71,27 @@ pub struct AvailabilityAvailableTime {
 
     /// mon | tue | wed | thu | fri | sat | sun
     pub days_of_week: Option<Vec<types::Code>>,
+    /// Primitive extension sibling for [`days_of_week`](Self::days_of_week) (FHIR `_daysOfWeek`).
+    #[serde(rename = "_daysOfWeek")]
+    pub days_of_week_ext: Option<Vec<Option<types::Element>>>,
 
     /// Always available? i.e. 24 hour service
     pub all_day: Option<types::Boolean>,
+    /// Primitive extension sibling for [`all_day`](Self::all_day) (FHIR `_allDay`).
+    #[serde(rename = "_allDay")]
+    pub all_day_ext: Option<types::Element>,
 
     /// Opening time of day (ignored if allDay = true)
     pub available_start_time: Option<types::Time>,
+    /// Primitive extension sibling for [`available_start_time`](Self::available_start_time) (FHIR `_availableStartTime`).
+    #[serde(rename = "_availableStartTime")]
+    pub available_start_time_ext: Option<types::Element>,
 
     /// Closing time of day (ignored if allDay = true)
     pub available_end_time: Option<types::Time>,
+    /// Primitive extension sibling for [`available_end_time`](Self::available_end_time) (FHIR `_availableEndTime`).
+    #[serde(rename = "_availableEndTime")]
+    pub available_end_time_ext: Option<types::Element>,
 }
 
 /// Not available during this time due to provided reason.
@@ -98,6 +110,9 @@ pub struct AvailabilityNotAvailableTime {
 
     /// Reason presented to the user explaining why time not available
     pub description: Option<types::String>,
+    /// Primitive extension sibling for [`description`](Self::description) (FHIR `_description`).
+    #[serde(rename = "_description")]
+    pub description_ext: Option<types::Element>,
 
     /// Service not available during this period
     pub during: Option<types::Period>,

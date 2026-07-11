@@ -44,6 +44,9 @@ pub struct ContactDetail {
 
     /// Name of an individual to contact
     pub name: Option<types::String>,
+    /// Primitive extension sibling for [`name`](Self::name) (FHIR `_name`).
+    #[serde(rename = "_name")]
+    pub name_ext: Option<types::Element>,
 
     /// Contact details for individual or organization
     pub telecom: Option<Vec<types::ContactPoint>>,

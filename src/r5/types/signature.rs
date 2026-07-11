@@ -47,6 +47,9 @@ pub struct Signature {
 
     /// When the signature was created.
     pub when: Option<types::Instant>,
+    /// Primitive extension sibling for [`when`](Self::when) (FHIR `_when`).
+    #[serde(rename = "_when")]
+    pub when_ext: Option<types::Element>,
 
     /// Who signed the content, referencing the individual or system involved.
     pub who: Option<types::Reference>, // « Practitioner | PractitionerRole | RelatedPerson | Patient | Device | Organization »
@@ -56,12 +59,21 @@ pub struct Signature {
 
     /// The technical MIME type format of the signed content that was signed.
     pub target_format: Option<types::Code>, // « MimeTypes! »
+    /// Primitive extension sibling for [`target_format`](Self::target_format) (FHIR `_targetFormat`).
+    #[serde(rename = "_targetFormat")]
+    pub target_format_ext: Option<types::Element>,
 
     /// The technical MIME type format of the signature data itself, e.g. an image or XML-DSig format.
     pub sig_format: Option<types::Code>, // « MimeTypes! »
+    /// Primitive extension sibling for [`sig_format`](Self::sig_format) (FHIR `_sigFormat`).
+    #[serde(rename = "_sigFormat")]
+    pub sig_format_ext: Option<types::Element>,
 
     /// The base64-encoded actual signature content, e.g. XML DigSig or a JWT.
     pub data: Option<types::Base64Binary>,
+    /// Primitive extension sibling for [`data`](Self::data) (FHIR `_data`).
+    #[serde(rename = "_data")]
+    pub data_ext: Option<types::Element>,
 }
 
 #[cfg(test)]
@@ -80,6 +92,7 @@ mod tests {
             target_format: None,
             sig_format: None,
             data: None,
+            ..Default::default()
         };
         assert_eq!(actual, expect);
     }

@@ -49,12 +49,18 @@ pub struct TriggerDefinition {
 
     /// Name or URI that identifies the event
     pub name: Option<types::String>,
+    /// Primitive extension sibling for [`name`](Self::name) (FHIR `_name`).
+    #[serde(rename = "_name")]
+    pub name_ext: Option<types::Element>,
 
     /// Coded definition of the event
     pub code: Option<types::CodeableConcept>,
 
     /// Reference to a SubscriptionTopic resource that defines this event
     pub subscription_topic: Option<types::Canonical>,
+    /// Primitive extension sibling for [`subscription_topic`](Self::subscription_topic) (FHIR `_subscriptionTopic`).
+    #[serde(rename = "_subscriptionTopic")]
+    pub subscription_topic_ext: Option<types::Element>,
 
     /// Timing of the event (Timing variant)
     pub timing_timing: Option<types::Timing>,

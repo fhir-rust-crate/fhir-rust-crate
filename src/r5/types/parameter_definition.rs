@@ -46,24 +46,39 @@ pub struct ParameterDefinition {
 
     /// Name used to access the parameter value
     pub name: Option<types::Code>,
+    /// Primitive extension sibling for [`name`](Self::name) (FHIR `_name`).
+    #[serde(rename = "_name")]
+    pub name_ext: Option<types::Element>,
 
     /// Whether the parameter is input or output (in | out)
     pub r#use: types::Code,
 
     /// Minimum cardinality
     pub min: Option<types::Integer>,
+    /// Primitive extension sibling for [`min`](Self::min) (FHIR `_min`).
+    #[serde(rename = "_min")]
+    pub min_ext: Option<types::Element>,
 
     /// Maximum cardinality (a number of *)
     pub max: Option<types::String>,
+    /// Primitive extension sibling for [`max`](Self::max) (FHIR `_max`).
+    #[serde(rename = "_max")]
+    pub max_ext: Option<types::Element>,
 
     /// A brief description of the parameter
     pub documentation: Option<types::String>,
+    /// Primitive extension sibling for [`documentation`](Self::documentation) (FHIR `_documentation`).
+    #[serde(rename = "_documentation")]
+    pub documentation_ext: Option<types::Element>,
 
     /// The FHIR data type or resource type of the parameter value
     pub r#type: types::Code,
 
     /// The profile the parameter value is expected to conform to
     pub profile: Option<types::Canonical>,
+    /// Primitive extension sibling for [`profile`](Self::profile) (FHIR `_profile`).
+    #[serde(rename = "_profile")]
+    pub profile_ext: Option<types::Element>,
 }
 
 #[cfg(test)]

@@ -49,6 +49,9 @@ pub struct DataRequirement {
 
     /// The profile of the required data
     pub profile: Option<Vec<types::Canonical>>,
+    /// Primitive extension sibling for [`profile`](Self::profile) (FHIR `_profile`).
+    #[serde(rename = "_profile")]
+    pub profile_ext: Option<Vec<Option<types::Element>>>,
 
     /// The intended subject of the data requirement, given as a codeable concept (e.g. Patient, Practitioner, Organization, Location, Device)
     pub subject_codeable_concept: Option<types::CodeableConcept>,
@@ -58,6 +61,9 @@ pub struct DataRequirement {
 
     /// Indicates specific structure elements that are referenced by the knowledge module
     pub must_support: Option<Vec<types::String>>,
+    /// Primitive extension sibling for [`must_support`](Self::must_support) (FHIR `_mustSupport`).
+    #[serde(rename = "_mustSupport")]
+    pub must_support_ext: Option<Vec<Option<types::Element>>>,
 
     /// What codes are expected
     pub code_filter: Option<Vec<DataRequirementCodeFilter>>,
@@ -70,6 +76,9 @@ pub struct DataRequirement {
 
     /// Number of results
     pub limit: Option<types::PositiveInt>,
+    /// Primitive extension sibling for [`limit`](Self::limit) (FHIR `_limit`).
+    #[serde(rename = "_limit")]
+    pub limit_ext: Option<types::Element>,
 
     /// Order of the results
     pub sort: Option<Vec<DataRequirementSort>>,
@@ -90,12 +99,21 @@ pub struct DataRequirementCodeFilter {
 
     /// A code-valued attribute to filter on
     pub path: Option<types::String>,
+    /// Primitive extension sibling for [`path`](Self::path) (FHIR `_path`).
+    #[serde(rename = "_path")]
+    pub path_ext: Option<types::Element>,
 
     /// A coded (token) parameter to search on
     pub search_param: Option<types::String>,
+    /// Primitive extension sibling for [`search_param`](Self::search_param) (FHIR `_searchParam`).
+    #[serde(rename = "_searchParam")]
+    pub search_param_ext: Option<types::Element>,
 
     /// ValueSet for the filter
     pub value_set: Option<types::Canonical>,
+    /// Primitive extension sibling for [`value_set`](Self::value_set) (FHIR `_valueSet`).
+    #[serde(rename = "_valueSet")]
+    pub value_set_ext: Option<types::Element>,
 
     /// What code is expected
     pub code: Option<Vec<types::Coding>>,
@@ -116,9 +134,15 @@ pub struct DataRequirementDateFilter {
 
     /// A date-valued attribute to filter on
     pub path: Option<types::String>,
+    /// Primitive extension sibling for [`path`](Self::path) (FHIR `_path`).
+    #[serde(rename = "_path")]
+    pub path_ext: Option<types::Element>,
 
     /// A date valued parameter to search on
     pub search_param: Option<types::String>,
+    /// Primitive extension sibling for [`search_param`](Self::search_param) (FHIR `_searchParam`).
+    #[serde(rename = "_searchParam")]
+    pub search_param_ext: Option<types::Element>,
 
     /// The value of the filter, as a Period, DateTime, or Duration value
     pub value_date_time: Option<types::DateTime>,
@@ -145,12 +169,21 @@ pub struct DataRequirementValueFilter {
 
     /// An attribute to filter on
     pub path: Option<types::String>,
+    /// Primitive extension sibling for [`path`](Self::path) (FHIR `_path`).
+    #[serde(rename = "_path")]
+    pub path_ext: Option<types::Element>,
 
     /// A parameter to search on
     pub search_param: Option<types::String>,
+    /// Primitive extension sibling for [`search_param`](Self::search_param) (FHIR `_searchParam`).
+    #[serde(rename = "_searchParam")]
+    pub search_param_ext: Option<types::Element>,
 
     /// eq | gt | lt | ge | le | sa | eb
     pub comparator: Option<types::Code>,
+    /// Primitive extension sibling for [`comparator`](Self::comparator) (FHIR `_comparator`).
+    #[serde(rename = "_comparator")]
+    pub comparator_ext: Option<types::Element>,
 
     /// The value of the filter, as a Period, DateTime, or Duration value
     pub value_date_time: Option<types::DateTime>,
@@ -176,9 +209,15 @@ pub struct DataRequirementSort {
 
     /// The name of the attribute to perform the sort
     pub path: types::String,
+    /// Primitive extension sibling for [`path`](Self::path) (FHIR `_path`).
+    #[serde(rename = "_path")]
+    pub path_ext: Option<types::Element>,
 
     /// ascending | descending
     pub direction: types::Code,
+    /// Primitive extension sibling for [`direction`](Self::direction) (FHIR `_direction`).
+    #[serde(rename = "_direction")]
+    pub direction_ext: Option<types::Element>,
 }
 
 #[cfg(test)]

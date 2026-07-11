@@ -53,9 +53,15 @@ pub struct Identifier {
 
     /// The namespace for the identifier value
     pub system: Option<types::Uri>,
+    /// Primitive extension sibling for [`system`](Self::system) (FHIR `_system`).
+    #[serde(rename = "_system")]
+    pub system_ext: Option<types::Element>,
 
     /// The value that is unique
     pub value: Option<types::String>,
+    /// Primitive extension sibling for [`value`](Self::value) (FHIR `_value`).
+    #[serde(rename = "_value")]
+    pub value_ext: Option<types::Element>,
 
     /// Time period when id is/was valid for use
     pub period: Option<types::Period>,

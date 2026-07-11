@@ -39,14 +39,29 @@ use fhir_derive_macros::Validate;
 pub struct Quantity {
     /// The numeric value of the quantity, including any arbitrary precision.
     pub value: Option<types::Decimal>,
+    /// Primitive extension sibling for [`value`](Self::value) (FHIR `_value`).
+    #[serde(rename = "_value")]
+    pub value_ext: Option<types::Element>,
     /// How the value should be understood, e.g. less than, greater than. // « QuantityComparator! »
     pub comparator: Option<types::Code>,
+    /// Primitive extension sibling for [`comparator`](Self::comparator) (FHIR `_comparator`).
+    #[serde(rename = "_comparator")]
+    pub comparator_ext: Option<types::Element>,
     /// A human-readable form of the unit, as displayed to the user.
     pub unit: Option<types::String>,
+    /// Primitive extension sibling for [`unit`](Self::unit) (FHIR `_unit`).
+    #[serde(rename = "_unit")]
+    pub unit_ext: Option<types::Element>,
     /// The identification of the system that provides the coded form of the unit. // « C »
     pub system: Option<types::Uri>,
+    /// Primitive extension sibling for [`system`](Self::system) (FHIR `_system`).
+    #[serde(rename = "_system")]
+    pub system_ext: Option<types::Element>,
     /// A computer-processable form of the unit in the system, matching the system's code. // « C »
     pub code: Option<types::Code>,
+    /// Primitive extension sibling for [`code`](Self::code) (FHIR `_code`).
+    #[serde(rename = "_code")]
+    pub code_ext: Option<types::Element>,
 }
 
 #[cfg(test)]
@@ -63,6 +78,7 @@ mod tests {
             unit: None,
             system: None,
             code: None,
+            ..Default::default()
         };
         assert_eq!(actual, expect);
     }

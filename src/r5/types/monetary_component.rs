@@ -50,6 +50,9 @@ pub struct MonetaryComponent {
 
     /// Factor used for calculating this component
     pub factor: Option<types::Decimal>,
+    /// Primitive extension sibling for [`factor`](Self::factor) (FHIR `_factor`).
+    #[serde(rename = "_factor")]
+    pub factor_ext: Option<types::Element>,
 
     /// Explicit value amount to be used
     pub amount: Option<types::Money>,

@@ -58,11 +58,17 @@ pub struct Annotation {
     /// type `dateTime`.
     ///
     pub time: Option<types::DateTime>,
+    /// Primitive extension sibling for [`time`](Self::time) (FHIR `_time`).
+    #[serde(rename = "_time")]
+    pub time_ext: Option<types::Element>,
 
     /// The text content of the annotation, which may include markdown
     /// formatting. This is the required content of the note itself.
     ///
     pub text: types::Markdown,
+    /// Primitive extension sibling for [`text`](Self::text) (FHIR `_text`).
+    #[serde(rename = "_text")]
+    pub text_ext: Option<types::Element>,
 }
 
 #[cfg(test)]
@@ -78,6 +84,7 @@ mod tests {
             author_string: None,
             time: None,
             text: types::Markdown::default(),
+            ..Default::default()
         };
         assert_eq!(actual, expect);
     }

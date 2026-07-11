@@ -51,21 +51,33 @@ pub struct Dosage {
 
     /// The order of the dosage instructions
     pub sequence: Option<types::Integer>,
+    /// Primitive extension sibling for [`sequence`](Self::sequence) (FHIR `_sequence`).
+    #[serde(rename = "_sequence")]
+    pub sequence_ext: Option<types::Element>,
 
     /// Free text dosage instructions e.g. SIG
     pub text: Option<types::String>,
+    /// Primitive extension sibling for [`text`](Self::text) (FHIR `_text`).
+    #[serde(rename = "_text")]
+    pub text_ext: Option<types::Element>,
 
     /// Supplemental instruction or warnings to the patient - e.g. "with meals", "may cause drowsiness"
     pub additional_instruction: Option<Vec<types::CodeableConcept>>,
 
     /// Patient or consumer oriented instructions
     pub patient_instruction: Option<types::String>,
+    /// Primitive extension sibling for [`patient_instruction`](Self::patient_instruction) (FHIR `_patientInstruction`).
+    #[serde(rename = "_patientInstruction")]
+    pub patient_instruction_ext: Option<types::Element>,
 
     /// When medication should be administered
     pub timing: Option<types::Timing>,
 
     /// Take "as needed"
     pub as_needed: Option<types::Boolean>,
+    /// Primitive extension sibling for [`as_needed`](Self::as_needed) (FHIR `_asNeeded`).
+    #[serde(rename = "_asNeeded")]
+    pub as_needed_ext: Option<types::Element>,
 
     /// Take "as needed" (for x)
     pub as_needed_for: Option<Vec<types::CodeableConcept>>,

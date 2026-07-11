@@ -45,21 +45,36 @@ pub struct HumanName {
 
     /// A full text representation of the name as it should be displayed or printed.
     pub text: Option<types::String>,
+    /// Primitive extension sibling for [`text`](Self::text) (FHIR `_text`).
+    #[serde(rename = "_text")]
+    pub text_ext: Option<types::Element>,
 
     /// The family name, surname, or last name of the person.
     pub family: Option<types::String>,
+    /// Primitive extension sibling for [`family`](Self::family) (FHIR `_family`).
+    #[serde(rename = "_family")]
+    pub family_ext: Option<types::Element>,
 
     /// The given names, including first and middle names, in the order they should be used.
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub given: Vec<types::String>,
+    /// Primitive extension sibling for [`given`](Self::given) (FHIR `_given`).
+    #[serde(rename = "_given")]
+    pub given_ext: Option<Vec<Option<types::Element>>>,
 
     /// Parts that come before the name, such as titles (e.g. "Dr.", "Mr.").
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub prefix: Vec<types::String>,
+    /// Primitive extension sibling for [`prefix`](Self::prefix) (FHIR `_prefix`).
+    #[serde(rename = "_prefix")]
+    pub prefix_ext: Option<Vec<Option<types::Element>>>,
 
     /// Parts that come after the name, such as generational or qualification suffixes (e.g. "Jr.", "MD").
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub suffix: Vec<types::String>,
+    /// Primitive extension sibling for [`suffix`](Self::suffix) (FHIR `_suffix`).
+    #[serde(rename = "_suffix")]
+    pub suffix_ext: Option<Vec<Option<types::Element>>>,
 
     /// The period during which this name was, or is expected to be, in use.
     pub period: Option<types::Period>,
@@ -81,6 +96,7 @@ mod tests {
             prefix: vec![],
             suffix: vec![],
             period: None,
+            ..Default::default()
         };
         assert_eq!(actual, expect);
     }

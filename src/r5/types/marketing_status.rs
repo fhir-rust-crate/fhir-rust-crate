@@ -67,6 +67,9 @@ pub struct MarketingStatus {
     /// The date when a temporarily withdrawn medicinal product's marketing
     /// authorization and status are due to be restored.
     pub restore_date: Option<types::DateTime>,
+    /// Primitive extension sibling for [`restore_date`](Self::restore_date) (FHIR `_restoreDate`).
+    #[serde(rename = "_restoreDate")]
+    pub restore_date_ext: Option<types::Element>,
 }
 
 #[cfg(test)]

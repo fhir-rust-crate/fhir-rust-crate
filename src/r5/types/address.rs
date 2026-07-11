@@ -51,29 +51,50 @@ pub struct Address {
     /// A full text representation of the address, useful when it is not
     /// possible or desired to break the address into its component parts.
     pub text: Option<types::String>,
+    /// Primitive extension sibling for [`text`](Self::text) (FHIR `_text`).
+    #[serde(rename = "_text")]
+    pub text_ext: Option<types::Element>,
 
     /// The street address lines, in the order in which they appear on labels
     /// (e.g. street name, number, direction, or post office box).
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub line: Vec<types::String>,
+    /// Primitive extension sibling for [`line`](Self::line) (FHIR `_line`).
+    #[serde(rename = "_line")]
+    pub line_ext: Option<Vec<Option<types::Element>>>,
 
     /// The name of the city, town, suburb, village, or other community or
     /// delivery center.
     pub city: Option<types::String>,
+    /// Primitive extension sibling for [`city`](Self::city) (FHIR `_city`).
+    #[serde(rename = "_city")]
+    pub city_ext: Option<types::Element>,
 
     /// The name of the administrative area, such as a county, that is a
     /// subdivision of the state and is not usually included in postal addresses.
     pub district: Option<types::String>,
+    /// Primitive extension sibling for [`district`](Self::district) (FHIR `_district`).
+    #[serde(rename = "_district")]
+    pub district_ext: Option<types::Element>,
 
     /// The sub-unit of the country, such as a state, province, or county.
     pub state: Option<types::String>,
+    /// Primitive extension sibling for [`state`](Self::state) (FHIR `_state`).
+    #[serde(rename = "_state")]
+    pub state_ext: Option<types::Element>,
 
     /// A postal code designating the region, used for mail sorting.
     pub postal_code: Option<types::String>,
+    /// Primitive extension sibling for [`postal_code`](Self::postal_code) (FHIR `_postalCode`).
+    #[serde(rename = "_postalCode")]
+    pub postal_code_ext: Option<types::Element>,
 
     /// The name of the country, using ISO 3166 codes or the full name where
     /// there is no known code.
     pub country: Option<types::String>,
+    /// Primitive extension sibling for [`country`](Self::country) (FHIR `_country`).
+    #[serde(rename = "_country")]
+    pub country_ext: Option<types::Element>,
 
     /// The time period during which this address was, or is, in use.
     pub period: Option<types::Period>,
@@ -98,6 +119,7 @@ mod tests {
             postal_code: None,
             country: None,
             period: None,
+            ..Default::default()
         };
         assert_eq!(actual, expect);
     }

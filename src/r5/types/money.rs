@@ -40,8 +40,14 @@ use fhir_derive_macros::Validate;
 pub struct Money {
     /// Numerical value (with implicit precision).
     pub value: Option<types::Decimal>,
+    /// Primitive extension sibling for [`value`](Self::value) (FHIR `_value`).
+    #[serde(rename = "_value")]
+    pub value_ext: Option<types::Element>,
     /// ISO 4217 currency code identifying the currency of the value.
     pub currency: Option<types::Code>, // « Currencies! »
+    /// Primitive extension sibling for [`currency`](Self::currency) (FHIR `_currency`).
+    #[serde(rename = "_currency")]
+    pub currency_ext: Option<types::Element>,
 }
 
 #[cfg(test)]
@@ -55,6 +61,7 @@ mod tests {
         let expect = T {
             value: None,
             currency: None,
+            ..Default::default()
         };
         assert_eq!(actual, expect);
     }

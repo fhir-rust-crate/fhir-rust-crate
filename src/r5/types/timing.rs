@@ -50,6 +50,9 @@ pub struct Timing {
 
     /// When the event occurs
     pub event: Option<Vec<types::DateTime>>,
+    /// Primitive extension sibling for [`event`](Self::event) (FHIR `_event`).
+    #[serde(rename = "_event")]
+    pub event_ext: Option<Vec<Option<types::Element>>>,
 
     /// When the event is to occur
     pub repeat: Option<TimingRepeat>,
@@ -94,45 +97,87 @@ pub struct TimingRepeat {
 
     /// Number of times to repeat
     pub count: Option<types::PositiveInt>,
+    /// Primitive extension sibling for [`count`](Self::count) (FHIR `_count`).
+    #[serde(rename = "_count")]
+    pub count_ext: Option<types::Element>,
 
     /// Maximum number of times to repeat
     pub count_max: Option<types::PositiveInt>,
+    /// Primitive extension sibling for [`count_max`](Self::count_max) (FHIR `_countMax`).
+    #[serde(rename = "_countMax")]
+    pub count_max_ext: Option<types::Element>,
 
     /// How long when it happens
     pub duration: Option<types::Decimal>,
+    /// Primitive extension sibling for [`duration`](Self::duration) (FHIR `_duration`).
+    #[serde(rename = "_duration")]
+    pub duration_ext: Option<types::Element>,
 
     /// How long when it happens (Max)
     pub duration_max: Option<types::Decimal>,
+    /// Primitive extension sibling for [`duration_max`](Self::duration_max) (FHIR `_durationMax`).
+    #[serde(rename = "_durationMax")]
+    pub duration_max_ext: Option<types::Element>,
 
     /// s | min | h | d | wk | mo | a - unit of time (UCUM)
     pub duration_unit: Option<types::Code>,
+    /// Primitive extension sibling for [`duration_unit`](Self::duration_unit) (FHIR `_durationUnit`).
+    #[serde(rename = "_durationUnit")]
+    pub duration_unit_ext: Option<types::Element>,
 
     /// Indicates the number of repetitions that should occur within a period
     pub frequency: Option<types::PositiveInt>,
+    /// Primitive extension sibling for [`frequency`](Self::frequency) (FHIR `_frequency`).
+    #[serde(rename = "_frequency")]
+    pub frequency_ext: Option<types::Element>,
 
     /// Event occurs up to frequencyMax times per period
     pub frequency_max: Option<types::PositiveInt>,
+    /// Primitive extension sibling for [`frequency_max`](Self::frequency_max) (FHIR `_frequencyMax`).
+    #[serde(rename = "_frequencyMax")]
+    pub frequency_max_ext: Option<types::Element>,
 
     /// The duration to which the frequency applies
     pub period: Option<types::Decimal>,
+    /// Primitive extension sibling for [`period`](Self::period) (FHIR `_period`).
+    #[serde(rename = "_period")]
+    pub period_ext: Option<types::Element>,
 
     /// Upper limit of period (3-4 hours)
     pub period_max: Option<types::Decimal>,
+    /// Primitive extension sibling for [`period_max`](Self::period_max) (FHIR `_periodMax`).
+    #[serde(rename = "_periodMax")]
+    pub period_max_ext: Option<types::Element>,
 
     /// s | min | h | d | wk | mo | a - unit of time (UCUM)
     pub period_unit: Option<types::Code>,
+    /// Primitive extension sibling for [`period_unit`](Self::period_unit) (FHIR `_periodUnit`).
+    #[serde(rename = "_periodUnit")]
+    pub period_unit_ext: Option<types::Element>,
 
     /// mon | tue | wed | thu | fri | sat | sun
     pub day_of_week: Option<Vec<types::Code>>,
+    /// Primitive extension sibling for [`day_of_week`](Self::day_of_week) (FHIR `_dayOfWeek`).
+    #[serde(rename = "_dayOfWeek")]
+    pub day_of_week_ext: Option<Vec<Option<types::Element>>>,
 
     /// Time of day for action
     pub time_of_day: Option<Vec<types::Time>>,
+    /// Primitive extension sibling for [`time_of_day`](Self::time_of_day) (FHIR `_timeOfDay`).
+    #[serde(rename = "_timeOfDay")]
+    pub time_of_day_ext: Option<Vec<Option<types::Element>>>,
 
     /// Code for time period of occurrence
     pub when: Option<Vec<types::Code>>,
+    /// Primitive extension sibling for [`when`](Self::when) (FHIR `_when`).
+    #[serde(rename = "_when")]
+    pub when_ext: Option<Vec<Option<types::Element>>>,
 
     /// Minutes from event (before or after)
     pub offset: Option<types::UnsignedInt>,
+    /// Primitive extension sibling for [`offset`](Self::offset) (FHIR `_offset`).
+    #[serde(rename = "_offset")]
+    pub offset_ext: Option<types::Element>,
 }
 
 #[cfg(test)]

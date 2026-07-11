@@ -43,22 +43,49 @@ pub struct SampledData {
     pub origin: types::Quantity,
     /// Deprecated. The length of time between sampling times, measured in intervalUnit. // « C »
     pub interval: Option<types::Decimal>,
+    /// Primitive extension sibling for [`interval`](Self::interval) (FHIR `_interval`).
+    #[serde(rename = "_interval")]
+    pub interval_ext: Option<types::Element>,
     /// The measurement unit in which the sample interval is expressed. // « UCUMCodes! »
     pub interval_unit: types::Code,
+    /// Primitive extension sibling for [`interval_unit`](Self::interval_unit) (FHIR `_intervalUnit`).
+    #[serde(rename = "_intervalUnit")]
+    pub interval_unit_ext: Option<types::Element>,
     /// A correction factor that is applied to the sampled data points before they are added to the origin.
     pub factor: Option<types::Decimal>,
+    /// Primitive extension sibling for [`factor`](Self::factor) (FHIR `_factor`).
+    #[serde(rename = "_factor")]
+    pub factor_ext: Option<types::Element>,
     /// The lower limit of detection of the measured points; below this, the device did not record.
     pub lower_limit: Option<types::Decimal>,
+    /// Primitive extension sibling for [`lower_limit`](Self::lower_limit) (FHIR `_lowerLimit`).
+    #[serde(rename = "_lowerLimit")]
+    pub lower_limit_ext: Option<types::Element>,
     /// The upper limit of detection of the measured points; above this, the device did not record.
     pub upper_limit: Option<types::Decimal>,
+    /// Primitive extension sibling for [`upper_limit`](Self::upper_limit) (FHIR `_upperLimit`).
+    #[serde(rename = "_upperLimit")]
+    pub upper_limit_ext: Option<types::Element>,
     /// The number of sample points at each time point, allowing for more than one dimension of data.
     pub dimensions: types::PositiveInt,
+    /// Primitive extension sibling for [`dimensions`](Self::dimensions) (FHIR `_dimensions`).
+    #[serde(rename = "_dimensions")]
+    pub dimensions_ext: Option<types::Element>,
     /// Reference to a ConceptMap that defines the codes used in the `data` element, if any. // « ConceptMap »
     pub code_map: Option<types::Canonical>,
+    /// Primitive extension sibling for [`code_map`](Self::code_map) (FHIR `_codeMap`).
+    #[serde(rename = "_codeMap")]
+    pub code_map_ext: Option<types::Element>,
     /// A series of data points, separated by single spaces, that give the offset from the origin for the corresponding data point. // « C »
     pub offsets: Option<types::String>,
+    /// Primitive extension sibling for [`offsets`](Self::offsets) (FHIR `_offsets`).
+    #[serde(rename = "_offsets")]
+    pub offsets_ext: Option<types::Element>,
     /// A series of data points, separated by single spaces, encoding the measured values, using special codes for out-of-range values.
     pub data: Option<types::String>,
+    /// Primitive extension sibling for [`data`](Self::data) (FHIR `_data`).
+    #[serde(rename = "_data")]
+    pub data_ext: Option<types::Element>,
 }
 
 #[cfg(test)]
@@ -80,6 +107,7 @@ mod tests {
             code_map: None,
             offsets: None,
             data: None,
+            ..Default::default()
         };
         assert_eq!(actual, expect);
     }

@@ -49,9 +49,15 @@ pub struct Narrative {
 
     /// generated | extensions | additional | empty
     pub status: types::Code,
+    /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
+    #[serde(rename = "_status")]
+    pub status_ext: Option<types::Element>,
 
     /// Limited xhtml content
     pub div: types::Xhtml,
+    /// Primitive extension sibling for [`div`](Self::div) (FHIR `_div`).
+    #[serde(rename = "_div")]
+    pub div_ext: Option<types::Element>,
 }
 
 #[cfg(test)]

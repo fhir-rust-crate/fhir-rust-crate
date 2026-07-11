@@ -63,12 +63,21 @@ pub struct VirtualServiceDetail {
 
     /// Address(es) with additional information on alternate connection details
     pub additional_info: Option<Vec<types::Url>>,
+    /// Primitive extension sibling for [`additional_info`](Self::additional_info) (FHIR `_additionalInfo`).
+    #[serde(rename = "_additionalInfo")]
+    pub additional_info_ext: Option<Vec<Option<types::Element>>>,
 
     /// Maximum number of participants supported by the virtual service
     pub max_participants: Option<types::PositiveInt>,
+    /// Primitive extension sibling for [`max_participants`](Self::max_participants) (FHIR `_maxParticipants`).
+    #[serde(rename = "_maxParticipants")]
+    pub max_participants_ext: Option<types::Element>,
 
     /// Session Key required by the virtual service
     pub session_key: Option<types::String>,
+    /// Primitive extension sibling for [`session_key`](Self::session_key) (FHIR `_sessionKey`).
+    #[serde(rename = "_sessionKey")]
+    pub session_key_ext: Option<types::Element>,
 }
 
 #[cfg(test)]

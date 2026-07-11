@@ -49,18 +49,33 @@ pub struct ElementDefinition {
 
     /// Path of the element in the hierarchy of elements
     pub path: types::String,
+    /// Primitive extension sibling for [`path`](Self::path) (FHIR `_path`).
+    #[serde(rename = "_path")]
+    pub path_ext: Option<types::Element>,
 
     /// xmlAttr | xmlText | typeAttr | cdaText | xhtml
     pub representation: Option<Vec<types::Code>>,
+    /// Primitive extension sibling for [`representation`](Self::representation) (FHIR `_representation`).
+    #[serde(rename = "_representation")]
+    pub representation_ext: Option<Vec<Option<types::Element>>>,
 
     /// Name for this particular element (in a set of slices)
     pub slice_name: Option<types::String>,
+    /// Primitive extension sibling for [`slice_name`](Self::slice_name) (FHIR `_sliceName`).
+    #[serde(rename = "_sliceName")]
+    pub slice_name_ext: Option<types::Element>,
 
     /// If this slice definition constrains an inherited slice definition (or not)
     pub slice_is_constraining: Option<types::Boolean>,
+    /// Primitive extension sibling for [`slice_is_constraining`](Self::slice_is_constraining) (FHIR `_sliceIsConstraining`).
+    #[serde(rename = "_sliceIsConstraining")]
+    pub slice_is_constraining_ext: Option<types::Element>,
 
     /// Name for element to display with or prompt for element
     pub label: Option<types::String>,
+    /// Primitive extension sibling for [`label`](Self::label) (FHIR `_label`).
+    #[serde(rename = "_label")]
+    pub label_ext: Option<types::Element>,
 
     /// Corresponding codes in terminologies
     pub code: Option<Vec<types::Coding>>,
@@ -70,30 +85,54 @@ pub struct ElementDefinition {
 
     /// Concise definition for space-constrained presentation
     pub short: Option<types::String>,
+    /// Primitive extension sibling for [`short`](Self::short) (FHIR `_short`).
+    #[serde(rename = "_short")]
+    pub short_ext: Option<types::Element>,
 
     /// Full formal definition as narrative text
     pub definition: Option<types::Markdown>,
+    /// Primitive extension sibling for [`definition`](Self::definition) (FHIR `_definition`).
+    #[serde(rename = "_definition")]
+    pub definition_ext: Option<types::Element>,
 
     /// Comments about the use of this element
     pub comment: Option<types::Markdown>,
+    /// Primitive extension sibling for [`comment`](Self::comment) (FHIR `_comment`).
+    #[serde(rename = "_comment")]
+    pub comment_ext: Option<types::Element>,
 
     /// Why this resource has been created
     pub requirements: Option<types::Markdown>,
+    /// Primitive extension sibling for [`requirements`](Self::requirements) (FHIR `_requirements`).
+    #[serde(rename = "_requirements")]
+    pub requirements_ext: Option<types::Element>,
 
     /// Other names
     pub alias: Option<Vec<types::String>>,
+    /// Primitive extension sibling for [`alias`](Self::alias) (FHIR `_alias`).
+    #[serde(rename = "_alias")]
+    pub alias_ext: Option<Vec<Option<types::Element>>>,
 
     /// Minimum Cardinality
     pub min: Option<types::UnsignedInt>,
+    /// Primitive extension sibling for [`min`](Self::min) (FHIR `_min`).
+    #[serde(rename = "_min")]
+    pub min_ext: Option<types::Element>,
 
     /// Maximum Cardinality (a number or *)
     pub max: Option<types::String>,
+    /// Primitive extension sibling for [`max`](Self::max) (FHIR `_max`).
+    #[serde(rename = "_max")]
+    pub max_ext: Option<types::Element>,
 
     /// Base definition information for tools
     pub base: Option<ElementDefinitionBase>,
 
     /// Reference to definition of content for the element
     pub content_reference: Option<types::Uri>,
+    /// Primitive extension sibling for [`content_reference`](Self::content_reference) (FHIR `_contentReference`).
+    #[serde(rename = "_contentReference")]
+    pub content_reference_ext: Option<types::Element>,
 
     /// Data type and Profile for this element
     pub r#type: Option<Vec<ElementDefinitionType>>,
@@ -209,9 +248,15 @@ pub struct ElementDefinition {
 
     /// Implicit meaning when this element is missing
     pub meaning_when_missing: Option<types::Markdown>,
+    /// Primitive extension sibling for [`meaning_when_missing`](Self::meaning_when_missing) (FHIR `_meaningWhenMissing`).
+    #[serde(rename = "_meaningWhenMissing")]
+    pub meaning_when_missing_ext: Option<types::Element>,
 
     /// What the order of the elements means
     pub order_meaning: Option<types::String>,
+    /// Primitive extension sibling for [`order_meaning`](Self::order_meaning) (FHIR `_orderMeaning`).
+    #[serde(rename = "_orderMeaning")]
+    pub order_meaning_ext: Option<types::Element>,
 
     /// Value must be exactly this
     pub fixed_base64_binary: Option<types::Base64Binary>,
@@ -478,30 +523,54 @@ pub struct ElementDefinition {
 
     /// Max length for string type data
     pub max_length: Option<types::Integer>,
+    /// Primitive extension sibling for [`max_length`](Self::max_length) (FHIR `_maxLength`).
+    #[serde(rename = "_maxLength")]
+    pub max_length_ext: Option<types::Element>,
 
     /// Reference to invariant about presence
     pub condition: Option<Vec<types::Id>>,
+    /// Primitive extension sibling for [`condition`](Self::condition) (FHIR `_condition`).
+    #[serde(rename = "_condition")]
+    pub condition_ext: Option<Vec<Option<types::Element>>>,
 
     /// Condition that must evaluate to true
     pub constraint: Option<Vec<ElementDefinitionConstraint>>,
 
     /// For primitives, that a value must be present - not replaced by an extension
     pub must_have_value: Option<types::Boolean>,
+    /// Primitive extension sibling for [`must_have_value`](Self::must_have_value) (FHIR `_mustHaveValue`).
+    #[serde(rename = "_mustHaveValue")]
+    pub must_have_value_ext: Option<types::Element>,
 
     /// Extensions that are allowed to replace a primitive value
     pub value_alternatives: Option<Vec<types::Canonical>>,
+    /// Primitive extension sibling for [`value_alternatives`](Self::value_alternatives) (FHIR `_valueAlternatives`).
+    #[serde(rename = "_valueAlternatives")]
+    pub value_alternatives_ext: Option<Vec<Option<types::Element>>>,
 
     /// If the element must be supported (discouraged - see obligations)
     pub must_support: Option<types::Boolean>,
+    /// Primitive extension sibling for [`must_support`](Self::must_support) (FHIR `_mustSupport`).
+    #[serde(rename = "_mustSupport")]
+    pub must_support_ext: Option<types::Element>,
 
     /// If this modifies the meaning of other elements
     pub is_modifier: Option<types::Boolean>,
+    /// Primitive extension sibling for [`is_modifier`](Self::is_modifier) (FHIR `_isModifier`).
+    #[serde(rename = "_isModifier")]
+    pub is_modifier_ext: Option<types::Element>,
 
     /// Reason that this element is marked as a modifier
     pub is_modifier_reason: Option<types::String>,
+    /// Primitive extension sibling for [`is_modifier_reason`](Self::is_modifier_reason) (FHIR `_isModifierReason`).
+    #[serde(rename = "_isModifierReason")]
+    pub is_modifier_reason_ext: Option<types::Element>,
 
     /// Include when _summary = true?
     pub is_summary: Option<types::Boolean>,
+    /// Primitive extension sibling for [`is_summary`](Self::is_summary) (FHIR `_isSummary`).
+    #[serde(rename = "_isSummary")]
+    pub is_summary_ext: Option<types::Element>,
 
     /// ValueSet details if this is coded
     pub binding: Option<ElementDefinitionBinding>,
@@ -527,12 +596,21 @@ pub struct ElementDefinitionSlicing {
 
     /// Text description of how slicing works (or not)
     pub description: Option<types::String>,
+    /// Primitive extension sibling for [`description`](Self::description) (FHIR `_description`).
+    #[serde(rename = "_description")]
+    pub description_ext: Option<types::Element>,
 
     /// If elements must be in same order as slices
     pub ordered: Option<types::Boolean>,
+    /// Primitive extension sibling for [`ordered`](Self::ordered) (FHIR `_ordered`).
+    #[serde(rename = "_ordered")]
+    pub ordered_ext: Option<types::Element>,
 
     /// closed | open | openAtEnd
     pub rules: types::Code,
+    /// Primitive extension sibling for [`rules`](Self::rules) (FHIR `_rules`).
+    #[serde(rename = "_rules")]
+    pub rules_ext: Option<types::Element>,
 }
 
 /// Designates which children of the element are used to discriminate the slices.
@@ -551,6 +629,9 @@ pub struct ElementDefinitionSlicingDiscriminator {
 
     /// Path to element value
     pub path: types::String,
+    /// Primitive extension sibling for [`path`](Self::path) (FHIR `_path`).
+    #[serde(rename = "_path")]
+    pub path_ext: Option<types::Element>,
 }
 
 /// Identifies the definition of this element in the base specification, used to track
@@ -567,12 +648,21 @@ pub struct ElementDefinitionBase {
 
     /// Path that identifies the base element
     pub path: types::String,
+    /// Primitive extension sibling for [`path`](Self::path) (FHIR `_path`).
+    #[serde(rename = "_path")]
+    pub path_ext: Option<types::Element>,
 
     /// Min cardinality of the base element
     pub min: types::UnsignedInt,
+    /// Primitive extension sibling for [`min`](Self::min) (FHIR `_min`).
+    #[serde(rename = "_min")]
+    pub min_ext: Option<types::Element>,
 
     /// Max cardinality of the base element
     pub max: types::String,
+    /// Primitive extension sibling for [`max`](Self::max) (FHIR `_max`).
+    #[serde(rename = "_max")]
+    pub max_ext: Option<types::Element>,
 }
 
 /// Identifies a data type or resource that the element may refer to, along with any
@@ -589,18 +679,33 @@ pub struct ElementDefinitionType {
 
     /// Data type or Resource (reference to definition)
     pub code: types::Uri,
+    /// Primitive extension sibling for [`code`](Self::code) (FHIR `_code`).
+    #[serde(rename = "_code")]
+    pub code_ext: Option<types::Element>,
 
     /// Profiles (StructureDefinition or IG) - one must apply
     pub profile: Option<Vec<types::Canonical>>,
+    /// Primitive extension sibling for [`profile`](Self::profile) (FHIR `_profile`).
+    #[serde(rename = "_profile")]
+    pub profile_ext: Option<Vec<Option<types::Element>>>,
 
     /// Profile on the Reference/canonical target - one must apply
     pub target_profile: Option<Vec<types::Canonical>>,
+    /// Primitive extension sibling for [`target_profile`](Self::target_profile) (FHIR `_targetProfile`).
+    #[serde(rename = "_targetProfile")]
+    pub target_profile_ext: Option<Vec<Option<types::Element>>>,
 
     /// contained | referenced | bundled - how aggregated
     pub aggregation: Option<Vec<types::Code>>,
+    /// Primitive extension sibling for [`aggregation`](Self::aggregation) (FHIR `_aggregation`).
+    #[serde(rename = "_aggregation")]
+    pub aggregation_ext: Option<Vec<Option<types::Element>>>,
 
     /// either | independent | specific
     pub versioning: Option<types::Code>,
+    /// Primitive extension sibling for [`versioning`](Self::versioning) (FHIR `_versioning`).
+    #[serde(rename = "_versioning")]
+    pub versioning_ext: Option<types::Element>,
 }
 
 /// A sample value for this element demonstrating the intended use of the element.
@@ -616,6 +721,9 @@ pub struct ElementDefinitionExample {
 
     /// Describes the purpose of this example
     pub label: types::String,
+    /// Primitive extension sibling for [`label`](Self::label) (FHIR `_label`).
+    #[serde(rename = "_label")]
+    pub label_ext: Option<types::Element>,
 
     /// Value of Example (one of allowed types)
     pub value_base64_binary: Option<types::Base64Binary>,
@@ -741,24 +849,45 @@ pub struct ElementDefinitionConstraint {
 
     /// Target of 'condition' reference above
     pub key: types::Id,
+    /// Primitive extension sibling for [`key`](Self::key) (FHIR `_key`).
+    #[serde(rename = "_key")]
+    pub key_ext: Option<types::Element>,
 
     /// Why this constraint is necessary or appropriate
     pub requirements: Option<types::Markdown>,
+    /// Primitive extension sibling for [`requirements`](Self::requirements) (FHIR `_requirements`).
+    #[serde(rename = "_requirements")]
+    pub requirements_ext: Option<types::Element>,
 
     /// error | warning
     pub severity: types::Code,
+    /// Primitive extension sibling for [`severity`](Self::severity) (FHIR `_severity`).
+    #[serde(rename = "_severity")]
+    pub severity_ext: Option<types::Element>,
 
     /// Suppress warning or hint in profile
     pub suppress: Option<types::Boolean>,
+    /// Primitive extension sibling for [`suppress`](Self::suppress) (FHIR `_suppress`).
+    #[serde(rename = "_suppress")]
+    pub suppress_ext: Option<types::Element>,
 
     /// Human description of constraint
     pub human: types::String,
+    /// Primitive extension sibling for [`human`](Self::human) (FHIR `_human`).
+    #[serde(rename = "_human")]
+    pub human_ext: Option<types::Element>,
 
     /// FHIRPath expression of constraint
     pub expression: Option<types::String>,
+    /// Primitive extension sibling for [`expression`](Self::expression) (FHIR `_expression`).
+    #[serde(rename = "_expression")]
+    pub expression_ext: Option<types::Element>,
 
     /// Reference to original source of constraint
     pub source: Option<types::Canonical>,
+    /// Primitive extension sibling for [`source`](Self::source) (FHIR `_source`).
+    #[serde(rename = "_source")]
+    pub source_ext: Option<types::Element>,
 }
 
 /// Specifies the ValueSet that this element's coded values must, should, or may be
@@ -775,12 +904,21 @@ pub struct ElementDefinitionBinding {
 
     /// required | extensible | preferred | example
     pub strength: types::Code,
+    /// Primitive extension sibling for [`strength`](Self::strength) (FHIR `_strength`).
+    #[serde(rename = "_strength")]
+    pub strength_ext: Option<types::Element>,
 
     /// Intended use of codes in the bound value set
     pub description: Option<types::Markdown>,
+    /// Primitive extension sibling for [`description`](Self::description) (FHIR `_description`).
+    #[serde(rename = "_description")]
+    pub description_ext: Option<types::Element>,
 
     /// Source of value set
     pub value_set: Option<types::Canonical>,
+    /// Primitive extension sibling for [`value_set`](Self::value_set) (FHIR `_valueSet`).
+    #[serde(rename = "_valueSet")]
+    pub value_set_ext: Option<types::Element>,
 
     /// Additional Bindings - more rules about the binding
     pub additional: Option<Vec<ElementDefinitionBindingAdditional>>,
@@ -800,21 +938,36 @@ pub struct ElementDefinitionBindingAdditional {
 
     /// maximum | minimum | required | extensible | candidate | current | preferred | ui | starter | component
     pub purpose: types::Code,
+    /// Primitive extension sibling for [`purpose`](Self::purpose) (FHIR `_purpose`).
+    #[serde(rename = "_purpose")]
+    pub purpose_ext: Option<types::Element>,
 
     /// The value set for the additional binding
     pub value_set: types::Canonical,
+    /// Primitive extension sibling for [`value_set`](Self::value_set) (FHIR `_valueSet`).
+    #[serde(rename = "_valueSet")]
+    pub value_set_ext: Option<types::Element>,
 
     /// Documentation of the purpose of use of the binding
     pub documentation: Option<types::Markdown>,
+    /// Primitive extension sibling for [`documentation`](Self::documentation) (FHIR `_documentation`).
+    #[serde(rename = "_documentation")]
+    pub documentation_ext: Option<types::Element>,
 
     /// Concise documentation - for summary tables
     pub short_doco: Option<types::String>,
+    /// Primitive extension sibling for [`short_doco`](Self::short_doco) (FHIR `_shortDoco`).
+    #[serde(rename = "_shortDoco")]
+    pub short_doco_ext: Option<types::Element>,
 
     /// Qualifies the usage - jurisdiction, gender, workflow status etc.
     pub usage: Option<Vec<types::UsageContext>>,
 
     /// Whether binding can applies to all repeats, or just one
     pub any: Option<types::Boolean>,
+    /// Primitive extension sibling for [`any`](Self::any) (FHIR `_any`).
+    #[serde(rename = "_any")]
+    pub any_ext: Option<types::Element>,
 }
 
 /// Identifies a concrete correspondence between this element and an element in another
@@ -831,15 +984,27 @@ pub struct ElementDefinitionMapping {
 
     /// Reference to mapping declaration
     pub identity: types::Id,
+    /// Primitive extension sibling for [`identity`](Self::identity) (FHIR `_identity`).
+    #[serde(rename = "_identity")]
+    pub identity_ext: Option<types::Element>,
 
     /// Computable language of mapping
     pub language: Option<types::Code>,
+    /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
+    #[serde(rename = "_language")]
+    pub language_ext: Option<types::Element>,
 
     /// Details of the mapping
     pub map: types::String,
+    /// Primitive extension sibling for [`map`](Self::map) (FHIR `_map`).
+    #[serde(rename = "_map")]
+    pub map_ext: Option<types::Element>,
 
     /// Comments about the mapping or its use
     pub comment: Option<types::Markdown>,
+    /// Primitive extension sibling for [`comment`](Self::comment) (FHIR `_comment`).
+    #[serde(rename = "_comment")]
+    pub comment_ext: Option<types::Element>,
 }
 
 #[cfg(test)]
