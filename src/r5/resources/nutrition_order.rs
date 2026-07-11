@@ -20,12 +20,35 @@ use fhir_derive::Validate;
 /// A request to supply a diet, formula feeding (enteral) or oral nutritional
 /// supplement to a patient/resident.
 ///
-/// A NutritionOrder captures the details of what a patient should be fed,
-/// covering oral diets, oral nutritional supplements, and enteral (tube)
-/// feeding formulas. It records ordering context, the subject and encounter,
-/// scheduling, texture and nutrient modifications, and any related allergies,
-/// intolerances, and preferences. It is typically used within clinical
-/// workflows to communicate nutrition requirements to dietary services.
+/// A NutritionOrder captures the details of what a patient should be fed and
+/// is the primary FHIR R5 resource used to request nutrition services. It
+/// spans three complementary areas of nutrition care: oral diets (including
+/// diet types, texture modifications, fluid consistency, and nutrient limits),
+/// oral nutritional supplements, and enteral (tube) feeding formulas with
+/// their additives, caloric density, route of administration, and delivery
+/// schedules. Each order records its ordering context through status and
+/// intent codes, the subject who requires the nutrition, the associated
+/// encounter, the requested date and time, and the orderer and performers.
+/// To support safe fulfillment it can also reference the patient's food and
+/// nutrition-related allergies and intolerances, along with food preference
+/// and exclusion modifiers.
+///
+/// In clinical workflows a NutritionOrder is authored by a clinician or
+/// dietitian and communicated to dietary or nursing services so that meals,
+/// supplements, or tube feedings are prepared and delivered according to the
+/// patient's needs. As a request-pattern resource it participates in
+/// order-management flows and can be based on protocols or plans and grouped
+/// with related orders.
+///
+/// # See also
+///
+/// The subject is commonly a [`Patient`](crate::r5::resources::patient::Patient),
+/// referenced together with the visit [`Encounter`](crate::r5::resources::encounter::Encounter).
+/// Dietary safety draws on the patient's
+/// [`AllergyIntolerance`](crate::r5::resources::allergy_intolerance::AllergyIntolerance)
+/// records. Coded values such as diet types and food modifiers use
+/// [`CodeableConcept`](crate::r5::types::CodeableConcept), while resource
+/// links use [`Reference`](crate::r5::types::Reference).
 ///
 /// # Examples
 ///
@@ -83,16 +106,16 @@ pub struct NutritionOrder {
     /// Composite Request ID
     pub group_identifier: Option<types::Identifier>,
 
-    /// draft | active | on-hold | revoked | completed | entered-in-error | unknown
+    /// Workflow status of the order: draft | active | on-hold | revoked | completed | entered-in-error | unknown
     pub status: types::Code,
 
-    /// proposal | plan | directive | order | original-order | reflex-order | filler-order | instance-order | option
+    /// How the order should be understood in the request workflow: proposal | plan | directive | order | original-order | reflex-order | filler-order | instance-order | option
     pub intent: types::Code,
 
     /// routine | urgent | asap | stat
     pub priority: Option<types::Code>,
 
-    /// Who requires the diet, formula or nutritional supplement
+    /// Who requires the diet, formula or nutritional supplement, typically a reference to a Patient
     pub subject: types::Reference,
 
     /// The encounter associated with this nutrition order
@@ -110,7 +133,7 @@ pub struct NutritionOrder {
     /// Who is desired to perform the administration of what is being ordered
     pub performer: Option<Vec<types::CodeableReference>>,
 
-    /// List of the patient's food and nutrition-related allergies and intolerances
+    /// References to the patient's food and nutrition-related allergies and intolerances that inform safe fulfillment
     pub allergy_intolerance: Option<Vec<types::Reference>>,
 
     /// Order-specific modifier about the type of food that should be given
