@@ -15,16 +15,41 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// Measurements and simple assertions made about a patient, device or other
 /// subject.
 ///
-/// Observations are a central element in healthcare, used to support diagnosis,
-/// monitor progress, determine baselines and patterns, and capture demographic
-/// characteristics. Most observations are simple name/value pair assertions with
-/// some metadata, but some observations group other observations together
-/// logically, or even are multi-component observations.
+/// Observation is one of the most widely used resources in FHIR R5 and serves
+/// as the general-purpose container for recording facts about a subject at a
+/// point in time. It supports clinical use cases such as vital signs, laboratory
+/// results, imaging findings, device measurements, social history, and clinical
+/// assessments, as well as administrative and survey data. Each Observation
+/// carries a code identifying what was measured or asserted, an effective time,
+/// a status in the observation lifecycle, and a value expressed through one of
+/// the polymorphic value[x] elements (for example a Quantity, CodeableConcept,
+/// string, or Ratio) or, when no value is available, a data-absent reason.
+///
+/// Most observations are simple name/value pair assertions with some metadata,
+/// but observations can also group other observations together logically via
+/// members, or be composed of several components that share the same metadata,
+/// such as the systolic and diastolic readings of a blood pressure. Reference
+/// ranges, interpretations, body sites, and methods provide additional context
+/// for interpreting results. Observations are commonly derived from or based on
+/// orders and definitions, and they support diagnosis, monitoring of progress,
+/// establishing baselines and patterns, and capturing demographic
+/// characteristics.
+///
+/// # See also
+///
+/// The observation typically references a subject such as a
+/// [`Patient`](crate::r5::resources::patient::Patient), an
+/// [`Encounter`](crate::r5::resources::encounter::Encounter) during which it was
+/// made, and optionally a [`Device`](crate::r5::resources::device::Device) or
+/// [`Specimen`](crate::r5::resources::specimen::Specimen). Coded elements use
+/// [`CodeableConcept`](crate::r5::types::CodeableConcept), measured values use
+/// [`Quantity`](crate::r5::types::Quantity), and links to other resources use
+/// [`Reference`](crate::r5::types::Reference).
 ///
 /// # Examples
 ///
@@ -82,16 +107,16 @@ pub struct Observation {
     /// Part of referenced event
     pub part_of: Option<Vec<types::Reference>>,
 
-    /// registered | preliminary | final | amended +
+    /// Lifecycle status of the observation, such as registered, preliminary, final, or amended; required.
     pub status: types::Code,
 
     /// Classification of  type of observation
     pub category: Option<Vec<types::CodeableConcept>>,
 
-    /// Type of observation (code / type)
+    /// Coded concept identifying what was observed or measured, such as a LOINC code; required.
     pub code: types::CodeableConcept,
 
-    /// Who and/or what the observation is about
+    /// Reference to who or what the observation is about, most often a patient but possibly a group, device, or location.
     pub subject: Option<types::Reference>,
 
     /// What the observation is about, when it is not about the subject of record
@@ -118,10 +143,10 @@ pub struct Observation {
     /// Who is responsible for the observation
     pub performer: Option<Vec<types::Reference>>,
 
-    /// Actual result
+    /// Actual result expressed as a measured quantity with a unit, the most common value form for numeric results.
     pub value_quantity: Option<types::Quantity>,
 
-    /// Actual result
+    /// Actual result expressed as a coded concept, used when the answer is a term from a value set rather than a number.
     pub value_codeable_concept: Option<types::CodeableConcept>,
 
     /// Actual result

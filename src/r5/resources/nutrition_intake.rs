@@ -15,7 +15,7 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// A record of food or fluid that is being consumed by a patient. A
 /// NutritionIntake may indicate that the patient may be consuming the food or
@@ -23,6 +23,31 @@ use fhir_derive::Validate;
 /// information can be the patient, a significant other (such as a family member
 /// or spouse), or a clinician. A common scenario where this information is
 /// captured is during the history taking process at an encounter or visit.
+///
+/// In FHIR R5 this resource supports nutrition and dietary workflows by
+/// documenting what was actually taken in, distinct from what was ordered or
+/// dispensed. It captures oral intake, enteral feeding, and fluid consumption,
+/// including cases where an item was offered but refused or not consumed. Each
+/// entry can record the specific food or fluid product, its scheduled timing,
+/// the amount and administration rate, and an optional nutrient label breakdown,
+/// which makes the resource useful both for clinical review during history
+/// taking and for downstream dietary and nutritional analysis. A NutritionIntake
+/// is always anchored to a subject and may be linked to the encounter during
+/// which it was recorded, the performer who administered or observed the intake,
+/// and the location where it occurred.
+///
+/// # Related resources
+///
+/// The [`subject`](NutritionIntake::subject) is commonly a
+/// [`Patient`](crate::r5::resources::patient::Patient), and the
+/// [`encounter`](NutritionIntake::encounter) references the
+/// [`Encounter`](crate::r5::resources::encounter::Encounter) in which the intake
+/// was captured. Coded and referenced values throughout use
+/// [`CodeableConcept`](crate::r5::types::CodeableConcept),
+/// [`CodeableReference`](crate::r5::types::CodeableReference), and
+/// [`Reference`](crate::r5::types::Reference). This resource is closely related
+/// to `NutritionOrder`, which represents the request or prescription, and to
+/// `NutritionProduct`, which describes the food or fluid product itself.
 ///
 /// # Examples
 ///
@@ -77,7 +102,7 @@ pub struct NutritionIntake {
     /// Part of referenced event
     pub part_of: Option<Vec<types::Reference>>,
 
-    /// preparation | in-progress | not-done | on-hold | stopped | completed | entered-in-error | unknown
+    /// Lifecycle state of the intake record: preparation, in-progress, not-done, on-hold, stopped, completed, entered-in-error, or unknown.
     pub status: types::Code,
 
     /// Reason for current status
@@ -86,7 +111,7 @@ pub struct NutritionIntake {
     /// Code representing an overall type of nutrition intake
     pub code: Option<types::CodeableConcept>,
 
-    /// Who is/was consuming the food or fluid
+    /// Who is or was consuming the food or fluid; typically a reference to a Patient.
     pub subject: types::Reference,
 
     /// Encounter associated with NutritionIntake
@@ -107,7 +132,7 @@ pub struct NutritionIntake {
     /// Person or organization that provided the information about the consumption of this food or fluid
     pub reported_reference: Option<types::Reference>,
 
-    /// What food or fluid product or item was consumed
+    /// What food or fluid product or item was consumed, with its type, amount, timing, and rate.
     pub consumed_item: Vec<NutritionIntakeConsumedItem>,
 
     /// Total nutrient for the whole meal, product, serving

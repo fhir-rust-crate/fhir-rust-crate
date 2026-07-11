@@ -15,7 +15,7 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// ElementDefinition is one of the most complex FHIR datatypes. It captures the
 /// constraints, metadata, bindings, and mappings that apply to a single element

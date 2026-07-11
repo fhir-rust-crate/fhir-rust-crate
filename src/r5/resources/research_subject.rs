@@ -15,7 +15,7 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// A ResearchSubject is a participant or object which is the recipient of
 /// investigative activities in a research study.

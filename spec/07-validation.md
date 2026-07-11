@@ -42,7 +42,7 @@ validation layer that walks a value and reports issues.
 
 ### The derive macro
 
-- **R7.4** The `fhir-derive` crate MUST provide `#[derive(Validate)]` that
+- **R7.4** The `fhir-derive-macros` crate MUST provide `#[derive(Validate)]` that
   generates a recursive `crate::r5::validate::Validate` implementation:
   - For a **struct**: validate every field; prefix each returned issue's `path`
     with the field name, dot-separated (e.g. a bad `Coding.code` yields path
@@ -67,5 +67,5 @@ validation layer that walks a value and reports issues.
 - [ ] A `Coding` with `code = "bad  code"` yields exactly one issue with path
       `code.code`.
 - [ ] A default-constructed resource validates with no panics.
-- [ ] `fhir-derive` builds and the whole model derives `Validate` without
+- [ ] `fhir-derive-macros` builds and the whole model derives `Validate` without
       clippy warnings.

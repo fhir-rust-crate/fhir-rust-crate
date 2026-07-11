@@ -15,7 +15,7 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// AuditEvent records an event that is relevant for purposes such as
 /// operations, privacy, security, maintenance, and performance analysis.

@@ -15,7 +15,7 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// A ValueSet resource instance specifies a set of codes drawn from one or more
 /// code systems, intended for use in a particular context. Value sets link

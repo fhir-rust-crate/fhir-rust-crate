@@ -15,7 +15,7 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// MoneyQuantity is a profile constraint on the `Quantity` datatype that
 /// represents an amount of money. It carries the same structure as a

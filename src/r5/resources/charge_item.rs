@@ -15,7 +15,7 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// The resource ChargeItem describes the provision of healthcare provider
 /// products for a certain patient, therefore referring not only to the product,

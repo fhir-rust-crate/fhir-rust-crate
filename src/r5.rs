@@ -1,4 +1,21 @@
-//! FHIR Release 5
+//! FHIR Release 5 (R5).
+//!
+//! This module holds the entire FHIR R5 implementation. The pieces you use
+//! day to day are:
+//!
+//! - [`resources`] — the 158 R5 resources plus the polymorphic
+//!   [`Resource`](resources::Resource) enum.
+//! - [`types`] — the ~50 complex datatypes and 21 primitive newtypes.
+//! - [`codes`] — FHIR `CodeSystem`s as type-safe enums.
+//! - [`validate`] — the [`Validate`](validate::Validate) trait and the
+//!   primitive-format constraints.
+//!
+//! The remaining modules ([`parse`], [`abstract_types`], [`properties`],
+//! [`resource`], [`todo`]) support the code generator that produces the model
+//! from the official specification JSON, and are not needed for consuming the
+//! data model.
+//!
+//! See the [crate-level guide](crate) for a task-oriented walkthrough.
 
 /// Parse FHIR R5 specifications JSON file.
 pub mod parse;

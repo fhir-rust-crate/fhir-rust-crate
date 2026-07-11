@@ -15,14 +15,29 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// A curated namespace that issues unique symbols within that namespace for the
-/// identification of concepts, people, devices, etc. It represents a "System"
-/// used within the Identifier and Coding data types, and captures the metadata
-/// about how a namespace is administered and which unique identifiers name it.
-/// NamingSystem is used to register the systems that appear in coded and
-/// identifier values throughout FHIR resources.
+/// identification of concepts, people, devices, and other entities. In FHIR R5,
+/// NamingSystem is a conformance resource that formally registers a "system":
+/// the shared namespace value that appears as the `system` element of an
+/// Identifier or as the `system` element of a Coding. It captures the metadata
+/// about how a namespace is administered, who is responsible for it, and which
+/// unique symbols (such as an OID, a UUID, or a URI) may be used to name that
+/// same system when it is referenced during electronic exchange.
+///
+/// NamingSystem is typically authored and published by a steward organization so
+/// that implementers can discover the canonical identifiers for code systems and
+/// identifier schemes, reconcile equivalent representations of one namespace, and
+/// resolve which form is preferred or authoritative. It does not carry the codes
+/// or values themselves; rather, it documents and governs the namespaces from
+/// which those codes and identifiers are drawn.
+///
+/// See also the [`Identifier`](crate::r5::types::Identifier) and
+/// [`Coding`](crate::r5::types::Coding) data types, whose `system` values a
+/// NamingSystem registers, and the [`CodeableConcept`](crate::r5::types::CodeableConcept)
+/// type that wraps such codings. Related conformance resources include
+/// `CodeSystem`, `ValueSet`, and `TerminologyCapabilities`.
 ///
 /// # Examples
 ///
@@ -86,7 +101,7 @@ pub struct NamingSystem {
     /// draft | active | retired | unknown
     pub status: types::Code,
 
-    /// codesystem | identifier | root
+    /// Indicates the purpose of the namespace: codesystem | identifier | root
     pub kind: types::Code,
 
     /// For testing purposes, not real usage
@@ -155,7 +170,7 @@ pub struct NamingSystem {
     /// How/where is it used
     pub usage: Option<types::String>,
 
-    /// Unique identifiers used for system
+    /// The unique symbols (such as an OID, UUID, or URI) that may be used to name this system; see NamingSystemUniqueId
     pub unique_id: Vec<NamingSystemUniqueId>,
 }
 
@@ -178,7 +193,7 @@ pub struct NamingSystemUniqueId {
     /// oid | uuid | uri | iri-stem | v2csmnemonic | other
     pub r#type: types::Code,
 
-    /// The unique identifier
+    /// The literal symbol that names the system, formatted according to the given type
     pub value: types::String,
 
     /// Is this the id that should be used for this type

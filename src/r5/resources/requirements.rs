@@ -15,15 +15,27 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
-/// The Requirements resource is used to gather a set of requirement statements
-/// that describe what a system, actor, or specification is expected to do. Each
-/// statement carries a conformance verb (SHALL, SHOULD, MAY, SHOULD-NOT) and a
-/// markdown requirement, and may be derived from or refine other statements.
-/// It is commonly used within implementation guides to formally capture and
-/// trace expectations, linking them to actors and to the design artifacts that
-/// satisfy them.
+/// The Requirements resource is a conformance resource that gathers a set of
+/// requirement statements describing what a system, actor, or specification is
+/// expected to do. Each statement carries one or more conformance verbs (SHALL,
+/// SHOULD, MAY, SHOULD-NOT) together with the requirement itself expressed as
+/// markdown, and statements may be derived from, refined by, or traced to other
+/// statements. In FHIR R5 it is used primarily within implementation guides and
+/// solution designs to formally capture stakeholder expectations, organize them
+/// into a traceable hierarchy, and link each expectation to the actors that
+/// carry the obligation and to the design artifacts that satisfy it. This makes
+/// it a foundation for requirements traceability, gap analysis, and conformance
+/// planning across an interoperability project.
+///
+/// Related resources: the statements typically reference an `ActorDefinition`
+/// through the actor field, and Requirements resources are often bundled and
+/// published alongside an `ImplementationGuide`. Common building-block types
+/// used by its fields include [`CodeableConcept`](crate::r5::types::CodeableConcept),
+/// [`UsageContext`](crate::r5::types::UsageContext),
+/// [`ContactDetail`](crate::r5::types::ContactDetail), and
+/// [`Identifier`](crate::r5::types::Identifier).
 ///
 /// # Examples
 ///
@@ -84,7 +96,7 @@ pub struct Requirements {
     /// Name for this Requirements (human friendly)
     pub title: Option<types::String>,
 
-    /// draft | active | retired | unknown
+    /// Publication lifecycle state of this Requirements: draft, active, retired, or unknown
     pub status: types::Code,
 
     /// For testing purposes, not real usage
@@ -123,10 +135,10 @@ pub struct Requirements {
     /// External artifact (rule/document etc. that) created this set of requirements
     pub reference: Option<Vec<types::Url>>,
 
-    /// Actor for these requirements
+    /// Canonical references to the ActorDefinition resources that bear these requirements
     pub actor: Option<Vec<types::Canonical>>,
 
-    /// Actual statement as markdown
+    /// The individual requirement statements, each captured as a RequirementsStatement
     pub statement: Option<Vec<RequirementsStatement>>,
 }
 
@@ -154,13 +166,13 @@ pub struct RequirementsStatement {
     /// Short Human label for this statement
     pub label: Option<types::String>,
 
-    /// SHALL | SHOULD | MAY | SHOULD-NOT
+    /// Conformance verbs that set the strength of this requirement: SHALL, SHOULD, MAY, or SHOULD-NOT
     pub conformance: Option<Vec<types::Code>>,
 
     /// Set to true if requirements statement is conditional
     pub conditionality: Option<types::Boolean>,
 
-    /// The actual requirement
+    /// The actual requirement text, expressed as markdown
     pub requirement: types::Markdown,
 
     /// Another statement this clarifies/restricts ([url#]key)

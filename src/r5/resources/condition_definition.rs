@@ -15,17 +15,38 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// A definition of a condition and information relevant to managing it.
 ///
-/// ConditionDefinition provides a reusable, knowledge-artifact style description
-/// of a clinical condition, problem, or diagnosis, independent of any single
-/// patient. It captures the identifying code along with guidance such as whether
-/// severity, body site, and stage are appropriate to record, and links to
-/// observations, medications, questionnaires, care teams, and plans that are
-/// relevant to managing the condition. In FHIR R5 it is used to drive decision
-/// support, data capture, and consistent recording of Condition instances.
+/// ConditionDefinition is a canonical, knowledge-artifact style resource that
+/// describes a clinical condition, problem, or diagnosis independent of any
+/// single patient or encounter. Rather than recording that a particular person
+/// currently has a condition, it captures reusable knowledge about the condition
+/// itself: the identifying code, the subjective severity, the anatomical body
+/// site, and the stage or grade, together with metadata flags indicating whether
+/// severity, body site, and stage are appropriate to record for this condition.
+/// It also links to the observations and preconditions that are diagnostically
+/// relevant, the medications commonly used, the questionnaires used for
+/// pre-admission, differential diagnosis, or outcome assessment, the care teams
+/// suited to managing it, and the care or treatment plans that apply.
+///
+/// In FHIR R5 a ConditionDefinition acts as a definitional resource that drives
+/// clinical decision support, standardized data capture, and consistent
+/// recording of patient-specific condition instances. Authoring systems and
+/// registries publish these definitions so that downstream applications can
+/// prompt for the right data and validate recorded conditions against agreed
+/// guidance.
+///
+/// See also the patient-specific [`Condition`](crate::r5::resources::condition::Condition)
+/// resource that a definition informs, the [`Patient`](crate::r5::resources::patient::Patient)
+/// it is ultimately recorded against, and related definitional and supporting
+/// resources such as [`Observation`](crate::r5::resources::observation::Observation),
+/// [`Questionnaire`](crate::r5::resources::questionnaire::Questionnaire),
+/// [`CareTeam`](crate::r5::resources::care_team::CareTeam), and
+/// [`PlanDefinition`](crate::r5::resources::plan_definition::PlanDefinition).
+/// Many of its fields use the shared [`CodeableConcept`](crate::r5::types::CodeableConcept)
+/// data type.
 ///
 /// # Examples
 ///
@@ -89,7 +110,7 @@ pub struct ConditionDefinition {
     /// Subordinate title of the event definition
     pub subtitle: Option<types::String>,
 
-    /// draft | active | retired | unknown
+    /// Publication lifecycle status of this definition: draft, active, retired, or unknown.
     pub status: types::Code,
 
     /// For testing purposes, not real usage
@@ -113,16 +134,16 @@ pub struct ConditionDefinition {
     /// Intended jurisdiction for condition definition (if applicable)
     pub jurisdiction: Option<Vec<types::CodeableConcept>>,
 
-    /// Identification of the condition, problem or diagnosis
+    /// Required CodeableConcept identifying the condition, problem, or diagnosis this definition describes.
     pub code: types::CodeableConcept,
 
-    /// Subjective severity of condition
+    /// Subjective severity that is appropriate to record for this condition, such as mild, moderate, or severe.
     pub severity: Option<types::CodeableConcept>,
 
-    /// Anatomical location, if relevant
+    /// Anatomical location associated with the condition, when a body site is clinically relevant.
     pub body_site: Option<types::CodeableConcept>,
 
-    /// Stage/grade, usually assessed formally
+    /// Stage or grade of the condition, typically assessed through a formal clinical staging system.
     pub stage: Option<types::CodeableConcept>,
 
     /// Whether Severity is appropriate

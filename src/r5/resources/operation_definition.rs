@@ -15,16 +15,30 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// A formal computable definition of an operation (on the RESTful interface) or
 /// a named query (using the search interaction).
 ///
-/// OperationDefinition describes the inputs, outputs, and behavior of an
-/// operation or named query that a FHIR server can support. It is used to
-/// declare custom operations invoked via `$operation` endpoints, specifying
-/// their parameters, cardinalities, and the levels (system, type, instance) at
-/// which they may be invoked.
+/// OperationDefinition is a canonical, conformance resource that formally and
+/// computably describes the inputs, outputs, and behavior of an operation or a
+/// named query that a FHIR server can support beyond the standard RESTful
+/// interactions. In FHIR R5 it is used to declare custom operations, which are
+/// invoked at a `$operation` endpoint, or named queries, which are invoked via
+/// the search interaction. The definition specifies each parameter's name, use
+/// (input or output), cardinality, data type, and any value set binding, and it
+/// records the levels at which the operation may be invoked: system-wide, on a
+/// resource type, or on a specific instance. Servers and implementation guides
+/// publish OperationDefinition resources so that clients and tooling can
+/// discover, validate, and generate code for the operations an endpoint offers,
+/// and the resource also indicates whether invoking the operation changes server
+/// state.
+///
+/// See also: [`CapabilityStatement`](crate::r5::resources::capability_statement::CapabilityStatement),
+/// which references the operations a server supports, and the general-purpose
+/// `Parameters` resource used to carry an operation's actual input and output
+/// values at invocation time. Coded parameters bind to value sets via
+/// [`CodeableConcept`](crate::r5::types::CodeableConcept)-style terminology.
 ///
 /// # Examples
 ///
@@ -85,10 +99,10 @@ pub struct OperationDefinition {
     /// Name for this operation definition (human friendly)
     pub title: Option<types::String>,
 
-    /// draft | active | retired | unknown
+    /// Publication lifecycle status of this definition: draft, active, retired, or unknown.
     pub status: types::Code,
 
-    /// operation | query
+    /// Whether this defines an operation invoked at an endpoint or a named query invoked via search.
     pub kind: types::Code,
 
     /// For testing purposes, not real usage
@@ -124,7 +138,7 @@ pub struct OperationDefinition {
     /// Whether content is changed by the operation
     pub affects_state: Option<types::Boolean>,
 
-    /// Recommended name for operation in search url
+    /// Token used to name the operation in the invocation URL, following the dollar-sign prefix.
     pub code: types::Code,
 
     /// Additional information about use
@@ -151,7 +165,7 @@ pub struct OperationDefinition {
     /// Validation information for out parameters
     pub output_profile: Option<types::Canonical>,
 
-    /// Parameters for the operation/query
+    /// The input and output parameters that define the operation or query interface.
     pub parameter: Option<Vec<OperationDefinitionParameter>>,
 
     /// Define overloaded variants for when  generating code

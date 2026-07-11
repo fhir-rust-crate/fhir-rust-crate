@@ -15,7 +15,7 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// This resource provides: the claim details; adjudication details from the
 /// processing of a Claim; and optionally account balance information, for

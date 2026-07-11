@@ -15,7 +15,7 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// The Evidence Resource provides a machine-interpretable expression of an
 /// evidence concept including the evidence variables (e.g., population,

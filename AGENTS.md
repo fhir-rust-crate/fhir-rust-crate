@@ -20,7 +20,7 @@ validation layer.
 
 ```text
 Cargo.toml            # workspace root; package `fhir`
-fhir-derive/          # proc-macro crate: #[derive(Validate)]
+fhir-derive-macros/          # proc-macro crate: #[derive(Validate)]
 src/
   main.rs             # thin binary: runs the code generator
   lib.rs              # library root: re-exports, DEFINITIONS_DIR, SourceCodeString
@@ -48,7 +48,7 @@ AGENTS/               # operational guidance for agents (this folder)
 | Lint (pedantic; must be 0) | `cargo clippy --all-targets` |
 | Docs | `cargo doc --no-deps` |
 | Run the generator | `cargo run` (writes `tmp/out/*.rs`) |
-| Build only the proc-macro | `cargo build -p fhir-derive` |
+| Build only the proc-macro | `cargo build -p fhir-derive-macros` |
 
 The crate is imported as `fhir` (e.g. `use fhir::r5::resources::Patient;`).
 
@@ -94,7 +94,7 @@ warnings). Do not regress it. If you touch the model, re-run the full gate.
 - Keep every file in `AGENTS/` and `spec/` under **40 KB**; split if it grows.
 - Do not add dependencies without cause; this crate is deliberately lean
   (`serde`, `serde_json`, `serde_with`, `indoc`, `convert_case`, and the local
-  `fhir-derive`).
+  `fhir-derive-macros`).
 - Never commit to the default branch; branch first. End commit messages with
   the `Co-Authored-By` trailer if you are an agent.
 - `tmp/out/` is tracked generator output — regenerate it with `cargo run`, do

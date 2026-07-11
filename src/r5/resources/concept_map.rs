@@ -15,7 +15,7 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// A statement of relationships from one set of concepts to one or more other
 /// concepts - either concepts in code systems, or data element/data element

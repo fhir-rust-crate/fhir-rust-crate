@@ -15,7 +15,7 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// The base definition for all elements contained in a resource. Every FHIR
 /// element carries an optional `id` for inter-element referencing and an

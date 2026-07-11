@@ -15,13 +15,30 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// Regulatory approval, clearance or licencing related to a regulated product,
 /// treatment, facility or activity that is cited in a guidance, regulation, rule
-/// or legislative act. An example is Market Authorization relating to a Medicinal
-/// Product. This resource captures the authorizing body, subject, territory,
-/// status and case/procedure information that governs the regulated authorization.
+/// or legislative act. A common example is a Marketing Authorization relating to a
+/// Medicinal Product, but the resource is deliberately general and can also describe
+/// approvals, clearances, designations and licences for devices, foods, treatments,
+/// facilities and other regulated activities.
+///
+/// In FHIR R5 this administrative resource records the regulatory context around
+/// something that has been authorized: the subject of the authorization, the type
+/// and legal basis of the approval, the territory or region in which it applies, the
+/// authorizing regulator and the organization that holds the authorization, together
+/// with its status, status date and validity period. It also carries an optional
+/// case or procedure structure that can nest applications and steps, allowing the
+/// progress of an approval process to be tracked over time. RegulatedAuthorization is
+/// typically used by regulators, marketing authorization holders and product data
+/// systems to exchange the authorization metadata that governs how a regulated item
+/// may lawfully be supplied or used.
+///
+/// See also related types such as [`CodeableConcept`](crate::r5::types::CodeableConcept),
+/// [`Reference`](crate::r5::types::Reference), [`Identifier`](crate::r5::types::Identifier)
+/// and [`Period`](crate::r5::types::Period), and the nested `RegulatedAuthorizationCase`
+/// structure that captures the underlying regulatory procedure.
 ///
 /// # Examples
 ///
@@ -64,7 +81,7 @@ pub struct RegulatedAuthorization {
     /// Business identifier for the authorization, typically assigned by the authorizing body
     pub identifier: Option<Vec<types::Identifier>>,
 
-    /// The product type, treatment, facility or activity that is being authorized
+    /// References to the medicinal product, device, treatment, facility or activity that is the subject being authorized
     pub subject: Option<Vec<types::Reference>>,
 
     /// Overall type of this authorization, for example drug marketing approval, orphan drug designation
@@ -76,7 +93,7 @@ pub struct RegulatedAuthorization {
     /// The territory in which the authorization has been granted
     pub region: Option<Vec<types::CodeableConcept>>,
 
-    /// The status that is authorised e.g. approved. Intermediate states can be tracked with cases and applications
+    /// The authorized status such as approved; intermediate states can instead be tracked through cases and applications
     pub status: Option<types::CodeableConcept>,
 
     /// The date at which the current status was assigned
@@ -97,7 +114,7 @@ pub struct RegulatedAuthorization {
     /// The organization that has been granted this authorization, by the regulator
     pub holder: Option<types::Reference>,
 
-    /// The regulatory authority or authorizing body granting the authorization
+    /// Reference to the regulatory authority or authorizing body that granted the authorization
     pub regulator: Option<types::Reference>,
 
     /// Additional information or supporting documentation about the authorization

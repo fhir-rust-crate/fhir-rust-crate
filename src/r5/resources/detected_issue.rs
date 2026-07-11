@@ -15,7 +15,7 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// Indicates an actual or potential clinical issue with or between one or more
 /// active or proposed clinical actions for a patient.

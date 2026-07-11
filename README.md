@@ -1,347 +1,248 @@
-# FHIR specifications parser
+# FHIR R5 for Rust
 
-<https://build.fhir.org/versions.html#std-process>
+A Rust implementation of the **HL7 FHIR® Release 5 (R5)** data model, plus a
+code generator that produces it from the official FHIR specification JSON files.
 
-Fast Healthcare Interoperability Resources (FHIR) parser for FHIR Release 5 (R5).
+Fast Healthcare Interoperability Resources (FHIR, pronounced "fire") is the HL7
+standard for exchanging electronic health records. This crate lets you build,
+parse, validate, and round-trip FHIR resources in idiomatic Rust with `serde`.
 
-This is a work in progress. This is aiming to be usable before end of 2025.
+> **Status:** work in progress. The R5 data model (resources, datatypes,
+> primitives, code systems, validation) is implemented and green; APIs may still
+> change before 1.0.
 
-This crate has these notable areas:
+> FHIR® is a registered trademark of Health Level Seven International. This crate
+> is not affiliated with or endorsed by HL7.
 
-```txt
-- bin: Binaries e.g. a shell script that creates files
-- src: All the source code
-  - r5: FHIR Release 5
-   - parse: Parse each FHIR Release 5 specification JSON file
-   - abstract_types: Examples to verify the code is working
-   - primitive_types: Examples to verify the code is working
-   - complex_types: Examples to verify the code is working
-   - properties: Work in progress for JSON parsing
+## Features
+
+- **158 R5 resources** (Patient, Observation, Encounter, …) as Rust structs,
+  each round-tripping to and from canonical FHIR JSON via `serde`.
+- **~50 complex datatypes** (Period, HumanName, CodeableConcept, …) and **21
+  primitive newtypes** (`Code`, `Id`, `DateTime`, …) that serialize
+  transparently.
+- **400+ code systems** as type-safe enums that serialize to their canonical
+  FHIR code strings.
+- **A polymorphic `Resource` enum**, tagged by `resourceType`, for reading a
+  resource whose type you do not know ahead of time.
+- **Lightweight validation** via a `Validate` trait and `#[derive(Validate)]`
+  that walks every field recursively.
+- **A code generator** that reads the bundled FHIR R5 spec JSON and emits Rust.
+
+## Installation
+
+```toml
+[dependencies]
+fhir = "0.1"
+serde_json = "1" # or any other serde data format
 ```
 
-## FHIR R5 element URL
+## Quick start
 
-Any element defined in any version of FHIR is automatically assigned an
-extension URL that uniquely identifies the element and can be used in the
-relevant FHIR version. The extension URL for an element can automatically be
-derived:
+Build a `Patient`, serialize to canonical FHIR JSON, and parse it back:
 
-<http://hl7.org/fhir/[version]/StructureDefinition/extension-[Path]>
+```rust
+use fhir::r5::resources::Patient;
+use fhir::r5::types::{Boolean, Code, HumanName, String as FhirString};
 
-## FHIR R5 Datatypes
+let patient = Patient {
+    id: Some(FhirString("pat-1".to_string())),
+    active: Some(Boolean(true)),
+    gender: Some(Code("male".to_string())),
+    name: Some(vec![HumanName {
+        family: Some(FhirString("Chalmers".to_string())),
+        given: vec![FhirString("Peter".to_string())],
+        ..Default::default()
+    }]),
+    ..Default::default()
+};
 
-The FHIR R5 datatypes live in FHIR specifications JSON file `profiles-types.json`.
-
-The file specifies primitive types, complex types, and more.
-
-- Primitive types always start with lowercase.
-
-- Complex types always start with uppercase.
-
-### Datatypes that are primitive types
-
-Parse example for primitive-type id list:
-
-```sh
-<profiles-types.json |
-jq -r '.entry | map(select(.resource.kind == "primitive-type")) | map(.resource.id)[]'
+let json = serde_json::to_string_pretty(&patient).unwrap();
+let parsed: Patient = serde_json::from_str(&json).unwrap();
+assert_eq!(parsed, patient);
 ```
 
-Primitive type id list:
+## How the model maps to Rust
 
-- base64Binary
-- boolean
-- canonical
-- code
-- date
-- dateTime
-- decimal
-- id
-- instant
-- integer
-- integer64
-- markdown
-- oid
-- positiveInt
-- string
-- time
-- unsignedInt
-- uri
-- url
-- uuid
+Everything derives `serde::Serialize` and `serde::Deserialize`, so you work
+through `serde_json` (or any serde format).
 
-### Datatypes that are complex types
+- **Primitives are transparent newtypes.** `Code("final")` serializes to the
+  JSON string `"final"` — no wrapper object. (`integer64` is the FHIR-mandated
+  exception: it serializes as a JSON *string*.)
+- **Element cardinality maps directly:**
 
-Parse example for complex-type id list:
+  | FHIR cardinality | Rust type        |
+  |------------------|------------------|
+  | `0..1`           | `Option<T>`      |
+  | `1..1`           | `T`              |
+  | `0..*`           | `Option<Vec<T>>` |
+  | `1..*`           | `Vec<T>`         |
 
-```sh
-<profiles-types.json |
-jq -r '.entry | map(select(.resource.kind == "complex-type")) | map(.resource.id)[]'
+- **`value[x]` choice elements** are flattened into one field per allowed type,
+  named `value_<type>` (e.g. `Observation` has `value_quantity`,
+  `value_string`, `value_boolean`, …); set exactly one.
+- **Nested backbone elements** become nested structs named `<Parent><Field>`
+  (e.g. `PatientContact`, `BundleEntry`).
+- **Unset optional fields are omitted** from the JSON (`skip_serializing_none`).
+
+## Validation
+
+`Validate` reports every problem as a `ValidationIssue { path, message }`.
+Primitive types check their FHIR regex constraints; `#[derive(Validate)]` makes
+complex types and resources validate recursively, prefixing each nested issue's
+`path` with the field name.
+
+```rust
+use fhir::r5::types::Id;
+use fhir::r5::validate::Validate;
+
+assert!(Id("patient-1".to_string()).is_valid());
+assert!(!Id("has spaces".to_string()).is_valid());
 ```
 
-General-purpose data types:
+## Code systems
 
-- Address
-- Age
-- Annotation
-- Attachment
-- BackboneType
-- CodeableConcept
-- Coding
-- ContactPoint
-- Count
-- Distance
-- Duration
-- HumanName
-- Identifier
-- Money
-- MoneyQuantity
-- Period
-- Quantity
-- Range
-- Ratio
-- RatioRange
-- RelativeTime
-- SampledData
-- Signature
-- SimpleQuantity
-- Timing
+```rust
+use fhir::r5::codes::AdministrativeGender;
 
-Meta data types:
+let gender = AdministrativeGender::Female;
+assert_eq!(serde_json::to_value(&gender).unwrap(), "female");
+```
 
-- Availability
-- ContactDetail
-- Contributor
-- DataRequirement
-- Expression
-- ExtendedContactDetail
-- MonetaryComponent
-- ParameterDefinition
-- RelatedArtifact
-- TriggerDefinition
-- UsageContext
-- VirtualServiceDetail
+## Reading a resource of unknown type
 
-Special purpose data types:
+```rust
+use fhir::r5::resources::Resource;
 
-- BackboneType
-- CodeableReference
-- Dosage
-- ElementDefinition
-- Extension
-- Meta
-- Narrative
-- Reference
-- xhtml
-
-Hierarchy view:
-
-```json
-{
-    "Element": {
-        "BackboneElement": {},
-        "xhtml": {},
-        "DataType": {
-            "Address": {},
-            "Annotation": {},
-            "Attachment": {},
-            "BackboneType": {
-                "Dosage": {},
-                "ElementDefinition": {},
-                "MarketingStatus": {},
-                "OrderedDistribution": {},
-                "Population": {},
-                "ProdCharacteristic": {},
-                "ProductShelfLife": {},
-                "Statistic": {},
-                "SubstanceAmount": {},
-                "Timing": {}
-            },
-            "CodeableConcept": {},
-            "CodeableReference": {},
-            "Coding": {},
-            "ContactDetail": {},
-            "ContactPoint": {},
-            "Contributor": {},
-            "DataRequirement": {},
-            "Expression": {},
-            "Extension": {},
-            "HumanName": {},
-            "Identifier": {},
-            "Meta": {},
-            "Money": {},
-            "Narrative": {},
-            "ParameterDefinition": {},
-            "Period": {},
-            "PrimitiveType": {
-                "base64Binary": {},
-                "boolean": {},
-                "date": {},
-                "dateTime": {},
-                "decimal": {},
-                "instant": {},
-                "integer": {
-                    "positiveInt": {},
-                    "unsignedInt": {}
-                },
-                "integer64": {},
-                "string": {
-                    "code": {},
-                    "id": {},
-                    "markdown": {}
-                },
-                "time": {},
-                "uri": {
-                    "canonical": {},
-                    "oid": {},
-                    "url": {},
-                    "uuid": {}
-                }
-            },
-            "Quantity": {
-                "Age": {},
-                "Count": {},
-                "Distance": {},
-                "Duration": {},
-                "Quantity": {}
-            },
-            "Range": {},
-            "Ratio": {},
-            "Reference": {},
-            "RelatedArtifact": {},
-            "SampledData": {},
-            "Signature": {},
-            "TriggerDefinition": {},
-            "UsageContext": {}
-        }
-    }
+let json = serde_json::json!({ "resourceType": "Patient", "id": "pat-1" });
+match serde_json::from_value(json).unwrap() {
+    Resource::Patient(patient) => assert_eq!(patient.id.unwrap().0, "pat-1"),
+    _ => unreachable!(),
 }
 ```
 
-### Parse into snake case
+## Runnable examples
 
-We also want the output as snake case so we use the toolbox [change-case](https://github.com/sixarm/change-case) and specifically the command `snake-case`:
-
-```sh
-<profiles-types.json jq -r '.entry | map(select(.resource.kind == "primitive-type")) | map(.resource.id)[]' | snake-case
-<profiles-types.json jq -r '.entry | map(select(.resource.kind == "complex-type")) | map(.resource.id)[]' | snake-case
-```
-
-## Types
-
-Each type is represented as a class with a name and an ancestor class (except for Base, which has no ancestor). In addition, types may be marked as abstract, or assigned stereotypes that describe how they used.
-
-Classes also have a zero or more attributes defined, where each attribute has the following properties:
-
-- name: the name of the attribute
-
-- type: the type of the attribute - either another type defined in the speification, or (for primitive types) a type from XML Schema
-[cardinality]: [min..max] control over the attribute cardinality. Attributes with Max cardinality >1 (usually *) are ordered, though the meaning of the order might not be known or defined
-
-- « stereotypes »: these provide additional detail about the element - see below
-
-In addition, classes have zero or more associations, which are always aggregations, and have the following properties:
-
-- name: the name of the association (which is the name of the element that represents it in XML/JSON)
-
-- [cardinality]: [min..max] control over the association cardinality. Associations with Max cardinality >1 (usually *) are ordered, though the meaning of the order might not be known or defined
-
-## Documentation links
-
-FHIR datatypes: <https://build.fhir.org/datatypes.html>
-
-- Regex
-
-- XML representation
-
-- JSON representation
-
-More:
-
-- [UML](https://build.fhir.org/uml.html)
-- [References](https://build.fhir.org/references.html)
-- [Extensibility](https://build.fhir.org/extensibility.html)
-- [Narrative](https://build.fhir.org/narrative.html)
-- [Resource](https://build.fhir.org/resource.html)
-
-## profiles-types.json
-
-Fast Healthcare Interoperability Resources (FHIR, pronounced "fire") is a standard created by Health Level Seven International (HL7) for the exchange of electronic health records. The FHIR Profiles-Types JSON file is a schema that provides a guide to the structure and data types used in FHIR. This schema offers a blueprint for each type of resource, defining its properties, attributes, and their data types.
-
-### Dataset Structure
-
-The FHIR Profiles-Types file is structured in JSON, a versatile, human-readable data format. Each JSON object corresponds to a FHIR resource type. It describes the properties that the corresponding resources in FHIR should have, as well as the data type for each property.
-
-### Fields Description
-
-The exact properties described in the file vary for each FHIR resource type, but they typically include:
-
-- Id: The unique identifier for the resource type.
-- Url: A URI that identifies the type globally.
-- Version: The business version of the type.
-- Name: The human-friendly name of the type.
-- Status: The publication status of the type (draft, active, retired).
-- Experimental: A boolean value to indicate if this is an experimental type.
-- Date: The date when the type was last changed.
-- Publisher: The name of the individual or organization that published the type.
-- Contact: Contact details of the publishers.
-- Description: A free text natural language description of the type.
-- UseContext: A list of usability context for the type.
-- Jurisdiction: Indicates the country/region for which the type is defined.
-- Purpose: Explains why the type is needed.
-- Element: A list defining the structure and data types of properties for the resource.
-- Potential Use Cases
-- Schema Validation: Use the schema to validate FHIR data and ensure it adheres to the defined structure and data types.
-- Interoperability: Aid in the exchange of healthcare information with other FHIR-compatible systems by providing a standard structure.
-- Data Mapping: Use the schema to map data from other formats into FHIR format or vice versa.
-System Design: Help in the design and development of healthcare systems by providing a template for data structure.
-
-## FHIR profiles: snapshot view versus differential view
-
-In FHIR profiles, snapshot and differential are two different views of the profiled resource. The snapshot represents the complete, final structure of the profile after applying all changes from the differential to the base resource. The differential, on the other hand, shows only the differences or constraints introduced by the profile compared to the base resource. 
-
-### Snapshot View
-
-The snapshot view provides a comprehensive, hierarchical representation of the profiled resource, incorporating all the changes defined in the differential. It essentially shows the fully realized structure of the profile, including inherited elements from the base resource and the specific constraints or additions defined in the profile. This view is useful when you need a complete, self-contained definition of the resource, especially if you don't have direct access to the base resource.
-
-### Differential View
-
-The differential view highlights the specific differences between the profiled resource and its base resource. It focuses on the elements that have been modified, added, or removed by the profile. This view is particularly helpful for understanding how a profile customizes a base resource and for making informed decisions about implementing the profile. It allows data analysts and developers to easily identify the key changes introduced by the profile, simplifying the process of understanding and implementing it. 
-
-### Example
-
-Imagine a FHIR profile for "Laboratory Observation" derived from the general "Observation" resource. The differential view might show that the profile adds a new element for "laboratory test result" or changes the cardinality of an existing element, while the snapshot view would display the complete structure of the "Laboratory Observation" resource, including all the inherited elements from "Observation" and the newly added or modified elements. 
-
-## jq commands
-
-List keys:
+Programs in the [`examples/`](examples/) directory demonstrate common tasks:
 
 ```sh
-cat profiles-types.json | jq -r 'keys_unsorted[]'
+cargo run --example build_patient      # build a resource and print its JSON
+cargo run --example validate_resource  # recursive validation and issue paths
+cargo run --example read_bundle        # dispatch on each entry's resourceType
+cargo run --example code_systems       # code-system enums
 ```
 
-Output:
+## Crate layout
 
-```stdout
-resourceType
-id
-meta
-type
-entry
+```txt
+src/
+  lib.rs            Crate root and guide (see `cargo doc --open`)
+  r5/
+    resources/      158 resource structs + the polymorphic `Resource` enum
+    types/          ~50 complex datatypes + 21 primitive newtypes
+    codes.rs        FHIR CodeSystems as enums
+    validate.rs     `Validate` trait + primitive constraints
+    parse/          Code generator that reads the spec JSON
+fhir-derive-macros/ Proc-macro crate providing `#[derive(Validate)]`
+doc/                Bundled FHIR R5 specification JSON files
+examples/           Runnable example programs
 ```
 
-List keys of a inner area such as a bundle that contains an entry list item that contains a resource item:
+## Documentation
+
+Build and open the full API documentation, including the crate guide and every
+resource/datatype:
 
 ```sh
-cat profiles-types.json | jq -r '.entry[0] | .resource | keys_unsorted[]'
+cargo doc --open
 ```
 
-Count  keys of a inner area such as a bundle that contains an entry list item that contains a resource item:
+## The code generator
+
+The types under `src/r5/types` and `src/r5/resources` are derived from the
+official FHIR R5 specification JSON in
+`doc/fhir-specifications/r5/fhir-definitions-json/` (exposed at runtime as
+`fhir::DEFINITIONS_DIR`). The generator lives under `src/r5/parse`; the binary
+in `src/main.rs` drives it. See [`AGENTS.md`](AGENTS.md) and
+[`spec/`](spec/) for the generator's design and conventions.
+
+---
+
+## FHIR specification reference
+
+The remainder of this document is background reference on the FHIR R5
+specification files the generator consumes. It is useful when working on the
+generator itself.
+
+### Datatype categories
+
+FHIR R5 datatypes live in `profiles-types.json`, which distinguishes primitive
+types (lowercase names) from complex types (uppercase names).
+
+**Primitive types:** `base64Binary`, `boolean`, `canonical`, `code`, `date`,
+`dateTime`, `decimal`, `id`, `instant`, `integer`, `integer64`, `markdown`,
+`oid`, `positiveInt`, `string`, `time`, `unsignedInt`, `uri`, `url`, `uuid`.
+
+**General-purpose complex types:** Address, Age, Annotation, Attachment,
+CodeableConcept, Coding, ContactPoint, Count, Distance, Duration, HumanName,
+Identifier, Money, MoneyQuantity, Period, Quantity, Range, Ratio, RatioRange,
+SampledData, Signature, SimpleQuantity, Timing.
+
+**Metadata complex types:** Availability, ContactDetail, Contributor,
+DataRequirement, Expression, ExtendedContactDetail, MonetaryComponent,
+ParameterDefinition, RelatedArtifact, TriggerDefinition, UsageContext,
+VirtualServiceDetail.
+
+**Special-purpose complex types:** BackboneType, CodeableReference, Dosage,
+ElementDefinition, Extension, Meta, Narrative, Reference, xhtml.
+
+You can list the ids straight from the spec with `jq`:
 
 ```sh
-cat profiles-types.json | jq -r '.entry[] | .resource | keys_unsorted[]' | sort | uniq -c 
+<profiles-types.json jq -r '.entry | map(select(.resource.kind == "primitive-type")) | map(.resource.id)[]'
+<profiles-types.json jq -r '.entry | map(select(.resource.kind == "complex-type"))   | map(.resource.id)[]'
 ```
 
-## FHIR JSON
+### Element extension URLs
 
-<https://build.fhir.org/json.html>
+Any element defined in any version of FHIR is automatically assigned an
+extension URL that uniquely identifies it:
+
+```txt
+http://hl7.org/fhir/[version]/StructureDefinition/extension-[Path]
+```
+
+### Snapshot view versus differential view
+
+A FHIR profile offers two views of a profiled resource:
+
+- **Snapshot** — the complete, final structure after applying all changes from
+  the differential to the base resource. Self-contained; useful when you do not
+  have the base resource at hand.
+- **Differential** — only the differences (added, modified, or removed elements)
+  the profile introduces relative to its base. Useful for understanding what a
+  profile customizes.
+
+### FHIR documentation links
+
+- Datatypes: <https://build.fhir.org/datatypes.html>
+- JSON representation: <https://build.fhir.org/json.html>
+- UML: <https://build.fhir.org/uml.html>
+- References: <https://build.fhir.org/references.html>
+- Extensibility: <https://build.fhir.org/extensibility.html>
+- Narrative: <https://build.fhir.org/narrative.html>
+- Resource: <https://build.fhir.org/resource.html>
+- Versions / standards process: <https://build.fhir.org/versions.html#std-process>
+
+## License
+
+Licensed under any of:
+
+- MIT
+- Apache License 2.0
+- BSD 3-Clause
+- GPL 2.0 only
+- GPL 3.0 only
+
+at your option.

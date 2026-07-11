@@ -15,18 +15,36 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// Information about a person that is involved in a patient's health or the care
 /// for a patient, but who is not the target of healthcare, nor has a formal
 /// responsibility in the care process.
 ///
 /// A RelatedPerson resource captures a person such as a parent, spouse, guardian,
-/// neighbour, or caregiver who has a personal or non-professional relationship to
-/// a patient. It records their identity, demographics, contact details, and the
-/// nature and validity period of their relationship to the patient. In FHIR R5 it
-/// is commonly referenced from resources like Encounter, Appointment, and
-/// Communication where a non-clinician party participates in the patient's care.
+/// neighbour, friend, or informal caregiver who has a personal or non-professional
+/// relationship to a patient. Unlike a practitioner, this person is not a member of
+/// the care team and has no formal clinical or legal responsibility for the care
+/// process, yet is often the party who accompanies the patient, provides history,
+/// acts as an emergency contact, or serves as an interpreter. The resource records
+/// the person's identity, demographics, contact details, addresses, and the nature
+/// and validity period of their relationship to the patient, so that a system can
+/// represent and reference them without conflating them with a patient or a
+/// clinician.
+///
+/// In FHIR R5 a RelatedPerson is anchored to a single patient through its required
+/// `patient` reference, and is commonly referenced from workflow resources such as
+/// Encounter, Appointment, CarePlan, and Communication wherever a non-clinician
+/// party participates in or is contacted about the patient's care. The relationship
+/// type and any preferred languages are conveyed with coded concepts.
+///
+/// # Related resources
+///
+/// See also [`Patient`](crate::r5::resources::patient::Patient) for the individual
+/// this person is related to, and [`CodeableConcept`](crate::r5::types::CodeableConcept)
+/// for how the relationship and communication language are coded. For members of the
+/// care team who do have a formal clinical role, use the `Practitioner` resource
+/// instead.
 ///
 /// # Examples
 ///
@@ -72,10 +90,10 @@ pub struct RelatedPerson {
     /// Whether this related person's record is in active use
     pub active: Option<types::Boolean>,
 
-    /// The patient this person is related to
+    /// Required reference to the patient this person is related to, anchoring the record to a single patient
     pub patient: types::Reference,
 
-    /// The relationship of the related person to the patient
+    /// Coded nature of the relationship to the patient, such as parent, spouse, guardian, or emergency contact
     pub relationship: Option<Vec<types::CodeableConcept>>,
 
     /// A name associated with the person
@@ -96,7 +114,7 @@ pub struct RelatedPerson {
     /// Image of the person
     pub photo: Option<Vec<types::Attachment>>,
 
-    /// Period of time that this relationship is considered valid
+    /// Period of time during which this relationship to the patient is considered valid and in effect
     pub period: Option<types::Period>,
 
     /// A language which may be used to communicate with the related person about the patient's health

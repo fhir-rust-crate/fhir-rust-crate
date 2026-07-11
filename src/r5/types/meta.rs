@@ -15,7 +15,7 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// The metadata about a resource. This is content in the resource that is
 /// maintained by the infrastructure. Changes to the content might not always be

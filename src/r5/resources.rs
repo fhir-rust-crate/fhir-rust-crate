@@ -5,7 +5,7 @@
 //! and from the canonical FHIR JSON representation via `serde`.
 
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 pub mod account;
 pub mod activity_definition;

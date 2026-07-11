@@ -15,16 +15,33 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// MedicinalProductDefinition
 ///
 /// A detailed definition of a medicinal product, typically for uses other than
 /// direct patient care such as regulatory submissions, drug catalogs, prescribing
-/// support, and adverse event management. It captures the identity, naming,
-/// classification, ingredients, and administrative details of a product as a
-/// whole, complementing more granular resources like Ingredient and
-/// PackagedProductDefinition.
+/// support, and adverse event (pharmacovigilance) management. In FHIR R5 it models
+/// a medicine as an administrative and regulatory whole: its business identity
+/// (including a Medicinal Product Identifier, or MPID), its regulatory type and
+/// domain (human or veterinary), its lifecycle status, its names as registered in
+/// different countries and jurisdictions, its classification and marketing status,
+/// its ingredients and impurities, and the manufacturing or administrative
+/// operations and cross-references that relate it to other products. It is the
+/// central node of the FHIR medication-definition module and is usually assembled
+/// from, and points to, more granular definitional resources rather than being
+/// used to record a specific administration or dispense to a person.
+///
+/// # Related resources
+///
+/// This resource composes and references several supporting types and resources.
+/// It commonly references `Ingredient`, `PackagedProductDefinition`,
+/// `AdministrableProductDefinition`, `ManufacturedItemDefinition`, and
+/// `RegulatedAuthorization`. Its contacts and manufacturing organizations are
+/// typically references to `Organization`, and many of its coded fields use
+/// [`CodeableConcept`](crate::r5::types::CodeableConcept),
+/// [`CodeableReference`](crate::r5::types::CodeableReference), and
+/// [`Coding`](crate::r5::types::Coding).
 ///
 /// # Examples
 ///
@@ -64,7 +81,7 @@ pub struct MedicinalProductDefinition {
     /// Extensions that cannot be ignored
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// Business identifier for this product. Could be an MPID
+    /// Business identifiers for this product, which may include a regulatory Medicinal Product Identifier (MPID)
     pub identifier: Option<Vec<types::Identifier>>,
 
     /// Regulatory type, e.g. Investigational or Authorized
@@ -76,7 +93,7 @@ pub struct MedicinalProductDefinition {
     /// A business identifier relating to a specific version of the product
     pub version: Option<types::String>,
 
-    /// The status within the lifecycle of this product record
+    /// The lifecycle status of this product record, such as active, retired, or pending
     pub status: Option<types::CodeableConcept>,
 
     /// The date at which the given status became applicable
@@ -139,7 +156,7 @@ pub struct MedicinalProductDefinition {
     /// A code that this product is known by, within some formal terminology
     pub code: Option<Vec<types::Coding>>,
 
-    /// The product's name, including full name and possibly coded parts
+    /// The product's registered name or names, including the full name and any coded parts, per country and jurisdiction
     pub name: Vec<MedicinalProductDefinitionName>,
 
     /// Reference to another product, e.g. for linking authorised to investigational product

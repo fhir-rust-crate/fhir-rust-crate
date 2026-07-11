@@ -15,7 +15,7 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// Details and position information for a place where services are provided and
 /// resources and participants may be stored, found, contained, or accommodated.
@@ -26,6 +26,28 @@ use fhir_derive::Validate;
 /// fixed and can vary in scale from a tiny hut to a whole building, or even a
 /// space within a building. Locations are used to record where services are
 /// provided and where equipment, participants and other resources are located.
+///
+/// In FHIR R5, Location is a primarily administrative resource used to describe
+/// the physical places relevant to healthcare delivery, from geographic sites
+/// such as buildings, wards, rooms, beds, vehicles, and homes to purely
+/// jurisdictional or virtual places. It supports two modes: an `instance`
+/// describes a single, specific physical place, while a `kind` describes a class
+/// of locations that could be used generically, for example when scheduling
+/// against "an available operating theatre" rather than a particular room.
+/// Locations are commonly organized into hierarchies through the `part_of`
+/// element (for example a bed within a room within a ward within a hospital),
+/// carry geographic coordinates through the embedded position, and are
+/// referenced by many operational resources to indicate where an activity
+/// occurs.
+///
+/// # Related resources
+///
+/// A Location is typically managed by an [`Organization`](crate::r5::resources::organization::Organization)
+/// via the managing organization, and is referenced by encounters, appointments,
+/// and other workflow resources to record where care takes place. Its physical
+/// form and function are described with [`CodeableConcept`](crate::r5::types::CodeableConcept)
+/// values, its geographic coordinates with the nested [`LocationPosition`], and
+/// its postal or physical address with an [`Address`](crate::r5::types::Address).
 ///
 /// # Examples
 ///
@@ -68,7 +90,7 @@ pub struct Location {
     /// Unique code or number identifying the location to its users
     pub identifier: Option<Vec<types::Identifier>>,
 
-    /// active | suspended | inactive
+    /// Overall availability status of the location as a whole, drawn from the value set active | suspended | inactive.
     pub status: Option<types::Code>,
 
     /// The operational status of the location (typically only for a bed/room)
@@ -83,7 +105,7 @@ pub struct Location {
     /// Additional details about the location that could be displayed as further information to identify the location beyond its name
     pub description: Option<types::Markdown>,
 
-    /// instance | kind
+    /// Whether this record represents a specific physical place (instance) or a general class of places (kind).
     pub mode: Option<types::Code>,
 
     /// Type of function performed
@@ -104,7 +126,7 @@ pub struct Location {
     /// Organization responsible for provisioning and upkeep
     pub managing_organization: Option<types::Reference>,
 
-    /// Another Location this one is physically a part of
+    /// Reference to another Location that physically contains this one, enabling location hierarchies such as bed within room within ward.
     pub part_of: Option<types::Reference>,
 
     /// Collection of characteristics (attributes)

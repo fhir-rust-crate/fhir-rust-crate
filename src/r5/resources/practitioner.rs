@@ -15,14 +15,31 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// A person who is directly or indirectly involved in the provisioning of
-/// healthcare or related services. This resource is used to capture information
-/// about a person who is involved in the provision of care, such as a physician,
-/// nurse, pharmacist, or administrative staff, independent of any particular
-/// role or organization they act on behalf of. Roles and organizational
-/// affiliations are represented separately via PractitionerRole.
+/// healthcare or related services. In FHIR R5 the Practitioner resource captures
+/// the durable, identity-level facts about such a person, including their names,
+/// contact details, gender, birth date, addresses, spoken languages, and formal
+/// qualifications, certifications, and licenses. It is used to represent
+/// clinicians such as physicians, nurses, midwives, and pharmacists, as well as
+/// non-clinical staff such as receptionists, IT personnel, and other agents who
+/// participate in care or its administration.
+///
+/// The resource deliberately models the person independent of any particular
+/// role, employment, or organizational affiliation. The context in which a
+/// practitioner acts, including their specialty, the organization they work for,
+/// the location where they provide services, and the periods of that engagement,
+/// is expressed separately via the `PractitionerRole` resource, allowing one
+/// Practitioner to hold many roles over time without duplicating identity data.
+///
+/// Related resources: a Practitioner is commonly referenced from care-related
+/// resources and contrasts with [`Patient`](crate::r5::resources::patient::Patient),
+/// which represents the recipient of care. Coded values on this resource, such as
+/// qualification codes and communication languages, use
+/// [`CodeableConcept`](crate::r5::types::CodeableConcept), and human-readable
+/// names use [`HumanName`](crate::r5::types::HumanName). See also `PractitionerRole`
+/// and `Organization`.
 ///
 /// # Examples
 ///
@@ -62,13 +79,13 @@ pub struct Practitioner {
     /// Extensions that cannot be ignored
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// An identifier for the person as this agent
+    /// Business identifiers for the practitioner, such as a national provider or license number, that persist as the person acts across systems.
     pub identifier: Option<Vec<types::Identifier>>,
 
-    /// Whether this practitioner's record is in active use
+    /// Whether this practitioner's record is in active use, allowing records to be retired without being deleted.
     pub active: Option<types::Boolean>,
 
-    /// The name(s) associated with the practitioner
+    /// The name or names associated with the practitioner, supporting official, usual, and historical forms.
     pub name: Option<Vec<types::HumanName>>,
 
     /// A contact detail for the practitioner (that apply to all roles)
@@ -92,7 +109,7 @@ pub struct Practitioner {
     /// Image of the person
     pub photo: Option<Vec<types::Attachment>>,
 
-    /// Qualifications, certifications, accreditations, licenses, training, etc. pertaining to the provision of care
+    /// Qualifications, certifications, accreditations, licenses, and training pertaining to the provision of care held by this practitioner.
     pub qualification: Option<Vec<PractitionerQualification>>,
 
     /// A language which may be used to communicate with the practitioner

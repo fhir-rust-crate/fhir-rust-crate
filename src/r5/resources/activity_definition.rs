@@ -15,7 +15,7 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// This resource allows for the definition of some activity to be performed,
 /// independent of a particular patient, practitioner, or other performance

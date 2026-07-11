@@ -15,15 +15,35 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// The Measure resource provides the definition of a quality measure.
 ///
-/// A quality measure is a quantitative tool to assess the performance of an
-/// individual or organization with respect to a specified process or outcome via
-/// the measurement of actions, processes, or outcomes of clinical care. The
-/// Measure resource represents a structured, computable definition of such a
-/// measure, including its population criteria, scoring, and supplemental data.
+/// A quality measure is a quantitative tool used to assess the performance of an
+/// individual clinician, an organization, or a health system with respect to a
+/// specified process or outcome, by measuring actions, processes, states, or
+/// outcomes of clinical care. In FHIR R5 the Measure resource is a canonical,
+/// publishable knowledge artifact that captures the complete, computable
+/// definition of such a measure: its metadata and versioning, the clinical logic
+/// libraries it relies on, its population criteria (for example initial
+/// population, numerator, and denominator), its scoring and improvement notation,
+/// and any stratifiers or supplemental data to report alongside the score.
+///
+/// Measures are typically authored and distributed by publishers or measure
+/// stewards and then evaluated against patient data to produce results. The
+/// clinical logic is generally expressed in a referenced Library (commonly using
+/// Clinical Quality Language, CQL), and the calculated results of applying a
+/// Measure to a subject or population are conveyed in a separate MeasureReport
+/// resource. This separation lets the same Measure definition be shared, versioned,
+/// and reused across many evaluations and reporting contexts.
+///
+/// # See also
+///
+/// The `Library` resource typically holds the measure's executable logic, and the
+/// `MeasureReport` resource conveys the results of evaluating a measure. Measure
+/// subjects are frequently instances of [`Patient`](crate::r5::resources::patient::Patient).
+/// Many descriptive fields are typed as
+/// [`CodeableConcept`](crate::r5::types::CodeableConcept).
 ///
 /// # Examples
 ///
@@ -87,7 +107,7 @@ pub struct Measure {
     /// Subordinate title of the measure
     pub subtitle: Option<types::String>,
 
-    /// draft | active | retired | unknown
+    /// Publication lifecycle state of this measure: draft, active, retired, or unknown.
     pub status: types::Code,
 
     /// For testing purposes, not real usage
@@ -159,13 +179,13 @@ pub struct Measure {
     /// Additional documentation, citations, etc
     pub related_artifact: Option<Vec<types::RelatedArtifact>>,
 
-    /// Logic used by the measure
+    /// Canonical references to the Library resources that hold the measure's computable logic, such as CQL.
     pub library: Option<Vec<types::Canonical>>,
 
     /// Disclaimer for use of the measure or its referenced content
     pub disclaimer: Option<types::Markdown>,
 
-    /// proportion | ratio | continuous-variable | cohort
+    /// How the measure is scored: proportion, ratio, continuous-variable, or cohort.
     pub scoring: Option<types::CodeableConcept>,
 
     /// What units?
@@ -198,7 +218,7 @@ pub struct Measure {
     /// Additional guidance for implementers (deprecated)
     pub guidance: Option<types::Markdown>,
 
-    /// Population criteria group
+    /// The population criteria groups that define how the measure is scored and evaluated.
     pub group: Option<Vec<MeasureGroup>>,
 
     /// What other data should be reported with the measure

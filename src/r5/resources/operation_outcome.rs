@@ -15,14 +15,29 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// A collection of error, warning, or information messages that result from a
-/// system action. OperationOutcome is a common resource used as part of the
-/// response to RESTful operations, batch/transaction results, and messaging to
-/// convey the outcome of processing a request. It carries one or more `issue`
-/// entries, each describing the severity, a machine-readable code, and optional
-/// human-readable details, diagnostics, and locations for a single problem.
+/// system action. OperationOutcome is a common infrastructure resource used
+/// across FHIR R5 to communicate the detailed outcome of processing a request:
+/// it is returned by RESTful interactions when an operation fails or produces
+/// warnings, embedded in the entries of a batch or transaction `Bundle` to report
+/// per-entry results, returned by the `$validate` and other operations, and used
+/// in FHIR messaging to signal processing status. Rather than conveying business
+/// data, it exists purely to describe what happened, so that clients can present
+/// meaningful diagnostics to users or drive automated error handling.
+///
+/// The resource carries one or more `issue` entries, each describing the
+/// severity, a machine-readable code, and optional human-readable details,
+/// diagnostics, and element locations for a single problem. An OperationOutcome
+/// with no issues of severity `error` or `fatal` generally indicates success,
+/// possibly accompanied by `warning` or `information` issues.
+///
+/// # Related resources
+///
+/// The `issue` details are expressed using [`CodeableConcept`](crate::r5::types::CodeableConcept),
+/// and this resource is frequently returned within the entries of a `Bundle`
+/// during batch, transaction, and search interactions.
 ///
 /// # Examples
 ///
@@ -62,7 +77,7 @@ pub struct OperationOutcome {
     /// Extensions that cannot be ignored
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// A single issue associated with the action
+    /// One or more issues describing each error, warning, or informational message from the action; at least one is expected
     pub issue: Vec<OperationOutcomeIssue>,
 }
 
@@ -83,13 +98,13 @@ pub struct OperationOutcomeIssue {
     /// Extensions that cannot be ignored even if unrecognized
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// fatal | error | warning | information | success
+    /// Severity of this issue, one of fatal, error, warning, information, or success, indicating how it affects the overall action
     pub severity: types::Code,
 
-    /// Error or warning code
+    /// Machine-processable code identifying the type of error or warning, drawn from the FHIR IssueType value set
     pub code: types::Code,
 
-    /// Additional details about the error
+    /// Additional details about the error, as a CodeableConcept that may carry a more specific error code and text
     pub details: Option<types::CodeableConcept>,
 
     /// Additional diagnostic information about the issue

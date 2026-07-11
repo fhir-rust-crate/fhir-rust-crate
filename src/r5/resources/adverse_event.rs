@@ -15,7 +15,7 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// An event (i.e. any change to current patient status) that may be related to
 /// unintended effects on a patient or research participant. The unintended

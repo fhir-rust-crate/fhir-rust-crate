@@ -15,7 +15,7 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// This resource provides eligibility and plan details from the processing of a
 /// CoverageEligibilityRequest resource. It conveys the insurer's response about

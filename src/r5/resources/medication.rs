@@ -15,15 +15,34 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
-/// This resource is primarily used for the identification and definition of a
-/// medication, including its ingredients, for the purposes of prescribing,
-/// dispensing, and administering. In FHIR R5 the Medication resource captures
-/// the code identifying the drug, its dose form, total volume, active and
-/// inactive ingredients with their strengths, and packaging details such as lot
-/// number and expiration date. It is referenced by workflow resources like
-/// MedicationRequest, MedicationDispense, and MedicationAdministration.
+/// The Medication resource is primarily used for the identification and
+/// definition of a medication, including its ingredients, for the purposes of
+/// prescribing, dispensing, and administering a medicinal product, as well as
+/// for making statements about medication use. In FHIR R5 it represents a
+/// specific medication as an actual instance or as an abstract definition: it
+/// carries the code that identifies the drug, its dose form (such as tablet,
+/// capsule, or powder), its total volume, the active and inactive ingredients
+/// together with the strength each contributes, and packaging details such as
+/// the batch lot number and expiration date. A Medication may also cite the
+/// organization authorized to market it and link to broader knowledge through a
+/// definition reference.
+///
+/// Clinically and administratively, Medication acts as the shared, reusable
+/// description of a drug that medication-workflow resources point to rather than
+/// duplicate. It is referenced by resources such as `MedicationRequest`,
+/// `MedicationDispense`, `MedicationAdministration`, and `MedicationStatement`,
+/// which record the ordering, supply, giving, and reported use of the drug for a
+/// particular subject.
+///
+/// # See also
+///
+/// The medication is described using data types including
+/// [`CodeableConcept`](crate::r5::types::CodeableConcept),
+/// [`Quantity`](crate::r5::types::Quantity), and
+/// [`Reference`](crate::r5::types::Reference). Ingredients and packaging are
+/// modeled by the nested [`MedicationIngredient`] and [`MedicationBatch`] types.
 ///
 /// # Examples
 ///
@@ -66,10 +85,10 @@ pub struct Medication {
     /// Business identifier for this medication
     pub identifier: Option<Vec<types::Identifier>>,
 
-    /// Codes that identify this medication
+    /// Coded value, such as an RxNorm or SNOMED CT code, that identifies this medication
     pub code: Option<types::CodeableConcept>,
 
-    /// active | inactive | entered-in-error
+    /// Lifecycle status of the record: active, inactive, or entered-in-error
     pub status: Option<types::Code>,
 
     /// Organization that has authorization to market medication
@@ -81,10 +100,10 @@ pub struct Medication {
     /// When the specified product code does not infer a package size, this is the specific amount of drug in the product
     pub total_volume: Option<types::Quantity>,
 
-    /// Active or inactive ingredient
+    /// Active or inactive ingredients that make up the medication, each with an optional strength
     pub ingredient: Option<Vec<MedicationIngredient>>,
 
-    /// Details about packaged medications
+    /// Details about the packaged medication, such as its batch lot number and expiration date
     pub batch: Option<MedicationBatch>,
 
     /// Knowledge about this medication

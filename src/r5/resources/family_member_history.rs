@@ -15,7 +15,7 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// FamilyMemberHistory captures significant health conditions for a person
 /// related to the patient that are relevant to the patient's care. It records

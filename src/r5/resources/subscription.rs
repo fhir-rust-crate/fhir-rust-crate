@@ -15,7 +15,7 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// The Subscription resource describes a particular client's request to be
 /// notified about a SubscriptionTopic. A Subscription is a persistent record

@@ -15,7 +15,7 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// The marketing status describes the date when a medicinal product is actually
 /// put on the market or the date as of which it is no longer available. It is a

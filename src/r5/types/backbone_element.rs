@@ -15,7 +15,7 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// BackboneElement is the base definition for all elements that are defined
 /// inside a resource, as opposed to those defined in a reusable data type.

@@ -15,7 +15,7 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// This resource describes a product or service that is available through a
 /// program and includes the conditions and constraints of availability. All of

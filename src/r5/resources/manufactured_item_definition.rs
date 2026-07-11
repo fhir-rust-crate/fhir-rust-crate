@@ -15,14 +15,30 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// The definition and characteristics of a medicinal manufactured item, such as
-/// a tablet or capsule, as contained in a packaged medicinal product. It
-/// describes the dose form, ingredients, physical components, and general
-/// characteristics of the item as it is manufactured, before any transformation
-/// needed for administration. This resource is used in medicinal product
-/// regulatory submissions and packaging descriptions.
+/// a tablet, capsule, patch, or ampoule, as contained in a packaged medicinal
+/// product. It captures the item exactly as it is manufactured, before any
+/// transformation that may be needed for administration, and records its
+/// manufactured dose form, unit of presentation, manufacturers, marketing
+/// status, ingredients, physical components, and general characteristics.
+///
+/// In FHIR R5 this resource belongs to the medication definition family and is
+/// used chiefly in medicinal product regulatory submissions, such as those
+/// following the ISO IDMP standards, as well as in packaging and supply-chain
+/// descriptions. A ManufacturedItemDefinition is typically referenced from a
+/// packaged product to say what physical items a pack contains, and its
+/// ingredients and constituents may point to more detailed substance and
+/// ingredient definitions. Coded fields such as the manufactured dose form use
+/// [`CodeableConcept`](crate::r5::types::CodeableConcept), and availability is
+/// expressed through [`MarketingStatus`](crate::r5::types::MarketingStatus).
+///
+/// # Related resources
+///
+/// See also the `PackagedProductDefinition`, `MedicinalProductDefinition`, and
+/// `Ingredient` resources, which together describe a medicinal product and how
+/// its manufactured items are packaged, marketed, and composed.
 ///
 /// # Examples
 ///
@@ -65,13 +81,13 @@ pub struct ManufacturedItemDefinition {
     /// Unique identifier
     pub identifier: Option<Vec<types::Identifier>>,
 
-    /// draft | active | retired | unknown
+    /// Publication status of this definition, one of draft, active, retired, or unknown
     pub status: types::Code,
 
     /// A descriptive name applied to this item
     pub name: Option<types::String>,
 
-    /// Dose form as manufactured (before any necessary transformation)
+    /// Dose form of the item as manufactured, such as tablet or capsule, before any transformation needed for administration
     pub manufactured_dose_form: types::CodeableConcept,
 
     /// The "real-world" units in which the quantity of the item is described

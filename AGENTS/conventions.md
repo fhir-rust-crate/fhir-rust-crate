@@ -12,7 +12,7 @@ Every complex datatype and resource struct looks like this:
 ```rust
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 #[serde_with::skip_serializing_none]
 #[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]

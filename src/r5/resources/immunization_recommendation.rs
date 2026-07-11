@@ -15,15 +15,37 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// ImmunizationRecommendation resource.
 ///
 /// A patient's point-in-time set of recommendations (i.e. forecasting)
-/// according to a published schedule with optional supporting justification.
-/// It captures which vaccines a patient should receive, the forecast status
-/// of each recommendation, and the immunizations and observations that support
-/// the reasoning. It is commonly produced by immunization forecasting engines.
+/// according to a published schedule, with optional supporting justification.
+/// The resource captures which vaccines or vaccine groups a patient should
+/// receive, the forecast status of each recommendation (for example due,
+/// overdue, complete, or contraindicated), the dose number within a series,
+/// and the calendar dates that govern when a dose becomes due. Each
+/// recommendation may also cite the past immunizations and patient
+/// observations that support the reasoning, so the forecast can be audited
+/// and explained.
+///
+/// In FHIR R5 this resource is typically produced by a clinical decision
+/// support system or immunization forecasting engine and consumed by
+/// electronic health records, patient portals, and immunization information
+/// systems to remind clinicians and patients of vaccinations that are due.
+/// Because it is a point-in-time snapshot, a new instance is generally
+/// generated whenever the forecast is recalculated rather than updating a
+/// prior one.
+///
+/// # Related resources
+///
+/// The recommendation is always about a single subject, referenced from the
+/// `patient` field and typically resolving to a [`Patient`](crate::r5::resources::patient::Patient).
+/// Supporting evidence commonly references past [`Immunization`](crate::r5::resources::immunization::Immunization)
+/// records and [`Observation`](crate::r5::resources::observation::Observation) results. Coded
+/// concepts such as the vaccine code and forecast status use
+/// [`CodeableConcept`](crate::r5::types::CodeableConcept), while links to other
+/// resources use [`Reference`](crate::r5::types::Reference).
 ///
 /// # Examples
 ///
@@ -66,16 +88,16 @@ pub struct ImmunizationRecommendation {
     /// Business identifier
     pub identifier: Option<Vec<types::Identifier>>,
 
-    /// Who this profile is for
+    /// Reference to the patient for whom this set of recommendations is forecast.
     pub patient: types::Reference,
 
-    /// Date recommendation(s) created
+    /// Point in time at which this set of recommendations was generated.
     pub date: types::DateTime,
 
-    /// Who is responsible for protocol
+    /// Organization responsible for the immunization protocol used to forecast.
     pub authority: Option<types::Reference>,
 
-    /// Vaccine administration recommendations
+    /// One entry per vaccine or vaccine group being recommended for the patient.
     pub recommendation: Vec<ImmunizationRecommendationRecommendation>,
 }
 
@@ -93,16 +115,16 @@ pub struct ImmunizationRecommendationRecommendation {
     /// Extensions that cannot be ignored even if unrecognized
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// Vaccine  or vaccine group recommendation applies to
+    /// Coded vaccine or vaccine group that this recommendation applies to.
     pub vaccine_code: Option<Vec<types::CodeableConcept>>,
 
-    /// Disease to be immunized against
+    /// Coded disease or diseases the recommended vaccine protects against.
     pub target_disease: Option<Vec<types::CodeableConcept>>,
 
     /// Vaccine which is contraindicated to fulfill the recommendation
     pub contraindicated_vaccine_code: Option<Vec<types::CodeableConcept>>,
 
-    /// Vaccine recommendation status
+    /// Coded forecast status such as due, overdue, immune, complete, or contraindicated.
     pub forecast_status: types::CodeableConcept,
 
     /// Vaccine administration status reason

@@ -15,14 +15,34 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// A formally or informally recognized grouping of people or organizations
 /// formed for the purpose of achieving some form of collective action. This
 /// includes companies, institutions, corporations, departments, community
-/// groups, healthcare practice groups, payers/insurers, and so on. The
-/// Organization resource is commonly referenced by many other FHIR resources
-/// to describe the entity responsible for or associated with an activity.
+/// groups, healthcare practice groups, payers and insurers, government agencies,
+/// and so on.
+///
+/// In FHIR R5 the Organization resource serves an administrative role: it
+/// represents the legal or operational entity that provides, pays for, regulates,
+/// or is otherwise accountable for healthcare activities, rather than describing
+/// a physical place or a single person. Organizations frequently form
+/// hierarchies, where a department or division records its parent entity via the
+/// `part_of` field, allowing a whole institution to be modeled as a tree of
+/// related organizations. Because so many workflows need to name a responsible
+/// entity, the Organization resource is one of the most widely referenced
+/// resources in the specification.
+///
+/// # Related resources
+///
+/// An organization is commonly referenced as the managing or responsible entity
+/// by resources such as [`Patient`](crate::r5::resources::patient::Patient) and
+/// [`Practitioner`](crate::r5::resources::practitioner::Practitioner). The
+/// distinct role that a person, organization, or device plays at a location is
+/// captured by the `PractitionerRole` and `Location` resources. Coded values on
+/// this resource, such as the organization `type`, use
+/// [`CodeableConcept`](crate::r5::types::CodeableConcept), and links to other
+/// resources use [`Reference`](crate::r5::types::Reference).
 ///
 /// # Examples
 ///
@@ -62,16 +82,16 @@ pub struct Organization {
     /// Extensions that cannot be ignored
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// Identifies this organization across multiple systems
+    /// Business identifiers that identify this organization across multiple systems, such as tax, national provider, or license numbers.
     pub identifier: Option<Vec<types::Identifier>>,
 
-    /// Whether the organization's record is still in active use
+    /// Whether the organization's record is still in active use; a false value marks records that should no longer be selected for new activity.
     pub active: Option<types::Boolean>,
 
-    /// Kind of organization
+    /// The kind or category of organization, coded so systems can classify it, for example a healthcare provider, payer, department, or educational institution.
     pub r#type: Option<Vec<types::CodeableConcept>>,
 
-    /// Name used for the organization
+    /// The public or human-readable name used to refer to the organization.
     pub name: Option<types::String>,
 
     /// A list of alternate names that the organization is known as, or was known as in the past
@@ -83,7 +103,7 @@ pub struct Organization {
     /// Official contact details for the Organization
     pub contact: Option<Vec<types::ExtendedContactDetail>>,
 
-    /// The organization of which this organization forms a part
+    /// A reference to the parent organization of which this organization forms a part, used to build institutional hierarchies of departments and divisions.
     pub part_of: Option<types::Reference>,
 
     /// Technical endpoints providing access to services operated for the organization

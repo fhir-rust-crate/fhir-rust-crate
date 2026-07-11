@@ -15,14 +15,30 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// The Library resource is a general-purpose container for knowledge asset
-/// definitions. It can be used to describe and expose existing knowledge assets
-/// such as logic libraries and information model descriptions, as well as to
-/// describe a collection of knowledge assets. In FHIR R5 it commonly carries
-/// clinical decision support logic (for example CQL) as embedded or referenced
-/// content, along with the parameters and data requirements the logic depends on.
+/// definitions. It is used to describe, package, and expose knowledge assets
+/// such as logic libraries, information model descriptions, and curated
+/// collections of related assets, giving them consistent metadata, versioning,
+/// and lifecycle governance. In FHIR R5 a Library most often carries clinical
+/// decision support logic, typically expressed in Clinical Quality Language
+/// (CQL) and its compiled ELM representation, as content that is either embedded
+/// inline or referenced through an attachment. Alongside that content it
+/// declares the input parameters the logic accepts and the data requirements it
+/// consumes, so that engines can evaluate the logic and callers can understand
+/// what data must be supplied. Libraries are commonly authored and shared as
+/// part of a broader knowledge artifact ecosystem and are referenced by
+/// measures, decision support rules, and other definitional resources.
+///
+/// # See also
+///
+/// A Library carries a resource type and topic classification using
+/// [`CodeableConcept`](crate::r5::types::CodeableConcept), declares its inputs
+/// with `ParameterDefinition`, describes the data it consumes with
+/// `DataRequirement`, and holds its embedded or referenced payload in an
+/// `Attachment`. Publication metadata is captured with `ContactDetail`,
+/// `UsageContext`, and `RelatedArtifact`.
 ///
 /// # Examples
 ///
@@ -86,13 +102,13 @@ pub struct Library {
     /// Subordinate title of the library
     pub subtitle: Option<types::String>,
 
-    /// draft | active | retired | unknown
+    /// Publication lifecycle state of the library: draft, active, retired, or unknown
     pub status: types::Code,
 
     /// For testing purposes, not real usage
     pub experimental: Option<types::Boolean>,
 
-    /// logic-library | model-definition | asset-collection | module-definition
+    /// Kind of library, such as logic-library, model-definition, asset-collection, or module-definition
     pub r#type: types::CodeableConcept,
 
     /// Type of individual the library content is focused on
@@ -158,13 +174,13 @@ pub struct Library {
     /// Additional documentation, citations, etc
     pub related_artifact: Option<Vec<types::RelatedArtifact>>,
 
-    /// Parameters defined by the library
+    /// Input and output parameters that the library logic accepts or produces
     pub parameter: Option<Vec<types::ParameterDefinition>>,
 
-    /// What data is referenced by this library
+    /// Data the library consumes when evaluated, describing required resources and elements
     pub data_requirement: Option<Vec<types::DataRequirement>>,
 
-    /// Contents of the library, either embedded or referenced
+    /// Payload of the library, such as CQL or ELM logic, embedded inline or referenced by URL
     pub content: Option<Vec<types::Attachment>>,
 }
 

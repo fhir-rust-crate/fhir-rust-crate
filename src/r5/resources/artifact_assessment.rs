@@ -15,7 +15,7 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// ArtifactAssessment provides one or more comments, classifiers, or ratings
 /// about a Resource and supports attribution and rights management metadata for

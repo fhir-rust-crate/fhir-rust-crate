@@ -15,7 +15,7 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// The ExtendedContactDetail datatype specifies contact information for a
 /// specific purpose over a period of time, such as an address or telecom

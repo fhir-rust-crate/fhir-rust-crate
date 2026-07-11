@@ -15,13 +15,32 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// The MeasureReport resource contains the results of the calculation of a
-/// measure, and optionally a reference to the resources involved in that
-/// calculation. It is used to communicate quality measure results between
-/// systems, such as reporting a proportion measure score for an individual
-/// patient or summarizing results across a population.
+/// quality measure, and optionally references to the resources that were
+/// involved in that calculation. In FHIR R5 it is the primary vehicle for
+/// exchanging quality-measurement outcomes between systems: a reporting
+/// system evaluates a `Measure` definition against a subject or population
+/// over a defined reporting period, then conveys the computed scores,
+/// population counts, and stratifications as a MeasureReport. Reports may be
+/// produced at the level of an individual (for example, a single patient's
+/// proportion score), as a subject-list enumerating the members of each
+/// population, or as an aggregate summary across an entire population, and
+/// may also be used purely for data exchange to submit the raw evaluated
+/// data. Common uses include clinical quality measurement, value-based care
+/// and pay-for-performance programs, public health surveillance, and
+/// regulatory or accreditation reporting.
+///
+/// Related resources: a MeasureReport typically references the `Measure` it
+/// was calculated from, the subject it concerns (for example a
+/// [`Patient`](crate::r5::resources::patient::Patient) or a `Group`), and
+/// the [`Organization`](crate::r5::resources::organization::Organization)
+/// or `Practitioner` acting as reporter. Scores, improvement notation, and
+/// stratifier values are expressed using
+/// [`CodeableConcept`](crate::r5::types::CodeableConcept),
+/// [`Quantity`](crate::r5::types::Quantity), and related datatypes, and the
+/// reporting window is captured with a [`Period`](crate::r5::types::Period).
 ///
 /// # Examples
 ///
@@ -64,19 +83,19 @@ pub struct MeasureReport {
     /// Additional identifier for the MeasureReport
     pub identifier: Option<Vec<types::Identifier>>,
 
-    /// complete | pending | error
+    /// The processing state of the report: complete, pending, or error.
     pub status: types::Code,
 
-    /// individual | subject-list | summary | data-exchange
+    /// The kind of report: individual, subject-list, summary, or data-exchange.
     pub r#type: types::Code,
 
     /// incremental | snapshot
     pub data_update_type: Option<types::Code>,
 
-    /// What measure was calculated
+    /// Canonical reference to the Measure definition that was calculated.
     pub measure: Option<types::Canonical>,
 
-    /// What individual(s) the report is for
+    /// The individual, group, or population that this report concerns.
     pub subject: Option<types::Reference>,
 
     /// When the measure was calculated
@@ -91,7 +110,7 @@ pub struct MeasureReport {
     /// Where the reported data is from
     pub location: Option<types::Reference>,
 
-    /// What period the report covers
+    /// The reporting period over which the measure was evaluated.
     pub period: types::Period,
 
     /// What parameters were provided to the report

@@ -15,7 +15,7 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// Describes a required data item for evaluation in terms of the type of data,
 /// and optional code or date-based filters of the data. DataRequirement is used

@@ -15,7 +15,7 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// This resource provides the adjudication details from the processing of a
 /// Claim resource. It conveys the outcome of an insurer's or payer's processing

@@ -15,7 +15,7 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// Risk of harmful or undesirable, physiological response which is unique to an
 /// individual and associated with exposure to a substance.

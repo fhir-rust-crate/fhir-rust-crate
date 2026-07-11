@@ -15,7 +15,7 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// PrimitiveType is the abstract base for all re-useable FHIR types that carry a
 /// single simple value (for example `string`, `boolean`, `integer`, and the

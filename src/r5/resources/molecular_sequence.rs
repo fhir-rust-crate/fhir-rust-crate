@@ -15,16 +15,33 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// Representation of a molecular sequence.
 ///
 /// The MolecularSequence resource captures a raw or relative molecular sequence
-/// (amino acid, DNA, or RNA) along with the subject, specimen, device, and
-/// performer context in which it was observed. A sequence may be provided
-/// literally, as an embedded/attached file, or defined relative to a known
-/// starting sequence together with a set of edits. It is typically used in
-/// genomics workflows to share and reason about sequence data in FHIR R5.
+/// (amino acid, DNA, or RNA) together with the subject, specimen, device, and
+/// performer context in which it was observed. Its clinical and research purpose
+/// is to carry the actual sequence content produced by genomic testing so that
+/// it can be exchanged, stored, and interpreted alongside the observations and
+/// diagnostic reports that describe its meaning. A sequence may be conveyed in
+/// three complementary ways: literally as an inline string, as an embedded or
+/// externally linked file, or relatively by referencing a known starting
+/// sequence (such as a genome assembly build like GRCh38) and expressing the
+/// differences as a set of edits over defined coordinate ranges. In typical
+/// FHIR R5 genomics workflows this resource is referenced from an Observation
+/// or other clinical resource, letting downstream systems reason about variants,
+/// alignments, and provenance without duplicating large sequence payloads.
+///
+/// # Related resources
+///
+/// The subject, specimen, device, and performer are expressed as
+/// [`Reference`](crate::r5::types::Reference) values, commonly pointing to a
+/// `Patient`, `Specimen`, `Device`, or `Practitioner`. Attached sequence
+/// content uses [`Attachment`](crate::r5::types::Attachment), and coordinate
+/// systems, genome assemblies, and chromosomes are described with
+/// [`CodeableConcept`](crate::r5::types::CodeableConcept). This resource is
+/// frequently referenced by an `Observation` in genomics-oriented profiles.
 ///
 /// # Examples
 ///
@@ -67,10 +84,10 @@ pub struct MolecularSequence {
     /// Unique ID for this particular sequence
     pub identifier: Option<Vec<types::Identifier>>,
 
-    /// aa | dna | rna
+    /// Kind of molecule represented, coded as aa (amino acid), dna, or rna
     pub r#type: Option<types::Code>,
 
-    /// Subject this sequence is associated too
+    /// Subject the sequence is associated with, typically a Patient or other record target
     pub subject: Option<types::Reference>,
 
     /// What the molecular sequence is about, when it is not about the subject of record
@@ -85,13 +102,13 @@ pub struct MolecularSequence {
     /// Who should be responsible for test result
     pub performer: Option<types::Reference>,
 
-    /// Sequence that was observed
+    /// Sequence that was observed, provided inline as a literal string of residues
     pub literal: Option<types::String>,
 
     /// Embedded file or a link (URL) which contains content to represent the sequence
     pub formatted: Option<Vec<types::Attachment>>,
 
-    /// A sequence defined relative to another sequence
+    /// A sequence defined relative to a starting sequence via a set of edits
     pub relative: Option<Vec<MolecularSequenceRelative>>,
 }
 

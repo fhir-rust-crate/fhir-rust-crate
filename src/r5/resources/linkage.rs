@@ -15,14 +15,25 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// Identifies two or more records (resource instances) that refer to the same
 /// real-world "occurrence". A Linkage asserts that a set of resources — for
-/// example multiple Patient records — all describe the same underlying entity,
-/// distinguishing the authoritative "source" record from "alternate" or
-/// "historical" ones. It is typically used during record matching, deduplication,
-/// and master data management to relate records without merging them.
+/// example multiple [`Patient`](crate::r5::resources::patient::Patient) records —
+/// all describe the same underlying entity, distinguishing the authoritative
+/// "source" record from "alternate" or "historical" ones. Rather than physically
+/// merging the linked records, a Linkage keeps each resource intact and records
+/// the relationship between them, so that consumers can resolve which instance is
+/// current and which are superseded or duplicated. In FHIR R5 it is typically used
+/// during record matching, deduplication, patient identity reconciliation, and
+/// master data management, where enterprises must relate records drawn from
+/// multiple systems while preserving their provenance and history.
+///
+/// See also: each linked resource is referenced through a
+/// [`Reference`](crate::r5::types::Reference), the assertion may be attributed to
+/// an author such as a `Practitioner` or `Organization`, and the classification of
+/// each entry is carried as a [`Code`](crate::r5::types::Code). For merging patient
+/// identities specifically, compare with the `Patient.link` mechanism.
 ///
 /// # Examples
 ///
@@ -62,13 +73,13 @@ pub struct Linkage {
     /// Extensions that cannot be ignored
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// Whether this linkage assertion is active or not
+    /// Whether this linkage assertion is currently active; an inactive assertion is retained for history but no longer treated as valid.
     pub active: Option<types::Boolean>,
 
-    /// Who is responsible for linkages
+    /// Reference to the party, such as a Practitioner or Organization, responsible for asserting and maintaining these linkages.
     pub author: Option<types::Reference>,
 
-    /// Item to be linked
+    /// The set of records being linked together; each entry names a resource and its role within the collection.
     pub item: Vec<LinkageItem>,
 }
 
@@ -88,10 +99,10 @@ pub struct LinkageItem {
     /// Extensions that cannot be ignored even if unrecognized
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// source | alternate | historical
+    /// Role of this record within the linkage, coded as source, alternate, or historical.
     pub r#type: types::Code,
 
-    /// Resource being linked
+    /// Reference to the specific resource instance being included in this linkage.
     pub resource: types::Reference,
 }
 

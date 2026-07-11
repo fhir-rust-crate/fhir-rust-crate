@@ -15,15 +15,36 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// A food or supplement that is consumed by patients.
 ///
-/// NutritionProduct describes a food, nutritional supplement, or similar
-/// consumable, including its nutritional information, ingredients, known
-/// allergens, descriptive characteristics, and physical instances such as
-/// specific lots. It supports nutrition ordering and dispensing workflows in
-/// FHIR R5.
+/// NutritionProduct is a definitional resource in FHIR R5 that describes a
+/// food, enteral or oral nutritional supplement, infant formula, thickener, or
+/// similar consumable product. It captures the product's classification, its
+/// nutritional composition expressed as nutrients, the ingredients it contains,
+/// any known or suspected allergens, descriptive characteristics such as color,
+/// texture, or preparation, and one or more physical instances identified by
+/// lot number, expiry date, or serial identifier. The resource lets systems
+/// represent products consistently across nutrition ordering, dispensing,
+/// inventory, and product-catalog scenarios so that clinical, dietary, and
+/// supply workflows can reference a single well-defined product definition.
+///
+/// In typical use, a NutritionProduct is referenced by ordering and
+/// administration resources rather than describing a specific patient event on
+/// its own. The product's status indicates whether the definition is active,
+/// inactive, or entered in error, and its manufacturer and category support
+/// catalog lookup and reporting.
+///
+/// # See also
+///
+/// Related resources and data types include the `NutritionOrder` and
+/// `NutritionIntake` resources that reference nutrition products,
+/// [`Patient`](crate::r5::resources::patient::Patient) as the consumer of the
+/// product, [`CodeableConcept`](crate::r5::types::CodeableConcept) used for
+/// coded classification, and
+/// [`CodeableReference`](crate::r5::types::CodeableReference) used to point to
+/// nutrients, ingredients, and allergens.
 ///
 /// # Examples
 ///
@@ -63,10 +84,10 @@ pub struct NutritionProduct {
     /// Extensions that cannot be ignored
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// A code that can identify the detailed nutrients and ingredients in a specific food product
+    /// Coded identifier for the product that conveys its detailed nutrients and ingredients, drawn from food or supplement terminologies
     pub code: Option<types::CodeableConcept>,
 
-    /// active | inactive | entered-in-error
+    /// Lifecycle state of the product definition: active, inactive, or entered-in-error
     pub status: types::Code,
 
     /// Broad product groups or categories used to classify the product, such as Legume and Legume Products, Beverages, or Beef Products
@@ -75,13 +96,13 @@ pub struct NutritionProduct {
     /// Manufacturer, representative or officially responsible for the product
     pub manufacturer: Option<Vec<types::Reference>>,
 
-    /// The product's nutritional information expressed by the nutrients
+    /// The product's nutritional composition, expressed as nutrient amounts such as per pack, per serving, or per dose
     pub nutrient: Option<Vec<NutritionProductNutrient>>,
 
     /// Ingredients contained in this product
     pub ingredient: Option<Vec<NutritionProductIngredient>>,
 
-    /// Known or suspected allergens that are a part of this product
+    /// Known or suspected allergens present in the product, supporting allergy screening and safe consumption
     pub known_allergen: Option<Vec<types::CodeableReference>>,
 
     /// Specifies descriptive properties of the nutrition product

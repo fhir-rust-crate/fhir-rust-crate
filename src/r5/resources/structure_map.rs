@@ -15,7 +15,7 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// A StructureMap describes a map of relationships between two or more
 /// structures that can be used to transform instance data from one form to

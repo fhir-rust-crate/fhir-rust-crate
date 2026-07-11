@@ -15,7 +15,7 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// The CodeSystem resource is used to declare the existence of and describe a
 /// code system or code system supplement and its key properties, and optionally

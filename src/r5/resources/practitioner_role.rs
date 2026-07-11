@@ -15,14 +15,28 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
-/// A specific set of Roles/Locations/specialties/services that a practitioner
-/// may perform, or has performed at an organization during a period of time.
-/// This resource links a Practitioner to an Organization and describes the
-/// roles, specialties, locations, healthcare services, and availability under
-/// which the practitioner acts. It is commonly used in provider directories and
-/// scheduling to determine who can perform what, where, and when.
+/// A specific set of roles, locations, specialties, and services that a
+/// practitioner may perform, or has performed, at an organization during a
+/// period of time. In FHIR R5 this resource is administrative rather than
+/// clinical: it does not describe a person, but instead the relationship that
+/// binds a practitioner to an organization and the context in which that
+/// practitioner acts. A single practitioner can have many PractitionerRole
+/// records, one for each distinct combination of organization, role, specialty,
+/// location, or engagement period. The resource is central to provider
+/// directories, scheduling and referral workflows, and access-control decisions,
+/// because it answers who can perform what, on whose behalf, where, and when.
+/// It also carries contact details, spoken languages, availability, and endpoints
+/// used to reach the practitioner while acting in this particular role.
+///
+/// # See also
+///
+/// A PractitionerRole references a `Practitioner` (the person) and an
+/// [`Organization`](crate::r5::resources::organization::Organization), and may
+/// point to `Location` and `HealthcareService` resources. Roles and specialties
+/// are expressed with [`CodeableConcept`](crate::r5::types::CodeableConcept),
+/// and links to other systems use [`Reference`](crate::r5::types::Reference).
 ///
 /// # Examples
 ///
@@ -71,16 +85,16 @@ pub struct PractitionerRole {
     /// The period during which the practitioner is authorized to perform in these role(s)
     pub period: Option<types::Period>,
 
-    /// Practitioner that provides services for the organization
+    /// Reference to the Practitioner (the person) who acts in this role
     pub practitioner: Option<types::Reference>,
 
-    /// Organization where the roles are available
+    /// Reference to the Organization on whose behalf the practitioner performs this role
     pub organization: Option<types::Reference>,
 
-    /// Roles which this practitioner may perform
+    /// Coded roles this practitioner may perform, such as doctor, nurse, or pharmacist
     pub code: Option<Vec<types::CodeableConcept>>,
 
-    /// Specific specialty of the practitioner
+    /// Coded clinical specialties exercised by the practitioner in this role
     pub specialty: Option<Vec<types::CodeableConcept>>,
 
     /// Location(s) where the practitioner provides care

@@ -15,7 +15,7 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// An order or request for both supply of the medication and the instructions
 /// for administration of the medication to a patient. The resource is called

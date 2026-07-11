@@ -15,7 +15,7 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// The technical details of an endpoint that can be used for electronic
 /// services, such as for web services providing XDS.b, a REST endpoint for

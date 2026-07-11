@@ -15,7 +15,7 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// SimpleQuantity is a constrained profile of Quantity that represents a fixed
 /// numerical amount without any comparator (the `comparator` element is

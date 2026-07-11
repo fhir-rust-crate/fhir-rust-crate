@@ -15,7 +15,7 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// PlanDefinition Resource.
 ///
@@ -24,6 +24,26 @@ use fhir_derive::Validate;
 /// enough to support the description of a broad range of clinical and
 /// non-clinical artifacts such as clinical decision support rules, order sets,
 /// protocols, and drug quality specifications.
+///
+/// In FHIR R5 a PlanDefinition is a definitional resource: it describes the
+/// intended structure of care or work rather than any specific instance of it
+/// having occurred for a particular subject. Authors compose a plan from a
+/// hierarchy of actions, each of which can carry conditions, timing,
+/// participants, inputs and outputs, and relationships to other actions,
+/// together with goals the plan is meant to achieve. Because the definition is
+/// computable, decision support engines and workflow systems can apply a
+/// PlanDefinition to a patient's context to generate concrete request
+/// resources, such as a CarePlan, RequestOrchestration, or Task, and to drive
+/// event-condition-action rules. This makes PlanDefinition a foundational
+/// building block for knowledge artifacts that are published, versioned, and
+/// shared across organizations.
+///
+/// Related resources: an ActivityDefinition supplies the reusable detail for
+/// individual actions, a Library carries the logic and terminology the plan
+/// relies on, and applying a plan commonly targets a subject such as a
+/// [`Patient`](crate::r5::resources::patient::Patient). Many fields are typed
+/// with shared datatypes such as
+/// [`CodeableConcept`](crate::r5::types::CodeableConcept).
 ///
 /// # Examples
 ///
@@ -87,10 +107,10 @@ pub struct PlanDefinition {
     /// Subordinate title of the plan definition
     pub subtitle: Option<types::String>,
 
-    /// order-set | clinical-protocol | eca-rule | workflow-definition
+    /// High-level kind of artifact this plan represents, such as order-set, clinical-protocol, eca-rule, or workflow-definition.
     pub r#type: Option<types::CodeableConcept>,
 
-    /// draft | active | retired | unknown
+    /// Publication lifecycle state of the plan definition: draft, active, retired, or unknown; this field is required.
     pub status: types::Code,
 
     /// For testing purposes, not real usage
@@ -165,13 +185,13 @@ pub struct PlanDefinition {
     /// Logic used by the plan definition
     pub library: Option<Vec<types::Canonical>>,
 
-    /// What the plan is trying to accomplish
+    /// The clinical or business goals the plan is intended to accomplish, against which its actions can be measured.
     pub goal: Option<Vec<PlanDefinitionGoal>>,
 
-    /// Actors within the plan
+    /// The actors, such as roles or participant types, that take part in carrying out the plan.
     pub actor: Option<Vec<PlanDefinitionActor>>,
 
-    /// Action defined by the plan
+    /// The ordered, possibly nested actions that make up the plan and define what should be done and when.
     pub action: Option<Vec<PlanDefinitionAction>>,
 
     /// Preconditions for service

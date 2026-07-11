@@ -15,7 +15,7 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// The EventDefinition resource provides a reusable description of when a
 /// particular event can occur, defined in terms of one or more triggers.

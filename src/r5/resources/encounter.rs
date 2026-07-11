@@ -15,17 +15,41 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// An interaction between healthcare provider(s), and/or patient(s) for the
 /// purpose of providing healthcare service(s) or assessing the health status of
 /// patient(s).
 ///
-/// In FHIR R5 the Encounter resource records the context of a healthcare
-/// interaction such as an inpatient admission, an outpatient visit, or a virtual
-/// consultation. It ties together the subject, participants, locations, reasons,
-/// diagnoses, and administrative details (admission and discharge) of the
-/// interaction.
+/// In FHIR R5 the Encounter resource is the primary record of the context in
+/// which healthcare is delivered. It represents a single contact between a
+/// patient (or group) and the health system, spanning the full range of care
+/// settings: inpatient admissions, ambulatory and outpatient visits, emergency
+/// presentations, home health visits, and virtual or telehealth consultations.
+/// The encounter provides the administrative and clinical framing that other
+/// resources reference, and it typically progresses through a lifecycle captured
+/// by its status, from planned and in-progress through to discharged, completed,
+/// or cancelled.
+///
+/// An Encounter ties together the subject of care, the participants (such as
+/// practitioners and care teams), the physical or virtual locations visited, the
+/// reasons the interaction took place, the diagnoses addressed, the periods of
+/// time involved, and the administrative details of admission and discharge. It
+/// serves as an organizing hub in the record, so that observations, procedures,
+/// medication administrations, and other clinical activities can be grouped
+/// against the interaction during which they occurred. Encounters may also be
+/// nested or grouped, with one encounter referenced as part of another and one
+/// or more encounters recorded against a broader episode of care.
+///
+/// # Related resources
+///
+/// The subject of an encounter is commonly a [`Patient`](crate::r5::resources::patient::Patient),
+/// and coded elements such as status, class, priority, and type are expressed
+/// using [`CodeableConcept`](crate::r5::types::CodeableConcept). Links to other
+/// resources, including participants, locations, and the service provider, are
+/// carried as [`Reference`](crate::r5::types::Reference) values. Encounters are
+/// frequently associated with an `EpisodeOfCare`, an `Appointment`, and clinical
+/// resources such as `Condition` and `Observation`.
 ///
 /// # Examples
 ///
@@ -68,10 +92,10 @@ pub struct Encounter {
     /// Identifier(s) by which this encounter is known
     pub identifier: Option<Vec<types::Identifier>>,
 
-    /// planned | in-progress | on-hold | discharged | completed | cancelled | discontinued | entered-in-error | unknown
+    /// Current lifecycle state of the encounter, such as planned, in-progress, on-hold, discharged, completed, cancelled, discontinued, entered-in-error, or unknown.
     pub status: types::Code,
 
-    /// Classification of patient encounter context - e.g. Inpatient, outpatient
+    /// Classification of the encounter setting, such as inpatient, outpatient, ambulatory, emergency, or virtual.
     pub class: Option<Vec<types::CodeableConcept>>,
 
     /// Indicates the urgency of the encounter
@@ -83,7 +107,7 @@ pub struct Encounter {
     /// Specific type of service
     pub service_type: Option<Vec<types::CodeableReference>>,
 
-    /// The patient or group related to this encounter
+    /// Reference to the patient or group that is the subject of this encounter and receives the healthcare service.
     pub subject: Option<types::Reference>,
 
     /// The current status of the subject in relation to the Encounter
@@ -104,7 +128,7 @@ pub struct Encounter {
     /// The organization (facility) responsible for this encounter
     pub service_provider: Option<types::Reference>,
 
-    /// List of participants involved in the encounter
+    /// The people, devices, or services that took part in the encounter, each with a role and time period, modeled by EncounterParticipant.
     pub participant: Option<Vec<EncounterParticipant>>,
 
     /// The appointment that scheduled this encounter

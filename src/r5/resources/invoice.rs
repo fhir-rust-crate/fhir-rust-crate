@@ -15,15 +15,34 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// Invoice containing collected ChargeItems from an Account with calculated
 /// individual and total price for Billing purpose.
 ///
-/// The Invoice resource enables the collection of ChargeItems from an Account
-/// into a formal statement of financial charges, including line items and
-/// calculated totals, for the purpose of billing a subject or organization.
-/// It is used within the financial and billing workflows of FHIR R5.
+/// The Invoice resource represents a formal statement of financial charges
+/// issued to a subject or organization. It aggregates individual ChargeItem
+/// entries drawn from an [`Account`](crate::r5::resources::account::Account)
+/// into discrete line items, each carrying its own price components, and rolls
+/// them up into calculated net and gross totals. Invoices are produced by an
+/// issuing organization once the services or goods recorded against an account
+/// are ready to be billed, and they carry the status of the billing process
+/// (draft, issued, balanced, cancelled, or entered-in-error) as it progresses.
+///
+/// Within the FHIR R5 financial and billing workflows, an Invoice sits
+/// downstream of clinical and administrative activity: charges captured as
+/// they occur are collected onto an account, and the Invoice then presents
+/// those charges in a structured, human- and machine-readable form suitable
+/// for submission, payment, and reconciliation. Payment terms, participants
+/// involved in its creation, and free-text notes may accompany the charges.
+///
+/// See also: [`Account`](crate::r5::resources::account::Account) for the
+/// running balance being invoiced, [`Reference`](crate::r5::types::Reference)
+/// for links to the subject, recipient, and issuer, and
+/// [`Money`](crate::r5::types::Money) and
+/// [`MonetaryComponent`](crate::r5::types::MonetaryComponent) for how amounts
+/// are expressed. The recipient and issuer are commonly a `Patient`,
+/// `RelatedPerson`, or `Organization`.
 ///
 /// # Examples
 ///
@@ -66,7 +85,7 @@ pub struct Invoice {
     /// Business Identifier for item
     pub identifier: Option<Vec<types::Identifier>>,
 
-    /// draft | issued | balanced | cancelled | entered-in-error
+    /// Current state of the invoice in the billing process: draft, issued, balanced, cancelled, or entered-in-error.
     pub status: types::Code,
 
     /// Reason for cancellation of this Invoice
@@ -99,19 +118,19 @@ pub struct Invoice {
     /// Issuing Organization of Invoice
     pub issuer: Option<types::Reference>,
 
-    /// Account that is being balanced
+    /// Reference to the Account whose collected charges are being balanced by this invoice.
     pub account: Option<types::Reference>,
 
-    /// Line items of this Invoice
+    /// Individual charge lines that make up this invoice, each with its own price components.
     pub line_item: Option<Vec<InvoiceLineItem>>,
 
     /// Components of Invoice total
     pub total_price_component: Option<Vec<types::MonetaryComponent>>,
 
-    /// Net total of this Invoice
+    /// Net total of this invoice, excluding taxes and surcharges captured as components.
     pub total_net: Option<types::Money>,
 
-    /// Gross total of this Invoice
+    /// Gross total of this invoice, including all price components such as taxes.
     pub total_gross: Option<types::Money>,
 
     /// Payment details

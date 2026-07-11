@@ -15,16 +15,33 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// The Permission resource holds access rules for a given data and context.
 ///
-/// It expresses a set of constraints under which data may be accessed, combining
-/// one or more rules that permit or deny particular activities on selected data.
-/// A Permission may be asserted by a person or entity, may be valid for a given
-/// period, and carries a combining algorithm that determines how its rules
-/// interact. It is used in FHIR R5 to model consent-adjacent authorization
-/// policies and fine-grained access control decisions.
+/// In FHIR R5 the Permission resource captures a machine-processable authorization
+/// policy: it expresses the set of constraints under which specific data may be
+/// accessed or acted upon. Each Permission carries one or more rules that either
+/// permit or deny particular activities, scoped by the actors involved, the
+/// purposes of use, the actions performed, and the data selected by explicit
+/// references, security labels, time periods, or FHIRPath expressions. A Permission
+/// is asserted by a person or organization, may be constrained to a validity
+/// period, and specifies a combining algorithm (for example deny-overrides or
+/// permit-overrides) that determines how its rules are reconciled when more than
+/// one applies. This makes it well suited to modeling fine-grained access-control
+/// decisions, security policies, and the enforceable representation of a patient's
+/// or organization's data-sharing directives.
+///
+/// # Related resources
+///
+/// A Permission frequently complements a broader
+/// [`Consent`](crate::r5::resources::consent::Consent), which records a subject's
+/// wishes, while the Permission expresses the enforceable rules derived from them.
+/// Rules commonly reference actors and data such as
+/// [`Patient`](crate::r5::resources::patient::Patient) records and audit trails
+/// like [`Provenance`](crate::r5::resources::provenance::Provenance), and they
+/// classify activities and limits using
+/// [`CodeableConcept`](crate::r5::types::CodeableConcept) values.
 ///
 /// # Examples
 ///
@@ -64,10 +81,10 @@ pub struct Permission {
     /// Extensions that cannot be ignored
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// active | entered-in-error | draft | rejected
+    /// Lifecycle state of the permission: active, entered-in-error, draft, or rejected.
     pub status: types::Code,
 
-    /// The person or entity that asserts the permission
+    /// Reference to the person or entity that asserts this permission and its rules.
     pub asserter: Option<types::Reference>,
 
     /// The date that permission was asserted
@@ -79,10 +96,10 @@ pub struct Permission {
     /// The asserted justification for using the data
     pub justification: Option<PermissionJustification>,
 
-    /// deny-overrides | permit-overrides | ordered-deny-overrides | ordered-permit-overrides | deny-unless-permit | permit-unless-deny
+    /// Combining algorithm that reconciles conflicting rules: deny-overrides, permit-overrides, ordered-deny-overrides, ordered-permit-overrides, deny-unless-permit, or permit-unless-deny.
     pub combining: types::Code,
 
-    /// Constraints to the Permission
+    /// The ordered set of rules that constrain access under this permission.
     pub rule: Option<Vec<PermissionRule>>,
 }
 

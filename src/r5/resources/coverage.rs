@@ -15,7 +15,7 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// Financial instrument which may be used to reimburse or pay for health care
 /// products and services. This includes both insurance and self-payment. In

@@ -17,10 +17,10 @@ where this describes *code layout*, the specs describe *required behaviour*.
 
 ```text
 fhir (root package)          library + binary
-└── fhir-derive              proc-macro crate: #[derive(Validate)]
+└── fhir-derive-macros              proc-macro crate: #[derive(Validate)]
 ```
 
-The root package depends on `fhir-derive` by path. `fhir-derive` uses `syn`,
+The root package depends on `fhir-derive-macros` by path. `fhir-derive-macros` uses `syn`,
 `quote`, and `proc-macro2`; it is the only place procedural macros live.
 
 ## Library vs binary

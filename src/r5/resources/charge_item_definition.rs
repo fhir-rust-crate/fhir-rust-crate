@@ -15,7 +15,7 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// The ChargeItemDefinition resource provides the properties that apply to the
 /// (billing) codes necessary to calculate costs and prices. The properties may

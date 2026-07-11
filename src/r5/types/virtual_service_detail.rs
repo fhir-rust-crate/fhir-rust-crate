@@ -15,7 +15,7 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// The VirtualServiceDetail datatype captures the contact details required to
 /// connect to a virtual service, such as a video conference or telephone

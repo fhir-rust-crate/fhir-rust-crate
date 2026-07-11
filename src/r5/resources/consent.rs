@@ -15,7 +15,7 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// A record of a healthcare consumer's choices, or choices made on their behalf
 /// by a third party, which permits or denies identified recipient(s) or

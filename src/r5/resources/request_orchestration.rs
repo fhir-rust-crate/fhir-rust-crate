@@ -15,7 +15,7 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// A set of related requests that can be used to capture intended activities
 /// that have inter-dependencies such as "give this medication after that one".

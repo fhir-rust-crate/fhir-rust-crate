@@ -15,16 +15,33 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// A record of a medication that is being consumed by a patient.
 ///
-/// A MedicationStatement may indicate that the patient may be taking the
-/// medication now, or has taken the medication in the past, or will be taking
-/// the medication in the future. The source of this information can be the
-/// patient, a significant other (such as a family member or spouse), or a
-/// clinician. It is used to record a snapshot of medication use, and is not a
-/// request or order.
+/// In FHIR R5 the MedicationStatement resource captures a point-in-time
+/// assertion about a patient's use of a medication. It may indicate that the
+/// patient is taking the medication now, has taken it in the past, or will be
+/// taking it in the future, and it can also assert that a medication is not
+/// being taken. The information may be gathered during history taking,
+/// medication reconciliation, or patient reporting, so the source can be the
+/// patient, a significant other such as a family member or spouse, or a
+/// clinician. It is deliberately a snapshot of medication usage rather than an
+/// authorization, and therefore it is not a request, prescription, or order:
+/// use MedicationRequest for ordering and MedicationDispense or
+/// MedicationAdministration for supply and administration events. The degree of
+/// certainty and the reporting perspective are conveyed through the status,
+/// information source, and adherence details.
+///
+/// # See also
+///
+/// The medication itself is referenced via [`CodeableReference`](crate::r5::types::CodeableReference)
+/// (typically to a `Medication` resource or a coded concept), the recipient of
+/// the medication is the [`Patient`](crate::r5::resources::patient::Patient)
+/// or other subject given as a [`Reference`](crate::r5::types::Reference), and
+/// classification uses [`CodeableConcept`](crate::r5::types::CodeableConcept).
+/// Related workflow resources include `MedicationRequest`,
+/// `MedicationDispense`, and `MedicationAdministration`.
 ///
 /// # Examples
 ///
@@ -70,16 +87,16 @@ pub struct MedicationStatement {
     /// Part of referenced event
     pub part_of: Option<Vec<types::Reference>>,
 
-    /// recorded | entered-in-error | draft
+    /// Status of the assertion as a code such as recorded, entered-in-error, or draft, indicating how the statement should be interpreted.
     pub status: types::Code,
 
     /// Type of medication statement
     pub category: Option<Vec<types::CodeableConcept>>,
 
-    /// What medication was taken
+    /// What medication was taken, given as a coded concept or a reference to a Medication resource.
     pub medication: types::CodeableReference,
 
-    /// Who is/was taking the medication
+    /// Who is or was taking the medication, usually a reference to the Patient who is the subject of the statement.
     pub subject: types::Reference,
 
     /// Encounter associated with MedicationStatement
@@ -115,7 +132,7 @@ pub struct MedicationStatement {
     /// Full representation of the dosage instructions
     pub rendered_dosage_instruction: Option<types::Markdown>,
 
-    /// Details of how medication is/was taken or should be taken
+    /// Details of how the medication is, was, or should be taken, including dose, route, and timing.
     pub dosage: Option<Vec<types::Dosage>>,
 
     /// Indicates whether the medication is or is not being consumed or administered

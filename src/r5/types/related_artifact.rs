@@ -15,7 +15,7 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// Related artifacts such as additional documentation, justification, or
 /// bibliographic references. RelatedArtifact links a knowledge artifact to

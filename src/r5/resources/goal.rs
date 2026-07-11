@@ -15,7 +15,7 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// Describes the intended objective(s) for a patient, group or organization
 /// care, for example, weight loss, restoring an activity of daily living,

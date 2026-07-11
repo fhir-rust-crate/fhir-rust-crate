@@ -15,7 +15,7 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// MonetaryComponent is a FHIR R5 complex datatype that expresses a single
 /// price component contributing to an overall monetary total, such as a base

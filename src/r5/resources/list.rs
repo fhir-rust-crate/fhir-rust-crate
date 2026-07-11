@@ -15,16 +15,34 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
-/// A List is a curated collection of resources.
+/// A List is a curated, human- or system-maintained collection of resources.
 ///
 /// The List resource groups references to other resources into a single named
-/// collection, such as a problem list, allergy list, medication list, or a
-/// working set of items for a particular purpose. It captures how and why the
-/// list was assembled, including its mode, ordering, source, and status, and it
-/// can note when items were added or deleted. In FHIR R5 it is used both for
-/// clinically curated lists and for administrative or operational collections.
+/// collection, such as a problem list, allergy list, medication list, a set of
+/// results, or a working set of items assembled for a particular purpose. Unlike
+/// a Bundle, which is a transient container used to move a set of resources
+/// together, a List is a persistent, first-class resource that records the
+/// intent and provenance behind the grouping: how and why the collection was
+/// assembled, including its status (current, retired, or entered-in-error), its
+/// mode (a working list, a point-in-time snapshot, or a change set), the ordering
+/// applied to entries, the source that authored it, and the date it was prepared.
+/// Each entry can carry workflow flags, an indication that an item has been
+/// deleted, and the date the item was added, which lets the List act as a
+/// managed, curated view whose membership evolves over time. In FHIR R5 it is
+/// used both for clinically curated lists and for administrative or operational
+/// collections, and an empty list can explain its emptiness through a reason code.
+///
+/// # See also
+///
+/// The list `subject` and `source` fields, and each entry's `item`, are typically
+/// references to resources such as [`Patient`](crate::r5::resources::patient::Patient),
+/// [`Condition`](crate::r5::resources::condition::Condition), or an
+/// [`Encounter`](crate::r5::resources::encounter::Encounter). Coded fields such as
+/// `code`, `ordered_by`, and `empty_reason` use
+/// [`CodeableConcept`](crate::r5::types::CodeableConcept), and references use
+/// [`Reference`](crate::r5::types::Reference).
 ///
 /// # Examples
 ///
@@ -67,10 +85,10 @@ pub struct List {
     /// Business identifier
     pub identifier: Option<Vec<types::Identifier>>,
 
-    /// current | retired | entered-in-error
+    /// Lifecycle status of the list: current, retired, or entered-in-error.
     pub status: types::Code,
 
-    /// working | snapshot | changes
+    /// How the list was assembled: a working list, a point-in-time snapshot, or a change set.
     pub mode: types::Code,
 
     /// Descriptive name for the list
@@ -97,7 +115,7 @@ pub struct List {
     /// Comments about the list
     pub note: Option<Vec<types::Annotation>>,
 
-    /// Entries in the list
+    /// Entries in the list, each referencing an item and its optional flags, deletion state, and date.
     pub entry: Option<Vec<ListEntry>>,
 
     /// Why list is empty

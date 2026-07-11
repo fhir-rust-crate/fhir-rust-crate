@@ -15,15 +15,38 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// A medically related item or items, in a container or package.
 ///
-/// PackagedProductDefinition describes a packaged product, such as a box of
-/// tablets, a bottle of liquid, or a multi-component kit, together with its
-/// packaging hierarchy, legal status of supply, marketing status, and the
-/// medically related items contained within. It is used in regulated medicinal
-/// product definitions to capture how a product is presented and supplied.
+/// PackagedProductDefinition describes how a medicinal or medically related
+/// product is physically packaged and supplied. It captures the complete
+/// packaging hierarchy, such as a box that contains blisters that in turn
+/// contain tablets, or a bottle of liquid, or a multi-component kit with a
+/// diluent, together with the medically related items held at each level. The
+/// resource records the pack size, the legal status of supply as classified by
+/// a regulator, the marketing status and jurisdictions where the pack is placed
+/// on the market, the manufacturers, and shelf life and storage information for
+/// each packaging component.
+///
+/// In FHIR R5 this resource is part of the medication and regulated products
+/// group and is used chiefly in the context of medicinal product regulation,
+/// for example ISO IDMP submissions and pharmaceutical dossiers, to describe
+/// how an authorized product is presented to the market. It does not describe
+/// the substances or the abstract product itself; instead it references those
+/// definitions and concentrates on presentation, containment, and supply.
+///
+/// # Related resources
+///
+/// This resource typically references product and administrable definitions via
+/// [`Reference`](crate::r5::types::Reference), and the items within a package
+/// are recorded with [`CodeableReference`](crate::r5::types::CodeableReference).
+/// Regulatory classifications use [`CodeableConcept`](crate::r5::types::CodeableConcept),
+/// availability on the market uses [`MarketingStatus`](crate::r5::types::MarketingStatus),
+/// and shelf life uses [`ProductShelfLife`](crate::r5::types::ProductShelfLife).
+/// It is commonly used alongside the related regulated product resources such as
+/// `MedicinalProductDefinition`, `ManufacturedItemDefinition`, and
+/// `AdministrableProductDefinition`.
 ///
 /// # Examples
 ///
@@ -72,7 +95,7 @@ pub struct PackagedProductDefinition {
     /// A high level category e.g. medicinal product, raw material, shipping container etc
     pub r#type: Option<types::CodeableConcept>,
 
-    /// The product that this is a pack for
+    /// References the medicinal or manufactured product definitions that this package is a pack for.
     pub package_for: Option<Vec<types::Reference>>,
 
     /// The status within the lifecycle of this item. High level - not intended to duplicate details elsewhere e.g. legal status, or authorization/marketing status
@@ -87,7 +110,7 @@ pub struct PackagedProductDefinition {
     /// Textual description. Note that this is not the name of the package or product
     pub description: Option<types::Markdown>,
 
-    /// The legal status of supply of the packaged item as classified by the regulator
+    /// The regulator-classified legal status of supply for this pack, optionally scoped by jurisdiction.
     pub legal_status_of_supply: Option<Vec<PackagedProductDefinitionLegalStatusOfSupply>>,
 
     /// Allows specifying that an item is on the market for sale, or that it is not available, and the dates and locations associated
@@ -102,7 +125,7 @@ pub struct PackagedProductDefinition {
     /// Additional information or supporting documentation about the packaged product
     pub attached_document: Option<Vec<types::Reference>>,
 
-    /// A packaging item, as a container for medically related items, possibly with other packaging items within, or a packaging component, such as bottle cap
+    /// The outermost packaging item, forming the root of the nested container hierarchy and the medically related items it holds.
     pub packaging: Option<PackagedProductDefinitionPackaging>,
 
     /// Allows the key features to be recorded, such as "hospital pack", "nurse prescribable"

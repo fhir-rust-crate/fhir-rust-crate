@@ -57,4 +57,4 @@ all use terms the same way.
 ## Crate identity
 
 - Package/crate name: **`fhir`** (import as `use fhir::…`).
-- Workspace member: **`fhir-derive`** (proc-macro crate).
+- Workspace member: **`fhir-derive-macros`** (proc-macro crate).

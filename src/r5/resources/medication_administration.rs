@@ -15,14 +15,34 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
-/// MedicationAdministration describes the event of a patient consuming or
-/// otherwise being administered a medication. This may be as simple as
-/// swallowing a tablet or it may be a long running infusion. Related resources
-/// tie this event to the authorizing prescription, and the specific encounter
-/// between patient and health care practitioner. This event can also be used to
-/// record waste using a status of not-done and the appropriate statusReason.
+/// MedicationAdministration records the event of a patient actually consuming or
+/// otherwise being administered a medication. In FHIR R5 it represents the point
+/// in the medication process where a dose is given, as opposed to being ordered
+/// or dispensed, and it captures who received the medication, what was given,
+/// when and where it occurred, the dose and route, and who performed the act.
+/// An administration can be as simple as swallowing a single tablet or as
+/// involved as a long running intravenous infusion recorded over a period of
+/// time. Clinically and administratively it supports medication reconciliation,
+/// adherence monitoring, billing, safety surveillance, and audit of the
+/// medication administration record (MAR). The event ties back to the
+/// authorizing request or prescription and to the specific encounter between the
+/// patient and the health care practitioner. It can also record that a planned
+/// dose was intentionally withheld or wasted by using a status of not-done
+/// together with an appropriate statusReason.
+///
+/// Related resources: the recipient is referenced through [`subject`], typically
+/// a [`Patient`](crate::r5::resources::patient::Patient); the context is the
+/// [`Encounter`](crate::r5::resources::encounter::Encounter); the substance is
+/// described via a [`CodeableReference`](crate::r5::types::CodeableReference) to
+/// a [`Medication`](crate::r5::resources::medication::Medication); and the
+/// authorization is the associated
+/// [`MedicationRequest`](crate::r5::resources::medication_request::MedicationRequest).
+/// See also `MedicationDispense` and `MedicationStatement` for other stages of
+/// the medication process.
+///
+/// [`subject`]: MedicationAdministration::subject
 ///
 /// # Examples
 ///
@@ -71,7 +91,7 @@ pub struct MedicationAdministration {
     /// Part of referenced event
     pub part_of: Option<Vec<types::Reference>>,
 
-    /// in-progress | not-done | on-hold | completed | entered-in-error | stopped | unknown
+    /// Current state of the administration event, drawn from the required status value set: in-progress, not-done, on-hold, completed, entered-in-error, stopped, or unknown.
     pub status: types::Code,
 
     /// Reason administration not performed
@@ -80,10 +100,10 @@ pub struct MedicationAdministration {
     /// Type of medication administration
     pub category: Option<Vec<types::CodeableConcept>>,
 
-    /// What was administered
+    /// What was administered, given either as a coded medication or as a reference to a Medication resource via a CodeableReference.
     pub medication: types::CodeableReference,
 
-    /// Who received medication
+    /// Who received the medication, most commonly a reference to the Patient who was administered the dose.
     pub subject: types::Reference,
 
     /// Encounter administered as part of
@@ -125,7 +145,7 @@ pub struct MedicationAdministration {
     /// Information about the administration
     pub note: Option<Vec<types::Annotation>>,
 
-    /// Details of how medication was taken
+    /// Details of how the medication was taken, including dose amount, site, route, method, and rate of administration.
     pub dosage: Option<MedicationAdministrationDosage>,
 
     /// A list of events of interest in the lifecycle

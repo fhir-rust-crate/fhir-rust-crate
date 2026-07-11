@@ -15,7 +15,7 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// A provider issued list of professional services and products which have been provided, or are to be provided, to a patient which is sent to an insurer for reimbursement. In FHIR R5 the Claim resource requests adjudication, pre-authorization, or pre-determination of health, dental, pharmacy, vision, or professional services from an insurer. It carries the billable items, supporting information, diagnoses, procedures, and coverage details needed for processing.
 ///

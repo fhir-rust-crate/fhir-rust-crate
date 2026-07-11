@@ -15,14 +15,31 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// The header for a message exchange that is either requesting or responding
-/// to an action. The reference(s) that are the subject of the action as well
-/// as other information related to the action are typically transmitted in a
-/// bundle in which the MessageHeader resource instance is the first resource
-/// in the bundle. This resource conveys routing, source, destination, and
-/// response context for FHIR messaging.
+/// to an action. MessageHeader is the anchor of the FHIR messaging paradigm,
+/// in which discrete events are exchanged between systems as self-contained
+/// units of work. The reference(s) that are the subject of the action, along
+/// with any other information related to the action, are transmitted inside a
+/// Bundle of type "message" whose first entry is always the MessageHeader
+/// resource instance. This resource identifies the triggering event, and
+/// conveys the routing, source, destination, sender, author, responsible
+/// party, reason, and response context needed to reliably process the message.
+///
+/// A MessageHeader supports both request messages, which ask a receiving
+/// system to perform an action, and response messages, which report the
+/// outcome of a prior request via the response element. It is commonly used in
+/// clinical and administrative integration scenarios such as notifying an
+/// application of an admission, discharge, or transfer event, or acknowledging
+/// receipt of an earlier message.
+///
+/// Related resources: the payload referenced by the focus element is carried
+/// alongside this header in the enclosing `Bundle`, and routing frequently
+/// points at `Endpoint`, `Organization`, `Device`, or
+/// [`Practitioner`](crate::r5::resources::practitioner::Practitioner)
+/// resources. The reason for an event is expressed as a
+/// [`CodeableConcept`](crate::r5::types::CodeableConcept).
 ///
 /// # Examples
 ///
@@ -62,10 +79,10 @@ pub struct MessageHeader {
     /// Extensions that cannot be ignored
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// Event code or link to EventDefinition
+    /// The event that this message represents, given as a Coding drawn from the message events value set.
     pub event_coding: Option<types::Coding>,
 
-    /// Event code or link to EventDefinition
+    /// The event that this message represents, given as a canonical link to an EventDefinition.
     pub event_canonical: Option<types::Canonical>,
 
     /// Message destination application(s)
@@ -77,7 +94,7 @@ pub struct MessageHeader {
     /// The source of the decision
     pub author: Option<types::Reference>,
 
-    /// Message source application
+    /// Required description of the source application from which this message originated.
     pub source: MessageHeaderSource,
 
     /// Final responsibility for event
@@ -89,7 +106,7 @@ pub struct MessageHeader {
     /// If this is a reply to prior message
     pub response: Option<MessageHeaderResponse>,
 
-    /// The actual content of the message
+    /// References to the actual subject data of the message, carried elsewhere in the enclosing Bundle.
     pub focus: Option<Vec<types::Reference>>,
 
     /// Link to the definition for this message

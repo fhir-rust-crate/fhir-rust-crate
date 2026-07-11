@@ -15,7 +15,7 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// A record of a clinical assessment performed to determine what problem(s) may
 /// affect the patient and before planning the treatments or management

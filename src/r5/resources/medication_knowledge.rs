@@ -15,16 +15,32 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// Information about a medication that is used to support knowledge.
 ///
 /// MedicationKnowledge is a definitional resource that captures broad,
 /// reference-style information about a medication independent of any single
-/// patient or administration event. It supports use cases such as formulary
-/// management, drug reference databases, pricing, monographs, regulatory
-/// information, and dosing guidelines. It is distinct from the Medication
-/// resource, which represents a specific product used in a workflow.
+/// patient or administration event. Rather than recording that a particular
+/// product was prescribed, dispensed, or administered, it describes what is
+/// generally known about a medication: its names and codes, product type and
+/// classification, ingredients and dose form, cost and packaging, storage and
+/// regulatory constraints, monitoring programs, associated monographs, and
+/// indication-specific dosing guidelines. In FHIR R5 it is typically populated
+/// by drug knowledge vendors, formularies, and pharmacy systems, then consumed
+/// to power decision support, formulary lookups, drug reference databases,
+/// pricing, and clinician-facing monographs.
+///
+/// It is distinct from the Medication resource, which represents a specific
+/// product used in a clinical workflow; MedicationKnowledge instead provides
+/// the surrounding definitional and reference knowledge about such products.
+///
+/// # Related resources
+///
+/// See also the `Medication` resource for a specific product instance, and
+/// [`CodeableConcept`](crate::r5::types::CodeableConcept) and
+/// [`Reference`](crate::r5::types::Reference), which are used throughout this
+/// resource to carry coded values and links to related resources.
 ///
 /// # Examples
 ///
@@ -67,10 +83,10 @@ pub struct MedicationKnowledge {
     /// Business identifier for this medication
     pub identifier: Option<Vec<types::Identifier>>,
 
-    /// Code that identifies this medication
+    /// Code that identifies this medication, typically drawn from a drug terminology such as RxNorm or SNOMED CT
     pub code: Option<types::CodeableConcept>,
 
-    /// active | entered-in-error | inactive
+    /// Lifecycle status of this knowledge record: active, entered-in-error, or inactive
     pub status: Option<types::Code>,
 
     /// Creator or owner of the knowledge or information about the medication
@@ -121,7 +137,7 @@ pub struct MedicationKnowledge {
     /// Regulatory information about a medication
     pub regulatory: Option<Vec<MedicationKnowledgeRegulatory>>,
 
-    /// Minimal definition information about the medication
+    /// Minimal definitional information such as dose form, route, and ingredients that characterizes the medication
     pub definitional: Option<MedicationKnowledgeDefinitional>,
 }
 

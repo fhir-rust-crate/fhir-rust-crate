@@ -15,17 +15,32 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// Demographics and administrative information about a person independent of a
 /// specific health-related context.
 ///
 /// A Person resource captures the identity and demographic details of an
 /// individual who may play one or more roles in the healthcare system, such as
-/// a patient, practitioner, or related person. It provides a way to link the
-/// several records that concern the same actual human being across different
-/// contexts. In FHIR R5 it commonly carries names, identifiers, contact
-/// details, and links to Patient, Practitioner, or RelatedPerson resources.
+/// a patient, practitioner, related person, or user of a system. Unlike those
+/// role-specific resources, a Person is not tied to any single health-related
+/// context; instead it models the underlying human being and provides a stable
+/// point of identity that can be reused across contexts. Its most distinctive
+/// purpose is index and cross-reference management: through its links a Person
+/// record can associate the several records that concern the same actual human
+/// being, supporting patient-matching, master person indexes, and record
+/// linkage across organizations and systems. In FHIR R5 a Person typically
+/// carries identifiers, human names, contact details, address, gender, birth
+/// date, marital status, preferred communication languages, and the managing
+/// organization that acts as custodian of the record.
+///
+/// # Related resources
+///
+/// A Person is frequently linked to a [`Patient`](crate::r5::resources::patient::Patient),
+/// as well as to `Practitioner` and `RelatedPerson` records that represent the
+/// same individual in different roles. Coded elements such as marital status and
+/// communication language use [`CodeableConcept`](crate::r5::types::CodeableConcept),
+/// and links to other resources use [`Reference`](crate::r5::types::Reference).
 ///
 /// # Examples
 ///
@@ -65,13 +80,13 @@ pub struct Person {
     /// Extensions that cannot be ignored
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// A human identifier for this person
+    /// Business identifiers by which this person is known, such as a national or organizational person identifier
     pub identifier: Option<Vec<types::Identifier>>,
 
-    /// This person's record is in active use
+    /// Whether this person's record is in active use; a false value indicates the record should no longer be relied upon
     pub active: Option<types::Boolean>,
 
-    /// A name associated with the person
+    /// One or more names associated with the person, each expressed as a structured human name
     pub name: Option<Vec<types::HumanName>>,
 
     /// A contact detail for the person
@@ -104,7 +119,7 @@ pub struct Person {
     /// The organization that is the custodian of the person record
     pub managing_organization: Option<types::Reference>,
 
-    /// Link to a resource that concerns the same actual person
+    /// Links to Patient, Practitioner, RelatedPerson, or other Person records that concern the same actual person
     pub link: Option<Vec<PersonLink>>,
 }
 

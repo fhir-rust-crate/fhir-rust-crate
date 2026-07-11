@@ -15,7 +15,7 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// A reply to an appointment request for a patient and/or practitioner(s),
 /// such as a confirmation or rejection.

@@ -15,7 +15,7 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// Prospective warnings of potential issues when providing care to a patient.
 /// A Flag is a clinical or administrative alert — such as a special precaution,

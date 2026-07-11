@@ -15,7 +15,7 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// SubscriptionStatus is a status resource that conveys the current state of a
 /// Subscription and is delivered as part of notification bundles. It is not

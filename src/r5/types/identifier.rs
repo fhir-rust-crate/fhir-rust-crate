@@ -15,7 +15,7 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// Identifier is a FHIR R5 complex datatype that identifies some entity
 /// uniquely and unambiguously. It is most commonly used to carry business

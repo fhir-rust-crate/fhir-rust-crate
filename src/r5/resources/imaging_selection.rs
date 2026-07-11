@@ -15,15 +15,33 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// ImagingSelection is a selection of DICOM SOP instances and/or frames within a
 /// single Study and Series.
 ///
-/// This might include additional specifics such as an image region, an Observation
-/// UID or a Segmentation Number, allowing linkage to an Observation Resource or
-/// transferring this information along with the ImagingStudy Resource. It supports
-/// referencing precise portions of imaging data for clinical and research workflows.
+/// In FHIR R5 this resource captures a curated, addressable subset of medical imaging
+/// data by referencing DICOM Study, Series, and SOP Instance UIDs, and optionally narrowing
+/// the selection further to individual frames or to specific 2D image regions or 3D regions
+/// within a frame of reference. It is used to record clinically or scientifically significant
+/// findings, key images, annotations, or measurement targets that a clinician, radiologist,
+/// or automated process wishes to highlight, share, or act upon, rather than the entire study.
+///
+/// A selection may additionally include specifics such as an image region, an Observation
+/// UID, or a Segmentation Number, allowing linkage to an Observation Resource or transferring
+/// this information along with the ImagingStudy Resource. Typical uses include tumor boards,
+/// teaching files, quantitative imaging biomarkers, structured reporting, and clinical
+/// decision support, where precise portions of imaging data must be referenced unambiguously
+/// across systems while pointing back to the source study and a retrieval endpoint.
+///
+/// # Related resources
+///
+/// The imaging data is generally derived from an [`ImagingStudy`](crate::r5::resources::imaging_study::ImagingStudy),
+/// the subject is commonly a [`Patient`](crate::r5::resources::patient::Patient), and a
+/// selection is frequently referenced by an [`Observation`](crate::r5::resources::observation::Observation).
+/// Coded elements use [`CodeableConcept`](crate::r5::types::CodeableConcept) and
+/// [`Coding`](crate::r5::types::Coding), while linkages to other resources use
+/// [`Reference`](crate::r5::types::Reference).
 ///
 /// # Examples
 ///
@@ -66,10 +84,10 @@ pub struct ImagingSelection {
     /// Business Identifier for Imaging Selection
     pub identifier: Option<Vec<types::Identifier>>,
 
-    /// available | entered-in-error | unknown
+    /// Status of the imaging selection: available, entered-in-error, or unknown.
     pub status: types::Code,
 
-    /// Subject of the selected instances
+    /// Subject of the selected instances, typically the Patient whose images are referenced.
     pub subject: Option<types::Reference>,
 
     /// Date / Time when this imaging selection was created
@@ -84,13 +102,13 @@ pub struct ImagingSelection {
     /// Classifies the imaging selection
     pub category: Option<Vec<types::CodeableConcept>>,
 
-    /// Imaging Selection purpose text or code
+    /// Reason for or purpose of this imaging selection, expressed as text or a coded concept.
     pub code: types::CodeableConcept,
 
-    /// DICOM Study Instance UID
+    /// DICOM Study Instance UID identifying the study that contains the selected instances.
     pub study_uid: Option<types::Id>,
 
-    /// The imaging study from which the imaging selection is derived
+    /// The imaging study, commonly an ImagingStudy, from which this selection is derived.
     pub derived_from: Option<Vec<types::Reference>>,
 
     /// The network service providing retrieval for the images referenced in the imaging selection

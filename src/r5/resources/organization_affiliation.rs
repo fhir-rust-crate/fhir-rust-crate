@@ -15,17 +15,34 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
-/// OrganizationAffiliation describes a relationship between two distinct
-/// organizations that is not a part-of/sub-division relationship. It captures
-/// the role that a participating organization plays with respect to a primary
-/// organization, such as providing services, being a member of a network, or
-/// covering particular locations, specialties, and healthcare services.
+/// OrganizationAffiliation describes an affiliation, association, or
+/// relationship between two distinct organizations that is not a part-of or
+/// sub-division relationship. Rather than expressing organizational hierarchy,
+/// it records the functional role that a participating organization plays with
+/// respect to a primary organization, together with the period, networks,
+/// locations, specialties, and healthcare services that scope that role.
 ///
-/// It is commonly used in provider directories to model the associations
-/// between organizations, the networks they participate in, and the contact
-/// and endpoint details relevant to those affiliations.
+/// In FHIR R5 this resource is primarily an administrative building block for
+/// provider directories and healthcare interoperability. It answers questions
+/// such as which organizations deliver services on behalf of another
+/// organization, which provider or payer networks an organization participates
+/// in, at which locations an affiliation applies, and which technical endpoints
+/// and contact details serve that affiliation. Because affiliations are often
+/// time-bound and network-specific, the resource carries an active flag and an
+/// effective period so directories can reflect current versus historical
+/// relationships.
+///
+/// Related resources: the affiliation links a primary
+/// [`Organization`](crate::r5::resources::organization::Organization) with a
+/// participating one, may reference
+/// [`Location`](crate::r5::resources::location::Location) and
+/// [`HealthcareService`](crate::r5::resources::healthcare_service::HealthcareService)
+/// entries that the role covers, and exposes technical
+/// [`Endpoint`](crate::r5::resources::endpoint::Endpoint) resources. Role,
+/// specialty, and similar coded values are expressed as
+/// [`CodeableConcept`](crate::r5::types::CodeableConcept).
 ///
 /// # Examples
 ///
@@ -74,16 +91,16 @@ pub struct OrganizationAffiliation {
     /// The period during which the participatingOrganization is affiliated with the primary organization
     pub period: Option<types::Period>,
 
-    /// Organization where the role is available
+    /// Reference to the primary Organization on whose behalf, or for which, the role is made available
     pub organization: Option<types::Reference>,
 
-    /// Organization that provides/performs the role (e.g. providing services or is a member of)
+    /// Reference to the Organization that provides or performs the role, such as delivering services or being a network member
     pub participating_organization: Option<types::Reference>,
 
     /// The network in which the participatingOrganization provides the role's services (if defined) at the indicated locations (if defined)
     pub network: Option<Vec<types::Reference>>,
 
-    /// Definition of the role the participatingOrganization plays
+    /// Coded definition of the role the participatingOrganization plays with respect to the primary organization
     pub code: Option<Vec<types::CodeableConcept>>,
 
     /// Specific specialty of the participatingOrganization in the context of the role

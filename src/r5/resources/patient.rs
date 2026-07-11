@@ -15,17 +15,43 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// Demographics and other administrative information about an individual or
 /// animal receiving care or other health-related services.
 ///
-/// The Patient resource covers data about patients and animals involved in a
-/// wide range of health-related activities, including curative activities,
-/// psychiatric care, social services, pregnancy care, nursing and assisted
+/// The Patient resource is the primary administrative record of a person or
+/// animal receiving care. It captures the demographic and contact details that
+/// identify the subject of care and that support scheduling, billing, matching,
+/// and communication, rather than any single clinical finding. Typical content
+/// includes one or more names, identifiers issued by organizations such as a
+/// medical record number or national health number, gender and birth date,
+/// addresses and telecom contact points, marital status, deceased status, and
+/// preferred languages of communication. Because care spans many settings, the
+/// resource covers a wide range of health-related activities, including curative
+/// care, psychiatric care, social services, pregnancy care, nursing and assisted
 /// living, dietary services, and tracking of personal health and exercise data.
-/// It is one of the most frequently referenced resources in FHIR R5 and is used
-/// as a subject or focus by most clinical and administrative resources.
+///
+/// In FHIR R5 the Patient resource is one of the most frequently referenced
+/// resources and serves as the subject or focus for most clinical and
+/// administrative resources, so that observations, encounters, conditions,
+/// medications, and similar records point back to a single stable identity. A
+/// Patient may also be linked to other Patient or RelatedPerson records that
+/// concern the same real-world individual, which supports record merging,
+/// de-duplication, and cross-organization matching.
+///
+/// # Related resources
+///
+/// See also the nested backbone types [`PatientContact`](crate::r5::resources::patient::PatientContact),
+/// [`PatientCommunication`](crate::r5::resources::patient::PatientCommunication),
+/// and [`PatientLink`](crate::r5::resources::patient::PatientLink). Common
+/// building-block data types include [`HumanName`](crate::r5::types::HumanName),
+/// [`Identifier`](crate::r5::types::Identifier),
+/// [`ContactPoint`](crate::r5::types::ContactPoint),
+/// [`Address`](crate::r5::types::Address), and
+/// [`CodeableConcept`](crate::r5::types::CodeableConcept). Related resources such
+/// as `Person`, `RelatedPerson`, `Practitioner`, and `Group` describe other kinds
+/// of parties and are referenced from or alongside Patient.
 ///
 /// # Examples
 ///
@@ -65,22 +91,22 @@ pub struct Patient {
     /// Extensions that cannot be ignored
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// An identifier for this patient
+    /// Business identifiers assigned by an organization, such as a medical record number, that uniquely reference this patient.
     pub identifier: Option<Vec<types::Identifier>>,
 
-    /// Whether this patient's record is in active use
+    /// Whether this patient's record is in active use; a false value typically marks a record that is retired, merged, or entered in error.
     pub active: Option<types::Boolean>,
 
-    /// A name associated with the patient
+    /// One or more names associated with the patient, allowing for official, usual, maiden, and other name uses.
     pub name: Option<Vec<types::HumanName>>,
 
     /// A contact detail for the individual
     pub telecom: Option<Vec<types::ContactPoint>>,
 
-    /// male | female | other | unknown
+    /// The administrative gender used for record keeping, coded as male, female, other, or unknown, which may differ from clinical or biological sex.
     pub gender: Option<types::Code>,
 
-    /// The date of birth for the individual
+    /// The date of birth for the individual, used for identity matching and age-based clinical decisions.
     pub birth_date: Option<types::Date>,
 
     /// Indicates if the individual is deceased or not

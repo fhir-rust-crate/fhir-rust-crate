@@ -15,18 +15,33 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// A structured set of questions intended to guide the collection of answers
 /// from end-users.
 ///
-/// Questionnaires provide detailed control over order, presentation,
-/// phraseology and grouping to allow coherent, consistent data collection. The
-/// Questionnaire resource defines the questions and structure, while the
-/// answers themselves are captured in a QuestionnaireResponse. In FHIR R5 it is
-/// a canonical, versionable resource commonly used for forms such as patient
-/// intake, surveys, and clinical assessments, with items that can nest to any
-/// depth and support conditional display via enableWhen logic.
+/// A Questionnaire is an organized collection of questions, grouped into
+/// sections, that provides detailed control over the order, presentation,
+/// phraseology, and grouping of those questions so that data can be gathered in
+/// a coherent and consistent way. It serves both clinical and administrative
+/// purposes, underpinning forms such as patient intake and registration,
+/// pre-procedure checklists, patient-reported outcome measures, research case
+/// report forms, surveys, and structured clinical assessments. The
+/// Questionnaire resource defines only the definition and structure of a form,
+/// including question types, allowed answers, validation rules, and conditional
+/// display; the actual answers supplied for a particular subject are recorded
+/// separately in a `QuestionnaireResponse`. In FHIR R5 the Questionnaire is a
+/// canonical, versionable, and publishable metadata resource: it carries a
+/// canonical `url`, a business `version`, and a publication `status`, and its
+/// items can nest to any depth and be shown or hidden dynamically through
+/// enableWhen logic. Answer choices may be enumerated inline or drawn from an
+/// external value set for terminology binding.
+///
+/// Related resources: the captured answers live in a `QuestionnaireResponse`,
+/// question items can reference terminology through
+/// [`Coding`](crate::r5::types::Coding) and
+/// [`CodeableConcept`](crate::r5::types::CodeableConcept), and the intended
+/// subject of a response is often a [`Patient`](crate::r5::resources::patient::Patient).
 ///
 /// # Examples
 ///
@@ -66,7 +81,7 @@ pub struct Questionnaire {
     /// Extensions that cannot be ignored
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// Canonical identifier for this questionnaire, represented as an absolute URI (globally unique)
+    /// Canonical identifier for this questionnaire, an absolute globally unique URI used to reference the form.
     pub url: Option<types::Uri>,
 
     /// Business identifier for questionnaire
@@ -90,7 +105,7 @@ pub struct Questionnaire {
     /// Based on Questionnaire
     pub derived_from: Option<Vec<types::Canonical>>,
 
-    /// draft | active | retired | unknown
+    /// Publication lifecycle state of this questionnaire: draft, active, retired, or unknown.
     pub status: types::Code,
 
     /// For testing purposes, not real usage
@@ -138,7 +153,7 @@ pub struct Questionnaire {
     /// Concept that represents the overall questionnaire
     pub code: Option<Vec<types::Coding>>,
 
-    /// Questions and sections within the Questionnaire
+    /// Top-level questions and sections that make up the form, each of which may nest further items.
     pub item: Option<Vec<QuestionnaireItem>>,
 }
 
@@ -159,7 +174,7 @@ pub struct QuestionnaireItem {
     /// Extensions that cannot be ignored even if unrecognized
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// Unique id for item in questionnaire
+    /// Unique identifier for this item within the questionnaire, used to link answers and enableWhen conditions.
     pub link_id: types::String,
 
     /// ElementDefinition - details for the item
@@ -174,7 +189,7 @@ pub struct QuestionnaireItem {
     /// Primary text for the item
     pub text: Option<types::String>,
 
-    /// group | display | boolean | decimal | integer | date | dateTime +
+    /// Kind of item, such as a grouping, display text, or a question of a specific answer data type.
     pub r#type: types::Code,
 
     /// Only allow data when

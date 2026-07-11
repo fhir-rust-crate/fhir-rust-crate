@@ -15,7 +15,7 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// DataType is the abstract base class for all reusable complex and primitive
 /// datatypes defined as part of the FHIR specification. It sits between

@@ -15,7 +15,7 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// An action that is or was performed on or for a patient, practitioner, device,
 /// organization, or location. For example, this can be a physical intervention on
@@ -23,6 +23,25 @@ use fhir_derive::Validate;
 /// counseling, or hypnotherapy. It can also be a quality or safety inspection for
 /// a location, organization, or device, or an accreditation procedure on a
 /// practitioner.
+///
+/// In FHIR R5 the Procedure resource captures the clinical or administrative record
+/// of an activity that has been carried out, is in progress, or was planned but not
+/// done. It records what was done, to or for whom, by whom, when, where, and why,
+/// along with any outcomes, reports, complications, and follow-up. Because it spans
+/// everything from surgical operations and diagnostic interventions to counseling,
+/// physiotherapy, and non-clinical inspections and accreditations, its scope is
+/// deliberately broad; the specific activity is conveyed by the coded `code` field
+/// rather than by many distinct resource types. A Procedure is typically fulfilled
+/// from an order such as a ServiceRequest referenced by `based_on`, is situated
+/// within an encounter, and may reference the diagnostic reports, observations, or
+/// conditions that justify or result from it.
+///
+/// Related resources: the `subject` and `focus` are commonly a
+/// [`Patient`](crate::r5::resources::patient::Patient); the activity is described
+/// with a [`CodeableConcept`](crate::r5::types::CodeableConcept); it is often
+/// requested by a `ServiceRequest` and set in the context of an `Encounter`, and
+/// its performers and locations are given as
+/// [`Reference`](crate::r5::types::Reference) values.
 ///
 /// # Examples
 ///
@@ -77,7 +96,7 @@ pub struct Procedure {
     /// Part of referenced event
     pub part_of: Option<Vec<types::Reference>>,
 
-    /// preparation | in-progress | not-done | on-hold | stopped | completed | entered-in-error | unknown
+    /// Required status of the activity in its lifecycle: preparation, in-progress, not-done, on-hold, stopped, completed, entered-in-error, or unknown.
     pub status: types::Code,
 
     /// Reason for current status
@@ -86,10 +105,10 @@ pub struct Procedure {
     /// Classification of the procedure
     pub category: Option<Vec<types::CodeableConcept>>,
 
-    /// Identification of the procedure
+    /// Coded identification of the specific activity performed, typically drawn from a clinical terminology such as SNOMED CT.
     pub code: Option<types::CodeableConcept>,
 
-    /// Individual or entity the procedure was performed on
+    /// Required reference to the individual or entity the procedure was performed on or for, most often a patient.
     pub subject: types::Reference,
 
     /// Who is the target of the procedure when it is not the subject of record only
@@ -128,7 +147,7 @@ pub struct Procedure {
     /// Reported rather than primary record
     pub reported_reference: Option<types::Reference>,
 
-    /// Who performed the procedure and what they did
+    /// The people or devices that carried out the procedure and the role each played, as described by ProcedurePerformer.
     pub performer: Option<Vec<ProcedurePerformer>>,
 
     /// Where the procedure happened

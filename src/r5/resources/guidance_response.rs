@@ -15,7 +15,7 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// A guidance response is the formal response to a guidance request,
 /// including any output parameters returned by the evaluation, as well as

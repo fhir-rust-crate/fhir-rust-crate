@@ -15,7 +15,7 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// SubstanceNucleicAcid describes the chemical structure of a nucleic acid
 /// substance. Nucleic acids are defined by three distinct elements: the base,

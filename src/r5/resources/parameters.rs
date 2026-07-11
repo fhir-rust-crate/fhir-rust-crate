@@ -15,14 +15,32 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
-/// This resource is used to pass information into and back from an operation
-/// (whether invoked directly from REST or within a messaging environment). It is
-/// not persisted or allowed to be referenced by other resources except as
-/// described in the definition of the Parameters resource. Each parameter carries
-/// a name plus either a data-type value, a whole resource, or nested part
-/// parameters.
+/// The Parameters resource is a general-purpose container used to pass
+/// information into and back from an operation invoked on a FHIR server,
+/// whether that operation is called directly through the RESTful API (for
+/// example via the `$` operation syntax such as `$expand`, `$validate-code`,
+/// or `$everything`) or exchanged within a messaging environment. Unlike most
+/// other resources, Parameters is a transient, non-clinical envelope: it is not
+/// persisted in a repository and cannot be referenced by other resources except
+/// as described in the definition of the Parameters resource itself. This makes
+/// it the standard mechanism for representing operation inputs and outputs that
+/// do not correspond to a single concrete resource.
+///
+/// Each entry in the resource is a named parameter that carries exactly one of
+/// three kinds of payload: a primitive or complex data-type value (the many
+/// `value[x]` choices below), a complete nested resource, or a set of nested
+/// `part` parameters that allow parameters to be grouped hierarchically. This
+/// flexible structure lets a single Parameters instance model arbitrarily
+/// complex operation arguments and results.
+///
+/// See also: the individual parameter entries are represented by
+/// [`ParametersParameter`], and typed values commonly use core data types such
+/// as [`CodeableConcept`](crate::r5::types::CodeableConcept),
+/// [`Coding`](crate::r5::types::Coding),
+/// [`Quantity`](crate::r5::types::Quantity), and
+/// [`Reference`](crate::r5::types::Reference).
 ///
 /// # Examples
 ///
@@ -50,7 +68,7 @@ pub struct Parameters {
     /// Language of the resource content
     pub language: Option<types::Code>,
 
-    /// Operation Parameter
+    /// The ordered set of named operation parameters carried by this resource, each supplying an input to or output from the operation.
     pub parameter: Option<Vec<ParametersParameter>>,
 }
 
@@ -68,7 +86,7 @@ pub struct ParametersParameter {
     /// Extensions that cannot be ignored even if unrecognized
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// Name from the definition
+    /// The parameter name as defined by the operation definition; it identifies which formal parameter this entry supplies.
     pub name: types::String,
 
     /// If parameter is a data type
@@ -233,10 +251,10 @@ pub struct ParametersParameter {
     /// If parameter is a data type
     pub value_meta: Option<types::Meta>,
 
-    /// If parameter is a whole resource
+    /// Used when the parameter value is an entire nested FHIR resource rather than a single data-type value.
     pub resource: Option<::serde_json::Value>,
 
-    /// Named part of a multi-part parameter
+    /// Nested child parameters that let this parameter group several named values together as a multi-part structure.
     pub part: Option<Vec<ParametersParameter>>,
 }
 

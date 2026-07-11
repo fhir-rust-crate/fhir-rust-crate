@@ -15,15 +15,29 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
-/// Slot represents a single interval of time on a Schedule that may be available
-/// for booking appointments. Each slot references the Schedule it belongs to,
-/// carries a start and end instant, and has a status such as `busy`, `free`, or
-/// `busy-unavailable`. Slots can further describe the categories, service types,
-/// specialties, and appointment types that may be booked, and may be flagged as
-/// overbooked. They are typically generated from a Schedule's planning horizon
-/// and consumed by scheduling systems to determine availability.
+/// Slot represents a single, discrete interval of time on a Schedule that may be
+/// available for booking appointments. In the FHIR R5 scheduling workflow, a
+/// Schedule defines the overall availability of a resource such as a practitioner,
+/// device, room, or healthcare service over a planning horizon, and that horizon
+/// is subdivided into Slot instances that each carry a precise start and end
+/// instant along with a status such as `free`, `busy`, `busy-unavailable`,
+/// `busy-tentative`, or `entered-in-error`. Scheduling and patient-access systems
+/// query these slots to present bookable openings, and an Appointment is created
+/// against one or more free slots, at which point their status is typically
+/// updated to reflect the reservation. A slot may further narrow what can be
+/// booked by describing the service category, service type, specialty, and
+/// appointment type, and it may be flagged as overbooked when demand exceeds the
+/// nominal capacity of the interval.
+///
+/// # Related resources
+///
+/// A slot is owned by a [`Schedule`](crate::r5::resources::schedule::Schedule) via
+/// its `schedule` reference, and it is consumed when creating an
+/// [`Appointment`](crate::r5::resources::appointment::Appointment). Its
+/// classification fields are typed as
+/// [`CodeableConcept`](crate::r5::types::CodeableConcept).
 ///
 /// # Examples
 ///
@@ -78,16 +92,16 @@ pub struct Slot {
     /// The style of appointment or patient that may be booked in the slot (not service type)
     pub appointment_type: Option<Vec<types::CodeableConcept>>,
 
-    /// The schedule resource that this slot defines an interval of status information
+    /// Reference to the Schedule resource that this slot subdivides and reports availability for; this reference is required
     pub schedule: types::Reference,
 
-    /// busy | free | busy-unavailable | busy-tentative | entered-in-error
+    /// Availability status of the interval: busy | free | busy-unavailable | busy-tentative | entered-in-error
     pub status: types::Code,
 
-    /// Date/Time that the slot is to begin
+    /// The instant, including date, time, and timezone offset, at which this slot's interval begins
     pub start: types::Instant,
 
-    /// Date/Time that the slot is to conclude
+    /// The instant, including date, time, and timezone offset, at which this slot's interval concludes
     pub end: types::Instant,
 
     /// This slot has already been overbooked, appointments are unlikely to be accepted for this time

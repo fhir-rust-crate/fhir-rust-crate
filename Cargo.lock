@@ -142,7 +142,7 @@ name = "fhir"
 version = "0.1.0"
 dependencies = [
  "convert_case",
- "fhir-derive",
+ "fhir-derive-macros",
  "indoc",
  "serde",
  "serde_json",
@@ -150,7 +150,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "fhir-derive"
+name = "fhir-derive-macros"
 version = "0.1.0"
 dependencies = [
  "proc-macro2",

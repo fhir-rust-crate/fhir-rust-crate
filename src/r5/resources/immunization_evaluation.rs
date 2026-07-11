@@ -15,7 +15,7 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// ImmunizationEvaluation describes a comparison of an immunization event
 /// against published recommendations to determine if the administration is

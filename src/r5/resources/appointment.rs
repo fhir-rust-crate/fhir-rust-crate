@@ -15,17 +15,39 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// A booking of a healthcare event among patient(s), practitioner(s), related
 /// person(s) and/or device(s) for a specific date/time. This may result in one
 /// or more Encounter(s).
 ///
 /// In FHIR R5, an Appointment records the scheduling of a healthcare event and
-/// the participants (patients, practitioners, locations, devices) expected to
-/// be involved. It supports recurring appointment templates, virtual service
-/// connection details, and the coordination workflow of proposing, booking, and
-/// fulfilling clinical or administrative appointments.
+/// the participants (patients, practitioners, related persons, locations, and
+/// devices) that are expected to be involved. It captures the administrative
+/// coordination of care rather than the clinical care itself: the proposed or
+/// agreed date and time, the service category and service type to be performed,
+/// the specialty required, the reason for the visit, and the acceptance status
+/// of each participant. Its status moves through a defined lifecycle (proposed,
+/// pending, booked, arrived, fulfilled, cancelled, noshow, entered-in-error,
+/// checked-in, and waitlist) that drives scheduling workflows. An Appointment
+/// may fill one or more Slots exposed by a Schedule, may request a specific
+/// period when an exact time is not yet fixed, and may define a recurrence
+/// template so that a repeating series of visits is generated from a single
+/// booking. When a booked Appointment actually takes place it typically gives
+/// rise to one or more Encounters that document the care delivered, and it can
+/// also carry virtual service connection details for telehealth visits.
+///
+/// # Related resources
+///
+/// See also [`Patient`](crate::r5::resources::patient::Patient) and
+/// [`Practitioner`](crate::r5::resources::practitioner::Practitioner) as typical
+/// participants, [`Slot`](crate::r5::resources::slot::Slot) and
+/// [`Schedule`](crate::r5::resources::schedule::Schedule) for the availability
+/// this booking consumes, and
+/// [`Encounter`](crate::r5::resources::encounter::Encounter) for the clinical
+/// event that may result. Coded fields use
+/// [`CodeableConcept`](crate::r5::types::CodeableConcept), and links to other
+/// resources use [`Reference`](crate::r5::types::Reference).
 ///
 /// # Examples
 ///
@@ -68,7 +90,7 @@ pub struct Appointment {
     /// External Ids for this item
     pub identifier: Option<Vec<types::Identifier>>,
 
-    /// proposed | pending | booked | arrived | fulfilled | cancelled | noshow | entered-in-error | checked-in | waitlist
+    /// Lifecycle state of the appointment that drives scheduling workflow: proposed | pending | booked | arrived | fulfilled | cancelled | noshow | entered-in-error | checked-in | waitlist
     pub status: types::Code,
 
     /// The coded reason for the appointment being cancelled
@@ -113,10 +135,10 @@ pub struct Appointment {
     /// The originating appointment in a recurring set of appointments
     pub originating_appointment: Option<types::Reference>,
 
-    /// When appointment is to take place
+    /// Date and time when the appointment is scheduled to begin
     pub start: Option<types::Instant>,
 
-    /// When appointment is to conclude
+    /// Date and time when the appointment is scheduled to conclude
     pub end: Option<types::Instant>,
 
     /// Can be less than start/end (e.g. estimate)
@@ -146,10 +168,10 @@ pub struct Appointment {
     /// The request this appointment is allocated to assess
     pub based_on: Option<Vec<types::Reference>>,
 
-    /// The patient or group associated with the appointment
+    /// The patient or group of patients that this appointment primarily concerns
     pub subject: Option<types::Reference>,
 
-    /// Participants involved in appointment
+    /// The actors expected to attend, each with a role, required flag, and acceptance status
     pub participant: Vec<AppointmentParticipant>,
 
     /// The sequence number in the recurrence

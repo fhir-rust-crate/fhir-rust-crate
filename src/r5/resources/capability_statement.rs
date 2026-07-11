@@ -15,7 +15,7 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// A Capability Statement documents a set of capabilities (behaviors) of a FHIR
 /// Server or Client for a particular version of FHIR that may be used as a

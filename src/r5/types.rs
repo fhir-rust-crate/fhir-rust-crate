@@ -1,8 +1,26 @@
-//! FHIR R5 Datatypes
+//! FHIR R5 datatypes.
 //!
-//! This module contains the definitions for FHIR R5 datatypes.
+//! This module contains every FHIR R5 datatype: the **complex** datatypes
+//! (structs such as [`Period`], [`HumanName`], [`CodeableConcept`], [`Coding`])
+//! and the **primitive** datatypes (transparent newtypes such as [`Code`],
+//! [`Id`], [`DateTime`], [`Boolean`], [`Integer64`]).
 //!
-//! To generate the primitive datatypes, run the following command:
+//! Each datatype derives `serde::Serialize` and `serde::Deserialize` and
+//! round-trips to and from the canonical FHIR JSON representation. Primitives
+//! serialize *transparently* to their underlying JSON value:
+//!
+//! ```
+//! use fhir::r5::types::Code;
+//!
+//! assert_eq!(serde_json::to_value(Code("final".to_string())).unwrap(), "final");
+//! ```
+//!
+//! Every datatype is re-exported at this module's root, so you can write
+//! `fhir::r5::types::Period` rather than `fhir::r5::types::period::Period`.
+//!
+//! ## Generating the datatype id lists
+//!
+//! To list the primitive datatype ids from the specification, run:
 //!
 //! ```sh
 //! cat profiles-types.json |

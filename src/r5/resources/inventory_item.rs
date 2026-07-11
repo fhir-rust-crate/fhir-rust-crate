@@ -15,18 +15,35 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// A functional description of an inventory item used in inventory and
 /// supply-related workflows.
 ///
-/// The InventoryItem resource describes an item that is stocked, counted, or
-/// otherwise tracked in an inventory. It captures the item's codes, names,
-/// responsible organizations, descriptive characteristics, associations with
-/// other products, and physical instance details such as lot number and expiry.
-/// In FHIR R5 it supports supply chain, materials management, and other
-/// inventory-oriented workflows, and may link to a more detailed product
-/// resource used in clinical care.
+/// The InventoryItem resource represents a class of item that is stocked,
+/// counted, ordered, or otherwise tracked within an inventory or supply chain.
+/// It is a lightweight, inventory-oriented description rather than a full
+/// clinical definition: it captures the item's business identifiers, status,
+/// category, and type codes, one or more names (brand, common, functional, or
+/// generic), the organizations responsible for it, human-readable descriptive
+/// characteristics, associations to related products, the base unit of measure
+/// and net content, and physical instance details such as serial number, lot or
+/// batch number, and expiry. In FHIR R5 it is intended for materials
+/// management, warehousing, stock counting, ordering, and related administrative
+/// and supply-chain workflows, and may point to a more detailed clinical product
+/// resource when one exists.
+///
+/// # Related resources
+///
+/// An inventory item frequently references organizations via
+/// [`Organization`](crate::r5::resources::organization::Organization), and its
+/// physical instances may be associated with a
+/// [`Location`](crate::r5::resources::location::Location). When the tracked item
+/// is a clinical product, the product reference commonly points to a
+/// [`Medication`](crate::r5::resources::medication::Medication) or
+/// [`Device`](crate::r5::resources::device::Device). Coded fields use
+/// [`CodeableConcept`](crate::r5::types::CodeableConcept), and quantities use
+/// [`Quantity`](crate::r5::types::Quantity).
 ///
 /// # Examples
 ///
@@ -69,13 +86,13 @@ pub struct InventoryItem {
     /// Business identifier for the inventory item
     pub identifier: Option<Vec<types::Identifier>>,
 
-    /// active | inactive | entered-in-error | unknown
+    /// Lifecycle status of this inventory record: active, inactive, entered-in-error, or unknown.
     pub status: types::Code,
 
     /// Category or class of the item
     pub category: Option<Vec<types::CodeableConcept>>,
 
-    /// Code designating the specific type of item
+    /// Coded designation of the specific type of item being inventoried, drawn from a code system.
     pub code: Option<Vec<types::CodeableConcept>>,
 
     /// The item name(s) - the brand name, or common name, functional name, generic name or others
@@ -105,7 +122,7 @@ pub struct InventoryItem {
     /// Instances or occurrences of the product
     pub instance: Option<InventoryItemInstance>,
 
-    /// Link to a product resource used in clinical workflows
+    /// Reference to a more detailed clinical product resource, such as a Medication or Device, that this inventory item represents.
     pub product_reference: Option<types::Reference>,
 }
 

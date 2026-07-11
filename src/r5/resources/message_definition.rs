@@ -15,14 +15,34 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// MessageDefinition defines the characteristics of a message that can be
 /// shared between systems, including the type of event that initiates the
 /// message, the content to be transmitted, and what response(s), if any, are
-/// permitted. It is a canonical resource used to describe messaging behavior
-/// in FHIR messaging exchanges. Systems use MessageDefinition to advertise and
-/// negotiate the messages they can send and receive.
+/// permitted. In FHIR R5 messaging, information is exchanged as a Bundle whose
+/// first entry is a MessageHeader; MessageDefinition is the canonical,
+/// conformance-style artifact that describes the expected shape of such an
+/// exchange for a particular triggering event. It specifies the event code (or
+/// EventDefinition) that initiates the message, the focal resources that form
+/// the message payload together with their profiles and cardinality, whether a
+/// response is required, and which response messages are allowed in return.
+///
+/// MessageDefinition is used primarily at design and conformance time rather
+/// than at runtime: implementers and integration engines publish and consume
+/// MessageDefinitions to advertise, discover, and negotiate the messages that
+/// systems can send and receive, and to validate that an actual message
+/// conforms to an agreed contract. Being a canonical resource, it carries
+/// standard metadata such as url, version, status, and publisher so it can be
+/// referenced stably across implementation guides and registries.
+///
+/// See also: the focal payload details are held in
+/// [`MessageDefinitionFocus`], the permitted replies in
+/// [`MessageDefinitionAllowedResponse`], event categorization uses
+/// [`Coding`](crate::r5::types::Coding), and jurisdictional scope uses
+/// [`CodeableConcept`](crate::r5::types::CodeableConcept). Related messaging
+/// artifacts include the `MessageHeader`, `EventDefinition`, and
+/// `GraphDefinition` resources.
 ///
 /// # Examples
 ///
@@ -86,7 +106,7 @@ pub struct MessageDefinition {
     /// Takes the place of
     pub replaces: Option<Vec<types::Canonical>>,
 
-    /// draft | active | retired | unknown
+    /// Publication lifecycle state of this definition: draft, active, retired, or unknown.
     pub status: types::Code,
 
     /// For testing purposes, not real usage
@@ -125,7 +145,7 @@ pub struct MessageDefinition {
     /// Protocol/workflow this is part of
     pub parent: Option<Vec<types::Canonical>>,
 
-    /// Event code or link to the EventDefinition
+    /// The triggering event, expressed as a coding that identifies the message's initiating event.
     pub event_coding: Option<types::Coding>,
 
     /// Event code or link to the EventDefinition
@@ -134,13 +154,13 @@ pub struct MessageDefinition {
     /// consequence | currency | notification
     pub category: Option<types::Code>,
 
-    /// Resource(s) that are the subject of the event
+    /// The focal resources that make up the message payload, with their profiles and cardinality.
     pub focus: Option<Vec<MessageDefinitionFocus>>,
 
     /// always | on-error | never | on-success
     pub response_required: Option<types::Code>,
 
-    /// Responses to this message
+    /// The response messages that are permitted in reply to this message.
     pub allowed_response: Option<Vec<MessageDefinitionAllowedResponse>>,
 
     /// Canonical reference to a GraphDefinition

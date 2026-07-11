@@ -15,7 +15,7 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// A clinical condition, problem, diagnosis, or other event, situation, issue,
 /// or clinical concept that has risen to a level of concern.

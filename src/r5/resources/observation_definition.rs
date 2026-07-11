@@ -15,7 +15,7 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// A set of definitional characteristics for a kind of observation or
 /// measurement produced or consumed by an orderable health care service. An
@@ -24,6 +24,30 @@ use fhir_derive::Validate;
 /// observations are expected to follow. It is used to formally specify what a
 /// laboratory or diagnostic service can produce or requires, supporting both
 /// order catalogs and result validation in FHIR R5.
+///
+/// In practice, an ObservationDefinition acts as a reusable, canonical template
+/// that governs a family of related observation instances rather than recording
+/// any single patient result. Diagnostic laboratories, imaging services, and
+/// device manufacturers publish these definitions to declare the code that
+/// identifies the observation, the data types and units in which a result may
+/// be expressed, and context-specific reference and critical ranges keyed to
+/// population characteristics such as gender, age, and gestational age. Clinical
+/// and terminology systems then consult the definition to build order catalogs,
+/// pre-populate result forms, drive decision support, and validate that captured
+/// results conform to the expected structure and permissible values. Being a
+/// canonical, versioned resource, it can be referenced by URL, derived from
+/// other definitions, and constrained for local use.
+///
+/// # Related resources
+///
+/// Actual results produced under this template are represented by the
+/// [`Observation`](crate::r5::resources::observation::Observation) resource,
+/// which is typically requested via a
+/// [`ServiceRequest`](crate::r5::resources::service_request::ServiceRequest).
+/// The specimen characteristics that such observations rely on can be described
+/// by a [`SpecimenDefinition`](crate::r5::resources::specimen_definition::SpecimenDefinition).
+/// Many descriptive fields use
+/// [`CodeableConcept`](crate::r5::types::CodeableConcept) for coded content.
 ///
 /// # Examples
 ///
@@ -84,7 +108,7 @@ pub struct ObservationDefinition {
     /// Name for this ObservationDefinition (human friendly)
     pub title: Option<types::String>,
 
-    /// draft | active | retired | unknown
+    /// Publication lifecycle state of this definition: draft, active, retired, or unknown.
     pub status: types::Code,
 
     /// If for testing purposes, not real usage
@@ -141,13 +165,13 @@ pub struct ObservationDefinition {
     /// General type of observation
     pub category: Option<Vec<types::CodeableConcept>>,
 
-    /// Type of observation
+    /// Coded concept identifying the kind of observation this definition describes.
     pub code: types::CodeableConcept,
 
-    /// Quantity | CodeableConcept | string | boolean | integer | Range | Ratio | SampledData | time | dateTime | Period
+    /// Permitted result value types, such as Quantity, CodeableConcept, string, boolean, integer, Range, Ratio, SampledData, time, dateTime, or Period.
     pub permitted_data_type: Option<Vec<types::Code>>,
 
-    /// Multiple results allowed for conforming observations
+    /// Whether more than one result is allowed for observations conforming to this definition.
     pub multiple_results_allowed: Option<types::Boolean>,
 
     /// Body part to be observed
@@ -168,13 +192,13 @@ pub struct ObservationDefinition {
     /// Unit for quantitative results
     pub permitted_unit: Option<Vec<types::Coding>>,
 
-    /// Set of qualified values for observation results
+    /// Context-specific reference, critical, and absolute ranges plus valid coded value sets for conforming results.
     pub qualified_value: Option<Vec<ObservationDefinitionQualifiedValue>>,
 
     /// Definitions of related resources belonging to this kind of observation group
     pub has_member: Option<Vec<types::Reference>>,
 
-    /// Component results
+    /// Component observation definitions when this observation is composed of multiple parts.
     pub component: Option<Vec<ObservationDefinitionComponent>>,
 }
 

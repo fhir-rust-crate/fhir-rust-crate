@@ -15,7 +15,7 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// Age is a specialization of the FHIR Quantity datatype used to express a
 /// duration of time during which an organism (or a process) has existed. It

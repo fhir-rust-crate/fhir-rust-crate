@@ -15,7 +15,7 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// A TerminologyCapabilities resource documents a set of capabilities
 /// (behaviors) of a FHIR Terminology Server that may be used as a statement of

@@ -15,7 +15,7 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// A measured amount (or an amount that can potentially be measured). Note that
 /// measured amounts include amounts that are not precisely quantified, including

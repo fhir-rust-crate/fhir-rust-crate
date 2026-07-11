@@ -15,17 +15,32 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// This resource provides the status of the payment for goods and services
 /// rendered.
 ///
-/// PaymentNotice is a financial resource used to indicate to a payer or other
-/// interested party that a payment has been, or is expected to be, made. It
-/// references the originating request and response resources and reports the
-/// monetary amount, the party being paid, and the party being notified. It is
-/// commonly exchanged between providers, payers, and clearinghouses to convey
-/// the payment status for a claim or other financial transaction.
+/// PaymentNotice is a financial administrative resource used to notify a payer,
+/// provider, or other interested party of the status of a payment relating to a
+/// claim, invoice, or other financial transaction. In FHIR R5 it typically
+/// travels between providers, payers, and clearinghouses as part of the revenue
+/// cycle, confirming that a payment has been issued, cleared, or is otherwise
+/// expected. The resource references the originating request and its response,
+/// records the creation date and optional payment or clearing date, and reports
+/// the monetary amount, the party being paid (the payee), and the party being
+/// notified (the recipient). Downstream systems commonly use it to reconcile
+/// accounts and to trigger or confirm follow-up financial processing.
+///
+/// # Related resources
+///
+/// The referenced payment detail is usually carried by a
+/// [`PaymentReconciliation`](crate::r5::resources::payment_reconciliation::PaymentReconciliation)
+/// resource, and the notified or paying party is frequently an
+/// [`Organization`](crate::r5::resources::organization::Organization). The
+/// monetary amount is expressed as a [`Money`](crate::r5::types::Money) value
+/// and the payment status uses a
+/// [`CodeableConcept`](crate::r5::types::CodeableConcept). The originating
+/// `request` and `response` typically reference a `Claim` and `ClaimResponse`.
 ///
 /// # Examples
 ///
@@ -68,7 +83,7 @@ pub struct PaymentNotice {
     /// Business Identifier for the payment notice
     pub identifier: Option<Vec<types::Identifier>>,
 
-    /// active | cancelled | draft | entered-in-error
+    /// Lifecycle state of this notice: active, cancelled, draft, or entered-in-error.
     pub status: types::Code,
 
     /// Request reference
@@ -92,13 +107,13 @@ pub struct PaymentNotice {
     /// Party being paid
     pub payee: Option<types::Reference>,
 
-    /// Party being notified
+    /// Reference to the party being notified of the payment, such as the payer or provider.
     pub recipient: types::Reference,
 
-    /// Monetary amount of the payment
+    /// Monetary amount of the payment expressed as a Money value with currency.
     pub amount: types::Money,
 
-    /// Issued or cleared Status of the payment
+    /// Coded status of the payment, such as whether it has been issued or cleared.
     pub payment_status: Option<types::CodeableConcept>,
 }
 

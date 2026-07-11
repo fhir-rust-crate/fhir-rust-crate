@@ -15,7 +15,7 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// A contributor to the content of a knowledge asset, including authors,
 /// editors, reviewers, and endorsers.

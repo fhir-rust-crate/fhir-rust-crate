@@ -15,7 +15,7 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// Indicates that a device is to be or has been dispensed for a named
 /// person/patient. This includes a description of the product (supply)

@@ -15,15 +15,28 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// This resource provides the details including amount of a payment and
 /// allocates the payment items being paid. A PaymentReconciliation is issued by
-/// a payer (such as an insurer) to convey the outcome of processing one or more
-/// payment requests, describing the total payment made and how that payment is
-/// distributed across the individual claims, invoices, or other payables. It
-/// supports the electronic remittance advice workflow in the FHIR financial
-/// module.
+/// a payer, such as an insurer or other financially responsible party, to convey
+/// the outcome of processing one or more payment requests. It records the total
+/// payment made and describes how that single payment is distributed, or
+/// allocated, across the individual claims, invoices, encounters, accounts, or
+/// other payables that the payment settles. In FHIR R5 it is the primary
+/// electronic remittance advice artifact of the financial module, typically
+/// generated in a business-to-business exchange between a payer and a provider or
+/// clearinghouse. Each allocation line ties a portion of the payment back to the
+/// resource it satisfies, while process notes carry human-readable explanations
+/// of the adjudication, enabling automated posting of receivables and audit of
+/// how funds were applied.
+///
+/// Related resources: the payment often responds to a claim-adjudication or
+/// funds-reservation request referenced from the `request` field, and each
+/// allocation may point at an `Encounter`, `Account`, `Invoice`, or `ChargeItem`
+/// that it settles. Monetary amounts use [`Money`](crate::r5::types::Money),
+/// classifications use [`CodeableConcept`](crate::r5::types::CodeableConcept),
+/// and parties are captured as a [`Reference`](crate::r5::types::Reference).
 ///
 /// # Examples
 ///
@@ -66,10 +79,10 @@ pub struct PaymentReconciliation {
     /// Business Identifier for a payment reconciliation
     pub identifier: Option<Vec<types::Identifier>>,
 
-    /// Category of payment
+    /// Coded category of payment, such as a payment for a claim or a batch remittance.
     pub r#type: types::CodeableConcept,
 
-    /// active | cancelled | draft | entered-in-error
+    /// Lifecycle status of the reconciliation: active, cancelled, draft, or entered-in-error.
     pub status: types::Code,
 
     /// Workflow originating payment
@@ -135,13 +148,13 @@ pub struct PaymentReconciliation {
     /// Amount returned by the receiver
     pub returned_amount: Option<types::Money>,
 
-    /// Total amount of Payment
+    /// Total monetary amount of the payment being reconciled, prior to any allocation.
     pub amount: types::Money,
 
     /// Business identifier for the payment
     pub payment_identifier: Option<types::Identifier>,
 
-    /// Settlement particulars
+    /// Settlement particulars: how the total payment is distributed across the individual payables.
     pub allocation: Option<Vec<PaymentReconciliationAllocation>>,
 
     /// Printed form identifier

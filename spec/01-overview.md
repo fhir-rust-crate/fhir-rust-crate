@@ -51,7 +51,7 @@ Out of scope (for now; see each spec's Future work):
 ## Crate identity
 
 - Package and crate name: **`fhir`**. Import as `use fhir::…`.
-- Cargo **workspace** with one extra member, `fhir-derive` (proc-macros).
+- Cargo **workspace** with one extra member, `fhir-derive-macros` (proc-macros).
 - Library **and** binary: the library is the model + generator API; the binary
   runs the generator. A library target is required so doctests execute.
 

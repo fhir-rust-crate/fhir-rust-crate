@@ -15,7 +15,7 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// UsageContext specifies clinical, business, or other metadata that can be
 /// used to retrieve, index, and/or categorize an artifact. The metadata may

@@ -15,7 +15,7 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// Details of a Health Insurance product/plan provided by an organization. An
 /// InsurancePlan describes a health insurance offering comprised of a list of

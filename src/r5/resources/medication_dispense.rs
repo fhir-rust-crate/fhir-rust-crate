@@ -15,17 +15,30 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// Indicates that a medication product is to be or has been dispensed for a
 /// named person/patient.
 ///
-/// This resource includes a description of the medication product (supply)
-/// provided and the instructions for administering the medication. The
-/// medication dispense is the result of a pharmacy system responding to a
-/// medication order. It captures who the medication is for, what was supplied,
-/// the performers, quantities, timing, substitution details, and dosage
-/// instructions within FHIR R5 medication workflows.
+/// In FHIR R5, MedicationDispense records the provision of a medication supply,
+/// together with the instructions for administering it. It is typically the
+/// result of a pharmacy or dispensing system responding to a medication order,
+/// and it documents the fulfillment step of the broader medication process that
+/// spans requesting, dispensing, and administration. The resource captures who
+/// the medication is for, what product was supplied, who performed the dispense
+/// and in what role, the quantity and days supply, the timing of preparation
+/// and hand-over, any substitution that occurred relative to the prescription,
+/// and the dosage instructions. It is used for pharmacy operations, medication
+/// reconciliation, billing, and clinical record keeping.
+///
+/// The dispensed product is described by the `medication` field as a
+/// [`CodeableReference`](crate::r5::types::CodeableReference), and the
+/// `subject` identifies the person receiving the medication, usually a
+/// [`Patient`](crate::r5::resources::patient::Patient). The dispense is
+/// commonly linked back to the authorizing order through
+/// `authorizing_prescription`. Related resources in the medication workflow
+/// include `MedicationRequest`, `MedicationAdministration`, `Medication`, and
+/// `MedicationStatement`.
 ///
 /// # Examples
 ///
@@ -74,7 +87,7 @@ pub struct MedicationDispense {
     /// Event that dispense is part of
     pub part_of: Option<Vec<types::Reference>>,
 
-    /// preparation | in-progress | cancelled | on-hold | completed | entered-in-error | stopped | declined | unknown
+    /// Current lifecycle state of the dispense, such as preparation, in-progress, cancelled, on-hold, completed, entered-in-error, stopped, declined, or unknown.
     pub status: types::Code,
 
     /// Why a dispense was not performed
@@ -86,10 +99,10 @@ pub struct MedicationDispense {
     /// Type of medication dispense
     pub category: Option<Vec<types::CodeableConcept>>,
 
-    /// What medication was supplied
+    /// The medication product that was supplied, given either as a coded concept or a reference to a Medication resource.
     pub medication: types::CodeableReference,
 
-    /// Who the dispense is for
+    /// The person or group the dispense is for, most often a reference to a Patient.
     pub subject: types::Reference,
 
     /// Encounter associated with event

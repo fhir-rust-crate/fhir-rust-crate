@@ -1,3 +1,19 @@
+//! Parse the FHIR R5 `all.json` specification bundle.
+//!
+//! This module reads the official FHIR R5 definitions file `all.json`, located
+//! under the crate's `doc/fhir-specifications/r5/fhir-definitions-json`
+//! directory and referenced here via `DEFINITIONS_FILE`. That bundle aggregates
+//! the shared structural building blocks used throughout the specification, such
+//! as codings, codeable concepts, identifiers, periods, quantities, ranges,
+//! extensions, and related metadata. For each of these building blocks this
+//! module exposes a corresponding Rust type, defined in a dedicated submodule
+//! and re-exported here for convenient access, for example `Coding`,
+//! `CodeableConcept`, `Identifier`, `Period`, and `Quantity`. Within the wider
+//! generation pipeline this module is one of several parsers under
+//! `crate::r5::parse`, alongside the parsers for concept maps, data elements,
+//! profiles, search parameters, and value sets, that together turn the raw FHIR
+//! JSON specifications into strongly typed Rust source code.
+
 // Namespace conveniences
 
 pub static DIR: std::sync::LazyLock<std::path::PathBuf> =

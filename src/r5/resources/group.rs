@@ -15,7 +15,7 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// Represents a defined collection of entities that may be discussed or acted
 /// upon collectively but which are not expected to act collectively.

@@ -15,7 +15,7 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// A financial tool for tracking value accrued for a particular purpose. In the
 /// healthcare field, an Account is used to track charges for a patient, cost

@@ -15,15 +15,36 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// An ingredient of a manufactured item or pharmaceutical product.
 ///
-/// The Ingredient resource describes a substance that is a constituent part of a
-/// manufactured item or a pharmaceutical product, including its role (such as
-/// active or inactive), the substance itself, and its strength expressed in a
-/// variety of ways. It is used in medicinal product definitions to capture the
-/// composition and regulatory information about each constituent.
+/// The Ingredient resource describes a single substance that is a constituent
+/// part of a manufactured item or pharmaceutical product. It captures the
+/// substance itself, the role it plays within the product (for example active
+/// versus inactive, or excipient), any more precise function it performs (such
+/// as antioxidant or alkalizing agent), and its strength expressed either as a
+/// presentation amount per dosage unit or as a concentration per volume or mass.
+/// Strength may additionally be stated in terms of a reference substance, and
+/// may vary by country to accommodate differing regulatory expressions.
+///
+/// In FHIR R5 the Ingredient resource is part of the medication definition
+/// domain and is used chiefly for regulated product information and medicinal
+/// product authorization. It is typically referenced by definitional resources
+/// such as `MedicinalProductDefinition`, `ManufacturedItemDefinition`, and
+/// `AdministrableProductDefinition` through its `for` element, rather than
+/// describing patient-specific medication use. The substance identity is carried
+/// by a [`CodeableReference`](crate::r5::types::CodeableReference), and each
+/// quantitative value is modeled with types such as
+/// [`Ratio`](crate::r5::types::Ratio), [`Quantity`](crate::r5::types::Quantity),
+/// and [`CodeableConcept`](crate::r5::types::CodeableConcept).
+///
+/// # See also
+///
+/// The `Substance` and `MedicinalProductDefinition` resources describe the
+/// substance and product that an Ingredient relates to, while
+/// [`CodeableReference`](crate::r5::types::CodeableReference) and
+/// [`Reference`](crate::r5::types::Reference) provide the linking mechanisms.
 ///
 /// # Examples
 ///
@@ -66,13 +87,13 @@ pub struct Ingredient {
     /// An identifier or code by which the ingredient can be referenced
     pub identifier: Option<types::Identifier>,
 
-    /// draft | active | retired | unknown
+    /// Publication lifecycle status of this Ingredient record, one of draft, active, retired, or unknown.
     pub status: types::Code,
 
-    /// The product which this ingredient is a constituent part of
+    /// References to the product or products that this ingredient is a constituent part of.
     pub r#for: Option<Vec<types::Reference>>,
 
-    /// Purpose of the ingredient within the product, e.g. active, inactive
+    /// The purpose the ingredient serves within the product, for example active or inactive.
     pub role: types::CodeableConcept,
 
     /// Precise action within the drug product, e.g. antioxidant, alkalizing agent
@@ -90,7 +111,7 @@ pub struct Ingredient {
     /// An organization that manufactures this ingredient
     pub manufacturer: Option<Vec<IngredientManufacturer>>,
 
-    /// The substance that comprises this ingredient
+    /// The substance that comprises this ingredient, including its identity and strength.
     pub substance: IngredientSubstance,
 }
 

@@ -15,7 +15,7 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
 /// Expression is a FHIR R5 complex datatype that captures an expression which is
 /// evaluated in a specified context and returns a value. The context of use must

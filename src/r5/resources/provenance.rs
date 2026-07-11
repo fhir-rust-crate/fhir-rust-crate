@@ -15,16 +15,33 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive::Validate;
+use fhir_derive_macros::Validate;
 
-/// Provenance of a resource is a record that describes entities and processes
-/// involved in producing and delivering or otherwise influencing that resource.
+/// Provenance of a resource is a record that describes the entities and
+/// processes involved in producing and delivering, or otherwise influencing,
+/// that resource. It answers the essential questions of who did what, when,
+/// where, why, and on whose authority, thereby documenting the origin and
+/// custody chain of clinical and administrative information.
 ///
 /// Provenance provides a critical foundation for assessing authenticity,
 /// enabling trust, and allowing reproducibility. Provenance assertions are a
 /// form of contextual metadata and can themselves become important records
-/// with their own provenance. In FHIR R5 this resource is commonly used to
-/// track who did what, when, and why for the resources it targets.
+/// with their own provenance. In FHIR R5, a Provenance resource points to one
+/// or more target resources it describes, records the activity that occurred
+/// and when, names the participating agents and their roles, references any
+/// source entities that were revised or quoted, and may carry digital
+/// signatures that attest to the target's integrity. Provenance is typically
+/// created automatically by systems as resources are authored, amended, or
+/// exchanged, and is used to support auditing, medico-legal accountability,
+/// data quality assessment, and regulatory compliance.
+///
+/// Related resources: the [`AuditEvent`](crate::r5::resources::audit_event::AuditEvent)
+/// resource records the technical details of security-relevant events and is
+/// often used alongside Provenance, which emphasizes the meaning and
+/// authorship of a resource's content. Agents and targets are expressed with
+/// [`Reference`](crate::r5::types::Reference), activities and roles with
+/// [`CodeableConcept`](crate::r5::types::CodeableConcept), and timing with
+/// [`Period`](crate::r5::types::Period) and [`DateTime`](crate::r5::types::DateTime).
 ///
 /// # Examples
 ///
@@ -64,7 +81,7 @@ pub struct Provenance {
     /// Extensions that cannot be ignored
     pub modifier_extension: Option<Vec<types::Extension>>,
 
-    /// Target Reference(s) (usually version specific)
+    /// The resource(s) whose provenance is being described, usually referenced version-specifically so the assertion applies to an exact state.
     pub target: Vec<types::Reference>,
 
     /// When the activity occurred
@@ -73,7 +90,7 @@ pub struct Provenance {
     /// When the activity occurred
     pub occurred_date_time: Option<types::DateTime>,
 
-    /// When the activity was recorded / updated
+    /// The instant the provenance assertion was recorded or last updated, which may differ from when the activity itself occurred.
     pub recorded: Option<types::Instant>,
 
     /// Policy or plan the activity was defined by
@@ -97,10 +114,10 @@ pub struct Provenance {
     /// Encounter within which this event occurred or which the event is tightly associated
     pub encounter: Option<types::Reference>,
 
-    /// Actor involved
+    /// The actors, human or system, that participated in the activity, each described by a ProvenanceAgent with its role; at least one is required.
     pub agent: Vec<ProvenanceAgent>,
 
-    /// An entity used in this activity
+    /// The source entities that were used, revised, quoted, or otherwise consumed by this activity, each described by a ProvenanceEntity.
     pub entity: Option<Vec<ProvenanceEntity>>,
 
     /// Signature on target
