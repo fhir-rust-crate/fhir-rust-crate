@@ -1,1 +1,6 @@
 /target
+
+# Full official FHIR R5 example set, fetched on demand by `bin/fetch-examples`
+# for the `#[ignore]` round-trip test. ~190 MB, not committed. The curated
+# always-on subset under tests/data/roundtrip_examples/ IS committed.
+/doc/fhir-specifications/r5/fhir-examples-json/

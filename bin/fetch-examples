@@ -1,0 +1,32 @@
+#!/bin/sh
+# Fetch the official FHIR R5 example resources for the round-trip test suite.
+#
+# Downloads `examples-json.zip` from hl7.org and unpacks it into
+# `doc/fhir-specifications/r5/fhir-examples-json/`. That directory is
+# git-ignored (~190 MB unpacked, ~2800 files) and is consumed by the
+# `#[ignore]`-by-default `roundtrip_full_official_examples` test:
+#
+#     bin/fetch-examples
+#     cargo test --test roundtrip_official_examples -- --ignored --nocapture
+#
+# The always-on `roundtrip_curated_subset` test does NOT need this download;
+# it uses the ~50 files committed under `tests/data/roundtrip_examples/`.
+set -euf
+
+URL="https://hl7.org/fhir/R5/examples-json.zip"
+ROOT="$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)"
+DEST="$ROOT/doc/fhir-specifications/r5/fhir-examples-json"
+ZIP="$DEST/examples-json.zip"
+
+mkdir -p "$DEST"
+
+echo "Downloading $URL"
+curl -fL --retry 3 -o "$ZIP" "$URL"
+
+echo "Unpacking into $DEST"
+# -o overwrite without prompting; -q quiet.
+unzip -oq "$ZIP" -d "$DEST"
+rm -f "$ZIP"
+
+count="$(find "$DEST" -name '*.json' | wc -l | tr -d ' ')"
+echo "Done: $count JSON files in $DEST"

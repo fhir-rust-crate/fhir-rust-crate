@@ -1,5 +1,7 @@
 # FHIR R5 for Rust
 
+[![CI](https://github.com/joelparkerhenderson/fhir-rust-crate/actions/workflows/ci.yml/badge.svg)](https://github.com/joelparkerhenderson/fhir-rust-crate/actions/workflows/ci.yml)
+
 A Rust implementation of the **HL7 FHIR® Release 5 (R5)** data model, plus a
 code generator that produces it from the official FHIR specification JSON files.
 
