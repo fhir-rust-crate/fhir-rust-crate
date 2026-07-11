@@ -38,6 +38,11 @@ use fhir_derive_macros::Validate;
 #[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
 pub struct CodeableConcept {
+    /// Unique id for inter-element referencing
+    pub id: Option<types::String>,
+
+    /// Additional content defined by implementations
+    pub extension: Option<Vec<types::Extension>>,
     /// A code defined by a terminology system; multiple codings may represent the same concept.
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub coding: Vec<types::Coding>,

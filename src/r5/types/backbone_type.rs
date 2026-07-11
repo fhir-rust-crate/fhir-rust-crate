@@ -39,6 +39,11 @@ use fhir_derive_macros::Validate;
 #[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
 pub struct BackboneType {
+    /// Unique id for inter-element referencing
+    pub id: Option<types::String>,
+
+    /// Additional content defined by implementations
+    pub extension: Option<Vec<types::Extension>>,
     /// Extensions that cannot be ignored even if unrecognized, altering the meaning of the containing element.
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub modifier_extension: Vec<types::Extension>,
@@ -54,6 +59,7 @@ mod tests {
         let actual = T::default();
         let expect = T {
             modifier_extension: vec![],
+            ..Default::default()
         };
         assert_eq!(actual, expect);
     }

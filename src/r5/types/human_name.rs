@@ -39,6 +39,11 @@ use fhir_derive_macros::Validate;
 #[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
 pub struct HumanName {
+    /// Unique id for inter-element referencing
+    pub id: Option<types::String>,
+
+    /// Additional content defined by implementations
+    pub extension: Option<Vec<types::Extension>>,
     /// The purpose for which this name is used, such as official, nickname, or maiden.
     #[serde(rename = "use")]
     pub use1: Option<types::Code>, // « NameUse! »

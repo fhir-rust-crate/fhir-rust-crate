@@ -40,6 +40,11 @@ use fhir_derive_macros::Validate;
 #[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
 pub struct Signature {
+    /// Unique id for inter-element referencing
+    pub id: Option<types::String>,
+
+    /// Additional content defined by implementations
+    pub extension: Option<Vec<types::Extension>>,
     /// Indication of the reason the entity signed the object(s), e.g. author, coauthor.
     #[serde(rename = "type")]
     #[serde(default, skip_serializing_if = "Vec::is_empty")]

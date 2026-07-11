@@ -38,6 +38,11 @@ use fhir_derive_macros::Validate;
 #[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
 pub struct Coding {
+    /// Unique id for inter-element referencing
+    pub id: Option<types::String>,
+
+    /// Additional content defined by implementations
+    pub extension: Option<Vec<types::Extension>>,
     /// The identification of the code system that defines the meaning of the symbol in the code.
     pub system: Option<types::Uri>,
     /// Primitive extension sibling for [`system`](Self::system) (FHIR `_system`).

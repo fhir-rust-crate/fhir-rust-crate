@@ -13,16 +13,19 @@ cargo test --test roundtrip_official_examples -- --ignored --nocapture
 
 ## Summary
 
-| Result | T2 baseline | After T7 (`_field`) | After C/D fixes |
-|---|---:|---:|---:|
-| Files scanned | 2824 | 2824 | 2824 |
-| **Passed** | **2760** | **2780** | **2801** (99.2%) |
-| Deserialize failures | 10 | 10 | 1 |
-| Round-trip mismatches | 54 | 34 | 22 |
+| Result | T2 baseline | After T7 (`_field`) | After C/D | After B |
+|---|---:|---:|---:|---:|
+| Files scanned | 2824 | 2824 | 2824 | 2824 |
+| **Passed** | **2760** | **2780** | **2801** | **2820** (99.86%) |
+| Deserialize failures | 10 | 10 | 1 | 1 |
+| Round-trip mismatches | 54 | 34 | 22 | 3 |
 
 **Status.** Resolved:
 - **Category A** (`_field` primitive extensions) — rolled across the whole model
   in T6/T7.
+- **Category B** — complex datatypes now model the FHIR `Element` base
+  (`id` + `extension`); added to 19 datatype structs by
+  `siblings::apply_element_base_group`.
 - **Category C** (missing scalar fields) — the fields existed but were dropped by
   acronym-casing (`carrierAIDC`/`carrierHRF`/`requestURL`/`productionIdentifierInUDI`
   serialized as `carrierAidc`/…); fixed with explicit `#[serde(rename)]`. Only
@@ -30,13 +33,11 @@ cargo test --test roundtrip_official_examples -- --ignored --nocapture
 - **Category D** — `Range.low`/`Range.high` are 0..1 in R5 but were modelled as
   required; made `Option` (fixed 9 of 10 deserialize failures).
 
-Remaining (23 files):
-- **Category B** — `id`/`extension` on complex datatypes (Coding, Reference,
-  Attachment, …). Not a `_field` issue; the datatypes don't model the `Element`
-  base. Biggest remaining bucket.
-- Choice `value[x]` primitive extensions (e.g. `_valueCode`) — deferred with the
-  choice-enum work (T9).
-- ConceptMap `target.product` — entangled with the `value[x]` choice; deferred to T9.
+Remaining (4 files, all deferred to the choice-enum work T9):
+- Choice `value[x]` primitive extensions (`_valueCode` on `Extension.value[x]`)
+  — 2 files.
+- `ConceptMap.group.element.target.product` — reuses the `dependsOn` structure
+  (`attribute` + `value[x]` choice); 1 file.
 - `QuestionnaireResponse.questionnaire` — genuinely 1..1 required in R5 (meta
   confirms `min=1`); `questionnaireresponse-example-f201-lifelines.json` omits it
   and is non-conformant. Left required by design (the last deserialize failure).

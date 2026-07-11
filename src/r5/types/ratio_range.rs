@@ -38,6 +38,11 @@ use fhir_derive_macros::Validate;
 #[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
 pub struct RatioRange {
+    /// Unique id for inter-element referencing
+    pub id: Option<types::String>,
+
+    /// Additional content defined by implementations
+    pub extension: Option<Vec<types::Extension>>,
     /// The lower limit of the numerator quantity, forming the low bound of the ratio range.
     pub low_numerator: Option<types::Quantity>, // Quantity(SimpleQuantity) [0..1] « C »
     /// The upper limit of the numerator quantity, forming the high bound of the ratio range.
@@ -58,6 +63,7 @@ mod tests {
             low_numerator: None,
             high_numerator: None,
             denominator: None,
+            ..Default::default()
         };
         assert_eq!(actual, expect);
     }

@@ -309,6 +309,48 @@ pub fn patch_default_tests<S: std::hash::BuildHasher>(
     joined
 }
 
+/// Add the FHIR `Element` base (`id` + `extension`) to the root complex-datatype
+/// struct in every `types` file that lacks it. Complex datatypes derive from
+/// `Element` and so may carry an `id` and `extension`s, but the generated
+/// structs omitted them (round-trip category B). Primitives (tuple structs),
+/// the empty `Base`, and any struct that already models `extension` are skipped.
+/// Returns the number of structs changed.
+pub fn apply_element_base_group() -> usize {
+    let element_base = "\n    /// Unique id for inter-element referencing\n    \
+        pub id: Option<types::String>,\n\n    \
+        /// Additional content defined by implementations\n    \
+        pub extension: Option<Vec<types::Extension>>,";
+    let mut total = 0;
+    for file in group_files("types") {
+        let text = std::fs::read_to_string(&file).expect("read file");
+        let lines: Vec<&str> = text.lines().collect();
+        // Only the first (root) braced struct of the datatype file.
+        let Some((name, start, end)) = struct_spans(&lines).into_iter().next() else {
+            continue;
+        };
+        let span = &lines[start..=end];
+        // Skip tuple/unit structs (primitives are `pub struct X(pub …);`), empty
+        // structs (`pub struct Base {}`), and any that already model `extension`.
+        let is_braced = lines[start].contains('{');
+        let has_extension = span.iter().any(|l| l.trim_start().starts_with("pub extension:"));
+        let is_empty = lines[start].contains("{}");
+        if !is_braced || has_extension || is_empty {
+            continue;
+        }
+        let mut new_lines: Vec<String> = lines.iter().map(|s| (*s).to_string()).collect();
+        new_lines[start].push_str(element_base);
+        let spliced = new_lines.join("\n");
+        let with_ln = if text.ends_with('\n') { format!("{spliced}\n") } else { spliced };
+        let changed: std::collections::HashSet<String> = std::iter::once(name).collect();
+        let patched = patch_default_tests(&with_ln, &changed);
+        if patched != text {
+            std::fs::write(&file, patched).expect("write file");
+            total += 1;
+        }
+    }
+    total
+}
+
 /// List the source files for a group: `types` or `resources`.
 fn group_files(group: &str) -> Vec<PathBuf> {
     let dir = crate_root().join("src").join("r5").join(group);
@@ -412,5 +454,13 @@ mod tests {
     fn apply_resources() {
         let n = apply_group("resources");
         println!("resources: applied {n} sibling insertions");
+    }
+
+    /// Add id + extension to complex datatypes. Ignored (writes source files).
+    #[test]
+    #[ignore = "writes src/r5/types/*.rs"]
+    fn apply_element_base() {
+        let n = apply_element_base_group();
+        println!("types: added Element base (id + extension) to {n} datatypes");
     }
 }

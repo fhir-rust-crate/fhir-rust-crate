@@ -35,6 +35,11 @@ use fhir_derive_macros::Validate;
 #[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
 pub struct Ratio {
+    /// Unique id for inter-element referencing
+    pub id: Option<types::String>,
+
+    /// Additional content defined by implementations
+    pub extension: Option<Vec<types::Extension>>,
     /// The value of the numerator, i.e. the value that is on the top of the ratio expression. // « C »
     pub numerator: Option<types::Quantity>,
     /// The value of the denominator, i.e. the value that is on the bottom of the ratio expression. // Quantity(SimpleQuantity)
@@ -52,6 +57,7 @@ mod tests {
         let expect = T {
             numerator: None,
             denominator: types::Quantity::default(),
+            ..Default::default()
         };
         assert_eq!(actual, expect);
     }

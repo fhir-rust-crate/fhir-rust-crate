@@ -39,6 +39,11 @@ use fhir_derive_macros::Validate;
 #[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
 pub struct Range {
+    /// Unique id for inter-element referencing
+    pub id: Option<types::String>,
+
+    /// Additional content defined by implementations
+    pub extension: Option<Vec<types::Extension>>,
     /// The low limit of the range; omitted if the range has no lower bound (0..1). // « C »
     pub low: Option<types::Quantity>,
     /// The high limit of the range; omitted if the range has no upper bound (0..1). // « C »
@@ -56,6 +61,7 @@ mod tests {
         let expect = T {
             low: None,
             high: None,
+            ..Default::default()
         };
         assert_eq!(actual, expect);
     }

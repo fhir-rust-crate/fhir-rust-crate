@@ -37,6 +37,11 @@ use fhir_derive_macros::Validate;
 #[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
 pub struct Quantity {
+    /// Unique id for inter-element referencing
+    pub id: Option<types::String>,
+
+    /// Additional content defined by implementations
+    pub extension: Option<Vec<types::Extension>>,
     /// The numeric value of the quantity, including any arbitrary precision.
     pub value: Option<types::Decimal>,
     /// Primitive extension sibling for [`value`](Self::value) (FHIR `_value`).

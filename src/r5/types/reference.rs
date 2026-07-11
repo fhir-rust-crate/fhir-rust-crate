@@ -38,6 +38,11 @@ use fhir_derive_macros::Validate;
 #[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
 pub struct Reference {
+    /// Unique id for inter-element referencing
+    pub id: Option<types::String>,
+
+    /// Additional content defined by implementations
+    pub extension: Option<Vec<types::Extension>>,
     /// Literal reference, relative, internal or absolute URL. // « C »
     pub reference: Option<types::String>, //  « C »
     /// Primitive extension sibling for [`reference`](Self::reference) (FHIR `_reference`).

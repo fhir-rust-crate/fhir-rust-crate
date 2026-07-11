@@ -35,6 +35,11 @@ use fhir_derive_macros::Validate;
 #[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
 pub struct ContactPoint {
+    /// Unique id for inter-element referencing
+    pub id: Option<types::String>,
+
+    /// Additional content defined by implementations
+    pub extension: Option<Vec<types::Extension>>,
     /// The kind of communication medium this contact point represents, e.g. phone, fax, email, pager, url, sms, other.
     pub system: Option<types::Code>,  // « ContactPointSystem! » « C »
     /// Primitive extension sibling for [`system`](Self::system) (FHIR `_system`).
