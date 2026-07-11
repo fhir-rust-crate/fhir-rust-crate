@@ -42,9 +42,9 @@ use fhir_derive_macros::Validate;
 ///
 /// # Related resources
 ///
-/// See also the nested backbone types [`PatientContact`](crate::r5::resources::patient::PatientContact),
-/// [`PatientCommunication`](crate::r5::resources::patient::PatientCommunication),
-/// and [`PatientLink`](crate::r5::resources::patient::PatientLink). Common
+/// See also the nested backbone types [`PatientContact`],
+/// [`PatientCommunication`],
+/// and [`PatientLink`]. Common
 /// building-block data types include [`HumanName`](crate::r5::types::HumanName),
 /// [`Identifier`](crate::r5::types::Identifier),
 /// [`ContactPoint`](crate::r5::types::ContactPoint),
