@@ -101,7 +101,9 @@ fn validate_recurses_into_field_extensions() {
     // T7d: `#[derive(Validate)]` recurses every field, including the `_field`
     // sibling `Element`s, so a bad primitive inside a primitive extension is
     // reported with a path prefixed by the sibling field name.
+    use fhir::r5::choice::Primitive;
     use fhir::r5::resources::Patient;
+    use fhir::r5::types::extension::ExtensionValue;
     use fhir::r5::types::{Code, Element, Extension, String as FhirString};
     use fhir::r5::validate::Validate;
 
@@ -111,7 +113,8 @@ fn validate_recurses_into_field_extensions() {
                 url: FhirString(
                     "http://hl7.org/fhir/StructureDefinition/data-absent-reason".to_string(),
                 ),
-                value_code: Some(Code(String::new())), // empty code is invalid
+                // empty code is invalid
+                value: Some(ExtensionValue::Code(Primitive::new(Code(String::new())))),
                 ..Default::default()
             }]),
             ..Default::default()

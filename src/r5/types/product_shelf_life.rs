@@ -49,13 +49,9 @@ pub struct ProductShelfLife {
     /// shelf life, from an appropriate controlled vocabulary.
     pub r#type: Option<types::CodeableConcept>,
 
-    /// The shelf life period expressed as a duration.
-    /// This is the `Duration` variant of the `period[x]` choice element.
-    pub period_duration: Option<types::Duration>,
-
-    /// The shelf life period expressed as free text.
-    /// This is the `string` variant of the `period[x]` choice element.
-    pub period_string: Option<types::String>,
+    /// The `ProductShelfLife.period[x]` choice element (0..1); see [`ProductShelfLifePeriod`].
+    #[serde(flatten)]
+    pub period: Option<ProductShelfLifePeriod>,
 
     /// Special precautions for storage of the item, if any.
     pub special_precautions_for_storage: Option<Vec<types::CodeableConcept>>,
@@ -78,4 +74,15 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `ProductShelfLife.period[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum ProductShelfLifePeriod {
+    /// `periodDuration` variant.
+    #[fhir("periodDuration")]
+    Duration(Box<types::Duration>),
+    /// `periodString` variant.
+    #[fhir("periodString")]
+    String(crate::r5::choice::Primitive<types::String>),
 }

@@ -56,11 +56,9 @@ pub struct DataRequirement {
     #[serde(rename = "_profile")]
     pub profile_ext: Option<Vec<Option<types::Element>>>,
 
-    /// The intended subject of the data requirement, given as a codeable concept (e.g. Patient, Practitioner, Organization, Location, Device)
-    pub subject_codeable_concept: Option<types::CodeableConcept>,
-
-    /// The intended subject of the data requirement, given as a reference to a group or specific resource
-    pub subject_reference: Option<types::Reference>,
+    /// The `DataRequirement.subject[x]` choice element (0..1); see [`DataRequirementSubject`].
+    #[serde(flatten)]
+    pub subject: Option<DataRequirementSubject>,
 
     /// Indicates specific structure elements that are referenced by the knowledge module
     pub must_support: Option<Vec<types::String>>,
@@ -147,14 +145,9 @@ pub struct DataRequirementDateFilter {
     #[serde(rename = "_searchParam")]
     pub search_param_ext: Option<types::Element>,
 
-    /// The value of the filter, as a Period, DateTime, or Duration value
-    pub value_date_time: Option<types::DateTime>,
-
-    /// The value of the filter, as a Period, DateTime, or Duration value
-    pub value_period: Option<types::Period>,
-
-    /// The value of the filter, as a Period, DateTime, or Duration value
-    pub value_duration: Option<types::Duration>,
+    /// The `DataRequirement.dateFilter.value[x]` choice element (0..1); see [`DataRequirementDateFilterValue`].
+    #[serde(flatten)]
+    pub value: Option<DataRequirementDateFilterValue>,
 }
 
 /// What values are expected. Value filters specify additional constraints on the
@@ -188,14 +181,9 @@ pub struct DataRequirementValueFilter {
     #[serde(rename = "_comparator")]
     pub comparator_ext: Option<types::Element>,
 
-    /// The value of the filter, as a Period, DateTime, or Duration value
-    pub value_date_time: Option<types::DateTime>,
-
-    /// The value of the filter, as a Period, DateTime, or Duration value
-    pub value_period: Option<types::Period>,
-
-    /// The value of the filter, as a Period, DateTime, or Duration value
-    pub value_duration: Option<types::Duration>,
+    /// The `DataRequirement.valueFilter.value[x]` choice element (0..1); see [`DataRequirementValueFilterValue`].
+    #[serde(flatten)]
+    pub value: Option<DataRequirementValueFilterValue>,
 }
 
 /// Order of the results. Specifies the order of the results to be returned,
@@ -240,4 +228,45 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `DataRequirement.dateFilter.value[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum DataRequirementDateFilterValue {
+    /// `valueDateTime` variant.
+    #[fhir("valueDateTime")]
+    DateTime(crate::r5::choice::Primitive<types::DateTime>),
+    /// `valuePeriod` variant.
+    #[fhir("valuePeriod")]
+    Period(Box<types::Period>),
+    /// `valueDuration` variant.
+    #[fhir("valueDuration")]
+    Duration(Box<types::Duration>),
+}
+
+/// The `DataRequirement.subject[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum DataRequirementSubject {
+    /// `subjectCodeableConcept` variant.
+    #[fhir("subjectCodeableConcept")]
+    CodeableConcept(Box<types::CodeableConcept>),
+    /// `subjectReference` variant.
+    #[fhir("subjectReference")]
+    Reference(Box<types::Reference>),
+}
+
+/// The `DataRequirement.valueFilter.value[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum DataRequirementValueFilterValue {
+    /// `valueDateTime` variant.
+    #[fhir("valueDateTime")]
+    DateTime(crate::r5::choice::Primitive<types::DateTime>),
+    /// `valuePeriod` variant.
+    #[fhir("valuePeriod")]
+    Period(Box<types::Period>),
+    /// `valueDuration` variant.
+    #[fhir("valueDuration")]
+    Duration(Box<types::Duration>),
 }

@@ -123,20 +123,13 @@ pub struct DosageDoseAndRate {
     /// The kind of dose or rate specified
     pub r#type: Option<types::CodeableConcept>,
 
-    /// Amount of medication per dose (Range variant)
-    pub dose_range: Option<types::Range>,
+    /// The `Dosage.doseAndRate.dose[x]` choice element (0..1); see [`DosageDoseAndRateDose`].
+    #[serde(flatten)]
+    pub dose: Option<DosageDoseAndRateDose>,
 
-    /// Amount of medication per dose (Quantity variant)
-    pub dose_quantity: Option<types::Quantity>,
-
-    /// Amount of medication per unit of time (Ratio variant)
-    pub rate_ratio: Option<types::Ratio>,
-
-    /// Amount of medication per unit of time (Range variant)
-    pub rate_range: Option<types::Range>,
-
-    /// Amount of medication per unit of time (Quantity variant)
-    pub rate_quantity: Option<types::Quantity>,
+    /// The `Dosage.doseAndRate.rate[x]` choice element (0..1); see [`DosageDoseAndRateRate`].
+    #[serde(flatten)]
+    pub rate: Option<DosageDoseAndRateRate>,
 }
 
 #[cfg(test)]
@@ -156,4 +149,30 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `Dosage.doseAndRate.dose[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum DosageDoseAndRateDose {
+    /// `doseRange` variant.
+    #[fhir("doseRange")]
+    Range(Box<types::Range>),
+    /// `doseQuantity` variant.
+    #[fhir("doseQuantity")]
+    Quantity(Box<types::Quantity>),
+}
+
+/// The `Dosage.doseAndRate.rate[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum DosageDoseAndRateRate {
+    /// `rateRatio` variant.
+    #[fhir("rateRatio")]
+    Ratio(Box<types::Ratio>),
+    /// `rateRange` variant.
+    #[fhir("rateRange")]
+    Range(Box<types::Range>),
+    /// `rateQuantity` variant.
+    #[fhir("rateQuantity")]
+    Quantity(Box<types::Quantity>),
 }

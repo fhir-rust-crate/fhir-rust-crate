@@ -49,17 +49,9 @@ pub struct VirtualServiceDetail {
     /// The type of virtual service to connect to (for example a specific vendor's platform)
     pub channel_type: Option<types::Coding>,
 
-    /// Contact address/number to reach the virtual service, expressed as a URL
-    pub address_url: Option<types::Url>,
-
-    /// Contact address/number to reach the virtual service, expressed as free text
-    pub address_string: Option<types::String>,
-
-    /// Contact address/number to reach the virtual service, expressed as a ContactPoint
-    pub address_contact_point: Option<types::ContactPoint>,
-
-    /// Contact address/number to reach the virtual service, expressed as an extended contact detail
-    pub address_extended_contact_detail: Option<types::ExtendedContactDetail>,
+    /// The `VirtualServiceDetail.address[x]` choice element (0..1); see [`VirtualServiceDetailAddress`].
+    #[serde(flatten)]
+    pub address: Option<VirtualServiceDetailAddress>,
 
     /// Address(es) with additional information on alternate connection details
     pub additional_info: Option<Vec<types::Url>>,
@@ -97,4 +89,21 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `VirtualServiceDetail.address[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum VirtualServiceDetailAddress {
+    /// `addressUrl` variant.
+    #[fhir("addressUrl")]
+    Url(crate::r5::choice::Primitive<types::Url>),
+    /// `addressString` variant.
+    #[fhir("addressString")]
+    String(crate::r5::choice::Primitive<types::String>),
+    /// `addressContactPoint` variant.
+    #[fhir("addressContactPoint")]
+    ContactPoint(Box<types::ContactPoint>),
+    /// `addressExtendedContactDetail` variant.
+    #[fhir("addressExtendedContactDetail")]
+    ExtendedContactDetail(Box<types::ExtendedContactDetail>),
 }

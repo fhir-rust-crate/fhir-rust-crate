@@ -15,8 +15,10 @@
 //!
 //! [`Element`]: fhir::r5::types::Element
 
+use fhir::r5::choice::Primitive;
 use fhir::r5::resources::Patient;
-use fhir::r5::types::{Date, Element, Extension, String as FhirString};
+use fhir::r5::types::extension::ExtensionValue;
+use fhir::r5::types::{Date, DateTime, Element, Extension, String as FhirString};
 
 fn main() {
     // A Patient whose birth date is known precisely down to the time of day.
@@ -40,14 +42,18 @@ fn main() {
     println!("birthDate value: {}", patient.birth_date.as_ref().unwrap().0);
 
     // Reach into the `_birthDate` extension to recover the precise birth time.
+    // `Extension.value[x]` is the `ExtensionValue` choice enum.
     if let Some(birth_time) = patient
         .birth_date_ext
         .as_ref()
         .and_then(|e| e.extension.as_ref())
         .into_iter()
         .flatten()
-        .find(|ext| ext.url.0.ends_with("patient-birthTime"))
-        .and_then(|ext| ext.value_date_time.as_ref())
+        .filter(|ext| ext.url.0.ends_with("patient-birthTime"))
+        .find_map(|ext| match &ext.value {
+            Some(ExtensionValue::DateTime(p)) => Some(&p.value),
+            _ => None,
+        })
     {
         println!("precise birthTime: {}", birth_time.0);
     }
@@ -71,9 +77,9 @@ fn main() {
                 url: FhirString(
                     "http://hl7.org/fhir/StructureDefinition/patient-birthTime".to_string(),
                 ),
-                value_date_time: Some(fhir::r5::types::DateTime(
+                value: Some(ExtensionValue::DateTime(Primitive::new(DateTime(
                     "2000-01-01T06:00:00Z".to_string(),
-                )),
+                )))),
                 ..Default::default()
             }]),
             ..Default::default()

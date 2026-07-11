@@ -86,14 +86,9 @@ pub struct TimingRepeat {
     /// Additional content defined by implementations
     pub extension: Option<Vec<types::Extension>>,
 
-    /// Length/Range of lengths, or (Start and/or end) limits
-    pub bounds_duration: Option<types::Duration>,
-
-    /// Length/Range of lengths, or (Start and/or end) limits
-    pub bounds_range: Option<types::Range>,
-
-    /// Length/Range of lengths, or (Start and/or end) limits
-    pub bounds_period: Option<types::Period>,
+    /// The `Timing.repeat.bounds[x]` choice element (0..1); see [`TimingRepeatBounds`].
+    #[serde(flatten)]
+    pub bounds: Option<TimingRepeatBounds>,
 
     /// Number of times to repeat
     pub count: Option<types::PositiveInt>,
@@ -197,4 +192,18 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `Timing.repeat.bounds[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum TimingRepeatBounds {
+    /// `boundsDuration` variant.
+    #[fhir("boundsDuration")]
+    Duration(Box<types::Duration>),
+    /// `boundsRange` variant.
+    #[fhir("boundsRange")]
+    Range(Box<types::Range>),
+    /// `boundsPeriod` variant.
+    #[fhir("boundsPeriod")]
+    Period(Box<types::Period>),
 }

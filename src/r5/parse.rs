@@ -14,6 +14,7 @@
 //! - version.info
 
 pub mod all;
+pub mod choice_gen;
 pub mod concept_maps;
 pub mod meta;
 pub mod siblings;

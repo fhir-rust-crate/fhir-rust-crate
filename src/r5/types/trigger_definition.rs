@@ -65,17 +65,9 @@ pub struct TriggerDefinition {
     #[serde(rename = "_subscriptionTopic")]
     pub subscription_topic_ext: Option<types::Element>,
 
-    /// Timing of the event (Timing variant)
-    pub timing_timing: Option<types::Timing>,
-
-    /// Timing of the event (Reference variant)
-    pub timing_reference: Option<types::Reference>,
-
-    /// Timing of the event (date variant)
-    pub timing_date: Option<types::Date>,
-
-    /// Timing of the event (dateTime variant)
-    pub timing_date_time: Option<types::DateTime>,
+    /// The `TriggerDefinition.timing[x]` choice element (0..1); see [`TriggerDefinitionTiming`].
+    #[serde(flatten)]
+    pub timing: Option<TriggerDefinitionTiming>,
 
     /// Triggering data of the event (multiple = 'and')
     pub data: Option<Vec<types::DataRequirement>>,
@@ -101,4 +93,21 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `TriggerDefinition.timing[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum TriggerDefinitionTiming {
+    /// `timingTiming` variant.
+    #[fhir("timingTiming")]
+    Timing(Box<types::Timing>),
+    /// `timingReference` variant.
+    #[fhir("timingReference")]
+    Reference(Box<types::Reference>),
+    /// `timingDate` variant.
+    #[fhir("timingDate")]
+    Date(crate::r5::choice::Primitive<types::Date>),
+    /// `timingDateTime` variant.
+    #[fhir("timingDateTime")]
+    DateTime(crate::r5::choice::Primitive<types::DateTime>),
 }

@@ -47,17 +47,9 @@ pub struct UsageContext {
     /// Type of context being specified
     pub code: types::Coding,
 
-    /// Value that defines the context
-    pub value_codeable_concept: Option<types::CodeableConcept>,
-
-    /// Value that defines the context
-    pub value_quantity: Option<types::Quantity>,
-
-    /// Value that defines the context
-    pub value_range: Option<types::Range>,
-
-    /// Value that defines the context
-    pub value_reference: Option<types::Reference>,
+    /// The `UsageContext.value[x]` choice element (0..1); see [`UsageContextValue`].
+    #[serde(flatten)]
+    pub value: Option<UsageContextValue>,
 }
 
 #[cfg(test)]
@@ -77,4 +69,21 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `UsageContext.value[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum UsageContextValue {
+    /// `valueCodeableConcept` variant.
+    #[fhir("valueCodeableConcept")]
+    CodeableConcept(Box<types::CodeableConcept>),
+    /// `valueQuantity` variant.
+    #[fhir("valueQuantity")]
+    Quantity(Box<types::Quantity>),
+    /// `valueRange` variant.
+    #[fhir("valueRange")]
+    Range(Box<types::Range>),
+    /// `valueReference` variant.
+    #[fhir("valueReference")]
+    Reference(Box<types::Reference>),
 }

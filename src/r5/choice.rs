@@ -107,22 +107,16 @@ mod tests {
     }
 
     #[test]
-    fn validate_recurses_active_variant() {
-        // An invalid primitive inside the active variant is reported.
-        let v = TestValue::String(Primitive::new(FhirString(String::new())));
-        // FhirString has no format constraint, so use an extension with a bad code.
-        let _ = v;
-        let value = TestValue::Boolean(Primitive {
-            value: Boolean(true),
-            extension: Some(crate::r5::types::Element {
-                extension: Some(vec![crate::r5::types::Extension {
-                    url: FhirString("http://x".to_string()),
-                    value_code: Some(crate::r5::types::Code(String::new())),
-                    ..Default::default()
-                }]),
-                ..Default::default()
-            }),
-        });
-        assert!(!value.validate().is_empty());
+    fn validate_runs_on_active_variant() {
+        // The `Validate` derive dispatches to the active variant's data.
+        let valid = TestValue::Boolean(Primitive::new(Boolean(true)));
+        assert!(valid.validate().is_empty());
+
+        // An invalid code primitive inside the active variant is reported.
+        let invalid = TestValue::Quantity(Box::new(Quantity {
+            code: Some(crate::r5::types::Code(String::new())),
+            ..Default::default()
+        }));
+        assert!(!invalid.validate().is_empty());
     }
 }

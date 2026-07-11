@@ -137,114 +137,9 @@ pub struct ElementDefinition {
     /// Data type and Profile for this element
     pub r#type: Option<Vec<ElementDefinitionType>>,
 
-    /// Specified value if missing from instance
-    pub default_value_base64_binary: Option<types::Base64Binary>,
-    /// Specified value if missing from instance
-    pub default_value_boolean: Option<types::Boolean>,
-    /// Specified value if missing from instance
-    pub default_value_canonical: Option<types::Canonical>,
-    /// Specified value if missing from instance
-    pub default_value_code: Option<types::Code>,
-    /// Specified value if missing from instance
-    pub default_value_date: Option<types::Date>,
-    /// Specified value if missing from instance
-    pub default_value_date_time: Option<types::DateTime>,
-    /// Specified value if missing from instance
-    pub default_value_decimal: Option<types::Decimal>,
-    /// Specified value if missing from instance
-    pub default_value_id: Option<types::Id>,
-    /// Specified value if missing from instance
-    pub default_value_instant: Option<types::Instant>,
-    /// Specified value if missing from instance
-    pub default_value_integer: Option<types::Integer>,
-    /// Specified value if missing from instance
-    pub default_value_integer64: Option<types::Integer64>,
-    /// Specified value if missing from instance
-    pub default_value_markdown: Option<types::Markdown>,
-    /// Specified value if missing from instance
-    pub default_value_oid: Option<types::Oid>,
-    /// Specified value if missing from instance
-    pub default_value_positive_int: Option<types::PositiveInt>,
-    /// Specified value if missing from instance
-    pub default_value_string: Option<types::String>,
-    /// Specified value if missing from instance
-    pub default_value_time: Option<types::Time>,
-    /// Specified value if missing from instance
-    pub default_value_unsigned_int: Option<types::UnsignedInt>,
-    /// Specified value if missing from instance
-    pub default_value_uri: Option<types::Uri>,
-    /// Specified value if missing from instance
-    pub default_value_url: Option<types::Url>,
-    /// Specified value if missing from instance
-    pub default_value_uuid: Option<types::Uuid>,
-    /// Specified value if missing from instance
-    pub default_value_address: Option<types::Address>,
-    /// Specified value if missing from instance
-    pub default_value_age: Option<types::Age>,
-    /// Specified value if missing from instance
-    pub default_value_annotation: Option<types::Annotation>,
-    /// Specified value if missing from instance
-    pub default_value_attachment: Option<types::Attachment>,
-    /// Specified value if missing from instance
-    pub default_value_codeable_concept: Option<types::CodeableConcept>,
-    /// Specified value if missing from instance
-    pub default_value_codeable_reference: Option<types::CodeableReference>,
-    /// Specified value if missing from instance
-    pub default_value_coding: Option<types::Coding>,
-    /// Specified value if missing from instance
-    pub default_value_contact_point: Option<types::ContactPoint>,
-    /// Specified value if missing from instance
-    pub default_value_count: Option<types::Count>,
-    /// Specified value if missing from instance
-    pub default_value_distance: Option<types::Distance>,
-    /// Specified value if missing from instance
-    pub default_value_duration: Option<types::Duration>,
-    /// Specified value if missing from instance
-    pub default_value_human_name: Option<types::HumanName>,
-    /// Specified value if missing from instance
-    pub default_value_identifier: Option<types::Identifier>,
-    /// Specified value if missing from instance
-    pub default_value_money: Option<types::Money>,
-    /// Specified value if missing from instance
-    pub default_value_period: Option<types::Period>,
-    /// Specified value if missing from instance
-    pub default_value_quantity: Option<types::Quantity>,
-    /// Specified value if missing from instance
-    pub default_value_range: Option<types::Range>,
-    /// Specified value if missing from instance
-    pub default_value_ratio: Option<types::Ratio>,
-    /// Specified value if missing from instance
-    pub default_value_ratio_range: Option<types::RatioRange>,
-    /// Specified value if missing from instance
-    pub default_value_reference: Option<types::Reference>,
-    /// Specified value if missing from instance
-    pub default_value_sampled_data: Option<types::SampledData>,
-    /// Specified value if missing from instance
-    pub default_value_signature: Option<types::Signature>,
-    /// Specified value if missing from instance
-    pub default_value_timing: Option<types::Timing>,
-    /// Specified value if missing from instance
-    pub default_value_contact_detail: Option<types::ContactDetail>,
-    /// Specified value if missing from instance
-    pub default_value_data_requirement: Option<types::DataRequirement>,
-    /// Specified value if missing from instance
-    pub default_value_expression: Option<types::Expression>,
-    /// Specified value if missing from instance
-    pub default_value_parameter_definition: Option<types::ParameterDefinition>,
-    /// Specified value if missing from instance
-    pub default_value_related_artifact: Option<types::RelatedArtifact>,
-    /// Specified value if missing from instance
-    pub default_value_trigger_definition: Option<types::TriggerDefinition>,
-    /// Specified value if missing from instance
-    pub default_value_usage_context: Option<types::UsageContext>,
-    /// Specified value if missing from instance
-    pub default_value_availability: Option<types::Availability>,
-    /// Specified value if missing from instance
-    pub default_value_extended_contact_detail: Option<types::ExtendedContactDetail>,
-    /// Specified value if missing from instance
-    pub default_value_dosage: Option<types::Dosage>,
-    /// Specified value if missing from instance
-    pub default_value_meta: Option<types::Meta>,
+    /// The `ElementDefinition.defaultValue[x]` choice element (0..1); see [`ElementDefinitionDefaultValue`].
+    #[serde(flatten)]
+    pub default_value: Option<ElementDefinitionDefaultValue>,
 
     /// Implicit meaning when this element is missing
     pub meaning_when_missing: Option<types::Markdown>,
@@ -258,268 +153,24 @@ pub struct ElementDefinition {
     #[serde(rename = "_orderMeaning")]
     pub order_meaning_ext: Option<types::Element>,
 
-    /// Value must be exactly this
-    pub fixed_base64_binary: Option<types::Base64Binary>,
-    /// Value must be exactly this
-    pub fixed_boolean: Option<types::Boolean>,
-    /// Value must be exactly this
-    pub fixed_canonical: Option<types::Canonical>,
-    /// Value must be exactly this
-    pub fixed_code: Option<types::Code>,
-    /// Value must be exactly this
-    pub fixed_date: Option<types::Date>,
-    /// Value must be exactly this
-    pub fixed_date_time: Option<types::DateTime>,
-    /// Value must be exactly this
-    pub fixed_decimal: Option<types::Decimal>,
-    /// Value must be exactly this
-    pub fixed_id: Option<types::Id>,
-    /// Value must be exactly this
-    pub fixed_instant: Option<types::Instant>,
-    /// Value must be exactly this
-    pub fixed_integer: Option<types::Integer>,
-    /// Value must be exactly this
-    pub fixed_integer64: Option<types::Integer64>,
-    /// Value must be exactly this
-    pub fixed_markdown: Option<types::Markdown>,
-    /// Value must be exactly this
-    pub fixed_oid: Option<types::Oid>,
-    /// Value must be exactly this
-    pub fixed_positive_int: Option<types::PositiveInt>,
-    /// Value must be exactly this
-    pub fixed_string: Option<types::String>,
-    /// Value must be exactly this
-    pub fixed_time: Option<types::Time>,
-    /// Value must be exactly this
-    pub fixed_unsigned_int: Option<types::UnsignedInt>,
-    /// Value must be exactly this
-    pub fixed_uri: Option<types::Uri>,
-    /// Value must be exactly this
-    pub fixed_url: Option<types::Url>,
-    /// Value must be exactly this
-    pub fixed_uuid: Option<types::Uuid>,
-    /// Value must be exactly this
-    pub fixed_address: Option<types::Address>,
-    /// Value must be exactly this
-    pub fixed_age: Option<types::Age>,
-    /// Value must be exactly this
-    pub fixed_annotation: Option<types::Annotation>,
-    /// Value must be exactly this
-    pub fixed_attachment: Option<types::Attachment>,
-    /// Value must be exactly this
-    pub fixed_codeable_concept: Option<types::CodeableConcept>,
-    /// Value must be exactly this
-    pub fixed_codeable_reference: Option<types::CodeableReference>,
-    /// Value must be exactly this
-    pub fixed_coding: Option<types::Coding>,
-    /// Value must be exactly this
-    pub fixed_contact_point: Option<types::ContactPoint>,
-    /// Value must be exactly this
-    pub fixed_count: Option<types::Count>,
-    /// Value must be exactly this
-    pub fixed_distance: Option<types::Distance>,
-    /// Value must be exactly this
-    pub fixed_duration: Option<types::Duration>,
-    /// Value must be exactly this
-    pub fixed_human_name: Option<types::HumanName>,
-    /// Value must be exactly this
-    pub fixed_identifier: Option<types::Identifier>,
-    /// Value must be exactly this
-    pub fixed_money: Option<types::Money>,
-    /// Value must be exactly this
-    pub fixed_period: Option<types::Period>,
-    /// Value must be exactly this
-    pub fixed_quantity: Option<types::Quantity>,
-    /// Value must be exactly this
-    pub fixed_range: Option<types::Range>,
-    /// Value must be exactly this
-    pub fixed_ratio: Option<types::Ratio>,
-    /// Value must be exactly this
-    pub fixed_ratio_range: Option<types::RatioRange>,
-    /// Value must be exactly this
-    pub fixed_reference: Option<types::Reference>,
-    /// Value must be exactly this
-    pub fixed_sampled_data: Option<types::SampledData>,
-    /// Value must be exactly this
-    pub fixed_signature: Option<types::Signature>,
-    /// Value must be exactly this
-    pub fixed_timing: Option<types::Timing>,
-    /// Value must be exactly this
-    pub fixed_contact_detail: Option<types::ContactDetail>,
-    /// Value must be exactly this
-    pub fixed_data_requirement: Option<types::DataRequirement>,
-    /// Value must be exactly this
-    pub fixed_expression: Option<types::Expression>,
-    /// Value must be exactly this
-    pub fixed_parameter_definition: Option<types::ParameterDefinition>,
-    /// Value must be exactly this
-    pub fixed_related_artifact: Option<types::RelatedArtifact>,
-    /// Value must be exactly this
-    pub fixed_trigger_definition: Option<types::TriggerDefinition>,
-    /// Value must be exactly this
-    pub fixed_usage_context: Option<types::UsageContext>,
-    /// Value must be exactly this
-    pub fixed_availability: Option<types::Availability>,
-    /// Value must be exactly this
-    pub fixed_extended_contact_detail: Option<types::ExtendedContactDetail>,
-    /// Value must be exactly this
-    pub fixed_dosage: Option<types::Dosage>,
-    /// Value must be exactly this
-    pub fixed_meta: Option<types::Meta>,
+    /// The `ElementDefinition.fixed[x]` choice element (0..1); see [`ElementDefinitionFixed`].
+    #[serde(flatten)]
+    pub fixed: Option<ElementDefinitionFixed>,
 
-    /// Value must have at least these property values
-    pub pattern_base64_binary: Option<types::Base64Binary>,
-    /// Value must have at least these property values
-    pub pattern_boolean: Option<types::Boolean>,
-    /// Value must have at least these property values
-    pub pattern_canonical: Option<types::Canonical>,
-    /// Value must have at least these property values
-    pub pattern_code: Option<types::Code>,
-    /// Value must have at least these property values
-    pub pattern_date: Option<types::Date>,
-    /// Value must have at least these property values
-    pub pattern_date_time: Option<types::DateTime>,
-    /// Value must have at least these property values
-    pub pattern_decimal: Option<types::Decimal>,
-    /// Value must have at least these property values
-    pub pattern_id: Option<types::Id>,
-    /// Value must have at least these property values
-    pub pattern_instant: Option<types::Instant>,
-    /// Value must have at least these property values
-    pub pattern_integer: Option<types::Integer>,
-    /// Value must have at least these property values
-    pub pattern_integer64: Option<types::Integer64>,
-    /// Value must have at least these property values
-    pub pattern_markdown: Option<types::Markdown>,
-    /// Value must have at least these property values
-    pub pattern_oid: Option<types::Oid>,
-    /// Value must have at least these property values
-    pub pattern_positive_int: Option<types::PositiveInt>,
-    /// Value must have at least these property values
-    pub pattern_string: Option<types::String>,
-    /// Value must have at least these property values
-    pub pattern_time: Option<types::Time>,
-    /// Value must have at least these property values
-    pub pattern_unsigned_int: Option<types::UnsignedInt>,
-    /// Value must have at least these property values
-    pub pattern_uri: Option<types::Uri>,
-    /// Value must have at least these property values
-    pub pattern_url: Option<types::Url>,
-    /// Value must have at least these property values
-    pub pattern_uuid: Option<types::Uuid>,
-    /// Value must have at least these property values
-    pub pattern_address: Option<types::Address>,
-    /// Value must have at least these property values
-    pub pattern_age: Option<types::Age>,
-    /// Value must have at least these property values
-    pub pattern_annotation: Option<types::Annotation>,
-    /// Value must have at least these property values
-    pub pattern_attachment: Option<types::Attachment>,
-    /// Value must have at least these property values
-    pub pattern_codeable_concept: Option<types::CodeableConcept>,
-    /// Value must have at least these property values
-    pub pattern_codeable_reference: Option<types::CodeableReference>,
-    /// Value must have at least these property values
-    pub pattern_coding: Option<types::Coding>,
-    /// Value must have at least these property values
-    pub pattern_contact_point: Option<types::ContactPoint>,
-    /// Value must have at least these property values
-    pub pattern_count: Option<types::Count>,
-    /// Value must have at least these property values
-    pub pattern_distance: Option<types::Distance>,
-    /// Value must have at least these property values
-    pub pattern_duration: Option<types::Duration>,
-    /// Value must have at least these property values
-    pub pattern_human_name: Option<types::HumanName>,
-    /// Value must have at least these property values
-    pub pattern_identifier: Option<types::Identifier>,
-    /// Value must have at least these property values
-    pub pattern_money: Option<types::Money>,
-    /// Value must have at least these property values
-    pub pattern_period: Option<types::Period>,
-    /// Value must have at least these property values
-    pub pattern_quantity: Option<types::Quantity>,
-    /// Value must have at least these property values
-    pub pattern_range: Option<types::Range>,
-    /// Value must have at least these property values
-    pub pattern_ratio: Option<types::Ratio>,
-    /// Value must have at least these property values
-    pub pattern_ratio_range: Option<types::RatioRange>,
-    /// Value must have at least these property values
-    pub pattern_reference: Option<types::Reference>,
-    /// Value must have at least these property values
-    pub pattern_sampled_data: Option<types::SampledData>,
-    /// Value must have at least these property values
-    pub pattern_signature: Option<types::Signature>,
-    /// Value must have at least these property values
-    pub pattern_timing: Option<types::Timing>,
-    /// Value must have at least these property values
-    pub pattern_contact_detail: Option<types::ContactDetail>,
-    /// Value must have at least these property values
-    pub pattern_data_requirement: Option<types::DataRequirement>,
-    /// Value must have at least these property values
-    pub pattern_expression: Option<types::Expression>,
-    /// Value must have at least these property values
-    pub pattern_parameter_definition: Option<types::ParameterDefinition>,
-    /// Value must have at least these property values
-    pub pattern_related_artifact: Option<types::RelatedArtifact>,
-    /// Value must have at least these property values
-    pub pattern_trigger_definition: Option<types::TriggerDefinition>,
-    /// Value must have at least these property values
-    pub pattern_usage_context: Option<types::UsageContext>,
-    /// Value must have at least these property values
-    pub pattern_availability: Option<types::Availability>,
-    /// Value must have at least these property values
-    pub pattern_extended_contact_detail: Option<types::ExtendedContactDetail>,
-    /// Value must have at least these property values
-    pub pattern_dosage: Option<types::Dosage>,
-    /// Value must have at least these property values
-    pub pattern_meta: Option<types::Meta>,
+    /// The `ElementDefinition.pattern[x]` choice element (0..1); see [`ElementDefinitionPattern`].
+    #[serde(flatten)]
+    pub pattern: Option<ElementDefinitionPattern>,
 
     /// Example value (as defined for type)
     pub example: Option<Vec<ElementDefinitionExample>>,
 
-    /// Minimum Allowed Value (for some types)
-    pub min_value_date: Option<types::Date>,
-    /// Minimum Allowed Value (for some types)
-    pub min_value_date_time: Option<types::DateTime>,
-    /// Minimum Allowed Value (for some types)
-    pub min_value_instant: Option<types::Instant>,
-    /// Minimum Allowed Value (for some types)
-    pub min_value_time: Option<types::Time>,
-    /// Minimum Allowed Value (for some types)
-    pub min_value_decimal: Option<types::Decimal>,
-    /// Minimum Allowed Value (for some types)
-    pub min_value_integer: Option<types::Integer>,
-    /// Minimum Allowed Value (for some types)
-    pub min_value_integer64: Option<types::Integer64>,
-    /// Minimum Allowed Value (for some types)
-    pub min_value_positive_int: Option<types::PositiveInt>,
-    /// Minimum Allowed Value (for some types)
-    pub min_value_unsigned_int: Option<types::UnsignedInt>,
-    /// Minimum Allowed Value (for some types)
-    pub min_value_quantity: Option<types::Quantity>,
+    /// The `ElementDefinition.minValue[x]` choice element (0..1); see [`ElementDefinitionMinValue`].
+    #[serde(flatten)]
+    pub min_value: Option<ElementDefinitionMinValue>,
 
-    /// Maximum Allowed Value (for some types)
-    pub max_value_date: Option<types::Date>,
-    /// Maximum Allowed Value (for some types)
-    pub max_value_date_time: Option<types::DateTime>,
-    /// Maximum Allowed Value (for some types)
-    pub max_value_instant: Option<types::Instant>,
-    /// Maximum Allowed Value (for some types)
-    pub max_value_time: Option<types::Time>,
-    /// Maximum Allowed Value (for some types)
-    pub max_value_decimal: Option<types::Decimal>,
-    /// Maximum Allowed Value (for some types)
-    pub max_value_integer: Option<types::Integer>,
-    /// Maximum Allowed Value (for some types)
-    pub max_value_integer64: Option<types::Integer64>,
-    /// Maximum Allowed Value (for some types)
-    pub max_value_positive_int: Option<types::PositiveInt>,
-    /// Maximum Allowed Value (for some types)
-    pub max_value_unsigned_int: Option<types::UnsignedInt>,
-    /// Maximum Allowed Value (for some types)
-    pub max_value_quantity: Option<types::Quantity>,
+    /// The `ElementDefinition.maxValue[x]` choice element (0..1); see [`ElementDefinitionMaxValue`].
+    #[serde(flatten)]
+    pub max_value: Option<ElementDefinitionMaxValue>,
 
     /// Max length for string type data
     pub max_length: Option<types::Integer>,
@@ -728,114 +379,9 @@ pub struct ElementDefinitionExample {
     #[serde(rename = "_label")]
     pub label_ext: Option<types::Element>,
 
-    /// Value of Example (one of allowed types)
-    pub value_base64_binary: Option<types::Base64Binary>,
-    /// Value of Example (one of allowed types)
-    pub value_boolean: Option<types::Boolean>,
-    /// Value of Example (one of allowed types)
-    pub value_canonical: Option<types::Canonical>,
-    /// Value of Example (one of allowed types)
-    pub value_code: Option<types::Code>,
-    /// Value of Example (one of allowed types)
-    pub value_date: Option<types::Date>,
-    /// Value of Example (one of allowed types)
-    pub value_date_time: Option<types::DateTime>,
-    /// Value of Example (one of allowed types)
-    pub value_decimal: Option<types::Decimal>,
-    /// Value of Example (one of allowed types)
-    pub value_id: Option<types::Id>,
-    /// Value of Example (one of allowed types)
-    pub value_instant: Option<types::Instant>,
-    /// Value of Example (one of allowed types)
-    pub value_integer: Option<types::Integer>,
-    /// Value of Example (one of allowed types)
-    pub value_integer64: Option<types::Integer64>,
-    /// Value of Example (one of allowed types)
-    pub value_markdown: Option<types::Markdown>,
-    /// Value of Example (one of allowed types)
-    pub value_oid: Option<types::Oid>,
-    /// Value of Example (one of allowed types)
-    pub value_positive_int: Option<types::PositiveInt>,
-    /// Value of Example (one of allowed types)
-    pub value_string: Option<types::String>,
-    /// Value of Example (one of allowed types)
-    pub value_time: Option<types::Time>,
-    /// Value of Example (one of allowed types)
-    pub value_unsigned_int: Option<types::UnsignedInt>,
-    /// Value of Example (one of allowed types)
-    pub value_uri: Option<types::Uri>,
-    /// Value of Example (one of allowed types)
-    pub value_url: Option<types::Url>,
-    /// Value of Example (one of allowed types)
-    pub value_uuid: Option<types::Uuid>,
-    /// Value of Example (one of allowed types)
-    pub value_address: Option<types::Address>,
-    /// Value of Example (one of allowed types)
-    pub value_age: Option<types::Age>,
-    /// Value of Example (one of allowed types)
-    pub value_annotation: Option<types::Annotation>,
-    /// Value of Example (one of allowed types)
-    pub value_attachment: Option<types::Attachment>,
-    /// Value of Example (one of allowed types)
-    pub value_codeable_concept: Option<types::CodeableConcept>,
-    /// Value of Example (one of allowed types)
-    pub value_codeable_reference: Option<types::CodeableReference>,
-    /// Value of Example (one of allowed types)
-    pub value_coding: Option<types::Coding>,
-    /// Value of Example (one of allowed types)
-    pub value_contact_point: Option<types::ContactPoint>,
-    /// Value of Example (one of allowed types)
-    pub value_count: Option<types::Count>,
-    /// Value of Example (one of allowed types)
-    pub value_distance: Option<types::Distance>,
-    /// Value of Example (one of allowed types)
-    pub value_duration: Option<types::Duration>,
-    /// Value of Example (one of allowed types)
-    pub value_human_name: Option<types::HumanName>,
-    /// Value of Example (one of allowed types)
-    pub value_identifier: Option<types::Identifier>,
-    /// Value of Example (one of allowed types)
-    pub value_money: Option<types::Money>,
-    /// Value of Example (one of allowed types)
-    pub value_period: Option<types::Period>,
-    /// Value of Example (one of allowed types)
-    pub value_quantity: Option<types::Quantity>,
-    /// Value of Example (one of allowed types)
-    pub value_range: Option<types::Range>,
-    /// Value of Example (one of allowed types)
-    pub value_ratio: Option<types::Ratio>,
-    /// Value of Example (one of allowed types)
-    pub value_ratio_range: Option<types::RatioRange>,
-    /// Value of Example (one of allowed types)
-    pub value_reference: Option<types::Reference>,
-    /// Value of Example (one of allowed types)
-    pub value_sampled_data: Option<types::SampledData>,
-    /// Value of Example (one of allowed types)
-    pub value_signature: Option<types::Signature>,
-    /// Value of Example (one of allowed types)
-    pub value_timing: Option<types::Timing>,
-    /// Value of Example (one of allowed types)
-    pub value_contact_detail: Option<types::ContactDetail>,
-    /// Value of Example (one of allowed types)
-    pub value_data_requirement: Option<types::DataRequirement>,
-    /// Value of Example (one of allowed types)
-    pub value_expression: Option<types::Expression>,
-    /// Value of Example (one of allowed types)
-    pub value_parameter_definition: Option<types::ParameterDefinition>,
-    /// Value of Example (one of allowed types)
-    pub value_related_artifact: Option<types::RelatedArtifact>,
-    /// Value of Example (one of allowed types)
-    pub value_trigger_definition: Option<types::TriggerDefinition>,
-    /// Value of Example (one of allowed types)
-    pub value_usage_context: Option<types::UsageContext>,
-    /// Value of Example (one of allowed types)
-    pub value_availability: Option<types::Availability>,
-    /// Value of Example (one of allowed types)
-    pub value_extended_contact_detail: Option<types::ExtendedContactDetail>,
-    /// Value of Example (one of allowed types)
-    pub value_dosage: Option<types::Dosage>,
-    /// Value of Example (one of allowed types)
-    pub value_meta: Option<types::Meta>,
+    /// The `ElementDefinition.example.value[x]` choice element (0..1); see [`ElementDefinitionExampleValue`].
+    #[serde(flatten)]
+    pub value: Option<ElementDefinitionExampleValue>,
 }
 
 /// A formal invariant (often expressed in FHIRPath) that must hold true for instances
@@ -1027,4 +573,747 @@ mod tests {
         let back: T = ::serde_json::from_value(json).expect("from_value");
         assert_eq!(value, back);
     }
+}
+/// The `ElementDefinition.defaultValue[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum ElementDefinitionDefaultValue {
+    /// `defaultValueBase64Binary` variant.
+    #[fhir("defaultValueBase64Binary")]
+    Base64Binary(crate::r5::choice::Primitive<types::Base64Binary>),
+    /// `defaultValueBoolean` variant.
+    #[fhir("defaultValueBoolean")]
+    Boolean(crate::r5::choice::Primitive<types::Boolean>),
+    /// `defaultValueCanonical` variant.
+    #[fhir("defaultValueCanonical")]
+    Canonical(crate::r5::choice::Primitive<types::Canonical>),
+    /// `defaultValueCode` variant.
+    #[fhir("defaultValueCode")]
+    Code(crate::r5::choice::Primitive<types::Code>),
+    /// `defaultValueDate` variant.
+    #[fhir("defaultValueDate")]
+    Date(crate::r5::choice::Primitive<types::Date>),
+    /// `defaultValueDateTime` variant.
+    #[fhir("defaultValueDateTime")]
+    DateTime(crate::r5::choice::Primitive<types::DateTime>),
+    /// `defaultValueDecimal` variant.
+    #[fhir("defaultValueDecimal")]
+    Decimal(crate::r5::choice::Primitive<types::Decimal>),
+    /// `defaultValueId` variant.
+    #[fhir("defaultValueId")]
+    Id(crate::r5::choice::Primitive<types::Id>),
+    /// `defaultValueInstant` variant.
+    #[fhir("defaultValueInstant")]
+    Instant(crate::r5::choice::Primitive<types::Instant>),
+    /// `defaultValueInteger` variant.
+    #[fhir("defaultValueInteger")]
+    Integer(crate::r5::choice::Primitive<types::Integer>),
+    /// `defaultValueInteger64` variant.
+    #[fhir("defaultValueInteger64")]
+    Integer64(crate::r5::choice::Primitive<types::Integer64>),
+    /// `defaultValueMarkdown` variant.
+    #[fhir("defaultValueMarkdown")]
+    Markdown(crate::r5::choice::Primitive<types::Markdown>),
+    /// `defaultValueOid` variant.
+    #[fhir("defaultValueOid")]
+    Oid(crate::r5::choice::Primitive<types::Oid>),
+    /// `defaultValuePositiveInt` variant.
+    #[fhir("defaultValuePositiveInt")]
+    PositiveInt(crate::r5::choice::Primitive<types::PositiveInt>),
+    /// `defaultValueString` variant.
+    #[fhir("defaultValueString")]
+    String(crate::r5::choice::Primitive<types::String>),
+    /// `defaultValueTime` variant.
+    #[fhir("defaultValueTime")]
+    Time(crate::r5::choice::Primitive<types::Time>),
+    /// `defaultValueUnsignedInt` variant.
+    #[fhir("defaultValueUnsignedInt")]
+    UnsignedInt(crate::r5::choice::Primitive<types::UnsignedInt>),
+    /// `defaultValueUri` variant.
+    #[fhir("defaultValueUri")]
+    Uri(crate::r5::choice::Primitive<types::Uri>),
+    /// `defaultValueUrl` variant.
+    #[fhir("defaultValueUrl")]
+    Url(crate::r5::choice::Primitive<types::Url>),
+    /// `defaultValueUuid` variant.
+    #[fhir("defaultValueUuid")]
+    Uuid(crate::r5::choice::Primitive<types::Uuid>),
+    /// `defaultValueAddress` variant.
+    #[fhir("defaultValueAddress")]
+    Address(Box<types::Address>),
+    /// `defaultValueAge` variant.
+    #[fhir("defaultValueAge")]
+    Age(Box<types::Age>),
+    /// `defaultValueAnnotation` variant.
+    #[fhir("defaultValueAnnotation")]
+    Annotation(Box<types::Annotation>),
+    /// `defaultValueAttachment` variant.
+    #[fhir("defaultValueAttachment")]
+    Attachment(Box<types::Attachment>),
+    /// `defaultValueCodeableConcept` variant.
+    #[fhir("defaultValueCodeableConcept")]
+    CodeableConcept(Box<types::CodeableConcept>),
+    /// `defaultValueCodeableReference` variant.
+    #[fhir("defaultValueCodeableReference")]
+    CodeableReference(Box<types::CodeableReference>),
+    /// `defaultValueCoding` variant.
+    #[fhir("defaultValueCoding")]
+    Coding(Box<types::Coding>),
+    /// `defaultValueContactPoint` variant.
+    #[fhir("defaultValueContactPoint")]
+    ContactPoint(Box<types::ContactPoint>),
+    /// `defaultValueCount` variant.
+    #[fhir("defaultValueCount")]
+    Count(Box<types::Count>),
+    /// `defaultValueDistance` variant.
+    #[fhir("defaultValueDistance")]
+    Distance(Box<types::Distance>),
+    /// `defaultValueDuration` variant.
+    #[fhir("defaultValueDuration")]
+    Duration(Box<types::Duration>),
+    /// `defaultValueHumanName` variant.
+    #[fhir("defaultValueHumanName")]
+    HumanName(Box<types::HumanName>),
+    /// `defaultValueIdentifier` variant.
+    #[fhir("defaultValueIdentifier")]
+    Identifier(Box<types::Identifier>),
+    /// `defaultValueMoney` variant.
+    #[fhir("defaultValueMoney")]
+    Money(Box<types::Money>),
+    /// `defaultValuePeriod` variant.
+    #[fhir("defaultValuePeriod")]
+    Period(Box<types::Period>),
+    /// `defaultValueQuantity` variant.
+    #[fhir("defaultValueQuantity")]
+    Quantity(Box<types::Quantity>),
+    /// `defaultValueRange` variant.
+    #[fhir("defaultValueRange")]
+    Range(Box<types::Range>),
+    /// `defaultValueRatio` variant.
+    #[fhir("defaultValueRatio")]
+    Ratio(Box<types::Ratio>),
+    /// `defaultValueRatioRange` variant.
+    #[fhir("defaultValueRatioRange")]
+    RatioRange(Box<types::RatioRange>),
+    /// `defaultValueReference` variant.
+    #[fhir("defaultValueReference")]
+    Reference(Box<types::Reference>),
+    /// `defaultValueSampledData` variant.
+    #[fhir("defaultValueSampledData")]
+    SampledData(Box<types::SampledData>),
+    /// `defaultValueSignature` variant.
+    #[fhir("defaultValueSignature")]
+    Signature(Box<types::Signature>),
+    /// `defaultValueTiming` variant.
+    #[fhir("defaultValueTiming")]
+    Timing(Box<types::Timing>),
+    /// `defaultValueContactDetail` variant.
+    #[fhir("defaultValueContactDetail")]
+    ContactDetail(Box<types::ContactDetail>),
+    /// `defaultValueDataRequirement` variant.
+    #[fhir("defaultValueDataRequirement")]
+    DataRequirement(Box<types::DataRequirement>),
+    /// `defaultValueExpression` variant.
+    #[fhir("defaultValueExpression")]
+    Expression(Box<types::Expression>),
+    /// `defaultValueParameterDefinition` variant.
+    #[fhir("defaultValueParameterDefinition")]
+    ParameterDefinition(Box<types::ParameterDefinition>),
+    /// `defaultValueRelatedArtifact` variant.
+    #[fhir("defaultValueRelatedArtifact")]
+    RelatedArtifact(Box<types::RelatedArtifact>),
+    /// `defaultValueTriggerDefinition` variant.
+    #[fhir("defaultValueTriggerDefinition")]
+    TriggerDefinition(Box<types::TriggerDefinition>),
+    /// `defaultValueUsageContext` variant.
+    #[fhir("defaultValueUsageContext")]
+    UsageContext(Box<types::UsageContext>),
+    /// `defaultValueAvailability` variant.
+    #[fhir("defaultValueAvailability")]
+    Availability(Box<types::Availability>),
+    /// `defaultValueExtendedContactDetail` variant.
+    #[fhir("defaultValueExtendedContactDetail")]
+    ExtendedContactDetail(Box<types::ExtendedContactDetail>),
+    /// `defaultValueDosage` variant.
+    #[fhir("defaultValueDosage")]
+    Dosage(Box<types::Dosage>),
+    /// `defaultValueMeta` variant.
+    #[fhir("defaultValueMeta")]
+    Meta(Box<types::Meta>),
+}
+
+/// The `ElementDefinition.example.value[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum ElementDefinitionExampleValue {
+    /// `valueBase64Binary` variant.
+    #[fhir("valueBase64Binary")]
+    Base64Binary(crate::r5::choice::Primitive<types::Base64Binary>),
+    /// `valueBoolean` variant.
+    #[fhir("valueBoolean")]
+    Boolean(crate::r5::choice::Primitive<types::Boolean>),
+    /// `valueCanonical` variant.
+    #[fhir("valueCanonical")]
+    Canonical(crate::r5::choice::Primitive<types::Canonical>),
+    /// `valueCode` variant.
+    #[fhir("valueCode")]
+    Code(crate::r5::choice::Primitive<types::Code>),
+    /// `valueDate` variant.
+    #[fhir("valueDate")]
+    Date(crate::r5::choice::Primitive<types::Date>),
+    /// `valueDateTime` variant.
+    #[fhir("valueDateTime")]
+    DateTime(crate::r5::choice::Primitive<types::DateTime>),
+    /// `valueDecimal` variant.
+    #[fhir("valueDecimal")]
+    Decimal(crate::r5::choice::Primitive<types::Decimal>),
+    /// `valueId` variant.
+    #[fhir("valueId")]
+    Id(crate::r5::choice::Primitive<types::Id>),
+    /// `valueInstant` variant.
+    #[fhir("valueInstant")]
+    Instant(crate::r5::choice::Primitive<types::Instant>),
+    /// `valueInteger` variant.
+    #[fhir("valueInteger")]
+    Integer(crate::r5::choice::Primitive<types::Integer>),
+    /// `valueInteger64` variant.
+    #[fhir("valueInteger64")]
+    Integer64(crate::r5::choice::Primitive<types::Integer64>),
+    /// `valueMarkdown` variant.
+    #[fhir("valueMarkdown")]
+    Markdown(crate::r5::choice::Primitive<types::Markdown>),
+    /// `valueOid` variant.
+    #[fhir("valueOid")]
+    Oid(crate::r5::choice::Primitive<types::Oid>),
+    /// `valuePositiveInt` variant.
+    #[fhir("valuePositiveInt")]
+    PositiveInt(crate::r5::choice::Primitive<types::PositiveInt>),
+    /// `valueString` variant.
+    #[fhir("valueString")]
+    String(crate::r5::choice::Primitive<types::String>),
+    /// `valueTime` variant.
+    #[fhir("valueTime")]
+    Time(crate::r5::choice::Primitive<types::Time>),
+    /// `valueUnsignedInt` variant.
+    #[fhir("valueUnsignedInt")]
+    UnsignedInt(crate::r5::choice::Primitive<types::UnsignedInt>),
+    /// `valueUri` variant.
+    #[fhir("valueUri")]
+    Uri(crate::r5::choice::Primitive<types::Uri>),
+    /// `valueUrl` variant.
+    #[fhir("valueUrl")]
+    Url(crate::r5::choice::Primitive<types::Url>),
+    /// `valueUuid` variant.
+    #[fhir("valueUuid")]
+    Uuid(crate::r5::choice::Primitive<types::Uuid>),
+    /// `valueAddress` variant.
+    #[fhir("valueAddress")]
+    Address(Box<types::Address>),
+    /// `valueAge` variant.
+    #[fhir("valueAge")]
+    Age(Box<types::Age>),
+    /// `valueAnnotation` variant.
+    #[fhir("valueAnnotation")]
+    Annotation(Box<types::Annotation>),
+    /// `valueAttachment` variant.
+    #[fhir("valueAttachment")]
+    Attachment(Box<types::Attachment>),
+    /// `valueCodeableConcept` variant.
+    #[fhir("valueCodeableConcept")]
+    CodeableConcept(Box<types::CodeableConcept>),
+    /// `valueCodeableReference` variant.
+    #[fhir("valueCodeableReference")]
+    CodeableReference(Box<types::CodeableReference>),
+    /// `valueCoding` variant.
+    #[fhir("valueCoding")]
+    Coding(Box<types::Coding>),
+    /// `valueContactPoint` variant.
+    #[fhir("valueContactPoint")]
+    ContactPoint(Box<types::ContactPoint>),
+    /// `valueCount` variant.
+    #[fhir("valueCount")]
+    Count(Box<types::Count>),
+    /// `valueDistance` variant.
+    #[fhir("valueDistance")]
+    Distance(Box<types::Distance>),
+    /// `valueDuration` variant.
+    #[fhir("valueDuration")]
+    Duration(Box<types::Duration>),
+    /// `valueHumanName` variant.
+    #[fhir("valueHumanName")]
+    HumanName(Box<types::HumanName>),
+    /// `valueIdentifier` variant.
+    #[fhir("valueIdentifier")]
+    Identifier(Box<types::Identifier>),
+    /// `valueMoney` variant.
+    #[fhir("valueMoney")]
+    Money(Box<types::Money>),
+    /// `valuePeriod` variant.
+    #[fhir("valuePeriod")]
+    Period(Box<types::Period>),
+    /// `valueQuantity` variant.
+    #[fhir("valueQuantity")]
+    Quantity(Box<types::Quantity>),
+    /// `valueRange` variant.
+    #[fhir("valueRange")]
+    Range(Box<types::Range>),
+    /// `valueRatio` variant.
+    #[fhir("valueRatio")]
+    Ratio(Box<types::Ratio>),
+    /// `valueRatioRange` variant.
+    #[fhir("valueRatioRange")]
+    RatioRange(Box<types::RatioRange>),
+    /// `valueReference` variant.
+    #[fhir("valueReference")]
+    Reference(Box<types::Reference>),
+    /// `valueSampledData` variant.
+    #[fhir("valueSampledData")]
+    SampledData(Box<types::SampledData>),
+    /// `valueSignature` variant.
+    #[fhir("valueSignature")]
+    Signature(Box<types::Signature>),
+    /// `valueTiming` variant.
+    #[fhir("valueTiming")]
+    Timing(Box<types::Timing>),
+    /// `valueContactDetail` variant.
+    #[fhir("valueContactDetail")]
+    ContactDetail(Box<types::ContactDetail>),
+    /// `valueDataRequirement` variant.
+    #[fhir("valueDataRequirement")]
+    DataRequirement(Box<types::DataRequirement>),
+    /// `valueExpression` variant.
+    #[fhir("valueExpression")]
+    Expression(Box<types::Expression>),
+    /// `valueParameterDefinition` variant.
+    #[fhir("valueParameterDefinition")]
+    ParameterDefinition(Box<types::ParameterDefinition>),
+    /// `valueRelatedArtifact` variant.
+    #[fhir("valueRelatedArtifact")]
+    RelatedArtifact(Box<types::RelatedArtifact>),
+    /// `valueTriggerDefinition` variant.
+    #[fhir("valueTriggerDefinition")]
+    TriggerDefinition(Box<types::TriggerDefinition>),
+    /// `valueUsageContext` variant.
+    #[fhir("valueUsageContext")]
+    UsageContext(Box<types::UsageContext>),
+    /// `valueAvailability` variant.
+    #[fhir("valueAvailability")]
+    Availability(Box<types::Availability>),
+    /// `valueExtendedContactDetail` variant.
+    #[fhir("valueExtendedContactDetail")]
+    ExtendedContactDetail(Box<types::ExtendedContactDetail>),
+    /// `valueDosage` variant.
+    #[fhir("valueDosage")]
+    Dosage(Box<types::Dosage>),
+    /// `valueMeta` variant.
+    #[fhir("valueMeta")]
+    Meta(Box<types::Meta>),
+}
+
+/// The `ElementDefinition.fixed[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum ElementDefinitionFixed {
+    /// `fixedBase64Binary` variant.
+    #[fhir("fixedBase64Binary")]
+    Base64Binary(crate::r5::choice::Primitive<types::Base64Binary>),
+    /// `fixedBoolean` variant.
+    #[fhir("fixedBoolean")]
+    Boolean(crate::r5::choice::Primitive<types::Boolean>),
+    /// `fixedCanonical` variant.
+    #[fhir("fixedCanonical")]
+    Canonical(crate::r5::choice::Primitive<types::Canonical>),
+    /// `fixedCode` variant.
+    #[fhir("fixedCode")]
+    Code(crate::r5::choice::Primitive<types::Code>),
+    /// `fixedDate` variant.
+    #[fhir("fixedDate")]
+    Date(crate::r5::choice::Primitive<types::Date>),
+    /// `fixedDateTime` variant.
+    #[fhir("fixedDateTime")]
+    DateTime(crate::r5::choice::Primitive<types::DateTime>),
+    /// `fixedDecimal` variant.
+    #[fhir("fixedDecimal")]
+    Decimal(crate::r5::choice::Primitive<types::Decimal>),
+    /// `fixedId` variant.
+    #[fhir("fixedId")]
+    Id(crate::r5::choice::Primitive<types::Id>),
+    /// `fixedInstant` variant.
+    #[fhir("fixedInstant")]
+    Instant(crate::r5::choice::Primitive<types::Instant>),
+    /// `fixedInteger` variant.
+    #[fhir("fixedInteger")]
+    Integer(crate::r5::choice::Primitive<types::Integer>),
+    /// `fixedInteger64` variant.
+    #[fhir("fixedInteger64")]
+    Integer64(crate::r5::choice::Primitive<types::Integer64>),
+    /// `fixedMarkdown` variant.
+    #[fhir("fixedMarkdown")]
+    Markdown(crate::r5::choice::Primitive<types::Markdown>),
+    /// `fixedOid` variant.
+    #[fhir("fixedOid")]
+    Oid(crate::r5::choice::Primitive<types::Oid>),
+    /// `fixedPositiveInt` variant.
+    #[fhir("fixedPositiveInt")]
+    PositiveInt(crate::r5::choice::Primitive<types::PositiveInt>),
+    /// `fixedString` variant.
+    #[fhir("fixedString")]
+    String(crate::r5::choice::Primitive<types::String>),
+    /// `fixedTime` variant.
+    #[fhir("fixedTime")]
+    Time(crate::r5::choice::Primitive<types::Time>),
+    /// `fixedUnsignedInt` variant.
+    #[fhir("fixedUnsignedInt")]
+    UnsignedInt(crate::r5::choice::Primitive<types::UnsignedInt>),
+    /// `fixedUri` variant.
+    #[fhir("fixedUri")]
+    Uri(crate::r5::choice::Primitive<types::Uri>),
+    /// `fixedUrl` variant.
+    #[fhir("fixedUrl")]
+    Url(crate::r5::choice::Primitive<types::Url>),
+    /// `fixedUuid` variant.
+    #[fhir("fixedUuid")]
+    Uuid(crate::r5::choice::Primitive<types::Uuid>),
+    /// `fixedAddress` variant.
+    #[fhir("fixedAddress")]
+    Address(Box<types::Address>),
+    /// `fixedAge` variant.
+    #[fhir("fixedAge")]
+    Age(Box<types::Age>),
+    /// `fixedAnnotation` variant.
+    #[fhir("fixedAnnotation")]
+    Annotation(Box<types::Annotation>),
+    /// `fixedAttachment` variant.
+    #[fhir("fixedAttachment")]
+    Attachment(Box<types::Attachment>),
+    /// `fixedCodeableConcept` variant.
+    #[fhir("fixedCodeableConcept")]
+    CodeableConcept(Box<types::CodeableConcept>),
+    /// `fixedCodeableReference` variant.
+    #[fhir("fixedCodeableReference")]
+    CodeableReference(Box<types::CodeableReference>),
+    /// `fixedCoding` variant.
+    #[fhir("fixedCoding")]
+    Coding(Box<types::Coding>),
+    /// `fixedContactPoint` variant.
+    #[fhir("fixedContactPoint")]
+    ContactPoint(Box<types::ContactPoint>),
+    /// `fixedCount` variant.
+    #[fhir("fixedCount")]
+    Count(Box<types::Count>),
+    /// `fixedDistance` variant.
+    #[fhir("fixedDistance")]
+    Distance(Box<types::Distance>),
+    /// `fixedDuration` variant.
+    #[fhir("fixedDuration")]
+    Duration(Box<types::Duration>),
+    /// `fixedHumanName` variant.
+    #[fhir("fixedHumanName")]
+    HumanName(Box<types::HumanName>),
+    /// `fixedIdentifier` variant.
+    #[fhir("fixedIdentifier")]
+    Identifier(Box<types::Identifier>),
+    /// `fixedMoney` variant.
+    #[fhir("fixedMoney")]
+    Money(Box<types::Money>),
+    /// `fixedPeriod` variant.
+    #[fhir("fixedPeriod")]
+    Period(Box<types::Period>),
+    /// `fixedQuantity` variant.
+    #[fhir("fixedQuantity")]
+    Quantity(Box<types::Quantity>),
+    /// `fixedRange` variant.
+    #[fhir("fixedRange")]
+    Range(Box<types::Range>),
+    /// `fixedRatio` variant.
+    #[fhir("fixedRatio")]
+    Ratio(Box<types::Ratio>),
+    /// `fixedRatioRange` variant.
+    #[fhir("fixedRatioRange")]
+    RatioRange(Box<types::RatioRange>),
+    /// `fixedReference` variant.
+    #[fhir("fixedReference")]
+    Reference(Box<types::Reference>),
+    /// `fixedSampledData` variant.
+    #[fhir("fixedSampledData")]
+    SampledData(Box<types::SampledData>),
+    /// `fixedSignature` variant.
+    #[fhir("fixedSignature")]
+    Signature(Box<types::Signature>),
+    /// `fixedTiming` variant.
+    #[fhir("fixedTiming")]
+    Timing(Box<types::Timing>),
+    /// `fixedContactDetail` variant.
+    #[fhir("fixedContactDetail")]
+    ContactDetail(Box<types::ContactDetail>),
+    /// `fixedDataRequirement` variant.
+    #[fhir("fixedDataRequirement")]
+    DataRequirement(Box<types::DataRequirement>),
+    /// `fixedExpression` variant.
+    #[fhir("fixedExpression")]
+    Expression(Box<types::Expression>),
+    /// `fixedParameterDefinition` variant.
+    #[fhir("fixedParameterDefinition")]
+    ParameterDefinition(Box<types::ParameterDefinition>),
+    /// `fixedRelatedArtifact` variant.
+    #[fhir("fixedRelatedArtifact")]
+    RelatedArtifact(Box<types::RelatedArtifact>),
+    /// `fixedTriggerDefinition` variant.
+    #[fhir("fixedTriggerDefinition")]
+    TriggerDefinition(Box<types::TriggerDefinition>),
+    /// `fixedUsageContext` variant.
+    #[fhir("fixedUsageContext")]
+    UsageContext(Box<types::UsageContext>),
+    /// `fixedAvailability` variant.
+    #[fhir("fixedAvailability")]
+    Availability(Box<types::Availability>),
+    /// `fixedExtendedContactDetail` variant.
+    #[fhir("fixedExtendedContactDetail")]
+    ExtendedContactDetail(Box<types::ExtendedContactDetail>),
+    /// `fixedDosage` variant.
+    #[fhir("fixedDosage")]
+    Dosage(Box<types::Dosage>),
+    /// `fixedMeta` variant.
+    #[fhir("fixedMeta")]
+    Meta(Box<types::Meta>),
+}
+
+/// The `ElementDefinition.maxValue[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum ElementDefinitionMaxValue {
+    /// `maxValueDate` variant.
+    #[fhir("maxValueDate")]
+    Date(crate::r5::choice::Primitive<types::Date>),
+    /// `maxValueDateTime` variant.
+    #[fhir("maxValueDateTime")]
+    DateTime(crate::r5::choice::Primitive<types::DateTime>),
+    /// `maxValueInstant` variant.
+    #[fhir("maxValueInstant")]
+    Instant(crate::r5::choice::Primitive<types::Instant>),
+    /// `maxValueTime` variant.
+    #[fhir("maxValueTime")]
+    Time(crate::r5::choice::Primitive<types::Time>),
+    /// `maxValueDecimal` variant.
+    #[fhir("maxValueDecimal")]
+    Decimal(crate::r5::choice::Primitive<types::Decimal>),
+    /// `maxValueInteger` variant.
+    #[fhir("maxValueInteger")]
+    Integer(crate::r5::choice::Primitive<types::Integer>),
+    /// `maxValueInteger64` variant.
+    #[fhir("maxValueInteger64")]
+    Integer64(crate::r5::choice::Primitive<types::Integer64>),
+    /// `maxValuePositiveInt` variant.
+    #[fhir("maxValuePositiveInt")]
+    PositiveInt(crate::r5::choice::Primitive<types::PositiveInt>),
+    /// `maxValueUnsignedInt` variant.
+    #[fhir("maxValueUnsignedInt")]
+    UnsignedInt(crate::r5::choice::Primitive<types::UnsignedInt>),
+    /// `maxValueQuantity` variant.
+    #[fhir("maxValueQuantity")]
+    Quantity(Box<types::Quantity>),
+}
+
+/// The `ElementDefinition.minValue[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum ElementDefinitionMinValue {
+    /// `minValueDate` variant.
+    #[fhir("minValueDate")]
+    Date(crate::r5::choice::Primitive<types::Date>),
+    /// `minValueDateTime` variant.
+    #[fhir("minValueDateTime")]
+    DateTime(crate::r5::choice::Primitive<types::DateTime>),
+    /// `minValueInstant` variant.
+    #[fhir("minValueInstant")]
+    Instant(crate::r5::choice::Primitive<types::Instant>),
+    /// `minValueTime` variant.
+    #[fhir("minValueTime")]
+    Time(crate::r5::choice::Primitive<types::Time>),
+    /// `minValueDecimal` variant.
+    #[fhir("minValueDecimal")]
+    Decimal(crate::r5::choice::Primitive<types::Decimal>),
+    /// `minValueInteger` variant.
+    #[fhir("minValueInteger")]
+    Integer(crate::r5::choice::Primitive<types::Integer>),
+    /// `minValueInteger64` variant.
+    #[fhir("minValueInteger64")]
+    Integer64(crate::r5::choice::Primitive<types::Integer64>),
+    /// `minValuePositiveInt` variant.
+    #[fhir("minValuePositiveInt")]
+    PositiveInt(crate::r5::choice::Primitive<types::PositiveInt>),
+    /// `minValueUnsignedInt` variant.
+    #[fhir("minValueUnsignedInt")]
+    UnsignedInt(crate::r5::choice::Primitive<types::UnsignedInt>),
+    /// `minValueQuantity` variant.
+    #[fhir("minValueQuantity")]
+    Quantity(Box<types::Quantity>),
+}
+
+/// The `ElementDefinition.pattern[x]` choice element (see spec/11-choice-types.md).
+#[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
+#[allow(clippy::large_enum_variant)]
+pub enum ElementDefinitionPattern {
+    /// `patternBase64Binary` variant.
+    #[fhir("patternBase64Binary")]
+    Base64Binary(crate::r5::choice::Primitive<types::Base64Binary>),
+    /// `patternBoolean` variant.
+    #[fhir("patternBoolean")]
+    Boolean(crate::r5::choice::Primitive<types::Boolean>),
+    /// `patternCanonical` variant.
+    #[fhir("patternCanonical")]
+    Canonical(crate::r5::choice::Primitive<types::Canonical>),
+    /// `patternCode` variant.
+    #[fhir("patternCode")]
+    Code(crate::r5::choice::Primitive<types::Code>),
+    /// `patternDate` variant.
+    #[fhir("patternDate")]
+    Date(crate::r5::choice::Primitive<types::Date>),
+    /// `patternDateTime` variant.
+    #[fhir("patternDateTime")]
+    DateTime(crate::r5::choice::Primitive<types::DateTime>),
+    /// `patternDecimal` variant.
+    #[fhir("patternDecimal")]
+    Decimal(crate::r5::choice::Primitive<types::Decimal>),
+    /// `patternId` variant.
+    #[fhir("patternId")]
+    Id(crate::r5::choice::Primitive<types::Id>),
+    /// `patternInstant` variant.
+    #[fhir("patternInstant")]
+    Instant(crate::r5::choice::Primitive<types::Instant>),
+    /// `patternInteger` variant.
+    #[fhir("patternInteger")]
+    Integer(crate::r5::choice::Primitive<types::Integer>),
+    /// `patternInteger64` variant.
+    #[fhir("patternInteger64")]
+    Integer64(crate::r5::choice::Primitive<types::Integer64>),
+    /// `patternMarkdown` variant.
+    #[fhir("patternMarkdown")]
+    Markdown(crate::r5::choice::Primitive<types::Markdown>),
+    /// `patternOid` variant.
+    #[fhir("patternOid")]
+    Oid(crate::r5::choice::Primitive<types::Oid>),
+    /// `patternPositiveInt` variant.
+    #[fhir("patternPositiveInt")]
+    PositiveInt(crate::r5::choice::Primitive<types::PositiveInt>),
+    /// `patternString` variant.
+    #[fhir("patternString")]
+    String(crate::r5::choice::Primitive<types::String>),
+    /// `patternTime` variant.
+    #[fhir("patternTime")]
+    Time(crate::r5::choice::Primitive<types::Time>),
+    /// `patternUnsignedInt` variant.
+    #[fhir("patternUnsignedInt")]
+    UnsignedInt(crate::r5::choice::Primitive<types::UnsignedInt>),
+    /// `patternUri` variant.
+    #[fhir("patternUri")]
+    Uri(crate::r5::choice::Primitive<types::Uri>),
+    /// `patternUrl` variant.
+    #[fhir("patternUrl")]
+    Url(crate::r5::choice::Primitive<types::Url>),
+    /// `patternUuid` variant.
+    #[fhir("patternUuid")]
+    Uuid(crate::r5::choice::Primitive<types::Uuid>),
+    /// `patternAddress` variant.
+    #[fhir("patternAddress")]
+    Address(Box<types::Address>),
+    /// `patternAge` variant.
+    #[fhir("patternAge")]
+    Age(Box<types::Age>),
+    /// `patternAnnotation` variant.
+    #[fhir("patternAnnotation")]
+    Annotation(Box<types::Annotation>),
+    /// `patternAttachment` variant.
+    #[fhir("patternAttachment")]
+    Attachment(Box<types::Attachment>),
+    /// `patternCodeableConcept` variant.
+    #[fhir("patternCodeableConcept")]
+    CodeableConcept(Box<types::CodeableConcept>),
+    /// `patternCodeableReference` variant.
+    #[fhir("patternCodeableReference")]
+    CodeableReference(Box<types::CodeableReference>),
+    /// `patternCoding` variant.
+    #[fhir("patternCoding")]
+    Coding(Box<types::Coding>),
+    /// `patternContactPoint` variant.
+    #[fhir("patternContactPoint")]
+    ContactPoint(Box<types::ContactPoint>),
+    /// `patternCount` variant.
+    #[fhir("patternCount")]
+    Count(Box<types::Count>),
+    /// `patternDistance` variant.
+    #[fhir("patternDistance")]
+    Distance(Box<types::Distance>),
+    /// `patternDuration` variant.
+    #[fhir("patternDuration")]
+    Duration(Box<types::Duration>),
+    /// `patternHumanName` variant.
+    #[fhir("patternHumanName")]
+    HumanName(Box<types::HumanName>),
+    /// `patternIdentifier` variant.
+    #[fhir("patternIdentifier")]
+    Identifier(Box<types::Identifier>),
+    /// `patternMoney` variant.
+    #[fhir("patternMoney")]
+    Money(Box<types::Money>),
+    /// `patternPeriod` variant.
+    #[fhir("patternPeriod")]
+    Period(Box<types::Period>),
+    /// `patternQuantity` variant.
+    #[fhir("patternQuantity")]
+    Quantity(Box<types::Quantity>),
+    /// `patternRange` variant.
+    #[fhir("patternRange")]
+    Range(Box<types::Range>),
+    /// `patternRatio` variant.
+    #[fhir("patternRatio")]
+    Ratio(Box<types::Ratio>),
+    /// `patternRatioRange` variant.
+    #[fhir("patternRatioRange")]
+    RatioRange(Box<types::RatioRange>),
+    /// `patternReference` variant.
+    #[fhir("patternReference")]
+    Reference(Box<types::Reference>),
+    /// `patternSampledData` variant.
+    #[fhir("patternSampledData")]
+    SampledData(Box<types::SampledData>),
+    /// `patternSignature` variant.
+    #[fhir("patternSignature")]
+    Signature(Box<types::Signature>),
+    /// `patternTiming` variant.
+    #[fhir("patternTiming")]
+    Timing(Box<types::Timing>),
+    /// `patternContactDetail` variant.
+    #[fhir("patternContactDetail")]
+    ContactDetail(Box<types::ContactDetail>),
+    /// `patternDataRequirement` variant.
+    #[fhir("patternDataRequirement")]
+    DataRequirement(Box<types::DataRequirement>),
+    /// `patternExpression` variant.
+    #[fhir("patternExpression")]
+    Expression(Box<types::Expression>),
+    /// `patternParameterDefinition` variant.
+    #[fhir("patternParameterDefinition")]
+    ParameterDefinition(Box<types::ParameterDefinition>),
+    /// `patternRelatedArtifact` variant.
+    #[fhir("patternRelatedArtifact")]
+    RelatedArtifact(Box<types::RelatedArtifact>),
+    /// `patternTriggerDefinition` variant.
+    #[fhir("patternTriggerDefinition")]
+    TriggerDefinition(Box<types::TriggerDefinition>),
+    /// `patternUsageContext` variant.
+    #[fhir("patternUsageContext")]
+    UsageContext(Box<types::UsageContext>),
+    /// `patternAvailability` variant.
+    #[fhir("patternAvailability")]
+    Availability(Box<types::Availability>),
+    /// `patternExtendedContactDetail` variant.
+    #[fhir("patternExtendedContactDetail")]
+    ExtendedContactDetail(Box<types::ExtendedContactDetail>),
+    /// `patternDosage` variant.
+    #[fhir("patternDosage")]
+    Dosage(Box<types::Dosage>),
+    /// `patternMeta` variant.
+    #[fhir("patternMeta")]
+    Meta(Box<types::Meta>),
 }
