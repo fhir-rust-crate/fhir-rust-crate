@@ -45,12 +45,14 @@ Build a `Patient`, serialize to canonical FHIR JSON, and parse it back:
 
 ```rust
 use fhir::r5::resources::Patient;
-use fhir::r5::types::{Boolean, Code, HumanName, String as FhirString};
+use fhir::r5::coded::Coded;
+use fhir::r5::codes::AdministrativeGender;
+use fhir::r5::types::{Boolean, HumanName, String as FhirString};
 
 let patient = Patient {
     id: Some(FhirString("pat-1".to_string())),
     active: Some(Boolean(true)),
-    gender: Some(Code("male".to_string())),
+    gender: Some(Coded::Known(AdministrativeGender::Male)),
     name: Some(vec![HumanName {
         family: Some(FhirString("Chalmers".to_string())),
         given: vec![FhirString("Peter".to_string())],
@@ -81,9 +83,13 @@ through `serde_json` (or any serde format).
   | `0..*`           | `Option<Vec<T>>` |
   | `1..*`           | `Vec<T>`         |
 
-- **`value[x]` choice elements** are flattened into one field per allowed type,
-  named `value_<type>` (e.g. `Observation` has `value_quantity`,
-  `value_string`, `value_boolean`, …); set exactly one.
+- **`value[x]` choice elements** are one generated enum per element (e.g.
+  `Observation.value` is `Option<ObservationValue>` with a variant per allowed
+  type), so exactly one type is set at compile time.
+- **Required-binding coded fields** are their `codes::` enum wrapped in
+  `Coded<E>` (a `Known(E)` | `Unknown(String)` fallback for wire compatibility).
+- **Builders**: `Type::builder()…build()` enforces required `1..1` fields; a
+  `fhir::prelude` re-exports the common items.
 - **Nested backbone elements** become nested structs named `<Parent><Field>`
   (e.g. `PatientContact`, `BundleEntry`).
 - **Unset optional fields are omitted** from the JSON (`skip_serializing_none`).
@@ -136,6 +142,7 @@ cargo run --example code_systems       # code-system enums
 cargo run --example primitive_extensions  # _field primitive extensions
 cargo run --example operation_outcome     # validation → OperationOutcome
 cargo run --example extensions            # ExtensionExt: get/set extensions
+cargo run --example transaction_bundle    # build/read a transaction Bundle
 ```
 
 ## Crate layout

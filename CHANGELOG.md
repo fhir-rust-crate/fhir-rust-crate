@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Bundle utilities (T18): `Bundle::iter_resources`, `Bundle::resources::<T>(rt)`,
+  `Bundle::next_link` paging, and a `Bundle::transaction()`/`batch()` builder
+  (`create`/`update`/`delete`). New `examples/transaction_bundle.rs`. (Typed
+  `contained` — `Vec<Resource>` — is deferred: it is invasive and would change
+  the JSON-based `dom-2`/`dom-4` checks.)
 - Builders (T16): `#[derive(Builder)]` generates `Type::builder()` → a chainable
   `TypeBuilder` with a setter per field and `build() -> Result<Type,
   BuilderError>` that enforces required (`1..1`) fields. Applied to the 10

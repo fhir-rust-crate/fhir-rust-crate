@@ -22,6 +22,8 @@
     "r5::choice": "Support types for value[x] choice enums (Primitive<T>) plus the FhirChoice derive.",
     "r5::coded": "The Coded<E> wrapper typing required-binding fields as their codes enum with an Unknown(String) fallback.",
     "r5::extension_ext": "The ExtensionExt/ModifierExtensionExt traits: extension(url), extensions(url), set_extension, add_extension.",
+    "r5::builder": "BuilderError for the generated Type::builder() builders.",
+    "r5::bundle_util": "Bundle iteration (iter_resources, resources::<T>), next_link paging, and the transaction/batch builder.",
     "prelude": "Crate-root prelude (use fhir::prelude::*) re-exporting the most-used resources, datatypes, Validate, Coded, and ExtensionExt.",
     "r5::temporal": "Parsing and precision-aware comparison for the date/time primitives (Date::parse_parts, DateParts, FHIR precision ordering).",
     "r5::parse": "The spec-driven code generator that reads the FHIR specification JSON in `DEFINITIONS_DIR`.",

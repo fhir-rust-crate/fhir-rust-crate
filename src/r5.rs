@@ -58,3 +58,6 @@ pub mod extension_ext;
 
 /// Support for the generated `#[derive(Builder)]` builders.
 pub mod builder;
+
+/// Utilities for `Bundle`s: iteration, paging, and transaction/batch building.
+pub mod bundle_util;

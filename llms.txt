@@ -34,6 +34,9 @@ The public API lives under the `r5` module (FHIR Release 5):
   `codes` enum with an `Unknown(String)` fallback for wire compatibility.
 - `r5::extension_ext` — the `ExtensionExt`/`ModifierExtensionExt` traits:
   `extension(url)`, `extensions(url)`, `set_extension`, `add_extension`.
+- `r5::builder` — `BuilderError` for the generated `Type::builder()` builders.
+- `r5::bundle_util` — `Bundle` iteration (`iter_resources`, `resources::<T>`),
+  `next_link` paging, and the transaction/batch builder.
 
 The crate root also exposes `prelude` (`use fhir::prelude::*;`) re-exporting the
 most-used resources, datatypes, `Validate`, `Coded`, and `ExtensionExt`.

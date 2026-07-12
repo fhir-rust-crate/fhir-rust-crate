@@ -42,8 +42,7 @@
 //! *primitive* types (`code`, `id`, `dateTime`, …) are thin newtypes such as
 //! `Code(String)` that serialize *transparently* to their underlying JSON
 //! value. Optional elements are `Option<T>`, repeating elements are `Vec<T>`,
-//! and FHIR's `value[x]` choice elements are flattened into one field per type
-//! (`value_string`, `value_quantity`, …). See
+//! and FHIR's `value[x]` choice elements are a generated enum per element. See
 //! [Cardinality and choice types](#cardinality-and-choice-types) below.
 //!
 //! ## Quick start
@@ -169,9 +168,12 @@
 //! | `0..*`           | `Option<Vec<T>>` |
 //! | `1..*`           | `Vec<T>`         |
 //!
-//! A `value[x]` *choice* element becomes one field per allowed type, named
-//! `value_<type>` — for example an `Observation` has `value_quantity`,
-//! `value_string`, `value_boolean`, and so on; set exactly one.
+//! A `value[x]` *choice* element becomes one generated enum with a variant per
+//! allowed type — for example `Observation.value` is `Option<ObservationValue>`
+//! with variants `Quantity`, `String`, `Boolean`, … so exactly one is set.
+//! Required-binding coded fields are their [`r5::codes`] enum wrapped in
+//! [`Coded`](r5::coded::Coded). Every resource and datatype has a
+//! `Type::builder()`, and [`prelude`] re-exports the common items.
 //!
 //! ## More examples
 //!
@@ -184,6 +186,7 @@
 //! cargo run --example primitive_extensions
 //! cargo run --example operation_outcome
 //! cargo run --example extensions
+//! cargo run --example transaction_bundle
 //! ```
 //!
 //! ## Crate layout
