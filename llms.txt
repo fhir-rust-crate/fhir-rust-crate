@@ -41,6 +41,8 @@ The public API lives under the `r5` module (FHIR Release 5):
   `is_summary` metadata).
 - `client` (feature `client`) — an async FHIR REST `Client` (reqwest/tokio):
   read/vread/create/update/delete/search/capabilities; errors carry `OperationOutcome`.
+- `r5::xml` (feature `xml`) — FHIR XML `to_xml`/`from_xml` via a meta-driven
+  serde_json::Value bridge.
 
 The crate root also exposes `prelude` (`use fhir::prelude::*;`) re-exporting the
 most-used resources, datatypes, `Validate`, `Coded`, and `ExtensionExt`.

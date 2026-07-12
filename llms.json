@@ -32,7 +32,8 @@
     "r5::properties": "Generator-internal support module.",
     "r5::resource": "Generator-internal support module.",
     "r5::todo": "Generator-internal support module.",
-    "client": "(feature `client`) async FHIR REST Client (reqwest/tokio): read/vread/create/update/delete/search/capabilities."
+    "client": "(feature `client`) async FHIR REST Client (reqwest/tokio): read/vread/create/update/delete/search/capabilities.",
+    "r5::xml": "(feature `xml`) FHIR XML to_xml/from_xml via a meta-driven serde_json::Value bridge."
   },
   "key_types": [
     "fhir::r5::resources::Resource",

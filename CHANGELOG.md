@@ -8,6 +8,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- FHIR XML (T21, feature `xml`): `fhir::r5::xml::to_xml`/`from_xml` convert a
+  resource to/from FHIR XML via a metadata-driven serde_json::Value bridge
+  (primitives as `value` attributes, `id`/extension-`url` attributes, arrays by
+  cardinality, `value[x]` choices). Scope note: `_field` extensions, XHTML
+  `div`, and contained resources round-trip through JSON but are not yet
+  canonical FHIR XML.
 - Documentation guide (T23): an mdBook in `book/` (getting started, model
   mapping, JSON serialization, validation, terminology, extensions, bundles,
   generator internals); CI builds it, and README links to it.

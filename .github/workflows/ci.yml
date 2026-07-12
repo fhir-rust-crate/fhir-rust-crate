@@ -66,6 +66,7 @@ jobs:
       - uses: Swatinem/rust-cache@v2
       # The `client` feature (reqwest/tokio); HAPI integration tests are #[ignore].
       - run: cargo test --features client
+      - run: cargo test --features xml
       - run: cargo build --features precise-decimal
 
   book:

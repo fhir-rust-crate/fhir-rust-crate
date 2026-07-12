@@ -64,3 +64,7 @@ pub mod bundle_util;
 
 /// Summary serialization (the FHIR `_summary=true` view).
 pub mod summary;
+
+/// FHIR XML serialization (feature `xml`).
+#[cfg(feature = "xml")]
+pub mod xml;
