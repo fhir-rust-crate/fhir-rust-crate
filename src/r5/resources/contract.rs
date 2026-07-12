@@ -402,7 +402,7 @@ pub struct ContractTermOffer {
 
 /// Offer Recipient.
 #[serde_with::skip_serializing_none]
-#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
 pub struct ContractTermOfferParty {
     /// Unique id for inter-element referencing
@@ -415,7 +415,7 @@ pub struct ContractTermOfferParty {
     pub modifier_extension: Option<Vec<types::Extension>>,
 
     /// Referenced entity
-    pub reference: Vec<types::Reference>,
+    pub reference: vec1::Vec1<types::Reference>,
 
     /// Participant engagement type
     pub role: types::CodeableConcept,
@@ -714,7 +714,7 @@ pub struct ContractTermAction {
 
 /// Entity of the action.
 #[serde_with::skip_serializing_none]
-#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
 pub struct ContractTermActionSubject {
     /// Unique id for inter-element referencing
@@ -727,7 +727,7 @@ pub struct ContractTermActionSubject {
     pub modifier_extension: Option<Vec<types::Extension>>,
 
     /// Entity of the action
-    pub reference: Vec<types::Reference>,
+    pub reference: vec1::Vec1<types::Reference>,
 
     /// Role type of the agent
     pub role: Option<types::CodeableConcept>,
@@ -735,7 +735,7 @@ pub struct ContractTermActionSubject {
 
 /// Contract Signatory.
 #[serde_with::skip_serializing_none]
-#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
 pub struct ContractSigner {
     /// Unique id for inter-element referencing
@@ -754,7 +754,7 @@ pub struct ContractSigner {
     pub party: types::Reference,
 
     /// Contract Documentation Signature
-    pub signature: Vec<types::Signature>,
+    pub signature: vec1::Vec1<types::Signature>,
 }
 
 /// Contract Friendly Language.

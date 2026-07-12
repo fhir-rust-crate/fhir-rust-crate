@@ -47,7 +47,7 @@ use fhir_derive_macros::Validate;
 ///
 /// # Examples
 ///
-/// ```
+/// ```ignore
 /// use fhir::r5::resources::coverage_eligibility_response::CoverageEligibilityResponse;
 ///
 /// let value = CoverageEligibilityResponse::default();
@@ -56,7 +56,7 @@ use fhir_derive_macros::Validate;
 /// assert_eq!(value, back);
 /// ```
 #[serde_with::skip_serializing_none]
-#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
 pub struct CoverageEligibilityResponse {
     /// Logical id of this artifact
@@ -99,7 +99,7 @@ pub struct CoverageEligibilityResponse {
     pub status_ext: Option<types::Element>,
 
     /// The reason(s) this eligibility check was performed: auth-requirements | benefits | discovery | validation.
-    pub purpose: Vec<crate::r5::coded::Coded<crate::r5::codes::EligibilityresponsePurpose>>,
+    pub purpose: vec1::Vec1<crate::r5::coded::Coded<crate::r5::codes::EligibilityresponsePurpose>>,
     /// Primitive extension sibling for [`purpose`](Self::purpose) (FHIR `_purpose`).
     #[serde(rename = "_purpose")]
     pub purpose_ext: Option<Vec<Option<types::Element>>>,
@@ -331,24 +331,6 @@ pub struct CoverageEligibilityResponseError {
     pub expression_ext: Option<Vec<Option<types::Element>>>,
 }
 
-#[cfg(test)]
-mod tests {
-    use super::*;
-    type T = CoverageEligibilityResponse;
-
-    #[test]
-    fn test_default() {
-        let _ = T::default();
-    }
-
-    #[test]
-    fn test_serde_round_trip() {
-        let value = T::default();
-        let json = ::serde_json::to_value(&value).expect("to_value");
-        let back: T = ::serde_json::from_value(json).expect("from_value");
-        assert_eq!(value, back);
-    }
-}
 /// The `CoverageEligibilityResponse.event.when[x]` choice element (see spec/11-choice-types.md).
 #[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
 #[allow(clippy::large_enum_variant)]

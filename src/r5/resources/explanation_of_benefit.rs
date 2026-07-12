@@ -517,7 +517,7 @@ pub struct ExplanationOfBenefitItem {
 
 /// Anatomical location for an item.
 #[serde_with::skip_serializing_none]
-#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
 pub struct ExplanationOfBenefitItemBodySite {
     /// Unique id for inter-element referencing
@@ -527,7 +527,7 @@ pub struct ExplanationOfBenefitItemBodySite {
     /// Extensions that cannot be ignored even if unrecognized
     pub modifier_extension: Option<Vec<types::Extension>>,
     /// Location
-    pub site: Vec<types::CodeableReference>,
+    pub site: vec1::Vec1<types::CodeableReference>,
     /// Sub-location
     pub sub_site: Option<Vec<types::CodeableConcept>>,
 }
@@ -775,7 +775,7 @@ pub struct ExplanationOfBenefitAddItem {
 
 /// Anatomical location for an insurer-added item.
 #[serde_with::skip_serializing_none]
-#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
 pub struct ExplanationOfBenefitAddItemBodySite {
     /// Unique id for inter-element referencing
@@ -785,7 +785,7 @@ pub struct ExplanationOfBenefitAddItemBodySite {
     /// Extensions that cannot be ignored even if unrecognized
     pub modifier_extension: Option<Vec<types::Extension>>,
     /// Location
-    pub site: Vec<types::CodeableReference>,
+    pub site: vec1::Vec1<types::CodeableReference>,
     /// Sub-location
     pub sub_site: Option<Vec<types::CodeableConcept>>,
 }

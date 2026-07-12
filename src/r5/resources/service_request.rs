@@ -217,7 +217,7 @@ pub struct ServiceRequest {
 /// code, optionally referencing an external context and carrying a set of coded
 /// parameters that further specify the service being requested.
 #[serde_with::skip_serializing_none]
-#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
 pub struct ServiceRequestOrderDetail {
     /// Unique id for inter-element referencing
@@ -233,7 +233,7 @@ pub struct ServiceRequestOrderDetail {
     pub parameter_focus: Option<types::CodeableReference>,
 
     /// The parameter details for the service being requested
-    pub parameter: Vec<ServiceRequestOrderDetailParameter>,
+    pub parameter: vec1::Vec1<ServiceRequestOrderDetailParameter>,
 }
 
 /// The parameter details for the service being requested.

@@ -151,7 +151,7 @@ pub struct DeviceUsage {
 /// including a code such as always, never, or sometimes, and the reasons that
 /// explain that adherence status.
 #[serde_with::skip_serializing_none]
-#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
 pub struct DeviceUsageAdherence {
     /// Unique id for inter-element referencing
@@ -167,7 +167,7 @@ pub struct DeviceUsageAdherence {
     pub code: types::CodeableConcept,
 
     /// lost | stolen | prescribed | broken | burned | forgot
-    pub reason: Vec<types::CodeableConcept>,
+    pub reason: vec1::Vec1<types::CodeableConcept>,
 }
 
 #[cfg(test)]

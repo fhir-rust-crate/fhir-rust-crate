@@ -359,7 +359,7 @@ pub struct TerminologyCapabilitiesCodeSystemVersion {
 
 /// Filter Properties supported.
 #[serde_with::skip_serializing_none]
-#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
 pub struct TerminologyCapabilitiesCodeSystemVersionFilter {
     /// Unique id for inter-element referencing
@@ -378,7 +378,7 @@ pub struct TerminologyCapabilitiesCodeSystemVersionFilter {
     pub code_ext: Option<types::Element>,
 
     /// Operations supported for the property
-    pub op: Vec<types::Code>,
+    pub op: vec1::Vec1<types::Code>,
     /// Primitive extension sibling for [`op`](Self::op) (FHIR `_op`).
     #[serde(rename = "_op")]
     pub op_ext: Option<Vec<Option<types::Element>>>,

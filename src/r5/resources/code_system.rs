@@ -266,7 +266,7 @@ pub struct CodeSystem {
 
 /// Filter that can be used in a value set
 #[serde_with::skip_serializing_none]
-#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
 pub struct CodeSystemFilter {
     /// Unique id for inter-element referencing
@@ -291,7 +291,7 @@ pub struct CodeSystemFilter {
     pub description_ext: Option<types::Element>,
 
     /// = | is-a | descendent-of | is-not-a | regex | in | not-in | generalizes | child-of | descendent-leaf | exists
-    pub operator: Vec<crate::r5::coded::Coded<crate::r5::codes::FilterOperator>>,
+    pub operator: vec1::Vec1<crate::r5::coded::Coded<crate::r5::codes::FilterOperator>>,
     /// Primitive extension sibling for [`operator`](Self::operator) (FHIR `_operator`).
     #[serde(rename = "_operator")]
     pub operator_ext: Option<Vec<Option<types::Element>>>,

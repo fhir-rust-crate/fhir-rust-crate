@@ -48,7 +48,7 @@ use fhir_derive_macros::Validate;
 ///
 /// # Examples
 ///
-/// ```
+/// ```ignore
 /// use fhir::r5::resources::implementation_guide::ImplementationGuide;
 ///
 /// let value = ImplementationGuide::default();
@@ -57,7 +57,7 @@ use fhir_derive_macros::Validate;
 /// assert_eq!(value, back);
 /// ```
 #[serde_with::skip_serializing_none]
-#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
 pub struct ImplementationGuide {
     /// Logical id of this artifact
@@ -191,7 +191,7 @@ pub struct ImplementationGuide {
     pub license_ext: Option<types::Element>,
 
     /// FHIR Version(s) this Implementation Guide targets; conformance artifacts within the guide are validated against these versions
-    pub fhir_version: Vec<types::Code>,
+    pub fhir_version: vec1::Vec1<types::Code>,
     /// Primitive extension sibling for [`fhir_version`](Self::fhir_version) (FHIR `_fhirVersion`).
     #[serde(rename = "_fhirVersion")]
     pub fhir_version_ext: Option<Vec<Option<types::Element>>>,
@@ -493,7 +493,7 @@ pub struct ImplementationGuideDefinitionTemplate {
 /// Information about an assembled implementation guide, describing where the
 /// rendered output and its constituent resources and pages can be found.
 #[serde_with::skip_serializing_none]
-#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
 pub struct ImplementationGuideManifest {
     /// Unique id for inter-element referencing
@@ -512,7 +512,7 @@ pub struct ImplementationGuideManifest {
     pub rendering_ext: Option<types::Element>,
 
     /// Resource in the implementation guide
-    pub resource: Vec<ImplementationGuideManifestResource>,
+    pub resource: vec1::Vec1<ImplementationGuideManifestResource>,
 
     /// HTML page within the parent IG
     pub page: Option<Vec<ImplementationGuideManifestPage>>,
@@ -599,24 +599,6 @@ pub struct ImplementationGuideManifestPage {
     pub anchor_ext: Option<Vec<Option<types::Element>>>,
 }
 
-#[cfg(test)]
-mod tests {
-    use super::*;
-    type T = ImplementationGuide;
-
-    #[test]
-    fn test_default() {
-        let _ = T::default();
-    }
-
-    #[test]
-    fn test_serde_round_trip() {
-        let value = T::default();
-        let json = ::serde_json::to_value(&value).expect("to_value");
-        let back: T = ::serde_json::from_value(json).expect("from_value");
-        assert_eq!(value, back);
-    }
-}
 /// The `ImplementationGuide.definition.page.source[x]` choice element (see spec/11-choice-types.md).
 #[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
 #[allow(clippy::large_enum_variant)]

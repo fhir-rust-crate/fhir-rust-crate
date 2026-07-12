@@ -62,9 +62,33 @@ impl From<ValidationIssue> for crate::r5::resources::operation_outcome::Operatio
 /// ```
 impl From<Vec<ValidationIssue>> for crate::r5::resources::operation_outcome::OperationOutcome {
     fn from(issues: Vec<ValidationIssue>) -> Self {
-        Self {
-            issue: issues.into_iter().map(Into::into).collect(),
-            ..Default::default()
+        use crate::r5::coded::Coded;
+        use crate::r5::codes::{IssueSeverity, IssueType};
+        use crate::r5::resources::operation_outcome::{OperationOutcome, OperationOutcomeIssue};
+
+        let mut items: Vec<OperationOutcomeIssue> = issues.into_iter().map(Into::into).collect();
+        if items.is_empty() {
+            // `OperationOutcome.issue` is 1..*; represent "no problems" as an
+            // information-severity issue.
+            items.push(OperationOutcomeIssue {
+                severity: Coded::Known(IssueSeverity::Information),
+                code: Coded::Known(IssueType::Informational),
+                diagnostics: Some(types::String("No issues detected.".to_string())),
+                ..Default::default()
+            });
+        }
+        OperationOutcome {
+            issue: ::vec1::Vec1::try_from_vec(items).expect("non-empty"),
+            id: None,
+            meta: None,
+            implicit_rules: None,
+            implicit_rules_ext: None,
+            language: None,
+            language_ext: None,
+            text: None,
+            contained: None,
+            extension: None,
+            modifier_extension: None,
         }
     }
 }
@@ -96,6 +120,13 @@ impl<T: Validate> Validate for Option<T> {
 }
 
 impl<T: Validate> Validate for Vec<T> {
+    fn validate(&self) -> Vec<ValidationIssue> {
+        self.iter().flat_map(Validate::validate).collect()
+    }
+}
+
+/// A non-empty `Vec1` (used for FHIR `1..*` elements) validates each element.
+impl<T: Validate> Validate for ::vec1::Vec1<T> {
     fn validate(&self) -> Vec<ValidationIssue> {
         self.iter().flat_map(Validate::validate).collect()
     }
@@ -341,27 +372,14 @@ mod tests {
         assert!(patient.validate().iter().any(|i| i.message.contains("dom-2")));
     }
 
-    // T13: an empty 1..* Vec is a cardinality violation.
+    // T13: 1..* cardinality is now enforced at the type level — a `1..*` field is
+    // a non-empty `Vec1<T>`, so an empty required list is unrepresentable.
     #[test]
-    fn cardinality_flags_empty_required_vec() {
-        use crate::r5::resources::appointment::{Appointment, AppointmentParticipant};
-
-        // Appointment.participant is 1..* — empty is invalid.
-        let empty = Appointment::default();
-        let issues = empty.validate();
-        assert!(
-            issues.iter().any(|i| i.path == "participant"),
-            "expected a participant cardinality issue, got {:?}",
-            issues.iter().map(|i| &i.path).collect::<Vec<_>>()
-        );
-
-        // A 0..* Vec (e.g. Appointment.identifier) being empty is fine, and one
-        // participant satisfies the requirement.
-        let ok = Appointment {
-            participant: vec![AppointmentParticipant::default()],
-            ..Default::default()
-        };
-        assert!(!ok.validate().iter().any(|i| i.path == "participant"));
+    fn one_or_more_is_a_non_empty_vec1() {
+        use crate::r5::resources::appointment::AppointmentParticipant;
+        let empty: Vec<AppointmentParticipant> = Vec::new();
+        assert!(::vec1::Vec1::try_from_vec(empty).is_err());
+        assert!(::vec1::Vec1::try_from_vec(vec![AppointmentParticipant::default()]).is_ok());
     }
 
     #[test]

@@ -312,7 +312,7 @@ pub struct PlanDefinitionGoalTarget {
 
 /// Actors within the plan.
 #[serde_with::skip_serializing_none]
-#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
 pub struct PlanDefinitionActor {
     /// Unique id for inter-element referencing
@@ -337,7 +337,7 @@ pub struct PlanDefinitionActor {
     pub description_ext: Option<types::Element>,
 
     /// Who or what can be this actor
-    pub option: Vec<PlanDefinitionActorOption>,
+    pub option: vec1::Vec1<PlanDefinitionActorOption>,
 }
 
 /// Who or what can be this actor.

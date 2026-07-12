@@ -324,7 +324,7 @@ pub struct ConceptMapAdditionalAttribute {
 /// A group organizes mappings that share the same source and target code
 /// systems, containing the individual element-to-target mappings.
 #[serde_with::skip_serializing_none]
-#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
 pub struct ConceptMapGroup {
     /// Unique id for inter-element referencing
@@ -349,7 +349,7 @@ pub struct ConceptMapGroup {
     pub target_ext: Option<types::Element>,
 
     /// Mappings for a concept from the source set
-    pub element: Vec<ConceptMapGroupElement>,
+    pub element: vec1::Vec1<ConceptMapGroupElement>,
 
     /// What to do when there is no mapping target for the source concept
     pub unmapped: Option<ConceptMapGroupUnmapped>,

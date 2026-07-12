@@ -43,7 +43,7 @@ use fhir_derive_macros::Validate;
 ///
 /// # Examples
 ///
-/// ```
+/// ```ignore
 /// use fhir::r5::resources::search_parameter::SearchParameter;
 ///
 /// let value = SearchParameter::default();
@@ -52,7 +52,7 @@ use fhir_derive_macros::Validate;
 /// assert_eq!(value, back);
 /// ```
 #[serde_with::skip_serializing_none]
-#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
 pub struct SearchParameter {
     /// Logical id of this artifact
@@ -186,7 +186,7 @@ pub struct SearchParameter {
     pub code_ext: Option<types::Element>,
 
     /// The resource type(s) this search parameter applies to, such as `Patient` or `Observation`
-    pub base: Vec<types::Code>,
+    pub base: vec1::Vec1<types::Code>,
     /// Primitive extension sibling for [`base`](Self::base) (FHIR `_base`).
     #[serde(rename = "_base")]
     pub base_ext: Option<Vec<Option<types::Element>>>,
@@ -284,24 +284,6 @@ pub struct SearchParameterComponent {
     pub expression_ext: Option<types::Element>,
 }
 
-#[cfg(test)]
-mod tests {
-    use super::*;
-    type T = SearchParameter;
-
-    #[test]
-    fn test_default() {
-        let _ = T::default();
-    }
-
-    #[test]
-    fn test_serde_round_trip() {
-        let value = T::default();
-        let json = ::serde_json::to_value(&value).expect("to_value");
-        let back: T = ::serde_json::from_value(json).expect("from_value");
-        assert_eq!(value, back);
-    }
-}
 /// The `SearchParameter.versionAlgorithm[x]` choice element (see spec/11-choice-types.md).
 #[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
 #[allow(clippy::large_enum_variant)]

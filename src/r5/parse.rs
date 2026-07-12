@@ -19,6 +19,7 @@ pub mod coded_gen;
 pub mod concept_maps;
 pub mod meta;
 pub mod siblings;
+pub mod vec1_gen;
 pub mod data_elements;
 pub mod profiles_others;
 pub mod profiles_resources;

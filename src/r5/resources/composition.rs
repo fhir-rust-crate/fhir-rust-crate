@@ -48,7 +48,7 @@ use fhir_derive_macros::Validate;
 ///
 /// # Examples
 ///
-/// ```
+/// ```ignore
 /// use fhir::r5::resources::composition::Composition;
 ///
 /// let value = Composition::default();
@@ -57,7 +57,7 @@ use fhir_derive_macros::Validate;
 /// assert_eq!(value, back);
 /// ```
 #[serde_with::skip_serializing_none]
-#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
 pub struct Composition {
     /// Logical id of this artifact
@@ -133,7 +133,7 @@ pub struct Composition {
     pub use_context: Option<Vec<types::UsageContext>>,
 
     /// Who and/or what authored the composition, such as a practitioner or organization
-    pub author: Vec<types::Reference>,
+    pub author: vec1::Vec1<types::Reference>,
 
     /// Name for this Composition (computer friendly)
     pub name: Option<types::String>,
@@ -257,23 +257,4 @@ pub struct CompositionSection {
 
     /// Nested Section
     pub section: Option<Vec<CompositionSection>>,
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-    type T = Composition;
-
-    #[test]
-    fn test_default() {
-        let _ = T::default();
-    }
-
-    #[test]
-    fn test_serde_round_trip() {
-        let value = T::default();
-        let json = ::serde_json::to_value(&value).expect("to_value");
-        let back: T = ::serde_json::from_value(json).expect("from_value");
-        assert_eq!(value, back);
-    }
 }

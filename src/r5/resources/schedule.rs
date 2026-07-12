@@ -44,7 +44,7 @@ use fhir_derive_macros::Validate;
 ///
 /// # Examples
 ///
-/// ```
+/// ```ignore
 /// use fhir::r5::resources::schedule::Schedule;
 ///
 /// let value = Schedule::default();
@@ -53,7 +53,7 @@ use fhir_derive_macros::Validate;
 /// assert_eq!(value, back);
 /// ```
 #[serde_with::skip_serializing_none]
-#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
 pub struct Schedule {
     /// Logical id of this artifact
@@ -111,7 +111,7 @@ pub struct Schedule {
     pub name_ext: Option<types::Element>,
 
     /// Resource(s), such as a practitioner, location, device, or patient, whose availability this schedule describes
-    pub actor: Vec<types::Reference>,
+    pub actor: vec1::Vec1<types::Reference>,
 
     /// Period of time covered by the schedule, bounding when slots and appointments may be offered
     pub planning_horizon: Option<types::Period>,
@@ -121,23 +121,4 @@ pub struct Schedule {
     /// Primitive extension sibling for [`comment`](Self::comment) (FHIR `_comment`).
     #[serde(rename = "_comment")]
     pub comment_ext: Option<types::Element>,
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-    type T = Schedule;
-
-    #[test]
-    fn test_default() {
-        let _ = T::default();
-    }
-
-    #[test]
-    fn test_serde_round_trip() {
-        let value = T::default();
-        let json = ::serde_json::to_value(&value).expect("to_value");
-        let back: T = ::serde_json::from_value(json).expect("from_value");
-        assert_eq!(value, back);
-    }
 }

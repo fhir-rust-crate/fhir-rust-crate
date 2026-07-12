@@ -275,7 +275,7 @@ pub struct TestScriptDestination {
 
 /// Required capability that is assumed to function correctly on the FHIR server being tested.
 #[serde_with::skip_serializing_none]
-#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
 pub struct TestScriptMetadata {
     /// Unique id for inter-element referencing
@@ -291,7 +291,7 @@ pub struct TestScriptMetadata {
     pub link: Option<Vec<TestScriptMetadataLink>>,
 
     /// Capabilities  that are assumed to function correctly on the FHIR server being tested
-    pub capability: Vec<TestScriptMetadataCapability>,
+    pub capability: vec1::Vec1<TestScriptMetadataCapability>,
 }
 
 /// Links to the FHIR specification that describe the capabilities being tested.
@@ -500,7 +500,7 @@ pub struct TestScriptVariable {
 
 /// A series of required setup operations before tests are executed.
 #[serde_with::skip_serializing_none]
-#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
 pub struct TestScriptSetup {
     /// Unique id for inter-element referencing
@@ -513,7 +513,7 @@ pub struct TestScriptSetup {
     pub modifier_extension: Option<Vec<types::Extension>>,
 
     /// A setup operation or assert to perform
-    pub action: Vec<TestScriptSetupAction>,
+    pub action: vec1::Vec1<TestScriptSetupAction>,
 }
 
 /// A setup operation or assert to perform.
@@ -856,7 +856,7 @@ pub struct TestScriptSetupActionAssertRequirement {
 
 /// A test in this script.
 #[serde_with::skip_serializing_none]
-#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
 pub struct TestScriptTest {
     /// Unique id for inter-element referencing
@@ -881,7 +881,7 @@ pub struct TestScriptTest {
     pub description_ext: Option<types::Element>,
 
     /// A test operation or assert to perform
-    pub action: Vec<TestScriptTestAction>,
+    pub action: vec1::Vec1<TestScriptTestAction>,
 }
 
 /// A test operation or assert to perform.
@@ -907,7 +907,7 @@ pub struct TestScriptTestAction {
 
 /// A series of required clean up steps.
 #[serde_with::skip_serializing_none]
-#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
 pub struct TestScriptTeardown {
     /// Unique id for inter-element referencing
@@ -920,7 +920,7 @@ pub struct TestScriptTeardown {
     pub modifier_extension: Option<Vec<types::Extension>>,
 
     /// One or more teardown operations to perform
-    pub action: Vec<TestScriptTeardownAction>,
+    pub action: vec1::Vec1<TestScriptTeardownAction>,
 }
 
 /// One or more teardown operations to perform.

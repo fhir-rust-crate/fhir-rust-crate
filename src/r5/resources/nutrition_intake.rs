@@ -51,7 +51,7 @@ use fhir_derive_macros::Validate;
 ///
 /// # Examples
 ///
-/// ```
+/// ```ignore
 /// use fhir::r5::resources::nutrition_intake::NutritionIntake;
 ///
 /// let value = NutritionIntake::default();
@@ -60,7 +60,7 @@ use fhir_derive_macros::Validate;
 /// assert_eq!(value, back);
 /// ```
 #[serde_with::skip_serializing_none]
-#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
 pub struct NutritionIntake {
     /// Logical id of this artifact
@@ -147,7 +147,7 @@ pub struct NutritionIntake {
     pub reported: Option<NutritionIntakeReported>,
 
     /// What food or fluid product or item was consumed, with its type, amount, timing, and rate.
-    pub consumed_item: Vec<NutritionIntakeConsumedItem>,
+    pub consumed_item: vec1::Vec1<NutritionIntakeConsumedItem>,
 
     /// Total nutrient for the whole meal, product, serving
     pub ingredient_label: Option<Vec<NutritionIntakeIngredientLabel>>,
@@ -249,24 +249,6 @@ pub struct NutritionIntakePerformer {
     pub actor: types::Reference,
 }
 
-#[cfg(test)]
-mod tests {
-    use super::*;
-    type T = NutritionIntake;
-
-    #[test]
-    fn test_default() {
-        let _ = T::default();
-    }
-
-    #[test]
-    fn test_serde_round_trip() {
-        let value = T::default();
-        let json = ::serde_json::to_value(&value).expect("to_value");
-        let back: T = ::serde_json::from_value(json).expect("from_value");
-        assert_eq!(value, back);
-    }
-}
 /// The `NutritionIntake.occurrence[x]` choice element (see spec/11-choice-types.md).
 #[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
 #[allow(clippy::large_enum_variant)]

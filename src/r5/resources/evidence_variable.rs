@@ -340,7 +340,7 @@ pub struct EvidenceVariableCharacteristicDefinitionByTypeAndValue {
 
 /// Used to specify how two or more characteristics are combined.
 #[serde_with::skip_serializing_none]
-#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
 pub struct EvidenceVariableCharacteristicDefinitionByCombination {
     /// Unique id for inter-element referencing
@@ -365,7 +365,7 @@ pub struct EvidenceVariableCharacteristicDefinitionByCombination {
     pub threshold_ext: Option<types::Element>,
 
     /// A defining factor of the characteristic
-    pub characteristic: Vec<EvidenceVariableCharacteristic>,
+    pub characteristic: vec1::Vec1<EvidenceVariableCharacteristic>,
 }
 
 /// Timing in which the characteristic is determined.

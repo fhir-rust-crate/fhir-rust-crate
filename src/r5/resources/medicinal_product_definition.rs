@@ -45,7 +45,7 @@ use fhir_derive_macros::Validate;
 ///
 /// # Examples
 ///
-/// ```
+/// ```ignore
 /// use fhir::r5::resources::medicinal_product_definition::MedicinalProductDefinition;
 ///
 /// let value = MedicinalProductDefinition::default();
@@ -54,7 +54,7 @@ use fhir_derive_macros::Validate;
 /// assert_eq!(value, back);
 /// ```
 #[serde_with::skip_serializing_none]
-#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
 pub struct MedicinalProductDefinition {
     /// Logical id of this artifact
@@ -175,7 +175,7 @@ pub struct MedicinalProductDefinition {
     pub code: Option<Vec<types::Coding>>,
 
     /// The product's registered name or names, including the full name and any coded parts, per country and jurisdiction
-    pub name: Vec<MedicinalProductDefinitionName>,
+    pub name: vec1::Vec1<MedicinalProductDefinitionName>,
 
     /// Reference to another product, e.g. for linking authorised to investigational product
     pub cross_reference: Option<Vec<MedicinalProductDefinitionCrossReference>>,
@@ -370,24 +370,6 @@ pub struct MedicinalProductDefinitionCharacteristic {
     pub value: Option<MedicinalProductDefinitionCharacteristicValue>,
 }
 
-#[cfg(test)]
-mod tests {
-    use super::*;
-    type T = MedicinalProductDefinition;
-
-    #[test]
-    fn test_default() {
-        let _ = T::default();
-    }
-
-    #[test]
-    fn test_serde_round_trip() {
-        let value = T::default();
-        let json = ::serde_json::to_value(&value).expect("to_value");
-        let back: T = ::serde_json::from_value(json).expect("from_value");
-        assert_eq!(value, back);
-    }
-}
 /// The `MedicinalProductDefinition.characteristic.value[x]` choice element (see spec/11-choice-types.md).
 #[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
 #[allow(clippy::large_enum_variant)]

@@ -228,7 +228,7 @@ pub struct ValueSet {
 
 /// Content logical definition of the value set (CLD).
 #[serde_with::skip_serializing_none]
-#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
 pub struct ValueSetCompose {
     /// Unique id for inter-element referencing
@@ -253,7 +253,7 @@ pub struct ValueSetCompose {
     pub inactive_ext: Option<types::Element>,
 
     /// Include one or more codes from a code system or other value set(s)
-    pub include: Vec<ValueSetComposeInclude>,
+    pub include: vec1::Vec1<ValueSetComposeInclude>,
 
     /// Explicitly exclude codes from a code system or other value sets
     pub exclude: Option<Vec<ValueSetComposeInclude>>,

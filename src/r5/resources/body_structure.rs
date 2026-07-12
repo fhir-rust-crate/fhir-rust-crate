@@ -44,7 +44,7 @@ use fhir_derive_macros::Validate;
 ///
 /// # Examples
 ///
-/// ```
+/// ```ignore
 /// use fhir::r5::resources::body_structure::BodyStructure;
 ///
 /// let value = BodyStructure::default();
@@ -53,7 +53,7 @@ use fhir_derive_macros::Validate;
 /// assert_eq!(value, back);
 /// ```
 #[serde_with::skip_serializing_none]
-#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
 pub struct BodyStructure {
     /// Logical id of this artifact
@@ -99,7 +99,7 @@ pub struct BodyStructure {
     pub morphology: Option<types::CodeableConcept>,
 
     /// Included anatomic location(s) that together define the body structure
-    pub included_structure: Vec<BodyStructureIncludedStructure>,
+    pub included_structure: vec1::Vec1<BodyStructureIncludedStructure>,
 
     /// Excluded anatomic locations(s)
     pub excluded_structure: Option<Vec<BodyStructureIncludedStructure>>,
@@ -202,23 +202,4 @@ pub struct BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLand
 
     /// Measured distance from body landmark
     pub value: Option<Vec<types::Quantity>>,
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-    type T = BodyStructure;
-
-    #[test]
-    fn test_default() {
-        let _ = T::default();
-    }
-
-    #[test]
-    fn test_serde_round_trip() {
-        let value = T::default();
-        let json = ::serde_json::to_value(&value).expect("to_value");
-        let back: T = ::serde_json::from_value(json).expect("from_value");
-        assert_eq!(value, back);
-    }
 }

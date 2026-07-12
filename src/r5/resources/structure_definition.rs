@@ -300,7 +300,7 @@ pub struct StructureDefinitionContext {
 
 /// Snapshot view of the structure.
 #[serde_with::skip_serializing_none]
-#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
 pub struct StructureDefinitionSnapshot {
     /// Unique id for inter-element referencing
@@ -313,12 +313,12 @@ pub struct StructureDefinitionSnapshot {
     pub modifier_extension: Option<Vec<types::Extension>>,
 
     /// Definition of elements in the resource (if no StructureDefinition)
-    pub element: Vec<types::ElementDefinition>,
+    pub element: vec1::Vec1<types::ElementDefinition>,
 }
 
 /// Differential view of the structure.
 #[serde_with::skip_serializing_none]
-#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
 pub struct StructureDefinitionDifferential {
     /// Unique id for inter-element referencing
@@ -331,7 +331,7 @@ pub struct StructureDefinitionDifferential {
     pub modifier_extension: Option<Vec<types::Extension>>,
 
     /// Definition of elements in the resource (if no StructureDefinition)
-    pub element: Vec<types::ElementDefinition>,
+    pub element: vec1::Vec1<types::ElementDefinition>,
 }
 
 #[cfg(test)]

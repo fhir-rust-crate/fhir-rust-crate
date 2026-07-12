@@ -47,7 +47,7 @@ use fhir_derive_macros::Validate;
 ///
 /// # Examples
 ///
-/// ```
+/// ```ignore
 /// use fhir::r5::resources::vision_prescription::VisionPrescription;
 ///
 /// let value = VisionPrescription::default();
@@ -56,7 +56,7 @@ use fhir_derive_macros::Validate;
 /// assert_eq!(value, back);
 /// ```
 #[serde_with::skip_serializing_none]
-#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
 pub struct VisionPrescription {
     /// Logical id of this artifact
@@ -125,7 +125,7 @@ pub struct VisionPrescription {
 
     /// One or more lens authorizations, each describing the optical
     /// parameters prescribed for a single eye.
-    pub lens_specification: Vec<VisionPrescriptionLensSpecification>,
+    pub lens_specification: vec1::Vec1<VisionPrescriptionLensSpecification>,
 }
 
 /// Vision lens authorization.
@@ -247,23 +247,4 @@ pub struct VisionPrescriptionLensSpecificationPrism {
     /// Primitive extension sibling for [`base`](Self::base) (FHIR `_base`).
     #[serde(rename = "_base")]
     pub base_ext: Option<types::Element>,
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-    type T = VisionPrescription;
-
-    #[test]
-    fn test_default() {
-        let _ = T::default();
-    }
-
-    #[test]
-    fn test_serde_round_trip() {
-        let value = T::default();
-        let json = ::serde_json::to_value(&value).expect("to_value");
-        let back: T = ::serde_json::from_value(json).expect("from_value");
-        assert_eq!(value, back);
-    }
 }

@@ -158,7 +158,7 @@ pub struct MedicationKnowledge {
 
 /// Associated or related medication information.
 #[serde_with::skip_serializing_none]
-#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
 pub struct MedicationKnowledgeRelatedMedicationKnowledge {
     /// Unique id for inter-element referencing
@@ -174,7 +174,7 @@ pub struct MedicationKnowledgeRelatedMedicationKnowledge {
     pub r#type: types::CodeableConcept,
 
     /// Associated documentation about the associated medication knowledge
-    pub reference: Vec<types::Reference>,
+    pub reference: vec1::Vec1<types::Reference>,
 }
 
 /// Associated documentation about the medication.
@@ -304,7 +304,7 @@ pub struct MedicationKnowledgeIndicationGuidelineDosingGuideline {
 
 /// Dosage for the medication for the specific guidelines.
 #[serde_with::skip_serializing_none]
-#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
 pub struct MedicationKnowledgeIndicationGuidelineDosingGuidelineDosage {
     /// Unique id for inter-element referencing
@@ -320,7 +320,7 @@ pub struct MedicationKnowledgeIndicationGuidelineDosingGuidelineDosage {
     pub r#type: types::CodeableConcept,
 
     /// Dosage for the medication for the specific guidelines
-    pub dosage: Vec<types::Dosage>,
+    pub dosage: vec1::Vec1<types::Dosage>,
 }
 
 /// Characteristics of the patient that are relevant to the administration guidelines.

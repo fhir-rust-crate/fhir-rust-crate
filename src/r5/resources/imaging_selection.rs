@@ -222,7 +222,7 @@ pub struct ImagingSelectionInstance {
 
 /// A specific 2D region in a DICOM image / frame.
 #[serde_with::skip_serializing_none]
-#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
 pub struct ImagingSelectionInstanceImageRegion2D {
     /// Unique id for inter-element referencing
@@ -241,7 +241,7 @@ pub struct ImagingSelectionInstanceImageRegion2D {
     pub region_type_ext: Option<types::Element>,
 
     /// Specifies the coordinates that define the image region
-    pub coordinate: Vec<types::Decimal>,
+    pub coordinate: vec1::Vec1<types::Decimal>,
     /// Primitive extension sibling for [`coordinate`](Self::coordinate) (FHIR `_coordinate`).
     #[serde(rename = "_coordinate")]
     pub coordinate_ext: Option<Vec<Option<types::Element>>>,
@@ -249,7 +249,7 @@ pub struct ImagingSelectionInstanceImageRegion2D {
 
 /// A specific 3D region in a DICOM frame of reference.
 #[serde_with::skip_serializing_none]
-#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
 pub struct ImagingSelectionInstanceImageRegion3D {
     /// Unique id for inter-element referencing
@@ -268,7 +268,7 @@ pub struct ImagingSelectionInstanceImageRegion3D {
     pub region_type_ext: Option<types::Element>,
 
     /// Specifies the coordinates that define the image region
-    pub coordinate: Vec<types::Decimal>,
+    pub coordinate: vec1::Vec1<types::Decimal>,
     /// Primitive extension sibling for [`coordinate`](Self::coordinate) (FHIR `_coordinate`).
     #[serde(rename = "_coordinate")]
     pub coordinate_ext: Option<Vec<Option<types::Element>>>,

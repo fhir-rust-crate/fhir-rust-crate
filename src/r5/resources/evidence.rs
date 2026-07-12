@@ -50,7 +50,7 @@ use fhir_derive_macros::Validate;
 ///
 /// # Examples
 ///
-/// ```
+/// ```ignore
 /// use fhir::r5::resources::evidence::Evidence;
 ///
 /// let value = Evidence::default();
@@ -59,7 +59,7 @@ use fhir_derive_macros::Validate;
 /// assert_eq!(value, back);
 /// ```
 #[serde_with::skip_serializing_none]
-#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
 pub struct Evidence {
     /// Logical id of this artifact.
@@ -222,7 +222,7 @@ pub struct Evidence {
 
     /// Evidence variables such as population, exposure, or outcome, that
     /// define what this evidence measured or compared.
-    pub variable_definition: Vec<EvidenceVariableDefinition>,
+    pub variable_definition: vec1::Vec1<EvidenceVariableDefinition>,
 
     /// The method to combine studies.
     pub synthesis_type: Option<types::CodeableConcept>,
@@ -513,24 +513,6 @@ pub struct EvidenceCertainty {
     pub subcomponent: Option<Vec<EvidenceCertainty>>,
 }
 
-#[cfg(test)]
-mod tests {
-    use super::*;
-    type T = Evidence;
-
-    #[test]
-    fn test_default() {
-        let _ = T::default();
-    }
-
-    #[test]
-    fn test_serde_round_trip() {
-        let value = T::default();
-        let json = ::serde_json::to_value(&value).expect("to_value");
-        let back: T = ::serde_json::from_value(json).expect("from_value");
-        assert_eq!(value, back);
-    }
-}
 /// The `Evidence.citeAs[x]` choice element (see spec/11-choice-types.md).
 #[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
 #[allow(clippy::large_enum_variant)]

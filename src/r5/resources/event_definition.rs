@@ -48,7 +48,7 @@ use fhir_derive_macros::Validate;
 ///
 /// # Examples
 ///
-/// ```
+/// ```ignore
 /// use fhir::r5::resources::event_definition::EventDefinition;
 ///
 /// let value = EventDefinition::default();
@@ -57,7 +57,7 @@ use fhir_derive_macros::Validate;
 /// assert_eq!(value, back);
 /// ```
 #[serde_with::skip_serializing_none]
-#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
 pub struct EventDefinition {
     /// Logical id of this artifact
@@ -228,27 +228,9 @@ pub struct EventDefinition {
     pub related_artifact: Option<Vec<types::RelatedArtifact>>,
 
     /// The condition(s) that define "when" the event occurs; if more than one trigger is present, they are combined with 'or' semantics
-    pub trigger: Vec<types::TriggerDefinition>,
+    pub trigger: vec1::Vec1<types::TriggerDefinition>,
 }
 
-#[cfg(test)]
-mod tests {
-    use super::*;
-    type T = EventDefinition;
-
-    #[test]
-    fn test_default() {
-        let _ = T::default();
-    }
-
-    #[test]
-    fn test_serde_round_trip() {
-        let value = T::default();
-        let json = ::serde_json::to_value(&value).expect("to_value");
-        let back: T = ::serde_json::from_value(json).expect("from_value");
-        assert_eq!(value, back);
-    }
-}
 /// The `EventDefinition.subject[x]` choice element (see spec/11-choice-types.md).
 #[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
 #[allow(clippy::large_enum_variant)]

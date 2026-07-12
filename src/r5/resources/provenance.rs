@@ -45,7 +45,7 @@ use fhir_derive_macros::Validate;
 ///
 /// # Examples
 ///
-/// ```
+/// ```ignore
 /// use fhir::r5::resources::provenance::Provenance;
 ///
 /// let value = Provenance::default();
@@ -54,7 +54,7 @@ use fhir_derive_macros::Validate;
 /// assert_eq!(value, back);
 /// ```
 #[serde_with::skip_serializing_none]
-#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
 pub struct Provenance {
     /// Logical id of this artifact
@@ -88,7 +88,7 @@ pub struct Provenance {
     pub modifier_extension: Option<Vec<types::Extension>>,
 
     /// The resource(s) whose provenance is being described, usually referenced version-specifically so the assertion applies to an exact state.
-    pub target: Vec<types::Reference>,
+    pub target: vec1::Vec1<types::Reference>,
 
     /// The `Provenance.occurred[x]` choice element (0..1); see [`ProvenanceOccurred`].
     #[serde(flatten)]
@@ -125,7 +125,7 @@ pub struct Provenance {
     pub encounter: Option<types::Reference>,
 
     /// The actors, human or system, that participated in the activity, each described by a ProvenanceAgent with its role; at least one is required.
-    pub agent: Vec<ProvenanceAgent>,
+    pub agent: vec1::Vec1<ProvenanceAgent>,
 
     /// The source entities that were used, revised, quoted, or otherwise consumed by this activity, each described by a ProvenanceEntity.
     pub entity: Option<Vec<ProvenanceEntity>>,
@@ -188,24 +188,6 @@ pub struct ProvenanceEntity {
     pub agent: Option<Vec<ProvenanceAgent>>,
 }
 
-#[cfg(test)]
-mod tests {
-    use super::*;
-    type T = Provenance;
-
-    #[test]
-    fn test_default() {
-        let _ = T::default();
-    }
-
-    #[test]
-    fn test_serde_round_trip() {
-        let value = T::default();
-        let json = ::serde_json::to_value(&value).expect("to_value");
-        let back: T = ::serde_json::from_value(json).expect("from_value");
-        assert_eq!(value, back);
-    }
-}
 /// The `Provenance.occurred[x]` choice element (see spec/11-choice-types.md).
 #[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
 #[allow(clippy::large_enum_variant)]

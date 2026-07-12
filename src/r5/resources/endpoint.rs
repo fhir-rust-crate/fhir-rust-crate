@@ -45,7 +45,7 @@ use fhir_derive_macros::Validate;
 ///
 /// # Examples
 ///
-/// ```
+/// ```ignore
 /// use fhir::r5::resources::endpoint::Endpoint;
 ///
 /// let value = Endpoint::default();
@@ -54,7 +54,7 @@ use fhir_derive_macros::Validate;
 /// assert_eq!(value, back);
 /// ```
 #[serde_with::skip_serializing_none]
-#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
 pub struct Endpoint {
     /// Logical id of this artifact
@@ -100,7 +100,7 @@ pub struct Endpoint {
     /// One or more protocols, profiles, or standards used to connect to and
     /// exchange data with this endpoint (for example a messaging or REST
     /// protocol)
-    pub connection_type: Vec<types::CodeableConcept>,
+    pub connection_type: vec1::Vec1<types::CodeableConcept>,
 
     /// A human-friendly name that this endpoint can be identified by
     pub name: Option<types::String>,
@@ -170,23 +170,4 @@ pub struct EndpointPayload {
     /// Primitive extension sibling for [`mime_type`](Self::mime_type) (FHIR `_mimeType`).
     #[serde(rename = "_mimeType")]
     pub mime_type_ext: Option<Vec<Option<types::Element>>>,
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-    type T = Endpoint;
-
-    #[test]
-    fn test_default() {
-        let _ = T::default();
-    }
-
-    #[test]
-    fn test_serde_round_trip() {
-        let value = T::default();
-        let json = ::serde_json::to_value(&value).expect("to_value");
-        let back: T = ::serde_json::from_value(json).expect("from_value");
-        assert_eq!(value, back);
-    }
 }

@@ -580,7 +580,7 @@ pub struct ClaimItem {
 
 /// Claim nested backbone element `Claim.item.bodySite`. Anatomical location
 #[serde_with::skip_serializing_none]
-#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
 pub struct ClaimItemBodySite {
     /// Unique id for inter-element referencing
@@ -593,7 +593,7 @@ pub struct ClaimItemBodySite {
     pub modifier_extension: Option<Vec<types::Extension>>,
 
     /// Location
-    pub site: Vec<types::CodeableReference>,
+    pub site: vec1::Vec1<types::CodeableReference>,
 
     /// Sub-location
     pub sub_site: Option<Vec<types::CodeableConcept>>,

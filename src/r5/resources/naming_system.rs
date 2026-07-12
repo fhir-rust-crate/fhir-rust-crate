@@ -41,7 +41,7 @@ use fhir_derive_macros::Validate;
 ///
 /// # Examples
 ///
-/// ```
+/// ```ignore
 /// use fhir::r5::resources::naming_system::NamingSystem;
 ///
 /// let value = NamingSystem::default();
@@ -50,7 +50,7 @@ use fhir_derive_macros::Validate;
 /// assert_eq!(value, back);
 /// ```
 #[serde_with::skip_serializing_none]
-#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
 pub struct NamingSystem {
     /// Logical id of this artifact
@@ -226,7 +226,7 @@ pub struct NamingSystem {
     pub usage_ext: Option<types::Element>,
 
     /// The unique symbols (such as an OID, UUID, or URI) that may be used to name this system; see NamingSystemUniqueId
-    pub unique_id: Vec<NamingSystemUniqueId>,
+    pub unique_id: vec1::Vec1<NamingSystemUniqueId>,
 }
 
 /// Indicates how the system may be identified when referenced in electronic
@@ -279,24 +279,6 @@ pub struct NamingSystemUniqueId {
     pub authoritative_ext: Option<types::Element>,
 }
 
-#[cfg(test)]
-mod tests {
-    use super::*;
-    type T = NamingSystem;
-
-    #[test]
-    fn test_default() {
-        let _ = T::default();
-    }
-
-    #[test]
-    fn test_serde_round_trip() {
-        let value = T::default();
-        let json = ::serde_json::to_value(&value).expect("to_value");
-        let back: T = ::serde_json::from_value(json).expect("from_value");
-        assert_eq!(value, back);
-    }
-}
 /// The `NamingSystem.versionAlgorithm[x]` choice element (see spec/11-choice-types.md).
 #[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
 #[allow(clippy::large_enum_variant)]

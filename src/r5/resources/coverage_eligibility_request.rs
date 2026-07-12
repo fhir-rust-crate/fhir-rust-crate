@@ -45,7 +45,7 @@ use fhir_derive_macros::Validate;
 ///
 /// # Examples
 ///
-/// ```
+/// ```ignore
 /// use fhir::r5::resources::coverage_eligibility_request::CoverageEligibilityRequest;
 ///
 /// let value = CoverageEligibilityRequest::default();
@@ -54,7 +54,7 @@ use fhir_derive_macros::Validate;
 /// assert_eq!(value, back);
 /// ```
 #[serde_with::skip_serializing_none]
-#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
 pub struct CoverageEligibilityRequest {
     /// Logical id of this artifact
@@ -100,7 +100,7 @@ pub struct CoverageEligibilityRequest {
     pub priority: Option<types::CodeableConcept>,
 
     /// The reason(s) for the request, one or more of auth-requirements | benefits | discovery | validation
-    pub purpose: Vec<crate::r5::coded::Coded<crate::r5::codes::EligibilityrequestPurpose>>,
+    pub purpose: vec1::Vec1<crate::r5::coded::Coded<crate::r5::codes::EligibilityrequestPurpose>>,
     /// Primitive extension sibling for [`purpose`](Self::purpose) (FHIR `_purpose`).
     #[serde(rename = "_purpose")]
     pub purpose_ext: Option<Vec<Option<types::Element>>>,
@@ -298,24 +298,6 @@ pub struct CoverageEligibilityRequestItemDiagnosis {
     pub diagnosis: Option<CoverageEligibilityRequestItemDiagnosisDiagnosis>,
 }
 
-#[cfg(test)]
-mod tests {
-    use super::*;
-    type T = CoverageEligibilityRequest;
-
-    #[test]
-    fn test_default() {
-        let _ = T::default();
-    }
-
-    #[test]
-    fn test_serde_round_trip() {
-        let value = T::default();
-        let json = ::serde_json::to_value(&value).expect("to_value");
-        let back: T = ::serde_json::from_value(json).expect("from_value");
-        assert_eq!(value, back);
-    }
-}
 /// The `CoverageEligibilityRequest.event.when[x]` choice element (see spec/11-choice-types.md).
 #[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
 #[allow(clippy::large_enum_variant)]

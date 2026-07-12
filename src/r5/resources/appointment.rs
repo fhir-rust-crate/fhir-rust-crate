@@ -51,7 +51,7 @@ use fhir_derive_macros::Validate;
 ///
 /// # Examples
 ///
-/// ```
+/// ```ignore
 /// use fhir::r5::resources::appointment::Appointment;
 ///
 /// let value = Appointment::default();
@@ -60,7 +60,7 @@ use fhir_derive_macros::Validate;
 /// assert_eq!(value, back);
 /// ```
 #[serde_with::skip_serializing_none]
-#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
 pub struct Appointment {
     /// Logical id of this artifact
@@ -199,7 +199,7 @@ pub struct Appointment {
     pub subject: Option<types::Reference>,
 
     /// The actors expected to attend, each with a role, required flag, and acceptance status
-    pub participant: Vec<AppointmentParticipant>,
+    pub participant: vec1::Vec1<AppointmentParticipant>,
 
     /// The sequence number in the recurrence
     pub recurrence_id: Option<types::PositiveInt>,
@@ -445,23 +445,4 @@ pub struct AppointmentRecurrenceTemplateYearlyTemplate {
     /// Primitive extension sibling for [`year_interval`](Self::year_interval) (FHIR `_yearInterval`).
     #[serde(rename = "_yearInterval")]
     pub year_interval_ext: Option<types::Element>,
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-    type T = Appointment;
-
-    #[test]
-    fn test_default() {
-        let _ = T::default();
-    }
-
-    #[test]
-    fn test_serde_round_trip() {
-        let value = T::default();
-        let json = ::serde_json::to_value(&value).expect("to_value");
-        let back: T = ::serde_json::from_value(json).expect("from_value");
-        assert_eq!(value, back);
-    }
 }

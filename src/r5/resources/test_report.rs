@@ -179,7 +179,7 @@ pub struct TestReportParticipant {
 
 /// The results of the series of required setup operations before the tests were executed.
 #[serde_with::skip_serializing_none]
-#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
 pub struct TestReportSetup {
     /// Unique id for inter-element referencing
@@ -192,7 +192,7 @@ pub struct TestReportSetup {
     pub modifier_extension: Option<Vec<types::Extension>>,
 
     /// A setup operation or assert that was executed
-    pub action: Vec<TestReportSetupAction>,
+    pub action: vec1::Vec1<TestReportSetupAction>,
 }
 
 /// A setup operation or assert that was executed.
@@ -306,7 +306,7 @@ pub struct TestReportSetupActionAssertRequirement {
 
 /// A test executed from the test script.
 #[serde_with::skip_serializing_none]
-#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
 pub struct TestReportTest {
     /// Unique id for inter-element referencing
@@ -331,7 +331,7 @@ pub struct TestReportTest {
     pub description_ext: Option<types::Element>,
 
     /// A test operation or assert that was performed
-    pub action: Vec<TestReportTestAction>,
+    pub action: vec1::Vec1<TestReportTestAction>,
 }
 
 /// A test operation or assert that was performed.
@@ -357,7 +357,7 @@ pub struct TestReportTestAction {
 
 /// The results of running the series of required clean up steps.
 #[serde_with::skip_serializing_none]
-#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
 pub struct TestReportTeardown {
     /// Unique id for inter-element referencing
@@ -370,7 +370,7 @@ pub struct TestReportTeardown {
     pub modifier_extension: Option<Vec<types::Extension>>,
 
     /// One or more teardown operations performed
-    pub action: Vec<TestReportTeardownAction>,
+    pub action: vec1::Vec1<TestReportTeardownAction>,
 }
 
 /// One or more teardown operations performed.

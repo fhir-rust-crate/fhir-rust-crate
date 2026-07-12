@@ -143,7 +143,7 @@ pub struct InsurancePlan {
 
 /// Coverage details: the details of a coverage offered by the insurance product.
 #[serde_with::skip_serializing_none]
-#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
 pub struct InsurancePlanCoverage {
     /// Unique id for inter-element referencing
@@ -162,7 +162,7 @@ pub struct InsurancePlanCoverage {
     pub network: Option<Vec<types::Reference>>,
 
     /// List of benefits
-    pub benefit: Vec<InsurancePlanCoverageBenefit>,
+    pub benefit: vec1::Vec1<InsurancePlanCoverageBenefit>,
 }
 
 /// List of benefits: specific benefits under this type of coverage.

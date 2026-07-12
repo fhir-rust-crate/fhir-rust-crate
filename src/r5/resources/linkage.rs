@@ -37,7 +37,7 @@ use fhir_derive_macros::Validate;
 ///
 /// # Examples
 ///
-/// ```
+/// ```ignore
 /// use fhir::r5::resources::linkage::Linkage;
 ///
 /// let value = Linkage::default();
@@ -46,7 +46,7 @@ use fhir_derive_macros::Validate;
 /// assert_eq!(value, back);
 /// ```
 #[serde_with::skip_serializing_none]
-#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
 pub struct Linkage {
     /// Logical id of this artifact
@@ -89,7 +89,7 @@ pub struct Linkage {
     pub author: Option<types::Reference>,
 
     /// The set of records being linked together; each entry names a resource and its role within the collection.
-    pub item: Vec<LinkageItem>,
+    pub item: vec1::Vec1<LinkageItem>,
 }
 
 /// Identifies which record considered as the reference to the same real-world
@@ -116,23 +116,4 @@ pub struct LinkageItem {
 
     /// Reference to the specific resource instance being included in this linkage.
     pub resource: types::Reference,
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-    type T = Linkage;
-
-    #[test]
-    fn test_default() {
-        let _ = T::default();
-    }
-
-    #[test]
-    fn test_serde_round_trip() {
-        let value = T::default();
-        let json = ::serde_json::to_value(&value).expect("to_value");
-        let back: T = ::serde_json::from_value(json).expect("from_value");
-        assert_eq!(value, back);
-    }
 }

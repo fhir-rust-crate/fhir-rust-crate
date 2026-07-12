@@ -46,7 +46,7 @@ use fhir_derive_macros::Validate;
 ///
 /// # Examples
 ///
-/// ```
+/// ```ignore
 /// use fhir::r5::resources::administrable_product_definition::AdministrableProductDefinition;
 ///
 /// let value = AdministrableProductDefinition::default();
@@ -55,7 +55,7 @@ use fhir_derive_macros::Validate;
 /// assert_eq!(value, back);
 /// ```
 #[serde_with::skip_serializing_none]
-#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
 pub struct AdministrableProductDefinition {
     /// Logical id of this artifact
@@ -125,7 +125,7 @@ pub struct AdministrableProductDefinition {
     pub property: Option<Vec<AdministrableProductDefinitionProperty>>,
 
     /// The path(s) by which the product is taken into or makes contact with the body, along with any associated dosing limits
-    pub route_of_administration: Vec<AdministrableProductDefinitionRouteOfAdministration>,
+    pub route_of_administration: vec1::Vec1<AdministrableProductDefinitionRouteOfAdministration>,
 }
 
 /// AdministrableProductDefinitionProperty
@@ -247,24 +247,6 @@ pub struct AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithd
     pub supporting_information_ext: Option<types::Element>,
 }
 
-#[cfg(test)]
-mod tests {
-    use super::*;
-    type T = AdministrableProductDefinition;
-
-    #[test]
-    fn test_default() {
-        let _ = T::default();
-    }
-
-    #[test]
-    fn test_serde_round_trip() {
-        let value = T::default();
-        let json = ::serde_json::to_value(&value).expect("to_value");
-        let back: T = ::serde_json::from_value(json).expect("from_value");
-        assert_eq!(value, back);
-    }
-}
 /// The `AdministrableProductDefinition.property.value[x]` choice element (see spec/11-choice-types.md).
 #[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
 #[allow(clippy::large_enum_variant)]

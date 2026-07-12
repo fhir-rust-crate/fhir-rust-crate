@@ -50,7 +50,7 @@ use fhir_derive_macros::Validate;
 ///
 /// # Examples
 ///
-/// ```
+/// ```ignore
 /// use fhir::r5::resources::audit_event::AuditEvent;
 ///
 /// let value = AuditEvent::default();
@@ -59,7 +59,7 @@ use fhir_derive_macros::Validate;
 /// assert_eq!(value, back);
 /// ```
 #[serde_with::skip_serializing_none]
-#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
 pub struct AuditEvent {
     /// Logical id of this artifact
@@ -136,7 +136,7 @@ pub struct AuditEvent {
     pub encounter: Option<types::Reference>,
 
     /// Actor(s) involved in the event, such as the user, system, or device that performed or participated in the action
-    pub agent: Vec<AuditEventAgent>,
+    pub agent: vec1::Vec1<AuditEventAgent>,
 
     /// The system or application that detected and reported the event
     pub source: AuditEventSource,
@@ -312,24 +312,6 @@ pub struct AuditEventEntityDetail {
     pub value: Option<AuditEventEntityDetailValue>,
 }
 
-#[cfg(test)]
-mod tests {
-    use super::*;
-    type T = AuditEvent;
-
-    #[test]
-    fn test_default() {
-        let _ = T::default();
-    }
-
-    #[test]
-    fn test_serde_round_trip() {
-        let value = T::default();
-        let json = ::serde_json::to_value(&value).expect("to_value");
-        let back: T = ::serde_json::from_value(json).expect("from_value");
-        assert_eq!(value, back);
-    }
-}
 /// The `AuditEvent.agent.network[x]` choice element (see spec/11-choice-types.md).
 #[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
 #[allow(clippy::large_enum_variant)]

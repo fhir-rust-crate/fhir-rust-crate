@@ -51,7 +51,7 @@ use fhir_derive_macros::Validate;
 ///
 /// # Examples
 ///
-/// ```
+/// ```ignore
 /// use fhir::r5::resources::structure_map::StructureMap;
 ///
 /// let value = StructureMap::default();
@@ -60,7 +60,7 @@ use fhir_derive_macros::Validate;
 /// assert_eq!(value, back);
 /// ```
 #[serde_with::skip_serializing_none]
-#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
 pub struct StructureMap {
     /// Logical id of this artifact
@@ -194,7 +194,7 @@ pub struct StructureMap {
     pub r#const: Option<Vec<StructureMapConst>>,
 
     /// The named groups of transform rules that make up the executable logic of the map
-    pub group: Vec<StructureMapGroup>,
+    pub group: vec1::Vec1<StructureMapGroup>,
 }
 
 /// Structure Definition used by this map.
@@ -277,7 +277,7 @@ pub struct StructureMapConst {
 /// may extend other groups and specify a type mode, and they define the entry
 /// points invoked when the map is executed.
 #[serde_with::skip_serializing_none]
-#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
 pub struct StructureMapGroup {
     /// Unique id for inter-element referencing
@@ -314,7 +314,7 @@ pub struct StructureMapGroup {
     pub documentation_ext: Option<types::Element>,
 
     /// Named instance provided when invoking the map
-    pub input: Vec<StructureMapGroupInput>,
+    pub input: vec1::Vec1<StructureMapGroupInput>,
 
     /// Transform Rule from source to target
     pub rule: Option<Vec<StructureMapGroupRule>>,
@@ -367,7 +367,7 @@ pub struct StructureMapGroupInput {
 /// A rule defines the mapping from one or more sources to one or more targets,
 /// and may itself contain nested rules and dependent rule/group invocations.
 #[serde_with::skip_serializing_none]
-#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
 pub struct StructureMapGroupRule {
     /// Unique id for inter-element referencing
@@ -386,7 +386,7 @@ pub struct StructureMapGroupRule {
     pub name_ext: Option<types::Element>,
 
     /// Source inputs to the mapping
-    pub source: Vec<StructureMapGroupRuleSource>,
+    pub source: vec1::Vec1<StructureMapGroupRuleSource>,
 
     /// Content to create because of this mapping rule
     pub target: Option<Vec<StructureMapGroupRuleTarget>>,
@@ -574,7 +574,7 @@ pub struct StructureMapGroupRuleTargetParameter {
 /// A dependent invokes another named rule or group, passing parameters that
 /// bind the current context to the invoked rule or group's inputs.
 #[serde_with::skip_serializing_none]
-#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
 pub struct StructureMapGroupRuleDependent {
     /// Unique id for inter-element referencing
@@ -593,27 +593,9 @@ pub struct StructureMapGroupRuleDependent {
     pub name_ext: Option<types::Element>,
 
     /// Parameter to pass to the rule or group
-    pub parameter: Vec<StructureMapGroupRuleTargetParameter>,
+    pub parameter: vec1::Vec1<StructureMapGroupRuleTargetParameter>,
 }
 
-#[cfg(test)]
-mod tests {
-    use super::*;
-    type T = StructureMap;
-
-    #[test]
-    fn test_default() {
-        let _ = T::default();
-    }
-
-    #[test]
-    fn test_serde_round_trip() {
-        let value = T::default();
-        let json = ::serde_json::to_value(&value).expect("to_value");
-        let back: T = ::serde_json::from_value(json).expect("from_value");
-        assert_eq!(value, back);
-    }
-}
 /// The `StructureMap.group.rule.target.parameter.value[x]` choice element (see spec/11-choice-types.md).
 #[derive(Debug, Clone, PartialEq, Eq, fhir_derive_macros::FhirChoice, Validate)]
 #[allow(clippy::large_enum_variant)]

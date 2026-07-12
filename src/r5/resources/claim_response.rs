@@ -497,7 +497,7 @@ pub struct ClaimResponseAddItem {
 
 /// Anatomical location for an insurer added line item.
 #[serde_with::skip_serializing_none]
-#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
 pub struct ClaimResponseAddItemBodySite {
     /// Unique id for inter-element referencing
@@ -510,7 +510,7 @@ pub struct ClaimResponseAddItemBodySite {
     pub modifier_extension: Option<Vec<types::Extension>>,
 
     /// Location
-    pub site: Vec<types::CodeableReference>,
+    pub site: vec1::Vec1<types::CodeableReference>,
 
     /// Sub-location
     pub sub_site: Option<Vec<types::CodeableConcept>>,

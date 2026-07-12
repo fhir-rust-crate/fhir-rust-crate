@@ -176,7 +176,7 @@ pub struct AllergyIntoleranceParticipant {
 
 /// Adverse Reaction Events linked to exposure to substance.
 #[serde_with::skip_serializing_none]
-#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
 pub struct AllergyIntoleranceReaction {
     /// Unique id for inter-element referencing
@@ -193,7 +193,7 @@ pub struct AllergyIntoleranceReaction {
     pub substance: Option<types::CodeableConcept>,
 
     /// Clinical symptoms/signs associated with the Event
-    pub manifestation: Vec<types::CodeableReference>,
+    pub manifestation: vec1::Vec1<types::CodeableReference>,
 
     /// Description of the event as a whole
     pub description: Option<types::String>,

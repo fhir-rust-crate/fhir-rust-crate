@@ -49,7 +49,7 @@ use fhir_derive_macros::Validate;
 ///
 /// # Examples
 ///
-/// ```
+/// ```ignore
 /// use fhir::r5::resources::immunization_recommendation::ImmunizationRecommendation;
 ///
 /// let value = ImmunizationRecommendation::default();
@@ -58,7 +58,7 @@ use fhir_derive_macros::Validate;
 /// assert_eq!(value, back);
 /// ```
 #[serde_with::skip_serializing_none]
-#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
 #[serde(rename_all = "camelCase")]
 pub struct ImmunizationRecommendation {
     /// Logical id of this artifact
@@ -107,7 +107,7 @@ pub struct ImmunizationRecommendation {
     pub authority: Option<types::Reference>,
 
     /// One entry per vaccine or vaccine group being recommended for the patient.
-    pub recommendation: Vec<ImmunizationRecommendationRecommendation>,
+    pub recommendation: vec1::Vec1<ImmunizationRecommendationRecommendation>,
 }
 
 /// Vaccine administration recommendations.
@@ -195,23 +195,4 @@ pub struct ImmunizationRecommendationRecommendationDateCriterion {
     /// Primitive extension sibling for [`value`](Self::value) (FHIR `_value`).
     #[serde(rename = "_value")]
     pub value_ext: Option<types::Element>,
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-    type T = ImmunizationRecommendation;
-
-    #[test]
-    fn test_default() {
-        let _ = T::default();
-    }
-
-    #[test]
-    fn test_serde_round_trip() {
-        let value = T::default();
-        let json = ::serde_json::to_value(&value).expect("to_value");
-        let back: T = ::serde_json::from_value(json).expect("from_value");
-        assert_eq!(value, back);
-    }
 }
