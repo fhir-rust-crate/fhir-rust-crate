@@ -23,7 +23,8 @@ all use terms the same way.
   `Patient.contact`). Modeled here as a named nested struct.
 - **Cardinality** — `min..max` occurrence count, e.g. `0..1`, `1..1`, `0..*`.
 - **Choice element `[x]`** — an element that may be one of several types, e.g.
-  `Observation.value[x]` → `valueQuantity` | `valueString` | ….
+  `Observation.value[x]`. Modeled as a single generated `FhirChoice` enum (one
+  variant per type), serializing to `valueQuantity` | `valueString` | ….
 - **CodeSystem** — a set of coded concepts (codes) with meanings.
 - **ValueSet** — a selected set of codes drawn from one or more CodeSystems.
 - **ConceptMap** — a mapping between codes in different systems.
@@ -47,6 +48,22 @@ all use terms the same way.
   clean; the release bar for every change.
 - **Newtype primitive** — a primitive represented as `struct X(pub Inner)` that
   serializes transparently as its inner scalar.
+- **`Coded<E>`** — the wrapper for a `required`-binding coded field: a
+  `Known(E)` code-enum value or an `Unknown(String)` wire-compatible fallback.
+- **Non-empty vector (`Vec1`)** — [`vec1::Vec1<T>`](https://docs.rs/vec1), the
+  Rust type for a `1..*` element; guarantees ≥1 element at compile time. (A
+  `0..*` element is a bare `Vec<T>`.)
+- **Primitive extension (`_field`)** — the `<field>_ext` sibling of type
+  `Element` that carries `id`/`extension` on a primitive value, serialized to
+  the FHIR `_field` key.
+- **Builder** — the `#[derive(Builder)]`-generated `Type::builder()…build()`,
+  which enforces required (`1..1`) fields at `build()`.
+- **Prelude** — `fhir::prelude`, a re-export of the most-used items
+  (`use fhir::prelude::*;`).
+- **Typed reference** — `Reference<T = Any>`, a phantom-typed newtype over the
+  FHIR reference wire form; `Reference<Any>` is the untyped default.
+- **Meta table** — `r5::meta`, the compile-time path-keyed table of per-element
+  cardinality, bindings, choice types, reference targets, and summary membership.
 - **Round-trip-of-default** — the preferred test/doctest pattern: serialize a
   `Default` value and deserialize it back to an equal value.
 - **Nested backbone struct** — a Rust struct named `<Parent><Field>` (e.g.

@@ -9,7 +9,10 @@ the normative version of the conventions in
 ### Struct shape
 
 - **R6.1** Every datatype/resource struct MUST derive, in order:
-  `Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate`.
+  `Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate`. A
+  struct with a `1..*` (`Vec1`) field is the sole exception: it omits `Default`
+  (a non-empty vector has no empty value). Types that expose a builder also
+  derive `Builder`.
 - **R6.2** Structs MUST carry `#[serde_with::skip_serializing_none]` so `None`
   optional fields are omitted from output.
 - **R6.3** Structs MUST carry `#[serde(rename_all = "camelCase")]`. Per-field
@@ -45,15 +48,14 @@ the normative version of the conventions in
 
 ### Choice elements `[x]`
 
-- **R6.10** A choice element expands to one field per allowed type, named
-  `<base>_<snake(typecode)>` and typed `Option<types::Pascal(typecode)>`, e.g.
-  `value[x]` with `[Quantity, string]` →
-  `value_quantity: Option<types::Quantity>`, `value_string:
-  Option<types::String>`. camelCase renaming yields `valueQuantity`,
-  `valueString`.
-- **R6.11** *(Future)* A choice element MAY instead be a single Rust `enum`
-  using serde's untagged/adjacent representation to make "exactly one variant"
-  unrepresentable. If adopted, it MUST still produce the same FHIR JSON keys.
+- **R6.10** A choice element MUST be a single generated Rust `enum`, one variant
+  per allowed type, derived with `#[derive(FhirChoice)]` and held on the parent
+  via `#[serde(flatten)]` (as `Option<<Struct><Base>>`). Exactly one variant can
+  be set, so "at most one" is a compile-time property. Serialization MUST still
+  produce the FHIR keys `value<Type>` (`valueQuantity`, `valueString`, …).
+  Primitive variants carry the paired `_value<Type>` extension via
+  `fhir::r5::choice::Primitive<T>`; complex variants hold `Box<T>`. The full
+  contract is [spec 11](11-choice-types.md).
 
 ### Polymorphic slots
 

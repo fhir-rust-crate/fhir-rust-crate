@@ -39,9 +39,28 @@ module has:
 2. Resolve the FHIR type code → Rust type:
    - FHIRPath system primitive `http://hl7.org/fhirpath/System.X` → `types::X`.
    - Otherwise `types::Pascal(code)`.
-3. Apply cardinality (`Option`/`Vec`/`T`).
-4. Expand `[x]` choice elements into one field per type.
+3. Apply cardinality: `Option<T>` / `T` / `Vec<T>` / `vec1::Vec1<T>`.
+4. Expand `[x]` choice elements (later folded into one `FhirChoice` enum).
 5. snake_case the name and escape Rust keywords (`r#type`, …).
+
+## The metadata table and splicing generators
+
+The initial field mapping is a *starting point*. The shipped model is refined by
+a family of **metadata-driven splicing generators** that edit the existing
+hand-documented files in place (never blind regeneration), each driven by an
+`#[ignore]` test under `src/r5/parse/`:
+
+- `meta.rs` — emits `r5::meta`, the path-keyed table of cardinality, bindings,
+  choice types, reference targets, and summary membership. It underpins the rest.
+- `siblings.rs` — adds the `_field` primitive-extension siblings (spec 09).
+- `choice_gen.rs` — folds `value[x]` fields into `FhirChoice` enums (spec 11).
+- `coded_gen.rs` — retypes `required`-binding fields to `Coded<Enum>` (spec 05).
+- `vec1_gen.rs` — retypes `1..*` fields to `vec1::Vec1<T>` (drops `Default`).
+- `option_vec_gen.rs` — retypes `0..*` fields from `Option<Vec<T>>` to `Vec<T>`.
+
+Because these generators must compile the library to run (they are lib tests), a
+mass edit that breaks `#[cfg(test)]` code must be applied together with its test
+fix-ups, or reverted to a compiling state first.
 
 **Known generator limitation:** it *flattens* nested backbone elements
 (producing duplicate `id`/`extension` fields). For types/resources with

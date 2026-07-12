@@ -27,6 +27,10 @@ Rules embodied above:
 
 - **Derives, in this order:** `Debug, Default, Clone, Serialize, Deserialize,
   PartialEq, Eq, Validate`. Never use bare `f64`/`f32` — they break `Eq`.
+  A struct with a `1..*` (`Vec1`) field **cannot** derive `Default` (there is no
+  empty non-empty vector); those structs drop `Default` and their `# Examples`
+  doctest is marked `ignore`. Add `#[derive(Builder)]` on types that should get
+  a `Type::builder()`.
 - `#[serde_with::skip_serializing_none]` so `None` fields are omitted.
 - `#[serde(rename_all = "camelCase")]` maps snake_case Rust fields to camelCase
   FHIR JSON keys. Do **not** add per-field `#[serde(rename)]` unless the JSON
@@ -41,30 +45,43 @@ Map the FHIR `ElementDefinition` `(min, max)` to Rust wrappers:
 | --- | --- |
 | `0..1` | `Option<T>` |
 | `1..1` | `T` |
-| `0..*` | `Option<Vec<T>>` |
-| `1..*` | `Vec<T>` |
+| `0..*` | `Vec<T>` |
+| `1..*` | `vec1::Vec1<T>` |
 
 `T` is a `types::Pascal(code)` (e.g. `types::CodeableConcept`), a nested
 backbone struct, or `::serde_json::Value` for polymorphic `Resource` slots.
 
-**Bare `Vec<T>` fields that use `#[serde(skip_serializing_if = "Vec::is_empty")]`
-must also carry `#[serde(default)]`** — otherwise they serialize to `{}` but
-fail to deserialize from it (a real round-trip bug we have already hit).
+- **`0..*` → bare `Vec<T>`** (empty when absent), carrying
+  `#[serde(default, skip_serializing_if = "Vec::is_empty")]`. The `default` is
+  mandatory: without it an omitted array serializes to nothing but fails to
+  deserialize (a real round-trip bug we have already hit). Construct with
+  `vec![…]`, not `Some(vec![…])`; read as a slice, no `Option` unwrap.
+- **`1..*` → [`vec1::Vec1<T>`](https://docs.rs/vec1)** (non-empty), so "at least
+  one" is a compile-time property. These structs lose `Default` (see above).
+
+## Coded values (required bindings)
+
+A coded field whose binding strength is `required` is typed as its
+[`r5::codes`] enum wrapped in `fhir::r5::coded::Coded<E>` — a
+`Known(E) | Unknown(String)` untagged fallback that keeps wire compatibility
+with codes outside the value set. Use `Coded<E>`, not the opaque `types::Code`,
+for required bindings. See [`../spec/05-code-systems.md`](../spec/05-code-systems.md).
 
 ## Choice elements `[x]`
 
-A FHIR choice element such as `value[x]` currently expands to **one flattened
-field per allowed type**:
+A FHIR choice element such as `value[x]` is a single generated **enum**, one
+variant per allowed type, held via `#[serde(flatten)]` with
+`#[derive(FhirChoice)]`:
 
 ```rust
-pub value_quantity: Option<types::Quantity>,
-pub value_string: Option<types::String>,
+pub value: Option<ObservationValue>, // enum: Quantity(..) | String(..) | Boolean(..) | …
 ```
 
-The snake_case name is `<base>_<snake(typecode)>`; camelCase serde renaming
-yields `valueQuantity`, `valueString`, etc. (Converting these to a single Rust
-enum is a known future improvement — see
-[`../spec/06-serialization.md`](../spec/06-serialization.md).)
+The enum is named `<Struct><Base>` (e.g. `ObservationValue`) and lives in the
+type's module. Primitive variants use `fhir::r5::choice::Primitive<T>` (to carry
+the paired `_value<Type>` extension); complex variants hold `Box<T>`. Serde
+still emits the FHIR keys `valueQuantity`, `valueString`, … See
+[`../spec/11-choice-types.md`](../spec/11-choice-types.md).
 
 ## Field names
 
@@ -98,5 +115,6 @@ A tuple newtype serializes transparently as its inner value. Details in
 - Module header: `//!` block with the FHIR name, URL, Version, a one-line
   description, and the FHIR/UML links.
 - Struct: a `///` doc with a `# Examples` doctest that round-trips the default
-  value through `serde_json` (see [`testing.md`](testing.md)).
+  value through `serde_json` (see [`testing.md`](testing.md)). Structs without
+  `Default` (those with a `1..*`/`Vec1` field) mark that doctest `ignore`.
 - Every public field: a one-line `///` from its FHIR `short` text.

@@ -29,7 +29,7 @@ Complex datatypes are structured values reused inside resources (e.g.
 - **R3.6** Each datatype lives in `src/r5/types/<snake>.rs`, declared in
   `src/r5/types.rs` (`pub mod` + `pub use <Pascal>`).
 - **R3.7** Recursive references (e.g. `Extension.extension:
-  Option<Vec<types::Extension>>`) are permitted via `Vec` (heap-allocated) with
+  Vec<types::Extension>`) are permitted via `Vec` (heap-allocated) with
   no `Box`; direct non-`Vec` self-reference MUST be `Box`ed.
 - **R3.8** Bare `Vec` fields using `skip_serializing_if = "Vec::is_empty"`
   MUST also declare `#[serde(default)]` (round-trip requirement, spec 06).
@@ -49,7 +49,9 @@ bases (Base, Element, BackboneElement, DataType, PrimitiveType).
 
 - Module header with FHIR name, URL, Version, one-line description, FHIR/UML
   links (spec 06).
-- A struct-level `# Examples` doctest that round-trips the default value.
+- A struct-level `# Examples` doctest that round-trips the default value
+  (marked `ignore` for the few datatypes with a `1..*`/`Vec1` field, which have
+  no `Default`).
 - One-line `///` per public field from the FHIR `short`.
 
 ## Acceptance criteria

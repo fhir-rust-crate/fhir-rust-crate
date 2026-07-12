@@ -53,6 +53,11 @@ These hold across every spec and are non-negotiable:
 
 ## Status
 
-The crate currently satisfies specs 01–08 for the shipped model: 21 primitives,
-50 datatypes, 158 resources, 419 code enums, recursive validation. Open
-improvements are recorded as **Future work** sections within the relevant spec.
+The crate satisfies specs 01–11 for the shipped model (currently released as
+**0.4.0**): 21 primitives, 50 datatypes, 158 resources, 419 code enums,
+recursive validation, `_field` primitive extensions (09), invariant coverage
+(10), and `value[x]` choice enums (11). Cardinality maps exactly —
+`0..1`→`Option<T>`, `1..1`→`T`, `0..*`→`Vec<T>`, `1..*`→`vec1::Vec1<T>` — and
+required-binding codes are `Coded<E>`. The remaining planned work is a second
+model version (FHIR R4B) under a `r4b` feature. Open improvements are recorded
+as **Future work** sections within the relevant spec.

@@ -17,11 +17,13 @@ where this describes *code layout*, the specs describe *required behaviour*.
 
 ```text
 fhir (root package)          library + binary
-└── fhir-derive-macros              proc-macro crate: #[derive(Validate)]
+└── fhir-derive-macros              proc-macro crate: #[derive(Validate, FhirChoice, Builder)]
 ```
 
 The root package depends on `fhir-derive-macros` by path. `fhir-derive-macros` uses `syn`,
-`quote`, and `proc-macro2`; it is the only place procedural macros live.
+`quote`, and `proc-macro2`; it is the only place procedural macros live. It
+provides three derives: `Validate` (recursive + cardinality + invariant checks),
+`FhirChoice` (`value[x]` enums), and `Builder` (required-field enforcement).
 
 ## Library vs binary
 
@@ -41,7 +43,13 @@ r5::
   types::        primitives (21) + complex datatypes (50)
   resources::    resources (158) + `Resource` enum (tagged by resourceType)
   codes::        code-system enums (419)
+  coded::        `Coded<E>` wrapper for required-binding codes
+  choice::       `Primitive<T>` + the `value[x]` choice-enum support
   validate::     `Validate` trait, `ValidationIssue`, primitive checks
+  meta::         per-element metadata table (cardinality, bindings, targets, …)
+  temporal::     precision-aware date/time parsing
+  summary::      `_summary=true` view
+  xml::          FHIR XML bridge (feature `xml`)
   parse::        the generator (one submodule per spec bundle)
   abstract_types:: base/abstract FHIR interfaces (e.g. CanonicalResource)
   properties, resource, todo:: legacy/WIP scaffolding
@@ -60,8 +68,9 @@ resources ──▶ serde_json::Value   (for `contained` / polymorphic slots)
 - **Complex datatypes** depend on primitives and each other.
 - **Resources** depend on datatypes, on nested backbone structs defined in the
   same file, and on `serde_json::Value` for polymorphic `contained` fields.
-- **`codes`** is standalone (not yet wired into struct fields — see
-  [`../spec/05-code-systems.md`](../spec/05-code-systems.md)).
+- **`codes`** is wired into the model: required-binding fields are typed as
+  their `codes` enum via `r5::coded::Coded<E>` (`Known | Unknown` fallback). See
+  [`../spec/05-code-systems.md`](../spec/05-code-systems.md).
 - **`validate`** is cross-cutting: `#[derive(Validate)]` on every struct/enum
   produces a recursive implementation.
 

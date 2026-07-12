@@ -14,8 +14,10 @@ cargo test                 # unit tests AND doctests
 cargo clippy --all-targets # must print zero warnings
 ```
 
-Current baseline: 646 unit tests + 199 doctests pass, 0 clippy warnings. A
-change that reduces this is a regression.
+Current baseline: 635 unit tests + 228 doctests pass, 0 clippy warnings. A
+change that reduces this is a regression. CI also enforces `cargo test --doc`,
+`doc -D warnings`, the MSRV (1.88), the `client`/`xml`/`precise-decimal`
+feature builds, and the mdBook build.
 
 ## Unit test pattern
 
@@ -49,6 +51,10 @@ Prefer the **round-trip-of-default** pattern above over asserting an exact
 `json!({...})` shape. Hardcoded shapes break whenever a field's representation
 changes (for example, when a required primitive field is present). Round-tripping
 the default value is stable regardless of which fields are required.
+
+**Structs with a `1..*` (`Vec1`) field have no `Default`.** For those, construct
+an explicit value (with the required non-empty field populated) instead of
+`T::default()`, and mark the struct's `# Examples` doctest `ignore`.
 
 ## Doctests
 

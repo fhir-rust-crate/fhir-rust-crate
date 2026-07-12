@@ -1,0 +1,32 @@
+# CLAUDE.md
+
+This file exists so Claude Code (and other coding agents) pick up the project's
+guidance automatically. To keep a **single source of truth**, it does not repeat
+that guidance — it points at it.
+
+## Read these, in order
+
+1. [`AGENTS.md`](AGENTS.md) — what the project is, the commands, the green gate,
+   and the house rules. **Start here.**
+2. [`AGENTS/`](AGENTS/architecture.md) — operational detail:
+   [architecture](AGENTS/architecture.md),
+   [conventions](AGENTS/conventions.md),
+   [code generation](AGENTS/code-generation.md),
+   [testing](AGENTS/testing.md), and the [glossary](AGENTS/glossary.md).
+3. [`spec/index.md`](spec/index.md) — the **living specifications**, which are
+   the source of truth for behaviour. Code and spec must not drift; when they
+   disagree, reconcile them.
+
+## The one rule that matters most
+
+Keep the crate **green** before considering any task done:
+
+```sh
+cargo build --all-targets
+cargo test                                    # unit tests + doctests
+cargo clippy --all-targets -- -D warnings     # zero warnings (pedantic is on)
+RUSTDOCFLAGS="-D warnings" cargo doc --no-deps
+```
+
+Everything else — the conventions, the cardinality mapping, the generator, the
+release checklist — lives in the documents linked above.

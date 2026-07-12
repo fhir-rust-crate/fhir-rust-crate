@@ -45,10 +45,10 @@ use fhir::r5::types::{Date, Element, Extension, String as FhirString};
 let patient = Patient {
     birth_date: Some(Date("1970-03-25".into())),
     birth_date_ext: Some(Element {
-        extension: Some(vec![Extension {
+        extension: vec![Extension {
             url: FhirString("http://hl7.org/fhir/StructureDefinition/patient-birthTime".into()),
             ..Default::default()
-        }]),
+        }],
         ..Default::default()
     }),
     ..Default::default()
@@ -57,7 +57,7 @@ let v = serde_json::to_value(&patient).unwrap();
 assert!(v.get("_birthDate").is_some());
 ```
 
-Repeating primitives use `Option<Vec<Option<Element>>>`, aligned position-by-
+Repeating primitives use `Vec<Option<Element>>`, aligned position-by-
 position with the value array (JSON `null` where an entry has no extension). See
 [`spec/09-primitive-extensions.md`](https://github.com/joelparkerhenderson/fhir-rust-crate/blob/main/spec/09-primitive-extensions.md).
 

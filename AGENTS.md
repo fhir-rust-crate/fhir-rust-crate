@@ -14,13 +14,16 @@ exchanging electronic health records.
 
 The model is comprehensive: **21 primitive datatypes**, **50 complex
 datatypes**, **158 resources**, **419 code-system enums**, and a recursive
-validation layer.
+validation layer. On top of the model it adds `value[x]` **choice enums**,
+**`Coded<E>`** for required-binding codes, generated **builders**, a
+**prelude**, extension helpers, `Bundle` utilities, summary serialization, and
+optional **`client`** (async REST) and **`xml`** features.
 
 ## Repository shape
 
 ```text
 Cargo.toml            # workspace root; package `fhir`
-fhir-derive-macros/          # proc-macro crate: #[derive(Validate)]
+fhir-derive-macros/          # proc-macro crate: #[derive(Validate, FhirChoice, Builder)]
 src/
   main.rs             # thin binary: runs the code generator
   lib.rs              # library root: re-exports, DEFINITIONS_DIR, SourceCodeString
@@ -45,10 +48,13 @@ AGENTS/               # operational guidance for agents (this folder)
 | --- | --- |
 | Build | `cargo build` |
 | Test (unit + doctests) | `cargo test` |
-| Lint (pedantic; must be 0) | `cargo clippy --all-targets` |
-| Docs | `cargo doc --no-deps` |
+| Doctests only | `cargo test --doc` |
+| Lint (pedantic; must be 0) | `cargo clippy --all-targets -- -D warnings` |
+| Docs (deny warnings) | `RUSTDOCFLAGS="-D warnings" cargo doc --no-deps` |
+| Feature builds | `cargo test --features client` / `--features xml` / `cargo build --features precise-decimal` |
 | Run the generator | `cargo run` (writes `tmp/out/*.rs`) |
 | Build only the proc-macro | `cargo build -p fhir-derive-macros` |
+| Publish dry-run | `cargo publish --dry-run -p fhir-derive-macros` |
 
 The crate is imported as `fhir` (e.g. `use fhir::r5::resources::Patient;`).
 
@@ -60,8 +66,10 @@ Before you consider any task finished, **all three must pass**:
 2. `cargo test` — every unit test **and doctest** passes.
 3. `cargo clippy --all-targets` — **zero** warnings (`clippy::pedantic` is on).
 
-This crate is currently 100% green (646 unit tests + 199 doctests, 0 clippy
+This crate is currently 100% green (635 unit tests + 228 doctests, 0 clippy
 warnings). Do not regress it. If you touch the model, re-run the full gate.
+CI additionally enforces `doc -D warnings`, the MSRV (1.88), the feature
+builds, the mdBook build, and the proc-macro publish dry-run.
 
 ## How to work here
 
@@ -93,8 +101,9 @@ warnings). Do not regress it. If you touch the model, re-run the full gate.
 
 - Keep every file in `AGENTS/` and `spec/` under **40 KB**; split if it grows.
 - Do not add dependencies without cause; this crate is deliberately lean
-  (`serde`, `serde_json`, `serde_with`, `indoc`, `convert_case`, and the local
-  `fhir-derive-macros`).
+  (`serde`, `serde_json`, `serde_with`, `indoc`, `convert_case`, `vec1` for
+  non-empty `1..*` fields, and the local `fhir-derive-macros`). Feature-gated
+  extras stay optional: `reqwest`/`tokio` (`client`), `quick-xml` (`xml`).
 - Never commit to the default branch; branch first. End commit messages with
   the `Co-Authored-By` trailer if you are an agent.
 - `tmp/out/` is tracked generator output — regenerate it with `cargo run`, do

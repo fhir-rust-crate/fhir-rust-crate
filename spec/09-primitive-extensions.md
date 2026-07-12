@@ -59,9 +59,9 @@ pub birth_date: Option<types::Date>,
 #[serde(rename = "_birthDate")]
 pub birth_date_ext: Option<types::Element>,          // scalar
 
-pub subject_type: Option<Vec<types::Code>>,
+pub subject_type: Vec<types::Code>,
 #[serde(rename = "_subjectType")]
-pub subject_type_ext: Option<Vec<Option<types::Element>>>, // repeating (null-aligned)
+pub subject_type_ext: Vec<Option<types::Element>>, // repeating (null-aligned)
 ```
 
 - The Rust field is named `<field>_ext`.
@@ -72,9 +72,9 @@ pub subject_type_ext: Option<Vec<Option<types::Element>>>, // repeating (null-al
   cosmetic.
 - `skip_serializing_none` already drops the sibling when it is `None`, so
   extension-free data serializes unchanged.
-- Repeating primitives use `Option<Vec<Option<Element>>>`: the outer `Option`
-  distinguishes "no `_field` at all" from "present"; the inner `Option`
-  is the per-position `null`.
+- Repeating primitives use `Vec<Option<Element>>` (`0..*` cardinality): an empty
+  `Vec` — omitted via `skip_serializing_if = "Vec::is_empty"` — means "no
+  `_field` at all"; the inner `Option` is the per-position `null`.
 
 This works with the crate's existing `#[derive(Serialize, Deserialize)]` +
 `skip_serializing_none` + `rename_all` recipe, with **zero** custom serde.
@@ -129,7 +129,7 @@ field — is small and MAY later be smoothed with accessor helpers
   choice variants such as `deceasedBoolean`), the owning struct MUST have a
   sibling field `x_ext` with `#[serde(rename = "_<fhirName>")]`.
 - **R2.** Scalar primitives use `Option<Element>`; repeating primitives use
-  `Option<Vec<Option<Element>>>`.
+  `Vec<Option<Element>>` (empty when absent, per the `0..*` cardinality mapping).
 - **R3.** The sibling MUST NOT be emitted when absent (`skip_serializing_none`).
 - **R4.** `#[derive(Validate)]` MUST recurse into `_field` `Element`s so their
   nested extensions are validated (T7d).
