@@ -79,13 +79,16 @@ pub struct Questionnaire {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Canonical identifier for this questionnaire, an absolute globally unique URI used to reference the form.
     pub url: Option<types::Uri>,
@@ -94,7 +97,8 @@ pub struct Questionnaire {
     pub url_ext: Option<types::Element>,
 
     /// Business identifier for questionnaire
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Business version of the questionnaire
     pub version: Option<types::String>,
@@ -119,10 +123,12 @@ pub struct Questionnaire {
     pub title_ext: Option<types::Element>,
 
     /// Based on Questionnaire
-    pub derived_from: Option<Vec<types::Canonical>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub derived_from: Vec<types::Canonical>,
     /// Primitive extension sibling for [`derived_from`](Self::derived_from) (FHIR `_derivedFrom`).
     #[serde(rename = "_derivedFrom")]
-    pub derived_from_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub derived_from_ext: Vec<Option<types::Element>>,
 
     /// Publication lifecycle state of this questionnaire: draft, active, retired, or unknown.
     pub status: crate::r5::coded::Coded<crate::r5::codes::PublicationStatus>,
@@ -137,14 +143,16 @@ pub struct Questionnaire {
     pub experimental_ext: Option<types::Element>,
 
     /// Resource that can be subject of QuestionnaireResponse
-    pub subject_type: Option<Vec<types::Code>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub subject_type: Vec<types::Code>,
 
     /// Primitive extension siblings for [`subject_type`](Self::subject_type)
     /// (FHIR `_subjectType`). A *repeating* primitive: the array aligns
     /// element-by-element with `subjectType`, using JSON `null` where a given
     /// entry has no extension, hence `Vec<Option<Element>>`.
     #[serde(rename = "_subjectType")]
-    pub subject_type_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub subject_type_ext: Vec<Option<types::Element>>,
 
     /// Date last changed
     pub date: Option<types::DateTime>,
@@ -159,7 +167,8 @@ pub struct Questionnaire {
     pub publisher_ext: Option<types::Element>,
 
     /// Contact details for the publisher
-    pub contact: Option<Vec<types::ContactDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contact: Vec<types::ContactDetail>,
 
     /// Natural language description of the questionnaire
     pub description: Option<types::Markdown>,
@@ -168,10 +177,12 @@ pub struct Questionnaire {
     pub description_ext: Option<types::Element>,
 
     /// The context that the content is intended to support
-    pub use_context: Option<Vec<types::UsageContext>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub use_context: Vec<types::UsageContext>,
 
     /// Intended jurisdiction for questionnaire (if applicable)
-    pub jurisdiction: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub jurisdiction: Vec<types::CodeableConcept>,
 
     /// Why this questionnaire is defined
     pub purpose: Option<types::Markdown>,
@@ -207,10 +218,12 @@ pub struct Questionnaire {
     pub effective_period: Option<types::Period>,
 
     /// Concept that represents the overall questionnaire
-    pub code: Option<Vec<types::Coding>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub code: Vec<types::Coding>,
 
     /// Top-level questions and sections that make up the form, each of which may nest further items.
-    pub item: Option<Vec<QuestionnaireItem>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub item: Vec<QuestionnaireItem>,
 }
 
 /// Questions and sections within the Questionnaire.
@@ -225,10 +238,12 @@ pub struct QuestionnaireItem {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Unique identifier for this item within the questionnaire, used to link answers and enableWhen conditions.
     pub link_id: types::String,
@@ -243,7 +258,8 @@ pub struct QuestionnaireItem {
     pub definition_ext: Option<types::Element>,
 
     /// Corresponding concept for this item in a terminology
-    pub code: Option<Vec<types::Coding>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub code: Vec<types::Coding>,
 
     /// E.g. "1(a)", "2.5.3"
     pub prefix: Option<types::String>,
@@ -264,7 +280,8 @@ pub struct QuestionnaireItem {
     pub type_ext: Option<types::Element>,
 
     /// Only allow data when
-    pub enable_when: Option<Vec<QuestionnaireItemEnableWhen>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub enable_when: Vec<QuestionnaireItemEnableWhen>,
 
     /// all | any
     pub enable_behavior: Option<crate::r5::coded::Coded<crate::r5::codes::QuestionnaireEnableBehavior>>,
@@ -315,13 +332,16 @@ pub struct QuestionnaireItem {
     pub answer_value_set_ext: Option<types::Element>,
 
     /// Permitted answer
-    pub answer_option: Option<Vec<QuestionnaireItemAnswerOption>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub answer_option: Vec<QuestionnaireItemAnswerOption>,
 
     /// Initial value(s) when item is first rendered
-    pub initial: Option<Vec<QuestionnaireItemInitial>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub initial: Vec<QuestionnaireItemInitial>,
 
     /// Nested questionnaire items
-    pub item: Option<Vec<QuestionnaireItem>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub item: Vec<QuestionnaireItem>,
 }
 
 /// Only allow data when a specified condition is met.
@@ -336,10 +356,12 @@ pub struct QuestionnaireItemEnableWhen {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The linkId of question that determines whether item is enabled/disabled
     pub question: types::String,
@@ -370,10 +392,12 @@ pub struct QuestionnaireItemAnswerOption {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The `Questionnaire.item.answerOption.value[x]` choice element (0..1); see [`QuestionnaireItemAnswerOptionValue`].
     #[serde(flatten)]
@@ -398,10 +422,12 @@ pub struct QuestionnaireItemInitial {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The `Questionnaire.item.initial.value[x]` choice element (0..1); see [`QuestionnaireItemInitialValue`].
     #[serde(flatten)]

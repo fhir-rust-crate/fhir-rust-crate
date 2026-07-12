@@ -78,13 +78,16 @@ pub struct TestReport {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// External identifier
     pub identifier: Option<types::Identifier>,
@@ -132,13 +135,15 @@ pub struct TestReport {
     pub issued_ext: Option<types::Element>,
 
     /// A participant in the test execution, either the execution engine, a client, or a server
-    pub participant: Option<Vec<TestReportParticipant>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub participant: Vec<TestReportParticipant>,
 
     /// The results of the series of required setup operations before the tests were executed
     pub setup: Option<TestReportSetup>,
 
     /// A test executed from the test script
-    pub test: Option<Vec<TestReportTest>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub test: Vec<TestReportTest>,
 
     /// The results of running the series of required clean up steps
     pub teardown: Option<TestReportTeardown>,
@@ -153,10 +158,12 @@ pub struct TestReportParticipant {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// test-engine | client | server
     pub r#type: crate::r5::coded::Coded<crate::r5::codes::ReportParticipantType>,
@@ -186,10 +193,12 @@ pub struct TestReportSetup {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// A setup operation or assert that was executed
     pub action: vec1::Vec1<TestReportSetupAction>,
@@ -204,10 +213,12 @@ pub struct TestReportSetupAction {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The operation to perform
     pub operation: Option<TestReportSetupActionOperation>,
@@ -225,10 +236,12 @@ pub struct TestReportSetupActionOperation {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// pass | skip | fail | warning | error
     pub result: crate::r5::coded::Coded<crate::r5::codes::ReportActionResultCodes>,
@@ -258,10 +271,12 @@ pub struct TestReportSetupActionAssert {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// pass | skip | fail | warning | error
     pub result: crate::r5::coded::Coded<crate::r5::codes::ReportActionResultCodes>,
@@ -282,7 +297,8 @@ pub struct TestReportSetupActionAssert {
     pub detail_ext: Option<types::Element>,
 
     /// Links or references to the testing requirements
-    pub requirement: Option<Vec<TestReportSetupActionAssertRequirement>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub requirement: Vec<TestReportSetupActionAssertRequirement>,
 }
 
 /// Links or references to the testing requirements.
@@ -294,10 +310,12 @@ pub struct TestReportSetupActionAssertRequirement {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The `TestReport.setup.action.assert.requirement.link[x]` choice element (0..1); see [`TestReportSetupActionAssertRequirementLink`].
     #[serde(flatten)]
@@ -313,10 +331,12 @@ pub struct TestReportTest {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Tracking/logging name of this test
     pub name: Option<types::String>,
@@ -343,10 +363,12 @@ pub struct TestReportTestAction {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The operation performed
     pub operation: Option<TestReportSetupActionOperation>,
@@ -364,10 +386,12 @@ pub struct TestReportTeardown {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// One or more teardown operations performed
     pub action: vec1::Vec1<TestReportTeardownAction>,
@@ -382,10 +406,12 @@ pub struct TestReportTeardownAction {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The teardown operation performed
     pub operation: TestReportSetupActionOperation,

@@ -83,13 +83,16 @@ pub struct ActivityDefinition {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Canonical identifier for this activity definition, represented as a URI (globally unique)
     pub url: Option<types::Uri>,
@@ -98,7 +101,8 @@ pub struct ActivityDefinition {
     pub url_ext: Option<types::Element>,
 
     /// Additional identifier for the activity definition
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Business version of the activity definition
     pub version: Option<types::String>,
@@ -157,7 +161,8 @@ pub struct ActivityDefinition {
     pub publisher_ext: Option<types::Element>,
 
     /// Contact details for the publisher
-    pub contact: Option<Vec<types::ContactDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contact: Vec<types::ContactDetail>,
 
     /// Natural language description of the activity definition
     pub description: Option<types::Markdown>,
@@ -166,10 +171,12 @@ pub struct ActivityDefinition {
     pub description_ext: Option<types::Element>,
 
     /// The context that the content is intended to support
-    pub use_context: Option<Vec<types::UsageContext>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub use_context: Vec<types::UsageContext>,
 
     /// Intended jurisdiction for activity definition (if applicable)
-    pub jurisdiction: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub jurisdiction: Vec<types::CodeableConcept>,
 
     /// Why this activity definition is defined
     pub purpose: Option<types::Markdown>,
@@ -211,28 +218,36 @@ pub struct ActivityDefinition {
     pub effective_period: Option<types::Period>,
 
     /// E.g. Education, Treatment, Assessment, etc
-    pub topic: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub topic: Vec<types::CodeableConcept>,
 
     /// Who authored the content
-    pub author: Option<Vec<types::ContactDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub author: Vec<types::ContactDetail>,
 
     /// Who edited the content
-    pub editor: Option<Vec<types::ContactDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub editor: Vec<types::ContactDetail>,
 
     /// Who reviewed the content
-    pub reviewer: Option<Vec<types::ContactDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub reviewer: Vec<types::ContactDetail>,
 
     /// Who endorsed the content
-    pub endorser: Option<Vec<types::ContactDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub endorser: Vec<types::ContactDetail>,
 
     /// Additional documentation, citations, etc
-    pub related_artifact: Option<Vec<types::RelatedArtifact>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub related_artifact: Vec<types::RelatedArtifact>,
 
     /// Logic used by the activity definition
-    pub library: Option<Vec<types::Canonical>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub library: Vec<types::Canonical>,
     /// Primitive extension sibling for [`library`](Self::library) (FHIR `_library`).
     #[serde(rename = "_library")]
-    pub library_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub library_ext: Vec<Option<types::Element>>,
 
     /// The FHIR resource type that applying this definition will produce, e.g. MedicationRequest or Task
     pub kind: Option<types::Code>,
@@ -279,7 +294,8 @@ pub struct ActivityDefinition {
     pub location: Option<types::CodeableReference>,
 
     /// Who should participate in performing the defined activity, e.g. practitioner, patient, or device
-    pub participant: Option<Vec<ActivityDefinitionParticipant>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub participant: Vec<ActivityDefinitionParticipant>,
 
     /// The `ActivityDefinition.product[x]` choice element (0..1); see [`ActivityDefinitionProduct`].
     #[serde(flatten)]
@@ -289,28 +305,36 @@ pub struct ActivityDefinition {
     pub quantity: Option<types::Quantity>,
 
     /// Detailed dosage instructions
-    pub dosage: Option<Vec<types::Dosage>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub dosage: Vec<types::Dosage>,
 
     /// What part of body to perform on
-    pub body_site: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub body_site: Vec<types::CodeableConcept>,
 
     /// What specimens are required to perform this action
-    pub specimen_requirement: Option<Vec<types::Canonical>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub specimen_requirement: Vec<types::Canonical>,
     /// Primitive extension sibling for [`specimen_requirement`](Self::specimen_requirement) (FHIR `_specimenRequirement`).
     #[serde(rename = "_specimenRequirement")]
-    pub specimen_requirement_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub specimen_requirement_ext: Vec<Option<types::Element>>,
 
     /// What observations are required to perform this action
-    pub observation_requirement: Option<Vec<types::Canonical>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub observation_requirement: Vec<types::Canonical>,
     /// Primitive extension sibling for [`observation_requirement`](Self::observation_requirement) (FHIR `_observationRequirement`).
     #[serde(rename = "_observationRequirement")]
-    pub observation_requirement_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub observation_requirement_ext: Vec<Option<types::Element>>,
 
     /// What observations must be produced by this action
-    pub observation_result_requirement: Option<Vec<types::Canonical>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub observation_result_requirement: Vec<types::Canonical>,
     /// Primitive extension sibling for [`observation_result_requirement`](Self::observation_result_requirement) (FHIR `_observationResultRequirement`).
     #[serde(rename = "_observationResultRequirement")]
-    pub observation_result_requirement_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub observation_result_requirement_ext: Vec<Option<types::Element>>,
 
     /// Transform to apply the template
     pub transform: Option<types::Canonical>,
@@ -319,7 +343,8 @@ pub struct ActivityDefinition {
     pub transform_ext: Option<types::Element>,
 
     /// Dynamic aspects of the definition
-    pub dynamic_value: Option<Vec<ActivityDefinitionDynamicValue>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub dynamic_value: Vec<ActivityDefinitionDynamicValue>,
 }
 
 /// Who should participate in the action being defined.
@@ -331,10 +356,12 @@ pub struct ActivityDefinitionParticipant {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// careteam | device | group | healthcareservice | location | organization | patient | practitioner | practitionerrole | relatedperson
     pub r#type: Option<crate::r5::coded::Coded<crate::r5::codes::ActionParticipantType>>,
@@ -368,10 +395,12 @@ pub struct ActivityDefinitionDynamicValue {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The path to the element to be set dynamically
     pub path: types::String,

@@ -41,7 +41,8 @@ pub struct Expression {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Natural language description of the condition
     pub description: Option<types::String>,

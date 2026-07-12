@@ -81,15 +81,20 @@ pub struct ExplanationOfBenefit {
     /// Text summary of the resource, for human interpretation
     pub text: Option<types::Narrative>,
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
     /// Business Identifier for the resource
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
     /// Number for tracking
-    pub trace_number: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub trace_number: Vec<types::Identifier>,
     /// The status of the resource instance: active | cancelled | draft | entered-in-error
     pub status: crate::r5::coded::Coded<crate::r5::codes::ExplanationofbenefitStatus>,
     /// Primitive extension sibling for [`status`](Self::status) (FHIR `_status`).
@@ -126,19 +131,22 @@ pub struct ExplanationOfBenefit {
     /// Funds reserved status
     pub funds_reserve: Option<types::CodeableConcept>,
     /// Prior or corollary claims
-    pub related: Option<Vec<ExplanationOfBenefitRelated>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub related: Vec<ExplanationOfBenefitRelated>,
     /// Prescription authorizing services or products
     pub prescription: Option<types::Reference>,
     /// Original prescription if superceded by fulfiller
     pub original_prescription: Option<types::Reference>,
     /// Event information
-    pub event: Option<Vec<ExplanationOfBenefitEvent>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub event: Vec<ExplanationOfBenefitEvent>,
     /// Recipient of benefits payable
     pub payee: Option<ExplanationOfBenefitPayee>,
     /// Treatment Referral
     pub referral: Option<types::Reference>,
     /// Encounters associated with the listed treatments
-    pub encounter: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub encounter: Vec<types::Reference>,
     /// Servicing Facility
     pub facility: Option<types::Reference>,
     /// Reference to the Claim resource that this ExplanationOfBenefit is the outcome of
@@ -158,41 +166,53 @@ pub struct ExplanationOfBenefit {
     #[serde(rename = "_disposition")]
     pub disposition_ext: Option<types::Element>,
     /// Preauthorization reference
-    pub pre_auth_ref: Option<Vec<types::String>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub pre_auth_ref: Vec<types::String>,
     /// Primitive extension sibling for [`pre_auth_ref`](Self::pre_auth_ref) (FHIR `_preAuthRef`).
     #[serde(rename = "_preAuthRef")]
-    pub pre_auth_ref_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub pre_auth_ref_ext: Vec<Option<types::Element>>,
     /// Preauthorization in-effect period
-    pub pre_auth_ref_period: Option<Vec<types::Period>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub pre_auth_ref_period: Vec<types::Period>,
     /// Package billing code
     pub diagnosis_related_group: Option<types::CodeableConcept>,
     /// Care Team members
-    pub care_team: Option<Vec<ExplanationOfBenefitCareTeam>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub care_team: Vec<ExplanationOfBenefitCareTeam>,
     /// Supporting information
-    pub supporting_info: Option<Vec<ExplanationOfBenefitSupportingInfo>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub supporting_info: Vec<ExplanationOfBenefitSupportingInfo>,
     /// Pertinent diagnosis information
-    pub diagnosis: Option<Vec<ExplanationOfBenefitDiagnosis>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub diagnosis: Vec<ExplanationOfBenefitDiagnosis>,
     /// Clinical procedures performed
-    pub procedure: Option<Vec<ExplanationOfBenefitProcedure>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub procedure: Vec<ExplanationOfBenefitProcedure>,
     /// Precedence (primary, secondary, etc.)
     pub precedence: Option<types::PositiveInt>,
     /// Primitive extension sibling for [`precedence`](Self::precedence) (FHIR `_precedence`).
     #[serde(rename = "_precedence")]
     pub precedence_ext: Option<types::Element>,
     /// Patient insurance information
-    pub insurance: Option<Vec<ExplanationOfBenefitInsurance>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub insurance: Vec<ExplanationOfBenefitInsurance>,
     /// Details of the event
     pub accident: Option<ExplanationOfBenefitAccident>,
     /// Paid by the patient
     pub patient_paid: Option<types::Money>,
     /// Product or service provided
-    pub item: Option<Vec<ExplanationOfBenefitItem>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub item: Vec<ExplanationOfBenefitItem>,
     /// Insurer added line items
-    pub add_item: Option<Vec<ExplanationOfBenefitAddItem>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub add_item: Vec<ExplanationOfBenefitAddItem>,
     /// Header-level adjudication
-    pub adjudication: Option<Vec<ExplanationOfBenefitItemAdjudication>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub adjudication: Vec<ExplanationOfBenefitItemAdjudication>,
     /// Adjudication totals
-    pub total: Option<Vec<ExplanationOfBenefitTotal>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub total: Vec<ExplanationOfBenefitTotal>,
     /// Payment Details
     pub payment: Option<ExplanationOfBenefitPayment>,
     /// Printed form identifier
@@ -200,11 +220,13 @@ pub struct ExplanationOfBenefit {
     /// Printed reference or actual form
     pub form: Option<types::Attachment>,
     /// Note concerning adjudication
-    pub process_note: Option<Vec<ExplanationOfBenefitProcessNote>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub process_note: Vec<ExplanationOfBenefitProcessNote>,
     /// When the benefits are applicable
     pub benefit_period: Option<types::Period>,
     /// Balance by Benefit Category
-    pub benefit_balance: Option<Vec<ExplanationOfBenefitBenefitBalance>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub benefit_balance: Vec<ExplanationOfBenefitBenefitBalance>,
 }
 
 /// Prior or corollary claims related to this ExplanationOfBenefit.
@@ -215,9 +237,11 @@ pub struct ExplanationOfBenefitRelated {
     /// Unique id for inter-element referencing
     pub id: Option<types::String>,
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
     /// Reference to the related claim
     pub claim: Option<types::Reference>,
     /// How the reference claim is related
@@ -234,9 +258,11 @@ pub struct ExplanationOfBenefitEvent {
     /// Unique id for inter-element referencing
     pub id: Option<types::String>,
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
     /// Specific event
     pub r#type: types::CodeableConcept,
     /// The `ExplanationOfBenefit.event.when[x]` choice element (0..1); see [`ExplanationOfBenefitEventWhen`].
@@ -252,9 +278,11 @@ pub struct ExplanationOfBenefitPayee {
     /// Unique id for inter-element referencing
     pub id: Option<types::String>,
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
     /// Category of recipient
     pub r#type: Option<types::CodeableConcept>,
     /// Recipient reference
@@ -269,9 +297,11 @@ pub struct ExplanationOfBenefitCareTeam {
     /// Unique id for inter-element referencing
     pub id: Option<types::String>,
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
     /// Order of care team
     pub sequence: types::PositiveInt,
     /// Primitive extension sibling for [`sequence`](Self::sequence) (FHIR `_sequence`).
@@ -298,9 +328,11 @@ pub struct ExplanationOfBenefitSupportingInfo {
     /// Unique id for inter-element referencing
     pub id: Option<types::String>,
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
     /// Information instance identifier
     pub sequence: types::PositiveInt,
     /// Primitive extension sibling for [`sequence`](Self::sequence) (FHIR `_sequence`).
@@ -328,9 +360,11 @@ pub struct ExplanationOfBenefitDiagnosis {
     /// Unique id for inter-element referencing
     pub id: Option<types::String>,
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
     /// Diagnosis instance identifier
     pub sequence: types::PositiveInt,
     /// Primitive extension sibling for [`sequence`](Self::sequence) (FHIR `_sequence`).
@@ -340,7 +374,8 @@ pub struct ExplanationOfBenefitDiagnosis {
     #[serde(flatten)]
     pub diagnosis: Option<ExplanationOfBenefitDiagnosisDiagnosis>,
     /// Timing or nature of the diagnosis
-    pub r#type: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub r#type: Vec<types::CodeableConcept>,
     /// Present on admission
     pub on_admission: Option<types::CodeableConcept>,
 }
@@ -353,16 +388,19 @@ pub struct ExplanationOfBenefitProcedure {
     /// Unique id for inter-element referencing
     pub id: Option<types::String>,
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
     /// Procedure instance identifier
     pub sequence: types::PositiveInt,
     /// Primitive extension sibling for [`sequence`](Self::sequence) (FHIR `_sequence`).
     #[serde(rename = "_sequence")]
     pub sequence_ext: Option<types::Element>,
     /// Category of Procedure
-    pub r#type: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub r#type: Vec<types::CodeableConcept>,
     /// When the procedure was performed
     pub date: Option<types::DateTime>,
     /// Primitive extension sibling for [`date`](Self::date) (FHIR `_date`).
@@ -372,7 +410,8 @@ pub struct ExplanationOfBenefitProcedure {
     #[serde(flatten)]
     pub procedure: Option<ExplanationOfBenefitProcedureProcedure>,
     /// Unique device identifier
-    pub udi: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub udi: Vec<types::Reference>,
 }
 
 /// Patient insurance information for adjudication.
@@ -383,9 +422,11 @@ pub struct ExplanationOfBenefitInsurance {
     /// Unique id for inter-element referencing
     pub id: Option<types::String>,
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
     /// Coverage to be used for adjudication
     pub focal: types::Boolean,
     /// Primitive extension sibling for [`focal`](Self::focal) (FHIR `_focal`).
@@ -394,10 +435,12 @@ pub struct ExplanationOfBenefitInsurance {
     /// Insurance information
     pub coverage: types::Reference,
     /// Prior authorization reference number
-    pub pre_auth_ref: Option<Vec<types::String>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub pre_auth_ref: Vec<types::String>,
     /// Primitive extension sibling for [`pre_auth_ref`](Self::pre_auth_ref) (FHIR `_preAuthRef`).
     #[serde(rename = "_preAuthRef")]
-    pub pre_auth_ref_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub pre_auth_ref_ext: Vec<Option<types::Element>>,
 }
 
 /// Details of an accident event that triggered the claim.
@@ -408,9 +451,11 @@ pub struct ExplanationOfBenefitAccident {
     /// Unique id for inter-element referencing
     pub id: Option<types::String>,
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
     /// When the incident occurred
     pub date: Option<types::Date>,
     /// Primitive extension sibling for [`date`](Self::date) (FHIR `_date`).
@@ -431,36 +476,47 @@ pub struct ExplanationOfBenefitItem {
     /// Unique id for inter-element referencing
     pub id: Option<types::String>,
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
     /// Item instance identifier
     pub sequence: types::PositiveInt,
     /// Primitive extension sibling for [`sequence`](Self::sequence) (FHIR `_sequence`).
     #[serde(rename = "_sequence")]
     pub sequence_ext: Option<types::Element>,
     /// Applicable care team members
-    pub care_team_sequence: Option<Vec<types::PositiveInt>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub care_team_sequence: Vec<types::PositiveInt>,
     /// Primitive extension sibling for [`care_team_sequence`](Self::care_team_sequence) (FHIR `_careTeamSequence`).
     #[serde(rename = "_careTeamSequence")]
-    pub care_team_sequence_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub care_team_sequence_ext: Vec<Option<types::Element>>,
     /// Applicable diagnoses
-    pub diagnosis_sequence: Option<Vec<types::PositiveInt>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub diagnosis_sequence: Vec<types::PositiveInt>,
     /// Primitive extension sibling for [`diagnosis_sequence`](Self::diagnosis_sequence) (FHIR `_diagnosisSequence`).
     #[serde(rename = "_diagnosisSequence")]
-    pub diagnosis_sequence_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub diagnosis_sequence_ext: Vec<Option<types::Element>>,
     /// Applicable procedures
-    pub procedure_sequence: Option<Vec<types::PositiveInt>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub procedure_sequence: Vec<types::PositiveInt>,
     /// Primitive extension sibling for [`procedure_sequence`](Self::procedure_sequence) (FHIR `_procedureSequence`).
     #[serde(rename = "_procedureSequence")]
-    pub procedure_sequence_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub procedure_sequence_ext: Vec<Option<types::Element>>,
     /// Applicable exception and supporting information
-    pub information_sequence: Option<Vec<types::PositiveInt>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub information_sequence: Vec<types::PositiveInt>,
     /// Primitive extension sibling for [`information_sequence`](Self::information_sequence) (FHIR `_informationSequence`).
     #[serde(rename = "_informationSequence")]
-    pub information_sequence_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub information_sequence_ext: Vec<Option<types::Element>>,
     /// Number for tracking
-    pub trace_number: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub trace_number: Vec<types::Identifier>,
     /// Revenue or cost center code
     pub revenue: Option<types::CodeableConcept>,
     /// Benefit classification
@@ -470,11 +526,14 @@ pub struct ExplanationOfBenefitItem {
     /// End of a range of codes
     pub product_or_service_end: Option<types::CodeableConcept>,
     /// Request or Referral for Service
-    pub request: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub request: Vec<types::Reference>,
     /// Product or service billing modifiers
-    pub modifier: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier: Vec<types::CodeableConcept>,
     /// Program the product or service is provided under
-    pub program_code: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub program_code: Vec<types::CodeableConcept>,
     /// The `ExplanationOfBenefit.item.serviced[x]` choice element (0..1); see [`ExplanationOfBenefitItemServiced`].
     #[serde(flatten)]
     pub serviced: Option<ExplanationOfBenefitItemServiced>,
@@ -497,22 +556,29 @@ pub struct ExplanationOfBenefitItem {
     /// Total item cost
     pub net: Option<types::Money>,
     /// Unique device identifier
-    pub udi: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub udi: Vec<types::Reference>,
     /// Anatomical location
-    pub body_site: Option<Vec<ExplanationOfBenefitItemBodySite>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub body_site: Vec<ExplanationOfBenefitItemBodySite>,
     /// Encounters associated with the listed treatments
-    pub encounter: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub encounter: Vec<types::Reference>,
     /// Applicable note numbers
-    pub note_number: Option<Vec<types::PositiveInt>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub note_number: Vec<types::PositiveInt>,
     /// Primitive extension sibling for [`note_number`](Self::note_number) (FHIR `_noteNumber`).
     #[serde(rename = "_noteNumber")]
-    pub note_number_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub note_number_ext: Vec<Option<types::Element>>,
     /// Adjudication results
     pub review_outcome: Option<ExplanationOfBenefitItemReviewOutcome>,
     /// Adjudication details
-    pub adjudication: Option<Vec<ExplanationOfBenefitItemAdjudication>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub adjudication: Vec<ExplanationOfBenefitItemAdjudication>,
     /// Additional items
-    pub detail: Option<Vec<ExplanationOfBenefitItemDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub detail: Vec<ExplanationOfBenefitItemDetail>,
 }
 
 /// Anatomical location for an item.
@@ -523,13 +589,16 @@ pub struct ExplanationOfBenefitItemBodySite {
     /// Unique id for inter-element referencing
     pub id: Option<types::String>,
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
     /// Location
     pub site: vec1::Vec1<types::CodeableReference>,
     /// Sub-location
-    pub sub_site: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub sub_site: Vec<types::CodeableConcept>,
 }
 
 /// Adjudication review outcome for an item.
@@ -540,13 +609,16 @@ pub struct ExplanationOfBenefitItemReviewOutcome {
     /// Unique id for inter-element referencing
     pub id: Option<types::String>,
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
     /// Result of the adjudication
     pub decision: Option<types::CodeableConcept>,
     /// Reason for result of the adjudication
-    pub reason: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub reason: Vec<types::CodeableConcept>,
     /// Preauthorization reference
     pub pre_auth_ref: Option<types::String>,
     /// Primitive extension sibling for [`pre_auth_ref`](Self::pre_auth_ref) (FHIR `_preAuthRef`).
@@ -564,9 +636,11 @@ pub struct ExplanationOfBenefitItemAdjudication {
     /// Unique id for inter-element referencing
     pub id: Option<types::String>,
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
     /// Type of adjudication information
     pub category: types::CodeableConcept,
     /// Explanation of adjudication outcome
@@ -585,16 +659,19 @@ pub struct ExplanationOfBenefitItemDetail {
     /// Unique id for inter-element referencing
     pub id: Option<types::String>,
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
     /// Product or service provided
     pub sequence: types::PositiveInt,
     /// Primitive extension sibling for [`sequence`](Self::sequence) (FHIR `_sequence`).
     #[serde(rename = "_sequence")]
     pub sequence_ext: Option<types::Element>,
     /// Number for tracking
-    pub trace_number: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub trace_number: Vec<types::Identifier>,
     /// Revenue or cost center code
     pub revenue: Option<types::CodeableConcept>,
     /// Benefit classification
@@ -604,9 +681,11 @@ pub struct ExplanationOfBenefitItemDetail {
     /// End of a range of codes
     pub product_or_service_end: Option<types::CodeableConcept>,
     /// Service/Product billing modifiers
-    pub modifier: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier: Vec<types::CodeableConcept>,
     /// Program the product or service is provided under
-    pub program_code: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub program_code: Vec<types::CodeableConcept>,
     /// Paid by the patient
     pub patient_paid: Option<types::Money>,
     /// Count of products or services
@@ -623,18 +702,23 @@ pub struct ExplanationOfBenefitItemDetail {
     /// Total item cost
     pub net: Option<types::Money>,
     /// Unique device identifier
-    pub udi: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub udi: Vec<types::Reference>,
     /// Applicable note numbers
-    pub note_number: Option<Vec<types::PositiveInt>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub note_number: Vec<types::PositiveInt>,
     /// Primitive extension sibling for [`note_number`](Self::note_number) (FHIR `_noteNumber`).
     #[serde(rename = "_noteNumber")]
-    pub note_number_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub note_number_ext: Vec<Option<types::Element>>,
     /// Detail level adjudication results
     pub review_outcome: Option<ExplanationOfBenefitItemReviewOutcome>,
     /// Detail level adjudication details
-    pub adjudication: Option<Vec<ExplanationOfBenefitItemAdjudication>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub adjudication: Vec<ExplanationOfBenefitItemAdjudication>,
     /// Additional items
-    pub sub_detail: Option<Vec<ExplanationOfBenefitItemDetailSubDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub sub_detail: Vec<ExplanationOfBenefitItemDetailSubDetail>,
 }
 
 /// Additional sub-detail items under a detail.
@@ -645,16 +729,19 @@ pub struct ExplanationOfBenefitItemDetailSubDetail {
     /// Unique id for inter-element referencing
     pub id: Option<types::String>,
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
     /// Product or service provided
     pub sequence: types::PositiveInt,
     /// Primitive extension sibling for [`sequence`](Self::sequence) (FHIR `_sequence`).
     #[serde(rename = "_sequence")]
     pub sequence_ext: Option<types::Element>,
     /// Number for tracking
-    pub trace_number: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub trace_number: Vec<types::Identifier>,
     /// Revenue or cost center code
     pub revenue: Option<types::CodeableConcept>,
     /// Benefit classification
@@ -664,9 +751,11 @@ pub struct ExplanationOfBenefitItemDetailSubDetail {
     /// End of a range of codes
     pub product_or_service_end: Option<types::CodeableConcept>,
     /// Service/Product billing modifiers
-    pub modifier: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier: Vec<types::CodeableConcept>,
     /// Program the product or service is provided under
-    pub program_code: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub program_code: Vec<types::CodeableConcept>,
     /// Paid by the patient
     pub patient_paid: Option<types::Money>,
     /// Count of products or services
@@ -683,16 +772,20 @@ pub struct ExplanationOfBenefitItemDetailSubDetail {
     /// Total item cost
     pub net: Option<types::Money>,
     /// Unique device identifier
-    pub udi: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub udi: Vec<types::Reference>,
     /// Applicable note numbers
-    pub note_number: Option<Vec<types::PositiveInt>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub note_number: Vec<types::PositiveInt>,
     /// Primitive extension sibling for [`note_number`](Self::note_number) (FHIR `_noteNumber`).
     #[serde(rename = "_noteNumber")]
-    pub note_number_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub note_number_ext: Vec<Option<types::Element>>,
     /// Subdetail level adjudication results
     pub review_outcome: Option<ExplanationOfBenefitItemReviewOutcome>,
     /// Subdetail level adjudication details
-    pub adjudication: Option<Vec<ExplanationOfBenefitItemAdjudication>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub adjudication: Vec<ExplanationOfBenefitItemAdjudication>,
 }
 
 /// Insurer added line items.
@@ -703,28 +796,38 @@ pub struct ExplanationOfBenefitAddItem {
     /// Unique id for inter-element referencing
     pub id: Option<types::String>,
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
     /// Item sequence number
-    pub item_sequence: Option<Vec<types::PositiveInt>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub item_sequence: Vec<types::PositiveInt>,
     /// Primitive extension sibling for [`item_sequence`](Self::item_sequence) (FHIR `_itemSequence`).
     #[serde(rename = "_itemSequence")]
-    pub item_sequence_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub item_sequence_ext: Vec<Option<types::Element>>,
     /// Detail sequence number
-    pub detail_sequence: Option<Vec<types::PositiveInt>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub detail_sequence: Vec<types::PositiveInt>,
     /// Primitive extension sibling for [`detail_sequence`](Self::detail_sequence) (FHIR `_detailSequence`).
     #[serde(rename = "_detailSequence")]
-    pub detail_sequence_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub detail_sequence_ext: Vec<Option<types::Element>>,
     /// Subdetail sequence number
-    pub sub_detail_sequence: Option<Vec<types::PositiveInt>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub sub_detail_sequence: Vec<types::PositiveInt>,
     /// Primitive extension sibling for [`sub_detail_sequence`](Self::sub_detail_sequence) (FHIR `_subDetailSequence`).
     #[serde(rename = "_subDetailSequence")]
-    pub sub_detail_sequence_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub sub_detail_sequence_ext: Vec<Option<types::Element>>,
     /// Number for tracking
-    pub trace_number: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub trace_number: Vec<types::Identifier>,
     /// Authorized providers
-    pub provider: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub provider: Vec<types::Reference>,
     /// Revenue or cost center code
     pub revenue: Option<types::CodeableConcept>,
     /// Billing, service, product, or drug code
@@ -732,11 +835,14 @@ pub struct ExplanationOfBenefitAddItem {
     /// End of a range of codes
     pub product_or_service_end: Option<types::CodeableConcept>,
     /// Request or Referral for Service
-    pub request: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub request: Vec<types::Reference>,
     /// Service/Product billing modifiers
-    pub modifier: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier: Vec<types::CodeableConcept>,
     /// Program the product or service is provided under
-    pub program_code: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub program_code: Vec<types::CodeableConcept>,
     /// The `ExplanationOfBenefit.addItem.serviced[x]` choice element (0..1); see [`ExplanationOfBenefitAddItemServiced`].
     #[serde(flatten)]
     pub serviced: Option<ExplanationOfBenefitAddItemServiced>,
@@ -759,18 +865,23 @@ pub struct ExplanationOfBenefitAddItem {
     /// Total item cost
     pub net: Option<types::Money>,
     /// Anatomical location
-    pub body_site: Option<Vec<ExplanationOfBenefitAddItemBodySite>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub body_site: Vec<ExplanationOfBenefitAddItemBodySite>,
     /// Applicable note numbers
-    pub note_number: Option<Vec<types::PositiveInt>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub note_number: Vec<types::PositiveInt>,
     /// Primitive extension sibling for [`note_number`](Self::note_number) (FHIR `_noteNumber`).
     #[serde(rename = "_noteNumber")]
-    pub note_number_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub note_number_ext: Vec<Option<types::Element>>,
     /// Additem level adjudication results
     pub review_outcome: Option<ExplanationOfBenefitItemReviewOutcome>,
     /// Added items adjudication
-    pub adjudication: Option<Vec<ExplanationOfBenefitItemAdjudication>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub adjudication: Vec<ExplanationOfBenefitItemAdjudication>,
     /// Insurer added line items
-    pub detail: Option<Vec<ExplanationOfBenefitAddItemDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub detail: Vec<ExplanationOfBenefitAddItemDetail>,
 }
 
 /// Anatomical location for an insurer-added item.
@@ -781,13 +892,16 @@ pub struct ExplanationOfBenefitAddItemBodySite {
     /// Unique id for inter-element referencing
     pub id: Option<types::String>,
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
     /// Location
     pub site: vec1::Vec1<types::CodeableReference>,
     /// Sub-location
-    pub sub_site: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub sub_site: Vec<types::CodeableConcept>,
 }
 
 /// Insurer added detail items under an add item.
@@ -798,11 +912,14 @@ pub struct ExplanationOfBenefitAddItemDetail {
     /// Unique id for inter-element referencing
     pub id: Option<types::String>,
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
     /// Number for tracking
-    pub trace_number: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub trace_number: Vec<types::Identifier>,
     /// Revenue or cost center code
     pub revenue: Option<types::CodeableConcept>,
     /// Billing, service, product, or drug code
@@ -810,7 +927,8 @@ pub struct ExplanationOfBenefitAddItemDetail {
     /// End of a range of codes
     pub product_or_service_end: Option<types::CodeableConcept>,
     /// Service/Product billing modifiers
-    pub modifier: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier: Vec<types::CodeableConcept>,
     /// Paid by the patient
     pub patient_paid: Option<types::Money>,
     /// Count of products or services
@@ -827,16 +945,20 @@ pub struct ExplanationOfBenefitAddItemDetail {
     /// Total item cost
     pub net: Option<types::Money>,
     /// Applicable note numbers
-    pub note_number: Option<Vec<types::PositiveInt>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub note_number: Vec<types::PositiveInt>,
     /// Primitive extension sibling for [`note_number`](Self::note_number) (FHIR `_noteNumber`).
     #[serde(rename = "_noteNumber")]
-    pub note_number_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub note_number_ext: Vec<Option<types::Element>>,
     /// Additem detail level adjudication results
     pub review_outcome: Option<ExplanationOfBenefitItemReviewOutcome>,
     /// Added items adjudication
-    pub adjudication: Option<Vec<ExplanationOfBenefitItemAdjudication>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub adjudication: Vec<ExplanationOfBenefitItemAdjudication>,
     /// Insurer added line items
-    pub sub_detail: Option<Vec<ExplanationOfBenefitAddItemDetailSubDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub sub_detail: Vec<ExplanationOfBenefitAddItemDetailSubDetail>,
 }
 
 /// Insurer added sub-detail items under an add item detail.
@@ -847,11 +969,14 @@ pub struct ExplanationOfBenefitAddItemDetailSubDetail {
     /// Unique id for inter-element referencing
     pub id: Option<types::String>,
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
     /// Number for tracking
-    pub trace_number: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub trace_number: Vec<types::Identifier>,
     /// Revenue or cost center code
     pub revenue: Option<types::CodeableConcept>,
     /// Billing, service, product, or drug code
@@ -859,7 +984,8 @@ pub struct ExplanationOfBenefitAddItemDetailSubDetail {
     /// End of a range of codes
     pub product_or_service_end: Option<types::CodeableConcept>,
     /// Service/Product billing modifiers
-    pub modifier: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier: Vec<types::CodeableConcept>,
     /// Paid by the patient
     pub patient_paid: Option<types::Money>,
     /// Count of products or services
@@ -876,14 +1002,17 @@ pub struct ExplanationOfBenefitAddItemDetailSubDetail {
     /// Total item cost
     pub net: Option<types::Money>,
     /// Applicable note numbers
-    pub note_number: Option<Vec<types::PositiveInt>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub note_number: Vec<types::PositiveInt>,
     /// Primitive extension sibling for [`note_number`](Self::note_number) (FHIR `_noteNumber`).
     #[serde(rename = "_noteNumber")]
-    pub note_number_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub note_number_ext: Vec<Option<types::Element>>,
     /// Additem subdetail level adjudication results
     pub review_outcome: Option<ExplanationOfBenefitItemReviewOutcome>,
     /// Added items adjudication
-    pub adjudication: Option<Vec<ExplanationOfBenefitItemAdjudication>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub adjudication: Vec<ExplanationOfBenefitItemAdjudication>,
 }
 
 /// Adjudication totals per category.
@@ -894,9 +1023,11 @@ pub struct ExplanationOfBenefitTotal {
     /// Unique id for inter-element referencing
     pub id: Option<types::String>,
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
     /// Type of adjudication information
     pub category: types::CodeableConcept,
     /// Financial total for the category
@@ -911,9 +1042,11 @@ pub struct ExplanationOfBenefitPayment {
     /// Unique id for inter-element referencing
     pub id: Option<types::String>,
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
     /// Partial or complete payment
     pub r#type: Option<types::CodeableConcept>,
     /// Payment adjustment for non-claim issues
@@ -939,9 +1072,11 @@ pub struct ExplanationOfBenefitProcessNote {
     /// Unique id for inter-element referencing
     pub id: Option<types::String>,
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
     /// Note instance identifier
     pub number: Option<types::PositiveInt>,
     /// Primitive extension sibling for [`number`](Self::number) (FHIR `_number`).
@@ -966,9 +1101,11 @@ pub struct ExplanationOfBenefitBenefitBalance {
     /// Unique id for inter-element referencing
     pub id: Option<types::String>,
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
     /// Benefit classification
     pub category: types::CodeableConcept,
     /// Excluded from the plan
@@ -993,7 +1130,8 @@ pub struct ExplanationOfBenefitBenefitBalance {
     /// Annual or lifetime
     pub term: Option<types::CodeableConcept>,
     /// Benefit Summary
-    pub financial: Option<Vec<ExplanationOfBenefitBenefitBalanceFinancial>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub financial: Vec<ExplanationOfBenefitBenefitBalanceFinancial>,
 }
 
 /// Benefit summary detail for a benefit balance.
@@ -1004,9 +1142,11 @@ pub struct ExplanationOfBenefitBenefitBalanceFinancial {
     /// Unique id for inter-element referencing
     pub id: Option<types::String>,
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
     /// Benefit classification
     pub r#type: types::CodeableConcept,
     /// The `ExplanationOfBenefit.benefitBalance.financial.allowed[x]` choice element (0..1); see [`ExplanationOfBenefitBenefitBalanceFinancialAllowed`].

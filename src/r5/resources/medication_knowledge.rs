@@ -78,16 +78,20 @@ pub struct MedicationKnowledge {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Business identifier(s) for this medication knowledge record, distinct from any identifiers on a specific Medication product
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Code that identifies this medication, typically drawn from a drug terminology such as RxNorm or SNOMED CT
     pub code: Option<types::CodeableConcept>,
@@ -102,25 +106,32 @@ pub struct MedicationKnowledge {
     pub author: Option<types::Reference>,
 
     /// Codes that identify the different jurisdictions for which the information of this resource was created
-    pub intended_jurisdiction: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub intended_jurisdiction: Vec<types::CodeableConcept>,
 
     /// A name associated with the medication being described, such as a brand, generic, or synonym name
-    pub name: Option<Vec<types::String>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub name: Vec<types::String>,
     /// Primitive extension sibling for [`name`](Self::name) (FHIR `_name`).
     #[serde(rename = "_name")]
-    pub name_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub name_ext: Vec<Option<types::Element>>,
 
     /// Associated or related medication information
-    pub related_medication_knowledge: Option<Vec<MedicationKnowledgeRelatedMedicationKnowledge>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub related_medication_knowledge: Vec<MedicationKnowledgeRelatedMedicationKnowledge>,
 
     /// The set of medication resources that are associated with this medication
-    pub associated_medication: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub associated_medication: Vec<types::Reference>,
 
     /// Category of the medication or product
-    pub product_type: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub product_type: Vec<types::CodeableConcept>,
 
     /// Associated documentation about the medication
-    pub monograph: Option<Vec<MedicationKnowledgeMonograph>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub monograph: Vec<MedicationKnowledgeMonograph>,
 
     /// The instructions for preparing the medication
     pub preparation_instruction: Option<types::Markdown>,
@@ -129,28 +140,36 @@ pub struct MedicationKnowledge {
     pub preparation_instruction_ext: Option<types::Element>,
 
     /// The pricing of the medication
-    pub cost: Option<Vec<MedicationKnowledgeCost>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub cost: Vec<MedicationKnowledgeCost>,
 
     /// Program under which a medication is reviewed
-    pub monitoring_program: Option<Vec<MedicationKnowledgeMonitoringProgram>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub monitoring_program: Vec<MedicationKnowledgeMonitoringProgram>,
 
     /// Guidelines or protocols for administration of the medication for an indication
-    pub indication_guideline: Option<Vec<MedicationKnowledgeIndicationGuideline>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub indication_guideline: Vec<MedicationKnowledgeIndicationGuideline>,
 
     /// Categorization of the medication within a formulary or classification system
-    pub medicine_classification: Option<Vec<MedicationKnowledgeMedicineClassification>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub medicine_classification: Vec<MedicationKnowledgeMedicineClassification>,
 
     /// Details about packaged medications
-    pub packaging: Option<Vec<MedicationKnowledgePackaging>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub packaging: Vec<MedicationKnowledgePackaging>,
 
     /// Potential clinical issue with or between medication(s), such as a known interaction, contraindication, or warning
-    pub clinical_use_issue: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub clinical_use_issue: Vec<types::Reference>,
 
     /// How the medication should be stored
-    pub storage_guideline: Option<Vec<MedicationKnowledgeStorageGuideline>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub storage_guideline: Vec<MedicationKnowledgeStorageGuideline>,
 
     /// Regulatory information about a medication
-    pub regulatory: Option<Vec<MedicationKnowledgeRegulatory>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub regulatory: Vec<MedicationKnowledgeRegulatory>,
 
     /// Minimal definitional information such as dose form, route, and ingredients that characterizes the medication
     pub definitional: Option<MedicationKnowledgeDefinitional>,
@@ -165,10 +184,12 @@ pub struct MedicationKnowledgeRelatedMedicationKnowledge {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Category of medicationKnowledge
     pub r#type: types::CodeableConcept,
@@ -186,10 +207,12 @@ pub struct MedicationKnowledgeMonograph {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The category of medication document
     pub r#type: Option<types::CodeableConcept>,
@@ -207,13 +230,16 @@ pub struct MedicationKnowledgeCost {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The date range for which the cost is effective
-    pub effective_date: Option<Vec<types::Period>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub effective_date: Vec<types::Period>,
 
     /// The category of the cost information
     pub r#type: types::CodeableConcept,
@@ -238,10 +264,12 @@ pub struct MedicationKnowledgeMonitoringProgram {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Type of program under which the medication is monitored
     pub r#type: Option<types::CodeableConcept>,
@@ -262,16 +290,20 @@ pub struct MedicationKnowledgeIndicationGuideline {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Indication for use that applies to the specific administration guideline
-    pub indication: Option<Vec<types::CodeableReference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub indication: Vec<types::CodeableReference>,
 
     /// Guidelines for dosage of the medication
-    pub dosing_guideline: Option<Vec<MedicationKnowledgeIndicationGuidelineDosingGuideline>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub dosing_guideline: Vec<MedicationKnowledgeIndicationGuidelineDosingGuideline>,
 }
 
 /// Guidelines for dosage of the medication.
@@ -283,16 +315,19 @@ pub struct MedicationKnowledgeIndicationGuidelineDosingGuideline {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Intention of the treatment
     pub treatment_intent: Option<types::CodeableConcept>,
 
     /// Dosage for the medication for the specific guidelines
-    pub dosage: Option<Vec<MedicationKnowledgeIndicationGuidelineDosingGuidelineDosage>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub dosage: Vec<MedicationKnowledgeIndicationGuidelineDosingGuidelineDosage>,
 
     /// Type of treatment the guideline applies to
     pub administration_treatment: Option<types::CodeableConcept>,
@@ -311,10 +346,12 @@ pub struct MedicationKnowledgeIndicationGuidelineDosingGuidelineDosage {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Category of dosage for a medication
     pub r#type: types::CodeableConcept,
@@ -332,10 +369,12 @@ pub struct MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacter
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Categorization of specific characteristic that is relevant to the administration guideline
     pub r#type: types::CodeableConcept,
@@ -354,10 +393,12 @@ pub struct MedicationKnowledgeMedicineClassification {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The type of category for the medication (for example, therapeutic classification, therapeutic sub-classification)
     pub r#type: types::CodeableConcept,
@@ -367,7 +408,8 @@ pub struct MedicationKnowledgeMedicineClassification {
     pub source: Option<MedicationKnowledgeMedicineClassificationSource>,
 
     /// Specific category assigned to the medication
-    pub classification: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub classification: Vec<types::CodeableConcept>,
 }
 
 /// Details about packaged medications.
@@ -379,13 +421,16 @@ pub struct MedicationKnowledgePackaging {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Cost of the packaged medication
-    pub cost: Option<Vec<MedicationKnowledgeCost>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub cost: Vec<MedicationKnowledgeCost>,
 
     /// The packaged medication that is being priced
     pub packaged_product: Option<types::Reference>,
@@ -400,10 +445,12 @@ pub struct MedicationKnowledgeStorageGuideline {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Reference to additional information
     pub reference: Option<types::Uri>,
@@ -412,13 +459,15 @@ pub struct MedicationKnowledgeStorageGuideline {
     pub reference_ext: Option<types::Element>,
 
     /// Additional storage notes
-    pub note: Option<Vec<types::Annotation>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub note: Vec<types::Annotation>,
 
     /// Duration remains stable
     pub stability_duration: Option<types::Duration>,
 
     /// Setting or value of environment for adequate storage
-    pub environmental_setting: Option<Vec<MedicationKnowledgeStorageGuidelineEnvironmentalSetting>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub environmental_setting: Vec<MedicationKnowledgeStorageGuidelineEnvironmentalSetting>,
 }
 
 /// Setting or value of environment for adequate storage.
@@ -430,10 +479,12 @@ pub struct MedicationKnowledgeStorageGuidelineEnvironmentalSetting {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Categorization of the setting
     pub r#type: types::CodeableConcept,
@@ -452,19 +503,23 @@ pub struct MedicationKnowledgeRegulatory {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Specifies the authority of the regulation
     pub regulatory_authority: types::Reference,
 
     /// Specifies if changes are allowed when dispensing a medication from a regulatory perspective
-    pub substitution: Option<Vec<MedicationKnowledgeRegulatorySubstitution>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub substitution: Vec<MedicationKnowledgeRegulatorySubstitution>,
 
     /// Specifies the schedule of a medication in jurisdiction
-    pub schedule: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub schedule: Vec<types::CodeableConcept>,
 
     /// The maximum number of units of the medication that can be dispensed in a period
     pub max_dispense: Option<MedicationKnowledgeRegulatoryMaxDispense>,
@@ -479,10 +534,12 @@ pub struct MedicationKnowledgeRegulatorySubstitution {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Specifies the type of substitution allowed
     pub r#type: types::CodeableConcept,
@@ -503,10 +560,12 @@ pub struct MedicationKnowledgeRegulatoryMaxDispense {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The maximum number of units of the medication that can be dispensed
     pub quantity: types::Quantity,
@@ -524,25 +583,31 @@ pub struct MedicationKnowledgeDefinitional {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Definitional resources that provide more information about this medication
-    pub definition: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub definition: Vec<types::Reference>,
 
     /// powder | tablets | capsule +
     pub dose_form: Option<types::CodeableConcept>,
 
     /// The intended or approved route of administration
-    pub intended_route: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub intended_route: Vec<types::CodeableConcept>,
 
     /// Active or inactive ingredient
-    pub ingredient: Option<Vec<MedicationKnowledgeDefinitionalIngredient>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub ingredient: Vec<MedicationKnowledgeDefinitionalIngredient>,
 
     /// Specifies descriptive properties of the medicine
-    pub drug_characteristic: Option<Vec<MedicationKnowledgeDefinitionalDrugCharacteristic>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub drug_characteristic: Vec<MedicationKnowledgeDefinitionalDrugCharacteristic>,
 }
 
 /// Active or inactive ingredient.
@@ -554,10 +619,12 @@ pub struct MedicationKnowledgeDefinitionalIngredient {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Substances contained in the medication
     pub item: types::CodeableReference,
@@ -579,10 +646,12 @@ pub struct MedicationKnowledgeDefinitionalDrugCharacteristic {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Code specifying the type of characteristic of medication
     pub r#type: Option<types::CodeableConcept>,

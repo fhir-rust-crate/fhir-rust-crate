@@ -107,11 +107,13 @@ pub struct Bundle {
 
     /// Links related to this Bundle, such as `self` and `next` for paginated
     /// search results
-    pub link: Option<Vec<BundleLink>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub link: Vec<BundleLink>,
 
     /// The entries making up the bundle; each one carries a resource, request,
     /// response, or search metadata depending on the bundle's `type`
-    pub entry: Option<Vec<BundleEntry>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub entry: Vec<BundleEntry>,
 
     /// Digital Signature
     pub signature: Option<types::Signature>,
@@ -132,10 +134,12 @@ pub struct BundleLink {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// See http://www.iana.org/assignments/link-relations/link-relations.xhtml#link-relations-1
     pub relation: crate::r5::coded::Coded<crate::r5::codes::IanaLinkRelations>,
@@ -162,13 +166,16 @@ pub struct BundleEntry {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Links related to this entry
-    pub link: Option<Vec<BundleLink>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub link: Vec<BundleLink>,
 
     /// URI for resource (e.g. the absolute URL server address, URI for
     /// UUID/OID, etc.)
@@ -201,10 +208,12 @@ pub struct BundleEntrySearch {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// match | include - why this is in the result set
     pub mode: Option<crate::r5::coded::Coded<crate::r5::codes::SearchEntryMode>>,
@@ -232,10 +241,12 @@ pub struct BundleEntryRequest {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// GET | HEAD | POST | PUT | DELETE | PATCH
     pub method: crate::r5::coded::Coded<crate::r5::codes::HttpVerb>,
@@ -287,10 +298,12 @@ pub struct BundleEntryResponse {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Status response code (text optional)
     pub status: types::String,

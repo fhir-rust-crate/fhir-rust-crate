@@ -42,7 +42,8 @@ pub struct TriggerDefinition {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// named-event | periodic | data-changed | data-added | data-modified | data-removed | data-accessed | data-access-ended
     pub r#type: crate::r5::coded::Coded<crate::r5::codes::TriggerType>,
@@ -70,7 +71,8 @@ pub struct TriggerDefinition {
     pub timing: Option<TriggerDefinitionTiming>,
 
     /// Triggering data of the event (multiple = 'and')
-    pub data: Option<Vec<types::DataRequirement>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub data: Vec<types::DataRequirement>,
 
     /// Whether the event triggers (boolean expression)
     pub condition: Option<types::Expression>,

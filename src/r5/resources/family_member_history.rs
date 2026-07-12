@@ -83,28 +83,36 @@ pub struct FamilyMemberHistory {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// External Id(s) for this record
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Instantiates FHIR protocol or definition
-    pub instantiates_canonical: Option<Vec<types::Canonical>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub instantiates_canonical: Vec<types::Canonical>,
     /// Primitive extension sibling for [`instantiates_canonical`](Self::instantiates_canonical) (FHIR `_instantiatesCanonical`).
     #[serde(rename = "_instantiatesCanonical")]
-    pub instantiates_canonical_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub instantiates_canonical_ext: Vec<Option<types::Element>>,
 
     /// Instantiates external protocol or definition
-    pub instantiates_uri: Option<Vec<types::Uri>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub instantiates_uri: Vec<types::Uri>,
     /// Primitive extension sibling for [`instantiates_uri`](Self::instantiates_uri) (FHIR `_instantiatesUri`).
     #[serde(rename = "_instantiatesUri")]
-    pub instantiates_uri_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub instantiates_uri_ext: Vec<Option<types::Element>>,
 
     /// The workflow/business status of this record: partial | completed |
     /// entered-in-error | health-unknown.
@@ -127,7 +135,8 @@ pub struct FamilyMemberHistory {
     pub date_ext: Option<types::Element>,
 
     /// Who or what participated in the activities related to the family member history and how they were involved
-    pub participant: Option<Vec<FamilyMemberHistoryParticipant>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub participant: Vec<FamilyMemberHistoryParticipant>,
 
     /// The family member described
     pub name: Option<types::String>,
@@ -161,16 +170,20 @@ pub struct FamilyMemberHistory {
     pub deceased: Option<FamilyMemberHistoryDeceased>,
 
     /// Why was family member history performed?
-    pub reason: Option<Vec<types::CodeableReference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub reason: Vec<types::CodeableReference>,
 
     /// General note about related person
-    pub note: Option<Vec<types::Annotation>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub note: Vec<types::Annotation>,
 
     /// Condition that the related person had
-    pub condition: Option<Vec<FamilyMemberHistoryCondition>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub condition: Vec<FamilyMemberHistoryCondition>,
 
     /// Procedures that the related person had
-    pub procedure: Option<Vec<FamilyMemberHistoryProcedure>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub procedure: Vec<FamilyMemberHistoryProcedure>,
 }
 
 /// Who or what participated in the activities related to the family member
@@ -183,10 +196,12 @@ pub struct FamilyMemberHistoryParticipant {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Type of involvement
     pub function: Option<types::CodeableConcept>,
@@ -205,10 +220,12 @@ pub struct FamilyMemberHistoryCondition {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Condition suffered by relation
     pub code: types::CodeableConcept,
@@ -227,7 +244,8 @@ pub struct FamilyMemberHistoryCondition {
     pub onset: Option<FamilyMemberHistoryConditionOnset>,
 
     /// Extra information about condition
-    pub note: Option<Vec<types::Annotation>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub note: Vec<types::Annotation>,
 }
 
 /// Procedures that the related person had. This is a backbone element describing
@@ -240,10 +258,12 @@ pub struct FamilyMemberHistoryProcedure {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Procedures performed on the related person
     pub code: types::CodeableConcept,
@@ -262,7 +282,8 @@ pub struct FamilyMemberHistoryProcedure {
     pub performed: Option<FamilyMemberHistoryProcedurePerformed>,
 
     /// Extra information about the procedure
-    pub note: Option<Vec<types::Annotation>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub note: Vec<types::Annotation>,
 }
 
 #[cfg(test)]

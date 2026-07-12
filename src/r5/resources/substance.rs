@@ -81,16 +81,20 @@ pub struct Substance {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Unique identifier
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// True if this represents a specific physical instance/package/lot of the substance rather than a general kind
     pub instance: types::Boolean,
@@ -105,7 +109,8 @@ pub struct Substance {
     pub status_ext: Option<types::Element>,
 
     /// Classification of the substance into one or more categories, e.g. drug, allergen, or biological
-    pub category: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub category: Vec<types::CodeableConcept>,
 
     /// The substance's identity, coded using a terminology such as SNOMED CT, optionally with a direct reference
     pub code: types::CodeableReference,
@@ -126,7 +131,8 @@ pub struct Substance {
     pub quantity: Option<types::Quantity>,
 
     /// Composition information about the substance, describing its constituent components and their relative amounts
-    pub ingredient: Option<Vec<SubstanceIngredient>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub ingredient: Vec<SubstanceIngredient>,
 }
 
 /// SubstanceIngredient
@@ -141,10 +147,12 @@ pub struct SubstanceIngredient {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Optional amount (concentration)
     pub quantity: Option<types::Ratio>,

@@ -85,13 +85,16 @@ pub struct ObservationDefinition {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Logical canonical URL to reference this ObservationDefinition (globally unique)
     pub url: Option<types::Uri>,
@@ -149,7 +152,8 @@ pub struct ObservationDefinition {
     pub publisher_ext: Option<types::Element>,
 
     /// Contact details for the publisher
-    pub contact: Option<Vec<types::ContactDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contact: Vec<types::ContactDetail>,
 
     /// Natural language description of the ObservationDefinition
     pub description: Option<types::Markdown>,
@@ -158,10 +162,12 @@ pub struct ObservationDefinition {
     pub description_ext: Option<types::Element>,
 
     /// Content intends to support these contexts
-    pub use_context: Option<Vec<types::UsageContext>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub use_context: Vec<types::UsageContext>,
 
     /// Intended jurisdiction for this ObservationDefinition (if applicable)
-    pub jurisdiction: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub jurisdiction: Vec<types::CodeableConcept>,
 
     /// Why this ObservationDefinition is defined
     pub purpose: Option<types::Markdown>,
@@ -197,34 +203,42 @@ pub struct ObservationDefinition {
     pub effective_period: Option<types::Period>,
 
     /// Based on FHIR definition of another observation
-    pub derived_from_canonical: Option<Vec<types::Canonical>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub derived_from_canonical: Vec<types::Canonical>,
     /// Primitive extension sibling for [`derived_from_canonical`](Self::derived_from_canonical) (FHIR `_derivedFromCanonical`).
     #[serde(rename = "_derivedFromCanonical")]
-    pub derived_from_canonical_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub derived_from_canonical_ext: Vec<Option<types::Element>>,
 
     /// Based on external definition
-    pub derived_from_uri: Option<Vec<types::Uri>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub derived_from_uri: Vec<types::Uri>,
     /// Primitive extension sibling for [`derived_from_uri`](Self::derived_from_uri) (FHIR `_derivedFromUri`).
     #[serde(rename = "_derivedFromUri")]
-    pub derived_from_uri_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub derived_from_uri_ext: Vec<Option<types::Element>>,
 
     /// Type of subject for the defined observation
-    pub subject: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub subject: Vec<types::CodeableConcept>,
 
     /// Desired kind of performer for such kind of observation
     pub performer_type: Option<types::CodeableConcept>,
 
     /// General type of observation
-    pub category: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub category: Vec<types::CodeableConcept>,
 
     /// Coded concept identifying the kind of observation this definition describes.
     pub code: types::CodeableConcept,
 
     /// Permitted result value types, such as Quantity, CodeableConcept, string, boolean, integer, Range, Ratio, SampledData, time, dateTime, or Period.
-    pub permitted_data_type: Option<Vec<crate::r5::coded::Coded<crate::r5::codes::PermittedDataType>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub permitted_data_type: Vec<crate::r5::coded::Coded<crate::r5::codes::PermittedDataType>>,
     /// Primitive extension sibling for [`permitted_data_type`](Self::permitted_data_type) (FHIR `_permittedDataType`).
     #[serde(rename = "_permittedDataType")]
-    pub permitted_data_type_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub permitted_data_type_ext: Vec<Option<types::Element>>,
 
     /// Whether more than one result is allowed for observations conforming to this definition.
     pub multiple_results_allowed: Option<types::Boolean>,
@@ -239,10 +253,12 @@ pub struct ObservationDefinition {
     pub method: Option<types::CodeableConcept>,
 
     /// Kind of specimen used by this type of observation
-    pub specimen: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub specimen: Vec<types::Reference>,
 
     /// Measurement device or model of device
-    pub device: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub device: Vec<types::Reference>,
 
     /// The preferred name to be used when reporting the observation results
     pub preferred_report_name: Option<types::String>,
@@ -251,16 +267,20 @@ pub struct ObservationDefinition {
     pub preferred_report_name_ext: Option<types::Element>,
 
     /// Unit for quantitative results
-    pub permitted_unit: Option<Vec<types::Coding>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub permitted_unit: Vec<types::Coding>,
 
     /// Context-specific reference, critical, and absolute ranges plus valid coded value sets for conforming results.
-    pub qualified_value: Option<Vec<ObservationDefinitionQualifiedValue>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub qualified_value: Vec<ObservationDefinitionQualifiedValue>,
 
     /// Definitions of related resources belonging to this kind of observation group
-    pub has_member: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub has_member: Vec<types::Reference>,
 
     /// Component observation definitions when this observation is composed of multiple parts.
-    pub component: Option<Vec<ObservationDefinitionComponent>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub component: Vec<ObservationDefinitionComponent>,
 }
 
 /// Set of qualified values for observation results.
@@ -277,16 +297,19 @@ pub struct ObservationDefinitionQualifiedValue {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Context qualifier for the set of qualified values
     pub context: Option<types::CodeableConcept>,
 
     /// Targetted population for the set of qualified values
-    pub applies_to: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub applies_to: Vec<types::CodeableConcept>,
 
     /// male | female | other | unknown
     pub gender: Option<crate::r5::coded::Coded<crate::r5::codes::AdministrativeGender>>,
@@ -353,25 +376,31 @@ pub struct ObservationDefinitionComponent {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Type of observation
     pub code: types::CodeableConcept,
 
     /// Quantity | CodeableConcept | string | boolean | integer | Range | Ratio | SampledData | time | dateTime | Period
-    pub permitted_data_type: Option<Vec<crate::r5::coded::Coded<crate::r5::codes::PermittedDataType>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub permitted_data_type: Vec<crate::r5::coded::Coded<crate::r5::codes::PermittedDataType>>,
     /// Primitive extension sibling for [`permitted_data_type`](Self::permitted_data_type) (FHIR `_permittedDataType`).
     #[serde(rename = "_permittedDataType")]
-    pub permitted_data_type_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub permitted_data_type_ext: Vec<Option<types::Element>>,
 
     /// Unit for quantitative results
-    pub permitted_unit: Option<Vec<types::Coding>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub permitted_unit: Vec<types::Coding>,
 
     /// Set of qualified values for observation results
-    pub qualified_value: Option<Vec<ObservationDefinitionQualifiedValue>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub qualified_value: Vec<ObservationDefinitionQualifiedValue>,
 }
 
 #[cfg(test)]

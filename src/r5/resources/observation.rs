@@ -87,29 +87,36 @@ pub struct Observation {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Business Identifier for observation
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// The `Observation.instantiates[x]` choice element (0..1); see [`ObservationInstantiates`].
     #[serde(flatten)]
     pub instantiates: Option<ObservationInstantiates>,
 
     /// Fulfills plan, proposal or order
-    pub based_on: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub based_on: Vec<types::Reference>,
 
     /// Triggering observation(s)
-    pub triggered_by: Option<Vec<ObservationTriggeredBy>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub triggered_by: Vec<ObservationTriggeredBy>,
 
     /// Part of referenced event
-    pub part_of: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub part_of: Vec<types::Reference>,
 
     /// Lifecycle status of the observation, such as registered, preliminary, final, or amended; required.
     pub status: crate::r5::coded::Coded<crate::r5::codes::ObservationStatus>,
@@ -120,7 +127,8 @@ pub struct Observation {
     pub status_ext: Option<types::Element>,
 
     /// Classification of  type of observation
-    pub category: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub category: Vec<types::CodeableConcept>,
 
     /// Coded concept identifying what was observed or measured, such as a LOINC code; required.
     pub code: types::CodeableConcept,
@@ -129,7 +137,8 @@ pub struct Observation {
     pub subject: Option<types::Reference>,
 
     /// What the observation is about, when it is not about the subject of record
-    pub focus: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub focus: Vec<types::Reference>,
 
     /// Healthcare event during which this observation is made
     pub encounter: Option<types::Reference>,
@@ -145,7 +154,8 @@ pub struct Observation {
     pub issued_ext: Option<types::Element>,
 
     /// Who is responsible for the observation
-    pub performer: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub performer: Vec<types::Reference>,
 
     /// The `Observation.value[x]` choice element (0..1); see [`ObservationValue`].
     #[serde(flatten)]
@@ -155,10 +165,12 @@ pub struct Observation {
     pub data_absent_reason: Option<types::CodeableConcept>,
 
     /// High, low, normal, etc
-    pub interpretation: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub interpretation: Vec<types::CodeableConcept>,
 
     /// Comments about the observation
-    pub note: Option<Vec<types::Annotation>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub note: Vec<types::Annotation>,
 
     /// Observed body part
     pub body_site: Option<types::CodeableConcept>,
@@ -176,16 +188,20 @@ pub struct Observation {
     pub device: Option<types::Reference>,
 
     /// Provides guide for interpretation
-    pub reference_range: Option<Vec<ObservationReferenceRange>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub reference_range: Vec<ObservationReferenceRange>,
 
     /// Related resource that belongs to the Observation group
-    pub has_member: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub has_member: Vec<types::Reference>,
 
     /// Related resource from which the observation is made
-    pub derived_from: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub derived_from: Vec<types::Reference>,
 
     /// Component results
-    pub component: Option<Vec<ObservationComponent>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub component: Vec<ObservationComponent>,
 }
 
 /// Triggering observation(s).
@@ -200,10 +216,12 @@ pub struct ObservationTriggeredBy {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Triggering observation
     pub observation: types::Reference,
@@ -235,10 +253,12 @@ pub struct ObservationReferenceRange {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Low Range, if relevant
     pub low: Option<types::Quantity>,
@@ -253,7 +273,8 @@ pub struct ObservationReferenceRange {
     pub r#type: Option<types::CodeableConcept>,
 
     /// Reference range population
-    pub applies_to: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub applies_to: Vec<types::CodeableConcept>,
 
     /// Applicable age range, if relevant
     pub age: Option<types::Range>,
@@ -280,10 +301,12 @@ pub struct ObservationComponent {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Type of component observation (code / type)
     pub code: types::CodeableConcept,
@@ -296,10 +319,12 @@ pub struct ObservationComponent {
     pub data_absent_reason: Option<types::CodeableConcept>,
 
     /// High, low, normal, etc
-    pub interpretation: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub interpretation: Vec<types::CodeableConcept>,
 
     /// Provides guide for interpretation of component result
-    pub reference_range: Option<Vec<ObservationReferenceRange>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub reference_range: Vec<ObservationReferenceRange>,
 }
 
 #[cfg(test)]

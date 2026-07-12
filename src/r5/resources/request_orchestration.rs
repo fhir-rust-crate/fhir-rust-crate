@@ -86,34 +86,44 @@ pub struct RequestOrchestration {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Business identifier
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Instantiates FHIR protocol or definition
-    pub instantiates_canonical: Option<Vec<types::Canonical>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub instantiates_canonical: Vec<types::Canonical>,
     /// Primitive extension sibling for [`instantiates_canonical`](Self::instantiates_canonical) (FHIR `_instantiatesCanonical`).
     #[serde(rename = "_instantiatesCanonical")]
-    pub instantiates_canonical_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub instantiates_canonical_ext: Vec<Option<types::Element>>,
 
     /// Instantiates external protocol or definition
-    pub instantiates_uri: Option<Vec<types::Uri>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub instantiates_uri: Vec<types::Uri>,
     /// Primitive extension sibling for [`instantiates_uri`](Self::instantiates_uri) (FHIR `_instantiatesUri`).
     #[serde(rename = "_instantiatesUri")]
-    pub instantiates_uri_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub instantiates_uri_ext: Vec<Option<types::Element>>,
 
     /// Fulfills plan, proposal, or order
-    pub based_on: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub based_on: Vec<types::Reference>,
 
     /// Request(s) replaced by this request
-    pub replaces: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub replaces: Vec<types::Reference>,
 
     /// Composite request this is part of
     pub group_identifier: Option<types::Identifier>,
@@ -155,16 +165,20 @@ pub struct RequestOrchestration {
     pub author: Option<types::Reference>,
 
     /// Why the request orchestration is needed
-    pub reason: Option<Vec<types::CodeableReference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub reason: Vec<types::CodeableReference>,
 
     /// What goals
-    pub goal: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub goal: Vec<types::Reference>,
 
     /// Additional notes about the response
-    pub note: Option<Vec<types::Annotation>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub note: Vec<types::Annotation>,
 
     /// Proposed actions, if any
-    pub action: Option<Vec<RequestOrchestrationAction>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub action: Vec<RequestOrchestrationAction>,
 }
 
 /// Proposed actions, if any.
@@ -179,10 +193,12 @@ pub struct RequestOrchestrationAction {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Pointer to specific item from the PlanDefinition
     pub link_id: Option<types::String>,
@@ -221,25 +237,32 @@ pub struct RequestOrchestrationAction {
     pub priority_ext: Option<types::Element>,
 
     /// Code representing the meaning of the action or sub-actions
-    pub code: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub code: Vec<types::CodeableConcept>,
 
     /// Supporting documentation for the intended performer of the action
-    pub documentation: Option<Vec<types::RelatedArtifact>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub documentation: Vec<types::RelatedArtifact>,
 
     /// What goals
-    pub goal: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub goal: Vec<types::Reference>,
 
     /// Whether or not the action is applicable
-    pub condition: Option<Vec<RequestOrchestrationActionCondition>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub condition: Vec<RequestOrchestrationActionCondition>,
 
     /// Input data requirements
-    pub input: Option<Vec<RequestOrchestrationActionInput>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub input: Vec<RequestOrchestrationActionInput>,
 
     /// Output data definition
-    pub output: Option<Vec<RequestOrchestrationActionOutput>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub output: Vec<RequestOrchestrationActionOutput>,
 
     /// Relationship to another action
-    pub related_action: Option<Vec<RequestOrchestrationActionRelatedAction>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub related_action: Vec<RequestOrchestrationActionRelatedAction>,
 
     /// The `RequestOrchestration.action.timing[x]` choice element (0..1); see [`RequestOrchestrationActionTiming`].
     #[serde(flatten)]
@@ -249,7 +272,8 @@ pub struct RequestOrchestrationAction {
     pub location: Option<types::CodeableReference>,
 
     /// Who should perform the action
-    pub participant: Option<Vec<RequestOrchestrationActionParticipant>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub participant: Vec<RequestOrchestrationActionParticipant>,
 
     /// create | update | remove | fire-event
     pub r#type: Option<types::CodeableConcept>,
@@ -298,10 +322,12 @@ pub struct RequestOrchestrationAction {
     pub transform_ext: Option<types::Element>,
 
     /// Dynamic aspects of the definition
-    pub dynamic_value: Option<Vec<RequestOrchestrationActionDynamicValue>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub dynamic_value: Vec<RequestOrchestrationActionDynamicValue>,
 
     /// Sub action
-    pub action: Option<Vec<RequestOrchestrationAction>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub action: Vec<RequestOrchestrationAction>,
 }
 
 /// Whether or not the action is applicable.
@@ -316,10 +342,12 @@ pub struct RequestOrchestrationActionCondition {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// applicability | start | stop
     pub kind: crate::r5::coded::Coded<crate::r5::codes::ActionConditionKind>,
@@ -342,10 +370,12 @@ pub struct RequestOrchestrationActionInput {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// User-visible title
     pub title: Option<types::String>,
@@ -374,10 +404,12 @@ pub struct RequestOrchestrationActionOutput {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// User-visible title
     pub title: Option<types::String>,
@@ -406,10 +438,12 @@ pub struct RequestOrchestrationActionRelatedAction {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// What action this is related to
     pub target_id: types::Id,
@@ -445,10 +479,12 @@ pub struct RequestOrchestrationActionParticipant {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// careteam | device | group | healthcareservice | location | organization | patient | practitioner | practitionerrole | relatedperson
     pub r#type: Option<crate::r5::coded::Coded<crate::r5::codes::ActionParticipantType>>,
@@ -488,10 +524,12 @@ pub struct RequestOrchestrationActionDynamicValue {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The path to the element to be set dynamically
     pub path: Option<types::String>,

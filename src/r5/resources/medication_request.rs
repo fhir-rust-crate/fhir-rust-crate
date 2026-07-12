@@ -82,19 +82,24 @@ pub struct MedicationRequest {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// External ids for this request
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// A plan or request that is fulfilled in whole or in part by this medication request
-    pub based_on: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub based_on: Vec<types::Reference>,
 
     /// Reference to an order/prescription that is being replaced by this MedicationRequest
     pub prior_prescription: Option<types::Reference>,
@@ -124,7 +129,8 @@ pub struct MedicationRequest {
     pub intent_ext: Option<types::Element>,
 
     /// Grouping or category of medication request
-    pub category: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub category: Vec<types::CodeableConcept>,
 
     /// routine | urgent | asap | stat
     pub priority: Option<crate::r5::coded::Coded<crate::r5::codes::RequestPriority>>,
@@ -145,13 +151,15 @@ pub struct MedicationRequest {
     pub subject: types::Reference,
 
     /// The person or organization who provided the information about this request, if the source is someone other than the requestor
-    pub information_source: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub information_source: Vec<types::Reference>,
 
     /// Encounter created as part of encounter/admission/stay
     pub encounter: Option<types::Reference>,
 
     /// Information to support fulfilling of the medication
-    pub supporting_information: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub supporting_information: Vec<types::Reference>,
 
     /// When request was initially authored
     pub authored_on: Option<types::DateTime>,
@@ -172,25 +180,30 @@ pub struct MedicationRequest {
     pub performer_type: Option<types::CodeableConcept>,
 
     /// Intended performer of administration
-    pub performer: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub performer: Vec<types::Reference>,
 
     /// Intended type of device for the administration
-    pub device: Option<Vec<types::CodeableReference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub device: Vec<types::CodeableReference>,
 
     /// Person who entered the request
     pub recorder: Option<types::Reference>,
 
     /// Reason or indication for ordering or not ordering the medication
-    pub reason: Option<Vec<types::CodeableReference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub reason: Vec<types::CodeableReference>,
 
     /// Overall pattern of medication administration
     pub course_of_therapy_type: Option<types::CodeableConcept>,
 
     /// Associated insurance coverage
-    pub insurance: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub insurance: Vec<types::Reference>,
 
     /// Information about the prescription
-    pub note: Option<Vec<types::Annotation>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub note: Vec<types::Annotation>,
 
     /// Full representation of the dosage instructions
     pub rendered_dosage_instruction: Option<types::Markdown>,
@@ -202,7 +215,8 @@ pub struct MedicationRequest {
     pub effective_dose_period: Option<types::Period>,
 
     /// Specific instructions for how the medication should be taken
-    pub dosage_instruction: Option<Vec<types::Dosage>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub dosage_instruction: Vec<types::Dosage>,
 
     /// Medication supply authorization
     pub dispense_request: Option<MedicationRequestDispenseRequest>,
@@ -211,7 +225,8 @@ pub struct MedicationRequest {
     pub substitution: Option<MedicationRequestSubstitution>,
 
     /// A list of events of interest in the lifecycle
-    pub event_history: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub event_history: Vec<types::Reference>,
 }
 
 /// Medication supply authorization.
@@ -227,10 +242,12 @@ pub struct MedicationRequestDispenseRequest {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// First fill details
     pub initial_fill: Option<MedicationRequestDispenseRequestInitialFill>,
@@ -257,7 +274,8 @@ pub struct MedicationRequestDispenseRequest {
     pub dispenser: Option<types::Reference>,
 
     /// Additional information for the dispenser
-    pub dispenser_instruction: Option<Vec<types::Annotation>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub dispenser_instruction: Vec<types::Annotation>,
 
     /// Type of adherence packaging to use for the dispense
     pub dose_administration_aid: Option<types::CodeableConcept>,
@@ -275,10 +293,12 @@ pub struct MedicationRequestDispenseRequestInitialFill {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// First fill quantity
     pub quantity: Option<types::Quantity>,
@@ -300,10 +320,12 @@ pub struct MedicationRequestSubstitution {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The `MedicationRequest.substitution.allowed[x]` choice element (0..1); see [`MedicationRequestSubstitutionAllowed`].
     #[serde(flatten)]

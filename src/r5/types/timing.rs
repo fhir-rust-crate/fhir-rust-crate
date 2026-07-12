@@ -43,16 +43,20 @@ pub struct Timing {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// When the event occurs
-    pub event: Option<Vec<types::DateTime>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub event: Vec<types::DateTime>,
     /// Primitive extension sibling for [`event`](Self::event) (FHIR `_event`).
     #[serde(rename = "_event")]
-    pub event_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub event_ext: Vec<Option<types::Element>>,
 
     /// When the event is to occur
     pub repeat: Option<TimingRepeat>,
@@ -84,7 +88,8 @@ pub struct TimingRepeat {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// The `Timing.repeat.bounds[x]` choice element (0..1); see [`TimingRepeatBounds`].
     #[serde(flatten)]
@@ -151,22 +156,28 @@ pub struct TimingRepeat {
     pub period_unit_ext: Option<types::Element>,
 
     /// mon | tue | wed | thu | fri | sat | sun
-    pub day_of_week: Option<Vec<crate::r5::coded::Coded<crate::r5::codes::DaysOfWeek>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub day_of_week: Vec<crate::r5::coded::Coded<crate::r5::codes::DaysOfWeek>>,
     /// Primitive extension sibling for [`day_of_week`](Self::day_of_week) (FHIR `_dayOfWeek`).
     #[serde(rename = "_dayOfWeek")]
-    pub day_of_week_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub day_of_week_ext: Vec<Option<types::Element>>,
 
     /// Time of day for action
-    pub time_of_day: Option<Vec<types::Time>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub time_of_day: Vec<types::Time>,
     /// Primitive extension sibling for [`time_of_day`](Self::time_of_day) (FHIR `_timeOfDay`).
     #[serde(rename = "_timeOfDay")]
-    pub time_of_day_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub time_of_day_ext: Vec<Option<types::Element>>,
 
     /// Code for time period of occurrence
-    pub when: Option<Vec<crate::r5::coded::Coded<crate::r5::codes::EventTiming>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub when: Vec<crate::r5::coded::Coded<crate::r5::codes::EventTiming>>,
     /// Primitive extension sibling for [`when`](Self::when) (FHIR `_when`).
     #[serde(rename = "_when")]
-    pub when_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub when_ext: Vec<Option<types::Element>>,
 
     /// Minutes from event (before or after)
     pub offset: Option<types::UnsignedInt>,

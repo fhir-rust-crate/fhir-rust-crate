@@ -44,7 +44,8 @@ pub struct VirtualServiceDetail {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// The type of virtual service to connect to (for example a specific vendor's platform)
     pub channel_type: Option<types::Coding>,
@@ -54,10 +55,12 @@ pub struct VirtualServiceDetail {
     pub address: Option<VirtualServiceDetailAddress>,
 
     /// Address(es) with additional information on alternate connection details
-    pub additional_info: Option<Vec<types::Url>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub additional_info: Vec<types::Url>,
     /// Primitive extension sibling for [`additional_info`](Self::additional_info) (FHIR `_additionalInfo`).
     #[serde(rename = "_additionalInfo")]
-    pub additional_info_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub additional_info_ext: Vec<Option<types::Element>>,
 
     /// Maximum number of participants supported by the virtual service
     pub max_participants: Option<types::PositiveInt>,

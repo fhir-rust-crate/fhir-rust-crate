@@ -43,7 +43,8 @@ pub struct Identifier {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// usual | official | temp | secondary | old (If known)
     pub r#use: Option<crate::r5::coded::Coded<crate::r5::codes::IdentifierUse>>,

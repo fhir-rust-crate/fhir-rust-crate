@@ -82,13 +82,16 @@ pub struct ConceptMap {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Canonical identifier for this concept map, represented as a URI (globally unique), used to reference this ConceptMap from other resources
     pub url: Option<types::Uri>,
@@ -97,7 +100,8 @@ pub struct ConceptMap {
     pub url_ext: Option<types::Element>,
 
     /// Additional identifier for the concept map
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Business version of the concept map
     pub version: Option<types::String>,
@@ -146,7 +150,8 @@ pub struct ConceptMap {
     pub publisher_ext: Option<types::Element>,
 
     /// Contact details for the publisher
-    pub contact: Option<Vec<types::ContactDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contact: Vec<types::ContactDetail>,
 
     /// Natural language description of the concept map
     pub description: Option<types::Markdown>,
@@ -155,10 +160,12 @@ pub struct ConceptMap {
     pub description_ext: Option<types::Element>,
 
     /// The context that the content is intended to support
-    pub use_context: Option<Vec<types::UsageContext>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub use_context: Vec<types::UsageContext>,
 
     /// Intended jurisdiction for concept map (if applicable)
-    pub jurisdiction: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub jurisdiction: Vec<types::CodeableConcept>,
 
     /// Why this concept map is defined
     pub purpose: Option<types::Markdown>,
@@ -194,28 +201,36 @@ pub struct ConceptMap {
     pub effective_period: Option<types::Period>,
 
     /// E.g. Education, Treatment, Assessment, etc
-    pub topic: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub topic: Vec<types::CodeableConcept>,
 
     /// Who authored the ConceptMap
-    pub author: Option<Vec<types::ContactDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub author: Vec<types::ContactDetail>,
 
     /// Who edited the ConceptMap
-    pub editor: Option<Vec<types::ContactDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub editor: Vec<types::ContactDetail>,
 
     /// Who reviewed the ConceptMap
-    pub reviewer: Option<Vec<types::ContactDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub reviewer: Vec<types::ContactDetail>,
 
     /// Who endorsed the ConceptMap
-    pub endorser: Option<Vec<types::ContactDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub endorser: Vec<types::ContactDetail>,
 
     /// Additional documentation, citations, etc
-    pub related_artifact: Option<Vec<types::RelatedArtifact>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub related_artifact: Vec<types::RelatedArtifact>,
 
     /// Additional properties of the mapping
-    pub property: Option<Vec<ConceptMapProperty>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub property: Vec<ConceptMapProperty>,
 
     /// Definition of an additional attribute to act as a data source or target
-    pub additional_attribute: Option<Vec<ConceptMapAdditionalAttribute>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub additional_attribute: Vec<ConceptMapAdditionalAttribute>,
 
     /// The `ConceptMap.sourceScope[x]` choice element (0..1); see [`ConceptMapSourceScope`].
     #[serde(flatten)]
@@ -226,7 +241,8 @@ pub struct ConceptMap {
     pub target_scope: Option<ConceptMapTargetScope>,
 
     /// Same source and target systems; the groups of element-to-target mappings that make up the body of the ConceptMap
-    pub group: Option<Vec<ConceptMapGroup>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub group: Vec<ConceptMapGroup>,
 }
 
 /// Additional properties of the mapping.
@@ -241,10 +257,12 @@ pub struct ConceptMapProperty {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Identifies the property on the mappings, and when referred to in the $translate operation
     pub code: types::Code,
@@ -289,10 +307,12 @@ pub struct ConceptMapAdditionalAttribute {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Identifies this additional attribute through this resource
     pub code: types::Code,
@@ -331,10 +351,12 @@ pub struct ConceptMapGroup {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Source system where concepts to be mapped are defined
     pub source: Option<types::Canonical>,
@@ -367,10 +389,12 @@ pub struct ConceptMapGroupElement {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Identifies element being mapped
     pub code: Option<types::Code>,
@@ -397,7 +421,8 @@ pub struct ConceptMapGroupElement {
     pub no_map_ext: Option<types::Element>,
 
     /// Concept in target system for element
-    pub target: Option<Vec<ConceptMapGroupElementTarget>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub target: Vec<ConceptMapGroupElementTarget>,
 }
 
 /// Concept in target system for element.
@@ -412,10 +437,12 @@ pub struct ConceptMapGroupElementTarget {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Code that identifies the target element
     pub code: Option<types::Code>,
@@ -448,13 +475,16 @@ pub struct ConceptMapGroupElementTarget {
     pub comment_ext: Option<types::Element>,
 
     /// Property value for the source -> target mapping
-    pub property: Option<Vec<ConceptMapGroupElementTargetProperty>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub property: Vec<ConceptMapGroupElementTargetProperty>,
 
     /// Other properties required for this mapping
-    pub depends_on: Option<Vec<ConceptMapGroupElementTargetDependsOn>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub depends_on: Vec<ConceptMapGroupElementTargetDependsOn>,
 
     /// Other data elements that this mapping also produces
-    pub product: Option<Vec<types::Element>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub product: Vec<types::Element>,
 }
 
 /// Property value for the source -> target mapping.
@@ -469,10 +499,12 @@ pub struct ConceptMapGroupElementTargetProperty {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Reference to ConceptMap.property.code
     pub code: types::Code,
@@ -497,10 +529,12 @@ pub struct ConceptMapGroupElementTargetDependsOn {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// A reference to a mapping attribute defined in ConceptMap.additionalAttribute
     pub attribute: types::Code,
@@ -532,10 +566,12 @@ pub struct ConceptMapGroupUnmapped {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// use-source-code | fixed | other-map
     pub mode: crate::r5::coded::Coded<crate::r5::codes::ConceptmapUnmappedMode>,

@@ -74,16 +74,20 @@ pub struct ArtifactAssessment {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Additional identifier for the artifact assessment
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// A short title for the assessment for use in displaying and selecting
     pub title: Option<types::String>,
@@ -124,7 +128,8 @@ pub struct ArtifactAssessment {
     pub artifact: Option<ArtifactAssessmentArtifact>,
 
     /// The comment, classifier, or rating content that makes up the assessment
-    pub content: Option<Vec<ArtifactAssessmentContent>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub content: Vec<ArtifactAssessmentContent>,
 
     /// submitted | triaged | waiting-for-input | resolved-no-change | resolved-change-required | deferred | duplicate | applied | published | entered-in-error
     pub workflow_status: Option<crate::r5::coded::Coded<crate::r5::codes::ArtifactassessmentWorkflowStatus>>,
@@ -153,10 +158,12 @@ pub struct ArtifactAssessmentContent {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// comment | classifier | rating | container | response | change-request
     pub information_type: Option<crate::r5::coded::Coded<crate::r5::codes::ArtifactassessmentInformationType>>,
@@ -174,7 +181,8 @@ pub struct ArtifactAssessmentContent {
     pub r#type: Option<types::CodeableConcept>,
 
     /// Rating, classifier, or assessment
-    pub classifier: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub classifier: Vec<types::CodeableConcept>,
 
     /// Quantitative rating
     pub quantity: Option<types::Quantity>,
@@ -183,13 +191,16 @@ pub struct ArtifactAssessmentContent {
     pub author: Option<types::Reference>,
 
     /// What the comment is directed to
-    pub path: Option<Vec<types::Uri>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub path: Vec<types::Uri>,
     /// Primitive extension sibling for [`path`](Self::path) (FHIR `_path`).
     #[serde(rename = "_path")]
-    pub path_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub path_ext: Vec<Option<types::Element>>,
 
     /// Additional information
-    pub related_artifact: Option<Vec<types::RelatedArtifact>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub related_artifact: Vec<types::RelatedArtifact>,
 
     /// Acceptable to publicly share the resource content
     pub free_to_share: Option<types::Boolean>,
@@ -198,7 +209,8 @@ pub struct ArtifactAssessmentContent {
     pub free_to_share_ext: Option<types::Element>,
 
     /// Contained content
-    pub component: Option<Vec<ArtifactAssessmentContent>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub component: Vec<ArtifactAssessmentContent>,
 }
 
 #[cfg(test)]

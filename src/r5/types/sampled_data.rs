@@ -43,7 +43,8 @@ pub struct SampledData {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
     /// The base quantity that a measured value of zero represents, using the appropriate units. // Quantity(SimpleQuantity) [1..1]
     pub origin: types::Quantity,
     /// Deprecated. The length of time between sampling times, measured in intervalUnit. // « C »

@@ -82,13 +82,16 @@ pub struct Ingredient {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// An identifier or code by which the ingredient can be referenced
     pub identifier: Option<types::Identifier>,
@@ -100,13 +103,15 @@ pub struct Ingredient {
     pub status_ext: Option<types::Element>,
 
     /// References to the product or products that this ingredient is a constituent part of.
-    pub r#for: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub r#for: Vec<types::Reference>,
 
     /// The purpose the ingredient serves within the product, for example active or inactive.
     pub role: types::CodeableConcept,
 
     /// Precise action within the drug product, e.g. antioxidant, alkalizing agent
-    pub function: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub function: Vec<types::CodeableConcept>,
 
     /// A classification of the ingredient according to where in the physical item it tends to be used
     pub group: Option<types::CodeableConcept>,
@@ -124,7 +129,8 @@ pub struct Ingredient {
     pub comment_ext: Option<types::Element>,
 
     /// An organization that manufactures this ingredient
-    pub manufacturer: Option<Vec<IngredientManufacturer>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub manufacturer: Vec<IngredientManufacturer>,
 
     /// The substance that comprises this ingredient, including its identity and strength.
     pub substance: IngredientSubstance,
@@ -139,10 +145,12 @@ pub struct IngredientManufacturer {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// allowed | possible | actual
     pub role: Option<crate::r5::coded::Coded<crate::r5::codes::IngredientManufacturerRole>>,
@@ -163,16 +171,19 @@ pub struct IngredientSubstance {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// A code or full resource that represents the ingredient substance
     pub code: types::CodeableReference,
 
     /// The quantity of substance, per presentation, or per volume or mass, and type of quantity
-    pub strength: Option<Vec<IngredientSubstanceStrength>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub strength: Vec<IngredientSubstanceStrength>,
 }
 
 /// The quantity of substance, per presentation, or per volume or mass, and type of quantity.
@@ -184,10 +195,12 @@ pub struct IngredientSubstanceStrength {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The `Ingredient.substance.strength.presentation[x]` choice element (0..1); see [`IngredientSubstanceStrengthPresentation`].
     #[serde(flatten)]
@@ -219,10 +232,12 @@ pub struct IngredientSubstanceStrength {
     pub measurement_point_ext: Option<types::Element>,
 
     /// Where the strength range applies
-    pub country: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub country: Vec<types::CodeableConcept>,
 
     /// Strength expressed in terms of a reference substance
-    pub reference_strength: Option<Vec<IngredientSubstanceStrengthReferenceStrength>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub reference_strength: Vec<IngredientSubstanceStrengthReferenceStrength>,
 }
 
 /// Strength expressed in terms of a reference substance.
@@ -234,10 +249,12 @@ pub struct IngredientSubstanceStrengthReferenceStrength {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Relevant reference substance
     pub substance: types::CodeableReference,
@@ -253,7 +270,8 @@ pub struct IngredientSubstanceStrengthReferenceStrength {
     pub measurement_point_ext: Option<types::Element>,
 
     /// Where the strength range applies
-    pub country: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub country: Vec<types::CodeableConcept>,
 }
 
 #[cfg(test)]

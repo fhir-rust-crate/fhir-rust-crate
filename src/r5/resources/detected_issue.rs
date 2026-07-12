@@ -78,16 +78,20 @@ pub struct DetectedIssue {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Unique id for the detected issue
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// The workflow status of this issue: preliminary | final | entered-in-error | mitigated
     pub status: types::Code,
@@ -96,7 +100,8 @@ pub struct DetectedIssue {
     pub status_ext: Option<types::Element>,
 
     /// Broad category of the detected issue, e.g. drug-drug interaction, duplicate therapy, etc
-    pub category: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub category: Vec<types::CodeableConcept>,
 
     /// Specific type of detected issue, e.g. drug-drug, duplicate therapy, etc
     pub code: Option<types::CodeableConcept>,
@@ -121,10 +126,12 @@ pub struct DetectedIssue {
     pub author: Option<types::Reference>,
 
     /// The clinical resource(s), such as a medication order or procedure, that are implicated in the issue
-    pub implicated: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub implicated: Vec<types::Reference>,
 
     /// Supporting evidence
-    pub evidence: Option<Vec<DetectedIssueEvidence>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub evidence: Vec<DetectedIssueEvidence>,
 
     /// Description and context
     pub detail: Option<types::Markdown>,
@@ -139,7 +146,8 @@ pub struct DetectedIssue {
     pub reference_ext: Option<types::Element>,
 
     /// Step taken to address
-    pub mitigation: Option<Vec<DetectedIssueMitigation>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub mitigation: Vec<DetectedIssueMitigation>,
 }
 
 /// Supporting evidence.
@@ -154,16 +162,20 @@ pub struct DetectedIssueEvidence {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Manifestation
-    pub code: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub code: Vec<types::CodeableConcept>,
 
     /// Supporting information
-    pub detail: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub detail: Vec<types::Reference>,
 }
 
 /// Step taken to address.
@@ -178,10 +190,12 @@ pub struct DetectedIssueMitigation {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// What mitigation?
     pub action: types::CodeableConcept,
@@ -196,7 +210,8 @@ pub struct DetectedIssueMitigation {
     pub author: Option<types::Reference>,
 
     /// Additional notes about the mitigation
-    pub note: Option<Vec<types::Annotation>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub note: Vec<types::Annotation>,
 }
 
 #[cfg(test)]

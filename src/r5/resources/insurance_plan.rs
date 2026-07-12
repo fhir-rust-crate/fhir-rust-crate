@@ -78,16 +78,20 @@ pub struct InsurancePlan {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Business Identifier for Product
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// The lifecycle status of this plan: draft | active | retired | unknown.
     pub status: Option<crate::r5::coded::Coded<crate::r5::codes::PublicationStatus>>,
@@ -97,7 +101,8 @@ pub struct InsurancePlan {
 
     /// Kind of product, such as medical or dental, coded as a
     /// [`CodeableConcept`](crate::r5::types::CodeableConcept).
-    pub r#type: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub r#type: Vec<types::CodeableConcept>,
 
     /// Official name of the health insurance product or plan.
     pub name: Option<types::String>,
@@ -106,10 +111,12 @@ pub struct InsurancePlan {
     pub name_ext: Option<types::Element>,
 
     /// Alternate names
-    pub alias: Option<Vec<types::String>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub alias: Vec<types::String>,
     /// Primitive extension sibling for [`alias`](Self::alias) (FHIR `_alias`).
     #[serde(rename = "_alias")]
-    pub alias_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub alias_ext: Vec<Option<types::Element>>,
 
     /// When the product is available
     pub period: Option<types::Period>,
@@ -123,22 +130,28 @@ pub struct InsurancePlan {
     pub administered_by: Option<types::Reference>,
 
     /// Geographic area(s), typically Location resources, where the product applies.
-    pub coverage_area: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub coverage_area: Vec<types::Reference>,
 
     /// Official contact details relevant to the health insurance plan/product
-    pub contact: Option<Vec<types::ExtendedContactDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contact: Vec<types::ExtendedContactDetail>,
 
     /// Technical endpoint
-    pub endpoint: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub endpoint: Vec<types::Reference>,
 
     /// What networks are Included
-    pub network: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub network: Vec<types::Reference>,
 
     /// Coverage details
-    pub coverage: Option<Vec<InsurancePlanCoverage>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub coverage: Vec<InsurancePlanCoverage>,
 
     /// Plan details
-    pub plan: Option<Vec<InsurancePlanPlan>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub plan: Vec<InsurancePlanPlan>,
 }
 
 /// Coverage details: the details of a coverage offered by the insurance product.
@@ -150,16 +163,19 @@ pub struct InsurancePlanCoverage {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Type of coverage
     pub r#type: types::CodeableConcept,
 
     /// What networks provide coverage
-    pub network: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub network: Vec<types::Reference>,
 
     /// List of benefits
     pub benefit: vec1::Vec1<InsurancePlanCoverageBenefit>,
@@ -174,10 +190,12 @@ pub struct InsurancePlanCoverageBenefit {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Type of benefit
     pub r#type: types::CodeableConcept,
@@ -189,7 +207,8 @@ pub struct InsurancePlanCoverageBenefit {
     pub requirement_ext: Option<types::Element>,
 
     /// Benefit limits
-    pub limit: Option<Vec<InsurancePlanCoverageBenefitLimit>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub limit: Vec<InsurancePlanCoverageBenefitLimit>,
 }
 
 /// Benefit limits: the specific limits on the benefit.
@@ -201,10 +220,12 @@ pub struct InsurancePlanCoverageBenefitLimit {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Maximum value allowed
     pub value: Option<types::Quantity>,
@@ -222,28 +243,35 @@ pub struct InsurancePlanPlan {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Business Identifier for Product
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Type of plan
     pub r#type: Option<types::CodeableConcept>,
 
     /// Where product applies
-    pub coverage_area: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub coverage_area: Vec<types::Reference>,
 
     /// What networks provide coverage
-    pub network: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub network: Vec<types::Reference>,
 
     /// Overall costs
-    pub general_cost: Option<Vec<InsurancePlanPlanGeneralCost>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub general_cost: Vec<InsurancePlanPlanGeneralCost>,
 
     /// Specific costs
-    pub specific_cost: Option<Vec<InsurancePlanPlanSpecificCost>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub specific_cost: Vec<InsurancePlanPlanSpecificCost>,
 }
 
 /// Overall costs: overall costs associated with the plan.
@@ -255,10 +283,12 @@ pub struct InsurancePlanPlanGeneralCost {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Type of cost
     pub r#type: Option<types::CodeableConcept>,
@@ -288,16 +318,19 @@ pub struct InsurancePlanPlanSpecificCost {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// General category of benefit
     pub category: types::CodeableConcept,
 
     /// Benefits list
-    pub benefit: Option<Vec<InsurancePlanPlanSpecificCostBenefit>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub benefit: Vec<InsurancePlanPlanSpecificCostBenefit>,
 }
 
 /// Benefits list: list of the specific benefits under this category of benefit.
@@ -309,16 +342,19 @@ pub struct InsurancePlanPlanSpecificCostBenefit {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Type of specific benefit
     pub r#type: types::CodeableConcept,
 
     /// List of the costs
-    pub cost: Option<Vec<InsurancePlanPlanSpecificCostBenefitCost>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub cost: Vec<InsurancePlanPlanSpecificCostBenefitCost>,
 }
 
 /// List of the costs: list of the costs associated with a specific benefit.
@@ -330,10 +366,12 @@ pub struct InsurancePlanPlanSpecificCostBenefitCost {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Type of cost
     pub r#type: types::CodeableConcept,
@@ -342,7 +380,8 @@ pub struct InsurancePlanPlanSpecificCostBenefitCost {
     pub applicability: Option<types::CodeableConcept>,
 
     /// Additional information about the cost
-    pub qualifiers: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub qualifiers: Vec<types::CodeableConcept>,
 
     /// The actual cost value
     pub value: Option<types::Quantity>,

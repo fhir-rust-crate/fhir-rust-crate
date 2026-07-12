@@ -42,7 +42,8 @@ pub struct RatioRange {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
     /// The lower limit of the numerator quantity, forming the low bound of the ratio range.
     pub low_numerator: Option<types::Quantity>, // Quantity(SimpleQuantity) [0..1] « C »
     /// The upper limit of the numerator quantity, forming the high bound of the ratio range.

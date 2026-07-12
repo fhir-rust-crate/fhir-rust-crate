@@ -63,6 +63,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   to preserve exact `decimal` values.
 
 ### Changed (breaking)
+- Cardinality now maps to the Rust type more precisely:
+  - **`1..*` elements are `vec1::Vec1<T>`** (non-empty), so the constraint is
+    enforced at compile time. 59 fields across 58 structs; those structs no
+    longer derive `Default` (there is no empty value).
+  - **`0..*` elements are bare `Vec<T>`** (empty when absent) instead of
+    `Option<Vec<T>>`, with `#[serde(default, skip_serializing_if = "Vec::is_empty")]`.
+    3815 fields. Construct with `vec![…]` (not `Some(vec![…])`); read as a slice
+    (no `Option` unwrap). `HasExtension::extension_mut` now returns `&mut Vec`.
 - Coded fields (T10) with a `required` binding are now typed as their `codes`
   enum via the new `fhir::r5::coded::Coded<E>` wrapper (`Known(E)` |
   `Unknown(String)` fallback for wire compatibility), instead of the opaque

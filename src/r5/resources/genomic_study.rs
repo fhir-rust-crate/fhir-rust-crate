@@ -84,16 +84,20 @@ pub struct GenomicStudy {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Identifiers assigned to this genomic study by the performing lab or ordering system
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// The overall workflow status of the study: registered | available | cancelled | entered-in-error | unknown
     pub status: crate::r5::coded::Coded<crate::r5::codes::GenomicstudyStatus>,
@@ -102,7 +106,8 @@ pub struct GenomicStudy {
     pub status_ext: Option<types::Element>,
 
     /// The type of the study (e.g., Familial variant segregation, Functional variation detection, or Gene expression profiling)
-    pub r#type: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub r#type: Vec<types::CodeableConcept>,
 
     /// The primary subject of the genomic study, typically a [`Patient`](crate::r5::resources::patient::Patient)
     pub subject: types::Reference,
@@ -117,16 +122,19 @@ pub struct GenomicStudy {
     pub start_date_ext: Option<types::Element>,
 
     /// Event resources that the genomic study is based on
-    pub based_on: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub based_on: Vec<types::Reference>,
 
     /// Healthcare professional who requested or referred the genomic study
     pub referrer: Option<types::Reference>,
 
     /// Healthcare professionals who interpreted the genomic study
-    pub interpreter: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub interpreter: Vec<types::Reference>,
 
     /// Why the genomic study was performed
-    pub reason: Option<Vec<types::CodeableReference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub reason: Vec<types::CodeableReference>,
 
     /// The defined protocol that describes the study
     pub instantiates_canonical: Option<types::Canonical>,
@@ -141,7 +149,8 @@ pub struct GenomicStudy {
     pub instantiates_uri_ext: Option<types::Element>,
 
     /// Comments related to the genomic study
-    pub note: Option<Vec<types::Annotation>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub note: Vec<types::Annotation>,
 
     /// Description of the genomic study
     pub description: Option<types::Markdown>,
@@ -150,7 +159,8 @@ pub struct GenomicStudy {
     pub description_ext: Option<types::Element>,
 
     /// The one or more genomic analysis events that make up this study
-    pub analysis: Option<Vec<GenomicStudyAnalysis>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub analysis: Vec<GenomicStudyAnalysis>,
 }
 
 /// Genomic Analysis Event
@@ -166,19 +176,24 @@ pub struct GenomicStudyAnalysis {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Identifiers for the analysis event
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Type of the methods used in the analysis (e.g., FISH, Karyotyping, MSI)
-    pub method_type: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub method_type: Vec<types::CodeableConcept>,
 
     /// Type of the genomic changes studied in the analysis (e.g., DNA, RNA, or AA change)
-    pub change_type: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub change_type: Vec<types::CodeableConcept>,
 
     /// Genome build that is used in this analysis
     pub genome_build: Option<types::CodeableConcept>,
@@ -202,10 +217,12 @@ pub struct GenomicStudyAnalysis {
     pub title_ext: Option<types::Element>,
 
     /// What the genomic analysis is about, when it is not about the subject of record
-    pub focus: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub focus: Vec<types::Reference>,
 
     /// The specimen used in the analysis event
-    pub specimen: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub specimen: Vec<types::Reference>,
 
     /// The date of the analysis event
     pub date: Option<types::DateTime>,
@@ -214,28 +231,35 @@ pub struct GenomicStudyAnalysis {
     pub date_ext: Option<types::Element>,
 
     /// Any notes capture with the analysis event
-    pub note: Option<Vec<types::Annotation>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub note: Vec<types::Annotation>,
 
     /// The protocol that was performed for the analysis event
     pub protocol_performed: Option<types::Reference>,
 
     /// The genomic regions to be studied in the analysis (BED file)
-    pub regions_studied: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub regions_studied: Vec<types::Reference>,
 
     /// Genomic regions actually called in the analysis event (BED file)
-    pub regions_called: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub regions_called: Vec<types::Reference>,
 
     /// Inputs for the analysis event
-    pub input: Option<Vec<GenomicStudyAnalysisInput>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub input: Vec<GenomicStudyAnalysisInput>,
 
     /// Outputs for the analysis event
-    pub output: Option<Vec<GenomicStudyAnalysisOutput>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub output: Vec<GenomicStudyAnalysisOutput>,
 
     /// Performer for the analysis event
-    pub performer: Option<Vec<GenomicStudyAnalysisPerformer>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub performer: Vec<GenomicStudyAnalysisPerformer>,
 
     /// Devices used for the analysis (e.g., instruments, software), with settings and parameters
-    pub device: Option<Vec<GenomicStudyAnalysisDevice>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub device: Vec<GenomicStudyAnalysisDevice>,
 }
 
 /// Inputs for the analysis event
@@ -250,10 +274,12 @@ pub struct GenomicStudyAnalysisInput {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// File containing input data
     pub file: Option<types::Reference>,
@@ -277,10 +303,12 @@ pub struct GenomicStudyAnalysisOutput {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// File containing output data
     pub file: Option<types::Reference>,
@@ -301,10 +329,12 @@ pub struct GenomicStudyAnalysisPerformer {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The organization, healthcare professional, or others who participated in performing this analysis
     pub actor: Option<types::Reference>,
@@ -325,10 +355,12 @@ pub struct GenomicStudyAnalysisDevice {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Device used for the analysis
     pub device: Option<types::Reference>,

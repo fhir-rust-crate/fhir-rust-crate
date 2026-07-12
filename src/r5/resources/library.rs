@@ -76,13 +76,16 @@ pub struct Library {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Canonical identifier for this library, represented as a URI (globally unique)
     pub url: Option<types::Uri>,
@@ -91,7 +94,8 @@ pub struct Library {
     pub url_ext: Option<types::Element>,
 
     /// Additional identifier for the library
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Business version of the library
     pub version: Option<types::String>,
@@ -153,7 +157,8 @@ pub struct Library {
     pub publisher_ext: Option<types::Element>,
 
     /// Contact details for the publisher
-    pub contact: Option<Vec<types::ContactDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contact: Vec<types::ContactDetail>,
 
     /// Natural language description of the library
     pub description: Option<types::Markdown>,
@@ -162,10 +167,12 @@ pub struct Library {
     pub description_ext: Option<types::Element>,
 
     /// The context that the content is intended to support
-    pub use_context: Option<Vec<types::UsageContext>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub use_context: Vec<types::UsageContext>,
 
     /// Intended jurisdiction for library (if applicable)
-    pub jurisdiction: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub jurisdiction: Vec<types::CodeableConcept>,
 
     /// Why this library is defined
     pub purpose: Option<types::Markdown>,
@@ -207,31 +214,40 @@ pub struct Library {
     pub effective_period: Option<types::Period>,
 
     /// E.g. Education, Treatment, Assessment, etc
-    pub topic: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub topic: Vec<types::CodeableConcept>,
 
     /// Who authored the content
-    pub author: Option<Vec<types::ContactDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub author: Vec<types::ContactDetail>,
 
     /// Who edited the content
-    pub editor: Option<Vec<types::ContactDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub editor: Vec<types::ContactDetail>,
 
     /// Who reviewed the content
-    pub reviewer: Option<Vec<types::ContactDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub reviewer: Vec<types::ContactDetail>,
 
     /// Who endorsed the content
-    pub endorser: Option<Vec<types::ContactDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub endorser: Vec<types::ContactDetail>,
 
     /// Additional documentation, citations, etc
-    pub related_artifact: Option<Vec<types::RelatedArtifact>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub related_artifact: Vec<types::RelatedArtifact>,
 
     /// Input and output parameters that the library logic accepts or produces
-    pub parameter: Option<Vec<types::ParameterDefinition>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub parameter: Vec<types::ParameterDefinition>,
 
     /// Data the library consumes when evaluated, describing required resources and elements
-    pub data_requirement: Option<Vec<types::DataRequirement>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub data_requirement: Vec<types::DataRequirement>,
 
     /// Payload of the library, such as CQL or ELM logic, embedded inline or referenced by URL
-    pub content: Option<Vec<types::Attachment>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub content: Vec<types::Attachment>,
 }
 
 #[cfg(test)]

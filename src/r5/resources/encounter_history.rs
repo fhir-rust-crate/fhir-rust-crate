@@ -84,19 +84,23 @@ pub struct EncounterHistory {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// A reference to the Encounter whose status/class/location this record snapshots
     pub encounter: Option<types::Reference>,
 
     /// Identifier(s) by which this encounter is known
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// The status of the encounter at this point in its history: planned | in-progress | on-hold | discharged | completed | cancelled | discontinued | entered-in-error | unknown
     pub status: crate::r5::coded::Coded<crate::r5::codes::EncounterStatus>,
@@ -108,10 +112,12 @@ pub struct EncounterHistory {
     pub class: types::CodeableConcept,
 
     /// Specific type of encounter
-    pub r#type: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub r#type: Vec<types::CodeableConcept>,
 
     /// Specific type of service
-    pub service_type: Option<Vec<types::CodeableReference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub service_type: Vec<types::CodeableReference>,
 
     /// The patient or group related to this encounter
     pub subject: Option<types::Reference>,
@@ -138,7 +144,8 @@ pub struct EncounterHistory {
     pub length: Option<types::Duration>,
 
     /// Location of the patient at this point in the encounter
-    pub location: Option<Vec<EncounterHistoryLocation>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub location: Vec<EncounterHistoryLocation>,
 }
 
 /// Location of the patient at this point in the encounter.
@@ -154,10 +161,12 @@ pub struct EncounterHistoryLocation {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Location the encounter takes place
     pub location: types::Reference,

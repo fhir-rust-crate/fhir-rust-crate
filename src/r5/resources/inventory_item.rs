@@ -81,16 +81,20 @@ pub struct InventoryItem {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Business identifier for the inventory item
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Lifecycle status of this inventory record: active, inactive, entered-in-error, or unknown.
     pub status: crate::r5::coded::Coded<crate::r5::codes::InventoryitemStatus>,
@@ -99,22 +103,27 @@ pub struct InventoryItem {
     pub status_ext: Option<types::Element>,
 
     /// Category or class of the item
-    pub category: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub category: Vec<types::CodeableConcept>,
 
     /// Coded designation of the specific type of item being inventoried, drawn from a code system.
-    pub code: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub code: Vec<types::CodeableConcept>,
 
     /// The item name(s) - the brand name, or common name, functional name, generic name or others
-    pub name: Option<Vec<InventoryItemName>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub name: Vec<InventoryItemName>,
 
     /// Organization(s) responsible for the product
-    pub responsible_organization: Option<Vec<InventoryItemResponsibleOrganization>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub responsible_organization: Vec<InventoryItemResponsibleOrganization>,
 
     /// Descriptive characteristics of the item
     pub description: Option<InventoryItemDescription>,
 
     /// The usage status like recalled, in use, discarded
-    pub inventory_status: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub inventory_status: Vec<types::CodeableConcept>,
 
     /// The base unit of measure - the unit in which the product is used or counted
     pub base_unit: Option<types::CodeableConcept>,
@@ -123,10 +132,12 @@ pub struct InventoryItem {
     pub net_content: Option<types::Quantity>,
 
     /// Association with other items or products
-    pub association: Option<Vec<InventoryItemAssociation>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub association: Vec<InventoryItemAssociation>,
 
     /// Characteristic of the item
-    pub characteristic: Option<Vec<InventoryItemCharacteristic>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub characteristic: Vec<InventoryItemCharacteristic>,
 
     /// Instances or occurrences of the product
     pub instance: Option<InventoryItemInstance>,
@@ -145,10 +156,12 @@ pub struct InventoryItemName {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The type of name e.g. 'brand-name', 'functional-name', 'common-name'
     pub name_type: types::Coding,
@@ -175,10 +188,12 @@ pub struct InventoryItemResponsibleOrganization {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The role of the organization e.g. manufacturer, distributor, or other
     pub role: types::CodeableConcept,
@@ -196,10 +211,12 @@ pub struct InventoryItemDescription {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The language that is used in the item description
     pub language: Option<types::Code>,
@@ -223,10 +240,12 @@ pub struct InventoryItemAssociation {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The type of association between the device and the other item
     pub association_type: types::CodeableConcept,
@@ -247,10 +266,12 @@ pub struct InventoryItemCharacteristic {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The characteristic that is being defined
     pub characteristic_type: types::CodeableConcept,
@@ -269,13 +290,16 @@ pub struct InventoryItemInstance {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The identifier for the physical instance, typically a serial number
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// The lot or batch number of the item
     pub lot_number: Option<types::String>,

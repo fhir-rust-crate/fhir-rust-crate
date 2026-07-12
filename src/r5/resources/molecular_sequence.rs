@@ -79,16 +79,20 @@ pub struct MolecularSequence {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Unique business identifier(s) assigned to this particular sequence, distinct from the resource's logical id
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Kind of molecule represented, coded as aa (amino acid), dna, or rna
     pub r#type: Option<crate::r5::coded::Coded<crate::r5::codes::SequenceType>>,
@@ -100,7 +104,8 @@ pub struct MolecularSequence {
     pub subject: Option<types::Reference>,
 
     /// What the molecular sequence is about, when it is not about the subject of record
-    pub focus: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub focus: Vec<types::Reference>,
 
     /// Specimen used for sequencing
     pub specimen: Option<types::Reference>,
@@ -118,10 +123,12 @@ pub struct MolecularSequence {
     pub literal_ext: Option<types::Element>,
 
     /// Embedded file or an external link containing content that represents the sequence, such as a FASTA or VCF file
-    pub formatted: Option<Vec<types::Attachment>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub formatted: Vec<types::Attachment>,
 
     /// A sequence defined relative to a starting sequence via a set of edits
-    pub relative: Option<Vec<MolecularSequenceRelative>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub relative: Vec<MolecularSequenceRelative>,
 }
 
 /// A sequence defined relative to another sequence.
@@ -133,10 +140,12 @@ pub struct MolecularSequenceRelative {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Ways of identifying nucleotides or amino acids within a sequence
     pub coordinate_system: types::CodeableConcept,
@@ -154,7 +163,8 @@ pub struct MolecularSequenceRelative {
     pub starting_sequence: Option<MolecularSequenceRelativeStartingSequence>,
 
     /// Changes in sequence from the starting sequence
-    pub edit: Option<Vec<MolecularSequenceRelativeEdit>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub edit: Vec<MolecularSequenceRelativeEdit>,
 }
 
 /// A sequence used as starting sequence.
@@ -166,10 +176,12 @@ pub struct MolecularSequenceRelativeStartingSequence {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The genome assembly used for starting sequence, e.g. GRCh38
     pub genome_assembly: Option<types::CodeableConcept>,
@@ -215,10 +227,12 @@ pub struct MolecularSequenceRelativeEdit {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Start position of the edit on the starting sequence
     pub start: Option<types::Integer>,

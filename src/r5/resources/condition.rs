@@ -77,16 +77,20 @@ pub struct Condition {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// External Ids for this condition
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// The clinical status of the condition, e.g. active | recurrence | relapse | inactive | remission | resolved | unknown.
     pub clinical_status: types::CodeableConcept,
@@ -95,7 +99,8 @@ pub struct Condition {
     pub verification_status: Option<types::CodeableConcept>,
 
     /// A categorization of the condition, e.g. problem-list-item | encounter-diagnosis.
-    pub category: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub category: Vec<types::CodeableConcept>,
 
     /// Subjective severity of condition
     pub severity: Option<types::CodeableConcept>,
@@ -104,7 +109,8 @@ pub struct Condition {
     pub code: Option<types::CodeableConcept>,
 
     /// Anatomical location, if relevant
-    pub body_site: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub body_site: Vec<types::CodeableConcept>,
 
     /// The patient or group who has the condition; a reference to the relevant [`Patient`](crate::r5::resources::patient::Patient) (or group).
     pub subject: types::Reference,
@@ -127,16 +133,20 @@ pub struct Condition {
     pub recorded_date_ext: Option<types::Element>,
 
     /// Who or what participated in the activities related to the condition and how they were involved
-    pub participant: Option<Vec<ConditionParticipant>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub participant: Vec<ConditionParticipant>,
 
     /// Stage/grade, usually assessed formally
-    pub stage: Option<Vec<ConditionStage>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub stage: Vec<ConditionStage>,
 
     /// Supporting evidence for the verification status
-    pub evidence: Option<Vec<types::CodeableReference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub evidence: Vec<types::CodeableReference>,
 
     /// Additional information about the Condition
-    pub note: Option<Vec<types::Annotation>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub note: Vec<types::Annotation>,
 }
 
 /// Who or what participated in the activities related to the condition and how
@@ -149,10 +159,12 @@ pub struct ConditionParticipant {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Type of involvement
     pub function: Option<types::CodeableConcept>,
@@ -170,16 +182,19 @@ pub struct ConditionStage {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Simple summary (disease specific)
     pub summary: Option<types::CodeableConcept>,
 
     /// Formal record of assessment
-    pub assessment: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub assessment: Vec<types::Reference>,
 
     /// Kind of staging
     pub r#type: Option<types::CodeableConcept>,

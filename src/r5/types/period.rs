@@ -43,7 +43,8 @@ pub struct Period {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
     /// The start date/time of the period, if known. If absent, the period is
     /// assumed to have started at some time before or at its end.
     pub start: Option<types::DateTime>, // « C »

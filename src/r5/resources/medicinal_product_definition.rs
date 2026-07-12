@@ -79,16 +79,20 @@ pub struct MedicinalProductDefinition {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Business identifiers for this product, which may include a regulatory Medicinal Product Identifier (MPID)
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Regulatory type, e.g. Investigational or Authorized
     pub r#type: Option<types::CodeableConcept>,
@@ -121,7 +125,8 @@ pub struct MedicinalProductDefinition {
     pub combined_pharmaceutical_dose_form: Option<types::CodeableConcept>,
 
     /// The path by which the product is taken into or makes contact with the body
-    pub route: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub route: Vec<types::CodeableConcept>,
 
     /// Description of indication(s) for this product, used when structured indications are not required
     pub indication: Option<types::Markdown>,
@@ -136,55 +141,70 @@ pub struct MedicinalProductDefinition {
     pub additional_monitoring_indicator: Option<types::CodeableConcept>,
 
     /// Whether the Medicinal Product is subject to special measures for regulatory reasons
-    pub special_measures: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub special_measures: Vec<types::CodeableConcept>,
 
     /// If authorised for use in children
     pub pediatric_use_indicator: Option<types::CodeableConcept>,
 
     /// Allows the product to be classified by various systems
-    pub classification: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub classification: Vec<types::CodeableConcept>,
 
     /// Marketing status of the medicinal product, in contrast to marketing authorization
-    pub marketing_status: Option<Vec<types::MarketingStatus>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub marketing_status: Vec<types::MarketingStatus>,
 
     /// Package type for the product
-    pub packaged_medicinal_product: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub packaged_medicinal_product: Vec<types::CodeableConcept>,
 
     /// Types of medicinal manufactured items and/or devices that this product consists of, such as tablets, capsule, or syringes
-    pub comprised_of: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub comprised_of: Vec<types::Reference>,
 
     /// The ingredients of this medicinal product - when not detailed in other resources
-    pub ingredient: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub ingredient: Vec<types::CodeableConcept>,
 
     /// Any component of the drug product which is not the chemical entity defined as the drug substance, or an excipient in the drug product
-    pub impurity: Option<Vec<types::CodeableReference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub impurity: Vec<types::CodeableReference>,
 
     /// Additional documentation about the medicinal product
-    pub attached_document: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub attached_document: Vec<types::Reference>,
 
     /// A master file for the medicinal product (e.g. Pharmacovigilance System Master File)
-    pub master_file: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub master_file: Vec<types::Reference>,
 
     /// A product specific contact, person (in a role), or an organization
-    pub contact: Option<Vec<MedicinalProductDefinitionContact>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contact: Vec<MedicinalProductDefinitionContact>,
 
     /// Clinical trials or studies that this product is involved in
-    pub clinical_trial: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub clinical_trial: Vec<types::Reference>,
 
     /// A code that this product is known by, within some formal terminology
-    pub code: Option<Vec<types::Coding>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub code: Vec<types::Coding>,
 
     /// The product's registered name or names, including the full name and any coded parts, per country and jurisdiction
     pub name: vec1::Vec1<MedicinalProductDefinitionName>,
 
     /// Reference to another product, e.g. for linking authorised to investigational product
-    pub cross_reference: Option<Vec<MedicinalProductDefinitionCrossReference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub cross_reference: Vec<MedicinalProductDefinitionCrossReference>,
 
     /// A manufacturing or administrative process for the medicinal product
-    pub operation: Option<Vec<MedicinalProductDefinitionOperation>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub operation: Vec<MedicinalProductDefinitionOperation>,
 
     /// Key product features such as "sugar free", "modified release"
-    pub characteristic: Option<Vec<MedicinalProductDefinitionCharacteristic>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub characteristic: Vec<MedicinalProductDefinitionCharacteristic>,
 }
 
 /// MedicinalProductDefinition.contact
@@ -198,10 +218,12 @@ pub struct MedicinalProductDefinitionContact {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Allows the contact to be classified, for example QPPV, Pharmacovigilance Enquiry Information
     pub r#type: Option<types::CodeableConcept>,
@@ -221,10 +243,12 @@ pub struct MedicinalProductDefinitionName {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The full product name
     pub product_name: types::String,
@@ -236,10 +260,12 @@ pub struct MedicinalProductDefinitionName {
     pub r#type: Option<types::CodeableConcept>,
 
     /// Coding words or phrases of the name
-    pub part: Option<Vec<MedicinalProductDefinitionNamePart>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub part: Vec<MedicinalProductDefinitionNamePart>,
 
     /// Country and jurisdiction where the name applies
-    pub usage: Option<Vec<MedicinalProductDefinitionNameUsage>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub usage: Vec<MedicinalProductDefinitionNameUsage>,
 }
 
 /// MedicinalProductDefinition.name.part
@@ -253,10 +279,12 @@ pub struct MedicinalProductDefinitionNamePart {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// A fragment of a product name
     pub part: types::String,
@@ -279,10 +307,12 @@ pub struct MedicinalProductDefinitionNameUsage {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Country code for where this name applies
     pub country: types::CodeableConcept,
@@ -305,10 +335,12 @@ pub struct MedicinalProductDefinitionCrossReference {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Reference to another product, e.g. for linking authorised to investigational product
     pub product: types::CodeableReference,
@@ -328,10 +360,12 @@ pub struct MedicinalProductDefinitionOperation {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The type of manufacturing operation e.g. manufacturing itself, re-packaging
     pub r#type: Option<types::CodeableReference>,
@@ -340,7 +374,8 @@ pub struct MedicinalProductDefinitionOperation {
     pub effective_date: Option<types::Period>,
 
     /// The organization responsible for the particular process, e.g. the manufacturer or importer
-    pub organization: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub organization: Vec<types::Reference>,
 
     /// Specifies whether this process is considered proprietary or confidential
     pub confidentiality_indicator: Option<types::CodeableConcept>,
@@ -357,10 +392,12 @@ pub struct MedicinalProductDefinitionCharacteristic {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// A code expressing the type of characteristic
     pub r#type: types::CodeableConcept,

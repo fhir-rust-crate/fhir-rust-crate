@@ -81,13 +81,16 @@ pub struct DeviceDefinition {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Additional narrative information to describe the device model, its intended purpose, and general use
     pub description: Option<types::Markdown>,
@@ -96,13 +99,16 @@ pub struct DeviceDefinition {
     pub description_ext: Option<types::Element>,
 
     /// Business identifier(s) for this device definition, assigned by the manufacturer or a regulatory body
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Unique Device Identifier (UDI) Barcode string
-    pub udi_device_identifier: Option<Vec<DeviceDefinitionUdiDeviceIdentifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub udi_device_identifier: Vec<DeviceDefinitionUdiDeviceIdentifier>,
 
     /// Regulatory identifier(s) associated with this device
-    pub regulatory_identifier: Option<Vec<DeviceDefinitionRegulatoryIdentifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub regulatory_identifier: Vec<DeviceDefinitionRegulatoryIdentifier>,
 
     /// The part number or catalog number of the device
     pub part_number: Option<types::String>,
@@ -114,7 +120,8 @@ pub struct DeviceDefinition {
     pub manufacturer: Option<types::Reference>,
 
     /// The name or names of the device as given by the manufacturer
-    pub device_name: Option<Vec<DeviceDefinitionDeviceName>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub device_name: Vec<DeviceDefinitionDeviceName>,
 
     /// The catalog or model number for the device for example as defined by the manufacturer
     pub model_number: Option<types::String>,
@@ -123,50 +130,64 @@ pub struct DeviceDefinition {
     pub model_number_ext: Option<types::Element>,
 
     /// What kind of device or device system this is, e.g. its risk class or device category
-    pub classification: Option<Vec<DeviceDefinitionClassification>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub classification: Vec<DeviceDefinitionClassification>,
 
     /// Identifies the standards, specifications, or formal guidances for the capabilities supported by the device
-    pub conforms_to: Option<Vec<DeviceDefinitionConformsTo>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub conforms_to: Vec<DeviceDefinitionConformsTo>,
 
     /// A device, part of the current one
-    pub has_part: Option<Vec<DeviceDefinitionHasPart>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub has_part: Vec<DeviceDefinitionHasPart>,
 
     /// Information about the packaging of the device, i.e. how the device is packaged
-    pub packaging: Option<Vec<DeviceDefinitionPackaging>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub packaging: Vec<DeviceDefinitionPackaging>,
 
     /// The version of the device or software
-    pub version: Option<Vec<DeviceDefinitionVersion>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub version: Vec<DeviceDefinitionVersion>,
 
     /// Safety characteristics of the device
-    pub safety: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub safety: Vec<types::CodeableConcept>,
 
     /// Shelf Life and storage information
-    pub shelf_life_storage: Option<Vec<types::ProductShelfLife>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub shelf_life_storage: Vec<types::ProductShelfLife>,
 
     /// Language code for the human-readable text strings produced by the device (all supported)
-    pub language_code: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub language_code: Vec<types::CodeableConcept>,
 
     /// Inherent, essentially fixed, characteristics of this kind of device, e.g., time properties, size, etc
-    pub property: Option<Vec<DeviceDefinitionProperty>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub property: Vec<DeviceDefinitionProperty>,
 
     /// The organization responsible for device, typically the manufacturer or its authorized representative
     pub owner: Option<types::Reference>,
 
     /// Details for human/organization for support
-    pub contact: Option<Vec<types::ContactPoint>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contact: Vec<types::ContactPoint>,
 
     /// An associated device, attached to, used with, communicating with or linking a previous or new device model to the focal device
-    pub link: Option<Vec<DeviceDefinitionLink>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub link: Vec<DeviceDefinitionLink>,
 
     /// Device notes and comments
-    pub note: Option<Vec<types::Annotation>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub note: Vec<types::Annotation>,
 
     /// A substance used to create the material(s) of which the device is made
-    pub material: Option<Vec<DeviceDefinitionMaterial>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub material: Vec<DeviceDefinitionMaterial>,
 
     /// lot-number | manufactured-date | serial-number | expiration-date | biological-source | software-version
     #[serde(rename = "productionIdentifierInUDI")]
-    pub production_identifier_in_udi: Option<Vec<crate::r5::coded::Coded<crate::r5::codes::DeviceProductidentifierinudi>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub production_identifier_in_udi: Vec<crate::r5::coded::Coded<crate::r5::codes::DeviceProductidentifierinudi>>,
 
     /// Information aimed at providing directions for the usage of this model of device
     pub guideline: Option<DeviceDefinitionGuideline>,
@@ -175,7 +196,8 @@ pub struct DeviceDefinition {
     pub corrective_action: Option<DeviceDefinitionCorrectiveAction>,
 
     /// Billing code or reference associated with the device
-    pub charge_item: Option<Vec<DeviceDefinitionChargeItem>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub charge_item: Vec<DeviceDefinitionChargeItem>,
 }
 
 /// Unique Device Identifier (UDI) Barcode string.
@@ -187,10 +209,12 @@ pub struct DeviceDefinitionUdiDeviceIdentifier {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The identifier that is to be associated with every Device that references this DeviceDefintiion for the issuer and jurisdiction provided in the DeviceDefinition.udiDeviceIdentifier
     pub device_identifier: types::String,
@@ -211,7 +235,8 @@ pub struct DeviceDefinitionUdiDeviceIdentifier {
     pub jurisdiction_ext: Option<types::Element>,
 
     /// Indicates whether and when the device is available on the market
-    pub market_distribution: Option<Vec<DeviceDefinitionUdiDeviceIdentifierMarketDistribution>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub market_distribution: Vec<DeviceDefinitionUdiDeviceIdentifierMarketDistribution>,
 }
 
 /// Indicates whether and when the device is available on the market.
@@ -223,10 +248,12 @@ pub struct DeviceDefinitionUdiDeviceIdentifierMarketDistribution {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Begin and end dates for the commercial distribution of the device
     pub market_period: types::Period,
@@ -247,10 +274,12 @@ pub struct DeviceDefinitionRegulatoryIdentifier {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// basic | master | license
     pub r#type: crate::r5::coded::Coded<crate::r5::codes::DevicedefinitionRegulatoryIdentifierType>,
@@ -286,10 +315,12 @@ pub struct DeviceDefinitionDeviceName {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// A name that is used to refer to the device
     pub name: types::String,
@@ -313,16 +344,19 @@ pub struct DeviceDefinitionClassification {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// A classification or risk class of the device model
     pub r#type: types::CodeableConcept,
 
     /// Further information qualifying this classification of the device model
-    pub justification: Option<Vec<types::RelatedArtifact>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub justification: Vec<types::RelatedArtifact>,
 }
 
 /// Identifies the standards, specifications, or formal guidances for the
@@ -335,10 +369,12 @@ pub struct DeviceDefinitionConformsTo {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Describes the common type of the standard, specification, or formal guidance
     pub category: Option<types::CodeableConcept>,
@@ -347,13 +383,16 @@ pub struct DeviceDefinitionConformsTo {
     pub specification: types::CodeableConcept,
 
     /// The specific form or variant of the standard, specification or formal guidance
-    pub version: Option<Vec<types::String>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub version: Vec<types::String>,
     /// Primitive extension sibling for [`version`](Self::version) (FHIR `_version`).
     #[serde(rename = "_version")]
-    pub version_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub version_ext: Vec<Option<types::Element>>,
 
     /// Standard, regulation, certification, or guidance website, document, or other publication, or similar, supporting the conformance
-    pub source: Option<Vec<types::RelatedArtifact>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub source: Vec<types::RelatedArtifact>,
 }
 
 /// A device, part of the current one.
@@ -365,10 +404,12 @@ pub struct DeviceDefinitionHasPart {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Reference to the part
     pub reference: types::Reference,
@@ -389,10 +430,12 @@ pub struct DeviceDefinitionPackaging {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Business identifier of the packaged medication
     pub identifier: Option<types::Identifier>,
@@ -407,13 +450,16 @@ pub struct DeviceDefinitionPackaging {
     pub count_ext: Option<types::Element>,
 
     /// An organization that distributes the packaged device
-    pub distributor: Option<Vec<DeviceDefinitionPackagingDistributor>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub distributor: Vec<DeviceDefinitionPackagingDistributor>,
 
     /// Unique Device Identifier (UDI) Barcode string on the packaging
-    pub udi_device_identifier: Option<Vec<DeviceDefinitionUdiDeviceIdentifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub udi_device_identifier: Vec<DeviceDefinitionUdiDeviceIdentifier>,
 
     /// Allows packages within packages
-    pub packaging: Option<Vec<DeviceDefinitionPackaging>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub packaging: Vec<DeviceDefinitionPackaging>,
 }
 
 /// An organization that distributes the packaged device.
@@ -425,10 +471,12 @@ pub struct DeviceDefinitionPackagingDistributor {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Distributor's human-readable name
     pub name: Option<types::String>,
@@ -437,7 +485,8 @@ pub struct DeviceDefinitionPackagingDistributor {
     pub name_ext: Option<types::Element>,
 
     /// Distributor as an Organization resource
-    pub organization_reference: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub organization_reference: Vec<types::Reference>,
 }
 
 /// The version of the device or software.
@@ -449,10 +498,12 @@ pub struct DeviceDefinitionVersion {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The type of the device version, e.g. manufacturer, approved, internal
     pub r#type: Option<types::CodeableConcept>,
@@ -476,10 +527,12 @@ pub struct DeviceDefinitionProperty {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Code that specifies the property being represented
     pub r#type: types::CodeableConcept,
@@ -499,10 +552,12 @@ pub struct DeviceDefinitionLink {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The type indicates the relationship of the related device to the device instance
     pub relation: types::Coding,
@@ -520,10 +575,12 @@ pub struct DeviceDefinitionMaterial {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// A relevant substance that the device contains, may contain, or is made of
     pub substance: types::CodeableConcept,
@@ -551,13 +608,16 @@ pub struct DeviceDefinitionGuideline {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The circumstances that form the setting for using the device
-    pub use_context: Option<Vec<types::UsageContext>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub use_context: Vec<types::UsageContext>,
 
     /// Detailed written and visual directions for the user on how to use the device
     pub usage_instruction: Option<types::Markdown>,
@@ -566,16 +626,20 @@ pub struct DeviceDefinitionGuideline {
     pub usage_instruction_ext: Option<types::Element>,
 
     /// A source of information or reference for this guideline
-    pub related_artifact: Option<Vec<types::RelatedArtifact>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub related_artifact: Vec<types::RelatedArtifact>,
 
     /// A clinical condition for which the device was designed to be used
-    pub indication: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub indication: Vec<types::CodeableConcept>,
 
     /// A specific situation when a device should not be used because it may cause harm
-    pub contraindication: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contraindication: Vec<types::CodeableConcept>,
 
     /// Specific hazard alert information that a user needs to know before using the device
-    pub warning: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub warning: Vec<types::CodeableConcept>,
 
     /// A description of the general purpose or medical use of the device or its function
     pub intended_use: Option<types::String>,
@@ -593,10 +657,12 @@ pub struct DeviceDefinitionCorrectiveAction {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Whether the corrective action was a recall
     pub recall: types::Boolean,
@@ -623,10 +689,12 @@ pub struct DeviceDefinitionChargeItem {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The code or reference for the charge item
     pub charge_item_code: types::CodeableReference,
@@ -638,7 +706,8 @@ pub struct DeviceDefinitionChargeItem {
     pub effective_period: Option<types::Period>,
 
     /// The context to which this charge item applies
-    pub use_context: Option<Vec<types::UsageContext>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub use_context: Vec<types::UsageContext>,
 }
 
 #[cfg(test)]

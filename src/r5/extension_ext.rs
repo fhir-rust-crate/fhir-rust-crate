@@ -26,8 +26,8 @@ use crate::r5::types::Extension;
 pub trait HasExtension {
     /// The extensions as a slice (empty if none).
     fn extension_slice(&self) -> &[Extension];
-    /// Mutable access to the underlying `Option<Vec<Extension>>`.
-    fn extension_mut(&mut self) -> &mut Option<Vec<Extension>>;
+    /// Mutable access to the underlying `Vec<Extension>`.
+    fn extension_mut(&mut self) -> &mut Vec<Extension>;
 }
 
 /// Ergonomic accessors over [`HasExtension`]. Blanket-implemented.
@@ -43,13 +43,13 @@ pub trait ExtensionExt: HasExtension {
     /// Set an extension, replacing any existing ones with the same `url`.
     fn set_extension(&mut self, ext: Extension) {
         let url = ext.url.0.clone();
-        let list = self.extension_mut().get_or_insert_with(Vec::new);
+        let list = self.extension_mut();
         list.retain(|e| e.url.0 != url);
         list.push(ext);
     }
     /// Append an extension without removing existing ones of the same `url`.
     fn add_extension(&mut self, ext: Extension) {
-        self.extension_mut().get_or_insert_with(Vec::new).push(ext);
+        self.extension_mut().push(ext);
     }
 }
 
@@ -59,8 +59,8 @@ impl<T: HasExtension + ?Sized> ExtensionExt for T {}
 pub trait HasModifierExtension {
     /// The modifier extensions as a slice (empty if none).
     fn modifier_extension_slice(&self) -> &[Extension];
-    /// Mutable access to the underlying `Option<Vec<Extension>>`.
-    fn modifier_extension_mut(&mut self) -> &mut Option<Vec<Extension>>;
+    /// Mutable access to the underlying `Vec<Extension>`.
+    fn modifier_extension_mut(&mut self) -> &mut Vec<Extension>;
 }
 
 /// Ergonomic accessors over [`HasModifierExtension`]. Blanket-implemented.
@@ -72,7 +72,7 @@ pub trait ModifierExtensionExt: HasModifierExtension {
     /// Set a modifier extension, replacing any with the same `url`.
     fn set_modifier_extension(&mut self, ext: Extension) {
         let url = ext.url.0.clone();
-        let list = self.modifier_extension_mut().get_or_insert_with(Vec::new);
+        let list = self.modifier_extension_mut();
         list.retain(|e| e.url.0 != url);
         list.push(ext);
     }
@@ -84,9 +84,9 @@ macro_rules! impl_has_extension {
     ($($t:ty),* $(,)?) => { $(
         impl HasExtension for $t {
             fn extension_slice(&self) -> &[Extension] {
-                self.extension.as_deref().unwrap_or(&[])
+                &self.extension
             }
-            fn extension_mut(&mut self) -> &mut Option<Vec<Extension>> {
+            fn extension_mut(&mut self) -> &mut Vec<Extension> {
                 &mut self.extension
             }
         }
@@ -97,9 +97,9 @@ macro_rules! impl_has_modifier_extension {
     ($($t:ty),* $(,)?) => { $(
         impl HasModifierExtension for $t {
             fn modifier_extension_slice(&self) -> &[Extension] {
-                self.modifier_extension.as_deref().unwrap_or(&[])
+                &self.modifier_extension
             }
-            fn modifier_extension_mut(&mut self) -> &mut Option<Vec<Extension>> {
+            fn modifier_extension_mut(&mut self) -> &mut Vec<Extension> {
                 &mut self.modifier_extension
             }
         }
@@ -109,11 +109,11 @@ macro_rules! impl_has_modifier_extension {
 // `Reference<T>` is generic, so implement it directly.
 impl<T> HasExtension for crate::r5::types::reference::Reference<T> {
     fn extension_slice(&self) -> &[Extension] {
-        self.extension.as_deref().unwrap_or(&[])
-    }
-    fn extension_mut(&mut self) -> &mut Option<Vec<Extension>> {
-        &mut self.extension
-    }
+                &self.extension
+            }
+    fn extension_mut(&mut self) -> &mut Vec<Extension> {
+                &mut self.extension
+            }
 }
 
 impl_has_extension!(

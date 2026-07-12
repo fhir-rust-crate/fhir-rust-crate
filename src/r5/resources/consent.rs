@@ -79,16 +79,20 @@ pub struct Consent {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Identifier for this record (external references)
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// The current lifecycle status of this consent record: draft | active | inactive | not-done | entered-in-error | unknown
     pub status: crate::r5::coded::Coded<crate::r5::codes::ConsentStateCodes>,
@@ -97,7 +101,8 @@ pub struct Consent {
     pub status_ext: Option<types::Element>,
 
     /// Classification of the consent statement (e.g. privacy, treatment, research) used for indexing and retrieval
-    pub category: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub category: Vec<types::CodeableConcept>,
 
     /// The individual or entity to whom the consent applies, typically a [`Patient`](crate::r5::resources::patient::Patient)
     pub subject: Option<types::Reference>,
@@ -112,34 +117,43 @@ pub struct Consent {
     pub period: Option<types::Period>,
 
     /// Who is granting rights according to the policy and rules
-    pub grantor: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub grantor: Vec<types::Reference>,
 
     /// Who is agreeing to the policy and rules
-    pub grantee: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub grantee: Vec<types::Reference>,
 
     /// Consent workflow management
-    pub manager: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub manager: Vec<types::Reference>,
 
     /// Consent Enforcer
-    pub controller: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub controller: Vec<types::Reference>,
 
     /// Source from which this consent is taken
-    pub source_attachment: Option<Vec<types::Attachment>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub source_attachment: Vec<types::Attachment>,
 
     /// Source from which this consent is taken
-    pub source_reference: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub source_reference: Vec<types::Reference>,
 
     /// Regulations establishing base Consent
-    pub regulatory_basis: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub regulatory_basis: Vec<types::CodeableConcept>,
 
     /// Computable version of the backing policy
     pub policy_basis: Option<ConsentPolicyBasis>,
 
     /// Human Readable Policy
-    pub policy_text: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub policy_text: Vec<types::Reference>,
 
     /// Consent Verified by patient or family
-    pub verification: Option<Vec<ConsentVerification>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub verification: Vec<ConsentVerification>,
 
     /// The overall decision expressed by this consent: deny | permit
     pub decision: Option<crate::r5::coded::Coded<crate::r5::codes::ConsentProvisionType>>,
@@ -148,7 +162,8 @@ pub struct Consent {
     pub decision_ext: Option<types::Element>,
 
     /// Fine-grained constraints and exceptions that scope the base decision, may be nested
-    pub provision: Option<Vec<ConsentProvision>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub provision: Vec<ConsentProvision>,
 }
 
 /// Computable version of the backing policy.
@@ -163,10 +178,12 @@ pub struct ConsentPolicyBasis {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Reference backing policy resource
     pub reference: Option<types::Reference>,
@@ -190,10 +207,12 @@ pub struct ConsentVerification {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Has been verified
     pub verified: types::Boolean,
@@ -211,10 +230,12 @@ pub struct ConsentVerification {
     pub verified_with: Option<types::Reference>,
 
     /// When consent verified
-    pub verification_date: Option<Vec<types::DateTime>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub verification_date: Vec<types::DateTime>,
     /// Primitive extension sibling for [`verification_date`](Self::verification_date) (FHIR `_verificationDate`).
     #[serde(rename = "_verificationDate")]
-    pub verification_date_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub verification_date_ext: Vec<Option<types::Element>>,
 }
 
 /// Constraints to the base Consent.policyRule/Consent.policy.
@@ -230,46 +251,57 @@ pub struct ConsentProvision {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Timeframe for this provision
     pub period: Option<types::Period>,
 
     /// Who|what controlled by this provision (or group, by role)
-    pub actor: Option<Vec<ConsentProvisionActor>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub actor: Vec<ConsentProvisionActor>,
 
     /// Actions controlled by this provision
-    pub action: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub action: Vec<types::CodeableConcept>,
 
     /// Security Labels that define affected resources
-    pub security_label: Option<Vec<types::Coding>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub security_label: Vec<types::Coding>,
 
     /// Context of activities covered by this provision
-    pub purpose: Option<Vec<types::Coding>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub purpose: Vec<types::Coding>,
 
     /// e.g. Resource Type, Profile, CDA, etc
-    pub document_type: Option<Vec<types::Coding>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub document_type: Vec<types::Coding>,
 
     /// e.g. Resource Type, Profile, etc
-    pub resource_type: Option<Vec<types::Coding>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub resource_type: Vec<types::Coding>,
 
     /// e.g. LOINC or SNOMED CT code, etc. in the content
-    pub code: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub code: Vec<types::CodeableConcept>,
 
     /// Timeframe for data controlled by this provision
     pub data_period: Option<types::Period>,
 
     /// Data controlled by this provision
-    pub data: Option<Vec<ConsentProvisionData>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub data: Vec<ConsentProvisionData>,
 
     /// A computable expression of the consent
     pub expression: Option<types::Expression>,
 
     /// Nested Exception Provisions
-    pub provision: Option<Vec<ConsentProvision>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub provision: Vec<ConsentProvision>,
 }
 
 /// Who|what controlled by this provision (or group, by role).
@@ -284,10 +316,12 @@ pub struct ConsentProvisionActor {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// How the actor is involved
     pub role: Option<types::CodeableConcept>,
@@ -308,10 +342,12 @@ pub struct ConsentProvisionData {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// instance | related | dependents | authoredby
     pub meaning: crate::r5::coded::Coded<crate::r5::codes::ConsentDataMeaning>,

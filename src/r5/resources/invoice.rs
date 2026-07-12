@@ -80,16 +80,20 @@ pub struct Invoice {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Business Identifier for item
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Current state of the invoice in the billing process: draft, issued, balanced, cancelled, or entered-in-error.
     pub status: crate::r5::coded::Coded<crate::r5::codes::InvoiceStatus>,
@@ -129,7 +133,8 @@ pub struct Invoice {
     pub period: Option<InvoicePeriod>,
 
     /// Participant in creation of this Invoice
-    pub participant: Option<Vec<InvoiceParticipant>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub participant: Vec<InvoiceParticipant>,
 
     /// Issuing Organization of Invoice
     pub issuer: Option<types::Reference>,
@@ -138,10 +143,12 @@ pub struct Invoice {
     pub account: Option<types::Reference>,
 
     /// Individual charge lines that make up this invoice, each with its own price components.
-    pub line_item: Option<Vec<InvoiceLineItem>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub line_item: Vec<InvoiceLineItem>,
 
     /// Components of Invoice total
-    pub total_price_component: Option<Vec<types::MonetaryComponent>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub total_price_component: Vec<types::MonetaryComponent>,
 
     /// Net total of this invoice, excluding taxes and surcharges captured as components.
     pub total_net: Option<types::Money>,
@@ -156,7 +163,8 @@ pub struct Invoice {
     pub payment_terms_ext: Option<types::Element>,
 
     /// Comments made about the invoice
-    pub note: Option<Vec<types::Annotation>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub note: Vec<types::Annotation>,
 }
 
 /// Participant in creation of this Invoice.
@@ -171,10 +179,12 @@ pub struct InvoiceParticipant {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Type of involvement in creation of this Invoice
     pub role: Option<types::CodeableConcept>,
@@ -195,10 +205,12 @@ pub struct InvoiceLineItem {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Sequence number of line item
     pub sequence: Option<types::PositiveInt>,
@@ -215,7 +227,8 @@ pub struct InvoiceLineItem {
     pub charge_item: Option<InvoiceLineItemChargeItem>,
 
     /// Components of total line item price
-    pub price_component: Option<Vec<types::MonetaryComponent>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub price_component: Vec<types::MonetaryComponent>,
 }
 
 #[cfg(test)]

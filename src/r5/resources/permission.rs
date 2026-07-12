@@ -79,13 +79,16 @@ pub struct Permission {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Lifecycle state of the permission: active, entered-in-error, draft, or rejected.
     pub status: crate::r5::coded::Coded<crate::r5::codes::PermissionStatus>,
@@ -97,10 +100,12 @@ pub struct Permission {
     pub asserter: Option<types::Reference>,
 
     /// The date(s) on which the permission was asserted by the asserter.
-    pub date: Option<Vec<types::DateTime>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub date: Vec<types::DateTime>,
     /// Primitive extension sibling for [`date`](Self::date) (FHIR `_date`).
     #[serde(rename = "_date")]
-    pub date_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub date_ext: Vec<Option<types::Element>>,
 
     /// The period during which this permission's rules are in effect.
     pub validity: Option<types::Period>,
@@ -115,7 +120,8 @@ pub struct Permission {
     pub combining_ext: Option<types::Element>,
 
     /// The ordered set of rules that constrain access under this permission.
-    pub rule: Option<Vec<PermissionRule>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub rule: Vec<PermissionRule>,
 }
 
 /// The asserted justification for using the data.
@@ -127,16 +133,20 @@ pub struct PermissionJustification {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The regulatory grounds upon which this Permission builds
-    pub basis: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub basis: Vec<types::CodeableConcept>,
 
     /// Justifing rational
-    pub evidence: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub evidence: Vec<types::Reference>,
 }
 
 /// Constraints to the Permission.
@@ -148,10 +158,12 @@ pub struct PermissionRule {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// deny | permit
     pub r#type: Option<crate::r5::coded::Coded<crate::r5::codes::ConsentProvisionType>>,
@@ -160,13 +172,16 @@ pub struct PermissionRule {
     pub type_ext: Option<types::Element>,
 
     /// The selection criteria to identify data that is within scope of this provision
-    pub data: Option<Vec<PermissionRuleData>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub data: Vec<PermissionRuleData>,
 
     /// A description or definition of which activities are allowed to be done on the data
-    pub activity: Option<Vec<PermissionRuleActivity>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub activity: Vec<PermissionRuleActivity>,
 
     /// What limits apply to the use of the data
-    pub limit: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub limit: Vec<types::CodeableConcept>,
 }
 
 /// The selection criteria to identify data that is within scope of this provision.
@@ -178,19 +193,24 @@ pub struct PermissionRuleData {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Explicit FHIR Resource references
-    pub resource: Option<Vec<PermissionRuleDataResource>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub resource: Vec<PermissionRuleDataResource>,
 
     /// Security tag code on .meta.security
-    pub security: Option<Vec<types::Coding>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub security: Vec<types::Coding>,
 
     /// Timeframe encompasing data create/update
-    pub period: Option<Vec<types::Period>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub period: Vec<types::Period>,
 
     /// Expression identifying the data
     pub expression: Option<types::Expression>,
@@ -205,10 +225,12 @@ pub struct PermissionRuleDataResource {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// instance | related | dependents | authoredby
     pub meaning: crate::r5::coded::Coded<crate::r5::codes::ConsentDataMeaning>,
@@ -229,19 +251,24 @@ pub struct PermissionRuleActivity {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Authorized actor(s)
-    pub actor: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub actor: Vec<types::Reference>,
 
     /// Actions controlled by this rule
-    pub action: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub action: Vec<types::CodeableConcept>,
 
     /// The purpose for which the permission is given
-    pub purpose: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub purpose: Vec<types::CodeableConcept>,
 }
 
 #[cfg(test)]

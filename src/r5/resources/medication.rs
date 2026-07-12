@@ -80,16 +80,20 @@ pub struct Medication {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Business identifier for this medication
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Coded value, such as an RxNorm or SNOMED CT code, that identifies this medication
     pub code: Option<types::CodeableConcept>,
@@ -110,7 +114,8 @@ pub struct Medication {
     pub total_volume: Option<types::Quantity>,
 
     /// Active or inactive ingredients that make up the medication, each with an optional strength
-    pub ingredient: Option<Vec<MedicationIngredient>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub ingredient: Vec<MedicationIngredient>,
 
     /// Details about the packaged medication, such as its batch lot number and expiration date
     pub batch: Option<MedicationBatch>,
@@ -129,10 +134,12 @@ pub struct MedicationIngredient {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The ingredient (substance or medication) that the ingredient.strength relates to
     pub item: types::CodeableReference,
@@ -158,10 +165,12 @@ pub struct MedicationBatch {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Identifier assigned to batch
     pub lot_number: Option<types::String>,

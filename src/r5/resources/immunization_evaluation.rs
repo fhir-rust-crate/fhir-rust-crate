@@ -78,16 +78,20 @@ pub struct ImmunizationEvaluation {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Business identifier
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// The workflow status of this evaluation, either completed or entered-in-error.
     pub status: types::Code,
@@ -117,7 +121,8 @@ pub struct ImmunizationEvaluation {
     pub dose_status: types::CodeableConcept,
 
     /// Reason why the doese is considered valid, invalid or some other status
-    pub dose_status_reason: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub dose_status_reason: Vec<types::CodeableConcept>,
 
     /// Evaluation notes
     pub description: Option<types::Markdown>,

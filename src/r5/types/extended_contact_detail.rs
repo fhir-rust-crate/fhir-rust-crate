@@ -42,16 +42,19 @@ pub struct ExtendedContactDetail {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// The type of contact
     pub purpose: Option<types::CodeableConcept>,
 
     /// Name of an individual to contact
-    pub name: Option<Vec<types::HumanName>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub name: Vec<types::HumanName>,
 
     /// Contact details (e.g.phone/fax/url)
-    pub telecom: Option<Vec<types::ContactPoint>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub telecom: Vec<types::ContactPoint>,
 
     /// Address for the contact
     pub address: Option<types::Address>,

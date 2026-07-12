@@ -42,10 +42,12 @@ pub struct MarketingStatus {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations.
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized.
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The country in which the marketing authorization has been granted shall be
     /// specified. It should be specified using the ISO 3166-1 alpha-2 code elements.

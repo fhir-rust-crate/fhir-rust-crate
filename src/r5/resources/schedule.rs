@@ -78,16 +78,20 @@ pub struct Schedule {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// External Ids for this item
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Whether this schedule is in active use; inactive schedules should not be offered for booking
     pub active: Option<types::Boolean>,
@@ -96,13 +100,16 @@ pub struct Schedule {
     pub active_ext: Option<types::Element>,
 
     /// High-level category of the service or resource this schedule provides, such as general practice or dental
-    pub service_category: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub service_category: Vec<types::CodeableConcept>,
 
     /// Specific type of service that may be booked against this schedule
-    pub service_type: Option<Vec<types::CodeableReference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub service_type: Vec<types::CodeableReference>,
 
     /// Type of specialty needed
-    pub specialty: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub specialty: Vec<types::CodeableConcept>,
 
     /// Human-readable label
     pub name: Option<types::String>,

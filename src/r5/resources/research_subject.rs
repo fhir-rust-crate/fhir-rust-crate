@@ -86,16 +86,20 @@ pub struct ResearchSubject {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Business Identifier for research subject in a study
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// The overall lifecycle status of this record: draft | active | retired | unknown.
     pub status: crate::r5::coded::Coded<crate::r5::codes::PublicationStatus>,
@@ -105,7 +109,8 @@ pub struct ResearchSubject {
 
     /// A chronological record of the subject's states and milestones (such as
     /// screening, enrollment, or withdrawal) during the study.
-    pub progress: Option<Vec<ResearchSubjectProgress>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub progress: Vec<ResearchSubjectProgress>,
 
     /// The overall start and end date of the subject's participation in the study.
     pub period: Option<types::Period>,
@@ -131,7 +136,8 @@ pub struct ResearchSubject {
     pub actual_comparison_group_ext: Option<types::Element>,
 
     /// Agreement to participate in study
-    pub consent: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub consent: Vec<types::Reference>,
 }
 
 /// Subject status.
@@ -147,10 +153,12 @@ pub struct ResearchSubjectProgress {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// state | milestone
     pub r#type: Option<types::CodeableConcept>,

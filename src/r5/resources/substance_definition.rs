@@ -80,16 +80,20 @@ pub struct SubstanceDefinition {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// One or more business identifiers (e.g. CAS number, UNII) by which this substance is known
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// A business level version identifier of the substance
     pub version: Option<types::String>,
@@ -101,13 +105,15 @@ pub struct SubstanceDefinition {
     pub status: Option<types::CodeableConcept>,
 
     /// A categorization, high level e.g. polymer or nucleic acid, or food, chemical, biological, or lower e.g. polymer linear or branch chain, or type of impurity
-    pub classification: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub classification: Vec<types::CodeableConcept>,
 
     /// If the substance applies to human or veterinary use
     pub domain: Option<types::CodeableConcept>,
 
     /// The quality standard, established benchmark, to which substance complies (e.g. USP/NF, BP)
-    pub grade: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub grade: Vec<types::CodeableConcept>,
 
     /// Textual description of the substance
     pub description: Option<types::Markdown>,
@@ -116,43 +122,54 @@ pub struct SubstanceDefinition {
     pub description_ext: Option<types::Element>,
 
     /// Supporting literature
-    pub information_source: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub information_source: Vec<types::Reference>,
 
     /// Textual comment about the substance's catalogue or registry record
-    pub note: Option<Vec<types::Annotation>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub note: Vec<types::Annotation>,
 
     /// The entity that creates, makes, produces or fabricates the substance
-    pub manufacturer: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub manufacturer: Vec<types::Reference>,
 
     /// An entity that is the source for the substance. It may be different from the manufacturer
-    pub supplier: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub supplier: Vec<types::Reference>,
 
     /// Moiety, for structural modifications
-    pub moiety: Option<Vec<SubstanceDefinitionMoiety>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub moiety: Vec<SubstanceDefinitionMoiety>,
 
     /// General specifications for this substance
-    pub characterization: Option<Vec<SubstanceDefinitionCharacterization>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub characterization: Vec<SubstanceDefinitionCharacterization>,
 
     /// General specifications for this substance
-    pub property: Option<Vec<SubstanceDefinitionProperty>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub property: Vec<SubstanceDefinitionProperty>,
 
     /// General information detailing this substance
     pub reference_information: Option<types::Reference>,
 
     /// The average mass of a molecule of a compound
-    pub molecular_weight: Option<Vec<SubstanceDefinitionMolecularWeight>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub molecular_weight: Vec<SubstanceDefinitionMolecularWeight>,
 
     /// Structural information, such as molecular formula and depictions like SMILES or InChI
     pub structure: Option<SubstanceDefinitionStructure>,
 
     /// Codes associated with the substance, e.g. regulatory or terminology codes and their status
-    pub code: Option<Vec<SubstanceDefinitionCode>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub code: Vec<SubstanceDefinitionCode>,
 
     /// Names applicable to this substance, including synonyms, translations, and official names
-    pub name: Option<Vec<SubstanceDefinitionName>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub name: Vec<SubstanceDefinitionName>,
 
     /// A link between this substance and another, e.g. salt-to-parent or active-moiety relationships
-    pub relationship: Option<Vec<SubstanceDefinitionRelationship>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub relationship: Vec<SubstanceDefinitionRelationship>,
 
     /// Data items specific to nucleic acids
     pub nucleic_acid: Option<types::Reference>,
@@ -176,10 +193,12 @@ pub struct SubstanceDefinitionMoiety {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Role that the moiety is playing
     pub role: Option<types::CodeableConcept>,
@@ -222,10 +241,12 @@ pub struct SubstanceDefinitionCharacterization {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The method used to find the characterization e.g. HPLC
     pub technique: Option<types::CodeableConcept>,
@@ -240,7 +261,8 @@ pub struct SubstanceDefinitionCharacterization {
     pub description_ext: Option<types::Element>,
 
     /// The data produced by the analytical instrument or a pictorial representation of that data. Examples: a JCAMP, JDX, or ADX file, or a chromatogram or spectrum analysis
-    pub file: Option<Vec<types::Attachment>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub file: Vec<types::Attachment>,
 }
 
 /// SubstanceDefinition.property - General specifications for this substance
@@ -252,10 +274,12 @@ pub struct SubstanceDefinitionProperty {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// A code expressing the type of property
     pub r#type: types::CodeableConcept,
@@ -274,10 +298,12 @@ pub struct SubstanceDefinitionMolecularWeight {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The method by which the weight was determined
     pub method: Option<types::CodeableConcept>,
@@ -298,10 +324,12 @@ pub struct SubstanceDefinitionStructure {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Stereochemistry type
     pub stereochemistry: Option<types::CodeableConcept>,
@@ -325,13 +353,16 @@ pub struct SubstanceDefinitionStructure {
     pub molecular_weight: Option<SubstanceDefinitionMolecularWeight>,
 
     /// The method used to find the structure e.g. X-ray, NMR
-    pub technique: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub technique: Vec<types::CodeableConcept>,
 
     /// Source of information for the structure
-    pub source_document: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub source_document: Vec<types::Reference>,
 
     /// A depiction of the structure of the substance
-    pub representation: Option<Vec<SubstanceDefinitionStructureRepresentation>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub representation: Vec<SubstanceDefinitionStructureRepresentation>,
 }
 
 /// SubstanceDefinition.structure.representation - A depiction of the structure of the substance
@@ -343,10 +374,12 @@ pub struct SubstanceDefinitionStructureRepresentation {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The kind of structural representation (e.g. full, partial)
     pub r#type: Option<types::CodeableConcept>,
@@ -373,10 +406,12 @@ pub struct SubstanceDefinitionCode {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The specific code
     pub code: Option<types::CodeableConcept>,
@@ -391,10 +426,12 @@ pub struct SubstanceDefinitionCode {
     pub status_date_ext: Option<types::Element>,
 
     /// Any comment can be provided in this field
-    pub note: Option<Vec<types::Annotation>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub note: Vec<types::Annotation>,
 
     /// Supporting literature
-    pub source: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub source: Vec<types::Reference>,
 }
 
 /// SubstanceDefinition.name - Names applicable to this substance
@@ -406,10 +443,12 @@ pub struct SubstanceDefinitionName {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The actual name
     pub name: types::String,
@@ -430,25 +469,32 @@ pub struct SubstanceDefinitionName {
     pub preferred_ext: Option<types::Element>,
 
     /// Human language that the name is written in
-    pub language: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub language: Vec<types::CodeableConcept>,
 
     /// The use context of this name e.g. as an active ingredient or as a food colour additive
-    pub domain: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub domain: Vec<types::CodeableConcept>,
 
     /// The jurisdiction where this name applies
-    pub jurisdiction: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub jurisdiction: Vec<types::CodeableConcept>,
 
     /// A synonym of this particular name, by which the substance is also known
-    pub synonym: Option<Vec<SubstanceDefinitionName>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub synonym: Vec<SubstanceDefinitionName>,
 
     /// A translation for this name into another human language
-    pub translation: Option<Vec<SubstanceDefinitionName>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub translation: Vec<SubstanceDefinitionName>,
 
     /// Details of the official nature of this name
-    pub official: Option<Vec<SubstanceDefinitionNameOfficial>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub official: Vec<SubstanceDefinitionNameOfficial>,
 
     /// Supporting literature
-    pub source: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub source: Vec<types::Reference>,
 }
 
 /// SubstanceDefinition.name.official - Details of the official nature of this name
@@ -460,10 +506,12 @@ pub struct SubstanceDefinitionNameOfficial {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Which authority uses this official name
     pub authority: Option<types::CodeableConcept>,
@@ -487,10 +535,12 @@ pub struct SubstanceDefinitionRelationship {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The `SubstanceDefinition.relationship.substanceDefinition[x]` choice element (0..1); see [`SubstanceDefinitionRelationshipSubstanceDefinition`].
     #[serde(flatten)]
@@ -516,7 +566,8 @@ pub struct SubstanceDefinitionRelationship {
     pub comparator: Option<types::CodeableConcept>,
 
     /// Supporting literature
-    pub source: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub source: Vec<types::Reference>,
 }
 
 /// SubstanceDefinition.sourceMaterial - Material or taxonomic/anatomical source
@@ -528,10 +579,12 @@ pub struct SubstanceDefinitionSourceMaterial {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Classification of the origin of the raw material. e.g. cat hair is an Animal source type
     pub r#type: Option<types::CodeableConcept>,
@@ -546,7 +599,8 @@ pub struct SubstanceDefinitionSourceMaterial {
     pub part: Option<types::CodeableConcept>,
 
     /// The country or countries where the material is harvested
-    pub country_of_origin: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub country_of_origin: Vec<types::CodeableConcept>,
 }
 
 #[cfg(test)]

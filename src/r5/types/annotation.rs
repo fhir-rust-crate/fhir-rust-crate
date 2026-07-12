@@ -41,7 +41,8 @@ pub struct Annotation {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
     /// The individual responsible for the annotation (`author[x]` choice,
     /// 0..1): either a [`Reference`](types::Reference) to a Practitioner,
     /// PractitionerRole, Patient, RelatedPerson, or Organization

@@ -78,16 +78,20 @@ pub struct AppointmentResponse {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// External Ids for this item
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Reference to the parent `Appointment` this response relates to.
     pub appointment: types::Reference,
@@ -111,7 +115,8 @@ pub struct AppointmentResponse {
     pub end_ext: Option<types::Element>,
 
     /// Role of participant in the appointment
-    pub participant_type: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub participant_type: Vec<types::CodeableConcept>,
 
     /// The participant this response is on behalf of; typically a
     /// [`Patient`](crate::r5::resources::patient::Patient), Practitioner,

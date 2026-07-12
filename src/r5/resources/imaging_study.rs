@@ -79,16 +79,20 @@ pub struct ImagingStudy {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Identifiers for the whole study, such as the DICOM Study Instance UID
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// The overall lifecycle status of the study: registered | available | cancelled | entered-in-error | unknown
     pub status: crate::r5::coded::Coded<crate::r5::codes::ImagingstudyStatus>,
@@ -97,7 +101,8 @@ pub struct ImagingStudy {
     pub status_ext: Option<types::Element>,
 
     /// All of the distinct values for series' modalities (e.g. CT, MR, US)
-    pub modality: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modality: Vec<types::CodeableConcept>,
 
     /// Who or what is the subject of the study, typically a [`Patient`](crate::r5::resources::patient::Patient)
     pub subject: types::Reference,
@@ -112,16 +117,19 @@ pub struct ImagingStudy {
     pub started_ext: Option<types::Element>,
 
     /// Request fulfilled
-    pub based_on: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub based_on: Vec<types::Reference>,
 
     /// Part of referenced event
-    pub part_of: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub part_of: Vec<types::Reference>,
 
     /// Referring physician
     pub referrer: Option<types::Reference>,
 
     /// Study access endpoint
-    pub endpoint: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub endpoint: Vec<types::Reference>,
 
     /// Number of Study Related Series
     pub number_of_series: Option<types::UnsignedInt>,
@@ -136,16 +144,19 @@ pub struct ImagingStudy {
     pub number_of_instances_ext: Option<types::Element>,
 
     /// The performed procedure or code
-    pub procedure: Option<Vec<types::CodeableReference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub procedure: Vec<types::CodeableReference>,
 
     /// Where ImagingStudy occurred
     pub location: Option<types::Reference>,
 
     /// Why the study was requested / performed
-    pub reason: Option<Vec<types::CodeableReference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub reason: Vec<types::CodeableReference>,
 
     /// User-defined comments
-    pub note: Option<Vec<types::Annotation>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub note: Vec<types::Annotation>,
 
     /// Institution-generated description
     pub description: Option<types::String>,
@@ -154,7 +165,8 @@ pub struct ImagingStudy {
     pub description_ext: Option<types::Element>,
 
     /// Each study has one or more series of instances, grouped by modality
-    pub series: Option<Vec<ImagingStudySeries>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub series: Vec<ImagingStudySeries>,
 }
 
 /// Each study has one or more series of instances.
@@ -169,10 +181,12 @@ pub struct ImagingStudySeries {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// DICOM Series Instance UID for the series
     pub uid: types::Id,
@@ -202,7 +216,8 @@ pub struct ImagingStudySeries {
     pub number_of_instances_ext: Option<types::Element>,
 
     /// Series access endpoint
-    pub endpoint: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub endpoint: Vec<types::Reference>,
 
     /// Body part examined
     pub body_site: Option<types::CodeableReference>,
@@ -211,7 +226,8 @@ pub struct ImagingStudySeries {
     pub laterality: Option<types::CodeableConcept>,
 
     /// Specimen imaged
-    pub specimen: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub specimen: Vec<types::Reference>,
 
     /// When the series started
     pub started: Option<types::DateTime>,
@@ -220,10 +236,12 @@ pub struct ImagingStudySeries {
     pub started_ext: Option<types::Element>,
 
     /// Who performed the series
-    pub performer: Option<Vec<ImagingStudySeriesPerformer>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub performer: Vec<ImagingStudySeriesPerformer>,
 
     /// A single SOP instance from the series
-    pub instance: Option<Vec<ImagingStudySeriesInstance>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub instance: Vec<ImagingStudySeriesInstance>,
 }
 
 /// Who performed the series.
@@ -238,10 +256,12 @@ pub struct ImagingStudySeriesPerformer {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Type of performance
     pub function: Option<types::CodeableConcept>,
@@ -262,10 +282,12 @@ pub struct ImagingStudySeriesInstance {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// DICOM SOP Instance UID
     pub uid: types::Id,

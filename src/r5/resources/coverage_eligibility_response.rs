@@ -81,16 +81,20 @@ pub struct CoverageEligibilityResponse {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Business Identifier for coverage eligiblity request
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// The status of the resource instance itself: active | cancelled | draft | entered-in-error.
     pub status: crate::r5::coded::Coded<crate::r5::codes::FmStatus>,
@@ -102,13 +106,15 @@ pub struct CoverageEligibilityResponse {
     pub purpose: vec1::Vec1<crate::r5::coded::Coded<crate::r5::codes::EligibilityresponsePurpose>>,
     /// Primitive extension sibling for [`purpose`](Self::purpose) (FHIR `_purpose`).
     #[serde(rename = "_purpose")]
-    pub purpose_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub purpose_ext: Vec<Option<types::Element>>,
 
     /// Reference to the [`Patient`](crate::r5::resources::patient::Patient) whose coverage is being described.
     pub patient: types::Reference,
 
     /// Event information
-    pub event: Option<Vec<CoverageEligibilityResponseEvent>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub event: Vec<CoverageEligibilityResponseEvent>,
 
     /// The `CoverageEligibilityResponse.serviced[x]` choice element (0..1); see [`CoverageEligibilityResponseServiced`].
     #[serde(flatten)]
@@ -142,7 +148,8 @@ pub struct CoverageEligibilityResponse {
     pub insurer: types::Reference,
 
     /// Patient insurance information
-    pub insurance: Option<Vec<CoverageEligibilityResponseInsurance>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub insurance: Vec<CoverageEligibilityResponseInsurance>,
 
     /// Preauthorization reference
     pub pre_auth_ref: Option<types::String>,
@@ -154,7 +161,8 @@ pub struct CoverageEligibilityResponse {
     pub form: Option<types::CodeableConcept>,
 
     /// Processing errors
-    pub error: Option<Vec<CoverageEligibilityResponseError>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub error: Vec<CoverageEligibilityResponseError>,
 }
 
 /// Event information for a CoverageEligibilityResponse.
@@ -166,10 +174,12 @@ pub struct CoverageEligibilityResponseEvent {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Specific event
     pub r#type: types::CodeableConcept,
@@ -188,10 +198,12 @@ pub struct CoverageEligibilityResponseInsurance {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Insurance information
     pub coverage: types::Reference,
@@ -206,7 +218,8 @@ pub struct CoverageEligibilityResponseInsurance {
     pub benefit_period: Option<types::Period>,
 
     /// Benefits and authorization details
-    pub item: Option<Vec<CoverageEligibilityResponseInsuranceItem>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub item: Vec<CoverageEligibilityResponseInsuranceItem>,
 }
 
 /// Benefits and authorization details for an insurance entry.
@@ -218,10 +231,12 @@ pub struct CoverageEligibilityResponseInsuranceItem {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Benefit classification
     pub category: Option<types::CodeableConcept>,
@@ -230,7 +245,8 @@ pub struct CoverageEligibilityResponseInsuranceItem {
     pub product_or_service: Option<types::CodeableConcept>,
 
     /// Product or service billing modifiers
-    pub modifier: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier: Vec<types::CodeableConcept>,
 
     /// Performing practitioner
     pub provider: Option<types::Reference>,
@@ -263,7 +279,8 @@ pub struct CoverageEligibilityResponseInsuranceItem {
     pub term: Option<types::CodeableConcept>,
 
     /// Benefit Summary
-    pub benefit: Option<Vec<CoverageEligibilityResponseInsuranceItemBenefit>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub benefit: Vec<CoverageEligibilityResponseInsuranceItemBenefit>,
 
     /// Authorization required flag
     pub authorization_required: Option<types::Boolean>,
@@ -272,7 +289,8 @@ pub struct CoverageEligibilityResponseInsuranceItem {
     pub authorization_required_ext: Option<types::Element>,
 
     /// Type of required supporting materials
-    pub authorization_supporting: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub authorization_supporting: Vec<types::CodeableConcept>,
 
     /// Preauthorization requirements endpoint
     pub authorization_url: Option<types::Uri>,
@@ -290,10 +308,12 @@ pub struct CoverageEligibilityResponseInsuranceItemBenefit {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Benefit classification
     pub r#type: types::CodeableConcept,
@@ -316,19 +336,23 @@ pub struct CoverageEligibilityResponseError {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Error code detailing processing issues
     pub code: types::CodeableConcept,
 
     /// FHIRPath of element(s) related to issue
-    pub expression: Option<Vec<types::String>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub expression: Vec<types::String>,
     /// Primitive extension sibling for [`expression`](Self::expression) (FHIR `_expression`).
     #[serde(rename = "_expression")]
-    pub expression_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub expression_ext: Vec<Option<types::Element>>,
 }
 
 /// The `CoverageEligibilityResponse.event.when[x]` choice element (see spec/11-choice-types.md).

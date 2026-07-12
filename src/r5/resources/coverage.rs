@@ -79,16 +79,20 @@ pub struct Coverage {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Business identifier(s) for this coverage, such as a member or policy number
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// The status of the resource instance: active | cancelled | draft | entered-in-error
     pub status: crate::r5::coded::Coded<crate::r5::codes::FmStatus>,
@@ -103,7 +107,8 @@ pub struct Coverage {
     pub kind_ext: Option<types::Element>,
 
     /// Self-pay parties and responsibility
-    pub payment_by: Option<Vec<CoveragePaymentBy>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub payment_by: Vec<CoveragePaymentBy>,
 
     /// Coverage category such as medical or accident
     pub r#type: Option<types::CodeableConcept>,
@@ -115,7 +120,8 @@ pub struct Coverage {
     pub subscriber: Option<types::Reference>,
 
     /// ID assigned to the subscriber
-    pub subscriber_id: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub subscriber_id: Vec<types::Identifier>,
 
     /// Plan beneficiary, typically a reference to a Patient
     pub beneficiary: types::Reference,
@@ -136,7 +142,8 @@ pub struct Coverage {
     pub insurer: Option<types::Reference>,
 
     /// Additional coverage classifications
-    pub class: Option<Vec<CoverageClass>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub class: Vec<CoverageClass>,
 
     /// Relative order of the coverage
     pub order: Option<types::PositiveInt>,
@@ -151,7 +158,8 @@ pub struct Coverage {
     pub network_ext: Option<types::Element>,
 
     /// Patient payments for services/products
-    pub cost_to_beneficiary: Option<Vec<CoverageCostToBeneficiary>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub cost_to_beneficiary: Vec<CoverageCostToBeneficiary>,
 
     /// Reimbursement to insurer
     pub subrogation: Option<types::Boolean>,
@@ -160,7 +168,8 @@ pub struct Coverage {
     pub subrogation_ext: Option<types::Element>,
 
     /// Contract details
-    pub contract: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contract: Vec<types::Reference>,
 
     /// Insurance plan details
     pub insurance_plan: Option<types::Reference>,
@@ -177,10 +186,12 @@ pub struct CoveragePaymentBy {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Parties performing self-payment
     pub party: types::Reference,
@@ -203,10 +214,12 @@ pub struct CoverageClass {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Type of class such as 'group' or 'plan'
     pub r#type: types::CodeableConcept,
@@ -232,10 +245,12 @@ pub struct CoverageCostToBeneficiary {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Cost category
     pub r#type: Option<types::CodeableConcept>,
@@ -257,7 +272,8 @@ pub struct CoverageCostToBeneficiary {
     pub value: Option<CoverageCostToBeneficiaryValue>,
 
     /// Exceptions for patient payments
-    pub exception: Option<Vec<CoverageCostToBeneficiaryException>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub exception: Vec<CoverageCostToBeneficiaryException>,
 }
 
 /// Exceptions for patient payments. A suite of codes indicating exceptions or
@@ -270,10 +286,12 @@ pub struct CoverageCostToBeneficiaryException {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Exception category
     pub r#type: types::CodeableConcept,

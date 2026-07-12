@@ -37,7 +37,6 @@ impl Bundle {
     pub fn iter_resources(&self) -> impl Iterator<Item = Resource> + '_ {
         self.entry
             .iter()
-            .flatten()
             .filter_map(|e| e.resource.as_ref())
             .filter_map(|v| ::serde_json::from_value(v.clone()).ok())
     }
@@ -50,7 +49,6 @@ impl Bundle {
     ) -> impl Iterator<Item = T> + 'a {
         self.entry
             .iter()
-            .flatten()
             .filter_map(|e| e.resource.as_ref())
             .filter(move |v| v.get("resourceType").and_then(|t| t.as_str()) == Some(resource_type))
             .filter_map(|v| ::serde_json::from_value(v.clone()).ok())
@@ -61,7 +59,6 @@ impl Bundle {
     pub fn next_link(&self) -> Option<&str> {
         self.link
             .iter()
-            .flatten()
             .find(|l| l.relation.code() == "next")
             .map(|l| l.url.0.as_str())
     }
@@ -128,7 +125,7 @@ impl TransactionBuilder {
     pub fn build(self) -> Bundle {
         Bundle {
             r#type: Coded::Known(self.bundle_type),
-            entry: Some(self.entries),
+            entry: self.entries,
             ..Default::default()
         }
     }
@@ -148,7 +145,7 @@ mod tests {
             .build();
 
         assert!(matches!(bundle.r#type, Coded::Known(BundleType::Transaction)));
-        let entries = bundle.entry.as_ref().unwrap();
+        let entries = &bundle.entry;
         assert_eq!(entries.len(), 2);
         assert!(matches!(
             entries[0].request.as_ref().unwrap().method,

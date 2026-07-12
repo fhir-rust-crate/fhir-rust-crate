@@ -84,13 +84,16 @@ pub struct Evidence {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources.
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations.
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored.
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Canonical identifier for this evidence, represented as a globally
     /// unique URI, used to reference this specific version of the evidence
@@ -101,7 +104,8 @@ pub struct Evidence {
     pub url_ext: Option<types::Element>,
 
     /// Additional identifier for the summary.
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Business version of this summary.
     pub version: Option<types::String>,
@@ -167,22 +171,28 @@ pub struct Evidence {
     pub publisher_ext: Option<types::Element>,
 
     /// Contact details for the publisher.
-    pub contact: Option<Vec<types::ContactDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contact: Vec<types::ContactDetail>,
 
     /// Who authored the content.
-    pub author: Option<Vec<types::ContactDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub author: Vec<types::ContactDetail>,
 
     /// Who edited the content.
-    pub editor: Option<Vec<types::ContactDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub editor: Vec<types::ContactDetail>,
 
     /// Who reviewed the content.
-    pub reviewer: Option<Vec<types::ContactDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub reviewer: Vec<types::ContactDetail>,
 
     /// Who endorsed the content.
-    pub endorser: Option<Vec<types::ContactDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub endorser: Vec<types::ContactDetail>,
 
     /// The context that the content is intended to support.
-    pub use_context: Option<Vec<types::UsageContext>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub use_context: Vec<types::UsageContext>,
 
     /// Why this Evidence is defined.
     pub purpose: Option<types::Markdown>,
@@ -203,7 +213,8 @@ pub struct Evidence {
     pub copyright_label_ext: Option<types::Element>,
 
     /// Link or citation to artifact associated with the summary.
-    pub related_artifact: Option<Vec<types::RelatedArtifact>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub related_artifact: Vec<types::RelatedArtifact>,
 
     /// Description of the particular summary.
     pub description: Option<types::Markdown>,
@@ -218,7 +229,8 @@ pub struct Evidence {
     pub assertion_ext: Option<types::Element>,
 
     /// Footnotes and/or explanatory notes.
-    pub note: Option<Vec<types::Annotation>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub note: Vec<types::Annotation>,
 
     /// Evidence variables such as population, exposure, or outcome, that
     /// define what this evidence measured or compared.
@@ -228,15 +240,18 @@ pub struct Evidence {
     pub synthesis_type: Option<types::CodeableConcept>,
 
     /// The design of the study that produced this evidence.
-    pub study_design: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub study_design: Vec<types::CodeableConcept>,
 
     /// The quantitative findings of the evidence: values and parameters for
     /// each single statistic produced by the study or synthesis.
-    pub statistic: Option<Vec<EvidenceStatistic>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub statistic: Vec<EvidenceStatistic>,
 
     /// Certainty, confidence, or quality of the evidence, typically graded
     /// using a framework such as GRADE.
-    pub certainty: Option<Vec<EvidenceCertainty>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub certainty: Vec<EvidenceCertainty>,
 }
 
 /// Evidence variable such as population, exposure, or outcome.
@@ -248,10 +263,12 @@ pub struct EvidenceVariableDefinition {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations.
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized.
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// A text description or summary of the variable.
     pub description: Option<types::Markdown>,
@@ -260,7 +277,8 @@ pub struct EvidenceVariableDefinition {
     pub description_ext: Option<types::Element>,
 
     /// Footnotes and/or explanatory notes.
-    pub note: Option<Vec<types::Annotation>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub note: Vec<types::Annotation>,
 
     /// population | subpopulation | exposure | referenceExposure | measuredVariable | confounder.
     pub variable_role: types::CodeableConcept,
@@ -284,10 +302,12 @@ pub struct EvidenceStatistic {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations.
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized.
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Description of content.
     pub description: Option<types::Markdown>,
@@ -296,7 +316,8 @@ pub struct EvidenceStatistic {
     pub description_ext: Option<types::Element>,
 
     /// Footnotes and/or explanatory notes.
-    pub note: Option<Vec<types::Annotation>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub note: Vec<types::Annotation>,
 
     /// Type of statistic, e.g., relative risk.
     pub statistic_type: Option<types::CodeableConcept>,
@@ -323,10 +344,12 @@ pub struct EvidenceStatistic {
     pub sample_size: Option<EvidenceStatisticSampleSize>,
 
     /// An attribute of the Statistic.
-    pub attribute_estimate: Option<Vec<EvidenceStatisticAttributeEstimate>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub attribute_estimate: Vec<EvidenceStatisticAttributeEstimate>,
 
     /// An aspect of the statistical model.
-    pub model_characteristic: Option<Vec<EvidenceStatisticModelCharacteristic>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub model_characteristic: Vec<EvidenceStatisticModelCharacteristic>,
 }
 
 /// Number of samples in the statistic.
@@ -338,10 +361,12 @@ pub struct EvidenceStatisticSampleSize {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations.
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized.
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Textual description of sample size for statistic.
     pub description: Option<types::Markdown>,
@@ -350,7 +375,8 @@ pub struct EvidenceStatisticSampleSize {
     pub description_ext: Option<types::Element>,
 
     /// Footnote or explanatory note about the sample size.
-    pub note: Option<Vec<types::Annotation>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub note: Vec<types::Annotation>,
 
     /// Number of contributing studies.
     pub number_of_studies: Option<types::UnsignedInt>,
@@ -380,10 +406,12 @@ pub struct EvidenceStatisticAttributeEstimate {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations.
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized.
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Textual description of the attribute estimate.
     pub description: Option<types::Markdown>,
@@ -392,7 +420,8 @@ pub struct EvidenceStatisticAttributeEstimate {
     pub description_ext: Option<types::Element>,
 
     /// Footnote or explanatory note about the estimate.
-    pub note: Option<Vec<types::Annotation>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub note: Vec<types::Annotation>,
 
     /// The type of attribute estimate, e.g., confidence interval or p value.
     pub r#type: Option<types::CodeableConcept>,
@@ -411,7 +440,8 @@ pub struct EvidenceStatisticAttributeEstimate {
     pub range: Option<types::Range>,
 
     /// A nested attribute estimate; which is the attribute estimate of an attribute estimate.
-    pub attribute_estimate: Option<Vec<EvidenceStatisticAttributeEstimate>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub attribute_estimate: Vec<EvidenceStatisticAttributeEstimate>,
 }
 
 /// An aspect of the statistical model.
@@ -423,10 +453,12 @@ pub struct EvidenceStatisticModelCharacteristic {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations.
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized.
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Model specification.
     pub code: types::CodeableConcept,
@@ -435,10 +467,12 @@ pub struct EvidenceStatisticModelCharacteristic {
     pub value: Option<types::Quantity>,
 
     /// A variable adjusted for in the adjusted analysis.
-    pub variable: Option<Vec<EvidenceStatisticModelCharacteristicVariable>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub variable: Vec<EvidenceStatisticModelCharacteristicVariable>,
 
     /// An attribute of the statistic used as a model characteristic.
-    pub attribute_estimate: Option<Vec<EvidenceStatisticAttributeEstimate>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub attribute_estimate: Vec<EvidenceStatisticAttributeEstimate>,
 }
 
 /// A variable adjusted for in the adjusted analysis.
@@ -450,10 +484,12 @@ pub struct EvidenceStatisticModelCharacteristicVariable {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations.
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized.
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Description of the variable.
     pub variable_definition: types::Reference,
@@ -465,13 +501,16 @@ pub struct EvidenceStatisticModelCharacteristicVariable {
     pub handling_ext: Option<types::Element>,
 
     /// Description for grouping of ordinal or polychotomous variables.
-    pub value_category: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub value_category: Vec<types::CodeableConcept>,
 
     /// Discrete value for grouping of ordinal or polychotomous variables.
-    pub value_quantity: Option<Vec<types::Quantity>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub value_quantity: Vec<types::Quantity>,
 
     /// Range of values for grouping of ordinal or polychotomous variables.
-    pub value_range: Option<Vec<types::Range>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub value_range: Vec<types::Range>,
 }
 
 /// Certainty or quality of the evidence.
@@ -483,10 +522,12 @@ pub struct EvidenceCertainty {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations.
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized.
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Textual description of certainty.
     pub description: Option<types::Markdown>,
@@ -495,7 +536,8 @@ pub struct EvidenceCertainty {
     pub description_ext: Option<types::Element>,
 
     /// Footnotes and/or explanatory notes.
-    pub note: Option<Vec<types::Annotation>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub note: Vec<types::Annotation>,
 
     /// Aspect of certainty being rated.
     pub r#type: Option<types::CodeableConcept>,
@@ -510,7 +552,8 @@ pub struct EvidenceCertainty {
     pub rater_ext: Option<types::Element>,
 
     /// A domain or subdomain of certainty.
-    pub subcomponent: Option<Vec<EvidenceCertainty>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub subcomponent: Vec<EvidenceCertainty>,
 }
 
 /// The `Evidence.citeAs[x]` choice element (see spec/11-choice-types.md).

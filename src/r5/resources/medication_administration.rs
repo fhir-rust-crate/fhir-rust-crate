@@ -80,22 +80,28 @@ pub struct MedicationAdministration {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// External identifier
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Plan this is fulfilled by this administration
-    pub based_on: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub based_on: Vec<types::Reference>,
 
     /// Part of referenced event
-    pub part_of: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub part_of: Vec<types::Reference>,
 
     /// Current state of the administration event, drawn from the required status value set: in-progress, not-done, on-hold, completed, entered-in-error, stopped, or unknown.
     pub status: crate::r5::coded::Coded<crate::r5::codes::MedicationAdminStatus>,
@@ -104,10 +110,12 @@ pub struct MedicationAdministration {
     pub status_ext: Option<types::Element>,
 
     /// Reason administration not performed
-    pub status_reason: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub status_reason: Vec<types::CodeableConcept>,
 
     /// Type of medication administration
-    pub category: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub category: Vec<types::CodeableConcept>,
 
     /// What was administered, given either as a coded medication or as a reference to a Medication resource via a CodeableReference.
     pub medication: types::CodeableReference,
@@ -119,7 +127,8 @@ pub struct MedicationAdministration {
     pub encounter: Option<types::Reference>,
 
     /// Additional information to support administration
-    pub supporting_information: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub supporting_information: Vec<types::Reference>,
 
     /// The `MedicationAdministration.occurence[x]` choice element (0..1); see [`MedicationAdministrationOccurence`].
     #[serde(flatten)]
@@ -138,28 +147,34 @@ pub struct MedicationAdministration {
     pub is_sub_potent_ext: Option<types::Element>,
 
     /// Reason full dose was not administered
-    pub sub_potent_reason: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub sub_potent_reason: Vec<types::CodeableConcept>,
 
     /// Who or what performed the medication administration and what type of performance they did
-    pub performer: Option<Vec<MedicationAdministrationPerformer>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub performer: Vec<MedicationAdministrationPerformer>,
 
     /// Concept, condition or observation that supports why the medication was administered
-    pub reason: Option<Vec<types::CodeableReference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub reason: Vec<types::CodeableReference>,
 
     /// Request administration performed against
     pub request: Option<types::Reference>,
 
     /// Device used to administer
-    pub device: Option<Vec<types::CodeableReference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub device: Vec<types::CodeableReference>,
 
     /// Information about the administration
-    pub note: Option<Vec<types::Annotation>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub note: Vec<types::Annotation>,
 
     /// Details of how the medication was taken, including dose amount, site, route, method, and rate of administration.
     pub dosage: Option<MedicationAdministrationDosage>,
 
     /// A list of events of interest in the lifecycle
-    pub event_history: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub event_history: Vec<types::Reference>,
 }
 
 /// Who or what performed the medication administration and what type of
@@ -172,10 +187,12 @@ pub struct MedicationAdministrationPerformer {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Type of performance
     pub function: Option<types::CodeableConcept>,
@@ -193,10 +210,12 @@ pub struct MedicationAdministrationDosage {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Free text dosage instructions e.g. SIG
     pub text: Option<types::String>,

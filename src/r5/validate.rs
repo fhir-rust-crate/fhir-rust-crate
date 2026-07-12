@@ -37,7 +37,7 @@ impl From<ValidationIssue> for crate::r5::resources::operation_outcome::Operatio
             severity: Coded::Known(IssueSeverity::Error),
             code: Coded::Known(IssueType::Invalid),
             diagnostics: Some(types::String(issue.message)),
-            expression: Some(vec![types::String(issue.path)]),
+            expression: vec![types::String(issue.path)],
             ..Default::default()
         }
     }
@@ -58,7 +58,7 @@ impl From<ValidationIssue> for crate::r5::resources::operation_outcome::Operatio
 ///
 /// let outcome: OperationOutcome = patient.validate().into();
 /// assert_eq!(outcome.issue.len(), 1);
-/// assert_eq!(outcome.issue[0].expression.as_ref().unwrap()[0].0, "implicit_rules.uri");
+/// assert_eq!(outcome.issue[0].expression[0].0, "implicit_rules.uri");
 /// ```
 impl From<Vec<ValidationIssue>> for crate::r5::resources::operation_outcome::OperationOutcome {
     fn from(issues: Vec<ValidationIssue>) -> Self {
@@ -86,9 +86,9 @@ impl From<Vec<ValidationIssue>> for crate::r5::resources::operation_outcome::Ope
             language: None,
             language_ext: None,
             text: None,
-            contained: None,
-            extension: None,
-            modifier_extension: None,
+            contained: Vec::new(),
+            extension: Vec::new(),
+            modifier_extension: Vec::new(),
         }
     }
 }
@@ -350,7 +350,7 @@ mod tests {
         let both = Extension {
             url: url(),
             value: Some(ExtensionValue::Boolean(Primitive::new(Boolean(true)))),
-            extension: Some(vec![value_only.clone()]),
+            extension: vec![value_only.clone()],
             ..Default::default()
         };
         assert!(both.validate().iter().any(|i| i.message.contains("ext-1")));
@@ -362,11 +362,11 @@ mod tests {
         use crate::r5::resources::Patient;
 
         let patient = Patient {
-            contained: Some(vec![serde_json::json!({
+            contained: vec![serde_json::json!({
                 "resourceType": "Observation",
                 "id": "o1",
                 "contained": [{ "resourceType": "Patient", "id": "nested" }]
-            })]),
+            })],
             ..Default::default()
         };
         assert!(patient.validate().iter().any(|i| i.message.contains("dom-2")));

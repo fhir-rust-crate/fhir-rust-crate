@@ -75,34 +75,44 @@ pub struct DeviceRequest {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// External Request identifier
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Instantiates FHIR protocol or definition
-    pub instantiates_canonical: Option<Vec<types::Canonical>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub instantiates_canonical: Vec<types::Canonical>,
     /// Primitive extension sibling for [`instantiates_canonical`](Self::instantiates_canonical) (FHIR `_instantiatesCanonical`).
     #[serde(rename = "_instantiatesCanonical")]
-    pub instantiates_canonical_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub instantiates_canonical_ext: Vec<Option<types::Element>>,
 
     /// Instantiates external protocol or definition
-    pub instantiates_uri: Option<Vec<types::Uri>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub instantiates_uri: Vec<types::Uri>,
     /// Primitive extension sibling for [`instantiates_uri`](Self::instantiates_uri) (FHIR `_instantiatesUri`).
     #[serde(rename = "_instantiatesUri")]
-    pub instantiates_uri_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub instantiates_uri_ext: Vec<Option<types::Element>>,
 
     /// What request fulfills
-    pub based_on: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub based_on: Vec<types::Reference>,
 
     /// What request replaces
-    pub replaces: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub replaces: Vec<types::Reference>,
 
     /// Identifier of composite request
     pub group_identifier: Option<types::Identifier>,
@@ -141,7 +151,8 @@ pub struct DeviceRequest {
     pub quantity_ext: Option<types::Element>,
 
     /// Device details
-    pub parameter: Option<Vec<DeviceRequestParameter>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub parameter: Vec<DeviceRequestParameter>,
 
     /// The patient (or group/location/device) for whom the device is being requested
     pub subject: types::Reference,
@@ -166,7 +177,8 @@ pub struct DeviceRequest {
     pub performer: Option<types::CodeableReference>,
 
     /// Coded/Linked Reason for request
-    pub reason: Option<Vec<types::CodeableReference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub reason: Vec<types::CodeableReference>,
 
     /// PRN status of request
     pub as_needed: Option<types::Boolean>,
@@ -178,16 +190,20 @@ pub struct DeviceRequest {
     pub as_needed_for: Option<types::CodeableConcept>,
 
     /// Associated insurance coverage
-    pub insurance: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub insurance: Vec<types::Reference>,
 
     /// Additional clinical information
-    pub supporting_info: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub supporting_info: Vec<types::Reference>,
 
     /// Notes or comments
-    pub note: Option<Vec<types::Annotation>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub note: Vec<types::Annotation>,
 
     /// Request provenance
-    pub relevant_history: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub relevant_history: Vec<types::Reference>,
 }
 
 /// Device details.
@@ -202,10 +218,12 @@ pub struct DeviceRequestParameter {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Device detail
     pub code: Option<types::CodeableConcept>,

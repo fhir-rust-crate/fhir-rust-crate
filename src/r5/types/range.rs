@@ -43,7 +43,8 @@ pub struct Range {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
     /// The low limit of the range; omitted if the range has no lower bound (0..1). // « C »
     pub low: Option<types::Quantity>,
     /// The high limit of the range; omitted if the range has no upper bound (0..1). // « C »

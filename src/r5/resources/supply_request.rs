@@ -85,16 +85,20 @@ pub struct SupplyRequest {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Business Identifier for SupplyRequest
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Status of the request: draft | active | suspended | cancelled | completed | entered-in-error | unknown
     pub status: Option<crate::r5::coded::Coded<crate::r5::codes::SupplyrequestStatus>>,
@@ -103,7 +107,8 @@ pub struct SupplyRequest {
     pub status_ext: Option<types::Element>,
 
     /// What other request is fulfilled by this supply request
-    pub based_on: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub based_on: Vec<types::Reference>,
 
     /// The kind of supply (central, non-stock, etc.)
     pub category: Option<types::CodeableConcept>,
@@ -124,7 +129,8 @@ pub struct SupplyRequest {
     pub quantity: types::Quantity,
 
     /// Ordered item details
-    pub parameter: Option<Vec<SupplyRequestParameter>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub parameter: Vec<SupplyRequestParameter>,
 
     /// The `SupplyRequest.occurrence[x]` choice element (0..1); see [`SupplyRequestOccurrence`].
     #[serde(flatten)]
@@ -140,10 +146,12 @@ pub struct SupplyRequest {
     pub requester: Option<types::Reference>,
 
     /// Who is intended to fulfill the request
-    pub supplier: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub supplier: Vec<types::Reference>,
 
     /// The reason why the supply item was requested
-    pub reason: Option<Vec<types::CodeableReference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub reason: Vec<types::CodeableReference>,
 
     /// The origin of the supply
     pub deliver_from: Option<types::Reference>,
@@ -166,10 +174,12 @@ pub struct SupplyRequestParameter {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Item detail
     pub code: Option<types::CodeableConcept>,

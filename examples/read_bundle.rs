@@ -34,7 +34,7 @@ fn main() {
     println!("Bundle type: {}", bundle.r#type.code());
 
     // Walk the entries, deserializing each contained resource by its type tag.
-    for entry in bundle.entry.into_iter().flatten() {
+    for entry in bundle.entry.into_iter() {
         let Some(value) = entry.resource else { continue };
         match serde_json::from_value(value).expect("parse entry resource") {
             Resource::Patient(patient) => {

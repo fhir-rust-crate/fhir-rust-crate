@@ -79,16 +79,20 @@ pub struct Account {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Account number
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Indicates whether the account is currently in use: active | inactive |
     /// entered-in-error | on-hold | unknown
@@ -110,14 +114,16 @@ pub struct Account {
     pub name_ext: Option<types::Element>,
 
     /// The entity that caused the expenses, such as a `Patient` or `Device`
-    pub subject: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub subject: Vec<types::Reference>,
 
     /// Transaction window
     pub service_period: Option<types::Period>,
 
     /// The party(s) that are responsible for covering the payment of this
     /// account, and what order should they be applied to the account
-    pub coverage: Option<Vec<AccountCoverage>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub coverage: Vec<AccountCoverage>,
 
     /// Entity managing the Account
     pub owner: Option<types::Reference>,
@@ -130,22 +136,27 @@ pub struct Account {
 
     /// The parties, typically the patient or a family member, ultimately
     /// responsible for balancing the Account
-    pub guarantor: Option<Vec<AccountGuarantor>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub guarantor: Vec<AccountGuarantor>,
 
     /// The list of diagnoses relevant to this account
-    pub diagnosis: Option<Vec<AccountDiagnosis>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub diagnosis: Vec<AccountDiagnosis>,
 
     /// The list of procedures relevant to this account
-    pub procedure: Option<Vec<AccountProcedure>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub procedure: Vec<AccountProcedure>,
 
     /// Other associated accounts related to this account
-    pub related_account: Option<Vec<AccountRelatedAccount>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub related_account: Vec<AccountRelatedAccount>,
 
     /// The base or default currency
     pub currency: Option<types::CodeableConcept>,
 
     /// Calculated account balance(s)
-    pub balance: Option<Vec<AccountBalance>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub balance: Vec<AccountBalance>,
 
     /// Time the balance amount was calculated
     pub calculated_at: Option<types::Instant>,
@@ -164,10 +175,12 @@ pub struct AccountCoverage {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The party(s), such as insurances, that may contribute to the payment of
     /// this account
@@ -189,10 +202,12 @@ pub struct AccountGuarantor {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Responsible entity
     pub party: types::Reference,
@@ -216,10 +231,12 @@ pub struct AccountDiagnosis {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Ranking of the diagnosis (for each type)
     pub sequence: Option<types::PositiveInt>,
@@ -238,7 +255,8 @@ pub struct AccountDiagnosis {
 
     /// Type that this diagnosis has relevant to the account (e.g. admission,
     /// billing, discharge …)
-    pub r#type: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub r#type: Vec<types::CodeableConcept>,
 
     /// Diagnosis present on Admission
     pub on_admission: Option<types::Boolean>,
@@ -247,7 +265,8 @@ pub struct AccountDiagnosis {
     pub on_admission_ext: Option<types::Element>,
 
     /// Package Code specific for billing
-    pub package_code: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub package_code: Vec<types::CodeableConcept>,
 }
 
 /// The list of procedures relevant to this account.
@@ -259,10 +278,12 @@ pub struct AccountProcedure {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Ranking of the procedure (for each type)
     pub sequence: Option<types::PositiveInt>,
@@ -280,13 +301,16 @@ pub struct AccountProcedure {
     pub date_of_service_ext: Option<types::Element>,
 
     /// How this procedure value should be used in charging the account
-    pub r#type: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub r#type: Vec<types::CodeableConcept>,
 
     /// Package Code specific for billing
-    pub package_code: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub package_code: Vec<types::CodeableConcept>,
 
     /// Any devices that were associated with the procedure
-    pub device: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub device: Vec<types::Reference>,
 }
 
 /// Other associated accounts related to this account.
@@ -298,10 +322,12 @@ pub struct AccountRelatedAccount {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Relationship of the associated Account
     pub relationship: Option<types::CodeableConcept>,
@@ -319,10 +345,12 @@ pub struct AccountBalance {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Who is expected to pay this part of the balance
     pub aggregate: Option<types::CodeableConcept>,

@@ -18,6 +18,7 @@ pub mod choice_gen;
 pub mod coded_gen;
 pub mod concept_maps;
 pub mod meta;
+pub mod option_vec_gen;
 pub mod siblings;
 pub mod vec1_gen;
 pub mod data_elements;

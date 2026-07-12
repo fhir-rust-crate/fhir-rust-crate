@@ -82,13 +82,16 @@ pub struct Composition {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Canonical identifier for this Composition, represented as a URI (globally unique)
     pub url: Option<types::Uri>,
@@ -97,7 +100,8 @@ pub struct Composition {
     pub url_ext: Option<types::Element>,
 
     /// Version-independent identifier for the Composition
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// An explicitly assigned identifer of a variation of the content in the Composition
     pub version: Option<types::String>,
@@ -115,10 +119,12 @@ pub struct Composition {
     pub r#type: types::CodeableConcept,
 
     /// Categorization of Composition
-    pub category: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub category: Vec<types::CodeableConcept>,
 
     /// Who and/or what the composition is about, most often the patient or subject of the document
-    pub subject: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub subject: Vec<types::Reference>,
 
     /// Context of the Composition
     pub encounter: Option<types::Reference>,
@@ -130,7 +136,8 @@ pub struct Composition {
     pub date_ext: Option<types::Element>,
 
     /// The context that the content is intended to support
-    pub use_context: Option<Vec<types::UsageContext>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub use_context: Vec<types::UsageContext>,
 
     /// Who and/or what authored the composition, such as a practitioner or organization
     pub author: vec1::Vec1<types::Reference>,
@@ -148,22 +155,27 @@ pub struct Composition {
     pub title_ext: Option<types::Element>,
 
     /// For any additional notes
-    pub note: Option<Vec<types::Annotation>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub note: Vec<types::Annotation>,
 
     /// Attests to accuracy of composition
-    pub attester: Option<Vec<CompositionAttester>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub attester: Vec<CompositionAttester>,
 
     /// Organization which maintains the composition
     pub custodian: Option<types::Reference>,
 
     /// Relationships to other compositions/documents
-    pub relates_to: Option<Vec<types::RelatedArtifact>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub relates_to: Vec<types::RelatedArtifact>,
 
     /// The clinical service(s) being documented
-    pub event: Option<Vec<CompositionEvent>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub event: Vec<CompositionEvent>,
 
     /// Composition is broken into sections
-    pub section: Option<Vec<CompositionSection>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub section: Vec<CompositionSection>,
 }
 
 /// Attests to accuracy of composition.
@@ -175,10 +187,12 @@ pub struct CompositionAttester {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// personal | professional | legal | official
     pub mode: types::CodeableConcept,
@@ -202,16 +216,19 @@ pub struct CompositionEvent {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The period covered by the documentation
     pub period: Option<types::Period>,
 
     /// The event(s) being documented, as code(s), reference(s), or both
-    pub detail: Option<Vec<types::CodeableReference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub detail: Vec<types::CodeableReference>,
 }
 
 /// Composition is broken into sections.
@@ -223,10 +240,12 @@ pub struct CompositionSection {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Label for section (e.g. for ToC)
     pub title: Option<types::String>,
@@ -238,7 +257,8 @@ pub struct CompositionSection {
     pub code: Option<types::CodeableConcept>,
 
     /// Who and/or what authored the section
-    pub author: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub author: Vec<types::Reference>,
 
     /// Who/what the section is about, when it is not about the subject of composition
     pub focus: Option<types::Reference>,
@@ -250,11 +270,13 @@ pub struct CompositionSection {
     pub ordered_by: Option<types::CodeableConcept>,
 
     /// A reference to data that supports this section
-    pub entry: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub entry: Vec<types::Reference>,
 
     /// Why the section is empty
     pub empty_reason: Option<types::CodeableConcept>,
 
     /// Nested Section
-    pub section: Option<Vec<CompositionSection>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub section: Vec<CompositionSection>,
 }

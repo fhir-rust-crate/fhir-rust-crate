@@ -82,28 +82,34 @@ pub struct DeviceAssociation {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Instance identifier
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Reference to the device that is the subject of this association
     pub device: types::Reference,
 
     /// Describes the relationship between the device and subject, such as parent/child or usage relationships
-    pub category: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub category: Vec<types::CodeableConcept>,
 
     /// The current lifecycle status of the association: implanted | explanted | attached | entered-in-error | unknown
     pub status: types::CodeableConcept,
 
     /// The reasons given for the current association status
-    pub status_reason: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub status_reason: Vec<types::CodeableConcept>,
 
     /// The patient, group, or other individual that the device is on or associated with
     pub subject: Option<types::Reference>,
@@ -115,7 +121,8 @@ pub struct DeviceAssociation {
     pub period: Option<types::Period>,
 
     /// The details about the device when it is in use to describe its operation
-    pub operation: Option<Vec<DeviceAssociationOperation>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub operation: Vec<DeviceAssociationOperation>,
 }
 
 /// The details about the device when it is in use to describe its operation.
@@ -127,16 +134,19 @@ pub struct DeviceAssociationOperation {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Device operational condition
     pub status: types::CodeableConcept,
 
     /// The individual performing the action enabled by the device
-    pub operator: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub operator: Vec<types::Reference>,
 
     /// Begin and end dates and times for the device's operation
     pub period: Option<types::Period>,

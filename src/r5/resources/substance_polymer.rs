@@ -75,13 +75,16 @@ pub struct SubstancePolymer {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// A business identifier for this polymer, but typically this is handled by a SubstanceDefinition identifier
     pub identifier: Option<types::Identifier>,
@@ -93,7 +96,8 @@ pub struct SubstancePolymer {
     pub geometry: Option<types::CodeableConcept>,
 
     /// Descrtibes the copolymer sequence type (polymer connectivity)
-    pub copolymer_connectivity: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub copolymer_connectivity: Vec<types::CodeableConcept>,
 
     /// Todo - this is intended to connect to a repeating full modification structure, also used by Protein and Nucleic Acid . String is just a placeholder
     pub modification: Option<types::String>,
@@ -102,10 +106,12 @@ pub struct SubstancePolymer {
     pub modification_ext: Option<types::Element>,
 
     /// The monomer sets and their starting materials used to synthesize the polymer
-    pub monomer_set: Option<Vec<SubstancePolymerMonomerSet>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub monomer_set: Vec<SubstancePolymerMonomerSet>,
 
     /// Specifies and quantifies the structural repeat units and their configuration
-    pub repeat: Option<Vec<SubstancePolymerRepeat>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub repeat: Vec<SubstancePolymerRepeat>,
 }
 
 /// SubstancePolymerMonomerSet
@@ -119,16 +125,19 @@ pub struct SubstancePolymerMonomerSet {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Captures the type of ratio to the entire polymer, e.g. Monomer/Polymer ratio, SRU/Polymer Ratio
     pub ratio_type: Option<types::CodeableConcept>,
 
     /// The starting materials - monomer(s) used in the synthesis of the polymer
-    pub starting_material: Option<Vec<SubstancePolymerMonomerSetStartingMaterial>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub starting_material: Vec<SubstancePolymerMonomerSetStartingMaterial>,
 }
 
 /// SubstancePolymerMonomerSetStartingMaterial
@@ -142,10 +151,12 @@ pub struct SubstancePolymerMonomerSetStartingMaterial {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The type of substance for this starting material
     pub code: Option<types::CodeableConcept>,
@@ -174,10 +185,12 @@ pub struct SubstancePolymerRepeat {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// A representation of an (average) molecular formula from a polymer
     pub average_molecular_formula: Option<types::String>,
@@ -189,7 +202,8 @@ pub struct SubstancePolymerRepeat {
     pub repeat_unit_amount_type: Option<types::CodeableConcept>,
 
     /// An SRU - Structural Repeat Unit
-    pub repeat_unit: Option<Vec<SubstancePolymerRepeatRepeatUnit>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub repeat_unit: Vec<SubstancePolymerRepeatRepeatUnit>,
 }
 
 /// SubstancePolymerRepeatRepeatUnit
@@ -203,10 +217,12 @@ pub struct SubstancePolymerRepeatRepeatUnit {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Structural repeat units are essential elements for defining polymers
     pub unit: Option<types::String>,
@@ -224,10 +240,12 @@ pub struct SubstancePolymerRepeatRepeatUnit {
     pub amount_ext: Option<types::Element>,
 
     /// Applies to homopolymer and block co-polymers where the degree of polymerisation within a block can be described
-    pub degree_of_polymerisation: Option<Vec<SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub degree_of_polymerisation: Vec<SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation>,
 
     /// A graphical structure for this SRU
-    pub structural_representation: Option<Vec<SubstancePolymerRepeatRepeatUnitStructuralRepresentation>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub structural_representation: Vec<SubstancePolymerRepeatRepeatUnitStructuralRepresentation>,
 }
 
 /// SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation
@@ -242,10 +260,12 @@ pub struct SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The type of the degree of polymerisation shall be described, e.g. SRU/Polymer Ratio
     pub r#type: Option<types::CodeableConcept>,
@@ -280,10 +300,12 @@ pub struct SubstancePolymerRepeatRepeatUnitStructuralRepresentation {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The type of structure (e.g. Full, Partial, Representative)
     pub r#type: Option<types::CodeableConcept>,

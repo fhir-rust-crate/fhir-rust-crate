@@ -81,13 +81,16 @@ pub struct Citation {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources.
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations.
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored.
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Canonical identifier for this citation record, represented as a global URL,
     /// used to reference this citation record across systems and versions.
@@ -98,7 +101,8 @@ pub struct Citation {
 
     /// Business identifier(s) for the citation record itself, distinct from any
     /// identifier of the cited artifact (such as a DOI or PMID).
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Business version of the citation record.
     pub version: Option<types::String>,
@@ -148,7 +152,8 @@ pub struct Citation {
     pub publisher_ext: Option<types::Element>,
 
     /// Contact details for the publisher of the citation record.
-    pub contact: Option<Vec<types::ContactDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contact: Vec<types::ContactDetail>,
 
     /// Natural language description of the citation.
     pub description: Option<types::Markdown>,
@@ -157,10 +162,12 @@ pub struct Citation {
     pub description_ext: Option<types::Element>,
 
     /// The context that the citation record content is intended to support.
-    pub use_context: Option<Vec<types::UsageContext>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub use_context: Vec<types::UsageContext>,
 
     /// Intended jurisdiction for citation record (if applicable).
-    pub jurisdiction: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub jurisdiction: Vec<types::CodeableConcept>,
 
     /// Why this citation is defined.
     pub purpose: Option<types::Markdown>,
@@ -196,34 +203,44 @@ pub struct Citation {
     pub effective_period: Option<types::Period>,
 
     /// Who authored the citation record.
-    pub author: Option<Vec<types::ContactDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub author: Vec<types::ContactDetail>,
 
     /// Who edited the citation record.
-    pub editor: Option<Vec<types::ContactDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub editor: Vec<types::ContactDetail>,
 
     /// Who reviewed the citation record.
-    pub reviewer: Option<Vec<types::ContactDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub reviewer: Vec<types::ContactDetail>,
 
     /// Who endorsed the citation record.
-    pub endorser: Option<Vec<types::ContactDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub endorser: Vec<types::ContactDetail>,
 
     /// A human-readable display of key concepts to represent the citation.
-    pub summary: Option<Vec<CitationSummary>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub summary: Vec<CitationSummary>,
 
     /// The assignment to an organizing scheme.
-    pub classification: Option<Vec<CitationClassification>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub classification: Vec<CitationClassification>,
 
     /// Used for general notes and annotations not coded elsewhere.
-    pub note: Option<Vec<types::Annotation>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub note: Vec<types::Annotation>,
 
     /// The status of the citation record.
-    pub current_state: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub current_state: Vec<types::CodeableConcept>,
 
     /// An effective date or period for a status of the citation record.
-    pub status_date: Option<Vec<CitationStatusDate>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub status_date: Vec<CitationStatusDate>,
 
     /// Artifact related to the citation record.
-    pub related_artifact: Option<Vec<types::RelatedArtifact>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub related_artifact: Vec<types::RelatedArtifact>,
 
     /// The article or artifact being described, carrying the detailed
     /// bibliographic content (titles, abstracts, publication form, and
@@ -240,10 +257,12 @@ pub struct CitationSummary {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations.
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized.
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Format for display of the citation summary.
     pub style: Option<types::CodeableConcept>,
@@ -264,16 +283,19 @@ pub struct CitationClassification {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations.
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized.
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The kind of classifier (e.g. publication type, keyword).
     pub r#type: Option<types::CodeableConcept>,
 
     /// The specific classification value.
-    pub classifier: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub classifier: Vec<types::CodeableConcept>,
 }
 
 /// An effective date or period for a status of the citation record.
@@ -285,10 +307,12 @@ pub struct CitationStatusDate {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations.
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized.
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Classification of the status.
     pub activity: types::CodeableConcept,
@@ -312,16 +336,20 @@ pub struct CitationCitedArtifact {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations.
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized.
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Unique identifier. May include DOI, PMID, PMCID, etc.
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Identifier not unique to the cited artifact.
-    pub related_identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub related_identifier: Vec<types::Identifier>,
 
     /// When the cited artifact was accessed.
     pub date_accessed: Option<types::DateTime>,
@@ -333,37 +361,46 @@ pub struct CitationCitedArtifact {
     pub version: Option<CitationCitedArtifactVersion>,
 
     /// The status of the cited artifact.
-    pub current_state: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub current_state: Vec<types::CodeableConcept>,
 
     /// An effective date or period for a status of the cited artifact.
-    pub status_date: Option<Vec<CitationCitedArtifactStatusDate>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub status_date: Vec<CitationCitedArtifactStatusDate>,
 
     /// The title details of the article or artifact.
-    pub title: Option<Vec<CitationCitedArtifactTitle>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub title: Vec<CitationCitedArtifactTitle>,
 
     /// Summary of the article or artifact.
-    pub r#abstract: Option<Vec<CitationCitedArtifactAbstract>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub r#abstract: Vec<CitationCitedArtifactAbstract>,
 
     /// The component of the article or artifact.
     pub part: Option<CitationCitedArtifactPart>,
 
     /// The artifact related to the cited artifact.
-    pub relates_to: Option<Vec<CitationCitedArtifactRelatesTo>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub relates_to: Vec<CitationCitedArtifactRelatesTo>,
 
     /// Alternative forms of the article that are published.
-    pub publication_form: Option<Vec<CitationCitedArtifactPublicationForm>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub publication_form: Vec<CitationCitedArtifactPublicationForm>,
 
     /// Used for any URL for the article or artifact cited.
-    pub web_location: Option<Vec<CitationCitedArtifactWebLocation>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub web_location: Vec<CitationCitedArtifactWebLocation>,
 
     /// The assignment to an organizing scheme.
-    pub classification: Option<Vec<CitationCitedArtifactClassification>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub classification: Vec<CitationCitedArtifactClassification>,
 
     /// Attribution of authors and other contributors.
     pub contributorship: Option<CitationCitedArtifactContributorship>,
 
     /// Any additional information or content for the article or artifact.
-    pub note: Option<Vec<types::Annotation>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub note: Vec<types::Annotation>,
 }
 
 /// The defined version of the cited artifact.
@@ -375,10 +412,12 @@ pub struct CitationCitedArtifactVersion {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations.
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized.
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The version number or other version identifier.
     pub value: types::String,
@@ -399,10 +438,12 @@ pub struct CitationCitedArtifactStatusDate {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations.
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized.
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Classification of the status.
     pub activity: types::CodeableConcept,
@@ -426,13 +467,16 @@ pub struct CitationCitedArtifactTitle {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations.
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized.
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The kind of title.
-    pub r#type: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub r#type: Vec<types::CodeableConcept>,
 
     /// Used to express the specific language.
     pub language: Option<types::CodeableConcept>,
@@ -453,10 +497,12 @@ pub struct CitationCitedArtifactAbstract {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations.
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized.
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The kind of abstract.
     pub r#type: Option<types::CodeableConcept>,
@@ -486,10 +532,12 @@ pub struct CitationCitedArtifactPart {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations.
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized.
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The kind of component.
     pub r#type: Option<types::CodeableConcept>,
@@ -513,10 +561,12 @@ pub struct CitationCitedArtifactRelatesTo {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations.
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized.
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// documentation | justification | citation | predecessor | successor | etc.
     pub r#type: types::Code,
@@ -525,7 +575,8 @@ pub struct CitationCitedArtifactRelatesTo {
     pub type_ext: Option<types::Element>,
 
     /// Additional classifiers.
-    pub classifier: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub classifier: Vec<types::CodeableConcept>,
 
     /// Short label.
     pub label: Option<types::String>,
@@ -567,10 +618,12 @@ pub struct CitationCitedArtifactPublicationForm {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations.
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized.
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The collection the cited article or artifact is published in.
     pub published_in: Option<CitationCitedArtifactPublicationFormPublishedIn>,
@@ -615,7 +668,8 @@ pub struct CitationCitedArtifactPublicationForm {
     pub last_revision_date_ext: Option<types::Element>,
 
     /// Language(s) in which this form of the article is published.
-    pub language: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub language: Vec<types::CodeableConcept>,
 
     /// Entry number or identifier for inclusion in a database.
     pub accession_number: Option<types::String>,
@@ -663,16 +717,19 @@ pub struct CitationCitedArtifactPublicationFormPublishedIn {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations.
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized.
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Kind of container (e.g. Periodical, database, or book).
     pub r#type: Option<types::CodeableConcept>,
 
     /// Journal or book identifiers (ISSN, ISO Abbreviation, NLMuniqueID, etc.).
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Name of the database or title of the book or journal.
     pub title: Option<types::String>,
@@ -699,13 +756,16 @@ pub struct CitationCitedArtifactWebLocation {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations.
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized.
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Code the reason for different URLs, e.g. abstract and full-text.
-    pub classifier: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub classifier: Vec<types::CodeableConcept>,
 
     /// The specific URL.
     pub url: Option<types::Uri>,
@@ -723,19 +783,23 @@ pub struct CitationCitedArtifactClassification {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations.
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized.
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The kind of classifier (e.g. publication type, keyword).
     pub r#type: Option<types::CodeableConcept>,
 
     /// The specific classification value.
-    pub classifier: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub classifier: Vec<types::CodeableConcept>,
 
     /// Complex or externally created classification.
-    pub artifact_assessment: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub artifact_assessment: Vec<types::Reference>,
 }
 
 /// Attribution of authors and other contributors.
@@ -747,10 +811,12 @@ pub struct CitationCitedArtifactContributorship {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations.
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized.
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Indicates if the list includes all authors and/or contributors.
     pub complete: Option<types::Boolean>,
@@ -759,10 +825,12 @@ pub struct CitationCitedArtifactContributorship {
     pub complete_ext: Option<types::Element>,
 
     /// An individual entity named as a contributor.
-    pub entry: Option<Vec<CitationCitedArtifactContributorshipEntry>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub entry: Vec<CitationCitedArtifactContributorshipEntry>,
 
     /// Used to record a display of the author/contributor list.
-    pub summary: Option<Vec<CitationCitedArtifactContributorshipSummary>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub summary: Vec<CitationCitedArtifactContributorshipSummary>,
 }
 
 /// An individual entity named as a contributor.
@@ -774,10 +842,12 @@ pub struct CitationCitedArtifactContributorshipEntry {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations.
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized.
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The identity of the individual contributor.
     pub contributor: types::Reference,
@@ -789,16 +859,19 @@ pub struct CitationCitedArtifactContributorshipEntry {
     pub forename_initials_ext: Option<types::Element>,
 
     /// Organizational affiliation.
-    pub affiliation: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub affiliation: Vec<types::Reference>,
 
     /// The specific contribution.
-    pub contribution_type: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contribution_type: Vec<types::CodeableConcept>,
 
     /// The role of the contributor (e.g. author, editor, reviewer, funder).
     pub role: Option<types::CodeableConcept>,
 
     /// Contributions with accounting for time or number.
-    pub contribution_instance: Option<Vec<CitationCitedArtifactContributorshipEntryContributionInstance>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contribution_instance: Vec<CitationCitedArtifactContributorshipEntryContributionInstance>,
 
     /// Whether the contributor is the corresponding contributor for the role.
     pub corresponding_contact: Option<types::Boolean>,
@@ -822,10 +895,12 @@ pub struct CitationCitedArtifactContributorshipEntryContributionInstance {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations.
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized.
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The specific contribution.
     pub r#type: types::CodeableConcept,
@@ -846,10 +921,12 @@ pub struct CitationCitedArtifactContributorshipSummary {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations.
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized.
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Such as author list, contributorship statement, funding statement, etc.
     pub r#type: Option<types::CodeableConcept>,

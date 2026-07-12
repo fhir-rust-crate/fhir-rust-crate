@@ -79,34 +79,44 @@ pub struct ServiceRequest {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Business identifiers assigned to this order by the requester, performer, or other systems
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Instantiates FHIR protocol or definition
-    pub instantiates_canonical: Option<Vec<types::Canonical>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub instantiates_canonical: Vec<types::Canonical>,
     /// Primitive extension sibling for [`instantiates_canonical`](Self::instantiates_canonical) (FHIR `_instantiatesCanonical`).
     #[serde(rename = "_instantiatesCanonical")]
-    pub instantiates_canonical_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub instantiates_canonical_ext: Vec<Option<types::Element>>,
 
     /// Instantiates external protocol or definition
-    pub instantiates_uri: Option<Vec<types::Uri>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub instantiates_uri: Vec<types::Uri>,
     /// Primitive extension sibling for [`instantiates_uri`](Self::instantiates_uri) (FHIR `_instantiatesUri`).
     #[serde(rename = "_instantiatesUri")]
-    pub instantiates_uri_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub instantiates_uri_ext: Vec<Option<types::Element>>,
 
     /// What request fulfills
-    pub based_on: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub based_on: Vec<types::Reference>,
 
     /// What request replaces
-    pub replaces: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub replaces: Vec<types::Reference>,
 
     /// Composite Request ID
     pub requisition: Option<types::Identifier>,
@@ -124,7 +134,8 @@ pub struct ServiceRequest {
     pub intent_ext: Option<types::Element>,
 
     /// Broad categorization of the type of service requested, e.g. imaging, laboratory, or counseling
-    pub category: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub category: Vec<types::CodeableConcept>,
 
     /// routine | urgent | asap | stat
     pub priority: Option<crate::r5::coded::Coded<crate::r5::codes::RequestPriority>>,
@@ -142,7 +153,8 @@ pub struct ServiceRequest {
     pub code: Option<types::CodeableReference>,
 
     /// Additional order information
-    pub order_detail: Option<Vec<ServiceRequestOrderDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub order_detail: Vec<ServiceRequestOrderDetail>,
 
     /// The `ServiceRequest.quantity[x]` choice element (0..1); see [`ServiceRequestQuantity`].
     #[serde(flatten)]
@@ -152,7 +164,8 @@ pub struct ServiceRequest {
     pub subject: types::Reference,
 
     /// What the service request is about, when it is not about the subject of record
-    pub focus: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub focus: Vec<types::Reference>,
 
     /// Encounter in which the request was created
     pub encounter: Option<types::Reference>,
@@ -178,37 +191,47 @@ pub struct ServiceRequest {
     pub performer_type: Option<types::CodeableConcept>,
 
     /// Requested performer
-    pub performer: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub performer: Vec<types::Reference>,
 
     /// Requested location
-    pub location: Option<Vec<types::CodeableReference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub location: Vec<types::CodeableReference>,
 
     /// Explanation/Justification for procedure or service
-    pub reason: Option<Vec<types::CodeableReference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub reason: Vec<types::CodeableReference>,
 
     /// Associated insurance coverage
-    pub insurance: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub insurance: Vec<types::Reference>,
 
     /// Additional clinical information
-    pub supporting_info: Option<Vec<types::CodeableReference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub supporting_info: Vec<types::CodeableReference>,
 
     /// Procedure Samples
-    pub specimen: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub specimen: Vec<types::Reference>,
 
     /// Coded location on Body
-    pub body_site: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub body_site: Vec<types::CodeableConcept>,
 
     /// BodyStructure-based location on the body
     pub body_structure: Option<types::Reference>,
 
     /// Comments
-    pub note: Option<Vec<types::Annotation>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub note: Vec<types::Annotation>,
 
     /// Patient or consumer-oriented instructions
-    pub patient_instruction: Option<Vec<ServiceRequestPatientInstruction>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub patient_instruction: Vec<ServiceRequestPatientInstruction>,
 
     /// Request provenance
-    pub relevant_history: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub relevant_history: Vec<types::Reference>,
 }
 
 /// Additional order information for a ServiceRequest.
@@ -224,10 +247,12 @@ pub struct ServiceRequestOrderDetail {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The context of the order details by reference
     pub parameter_focus: Option<types::CodeableReference>,
@@ -249,10 +274,12 @@ pub struct ServiceRequestOrderDetailParameter {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The detail of the order being requested
     pub code: types::CodeableConcept,
@@ -275,10 +302,12 @@ pub struct ServiceRequestPatientInstruction {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The `ServiceRequest.patientInstruction.instruction[x]` choice element (0..1); see [`ServiceRequestPatientInstructionInstruction`].
     #[serde(flatten)]

@@ -79,13 +79,16 @@ pub struct Provenance {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The resource(s) whose provenance is being described, usually referenced version-specifically so the assertion applies to an exact state.
     pub target: vec1::Vec1<types::Reference>,
@@ -101,22 +104,26 @@ pub struct Provenance {
     pub recorded_ext: Option<types::Element>,
 
     /// Policy or plan the activity was defined by
-    pub policy: Option<Vec<types::Uri>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub policy: Vec<types::Uri>,
     /// Primitive extension sibling for [`policy`](Self::policy) (FHIR `_policy`).
     #[serde(rename = "_policy")]
-    pub policy_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub policy_ext: Vec<Option<types::Element>>,
 
     /// Where the activity occurred, if relevant
     pub location: Option<types::Reference>,
 
     /// Authorization (purposeOfUse) related to the event
-    pub authorization: Option<Vec<types::CodeableReference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub authorization: Vec<types::CodeableReference>,
 
     /// The activity that is involved in producing the target, e.g. assemble, copy, transmit, or sign.
     pub activity: Option<types::CodeableConcept>,
 
     /// Workflow authorization within which this event occurred
-    pub based_on: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub based_on: Vec<types::Reference>,
 
     /// The patient is the subject of the data created/updated (.target) by the activity
     pub patient: Option<types::Reference>,
@@ -128,10 +135,12 @@ pub struct Provenance {
     pub agent: vec1::Vec1<ProvenanceAgent>,
 
     /// The source entities that were used, revised, quoted, or otherwise consumed by this activity, each described by a ProvenanceEntity.
-    pub entity: Option<Vec<ProvenanceEntity>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub entity: Vec<ProvenanceEntity>,
 
     /// Signature on target
-    pub signature: Option<Vec<types::Signature>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub signature: Vec<types::Signature>,
 }
 
 /// Actor involved in the activity described by the Provenance.
@@ -143,16 +152,19 @@ pub struct ProvenanceAgent {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// How the agent participated
     pub r#type: Option<types::CodeableConcept>,
 
     /// What the agents role was
-    pub role: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub role: Vec<types::CodeableConcept>,
 
     /// The individual, device, or organization that participated in the event, referenced e.g. via [`Patient`](crate::r5::resources::patient::Patient) or Practitioner.
     pub who: types::Reference,
@@ -170,10 +182,12 @@ pub struct ProvenanceEntity {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// revision | quotation | source | instantiates | removal
     pub role: crate::r5::coded::Coded<crate::r5::codes::ProvenanceEntityRole>,
@@ -185,7 +199,8 @@ pub struct ProvenanceEntity {
     pub what: types::Reference,
 
     /// Entity is attributed to this agent
-    pub agent: Option<Vec<ProvenanceAgent>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub agent: Vec<ProvenanceAgent>,
 }
 
 /// The `Provenance.occurred[x]` choice element (see spec/11-choice-types.md).

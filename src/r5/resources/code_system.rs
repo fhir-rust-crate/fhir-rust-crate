@@ -77,13 +77,16 @@ pub struct CodeSystem {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Canonical identifier for this code system, represented as a URI (globally unique) (Coding.system). This is the value used to populate `Coding.system` when referencing codes from this system.
     pub url: Option<types::Uri>,
@@ -92,7 +95,8 @@ pub struct CodeSystem {
     pub url_ext: Option<types::Element>,
 
     /// Additional identifier for the code system (business identifier)
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Business version of the code system (Coding.version)
     pub version: Option<types::String>,
@@ -141,7 +145,8 @@ pub struct CodeSystem {
     pub publisher_ext: Option<types::Element>,
 
     /// Contact details for the publisher
-    pub contact: Option<Vec<types::ContactDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contact: Vec<types::ContactDetail>,
 
     /// Natural language description of the code system
     pub description: Option<types::Markdown>,
@@ -150,10 +155,12 @@ pub struct CodeSystem {
     pub description_ext: Option<types::Element>,
 
     /// The context that the content is intended to support
-    pub use_context: Option<Vec<types::UsageContext>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub use_context: Vec<types::UsageContext>,
 
     /// Intended jurisdiction for code system (if applicable)
-    pub jurisdiction: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub jurisdiction: Vec<types::CodeableConcept>,
 
     /// Why this code system is defined
     pub purpose: Option<types::Markdown>,
@@ -189,22 +196,28 @@ pub struct CodeSystem {
     pub effective_period: Option<types::Period>,
 
     /// E.g. Education, Treatment, Assessment, etc
-    pub topic: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub topic: Vec<types::CodeableConcept>,
 
     /// Who authored the CodeSystem
-    pub author: Option<Vec<types::ContactDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub author: Vec<types::ContactDetail>,
 
     /// Who edited the CodeSystem
-    pub editor: Option<Vec<types::ContactDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub editor: Vec<types::ContactDetail>,
 
     /// Who reviewed the CodeSystem
-    pub reviewer: Option<Vec<types::ContactDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub reviewer: Vec<types::ContactDetail>,
 
     /// Who endorsed the CodeSystem
-    pub endorser: Option<Vec<types::ContactDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub endorser: Vec<types::ContactDetail>,
 
     /// Additional documentation, citations, etc
-    pub related_artifact: Option<Vec<types::RelatedArtifact>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub related_artifact: Vec<types::RelatedArtifact>,
 
     /// If code comparison is case sensitive
     pub case_sensitive: Option<types::Boolean>,
@@ -255,13 +268,16 @@ pub struct CodeSystem {
     pub count_ext: Option<types::Element>,
 
     /// Filter that can be used in a value set
-    pub filter: Option<Vec<CodeSystemFilter>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub filter: Vec<CodeSystemFilter>,
 
     /// Additional information supplied about each concept
-    pub property: Option<Vec<CodeSystemProperty>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub property: Vec<CodeSystemProperty>,
 
     /// Concepts in the code system; the (optionally hierarchical) list of codes this resource defines or supplements.
-    pub concept: Option<Vec<CodeSystemConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub concept: Vec<CodeSystemConcept>,
 }
 
 /// Filter that can be used in a value set
@@ -273,10 +289,12 @@ pub struct CodeSystemFilter {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Code that identifies the filter
     pub code: types::Code,
@@ -294,7 +312,8 @@ pub struct CodeSystemFilter {
     pub operator: vec1::Vec1<crate::r5::coded::Coded<crate::r5::codes::FilterOperator>>,
     /// Primitive extension sibling for [`operator`](Self::operator) (FHIR `_operator`).
     #[serde(rename = "_operator")]
-    pub operator_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub operator_ext: Vec<Option<types::Element>>,
 
     /// What to use for the value
     pub value: types::String,
@@ -312,10 +331,12 @@ pub struct CodeSystemProperty {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Identifies the property on the concepts, and when referred to in operations
     pub code: types::Code,
@@ -351,10 +372,12 @@ pub struct CodeSystemConcept {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Code that identifies concept
     pub code: types::Code,
@@ -375,13 +398,16 @@ pub struct CodeSystemConcept {
     pub definition_ext: Option<types::Element>,
 
     /// Additional representations for the concept
-    pub designation: Option<Vec<CodeSystemConceptDesignation>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub designation: Vec<CodeSystemConceptDesignation>,
 
     /// Property value for the concept
-    pub property: Option<Vec<CodeSystemConceptProperty>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub property: Vec<CodeSystemConceptProperty>,
 
     /// Child Concepts (is-a/contains/categorizes)
-    pub concept: Option<Vec<CodeSystemConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub concept: Vec<CodeSystemConcept>,
 }
 
 /// Additional representations for the concept
@@ -393,10 +419,12 @@ pub struct CodeSystemConceptDesignation {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Human language of the designation
     pub language: Option<types::Code>,
@@ -408,7 +436,8 @@ pub struct CodeSystemConceptDesignation {
     pub r#use: Option<types::Coding>,
 
     /// Additional ways how this designation would be used
-    pub additional_use: Option<Vec<types::Coding>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub additional_use: Vec<types::Coding>,
 
     /// The text value for this designation
     pub value: types::String,
@@ -426,10 +455,12 @@ pub struct CodeSystemConceptProperty {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Reference to CodeSystem.property.code
     pub code: types::Code,

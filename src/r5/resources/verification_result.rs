@@ -85,22 +85,28 @@ pub struct VerificationResult {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// A resource, or resources, whose data is the subject of this verification
-    pub target: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub target: Vec<types::Reference>,
 
     /// The fhirpath location(s) within the resource that was validated
-    pub target_location: Option<Vec<types::String>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub target_location: Vec<types::String>,
     /// Primitive extension sibling for [`target_location`](Self::target_location) (FHIR `_targetLocation`).
     #[serde(rename = "_targetLocation")]
-    pub target_location_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub target_location_ext: Vec<Option<types::Element>>,
 
     /// The frequency with which the target must be validated: none | initial | periodic
     pub need: Option<types::CodeableConcept>,
@@ -121,7 +127,8 @@ pub struct VerificationResult {
     pub validation_type: Option<types::CodeableConcept>,
 
     /// The primary process by which the target is validated (edit check; value set; primary source; multiple sources; standalone; in context)
-    pub validation_process: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub validation_process: Vec<types::CodeableConcept>,
 
     /// Frequency of revalidation
     pub frequency: Option<types::Timing>,
@@ -142,13 +149,15 @@ pub struct VerificationResult {
     pub failure_action: Option<types::CodeableConcept>,
 
     /// Information about the primary source(s) involved in validation
-    pub primary_source: Option<Vec<VerificationResultPrimarySource>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub primary_source: Vec<VerificationResultPrimarySource>,
 
     /// Information about the entity attesting to information
     pub attestation: Option<VerificationResultAttestation>,
 
     /// Information about the entity validating information
-    pub validator: Option<Vec<VerificationResultValidator>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub validator: Vec<VerificationResultValidator>,
 }
 
 /// Information about the primary source(s) involved in validation.
@@ -160,19 +169,23 @@ pub struct VerificationResultPrimarySource {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Reference to the primary source
     pub who: Option<types::Reference>,
 
     /// Type of primary source (License Board; Primary Education; Continuing Education; Postal Service; Relationship owner; Registration Authority; legal source; issuing source; authoritative source)
-    pub r#type: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub r#type: Vec<types::CodeableConcept>,
 
     /// Method for exchanging information with the primary source
-    pub communication_method: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub communication_method: Vec<types::CodeableConcept>,
 
     /// successful | failed | unknown
     pub validation_status: Option<types::CodeableConcept>,
@@ -187,7 +200,8 @@ pub struct VerificationResultPrimarySource {
     pub can_push_updates: Option<types::CodeableConcept>,
 
     /// specific | any | source
-    pub push_type_available: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub push_type_available: Vec<types::CodeableConcept>,
 }
 
 /// Information about the entity attesting to information.
@@ -199,10 +213,12 @@ pub struct VerificationResultAttestation {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The individual or organization attesting to information
     pub who: Option<types::Reference>,
@@ -247,10 +263,12 @@ pub struct VerificationResultValidator {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Reference to the organization validating information
     pub organization: types::Reference,

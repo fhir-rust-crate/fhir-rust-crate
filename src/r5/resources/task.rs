@@ -84,16 +84,20 @@ pub struct Task {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Task Instance Identifier
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Formal definition of task
     pub instantiates_canonical: Option<types::Canonical>,
@@ -108,13 +112,15 @@ pub struct Task {
     pub instantiates_uri_ext: Option<types::Element>,
 
     /// Request fulfilled by this task
-    pub based_on: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub based_on: Vec<types::Reference>,
 
     /// Requisition or grouper id
     pub group_identifier: Option<types::Identifier>,
 
     /// Composite task
-    pub part_of: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub part_of: Vec<types::Reference>,
 
     /// The current lifecycle state of the task, e.g. draft | requested |
     /// received | accepted | in-progress | completed | cancelled | +.
@@ -190,37 +196,45 @@ pub struct Task {
     pub requester: Option<types::Reference>,
 
     /// Who should perform Task
-    pub requested_performer: Option<Vec<types::CodeableReference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub requested_performer: Vec<types::CodeableReference>,
 
     /// Responsible individual
     pub owner: Option<types::Reference>,
 
     /// Who or what performed the task
-    pub performer: Option<Vec<TaskPerformer>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub performer: Vec<TaskPerformer>,
 
     /// Where task occurs
     pub location: Option<types::Reference>,
 
     /// Why task is needed
-    pub reason: Option<Vec<types::CodeableReference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub reason: Vec<types::CodeableReference>,
 
     /// Associated insurance coverage
-    pub insurance: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub insurance: Vec<types::Reference>,
 
     /// Comments made about the task
-    pub note: Option<Vec<types::Annotation>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub note: Vec<types::Annotation>,
 
     /// Key events in history of the Task
-    pub relevant_history: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub relevant_history: Vec<types::Reference>,
 
     /// Constraints on fulfillment tasks
     pub restriction: Option<TaskRestriction>,
 
     /// Information used to perform task
-    pub input: Option<Vec<TaskInput>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub input: Vec<TaskInput>,
 
     /// Information produced as part of task
-    pub output: Option<Vec<TaskOutput>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub output: Vec<TaskOutput>,
 }
 
 /// Task.performer
@@ -234,10 +248,12 @@ pub struct TaskPerformer {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Type of performance
     pub function: Option<types::CodeableConcept>,
@@ -259,10 +275,12 @@ pub struct TaskRestriction {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// How many times to repeat
     pub repetitions: Option<types::PositiveInt>,
@@ -274,7 +292,8 @@ pub struct TaskRestriction {
     pub period: Option<types::Period>,
 
     /// For whom is fulfillment sought?
-    pub recipient: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub recipient: Vec<types::Reference>,
 }
 
 /// Task.input
@@ -288,10 +307,12 @@ pub struct TaskInput {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Label for the input
     pub r#type: types::CodeableConcept,
@@ -312,10 +333,12 @@ pub struct TaskOutput {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Label for output
     pub r#type: types::CodeableConcept,

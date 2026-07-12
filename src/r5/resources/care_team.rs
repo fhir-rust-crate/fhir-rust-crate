@@ -72,16 +72,20 @@ pub struct CareTeam {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// External Ids for this team
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// The lifecycle status of the team: proposed | active | suspended | inactive | entered-in-error.
     pub status: Option<crate::r5::coded::Coded<crate::r5::codes::CareTeamStatus>>,
@@ -90,7 +94,8 @@ pub struct CareTeam {
     pub status_ext: Option<types::Element>,
 
     /// Type or focus of team, such as encounter-focused or condition-focused.
-    pub category: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub category: Vec<types::CodeableConcept>,
 
     /// Name of the team, such as crisis assessment team
     pub name: Option<types::String>,
@@ -105,19 +110,24 @@ pub struct CareTeam {
     pub period: Option<types::Period>,
 
     /// The individual members of the care team, each with an optional role and coverage period.
-    pub participant: Option<Vec<CareTeamParticipant>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub participant: Vec<CareTeamParticipant>,
 
     /// Why the care team exists
-    pub reason: Option<Vec<types::CodeableReference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub reason: Vec<types::CodeableReference>,
 
     /// Organization responsible for the care team
-    pub managing_organization: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub managing_organization: Vec<types::Reference>,
 
     /// A contact detail for the care team (that applies to all members)
-    pub telecom: Option<Vec<types::ContactPoint>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub telecom: Vec<types::ContactPoint>,
 
     /// Comments made about the CareTeam
-    pub note: Option<Vec<types::Annotation>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub note: Vec<types::Annotation>,
 }
 
 /// Members of the team.
@@ -133,10 +143,12 @@ pub struct CareTeamParticipant {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Type of involvement
     pub role: Option<types::CodeableConcept>,

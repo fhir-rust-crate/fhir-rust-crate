@@ -69,19 +69,24 @@ pub struct Claim {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Business Identifier for claim
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Number for tracking
-    pub trace_number: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub trace_number: Vec<types::Identifier>,
 
     /// The status of the Claim resource itself: active | cancelled | draft | entered-in-error
     pub status: crate::r5::coded::Coded<crate::r5::codes::FmStatus>,
@@ -129,7 +134,8 @@ pub struct Claim {
     pub funds_reserve: Option<types::CodeableConcept>,
 
     /// Prior or corollary claims
-    pub related: Option<Vec<ClaimRelated>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub related: Vec<ClaimRelated>,
 
     /// Prescription authorizing services and products
     pub prescription: Option<types::Reference>,
@@ -144,7 +150,8 @@ pub struct Claim {
     pub referral: Option<types::Reference>,
 
     /// Encounters associated with the listed treatments
-    pub encounter: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub encounter: Vec<types::Reference>,
 
     /// Servicing facility
     pub facility: Option<types::Reference>,
@@ -153,22 +160,28 @@ pub struct Claim {
     pub diagnosis_related_group: Option<types::CodeableConcept>,
 
     /// Event information
-    pub event: Option<Vec<ClaimEvent>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub event: Vec<ClaimEvent>,
 
     /// Members of the care team
-    pub care_team: Option<Vec<ClaimCareTeam>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub care_team: Vec<ClaimCareTeam>,
 
     /// Supporting information
-    pub supporting_info: Option<Vec<ClaimSupportingInfo>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub supporting_info: Vec<ClaimSupportingInfo>,
 
     /// Pertinent diagnosis information
-    pub diagnosis: Option<Vec<ClaimDiagnosis>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub diagnosis: Vec<ClaimDiagnosis>,
 
     /// Clinical procedures performed
-    pub procedure: Option<Vec<ClaimProcedure>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub procedure: Vec<ClaimProcedure>,
 
     /// Patient insurance information
-    pub insurance: Option<Vec<ClaimInsurance>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub insurance: Vec<ClaimInsurance>,
 
     /// Details of the event
     pub accident: Option<ClaimAccident>,
@@ -177,7 +190,8 @@ pub struct Claim {
     pub patient_paid: Option<types::Money>,
 
     /// The individual line items of products or services being claimed for
-    pub item: Option<Vec<ClaimItem>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub item: Vec<ClaimItem>,
 
     /// The total cost of the claim, summed across all line items
     pub total: Option<types::Money>,
@@ -192,10 +206,12 @@ pub struct ClaimRelated {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Reference to the related claim
     pub claim: Option<types::Reference>,
@@ -216,10 +232,12 @@ pub struct ClaimPayee {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Category of recipient
     pub r#type: types::CodeableConcept,
@@ -237,10 +255,12 @@ pub struct ClaimEvent {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Specific event
     pub r#type: types::CodeableConcept,
@@ -259,10 +279,12 @@ pub struct ClaimCareTeam {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Order of care team
     pub sequence: types::PositiveInt,
@@ -295,10 +317,12 @@ pub struct ClaimSupportingInfo {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Information instance identifier
     pub sequence: types::PositiveInt,
@@ -333,10 +357,12 @@ pub struct ClaimDiagnosis {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Diagnosis instance identifier
     pub sequence: types::PositiveInt,
@@ -349,7 +375,8 @@ pub struct ClaimDiagnosis {
     pub diagnosis: Option<ClaimDiagnosisDiagnosis>,
 
     /// Timing or nature of the diagnosis
-    pub r#type: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub r#type: Vec<types::CodeableConcept>,
 
     /// Present on admission
     pub on_admission: Option<types::CodeableConcept>,
@@ -364,10 +391,12 @@ pub struct ClaimProcedure {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Procedure instance identifier
     pub sequence: types::PositiveInt,
@@ -376,7 +405,8 @@ pub struct ClaimProcedure {
     pub sequence_ext: Option<types::Element>,
 
     /// Category of Procedure
-    pub r#type: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub r#type: Vec<types::CodeableConcept>,
 
     /// When the procedure was performed
     pub date: Option<types::DateTime>,
@@ -389,7 +419,8 @@ pub struct ClaimProcedure {
     pub procedure: Option<ClaimProcedureProcedure>,
 
     /// Unique device identifier
-    pub udi: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub udi: Vec<types::Reference>,
 }
 
 /// Claim nested backbone element `Claim.insurance`. Patient insurance information
@@ -401,10 +432,12 @@ pub struct ClaimInsurance {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Insurance instance identifier
     pub sequence: types::PositiveInt,
@@ -431,10 +464,12 @@ pub struct ClaimInsurance {
     pub business_arrangement_ext: Option<types::Element>,
 
     /// Prior authorization reference number
-    pub pre_auth_ref: Option<Vec<types::String>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub pre_auth_ref: Vec<types::String>,
     /// Primitive extension sibling for [`pre_auth_ref`](Self::pre_auth_ref) (FHIR `_preAuthRef`).
     #[serde(rename = "_preAuthRef")]
-    pub pre_auth_ref_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub pre_auth_ref_ext: Vec<Option<types::Element>>,
 
     /// Adjudication results
     pub claim_response: Option<types::Reference>,
@@ -449,10 +484,12 @@ pub struct ClaimAccident {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// When the incident occurred
     pub date: types::Date,
@@ -477,10 +514,12 @@ pub struct ClaimItem {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Item instance identifier
     pub sequence: types::PositiveInt,
@@ -489,31 +528,40 @@ pub struct ClaimItem {
     pub sequence_ext: Option<types::Element>,
 
     /// Number for tracking
-    pub trace_number: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub trace_number: Vec<types::Identifier>,
 
     /// Applicable careTeam members
-    pub care_team_sequence: Option<Vec<types::PositiveInt>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub care_team_sequence: Vec<types::PositiveInt>,
     /// Primitive extension sibling for [`care_team_sequence`](Self::care_team_sequence) (FHIR `_careTeamSequence`).
     #[serde(rename = "_careTeamSequence")]
-    pub care_team_sequence_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub care_team_sequence_ext: Vec<Option<types::Element>>,
 
     /// Applicable diagnoses
-    pub diagnosis_sequence: Option<Vec<types::PositiveInt>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub diagnosis_sequence: Vec<types::PositiveInt>,
     /// Primitive extension sibling for [`diagnosis_sequence`](Self::diagnosis_sequence) (FHIR `_diagnosisSequence`).
     #[serde(rename = "_diagnosisSequence")]
-    pub diagnosis_sequence_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub diagnosis_sequence_ext: Vec<Option<types::Element>>,
 
     /// Applicable procedures
-    pub procedure_sequence: Option<Vec<types::PositiveInt>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub procedure_sequence: Vec<types::PositiveInt>,
     /// Primitive extension sibling for [`procedure_sequence`](Self::procedure_sequence) (FHIR `_procedureSequence`).
     #[serde(rename = "_procedureSequence")]
-    pub procedure_sequence_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub procedure_sequence_ext: Vec<Option<types::Element>>,
 
     /// Applicable exception and supporting information
-    pub information_sequence: Option<Vec<types::PositiveInt>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub information_sequence: Vec<types::PositiveInt>,
     /// Primitive extension sibling for [`information_sequence`](Self::information_sequence) (FHIR `_informationSequence`).
     #[serde(rename = "_informationSequence")]
-    pub information_sequence_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub information_sequence_ext: Vec<Option<types::Element>>,
 
     /// Revenue or cost center code
     pub revenue: Option<types::CodeableConcept>,
@@ -528,13 +576,16 @@ pub struct ClaimItem {
     pub product_or_service_end: Option<types::CodeableConcept>,
 
     /// Request or Referral for Service
-    pub request: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub request: Vec<types::Reference>,
 
     /// Product or service billing modifiers
-    pub modifier: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier: Vec<types::CodeableConcept>,
 
     /// Program the product or service is provided under
-    pub program_code: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub program_code: Vec<types::CodeableConcept>,
 
     /// The `Claim.item.serviced[x]` choice element (0..1); see [`ClaimItemServiced`].
     #[serde(flatten)]
@@ -566,16 +617,20 @@ pub struct ClaimItem {
     pub net: Option<types::Money>,
 
     /// Unique device identifier
-    pub udi: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub udi: Vec<types::Reference>,
 
     /// Anatomical location
-    pub body_site: Option<Vec<ClaimItemBodySite>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub body_site: Vec<ClaimItemBodySite>,
 
     /// Encounters associated with the listed treatments
-    pub encounter: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub encounter: Vec<types::Reference>,
 
     /// Product or service provided
-    pub detail: Option<Vec<ClaimItemDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub detail: Vec<ClaimItemDetail>,
 }
 
 /// Claim nested backbone element `Claim.item.bodySite`. Anatomical location
@@ -587,16 +642,19 @@ pub struct ClaimItemBodySite {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Location
     pub site: vec1::Vec1<types::CodeableReference>,
 
     /// Sub-location
-    pub sub_site: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub sub_site: Vec<types::CodeableConcept>,
 }
 
 /// Claim nested backbone element `Claim.item.detail`. Product or service provided
@@ -608,10 +666,12 @@ pub struct ClaimItemDetail {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Item instance identifier
     pub sequence: types::PositiveInt,
@@ -620,7 +680,8 @@ pub struct ClaimItemDetail {
     pub sequence_ext: Option<types::Element>,
 
     /// Number for tracking
-    pub trace_number: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub trace_number: Vec<types::Identifier>,
 
     /// Revenue or cost center code
     pub revenue: Option<types::CodeableConcept>,
@@ -635,10 +696,12 @@ pub struct ClaimItemDetail {
     pub product_or_service_end: Option<types::CodeableConcept>,
 
     /// Service/Product billing modifiers
-    pub modifier: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier: Vec<types::CodeableConcept>,
 
     /// Program the product or service is provided under
-    pub program_code: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub program_code: Vec<types::CodeableConcept>,
 
     /// Paid by the patient
     pub patient_paid: Option<types::Money>,
@@ -662,10 +725,12 @@ pub struct ClaimItemDetail {
     pub net: Option<types::Money>,
 
     /// Unique device identifier
-    pub udi: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub udi: Vec<types::Reference>,
 
     /// Product or service provided
-    pub sub_detail: Option<Vec<ClaimItemDetailSubDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub sub_detail: Vec<ClaimItemDetailSubDetail>,
 }
 
 /// Claim nested backbone element `Claim.item.detail.subDetail`. Product or service provided
@@ -677,10 +742,12 @@ pub struct ClaimItemDetailSubDetail {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Item instance identifier
     pub sequence: types::PositiveInt,
@@ -689,7 +756,8 @@ pub struct ClaimItemDetailSubDetail {
     pub sequence_ext: Option<types::Element>,
 
     /// Number for tracking
-    pub trace_number: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub trace_number: Vec<types::Identifier>,
 
     /// Revenue or cost center code
     pub revenue: Option<types::CodeableConcept>,
@@ -704,10 +772,12 @@ pub struct ClaimItemDetailSubDetail {
     pub product_or_service_end: Option<types::CodeableConcept>,
 
     /// Service/Product billing modifiers
-    pub modifier: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier: Vec<types::CodeableConcept>,
 
     /// Program the product or service is provided under
-    pub program_code: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub program_code: Vec<types::CodeableConcept>,
 
     /// Paid by the patient
     pub patient_paid: Option<types::Money>,
@@ -731,7 +801,8 @@ pub struct ClaimItemDetailSubDetail {
     pub net: Option<types::Money>,
 
     /// Unique device identifier
-    pub udi: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub udi: Vec<types::Reference>,
 }
 
 #[cfg(test)]

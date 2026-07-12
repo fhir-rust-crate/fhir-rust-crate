@@ -42,7 +42,8 @@ pub struct DataRequirement {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// The type of the required data
     pub r#type: types::Code,
@@ -51,29 +52,36 @@ pub struct DataRequirement {
     pub type_ext: Option<types::Element>,
 
     /// The profile of the required data
-    pub profile: Option<Vec<types::Canonical>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub profile: Vec<types::Canonical>,
     /// Primitive extension sibling for [`profile`](Self::profile) (FHIR `_profile`).
     #[serde(rename = "_profile")]
-    pub profile_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub profile_ext: Vec<Option<types::Element>>,
 
     /// The `DataRequirement.subject[x]` choice element (0..1); see [`DataRequirementSubject`].
     #[serde(flatten)]
     pub subject: Option<DataRequirementSubject>,
 
     /// Indicates specific structure elements that are referenced by the knowledge module
-    pub must_support: Option<Vec<types::String>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub must_support: Vec<types::String>,
     /// Primitive extension sibling for [`must_support`](Self::must_support) (FHIR `_mustSupport`).
     #[serde(rename = "_mustSupport")]
-    pub must_support_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub must_support_ext: Vec<Option<types::Element>>,
 
     /// What codes are expected
-    pub code_filter: Option<Vec<DataRequirementCodeFilter>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub code_filter: Vec<DataRequirementCodeFilter>,
 
     /// What dates/date ranges are expected
-    pub date_filter: Option<Vec<DataRequirementDateFilter>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub date_filter: Vec<DataRequirementDateFilter>,
 
     /// What values are expected
-    pub value_filter: Option<Vec<DataRequirementValueFilter>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub value_filter: Vec<DataRequirementValueFilter>,
 
     /// Number of results
     pub limit: Option<types::PositiveInt>,
@@ -82,7 +90,8 @@ pub struct DataRequirement {
     pub limit_ext: Option<types::Element>,
 
     /// Order of the results
-    pub sort: Option<Vec<DataRequirementSort>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub sort: Vec<DataRequirementSort>,
 }
 
 /// What codes are expected. Code filters specify additional constraints on the
@@ -96,7 +105,8 @@ pub struct DataRequirementCodeFilter {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// A code-valued attribute to filter on
     pub path: Option<types::String>,
@@ -117,7 +127,8 @@ pub struct DataRequirementCodeFilter {
     pub value_set_ext: Option<types::Element>,
 
     /// What code is expected
-    pub code: Option<Vec<types::Coding>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub code: Vec<types::Coding>,
 }
 
 /// What dates/date ranges are expected. Date filters specify additional
@@ -131,7 +142,8 @@ pub struct DataRequirementDateFilter {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// A date-valued attribute to filter on
     pub path: Option<types::String>,
@@ -161,7 +173,8 @@ pub struct DataRequirementValueFilter {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// An attribute to filter on
     pub path: Option<types::String>,
@@ -196,7 +209,8 @@ pub struct DataRequirementSort {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// The name of the attribute to perform the sort
     pub path: types::String,

@@ -75,22 +75,28 @@ pub struct DeviceDispense {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Business identifier for this dispensation
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// The order or request that this dispense is fulfilling
-    pub based_on: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub based_on: Vec<types::Reference>,
 
     /// The bigger event that this dispense is a part of
-    pub part_of: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub part_of: Vec<types::Reference>,
 
     /// The current lifecycle status of the dispense event: preparation | in-progress | cancelled | on-hold | completed | entered-in-error | stopped | declined | unknown.
     pub status: crate::r5::coded::Coded<crate::r5::codes::DevicedispenseStatus>,
@@ -102,7 +108,8 @@ pub struct DeviceDispense {
     pub status_reason: Option<types::CodeableReference>,
 
     /// Type of device dispense
-    pub category: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub category: Vec<types::CodeableConcept>,
 
     /// The specific device (or type of device) that was supplied to the subject.
     pub device: types::CodeableReference,
@@ -117,10 +124,12 @@ pub struct DeviceDispense {
     pub encounter: Option<types::Reference>,
 
     /// Information that supports the dispensing of the device
-    pub supporting_information: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub supporting_information: Vec<types::Reference>,
 
     /// Who performed event
-    pub performer: Option<Vec<DeviceDispensePerformer>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub performer: Vec<DeviceDispensePerformer>,
 
     /// Where the dispense occurred
     pub location: Option<types::Reference>,
@@ -147,7 +156,8 @@ pub struct DeviceDispense {
     pub destination: Option<types::Reference>,
 
     /// Information about the dispense
-    pub note: Option<Vec<types::Annotation>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub note: Vec<types::Annotation>,
 
     /// Full representation of the usage instructions
     pub usage_instruction: Option<types::Markdown>,
@@ -156,7 +166,8 @@ pub struct DeviceDispense {
     pub usage_instruction_ext: Option<types::Element>,
 
     /// A list of relevant lifecycle events
-    pub event_history: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub event_history: Vec<types::Reference>,
 }
 
 /// Indicates who or what performed the event, and how they were involved
@@ -169,10 +180,12 @@ pub struct DeviceDispensePerformer {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Who performed the dispense and what they did
     pub function: Option<types::CodeableConcept>,

@@ -81,13 +81,16 @@ pub struct ValueSet {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Canonical identifier for this value set, represented as a URI (globally unique); used to reference this value set from bindings and other artifacts
     pub url: Option<types::Uri>,
@@ -96,7 +99,8 @@ pub struct ValueSet {
     pub url_ext: Option<types::Element>,
 
     /// Additional identifier for the value set (business identifier)
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Business version of the value set
     pub version: Option<types::String>,
@@ -145,7 +149,8 @@ pub struct ValueSet {
     pub publisher_ext: Option<types::Element>,
 
     /// Contact details for the publisher
-    pub contact: Option<Vec<types::ContactDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contact: Vec<types::ContactDetail>,
 
     /// Natural language description of the value set
     pub description: Option<types::Markdown>,
@@ -154,10 +159,12 @@ pub struct ValueSet {
     pub description_ext: Option<types::Element>,
 
     /// The context that the content is intended to support
-    pub use_context: Option<Vec<types::UsageContext>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub use_context: Vec<types::UsageContext>,
 
     /// Intended jurisdiction for value set (if applicable)
-    pub jurisdiction: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub jurisdiction: Vec<types::CodeableConcept>,
 
     /// Indicates whether or not any change to the content logical definition may occur
     pub immutable: Option<types::Boolean>,
@@ -199,22 +206,28 @@ pub struct ValueSet {
     pub effective_period: Option<types::Period>,
 
     /// E.g. Education, Treatment, Assessment, etc
-    pub topic: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub topic: Vec<types::CodeableConcept>,
 
     /// Who authored the ValueSet
-    pub author: Option<Vec<types::ContactDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub author: Vec<types::ContactDetail>,
 
     /// Who edited the ValueSet
-    pub editor: Option<Vec<types::ContactDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub editor: Vec<types::ContactDetail>,
 
     /// Who reviewed the ValueSet
-    pub reviewer: Option<Vec<types::ContactDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub reviewer: Vec<types::ContactDetail>,
 
     /// Who endorsed the ValueSet
-    pub endorser: Option<Vec<types::ContactDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub endorser: Vec<types::ContactDetail>,
 
     /// Additional documentation, citations, etc
-    pub related_artifact: Option<Vec<types::RelatedArtifact>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub related_artifact: Vec<types::RelatedArtifact>,
 
     /// Content logical definition of the value set (CLD); the rules that determine which codes are included or excluded
     pub compose: Option<ValueSetCompose>,
@@ -235,10 +248,12 @@ pub struct ValueSetCompose {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Fixed date for references with no specified version (transitive)
     pub locked_date: Option<types::Date>,
@@ -256,13 +271,16 @@ pub struct ValueSetCompose {
     pub include: vec1::Vec1<ValueSetComposeInclude>,
 
     /// Explicitly exclude codes from a code system or other value sets
-    pub exclude: Option<Vec<ValueSetComposeInclude>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub exclude: Vec<ValueSetComposeInclude>,
 
     /// Property to return if client doesn't override
-    pub property: Option<Vec<types::String>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub property: Vec<types::String>,
     /// Primitive extension sibling for [`property`](Self::property) (FHIR `_property`).
     #[serde(rename = "_property")]
-    pub property_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub property_ext: Vec<Option<types::Element>>,
 }
 
 /// Include one or more codes from a code system or other value set(s).
@@ -274,10 +292,12 @@ pub struct ValueSetComposeInclude {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The system the codes come from
     pub system: Option<types::Uri>,
@@ -292,16 +312,20 @@ pub struct ValueSetComposeInclude {
     pub version_ext: Option<types::Element>,
 
     /// A concept defined in the system
-    pub concept: Option<Vec<ValueSetComposeIncludeConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub concept: Vec<ValueSetComposeIncludeConcept>,
 
     /// Select codes/concepts by their properties (including relationships)
-    pub filter: Option<Vec<ValueSetComposeIncludeFilter>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub filter: Vec<ValueSetComposeIncludeFilter>,
 
     /// Select the contents included in this value set
-    pub value_set: Option<Vec<types::Canonical>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub value_set: Vec<types::Canonical>,
     /// Primitive extension sibling for [`value_set`](Self::value_set) (FHIR `_valueSet`).
     #[serde(rename = "_valueSet")]
-    pub value_set_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub value_set_ext: Vec<Option<types::Element>>,
 
     /// A copyright statement for the specific code system included in the value set
     pub copyright: Option<types::String>,
@@ -319,10 +343,12 @@ pub struct ValueSetComposeIncludeConcept {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Code or expression from system
     pub code: types::Code,
@@ -337,7 +363,8 @@ pub struct ValueSetComposeIncludeConcept {
     pub display_ext: Option<types::Element>,
 
     /// Additional representations for this concept
-    pub designation: Option<Vec<ValueSetComposeIncludeConceptDesignation>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub designation: Vec<ValueSetComposeIncludeConceptDesignation>,
 }
 
 /// Additional representations for this concept.
@@ -349,10 +376,12 @@ pub struct ValueSetComposeIncludeConceptDesignation {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Human language of the designation
     pub language: Option<types::Code>,
@@ -364,7 +393,8 @@ pub struct ValueSetComposeIncludeConceptDesignation {
     pub r#use: Option<types::Coding>,
 
     /// Additional ways how this designation would be used
-    pub additional_use: Option<Vec<types::Coding>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub additional_use: Vec<types::Coding>,
 
     /// The text value for this designation
     pub value: types::String,
@@ -382,10 +412,12 @@ pub struct ValueSetComposeIncludeFilter {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// A property/filter defined by the code system
     pub property: types::Code,
@@ -415,10 +447,12 @@ pub struct ValueSetExpansion {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Identifies the value set expansion (business identifier)
     pub identifier: Option<types::Uri>,
@@ -451,13 +485,16 @@ pub struct ValueSetExpansion {
     pub offset_ext: Option<types::Element>,
 
     /// Parameter that controlled the expansion process
-    pub parameter: Option<Vec<ValueSetExpansionParameter>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub parameter: Vec<ValueSetExpansionParameter>,
 
     /// Additional information supplied about each concept
-    pub property: Option<Vec<ValueSetExpansionProperty>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub property: Vec<ValueSetExpansionProperty>,
 
     /// Codes in the value set
-    pub contains: Option<Vec<ValueSetExpansionContains>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contains: Vec<ValueSetExpansionContains>,
 }
 
 /// Parameter that controlled the expansion process.
@@ -469,10 +506,12 @@ pub struct ValueSetExpansionParameter {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Name as assigned by the client or server
     pub name: types::String,
@@ -494,10 +533,12 @@ pub struct ValueSetExpansionProperty {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Identifies the property on the concepts, and when referred to in operations
     pub code: types::Code,
@@ -521,10 +562,12 @@ pub struct ValueSetExpansionContains {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// System value for the code
     pub system: Option<types::Uri>,
@@ -563,13 +606,16 @@ pub struct ValueSetExpansionContains {
     pub display_ext: Option<types::Element>,
 
     /// Additional representations for this item
-    pub designation: Option<Vec<ValueSetComposeIncludeConceptDesignation>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub designation: Vec<ValueSetComposeIncludeConceptDesignation>,
 
     /// Property value for the concept
-    pub property: Option<Vec<ValueSetExpansionContainsProperty>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub property: Vec<ValueSetExpansionContainsProperty>,
 
     /// Codes contained under this entry
-    pub contains: Option<Vec<ValueSetExpansionContains>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contains: Vec<ValueSetExpansionContains>,
 }
 
 /// Property value for the concept.
@@ -581,10 +627,12 @@ pub struct ValueSetExpansionContainsProperty {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Reference to ValueSet.expansion.property.code
     pub code: types::Code,
@@ -597,7 +645,8 @@ pub struct ValueSetExpansionContainsProperty {
     pub value: Option<ValueSetExpansionContainsPropertyValue>,
 
     /// SubProperty value for the concept
-    pub sub_property: Option<Vec<ValueSetExpansionContainsPropertySubProperty>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub sub_property: Vec<ValueSetExpansionContainsPropertySubProperty>,
 }
 
 /// SubProperty value for the concept.
@@ -609,10 +658,12 @@ pub struct ValueSetExpansionContainsPropertySubProperty {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Reference to ValueSet.expansion.property.code
     pub code: types::Code,
@@ -634,10 +685,12 @@ pub struct ValueSetScope {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Criteria describing which concepts or codes should be included and why
     pub inclusion_criteria: Option<types::String>,

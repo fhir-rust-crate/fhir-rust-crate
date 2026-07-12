@@ -84,16 +84,20 @@ pub struct AuditEvent {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Type/identifier of event
-    pub category: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub category: Vec<types::CodeableConcept>,
 
     /// Specific type of event, drawn from a coded terminology identifying what happened (e.g. login, patient record access)
     pub code: types::CodeableConcept,
@@ -124,10 +128,12 @@ pub struct AuditEvent {
     pub outcome: Option<AuditEventOutcome>,
 
     /// Authorization related to the event
-    pub authorization: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub authorization: Vec<types::CodeableConcept>,
 
     /// Workflow authorization within which this event occurred
-    pub based_on: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub based_on: Vec<types::Reference>,
 
     /// The patient is the subject of the data used/created/updated/deleted during the activity
     pub patient: Option<types::Reference>,
@@ -142,7 +148,8 @@ pub struct AuditEvent {
     pub source: AuditEventSource,
 
     /// Data or object(s) that the event acted upon, such as a resource, record, or query
-    pub entity: Option<Vec<AuditEventEntity>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub entity: Vec<AuditEventEntity>,
 }
 
 /// Whether the event succeeded or failed.
@@ -157,16 +164,19 @@ pub struct AuditEventOutcome {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Whether the event succeeded or failed
     pub code: types::Coding,
 
     /// Additional outcome detail
-    pub detail: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub detail: Vec<types::CodeableConcept>,
 }
 
 /// Actor involved in the event.
@@ -182,16 +192,19 @@ pub struct AuditEventAgent {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// How agent participated
     pub r#type: Option<types::CodeableConcept>,
 
     /// Agent role in the event
-    pub role: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub role: Vec<types::CodeableConcept>,
 
     /// Identifier of who
     pub who: types::Reference,
@@ -206,17 +219,20 @@ pub struct AuditEventAgent {
     pub location: Option<types::Reference>,
 
     /// Policy that authorized the agent participation in the event
-    pub policy: Option<Vec<types::Uri>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub policy: Vec<types::Uri>,
     /// Primitive extension sibling for [`policy`](Self::policy) (FHIR `_policy`).
     #[serde(rename = "_policy")]
-    pub policy_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub policy_ext: Vec<Option<types::Element>>,
 
     /// The `AuditEvent.agent.network[x]` choice element (0..1); see [`AuditEventAgentNetwork`].
     #[serde(flatten)]
     pub network: Option<AuditEventAgentNetwork>,
 
     /// Allowable authorization for this agent
-    pub authorization: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub authorization: Vec<types::CodeableConcept>,
 }
 
 /// Audit Event Reporter.
@@ -232,10 +248,12 @@ pub struct AuditEventSource {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Logical source location within the enterprise
     pub site: Option<types::Reference>,
@@ -244,7 +262,8 @@ pub struct AuditEventSource {
     pub observer: types::Reference,
 
     /// The type of source where event originated
-    pub r#type: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub r#type: Vec<types::CodeableConcept>,
 }
 
 /// Data or objects used.
@@ -260,10 +279,12 @@ pub struct AuditEventEntity {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Specific instance of resource
     pub what: Option<types::Reference>,
@@ -272,7 +293,8 @@ pub struct AuditEventEntity {
     pub role: Option<types::CodeableConcept>,
 
     /// Security labels on the entity
-    pub security_label: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub security_label: Vec<types::CodeableConcept>,
 
     /// Query parameters
     pub query: Option<types::Base64Binary>,
@@ -281,10 +303,12 @@ pub struct AuditEventEntity {
     pub query_ext: Option<types::Element>,
 
     /// Additional Information about the entity
-    pub detail: Option<Vec<AuditEventEntityDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub detail: Vec<AuditEventEntityDetail>,
 
     /// Entity is attributed to this agent
-    pub agent: Option<Vec<AuditEventAgent>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub agent: Vec<AuditEventAgent>,
 }
 
 /// Additional Information about the entity.
@@ -299,10 +323,12 @@ pub struct AuditEventEntityDetail {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Name of the property
     pub r#type: types::CodeableConcept,

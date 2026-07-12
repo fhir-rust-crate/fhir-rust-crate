@@ -79,16 +79,20 @@ pub struct Endpoint {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Identifies this endpoint across multiple systems
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// The current operational status of the endpoint: active | suspended |
     /// error | off | entered-in-error | test
@@ -116,20 +120,23 @@ pub struct Endpoint {
     pub description_ext: Option<types::Element>,
 
     /// The type of environment(s) exposed at this endpoint
-    pub environment_type: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub environment_type: Vec<types::CodeableConcept>,
 
     /// Organization that manages this endpoint (might not be the organization
     /// that exposes the endpoint)
     pub managing_organization: Option<types::Reference>,
 
     /// Contact details for source (e.g. troubleshooting)
-    pub contact: Option<Vec<types::ContactPoint>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contact: Vec<types::ContactPoint>,
 
     /// Interval the endpoint is expected to be operational
     pub period: Option<types::Period>,
 
     /// Set of payloads that are provided by this endpoint
-    pub payload: Option<Vec<EndpointPayload>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub payload: Vec<EndpointPayload>,
 
     /// The technical base address for connecting to this endpoint
     pub address: types::Url,
@@ -138,10 +145,12 @@ pub struct Endpoint {
     pub address_ext: Option<types::Element>,
 
     /// Usage depends on the channel type
-    pub header: Option<Vec<types::String>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub header: Vec<types::String>,
     /// Primitive extension sibling for [`header`](Self::header) (FHIR `_header`).
     #[serde(rename = "_header")]
-    pub header_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub header_ext: Vec<Option<types::Element>>,
 }
 
 /// Set of payloads that are provided by this endpoint. Each payload describes
@@ -155,19 +164,24 @@ pub struct EndpointPayload {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The type of content that may be used at this endpoint (e.g. XDS
     /// Discharge summaries)
-    pub r#type: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub r#type: Vec<types::CodeableConcept>,
 
     /// Mimetype to send. If not specified, the content could be anything
     /// (including no payload, if the connectionType defined this)
-    pub mime_type: Option<Vec<types::Code>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub mime_type: Vec<types::Code>,
     /// Primitive extension sibling for [`mime_type`](Self::mime_type) (FHIR `_mimeType`).
     #[serde(rename = "_mimeType")]
-    pub mime_type_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub mime_type_ext: Vec<Option<types::Element>>,
 }

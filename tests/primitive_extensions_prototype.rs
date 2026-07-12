@@ -109,14 +109,14 @@ fn validate_recurses_into_field_extensions() {
 
     let patient = Patient {
         birth_date_ext: Some(Element {
-            extension: Some(vec![Extension {
+            extension: vec![Extension {
                 url: FhirString(
                     "http://hl7.org/fhir/StructureDefinition/data-absent-reason".to_string(),
                 ),
                 // empty code is invalid
                 value: Some(ExtensionValue::Code(Primitive::new(Code(String::new())))),
                 ..Default::default()
-            }]),
+            }],
             ..Default::default()
         }),
         ..Default::default()

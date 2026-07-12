@@ -82,13 +82,16 @@ pub struct ImplementationGuide {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Canonical identifier for this implementation guide, represented as a URI (globally unique); used to reference this guide from other artifacts and registries
     pub url: types::Uri,
@@ -97,7 +100,8 @@ pub struct ImplementationGuide {
     pub url_ext: Option<types::Element>,
 
     /// Additional identifier for the implementation guide (business identifier)
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Business version of the implementation guide
     pub version: Option<types::String>,
@@ -146,7 +150,8 @@ pub struct ImplementationGuide {
     pub publisher_ext: Option<types::Element>,
 
     /// Contact details for the publisher
-    pub contact: Option<Vec<types::ContactDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contact: Vec<types::ContactDetail>,
 
     /// Natural language description of the implementation guide
     pub description: Option<types::Markdown>,
@@ -155,10 +160,12 @@ pub struct ImplementationGuide {
     pub description_ext: Option<types::Element>,
 
     /// The context that the content is intended to support
-    pub use_context: Option<Vec<types::UsageContext>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub use_context: Vec<types::UsageContext>,
 
     /// Intended jurisdiction for implementation guide (if applicable)
-    pub jurisdiction: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub jurisdiction: Vec<types::CodeableConcept>,
 
     /// Why this implementation guide is defined
     pub purpose: Option<types::Markdown>,
@@ -194,13 +201,16 @@ pub struct ImplementationGuide {
     pub fhir_version: vec1::Vec1<types::Code>,
     /// Primitive extension sibling for [`fhir_version`](Self::fhir_version) (FHIR `_fhirVersion`).
     #[serde(rename = "_fhirVersion")]
-    pub fhir_version_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub fhir_version_ext: Vec<Option<types::Element>>,
 
     /// Another Implementation guide this depends on
-    pub depends_on: Option<Vec<ImplementationGuideDependsOn>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub depends_on: Vec<ImplementationGuideDependsOn>,
 
     /// Profiles that apply globally
-    pub global: Option<Vec<ImplementationGuideGlobal>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub global: Vec<ImplementationGuideGlobal>,
 
     /// Information needed to build the IG; the authoring-time content, including groupings, resources, pages, and parameters
     pub definition: Option<ImplementationGuideDefinition>,
@@ -220,10 +230,12 @@ pub struct ImplementationGuideDependsOn {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Identity of the IG that this depends on
     pub uri: types::Canonical,
@@ -260,10 +272,12 @@ pub struct ImplementationGuideGlobal {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Type this profile applies to
     pub r#type: types::Code,
@@ -288,25 +302,31 @@ pub struct ImplementationGuideDefinition {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Grouping used to present related resources in the IG
-    pub grouping: Option<Vec<ImplementationGuideDefinitionGrouping>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub grouping: Vec<ImplementationGuideDefinitionGrouping>,
 
     /// Resource in the implementation guide
-    pub resource: Option<Vec<ImplementationGuideDefinitionResource>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub resource: Vec<ImplementationGuideDefinitionResource>,
 
     /// Page/Section in the Guide
     pub page: Option<ImplementationGuideDefinitionPage>,
 
     /// Defines how IG is built by tools
-    pub parameter: Option<Vec<ImplementationGuideDefinitionParameter>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub parameter: Vec<ImplementationGuideDefinitionParameter>,
 
     /// A template for building resources
-    pub template: Option<Vec<ImplementationGuideDefinitionTemplate>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub template: Vec<ImplementationGuideDefinitionTemplate>,
 }
 
 /// A logical group used to present related resources together in the rendered
@@ -319,10 +339,12 @@ pub struct ImplementationGuideDefinitionGrouping {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Descriptive name for the package
     pub name: types::String,
@@ -347,19 +369,23 @@ pub struct ImplementationGuideDefinitionResource {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Location of the resource
     pub reference: types::Reference,
 
     /// Versions this applies to (if different to IG)
-    pub fhir_version: Option<Vec<types::Code>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub fhir_version: Vec<types::Code>,
     /// Primitive extension sibling for [`fhir_version`](Self::fhir_version) (FHIR `_fhirVersion`).
     #[serde(rename = "_fhirVersion")]
-    pub fhir_version_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub fhir_version_ext: Vec<Option<types::Element>>,
 
     /// Human readable name for the resource
     pub name: Option<types::String>,
@@ -380,10 +406,12 @@ pub struct ImplementationGuideDefinitionResource {
     pub is_example_ext: Option<types::Element>,
 
     /// Profile(s) this is an example of
-    pub profile: Option<Vec<types::Canonical>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub profile: Vec<types::Canonical>,
     /// Primitive extension sibling for [`profile`](Self::profile) (FHIR `_profile`).
     #[serde(rename = "_profile")]
-    pub profile_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub profile_ext: Vec<Option<types::Element>>,
 
     /// Grouping this is part of
     pub grouping_id: Option<types::Id>,
@@ -402,10 +430,12 @@ pub struct ImplementationGuideDefinitionPage {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The `ImplementationGuide.definition.page.source[x]` choice element (0..1); see [`ImplementationGuideDefinitionPageSource`].
     #[serde(flatten)]
@@ -430,7 +460,8 @@ pub struct ImplementationGuideDefinitionPage {
     pub generation_ext: Option<types::Element>,
 
     /// Nested Pages / Sections
-    pub page: Option<Vec<ImplementationGuideDefinitionPage>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub page: Vec<ImplementationGuideDefinitionPage>,
 }
 
 /// A parameter that defines how the implementation guide is built by tooling.
@@ -442,10 +473,12 @@ pub struct ImplementationGuideDefinitionParameter {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Code that identifies parameter
     pub code: types::Coding,
@@ -466,10 +499,12 @@ pub struct ImplementationGuideDefinitionTemplate {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Type of template specified
     pub code: types::Code,
@@ -500,10 +535,12 @@ pub struct ImplementationGuideManifest {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Location of rendered implementation guide
     pub rendering: Option<types::Url>,
@@ -515,19 +552,24 @@ pub struct ImplementationGuideManifest {
     pub resource: vec1::Vec1<ImplementationGuideManifestResource>,
 
     /// HTML page within the parent IG
-    pub page: Option<Vec<ImplementationGuideManifestPage>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub page: Vec<ImplementationGuideManifestPage>,
 
     /// Image within the IG
-    pub image: Option<Vec<types::String>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub image: Vec<types::String>,
     /// Primitive extension sibling for [`image`](Self::image) (FHIR `_image`).
     #[serde(rename = "_image")]
-    pub image_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub image_ext: Vec<Option<types::Element>>,
 
     /// Additional linkable file in IG
-    pub other: Option<Vec<types::String>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub other: Vec<types::String>,
     /// Primitive extension sibling for [`other`](Self::other) (FHIR `_other`).
     #[serde(rename = "_other")]
-    pub other_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub other_ext: Vec<Option<types::Element>>,
 }
 
 /// A resource in the assembled implementation guide, with its rendered location.
@@ -539,10 +581,12 @@ pub struct ImplementationGuideManifestResource {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Location of the resource
     pub reference: types::Reference,
@@ -554,10 +598,12 @@ pub struct ImplementationGuideManifestResource {
     pub is_example_ext: Option<types::Element>,
 
     /// Profile(s) this is an example of
-    pub profile: Option<Vec<types::Canonical>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub profile: Vec<types::Canonical>,
     /// Primitive extension sibling for [`profile`](Self::profile) (FHIR `_profile`).
     #[serde(rename = "_profile")]
-    pub profile_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub profile_ext: Vec<Option<types::Element>>,
 
     /// Relative path for page in IG
     pub relative_path: Option<types::Url>,
@@ -575,10 +621,12 @@ pub struct ImplementationGuideManifestPage {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// HTML page name
     pub name: types::String,
@@ -593,10 +641,12 @@ pub struct ImplementationGuideManifestPage {
     pub title_ext: Option<types::Element>,
 
     /// Anchor available on the page
-    pub anchor: Option<Vec<types::String>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub anchor: Vec<types::String>,
     /// Primitive extension sibling for [`anchor`](Self::anchor) (FHIR `_anchor`).
     #[serde(rename = "_anchor")]
-    pub anchor_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub anchor_ext: Vec<Option<types::Element>>,
 }
 
 /// The `ImplementationGuide.definition.page.source[x]` choice element (see spec/11-choice-types.md).

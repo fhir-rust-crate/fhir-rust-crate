@@ -77,16 +77,20 @@ pub struct Practitioner {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Business identifiers for the practitioner, such as a national provider or license number, that persist as the person acts across systems.
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Whether this practitioner's record is in active use, allowing records to be retired without being deleted.
     pub active: Option<types::Boolean>,
@@ -95,10 +99,12 @@ pub struct Practitioner {
     pub active_ext: Option<types::Element>,
 
     /// The name or names associated with the practitioner, supporting official, usual, and historical forms.
-    pub name: Option<Vec<types::HumanName>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub name: Vec<types::HumanName>,
 
     /// A contact detail for the practitioner (that apply to all roles)
-    pub telecom: Option<Vec<types::ContactPoint>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub telecom: Vec<types::ContactPoint>,
 
     /// male | female | other | unknown
     pub gender: Option<crate::r5::coded::Coded<crate::r5::codes::AdministrativeGender>>,
@@ -117,16 +123,20 @@ pub struct Practitioner {
     pub deceased: Option<PractitionerDeceased>,
 
     /// Address(es) of the practitioner that are not role specific (typically home address)
-    pub address: Option<Vec<types::Address>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub address: Vec<types::Address>,
 
     /// Image of the person
-    pub photo: Option<Vec<types::Attachment>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub photo: Vec<types::Attachment>,
 
     /// Qualifications, certifications, accreditations, licenses, and training pertaining to the provision of care held by this practitioner.
-    pub qualification: Option<Vec<PractitionerQualification>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub qualification: Vec<PractitionerQualification>,
 
     /// A language which may be used to communicate with the practitioner
-    pub communication: Option<Vec<PractitionerCommunication>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub communication: Vec<PractitionerCommunication>,
 }
 
 /// Qualifications, certifications, accreditations, licenses, training, etc.
@@ -139,13 +149,16 @@ pub struct PractitionerQualification {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// An identifier for this qualification for the practitioner
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Coded representation of the qualification
     pub code: types::CodeableConcept,
@@ -167,10 +180,12 @@ pub struct PractitionerCommunication {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The language code used to communicate with the practitioner
     pub language: types::CodeableConcept,

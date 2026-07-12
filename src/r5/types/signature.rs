@@ -44,7 +44,8 @@ pub struct Signature {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
     /// Indication of the reason the entity signed the object(s), e.g. author, coauthor.
     #[serde(rename = "type")]
     #[serde(default, skip_serializing_if = "Vec::is_empty")]

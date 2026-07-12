@@ -83,13 +83,16 @@ pub struct EvidenceReport {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Canonical identifier for this EvidenceReport, represented as a globally unique URI
     /// that allows the report to be referenced from other resources.
@@ -105,13 +108,16 @@ pub struct EvidenceReport {
     pub status_ext: Option<types::Element>,
 
     /// The context that the content is intended to support
-    pub use_context: Option<Vec<types::UsageContext>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub use_context: Vec<types::UsageContext>,
 
     /// Unique identifier for the evidence report
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Identifiers for articles that may relate to more than one evidence report
-    pub related_identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub related_identifier: Vec<types::Identifier>,
 
     /// The `EvidenceReport.citeAs[x]` choice element (0..1); see [`EvidenceReportCiteAs`].
     #[serde(flatten)]
@@ -121,10 +127,12 @@ pub struct EvidenceReport {
     pub r#type: Option<types::CodeableConcept>,
 
     /// Used for footnotes and annotations
-    pub note: Option<Vec<types::Annotation>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub note: Vec<types::Annotation>,
 
     /// Link, description or reference to artifact associated with the report
-    pub related_artifact: Option<Vec<types::RelatedArtifact>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub related_artifact: Vec<types::RelatedArtifact>,
 
     /// Focus of the report, describing the population, exposure, or other
     /// characteristics the evidence addresses.
@@ -137,26 +145,33 @@ pub struct EvidenceReport {
     pub publisher_ext: Option<types::Element>,
 
     /// Contact details for the publisher
-    pub contact: Option<Vec<types::ContactDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contact: Vec<types::ContactDetail>,
 
     /// Who authored the content
-    pub author: Option<Vec<types::ContactDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub author: Vec<types::ContactDetail>,
 
     /// Who edited the content
-    pub editor: Option<Vec<types::ContactDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub editor: Vec<types::ContactDetail>,
 
     /// Who reviewed the content
-    pub reviewer: Option<Vec<types::ContactDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub reviewer: Vec<types::ContactDetail>,
 
     /// Who endorsed the content
-    pub endorser: Option<Vec<types::ContactDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub endorser: Vec<types::ContactDetail>,
 
     /// Relationships to other compositions/documents, such as prior versions
     /// this report replaces or amends.
-    pub relates_to: Option<Vec<EvidenceReportRelatesTo>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub relates_to: Vec<EvidenceReportRelatesTo>,
 
     /// The hierarchical sections that make up the body of the report.
-    pub section: Option<Vec<EvidenceReportSection>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub section: Vec<EvidenceReportSection>,
 }
 
 /// EvidenceReportSubject
@@ -171,16 +186,20 @@ pub struct EvidenceReportSubject {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Characteristic
-    pub characteristic: Option<Vec<EvidenceReportSubjectCharacteristic>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub characteristic: Vec<EvidenceReportSubjectCharacteristic>,
 
     /// Footnotes and/or explanatory notes
-    pub note: Option<Vec<types::Annotation>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub note: Vec<types::Annotation>,
 }
 
 /// EvidenceReportSubjectCharacteristic
@@ -195,10 +214,12 @@ pub struct EvidenceReportSubjectCharacteristic {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Characteristic code
     pub code: types::CodeableConcept,
@@ -229,10 +250,12 @@ pub struct EvidenceReportRelatesTo {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// replaces | amends | appends | transforms | replacedWith | amendedWith | appendedWith | transformedWith
     pub code: crate::r5::coded::Coded<crate::r5::codes::ReportRelationType>,
@@ -256,10 +279,12 @@ pub struct EvidenceReportRelatesToTarget {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Target of the relationship URL
     pub url: Option<types::Uri>,
@@ -293,10 +318,12 @@ pub struct EvidenceReportSection {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Label for section (e.g. for ToC)
     pub title: Option<types::String>,
@@ -311,7 +338,8 @@ pub struct EvidenceReportSection {
     pub focus_reference: Option<types::Reference>,
 
     /// Who and/or what authored the section
-    pub author: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub author: Vec<types::Reference>,
 
     /// Text summary of the section, for human interpretation
     pub text: Option<types::Narrative>,
@@ -326,19 +354,23 @@ pub struct EvidenceReportSection {
     pub ordered_by: Option<types::CodeableConcept>,
 
     /// Extensible classifiers as content
-    pub entry_classifier: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub entry_classifier: Vec<types::CodeableConcept>,
 
     /// Reference to resources as content
-    pub entry_reference: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub entry_reference: Vec<types::Reference>,
 
     /// Quantity as content
-    pub entry_quantity: Option<Vec<types::Quantity>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub entry_quantity: Vec<types::Quantity>,
 
     /// Why the section is empty
     pub empty_reason: Option<types::CodeableConcept>,
 
     /// Nested Section
-    pub section: Option<Vec<EvidenceReportSection>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub section: Vec<EvidenceReportSection>,
 }
 
 #[cfg(test)]

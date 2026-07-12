@@ -76,13 +76,16 @@ pub struct SubstanceReferenceInformation {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Textual comment about the substance's reference information.
     pub comment: Option<types::String>,
@@ -91,13 +94,16 @@ pub struct SubstanceReferenceInformation {
     pub comment_ext: Option<types::Element>,
 
     /// Genes associated with the substance, such as those it modulates.
-    pub gene: Option<Vec<SubstanceReferenceInformationGene>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub gene: Vec<SubstanceReferenceInformationGene>,
 
     /// Specific gene elements (e.g. codons, introns) related to the substance.
-    pub gene_element: Option<Vec<SubstanceReferenceInformationGeneElement>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub gene_element: Vec<SubstanceReferenceInformationGeneElement>,
 
     /// Biological targets the substance is known to interact with.
-    pub target: Option<Vec<SubstanceReferenceInformationTarget>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub target: Vec<SubstanceReferenceInformationTarget>,
 }
 
 /// A gene associated with the substance, including its sequence origin.
@@ -109,10 +115,12 @@ pub struct SubstanceReferenceInformationGene {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Todo
     pub gene_sequence_origin: Option<types::CodeableConcept>,
@@ -121,7 +129,8 @@ pub struct SubstanceReferenceInformationGene {
     pub gene: Option<types::CodeableConcept>,
 
     /// Todo
-    pub source: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub source: Vec<types::Reference>,
 }
 
 /// Todo
@@ -133,10 +142,12 @@ pub struct SubstanceReferenceInformationGeneElement {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Todo
     pub r#type: Option<types::CodeableConcept>,
@@ -145,7 +156,8 @@ pub struct SubstanceReferenceInformationGeneElement {
     pub element: Option<types::Identifier>,
 
     /// Todo
-    pub source: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub source: Vec<types::Reference>,
 }
 
 /// A biological target that the substance interacts with, and the nature of
@@ -158,10 +170,12 @@ pub struct SubstanceReferenceInformationTarget {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Identifier for the biological target (e.g. a receptor or enzyme).
     pub target: Option<types::Identifier>,
@@ -186,7 +200,8 @@ pub struct SubstanceReferenceInformationTarget {
     pub amount_type: Option<types::CodeableConcept>,
 
     /// Todo
-    pub source: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub source: Vec<types::Reference>,
 }
 
 #[cfg(test)]

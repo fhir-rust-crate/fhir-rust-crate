@@ -78,16 +78,20 @@ pub struct BodyStructure {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Bodystructure identifier
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Whether this record is in active use; defaults to true if absent
     pub active: Option<types::Boolean>,
@@ -102,7 +106,8 @@ pub struct BodyStructure {
     pub included_structure: vec1::Vec1<BodyStructureIncludedStructure>,
 
     /// Excluded anatomic locations(s)
-    pub excluded_structure: Option<Vec<BodyStructureIncludedStructure>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub excluded_structure: Vec<BodyStructureIncludedStructure>,
 
     /// Text description of this structure, for additional human-readable detail
     pub description: Option<types::Markdown>,
@@ -111,7 +116,8 @@ pub struct BodyStructure {
     pub description_ext: Option<types::Element>,
 
     /// Attached images illustrating or documenting the structure
-    pub image: Option<Vec<types::Attachment>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub image: Vec<types::Attachment>,
 
     /// The patient this body structure belongs to
     pub patient: types::Reference,
@@ -129,10 +135,12 @@ pub struct BodyStructureIncludedStructure {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Code that represents the included structure
     pub structure: types::CodeableConcept,
@@ -141,13 +149,16 @@ pub struct BodyStructureIncludedStructure {
     pub laterality: Option<types::CodeableConcept>,
 
     /// Landmark relative location
-    pub body_landmark_orientation: Option<Vec<BodyStructureIncludedStructureBodyLandmarkOrientation>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub body_landmark_orientation: Vec<BodyStructureIncludedStructureBodyLandmarkOrientation>,
 
     /// Cartesian reference for structure
-    pub spatial_reference: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub spatial_reference: Vec<types::Reference>,
 
     /// Code that represents the included structure qualifier
-    pub qualifier: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub qualifier: Vec<types::CodeableConcept>,
 }
 
 /// BodyStructureIncludedStructureBodyLandmarkOrientation
@@ -162,22 +173,28 @@ pub struct BodyStructureIncludedStructureBodyLandmarkOrientation {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Body landmark description
-    pub landmark_description: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub landmark_description: Vec<types::CodeableConcept>,
 
     /// Clockface orientation
-    pub clock_face_position: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub clock_face_position: Vec<types::CodeableConcept>,
 
     /// Landmark relative location
-    pub distance_from_landmark: Option<Vec<BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub distance_from_landmark: Vec<BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark>,
 
     /// Relative landmark surface orientation
-    pub surface_orientation: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub surface_orientation: Vec<types::CodeableConcept>,
 }
 
 /// BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark
@@ -192,14 +209,18 @@ pub struct BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLand
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Measurement device
-    pub device: Option<Vec<types::CodeableReference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub device: Vec<types::CodeableReference>,
 
     /// Measured distance from body landmark
-    pub value: Option<Vec<types::Quantity>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub value: Vec<types::Quantity>,
 }

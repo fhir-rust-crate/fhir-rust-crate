@@ -82,16 +82,20 @@ pub struct Group {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Business Identifier for this Group
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Whether this group's record is in active use, as opposed to being retired or entered in error
     pub active: Option<types::Boolean>,
@@ -136,10 +140,12 @@ pub struct Group {
     pub managing_entity: Option<types::Reference>,
 
     /// Rules for including or excluding members of a definitional Group by trait
-    pub characteristic: Option<Vec<GroupCharacteristic>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub characteristic: Vec<GroupCharacteristic>,
 
     /// The explicit list of entities that are members of an enumerated Group
-    pub member: Option<Vec<GroupMember>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub member: Vec<GroupMember>,
 }
 
 /// Include / Exclude group members by Trait.
@@ -154,10 +160,12 @@ pub struct GroupCharacteristic {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Kind of characteristic
     pub code: types::CodeableConcept,
@@ -187,10 +195,12 @@ pub struct GroupMember {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Reference to the group member
     pub entity: types::Reference,

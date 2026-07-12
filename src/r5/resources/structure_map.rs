@@ -85,13 +85,16 @@ pub struct StructureMap {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Canonical identifier for this structure map, represented as a URI (globally unique); used to reference the map from other resources
     pub url: types::Uri,
@@ -100,7 +103,8 @@ pub struct StructureMap {
     pub url_ext: Option<types::Element>,
 
     /// Additional identifier for the structure map
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Business version of the structure map
     pub version: Option<types::String>,
@@ -149,7 +153,8 @@ pub struct StructureMap {
     pub publisher_ext: Option<types::Element>,
 
     /// Contact details for the publisher
-    pub contact: Option<Vec<types::ContactDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contact: Vec<types::ContactDetail>,
 
     /// Natural language description of the structure map
     pub description: Option<types::Markdown>,
@@ -158,10 +163,12 @@ pub struct StructureMap {
     pub description_ext: Option<types::Element>,
 
     /// The context that the content is intended to support
-    pub use_context: Option<Vec<types::UsageContext>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub use_context: Vec<types::UsageContext>,
 
     /// Intended jurisdiction for structure map (if applicable)
-    pub jurisdiction: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub jurisdiction: Vec<types::CodeableConcept>,
 
     /// Why this structure map is defined
     pub purpose: Option<types::Markdown>,
@@ -182,16 +189,20 @@ pub struct StructureMap {
     pub copyright_label_ext: Option<types::Element>,
 
     /// The source and target structure definitions used by this map, with the mode in which each is used
-    pub structure: Option<Vec<StructureMapStructure>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub structure: Vec<StructureMapStructure>,
 
     /// Other maps used by this map (canonical URLs)
-    pub import: Option<Vec<types::Canonical>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub import: Vec<types::Canonical>,
     /// Primitive extension sibling for [`import`](Self::import) (FHIR `_import`).
     #[serde(rename = "_import")]
-    pub import_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub import_ext: Vec<Option<types::Element>>,
 
     /// Definition of the constant value used in the map rules
-    pub r#const: Option<Vec<StructureMapConst>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub r#const: Vec<StructureMapConst>,
 
     /// The named groups of transform rules that make up the executable logic of the map
     pub group: vec1::Vec1<StructureMapGroup>,
@@ -210,10 +221,12 @@ pub struct StructureMapStructure {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Canonical reference to structure definition
     pub url: types::Canonical,
@@ -253,10 +266,12 @@ pub struct StructureMapConst {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Constant name
     pub name: Option<types::Id>,
@@ -284,10 +299,12 @@ pub struct StructureMapGroup {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Human-readable label
     pub name: types::Id,
@@ -317,7 +334,8 @@ pub struct StructureMapGroup {
     pub input: vec1::Vec1<StructureMapGroupInput>,
 
     /// Transform Rule from source to target
-    pub rule: Option<Vec<StructureMapGroupRule>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub rule: Vec<StructureMapGroupRule>,
 }
 
 /// Named instance provided when invoking the map.
@@ -332,10 +350,12 @@ pub struct StructureMapGroupInput {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Name for this instance of data
     pub name: types::Id,
@@ -374,10 +394,12 @@ pub struct StructureMapGroupRule {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Name of the rule for internal references
     pub name: Option<types::Id>,
@@ -389,13 +411,16 @@ pub struct StructureMapGroupRule {
     pub source: vec1::Vec1<StructureMapGroupRuleSource>,
 
     /// Content to create because of this mapping rule
-    pub target: Option<Vec<StructureMapGroupRuleTarget>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub target: Vec<StructureMapGroupRuleTarget>,
 
     /// Rules contained in this rule
-    pub rule: Option<Vec<StructureMapGroupRule>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub rule: Vec<StructureMapGroupRule>,
 
     /// Which other rules to apply in the context of this rule
-    pub dependent: Option<Vec<StructureMapGroupRuleDependent>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub dependent: Vec<StructureMapGroupRuleDependent>,
 
     /// Documentation for this instance of data
     pub documentation: Option<types::String>,
@@ -417,10 +442,12 @@ pub struct StructureMapGroupRuleSource {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Type or variable this rule applies to
     pub context: types::Id,
@@ -502,10 +529,12 @@ pub struct StructureMapGroupRuleTarget {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Variable this rule applies to
     pub context: Option<types::String>,
@@ -526,10 +555,12 @@ pub struct StructureMapGroupRuleTarget {
     pub variable_ext: Option<types::Element>,
 
     /// first | share | last | single
-    pub list_mode: Option<Vec<crate::r5::coded::Coded<crate::r5::codes::MapTargetListMode>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub list_mode: Vec<crate::r5::coded::Coded<crate::r5::codes::MapTargetListMode>>,
     /// Primitive extension sibling for [`list_mode`](Self::list_mode) (FHIR `_listMode`).
     #[serde(rename = "_listMode")]
-    pub list_mode_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub list_mode_ext: Vec<Option<types::Element>>,
 
     /// Internal rule reference for shared list items
     pub list_rule_id: Option<types::Id>,
@@ -544,7 +575,8 @@ pub struct StructureMapGroupRuleTarget {
     pub transform_ext: Option<types::Element>,
 
     /// Parameters to the transform
-    pub parameter: Option<Vec<StructureMapGroupRuleTargetParameter>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub parameter: Vec<StructureMapGroupRuleTargetParameter>,
 }
 
 /// Parameters to the transform.
@@ -559,10 +591,12 @@ pub struct StructureMapGroupRuleTargetParameter {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The `StructureMap.group.rule.target.parameter.value[x]` choice element (0..1); see [`StructureMapGroupRuleTargetParameterValue`].
     #[serde(flatten)]
@@ -581,10 +615,12 @@ pub struct StructureMapGroupRuleDependent {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Name of a rule or group to apply
     pub name: types::Id,

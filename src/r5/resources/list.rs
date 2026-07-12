@@ -80,16 +80,20 @@ pub struct List {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Business identifier
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Lifecycle status of the list: current, retired, or entered-in-error.
     pub status: crate::r5::coded::Coded<crate::r5::codes::ListStatus>,
@@ -113,7 +117,8 @@ pub struct List {
     pub code: Option<types::CodeableConcept>,
 
     /// If all resources have the same subject(s)
-    pub subject: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub subject: Vec<types::Reference>,
 
     /// Context in which list created
     pub encounter: Option<types::Reference>,
@@ -131,10 +136,12 @@ pub struct List {
     pub ordered_by: Option<types::CodeableConcept>,
 
     /// Comments about the list
-    pub note: Option<Vec<types::Annotation>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub note: Vec<types::Annotation>,
 
     /// Entries in the list, each referencing an item and its optional flags, deletion state, and date.
-    pub entry: Option<Vec<ListEntry>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub entry: Vec<ListEntry>,
 
     /// Why list is empty
     pub empty_reason: Option<types::CodeableConcept>,
@@ -153,10 +160,12 @@ pub struct ListEntry {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Status/Workflow information about this item
     pub flag: Option<types::CodeableConcept>,

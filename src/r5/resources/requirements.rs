@@ -73,13 +73,16 @@ pub struct Requirements {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Canonical identifier for this Requirements, represented as a URI (globally unique)
     pub url: Option<types::Uri>,
@@ -88,7 +91,8 @@ pub struct Requirements {
     pub url_ext: Option<types::Element>,
 
     /// Additional identifier for the Requirements (business identifier)
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Business version of the Requirements
     pub version: Option<types::String>,
@@ -137,7 +141,8 @@ pub struct Requirements {
     pub publisher_ext: Option<types::Element>,
 
     /// Contact details for the publisher
-    pub contact: Option<Vec<types::ContactDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contact: Vec<types::ContactDetail>,
 
     /// Natural language description summarizing what this Requirements resource covers and why
     pub description: Option<types::Markdown>,
@@ -146,10 +151,12 @@ pub struct Requirements {
     pub description_ext: Option<types::Element>,
 
     /// The context that the content is intended to support
-    pub use_context: Option<Vec<types::UsageContext>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub use_context: Vec<types::UsageContext>,
 
     /// Intended jurisdiction for Requirements (if applicable)
-    pub jurisdiction: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub jurisdiction: Vec<types::CodeableConcept>,
 
     /// Explanation of why this Requirements is needed and the intent behind its use
     pub purpose: Option<types::Markdown>,
@@ -170,25 +177,32 @@ pub struct Requirements {
     pub copyright_label_ext: Option<types::Element>,
 
     /// Other set of Requirements this builds on
-    pub derived_from: Option<Vec<types::Canonical>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub derived_from: Vec<types::Canonical>,
     /// Primitive extension sibling for [`derived_from`](Self::derived_from) (FHIR `_derivedFrom`).
     #[serde(rename = "_derivedFrom")]
-    pub derived_from_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub derived_from_ext: Vec<Option<types::Element>>,
 
     /// External artifact (rule/document etc. that) created this set of requirements
-    pub reference: Option<Vec<types::Url>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub reference: Vec<types::Url>,
     /// Primitive extension sibling for [`reference`](Self::reference) (FHIR `_reference`).
     #[serde(rename = "_reference")]
-    pub reference_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub reference_ext: Vec<Option<types::Element>>,
 
     /// Canonical references to the ActorDefinition resources that bear these requirements
-    pub actor: Option<Vec<types::Canonical>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub actor: Vec<types::Canonical>,
     /// Primitive extension sibling for [`actor`](Self::actor) (FHIR `_actor`).
     #[serde(rename = "_actor")]
-    pub actor_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub actor_ext: Vec<Option<types::Element>>,
 
     /// The individual requirement statements, each captured as a RequirementsStatement
-    pub statement: Option<Vec<RequirementsStatement>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub statement: Vec<RequirementsStatement>,
 }
 
 /// A single requirement statement within a Requirements resource, carrying a
@@ -204,10 +218,12 @@ pub struct RequirementsStatement {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Key that identifies this statement
     pub key: types::Id,
@@ -222,10 +238,12 @@ pub struct RequirementsStatement {
     pub label_ext: Option<types::Element>,
 
     /// Conformance verbs that set the strength of this requirement: SHALL, SHOULD, MAY, or SHOULD-NOT
-    pub conformance: Option<Vec<crate::r5::coded::Coded<crate::r5::codes::ConformanceExpectation>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub conformance: Vec<crate::r5::coded::Coded<crate::r5::codes::ConformanceExpectation>>,
     /// Primitive extension sibling for [`conformance`](Self::conformance) (FHIR `_conformance`).
     #[serde(rename = "_conformance")]
-    pub conformance_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub conformance_ext: Vec<Option<types::Element>>,
 
     /// Set to true if requirements statement is conditional
     pub conditionality: Option<types::Boolean>,
@@ -252,19 +270,24 @@ pub struct RequirementsStatement {
     pub parent_ext: Option<types::Element>,
 
     /// Design artifact that satisfies this requirement
-    pub satisfied_by: Option<Vec<types::Url>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub satisfied_by: Vec<types::Url>,
     /// Primitive extension sibling for [`satisfied_by`](Self::satisfied_by) (FHIR `_satisfiedBy`).
     #[serde(rename = "_satisfiedBy")]
-    pub satisfied_by_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub satisfied_by_ext: Vec<Option<types::Element>>,
 
     /// External artifact (rule/document etc. that) created this requirement
-    pub reference: Option<Vec<types::Url>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub reference: Vec<types::Url>,
     /// Primitive extension sibling for [`reference`](Self::reference) (FHIR `_reference`).
     #[serde(rename = "_reference")]
-    pub reference_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub reference_ext: Vec<Option<types::Element>>,
 
     /// The person, organization, or other actor who requested or originated this statement
-    pub source: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub source: Vec<types::Reference>,
 }
 
 #[cfg(test)]

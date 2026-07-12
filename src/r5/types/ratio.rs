@@ -39,7 +39,8 @@ pub struct Ratio {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
     /// The value of the numerator, i.e. the value that is on the top of the ratio expression. // « C »
     pub numerator: Option<types::Quantity>,
     /// The value of the denominator, i.e. the value that is on the bottom of the ratio expression. // Quantity(SimpleQuantity)

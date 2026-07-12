@@ -29,10 +29,10 @@ fn main() {
         id: Some(FhirString("pat-1".to_string())),
         // A required-binding coded field is the code enum, wrapped in `Coded`.
         gender: Some(Coded::Known(AdministrativeGender::Male)),
-        name: Some(vec![HumanName {
+        name: vec![HumanName {
             family: Some(FhirString("Chalmers".to_string())),
             ..Default::default()
-        }]),
+        }],
         ..Default::default()
     };
     report(&patient);

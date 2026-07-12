@@ -76,13 +76,16 @@ pub struct SubscriptionStatus {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Current state of the underlying Subscription: requested | active | error | off | entered-in-error.
     pub status: Option<crate::r5::coded::Coded<crate::r5::codes::SubscriptionStatus>>,
@@ -103,7 +106,8 @@ pub struct SubscriptionStatus {
     pub events_since_subscription_start_ext: Option<types::Element>,
 
     /// Detailed information about any events relevant to this notification
-    pub notification_event: Option<Vec<SubscriptionStatusNotificationEvent>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub notification_event: Vec<SubscriptionStatusNotificationEvent>,
 
     /// Reference to the Subscription responsible for this notification
     pub subscription: types::Reference,
@@ -115,7 +119,8 @@ pub struct SubscriptionStatus {
     pub topic_ext: Option<types::Element>,
 
     /// List of errors on the subscription, if any occurred while generating the notification
-    pub error: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub error: Vec<types::CodeableConcept>,
 }
 
 /// Detailed information about any events relevant to this notification.
@@ -127,10 +132,12 @@ pub struct SubscriptionStatusNotificationEvent {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Sequencing index of this event
     pub event_number: types::Integer64,
@@ -148,7 +155,8 @@ pub struct SubscriptionStatusNotificationEvent {
     pub focus: Option<types::Reference>,
 
     /// References related to the focus resource and/or context of this event
-    pub additional_context: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub additional_context: Vec<types::Reference>,
 }
 
 #[cfg(test)]

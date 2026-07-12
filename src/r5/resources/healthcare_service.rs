@@ -82,16 +82,20 @@ pub struct HealthcareService {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// External identifiers for this item
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Whether this HealthcareService record is currently in active use versus retired or superseded
     pub active: Option<types::Boolean>,
@@ -103,19 +107,24 @@ pub struct HealthcareService {
     pub provided_by: Option<types::Reference>,
 
     /// The service within which this service is offered, supporting hierarchical service catalogs
-    pub offered_in: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub offered_in: Vec<types::Reference>,
 
     /// Broad category of service being performed or delivered
-    pub category: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub category: Vec<types::CodeableConcept>,
 
     /// Type of service that may be delivered or performed
-    pub r#type: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub r#type: Vec<types::CodeableConcept>,
 
     /// Specialties handled by the HealthcareService
-    pub specialty: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub specialty: Vec<types::CodeableConcept>,
 
     /// References to the [`Location`](crate::r5::resources::location::Location) resource(s) where the service may be provided
-    pub location: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub location: Vec<types::Reference>,
 
     /// Description of service as presented to a consumer while searching
     pub name: Option<types::String>,
@@ -139,28 +148,36 @@ pub struct HealthcareService {
     pub photo: Option<types::Attachment>,
 
     /// Official contact details for the HealthcareService
-    pub contact: Option<Vec<types::ExtendedContactDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contact: Vec<types::ExtendedContactDetail>,
 
     /// Location(s) service is intended for/available to
-    pub coverage_area: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub coverage_area: Vec<types::Reference>,
 
     /// Conditions under which service is available/offered
-    pub service_provision_code: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub service_provision_code: Vec<types::CodeableConcept>,
 
     /// Specific eligibility requirements required to use the service
-    pub eligibility: Option<Vec<HealthcareServiceEligibility>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub eligibility: Vec<HealthcareServiceEligibility>,
 
     /// Programs that this service is applicable to
-    pub program: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub program: Vec<types::CodeableConcept>,
 
     /// Collection of characteristics (attributes)
-    pub characteristic: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub characteristic: Vec<types::CodeableConcept>,
 
     /// The language that this service is offered in
-    pub communication: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub communication: Vec<types::CodeableConcept>,
 
     /// Ways that the service accepts referrals
-    pub referral_method: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub referral_method: Vec<types::CodeableConcept>,
 
     /// If an appointment is required for access to this service
     pub appointment_required: Option<types::Boolean>,
@@ -169,10 +186,12 @@ pub struct HealthcareService {
     pub appointment_required_ext: Option<types::Element>,
 
     /// Times the healthcare service is available (including exceptions)
-    pub availability: Option<Vec<types::Availability>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub availability: Vec<types::Availability>,
 
     /// Technical endpoints providing access to electronic services operated for the healthcare service
-    pub endpoint: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub endpoint: Vec<types::Reference>,
 }
 
 /// Specific eligibility requirements required to use the service.
@@ -187,10 +206,12 @@ pub struct HealthcareServiceEligibility {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Coded value for the eligibility
     pub code: Option<types::CodeableConcept>,

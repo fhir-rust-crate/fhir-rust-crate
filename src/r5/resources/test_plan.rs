@@ -74,13 +74,16 @@ pub struct TestPlan {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Canonical identifier for this test plan, represented as a URI (globally unique)
     pub url: Option<types::Uri>,
@@ -89,7 +92,8 @@ pub struct TestPlan {
     pub url_ext: Option<types::Element>,
 
     /// Business identifier identifier for the test plan
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Business version of the test plan
     pub version: Option<types::String>,
@@ -138,7 +142,8 @@ pub struct TestPlan {
     pub publisher_ext: Option<types::Element>,
 
     /// Contact details for the publisher
-    pub contact: Option<Vec<types::ContactDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contact: Vec<types::ContactDetail>,
 
     /// Natural language description of the test plan
     pub description: Option<types::Markdown>,
@@ -147,10 +152,12 @@ pub struct TestPlan {
     pub description_ext: Option<types::Element>,
 
     /// The context that the content is intended to support
-    pub use_context: Option<Vec<types::UsageContext>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub use_context: Vec<types::UsageContext>,
 
     /// Intended jurisdiction where the test plan applies (if applicable)
-    pub jurisdiction: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub jurisdiction: Vec<types::CodeableConcept>,
 
     /// Why this test plan is defined
     pub purpose: Option<types::Markdown>,
@@ -171,10 +178,12 @@ pub struct TestPlan {
     pub copyright_label_ext: Option<types::Element>,
 
     /// The category of the Test Plan, e.g. acceptance, unit, or performance testing
-    pub category: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub category: Vec<types::CodeableConcept>,
 
     /// The artifact(s) under test, referenced via a conformance resource, narrative criteria, or an external reference
-    pub scope: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub scope: Vec<types::Reference>,
 
     /// A description of test tools to be used in the test plan - narrative for now
     pub test_tools: Option<types::Markdown>,
@@ -183,7 +192,8 @@ pub struct TestPlan {
     pub test_tools_ext: Option<types::Element>,
 
     /// The required criteria to execute the test plan - e.g. preconditions, previous tests
-    pub dependency: Option<Vec<TestPlanDependency>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub dependency: Vec<TestPlanDependency>,
 
     /// The threshold or criteria for the test plan to be considered successfully executed - narrative
     pub exit_criteria: Option<types::Markdown>,
@@ -192,7 +202,8 @@ pub struct TestPlan {
     pub exit_criteria_ext: Option<types::Element>,
 
     /// The individual test cases, each with its own scope, dependencies, test run, data, and assertions, that constitute this plan
-    pub test_case: Option<Vec<TestPlanTestCase>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub test_case: Vec<TestPlanTestCase>,
 }
 
 /// TestPlan.dependency
@@ -207,10 +218,12 @@ pub struct TestPlanDependency {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Description of the dependency criterium
     pub description: Option<types::Markdown>,
@@ -233,10 +246,12 @@ pub struct TestPlanTestCase {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Sequence of test case in the test plan
     pub sequence: Option<types::Integer>,
@@ -245,19 +260,24 @@ pub struct TestPlanTestCase {
     pub sequence_ext: Option<types::Element>,
 
     /// The scope or artifact covered by the case
-    pub scope: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub scope: Vec<types::Reference>,
 
     /// Required criteria to execute the test case
-    pub dependency: Option<Vec<TestPlanTestCaseDependency>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub dependency: Vec<TestPlanTestCaseDependency>,
 
     /// The actual test to be executed
-    pub test_run: Option<Vec<TestPlanTestCaseTestRun>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub test_run: Vec<TestPlanTestCaseTestRun>,
 
     /// The test data used in the test case
-    pub test_data: Option<Vec<TestPlanTestCaseTestData>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub test_data: Vec<TestPlanTestCaseTestData>,
 
     /// Test assertions or expectations
-    pub assertion: Option<Vec<TestPlanTestCaseAssertion>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub assertion: Vec<TestPlanTestCaseAssertion>,
 }
 
 /// TestPlan.testCase.dependency
@@ -271,10 +291,12 @@ pub struct TestPlanTestCaseDependency {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Description of the criteria
     pub description: Option<types::Markdown>,
@@ -297,10 +319,12 @@ pub struct TestPlanTestCaseTestRun {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The narrative description of the tests
     pub narrative: Option<types::Markdown>,
@@ -324,10 +348,12 @@ pub struct TestPlanTestCaseTestRunScript {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The language for the test cases e.g. 'gherkin', 'testscript'
     pub language: Option<types::CodeableConcept>,
@@ -348,10 +374,12 @@ pub struct TestPlanTestCaseTestData {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The type of test data description, e.g. 'synthea'
     pub r#type: types::Coding,
@@ -375,19 +403,24 @@ pub struct TestPlanTestCaseAssertion {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Assertion type - for example 'informative' or 'required'
-    pub r#type: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub r#type: Vec<types::CodeableConcept>,
 
     /// The focus or object of the assertion
-    pub object: Option<Vec<types::CodeableReference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub object: Vec<types::CodeableReference>,
 
     /// The actual result assertion
-    pub result: Option<Vec<types::CodeableReference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub result: Vec<types::CodeableReference>,
 }
 
 #[cfg(test)]

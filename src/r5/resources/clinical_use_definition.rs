@@ -79,16 +79,20 @@ pub struct ClinicalUseDefinition {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Business identifier for this issue
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// The kind of issue this instance describes: indication | contraindication | interaction | undesirable-effect | warning; this determines which of the backbone elements below carries the detail
     pub r#type: crate::r5::coded::Coded<crate::r5::codes::ClinicalUseDefinitionType>,
@@ -97,10 +101,12 @@ pub struct ClinicalUseDefinition {
     pub type_ext: Option<types::Element>,
 
     /// A categorisation of the issue, primarily for dividing warnings into subject heading areas
-    pub category: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub category: Vec<types::CodeableConcept>,
 
     /// The medication, product, substance, device, procedure etc. for which this is an indication; typically a reference to a product or activity definition resource
-    pub subject: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub subject: Vec<types::Reference>,
 
     /// Whether this is a current issue or one that has been retired, withdrawn, or superseded etc
     pub status: Option<types::CodeableConcept>,
@@ -115,13 +121,16 @@ pub struct ClinicalUseDefinition {
     pub interaction: Option<ClinicalUseDefinitionInteraction>,
 
     /// The population group to which this applies
-    pub population: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub population: Vec<types::Reference>,
 
     /// Logic used by the clinical use definition
-    pub library: Option<Vec<types::Canonical>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub library: Vec<types::Canonical>,
     /// Primitive extension sibling for [`library`](Self::library) (FHIR `_library`).
     #[serde(rename = "_library")]
-    pub library_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub library_ext: Vec<Option<types::Element>>,
 
     /// A possible negative outcome from the use of this treatment
     pub undesirable_effect: Option<ClinicalUseDefinitionUndesirableEffect>,
@@ -139,10 +148,12 @@ pub struct ClinicalUseDefinitionContraindication {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The situation that is being documented as contraindicating against this item
     pub disease_symptom_procedure: Option<types::CodeableReference>,
@@ -151,16 +162,19 @@ pub struct ClinicalUseDefinitionContraindication {
     pub disease_status: Option<types::CodeableReference>,
 
     /// A comorbidity (concurrent condition) or coinfection
-    pub comorbidity: Option<Vec<types::CodeableReference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub comorbidity: Vec<types::CodeableReference>,
 
     /// The indication which this is a contraidication for
-    pub indication: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub indication: Vec<types::Reference>,
 
     /// An expression that returns true or false, indicating whether the indication is applicable or not
     pub applicability: Option<types::Expression>,
 
     /// Information about use of the product in relation to other therapies described as part of the contraindication
-    pub other_therapy: Option<Vec<ClinicalUseDefinitionContraindicationOtherTherapy>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub other_therapy: Vec<ClinicalUseDefinitionContraindicationOtherTherapy>,
 }
 
 /// Information about use of the product in relation to other therapies described
@@ -173,10 +187,12 @@ pub struct ClinicalUseDefinitionContraindicationOtherTherapy {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The type of relationship between the product indication/contraindication and another therapy
     pub relationship_type: types::CodeableConcept,
@@ -194,10 +210,12 @@ pub struct ClinicalUseDefinitionIndication {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The situation that is being documented as an indicaton for this item
     pub disease_symptom_procedure: Option<types::CodeableReference>,
@@ -206,7 +224,8 @@ pub struct ClinicalUseDefinitionIndication {
     pub disease_status: Option<types::CodeableReference>,
 
     /// A comorbidity or coinfection as part of the indication
-    pub comorbidity: Option<Vec<types::CodeableReference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub comorbidity: Vec<types::CodeableReference>,
 
     /// The intended effect, aim or strategy to be achieved
     pub intended_effect: Option<types::CodeableReference>,
@@ -216,13 +235,15 @@ pub struct ClinicalUseDefinitionIndication {
     pub duration: Option<ClinicalUseDefinitionIndicationDuration>,
 
     /// An unwanted side effect or negative outcome of the subject of this resource when being used for this indication
-    pub undesirable_effect: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub undesirable_effect: Vec<types::Reference>,
 
     /// An expression that returns true or false, indicating whether the indication is applicable or not
     pub applicability: Option<types::Expression>,
 
     /// The use of the medicinal product in relation to other therapies described as part of the indication
-    pub other_therapy: Option<Vec<ClinicalUseDefinitionContraindicationOtherTherapy>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub other_therapy: Vec<ClinicalUseDefinitionContraindicationOtherTherapy>,
 }
 
 /// Specifics for when this is an interaction.
@@ -234,13 +255,16 @@ pub struct ClinicalUseDefinitionInteraction {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The specific medication, product, food etc. or laboratory test that interacts
-    pub interactant: Option<Vec<ClinicalUseDefinitionInteractionInteractant>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub interactant: Vec<ClinicalUseDefinitionInteractionInteractant>,
 
     /// The type of the interaction e.g. drug-drug interaction, drug-lab test interaction
     pub r#type: Option<types::CodeableConcept>,
@@ -252,7 +276,8 @@ pub struct ClinicalUseDefinitionInteraction {
     pub incidence: Option<types::CodeableConcept>,
 
     /// Actions for managing the interaction
-    pub management: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub management: Vec<types::CodeableConcept>,
 }
 
 /// The specific medication, product, food etc. or laboratory test that
@@ -265,10 +290,12 @@ pub struct ClinicalUseDefinitionInteractionInteractant {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The `ClinicalUseDefinition.interaction.interactant.item[x]` choice element (0..1); see [`ClinicalUseDefinitionInteractionInteractantItem`].
     #[serde(flatten)]
@@ -284,10 +311,12 @@ pub struct ClinicalUseDefinitionUndesirableEffect {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The situation in which the undesirable effect may manifest
     pub symptom_condition_effect: Option<types::CodeableReference>,
@@ -309,10 +338,12 @@ pub struct ClinicalUseDefinitionWarning {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// A textual definition of this warning, with formatting
     pub description: Option<types::Markdown>,

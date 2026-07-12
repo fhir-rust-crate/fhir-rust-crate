@@ -44,10 +44,12 @@ pub struct Dosage {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The order of the dosage instructions
     pub sequence: Option<types::Integer>,
@@ -62,7 +64,8 @@ pub struct Dosage {
     pub text_ext: Option<types::Element>,
 
     /// Supplemental instruction or warnings to the patient - e.g. "with meals", "may cause drowsiness"
-    pub additional_instruction: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub additional_instruction: Vec<types::CodeableConcept>,
 
     /// Patient or consumer oriented instructions
     pub patient_instruction: Option<types::String>,
@@ -80,7 +83,8 @@ pub struct Dosage {
     pub as_needed_ext: Option<types::Element>,
 
     /// Take "as needed" (for x)
-    pub as_needed_for: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub as_needed_for: Vec<types::CodeableConcept>,
 
     /// Body site to administer to
     pub site: Option<types::CodeableConcept>,
@@ -92,10 +96,12 @@ pub struct Dosage {
     pub method: Option<types::CodeableConcept>,
 
     /// Amount of medication administered, to be administered or typical amount to be administered
-    pub dose_and_rate: Option<Vec<DosageDoseAndRate>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub dose_and_rate: Vec<DosageDoseAndRate>,
 
     /// Upper limit on medication per unit of time
-    pub max_dose_per_period: Option<Vec<types::Ratio>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub max_dose_per_period: Vec<types::Ratio>,
 
     /// Upper limit on medication per administration
     pub max_dose_per_administration: Option<types::Quantity>,
@@ -118,7 +124,8 @@ pub struct DosageDoseAndRate {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// The kind of dose or rate specified
     pub r#type: Option<types::CodeableConcept>,

@@ -75,13 +75,16 @@ pub struct ResearchStudy {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Canonical identifier for this study resource
     pub url: Option<types::Uri>,
@@ -90,7 +93,8 @@ pub struct ResearchStudy {
     pub url_ext: Option<types::Element>,
 
     /// Business Identifier for study
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// The business version for the study record
     pub version: Option<types::String>,
@@ -111,16 +115,20 @@ pub struct ResearchStudy {
     pub title_ext: Option<types::Element>,
 
     /// Additional names for the study
-    pub label: Option<Vec<ResearchStudyLabel>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub label: Vec<ResearchStudyLabel>,
 
     /// Steps followed in executing study
-    pub protocol: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub protocol: Vec<types::Reference>,
 
     /// Part of larger study
-    pub part_of: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub part_of: Vec<types::Reference>,
 
     /// References, URLs, and attachments
-    pub related_artifact: Option<Vec<types::RelatedArtifact>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub related_artifact: Vec<types::RelatedArtifact>,
 
     /// Date the resource last changed
     pub date: Option<types::DateTime>,
@@ -141,19 +149,24 @@ pub struct ResearchStudy {
     pub phase: Option<types::CodeableConcept>,
 
     /// Classifications of the study design characteristics
-    pub study_design: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub study_design: Vec<types::CodeableConcept>,
 
     /// Drugs, devices, etc. under study
-    pub focus: Option<Vec<types::CodeableReference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub focus: Vec<types::CodeableReference>,
 
     /// Condition, disease, or health concern being studied
-    pub condition: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub condition: Vec<types::CodeableConcept>,
 
     /// Used to search for the study
-    pub keyword: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub keyword: Vec<types::CodeableConcept>,
 
     /// Geographic area for the study
-    pub region: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub region: Vec<types::CodeableConcept>,
 
     /// Brief text explaining the study
     pub description_summary: Option<types::Markdown>,
@@ -171,19 +184,24 @@ pub struct ResearchStudy {
     pub period: Option<types::Period>,
 
     /// Facility where study activities are conducted
-    pub site: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub site: Vec<types::Reference>,
 
     /// Comments made about the study
-    pub note: Option<Vec<types::Annotation>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub note: Vec<types::Annotation>,
 
     /// Classification for the study
-    pub classifier: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub classifier: Vec<types::CodeableConcept>,
 
     /// Sponsors, collaborators, and other parties
-    pub associated_party: Option<Vec<ResearchStudyAssociatedParty>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub associated_party: Vec<ResearchStudyAssociatedParty>,
 
     /// Status of study with time for that status
-    pub progress_status: Option<Vec<ResearchStudyProgressStatus>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub progress_status: Vec<ResearchStudyProgressStatus>,
 
     /// accrual-goal-met | closed-due-to-toxicity | closed-due-to-lack-of-study-progress | temporarily-closed-per-study-design
     pub why_stopped: Option<types::CodeableConcept>,
@@ -192,16 +210,20 @@ pub struct ResearchStudy {
     pub recruitment: Option<ResearchStudyRecruitment>,
 
     /// Defined path through the study for a subject
-    pub comparison_group: Option<Vec<ResearchStudyComparisonGroup>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub comparison_group: Vec<ResearchStudyComparisonGroup>,
 
     /// A goal for the study
-    pub objective: Option<Vec<ResearchStudyObjective>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub objective: Vec<ResearchStudyObjective>,
 
     /// A variable measured during the study
-    pub outcome_measure: Option<Vec<ResearchStudyOutcomeMeasure>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub outcome_measure: Vec<ResearchStudyOutcomeMeasure>,
 
     /// Link to results generated during the study
-    pub result: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub result: Vec<types::Reference>,
 }
 
 /// Additional names for the study.
@@ -216,10 +238,12 @@ pub struct ResearchStudyLabel {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// primary | official | scientific | plain-language | subtitle | short-title | acronym | earlier-title | language | auto-translated | human-use | machine-use | duplicate-uid
     pub r#type: Option<types::CodeableConcept>,
@@ -244,10 +268,12 @@ pub struct ResearchStudyAssociatedParty {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Name of associated party
     pub name: Option<types::String>,
@@ -259,10 +285,12 @@ pub struct ResearchStudyAssociatedParty {
     pub role: types::CodeableConcept,
 
     /// When active in the role
-    pub period: Option<Vec<types::Period>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub period: Vec<types::Period>,
 
     /// nih | fda | government | nonprofit | academic | industry
-    pub classifier: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub classifier: Vec<types::CodeableConcept>,
 
     /// Individual or organization associated with study (use practitionerRole to specify their organisation)
     pub party: Option<types::Reference>,
@@ -280,10 +308,12 @@ pub struct ResearchStudyProgressStatus {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Label for status or state (e.g. recruitment status)
     pub state: types::CodeableConcept,
@@ -310,10 +340,12 @@ pub struct ResearchStudyRecruitment {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Estimated total number of participants to be enrolled
     pub target_number: Option<types::UnsignedInt>,
@@ -346,10 +378,12 @@ pub struct ResearchStudyComparisonGroup {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Allows the comparisonGroup for the study and the comparisonGroup for the subject to be linked easily
     pub link_id: Option<types::Id>,
@@ -373,7 +407,8 @@ pub struct ResearchStudyComparisonGroup {
     pub description_ext: Option<types::Element>,
 
     /// Interventions or exposures in this comparisonGroup or cohort
-    pub intended_exposure: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub intended_exposure: Vec<types::Reference>,
 
     /// Group of participants who were enrolled in study comparisonGroup
     pub observed_group: Option<types::Reference>,
@@ -391,10 +426,12 @@ pub struct ResearchStudyObjective {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Label for the objective
     pub name: Option<types::String>,
@@ -424,10 +461,12 @@ pub struct ResearchStudyOutcomeMeasure {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Label for the outcome
     pub name: Option<types::String>,
@@ -436,7 +475,8 @@ pub struct ResearchStudyOutcomeMeasure {
     pub name_ext: Option<types::Element>,
 
     /// primary | secondary | exploratory
-    pub r#type: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub r#type: Vec<types::CodeableConcept>,
 
     /// Description of the outcome
     pub description: Option<types::Markdown>,

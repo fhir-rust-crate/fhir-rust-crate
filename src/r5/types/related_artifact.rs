@@ -41,7 +41,8 @@ pub struct RelatedArtifact {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// The type of relationship to the related artifact.
     /// documentation | justification | citation | predecessor | successor | derived-from | depends-on | composed-of | part-of | amends | amended-with | appends | appended-with | cites | cited-by | comments-on | comment-in | contains | contained-in | corrects | correction-in | replaces | replaced-with | retracts | retracted-by | signs | similar-to | supports | supported-with | transforms | transformed-into | transformed-with | documents | specification-of | created-with | cite-as
@@ -51,7 +52,8 @@ pub struct RelatedArtifact {
     pub type_ext: Option<types::Element>,
 
     /// Additional classifiers, such as trust, evidence quality, or usage classification.
-    pub classifier: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub classifier: Vec<types::CodeableConcept>,
 
     /// Short label
     pub label: Option<types::String>,

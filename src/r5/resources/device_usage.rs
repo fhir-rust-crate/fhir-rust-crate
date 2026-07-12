@@ -78,19 +78,24 @@ pub struct DeviceUsage {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// External identifier for this record
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Fulfills plan, proposal or order
-    pub based_on: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub based_on: Vec<types::Reference>,
 
     /// The current state of this device usage record: active | completed | not-done | entered-in-error +
     pub status: crate::r5::coded::Coded<crate::r5::codes::DeviceusageStatus>,
@@ -99,13 +104,15 @@ pub struct DeviceUsage {
     pub status_ext: Option<types::Element>,
 
     /// The category of the statement - classifying how the statement is made
-    pub category: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub category: Vec<types::CodeableConcept>,
 
     /// A reference to the [`Patient`](crate::r5::resources::patient::Patient) (or group) reported to be using the device
     pub patient: types::Reference,
 
     /// Supporting information
-    pub derived_from: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub derived_from: Vec<types::Reference>,
 
     /// The encounter or episode of care that establishes the context for this device use statement
     pub context: Option<types::Reference>,
@@ -124,7 +131,8 @@ pub struct DeviceUsage {
     pub usage_status: Option<types::CodeableConcept>,
 
     /// The reason for asserting the usage status - for example forgot, lost, stolen, broken
-    pub usage_reason: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub usage_reason: Vec<types::CodeableConcept>,
 
     /// How device is being used
     pub adherence: Option<DeviceUsageAdherence>,
@@ -136,13 +144,15 @@ pub struct DeviceUsage {
     pub device: types::CodeableReference,
 
     /// Why device was used
-    pub reason: Option<Vec<types::CodeableReference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub reason: Vec<types::CodeableReference>,
 
     /// Target body site
     pub body_site: Option<types::CodeableReference>,
 
     /// Addition details (comments, instructions)
-    pub note: Option<Vec<types::Annotation>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub note: Vec<types::Annotation>,
 }
 
 /// How device is being used.
@@ -158,10 +168,12 @@ pub struct DeviceUsageAdherence {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// always | never | sometimes
     pub code: types::CodeableConcept,

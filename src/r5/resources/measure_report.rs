@@ -78,16 +78,20 @@ pub struct MeasureReport {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Additional identifier for the MeasureReport
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// The processing state of the report: complete, pending, or error.
     pub status: crate::r5::coded::Coded<crate::r5::codes::MeasureReportStatus>,
@@ -144,13 +148,16 @@ pub struct MeasureReport {
     pub improvement_notation: Option<types::CodeableConcept>,
 
     /// Measure results for each group
-    pub group: Option<Vec<MeasureReportGroup>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub group: Vec<MeasureReportGroup>,
 
     /// Additional information collected for the report
-    pub supplemental_data: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub supplemental_data: Vec<types::Reference>,
 
     /// What data was used to calculate the measure score
-    pub evaluated_resource: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub evaluated_resource: Vec<types::Reference>,
 }
 
 /// Measure results for each group.
@@ -162,10 +169,12 @@ pub struct MeasureReportGroup {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Pointer to specific group from Measure
     pub link_id: Option<types::String>,
@@ -180,14 +189,16 @@ pub struct MeasureReportGroup {
     pub subject: Option<types::Reference>,
 
     /// The populations in the group
-    pub population: Option<Vec<MeasureReportGroupPopulation>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub population: Vec<MeasureReportGroupPopulation>,
 
     /// The `MeasureReport.group.measureScore[x]` choice element (0..1); see [`MeasureReportGroupMeasureScore`].
     #[serde(flatten)]
     pub measure_score: Option<MeasureReportGroupMeasureScore>,
 
     /// Stratification results
-    pub stratifier: Option<Vec<MeasureReportGroupStratifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub stratifier: Vec<MeasureReportGroupStratifier>,
 }
 
 /// The populations in the group.
@@ -199,10 +210,12 @@ pub struct MeasureReportGroupPopulation {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Pointer to specific population from Measure
     pub link_id: Option<types::String>,
@@ -223,7 +236,8 @@ pub struct MeasureReportGroupPopulation {
     pub subject_results: Option<types::Reference>,
 
     /// For subject-list reports, a subject result in this population
-    pub subject_report: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub subject_report: Vec<types::Reference>,
 
     /// What individual(s) in the population
     pub subjects: Option<types::Reference>,
@@ -238,10 +252,12 @@ pub struct MeasureReportGroupStratifier {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Pointer to specific stratifier from Measure
     pub link_id: Option<types::String>,
@@ -253,7 +269,8 @@ pub struct MeasureReportGroupStratifier {
     pub code: Option<types::CodeableConcept>,
 
     /// Stratum results, one for each unique value, or set of values, in the stratifier, or stratifier components
-    pub stratum: Option<Vec<MeasureReportGroupStratifierStratum>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub stratum: Vec<MeasureReportGroupStratifierStratum>,
 }
 
 /// Stratum results, one for each unique value, or set of values, in the
@@ -266,20 +283,24 @@ pub struct MeasureReportGroupStratifierStratum {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The `MeasureReport.group.stratifier.stratum.value[x]` choice element (0..1); see [`MeasureReportGroupStratifierStratumValue`].
     #[serde(flatten)]
     pub value: Option<MeasureReportGroupStratifierStratumValue>,
 
     /// Stratifier component values
-    pub component: Option<Vec<MeasureReportGroupStratifierStratumComponent>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub component: Vec<MeasureReportGroupStratifierStratumComponent>,
 
     /// Population results in this stratum
-    pub population: Option<Vec<MeasureReportGroupStratifierStratumPopulation>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub population: Vec<MeasureReportGroupStratifierStratumPopulation>,
 
     /// The `MeasureReport.group.stratifier.stratum.measureScore[x]` choice element (0..1); see [`MeasureReportGroupStratifierStratumMeasureScore`].
     #[serde(flatten)]
@@ -295,10 +316,12 @@ pub struct MeasureReportGroupStratifierStratumComponent {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Pointer to specific stratifier component from Measure
     pub link_id: Option<types::String>,
@@ -323,10 +346,12 @@ pub struct MeasureReportGroupStratifierStratumPopulation {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Pointer to specific population from Measure
     pub link_id: Option<types::String>,
@@ -347,7 +372,8 @@ pub struct MeasureReportGroupStratifierStratumPopulation {
     pub subject_results: Option<types::Reference>,
 
     /// For subject-list reports, a subject result in this population
-    pub subject_report: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub subject_report: Vec<types::Reference>,
 
     /// What individual(s) in the population
     pub subjects: Option<types::Reference>,

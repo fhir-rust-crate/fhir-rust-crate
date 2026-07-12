@@ -86,13 +86,16 @@ pub struct ActorDefinition {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Canonical identifier for this actor definition, represented as a URI (globally unique), used to reference this actor from other resources
     pub url: Option<types::Uri>,
@@ -101,7 +104,8 @@ pub struct ActorDefinition {
     pub url_ext: Option<types::Element>,
 
     /// Additional identifier for the actor definition (business identifier)
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Business version of the actor definition
     pub version: Option<types::String>,
@@ -150,7 +154,8 @@ pub struct ActorDefinition {
     pub publisher_ext: Option<types::Element>,
 
     /// Contact details for the publisher
-    pub contact: Option<Vec<types::ContactDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contact: Vec<types::ContactDetail>,
 
     /// Natural language description of the actor
     pub description: Option<types::Markdown>,
@@ -159,10 +164,12 @@ pub struct ActorDefinition {
     pub description_ext: Option<types::Element>,
 
     /// The context that the content is intended to support
-    pub use_context: Option<Vec<types::UsageContext>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub use_context: Vec<types::UsageContext>,
 
     /// Intended jurisdiction for actor definition (if applicable)
-    pub jurisdiction: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub jurisdiction: Vec<types::CodeableConcept>,
 
     /// Why this actor definition is defined
     pub purpose: Option<types::Markdown>,
@@ -195,10 +202,12 @@ pub struct ActorDefinition {
     pub documentation_ext: Option<types::Element>,
 
     /// Reference to more information about the actor
-    pub reference: Option<Vec<types::Url>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub reference: Vec<types::Url>,
     /// Primitive extension sibling for [`reference`](Self::reference) (FHIR `_reference`).
     #[serde(rename = "_reference")]
-    pub reference_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub reference_ext: Vec<Option<types::Element>>,
 
     /// Canonical reference to a CapabilityStatement describing the actor's expected behavior (if applicable)
     pub capabilities: Option<types::Canonical>,
@@ -207,10 +216,12 @@ pub struct ActorDefinition {
     pub capabilities_ext: Option<types::Element>,
 
     /// Definition of this actor in another context / IG
-    pub derived_from: Option<Vec<types::Canonical>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub derived_from: Vec<types::Canonical>,
     /// Primitive extension sibling for [`derived_from`](Self::derived_from) (FHIR `_derivedFrom`).
     #[serde(rename = "_derivedFrom")]
-    pub derived_from_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub derived_from_ext: Vec<Option<types::Element>>,
 }
 
 #[cfg(test)]

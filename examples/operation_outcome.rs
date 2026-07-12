@@ -37,7 +37,7 @@ fn main() {
     // Every entry is an `error`-severity, `invalid`-code issue.
     for issue in &outcome.issue {
         assert_eq!(issue.severity, Coded::Known(fhir::r5::codes::IssueSeverity::Error));
-        let path = &issue.expression.as_ref().unwrap()[0].0;
+        let path = &issue.expression[0].0;
         let msg = issue.diagnostics.as_ref().unwrap();
         println!("- {path}: {}", msg.0);
     }

@@ -79,16 +79,20 @@ pub struct AdverseEvent {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Business identifier for the event
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// The lifecycle status of the record itself: in-progress | completed |
     /// entered-in-error | unknown
@@ -106,7 +110,8 @@ pub struct AdverseEvent {
 
     /// wrong-patient | procedure-mishap | medication-mishap | device |
     /// unsafe-physical-environment | hospital-aquired-infection | wrong-body-site
-    pub category: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub category: Vec<types::CodeableConcept>,
 
     /// Event or incident that occurred or was averted
     pub code: Option<types::CodeableConcept>,
@@ -135,7 +140,8 @@ pub struct AdverseEvent {
     pub recorded_date_ext: Option<types::Element>,
 
     /// Effect on the subject due to this event
-    pub resulting_effect: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub resulting_effect: Vec<types::Reference>,
 
     /// Location where adverse event occurred
     pub location: Option<types::Reference>,
@@ -144,17 +150,20 @@ pub struct AdverseEvent {
     pub seriousness: Option<types::CodeableConcept>,
 
     /// Type of outcome from the adverse event
-    pub outcome: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub outcome: Vec<types::CodeableConcept>,
 
     /// Who recorded the adverse event
     pub recorder: Option<types::Reference>,
 
     /// Who was involved in the adverse event or the potential adverse event
     /// and what they did
-    pub participant: Option<Vec<AdverseEventParticipant>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub participant: Vec<AdverseEventParticipant>,
 
     /// Research study that the subject is enrolled in
-    pub study: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub study: Vec<types::Reference>,
 
     /// Considered likely or probable or anticipated in the research study
     pub expected_in_research_study: Option<types::Boolean>,
@@ -163,24 +172,30 @@ pub struct AdverseEvent {
     pub expected_in_research_study_ext: Option<types::Element>,
 
     /// The suspected agent causing the adverse event
-    pub suspect_entity: Option<Vec<AdverseEventSuspectEntity>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub suspect_entity: Vec<AdverseEventSuspectEntity>,
 
     /// Contributing factors suspected to have increased the probability or
     /// severity of the adverse event
-    pub contributing_factor: Option<Vec<AdverseEventContributingFactor>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contributing_factor: Vec<AdverseEventContributingFactor>,
 
     /// Preventive actions that contributed to avoiding the adverse event
-    pub preventive_action: Option<Vec<AdverseEventPreventiveAction>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub preventive_action: Vec<AdverseEventPreventiveAction>,
 
     /// Ameliorating actions taken after the adverse event occured in order to
     /// reduce the extent of harm
-    pub mitigating_action: Option<Vec<AdverseEventMitigatingAction>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub mitigating_action: Vec<AdverseEventMitigatingAction>,
 
     /// Supporting information relevant to the event
-    pub supporting_info: Option<Vec<AdverseEventSupportingInfo>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub supporting_info: Vec<AdverseEventSupportingInfo>,
 
     /// Comment on adverse event
-    pub note: Option<Vec<types::Annotation>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub note: Vec<types::Annotation>,
 }
 
 /// Who was involved in the adverse event or the potential adverse event and
@@ -193,10 +208,12 @@ pub struct AdverseEventParticipant {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Type of involvement
     pub function: Option<types::CodeableConcept>,
@@ -214,10 +231,12 @@ pub struct AdverseEventSuspectEntity {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The `AdverseEvent.suspectEntity.instance[x]` choice element (0..1); see [`AdverseEventSuspectEntityInstance`].
     #[serde(flatten)]
@@ -236,10 +255,12 @@ pub struct AdverseEventSuspectEntityCausality {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Method of evaluating the relatedness of the suspected entity to the event
     pub assessment_method: Option<types::CodeableConcept>,
@@ -262,10 +283,12 @@ pub struct AdverseEventContributingFactor {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The `AdverseEvent.contributingFactor.item[x]` choice element (0..1); see [`AdverseEventContributingFactorItem`].
     #[serde(flatten)]
@@ -281,10 +304,12 @@ pub struct AdverseEventPreventiveAction {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The `AdverseEvent.preventiveAction.item[x]` choice element (0..1); see [`AdverseEventPreventiveActionItem`].
     #[serde(flatten)]
@@ -301,10 +326,12 @@ pub struct AdverseEventMitigatingAction {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The `AdverseEvent.mitigatingAction.item[x]` choice element (0..1); see [`AdverseEventMitigatingActionItem`].
     #[serde(flatten)]
@@ -320,10 +347,12 @@ pub struct AdverseEventSupportingInfo {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The `AdverseEvent.supportingInfo.item[x]` choice element (0..1); see [`AdverseEventSupportingInfoItem`].
     #[serde(flatten)]

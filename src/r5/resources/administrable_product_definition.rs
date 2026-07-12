@@ -80,16 +80,20 @@ pub struct AdministrableProductDefinition {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// An identifier for the administrable product
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// The publication lifecycle status of this definition: draft | active | retired | unknown
     pub status: crate::r5::coded::Coded<crate::r5::codes::PublicationStatus>,
@@ -98,7 +102,8 @@ pub struct AdministrableProductDefinition {
     pub status_ext: Option<types::Element>,
 
     /// References the overall medicinal product definition from which one or more constituent parts of this administrable product are prepared and used
-    pub form_of: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub form_of: Vec<types::Reference>,
 
     /// The dose form of the final product after necessary reconstitution or processing, e.g. solution for injection
     pub administrable_dose_form: Option<types::CodeableConcept>,
@@ -107,10 +112,12 @@ pub struct AdministrableProductDefinition {
     pub unit_of_presentation: Option<types::CodeableConcept>,
 
     /// Indicates the specific manufactured items that are part of the 'formOf' product that are used in the preparation of this specific administrable form
-    pub produced_from: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub produced_from: Vec<types::Reference>,
 
     /// The ingredients of this administrable medicinal product. This is only needed if the ingredients are not specified either using ManufacturedItemDefiniton, or using by incoming references from the Ingredient resource
-    pub ingredient: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub ingredient: Vec<types::CodeableConcept>,
 
     /// A device that is integral to the medicinal product, in effect being considered as an "ingredient" of the medicinal product
     pub device: Option<types::Reference>,
@@ -122,7 +129,8 @@ pub struct AdministrableProductDefinition {
     pub description_ext: Option<types::Element>,
 
     /// Characteristics e.g. a product's onset of action
-    pub property: Option<Vec<AdministrableProductDefinitionProperty>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub property: Vec<AdministrableProductDefinitionProperty>,
 
     /// The path(s) by which the product is taken into or makes contact with the body, along with any associated dosing limits
     pub route_of_administration: vec1::Vec1<AdministrableProductDefinitionRouteOfAdministration>,
@@ -139,10 +147,12 @@ pub struct AdministrableProductDefinitionProperty {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// A code expressing the type of characteristic
     pub r#type: types::CodeableConcept,
@@ -166,10 +176,12 @@ pub struct AdministrableProductDefinitionRouteOfAdministration {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Coded expression for the route
     pub code: types::CodeableConcept,
@@ -190,7 +202,8 @@ pub struct AdministrableProductDefinitionRouteOfAdministration {
     pub max_treatment_period: Option<types::Duration>,
 
     /// A species for which this route applies
-    pub target_species: Option<Vec<AdministrableProductDefinitionRouteOfAdministrationTargetSpecies>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub target_species: Vec<AdministrableProductDefinitionRouteOfAdministrationTargetSpecies>,
 }
 
 /// AdministrableProductDefinitionRouteOfAdministrationTargetSpecies
@@ -204,10 +217,12 @@ pub struct AdministrableProductDefinitionRouteOfAdministrationTargetSpecies {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Coded expression for the species
     pub code: types::CodeableConcept,
@@ -229,10 +244,12 @@ pub struct AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithd
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The type of tissue for which the withdrawal period applies, e.g. meat, milk
     pub tissue: types::CodeableConcept,

@@ -76,16 +76,20 @@ pub struct ManufacturedItemDefinition {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Business identifier for this manufactured item, distinct from the resource's logical id
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Publication status of this definition, one of draft, active, retired, or unknown
     pub status: crate::r5::coded::Coded<crate::r5::codes::PublicationStatus>,
@@ -106,21 +110,26 @@ pub struct ManufacturedItemDefinition {
     pub unit_of_presentation: Option<types::CodeableConcept>,
 
     /// Manufacturer of the item, one of several possible, referencing an Organization
-    pub manufacturer: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub manufacturer: Vec<types::Reference>,
 
     /// Allows specifying that an item is on the market for sale, or that it is
     /// not available, and the dates and locations associated
-    pub marketing_status: Option<Vec<types::MarketingStatus>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub marketing_status: Vec<types::MarketingStatus>,
 
     /// The ingredients of this manufactured item. Only needed if these are not
     /// specified by incoming references from the Ingredient resource
-    pub ingredient: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub ingredient: Vec<types::CodeableConcept>,
 
     /// General characteristics of this item
-    pub property: Option<Vec<ManufacturedItemDefinitionProperty>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub property: Vec<ManufacturedItemDefinitionProperty>,
 
     /// Physical parts of the manufactured item, that it is intrisically made from
-    pub component: Option<Vec<ManufacturedItemDefinitionComponent>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub component: Vec<ManufacturedItemDefinitionComponent>,
 }
 
 /// General characteristics of this item.
@@ -132,10 +141,12 @@ pub struct ManufacturedItemDefinitionProperty {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// A code expressing the type of characteristic
     pub r#type: types::CodeableConcept,
@@ -155,31 +166,38 @@ pub struct ManufacturedItemDefinitionComponent {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Defining type of the component e.g. shell, layer, ink
     pub r#type: types::CodeableConcept,
 
     /// The function of this component within the item e.g. delivers active
     /// ingredient, masks taste
-    pub function: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub function: Vec<types::CodeableConcept>,
 
     /// The measurable amount of total quantity of all substances in the
     /// component, expressable in different ways (e.g. by mass or volume)
-    pub amount: Option<Vec<types::Quantity>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub amount: Vec<types::Quantity>,
 
     /// A reference to a constituent of the manufactured item as a whole, linked
     /// here so that its component location within the item can be indicated
-    pub constituent: Option<Vec<ManufacturedItemDefinitionComponentConstituent>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub constituent: Vec<ManufacturedItemDefinitionComponentConstituent>,
 
     /// General characteristics of this component
-    pub property: Option<Vec<ManufacturedItemDefinitionProperty>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub property: Vec<ManufacturedItemDefinitionProperty>,
 
     /// A component that this component contains or is made from
-    pub component: Option<Vec<ManufacturedItemDefinitionComponent>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub component: Vec<ManufacturedItemDefinitionComponent>,
 }
 
 /// A reference to a constituent of the manufactured item as a whole, linked here
@@ -192,23 +210,29 @@ pub struct ManufacturedItemDefinitionComponentConstituent {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The measurable amount of the substance, expressable in different ways
     /// (e.g. by mass or volume)
-    pub amount: Option<Vec<types::Quantity>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub amount: Vec<types::Quantity>,
 
     /// The physical location of the constituent/ingredient within the component
-    pub location: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub location: Vec<types::CodeableConcept>,
 
     /// The function of this constituent within the component e.g. binder
-    pub function: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub function: Vec<types::CodeableConcept>,
 
     /// The ingredient that is the constituent of the given component
-    pub has_ingredient: Option<Vec<types::CodeableReference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub has_ingredient: Vec<types::CodeableReference>,
 }
 
 #[cfg(test)]

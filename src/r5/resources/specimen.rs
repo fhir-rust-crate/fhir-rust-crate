@@ -80,16 +80,20 @@ pub struct Specimen {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// External Identifier, such as a specimen collection identifier used by the ordering system
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Identifier assigned by the accessioning laboratory when it receives the specimen
     pub accession_identifier: Option<types::Identifier>,
@@ -113,10 +117,12 @@ pub struct Specimen {
     pub received_time_ext: Option<types::Element>,
 
     /// Specimen from which this specimen originated
-    pub parent: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub parent: Vec<types::Reference>,
 
     /// Why the specimen was collected
-    pub request: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub request: Vec<types::Reference>,
 
     /// grouped | pooled
     pub combined: Option<crate::r5::coded::Coded<crate::r5::codes::SpecimenCombined>>,
@@ -125,25 +131,31 @@ pub struct Specimen {
     pub combined_ext: Option<types::Element>,
 
     /// The role the specimen serves
-    pub role: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub role: Vec<types::CodeableConcept>,
 
     /// The physical feature of a specimen
-    pub feature: Option<Vec<SpecimenFeature>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub feature: Vec<SpecimenFeature>,
 
     /// Collection details
     pub collection: Option<SpecimenCollection>,
 
     /// Processing and processing step details
-    pub processing: Option<Vec<SpecimenProcessing>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub processing: Vec<SpecimenProcessing>,
 
     /// Direct container of specimen (tube/slide, etc.)
-    pub container: Option<Vec<SpecimenContainer>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub container: Vec<SpecimenContainer>,
 
     /// State of the specimen
-    pub condition: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub condition: Vec<types::CodeableConcept>,
 
     /// Comments
-    pub note: Option<Vec<types::Annotation>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub note: Vec<types::Annotation>,
 }
 
 /// The physical feature of a specimen.
@@ -158,10 +170,12 @@ pub struct SpecimenFeature {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Highlighted feature
     pub r#type: types::CodeableConcept,
@@ -185,10 +199,12 @@ pub struct SpecimenCollection {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Who collected the specimen
     pub collector: Option<types::Reference>,
@@ -233,10 +249,12 @@ pub struct SpecimenProcessing {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Textual description of procedure
     pub description: Option<types::String>,
@@ -248,7 +266,8 @@ pub struct SpecimenProcessing {
     pub method: Option<types::CodeableConcept>,
 
     /// Material used in the processing step
-    pub additive: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub additive: Vec<types::Reference>,
 
     /// The `Specimen.processing.time[x]` choice element (0..1); see [`SpecimenProcessingTime`].
     #[serde(flatten)]
@@ -267,10 +286,12 @@ pub struct SpecimenContainer {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Device resource for the container
     pub device: types::Reference,

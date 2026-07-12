@@ -81,22 +81,28 @@ pub struct BiologicallyDerivedProductDispense {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Business identifier for this dispense
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// The order or request that this dispense is fulfilling
-    pub based_on: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub based_on: Vec<types::Reference>,
 
     /// Short description
-    pub part_of: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub part_of: Vec<types::Reference>,
 
     /// Status of the dispense: preparation | in-progress | allocated | issued | unfulfilled | returned | entered-in-error | unknown
     pub status: crate::r5::coded::Coded<crate::r5::codes::BiologicallyderivedproductdispenseStatus>,
@@ -117,7 +123,8 @@ pub struct BiologicallyDerivedProductDispense {
     pub match_status: Option<types::CodeableConcept>,
 
     /// Indicates who or what performed an action
-    pub performer: Option<Vec<BiologicallyDerivedProductDispensePerformer>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub performer: Vec<BiologicallyDerivedProductDispensePerformer>,
 
     /// Where the dispense occurred
     pub location: Option<types::Reference>,
@@ -141,7 +148,8 @@ pub struct BiologicallyDerivedProductDispense {
     pub destination: Option<types::Reference>,
 
     /// Additional notes
-    pub note: Option<Vec<types::Annotation>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub note: Vec<types::Annotation>,
 
     /// Specific instructions for use
     pub usage_instruction: Option<types::String>,
@@ -162,10 +170,12 @@ pub struct BiologicallyDerivedProductDispensePerformer {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Identifies the function of the performer during the dispense
     pub function: Option<types::CodeableConcept>,

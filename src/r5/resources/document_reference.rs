@@ -83,16 +83,20 @@ pub struct DocumentReference {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Business identifiers for the document
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// An explicitly assigned identifer of a variation of the content in the DocumentReference
     pub version: Option<types::String>,
@@ -101,7 +105,8 @@ pub struct DocumentReference {
     pub version_ext: Option<types::Element>,
 
     /// Procedure that caused this media to be created
-    pub based_on: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub based_on: Vec<types::Reference>,
 
     /// The status of this document reference (current | superseded | entered-in-error).
     pub status: crate::r5::coded::Coded<crate::r5::codes::DocumentReferenceStatus>,
@@ -116,25 +121,30 @@ pub struct DocumentReference {
     pub doc_status_ext: Option<types::Element>,
 
     /// Imaging modality used
-    pub modality: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modality: Vec<types::CodeableConcept>,
 
     /// Kind of document, ideally coded using a LOINC document type code
     pub r#type: Option<types::CodeableConcept>,
 
     /// Categorization of document, such as a broad class like "clinical note"
-    pub category: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub category: Vec<types::CodeableConcept>,
 
     /// Who/what the document is about, most often a reference to a Patient
     pub subject: Option<types::Reference>,
 
     /// Context of the document content
-    pub context: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub context: Vec<types::Reference>,
 
     /// Main clinical acts documented
-    pub event: Option<Vec<types::CodeableReference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub event: Vec<types::CodeableReference>,
 
     /// Body part included
-    pub body_site: Option<Vec<types::CodeableReference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub body_site: Vec<types::CodeableReference>,
 
     /// Kind of facility where patient was seen
     pub facility_type: Option<types::CodeableConcept>,
@@ -152,16 +162,19 @@ pub struct DocumentReference {
     pub date_ext: Option<types::Element>,
 
     /// Who and/or what authored the document
-    pub author: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub author: Vec<types::Reference>,
 
     /// Attests to accuracy of the document
-    pub attester: Option<Vec<DocumentReferenceAttester>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub attester: Vec<DocumentReferenceAttester>,
 
     /// Organization which maintains the document
     pub custodian: Option<types::Reference>,
 
     /// Relationships this document has to other documents, such as replaces or transforms
-    pub relates_to: Option<Vec<DocumentReferenceRelatesTo>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub relates_to: Vec<DocumentReferenceRelatesTo>,
 
     /// Human-readable description
     pub description: Option<types::Markdown>,
@@ -170,7 +183,8 @@ pub struct DocumentReference {
     pub description_ext: Option<types::Element>,
 
     /// Document security-tags
-    pub security_label: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub security_label: Vec<types::CodeableConcept>,
 
     /// The document(s) referenced, each pairing an attachment with optional format/profile details
     pub content: vec1::Vec1<DocumentReferenceContent>,
@@ -185,10 +199,12 @@ pub struct DocumentReferenceAttester {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// personal | professional | legal | official
     pub mode: types::CodeableConcept,
@@ -212,10 +228,12 @@ pub struct DocumentReferenceRelatesTo {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The relationship type with another document
     pub code: types::CodeableConcept,
@@ -233,16 +251,19 @@ pub struct DocumentReferenceContent {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Where to access the document
     pub attachment: types::Attachment,
 
     /// Content profile rules for the document
-    pub profile: Option<Vec<DocumentReferenceContentProfile>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub profile: Vec<DocumentReferenceContentProfile>,
 }
 
 /// Content profile rules for the document.
@@ -254,10 +275,12 @@ pub struct DocumentReferenceContentProfile {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The `DocumentReference.content.profile.value[x]` choice element (0..1); see [`DocumentReferenceContentProfileValue`].
     #[serde(flatten)]

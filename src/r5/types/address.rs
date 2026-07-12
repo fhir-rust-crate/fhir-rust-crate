@@ -43,7 +43,8 @@ pub struct Address {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
     /// The purpose of this address (home, work, temp, old, billing).
     #[serde(rename = "use")]
     pub use1: Option<types::Code>, // « AddressUse! »
@@ -69,7 +70,8 @@ pub struct Address {
     pub line: Vec<types::String>,
     /// Primitive extension sibling for [`line`](Self::line) (FHIR `_line`).
     #[serde(rename = "_line")]
-    pub line_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub line_ext: Vec<Option<types::Element>>,
 
     /// The name of the city, town, suburb, village, or other community or
     /// delivery center.

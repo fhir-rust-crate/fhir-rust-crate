@@ -83,16 +83,20 @@ pub struct AllergyIntolerance {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// External ids for this item
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// active | inactive | resolved - current clinical status of this allergy or intolerance
     pub clinical_status: Option<types::CodeableConcept>,
@@ -104,10 +108,12 @@ pub struct AllergyIntolerance {
     pub r#type: Option<types::CodeableConcept>,
 
     /// food | medication | environment | biologic
-    pub category: Option<Vec<crate::r5::coded::Coded<crate::r5::codes::AllergyIntoleranceCategory>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub category: Vec<crate::r5::coded::Coded<crate::r5::codes::AllergyIntoleranceCategory>>,
     /// Primitive extension sibling for [`category`](Self::category) (FHIR `_category`).
     #[serde(rename = "_category")]
-    pub category_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub category_ext: Vec<Option<types::Element>>,
 
     /// low | high | unable-to-assess - estimated risk of harm from future exposure
     pub criticality: Option<crate::r5::coded::Coded<crate::r5::codes::AllergyIntoleranceCriticality>>,
@@ -136,7 +142,8 @@ pub struct AllergyIntolerance {
 
     /// Who or what participated in the activities related to the allergy or
     /// intolerance and how they were involved
-    pub participant: Option<Vec<AllergyIntoleranceParticipant>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub participant: Vec<AllergyIntoleranceParticipant>,
 
     /// Date(/time) of last known occurrence of a reaction
     pub last_occurrence: Option<types::DateTime>,
@@ -145,10 +152,12 @@ pub struct AllergyIntolerance {
     pub last_occurrence_ext: Option<types::Element>,
 
     /// Additional text not captured in other fields
-    pub note: Option<Vec<types::Annotation>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub note: Vec<types::Annotation>,
 
     /// Adverse Reaction Events linked to exposure to substance
-    pub reaction: Option<Vec<AllergyIntoleranceReaction>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub reaction: Vec<AllergyIntoleranceReaction>,
 }
 
 /// Who or what participated in the activities related to the allergy or
@@ -161,10 +170,12 @@ pub struct AllergyIntoleranceParticipant {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Type of involvement
     pub function: Option<types::CodeableConcept>,
@@ -183,10 +194,12 @@ pub struct AllergyIntoleranceReaction {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Specific substance or pharmaceutical product considered to be responsible
     /// for event
@@ -217,7 +230,8 @@ pub struct AllergyIntoleranceReaction {
     pub exposure_route: Option<types::CodeableConcept>,
 
     /// Text about event not captured in other fields
-    pub note: Option<Vec<types::Annotation>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub note: Vec<types::Annotation>,
 }
 
 #[cfg(test)]

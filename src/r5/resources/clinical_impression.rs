@@ -79,16 +79,20 @@ pub struct ClinicalImpression {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Business identifier
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// The workflow state of this assessment: preparation | in-progress | not-done | on-hold | stopped | completed | entered-in-error | unknown
     pub status: crate::r5::coded::Coded<crate::r5::codes::EventStatus>,
@@ -128,17 +132,20 @@ pub struct ClinicalImpression {
     pub previous: Option<types::Reference>,
 
     /// Relevant impressions of patient state
-    pub problem: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub problem: Vec<types::Reference>,
 
     /// Change in the status/pattern of a subject's condition since previously
     /// assessed, such as worsening, improving, or no change
     pub change_pattern: Option<types::CodeableConcept>,
 
     /// Clinical Protocol followed
-    pub protocol: Option<Vec<types::Uri>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub protocol: Vec<types::Uri>,
     /// Primitive extension sibling for [`protocol`](Self::protocol) (FHIR `_protocol`).
     #[serde(rename = "_protocol")]
-    pub protocol_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub protocol_ext: Vec<Option<types::Element>>,
 
     /// Summary of the assessment
     pub summary: Option<types::String>,
@@ -147,19 +154,24 @@ pub struct ClinicalImpression {
     pub summary_ext: Option<types::Element>,
 
     /// Possible or likely findings and diagnoses
-    pub finding: Option<Vec<ClinicalImpressionFinding>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub finding: Vec<ClinicalImpressionFinding>,
 
     /// Estimate of likely outcome
-    pub prognosis_codeable_concept: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub prognosis_codeable_concept: Vec<types::CodeableConcept>,
 
     /// RiskAssessment expressing likely outcome
-    pub prognosis_reference: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub prognosis_reference: Vec<types::Reference>,
 
     /// Information supporting the clinical impression
-    pub supporting_info: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub supporting_info: Vec<types::Reference>,
 
     /// Comments made about the ClinicalImpression
-    pub note: Option<Vec<types::Annotation>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub note: Vec<types::Annotation>,
 }
 
 /// Possible or likely findings and diagnoses.
@@ -171,10 +183,12 @@ pub struct ClinicalImpressionFinding {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// What was found
     pub item: Option<types::CodeableReference>,

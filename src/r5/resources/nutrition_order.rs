@@ -86,37 +86,48 @@ pub struct NutritionOrder {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Identifiers assigned to this order
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Instantiates FHIR protocol or definition
-    pub instantiates_canonical: Option<Vec<types::Canonical>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub instantiates_canonical: Vec<types::Canonical>,
     /// Primitive extension sibling for [`instantiates_canonical`](Self::instantiates_canonical) (FHIR `_instantiatesCanonical`).
     #[serde(rename = "_instantiatesCanonical")]
-    pub instantiates_canonical_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub instantiates_canonical_ext: Vec<Option<types::Element>>,
 
     /// Instantiates external protocol or definition
-    pub instantiates_uri: Option<Vec<types::Uri>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub instantiates_uri: Vec<types::Uri>,
     /// Primitive extension sibling for [`instantiates_uri`](Self::instantiates_uri) (FHIR `_instantiatesUri`).
     #[serde(rename = "_instantiatesUri")]
-    pub instantiates_uri_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub instantiates_uri_ext: Vec<Option<types::Element>>,
 
     /// Instantiates protocol or definition
-    pub instantiates: Option<Vec<types::Uri>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub instantiates: Vec<types::Uri>,
     /// Primitive extension sibling for [`instantiates`](Self::instantiates) (FHIR `_instantiates`).
     #[serde(rename = "_instantiates")]
-    pub instantiates_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub instantiates_ext: Vec<Option<types::Element>>,
 
     /// What this order fulfills
-    pub based_on: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub based_on: Vec<types::Reference>,
 
     /// Composite Request ID
     pub group_identifier: Option<types::Identifier>,
@@ -146,7 +157,8 @@ pub struct NutritionOrder {
     pub encounter: Option<types::Reference>,
 
     /// Information to support fulfilling of the nutrition order
-    pub supporting_information: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub supporting_information: Vec<types::Reference>,
 
     /// Date and time the nutrition order was requested
     pub date_time: types::DateTime,
@@ -158,16 +170,20 @@ pub struct NutritionOrder {
     pub orderer: Option<types::Reference>,
 
     /// Who is desired to perform the administration of what is being ordered
-    pub performer: Option<Vec<types::CodeableReference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub performer: Vec<types::CodeableReference>,
 
     /// References to the patient's food and nutrition-related allergies and intolerances that inform safe fulfillment
-    pub allergy_intolerance: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub allergy_intolerance: Vec<types::Reference>,
 
     /// Order-specific modifier about the type of food that should be given
-    pub food_preference_modifier: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub food_preference_modifier: Vec<types::CodeableConcept>,
 
     /// Order-specific modifier about the type of food that should not be given
-    pub exclude_food_modifier: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub exclude_food_modifier: Vec<types::CodeableConcept>,
 
     /// Capture when a food item is brought in by the patient and/or family
     pub outside_food_allowed: Option<types::Boolean>,
@@ -179,13 +195,15 @@ pub struct NutritionOrder {
     pub oral_diet: Option<NutritionOrderOralDiet>,
 
     /// One or more oral nutritional supplements to be provided, such as a specific product, quantity, and administration schedule
-    pub supplement: Option<Vec<NutritionOrderSupplement>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub supplement: Vec<NutritionOrderSupplement>,
 
     /// Formula feeding instructions for enteral (tube) nutrition, including formula type, additives, caloric density, route, and delivery rate
     pub enteral_formula: Option<NutritionOrderEnteralFormula>,
 
     /// Comments
-    pub note: Option<Vec<types::Annotation>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub note: Vec<types::Annotation>,
 }
 
 /// Oral diet components.
@@ -197,25 +215,31 @@ pub struct NutritionOrderOralDiet {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Type of oral diet or diet restrictions that describe what can be consumed orally
-    pub r#type: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub r#type: Vec<types::CodeableConcept>,
 
     /// Scheduling information for oral diets
     pub schedule: Option<NutritionOrderOralDietSchedule>,
 
     /// Required nutrient modifications
-    pub nutrient: Option<Vec<NutritionOrderOralDietNutrient>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub nutrient: Vec<NutritionOrderOralDietNutrient>,
 
     /// Required texture modifications
-    pub texture: Option<Vec<NutritionOrderOralDietTexture>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub texture: Vec<NutritionOrderOralDietTexture>,
 
     /// The required consistency of fluids and liquids provided to the patient
-    pub fluid_consistency_type: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub fluid_consistency_type: Vec<types::CodeableConcept>,
 
     /// Instructions or additional information about the oral diet
     pub instruction: Option<types::String>,
@@ -233,13 +257,16 @@ pub struct NutritionOrderOralDietSchedule {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Scheduled frequency of diet
-    pub timing: Option<Vec<types::Timing>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub timing: Vec<types::Timing>,
 
     /// Take 'as needed'
     pub as_needed: Option<types::Boolean>,
@@ -260,10 +287,12 @@ pub struct NutritionOrderOralDietNutrient {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Type of nutrient that is being modified
     pub modifier: Option<types::CodeableConcept>,
@@ -281,10 +310,12 @@ pub struct NutritionOrderOralDietTexture {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Code to indicate how to alter the texture of the foods, e.g. pureed
     pub modifier: Option<types::CodeableConcept>,
@@ -302,10 +333,12 @@ pub struct NutritionOrderSupplement {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Type of supplement product requested
     pub r#type: Option<types::CodeableReference>,
@@ -338,13 +371,16 @@ pub struct NutritionOrderSupplementSchedule {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Scheduled frequency of diet
-    pub timing: Option<Vec<types::Timing>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub timing: Vec<types::Timing>,
 
     /// Take 'as needed'
     pub as_needed: Option<types::Boolean>,
@@ -365,10 +401,12 @@ pub struct NutritionOrderEnteralFormula {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Type of enteral or infant formula
     pub base_formula_type: Option<types::CodeableReference>,
@@ -380,10 +418,12 @@ pub struct NutritionOrderEnteralFormula {
     pub base_formula_product_name_ext: Option<types::Element>,
 
     /// Intended type of device for the administration
-    pub delivery_device: Option<Vec<types::CodeableReference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub delivery_device: Vec<types::CodeableReference>,
 
     /// Components to add to the feeding
-    pub additive: Option<Vec<NutritionOrderEnteralFormulaAdditive>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub additive: Vec<NutritionOrderEnteralFormulaAdditive>,
 
     /// Amount of energy per specified volume that is required
     pub caloric_density: Option<types::Quantity>,
@@ -392,7 +432,8 @@ pub struct NutritionOrderEnteralFormula {
     pub route_of_administration: Option<types::CodeableConcept>,
 
     /// Formula feeding instruction as structured data
-    pub administration: Option<Vec<NutritionOrderEnteralFormulaAdministration>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub administration: Vec<NutritionOrderEnteralFormulaAdministration>,
 
     /// Upper limit on formula volume per unit of time
     pub max_volume_to_deliver: Option<types::Quantity>,
@@ -413,10 +454,12 @@ pub struct NutritionOrderEnteralFormulaAdditive {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Type of modular component to add to the feeding
     pub r#type: Option<types::CodeableReference>,
@@ -440,10 +483,12 @@ pub struct NutritionOrderEnteralFormulaAdministration {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Scheduling information for enteral formula products
     pub schedule: Option<NutritionOrderEnteralFormulaAdministrationSchedule>,
@@ -465,13 +510,16 @@ pub struct NutritionOrderEnteralFormulaAdministrationSchedule {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Scheduled frequency of enteral formula
-    pub timing: Option<Vec<types::Timing>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub timing: Vec<types::Timing>,
 
     /// Take 'as needed'
     pub as_needed: Option<types::Boolean>,

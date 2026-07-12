@@ -80,13 +80,16 @@ pub struct CapabilityStatement {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Canonical identifier for this capability statement, represented as a URI (globally unique)
     pub url: Option<types::Uri>,
@@ -95,7 +98,8 @@ pub struct CapabilityStatement {
     pub url_ext: Option<types::Element>,
 
     /// Additional identifier for the CapabilityStatement (business identifier)
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Business version of the capability statement
     pub version: Option<types::String>,
@@ -144,7 +148,8 @@ pub struct CapabilityStatement {
     pub publisher_ext: Option<types::Element>,
 
     /// Contact details for the publisher
-    pub contact: Option<Vec<types::ContactDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contact: Vec<types::ContactDetail>,
 
     /// Natural language description of the capability statement
     pub description: Option<types::Markdown>,
@@ -153,10 +158,12 @@ pub struct CapabilityStatement {
     pub description_ext: Option<types::Element>,
 
     /// The context that the content is intended to support
-    pub use_context: Option<Vec<types::UsageContext>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub use_context: Vec<types::UsageContext>,
 
     /// Intended jurisdiction for capability statement (if applicable)
-    pub jurisdiction: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub jurisdiction: Vec<types::CodeableConcept>,
 
     /// Why this capability statement is defined
     pub purpose: Option<types::Markdown>,
@@ -183,16 +190,20 @@ pub struct CapabilityStatement {
     pub kind_ext: Option<types::Element>,
 
     /// Canonical URL of another capability statement this implements
-    pub instantiates: Option<Vec<types::Canonical>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub instantiates: Vec<types::Canonical>,
     /// Primitive extension sibling for [`instantiates`](Self::instantiates) (FHIR `_instantiates`).
     #[serde(rename = "_instantiates")]
-    pub instantiates_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub instantiates_ext: Vec<Option<types::Element>>,
 
     /// Canonical URL of another capability statement this adds to
-    pub imports: Option<Vec<types::Canonical>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub imports: Vec<types::Canonical>,
     /// Primitive extension sibling for [`imports`](Self::imports) (FHIR `_imports`).
     #[serde(rename = "_imports")]
-    pub imports_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub imports_ext: Vec<Option<types::Element>>,
 
     /// Software that is covered by this capability statement
     pub software: Option<CapabilityStatementSoftware>,
@@ -210,34 +221,44 @@ pub struct CapabilityStatement {
     pub format: vec1::Vec1<types::Code>,
     /// Primitive extension sibling for [`format`](Self::format) (FHIR `_format`).
     #[serde(rename = "_format")]
-    pub format_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub format_ext: Vec<Option<types::Element>>,
 
     /// Patch formats supported
-    pub patch_format: Option<Vec<types::Code>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub patch_format: Vec<types::Code>,
     /// Primitive extension sibling for [`patch_format`](Self::patch_format) (FHIR `_patchFormat`).
     #[serde(rename = "_patchFormat")]
-    pub patch_format_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub patch_format_ext: Vec<Option<types::Element>>,
 
     /// Languages supported
-    pub accept_language: Option<Vec<types::Code>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub accept_language: Vec<types::Code>,
     /// Primitive extension sibling for [`accept_language`](Self::accept_language) (FHIR `_acceptLanguage`).
     #[serde(rename = "_acceptLanguage")]
-    pub accept_language_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub accept_language_ext: Vec<Option<types::Element>>,
 
     /// Implementation guides supported
-    pub implementation_guide: Option<Vec<types::Canonical>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub implementation_guide: Vec<types::Canonical>,
     /// Primitive extension sibling for [`implementation_guide`](Self::implementation_guide) (FHIR `_implementationGuide`).
     #[serde(rename = "_implementationGuide")]
-    pub implementation_guide_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub implementation_guide_ext: Vec<Option<types::Element>>,
 
     /// One or more RESTful endpoint descriptions, each covering the resources, interactions, and search parameters supported
-    pub rest: Option<Vec<CapabilityStatementRest>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub rest: Vec<CapabilityStatementRest>,
 
     /// Descriptions of messaging-based interfaces this system supports, if any
-    pub messaging: Option<Vec<CapabilityStatementMessaging>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub messaging: Vec<CapabilityStatementMessaging>,
 
     /// Document definition
-    pub document: Option<Vec<CapabilityStatementDocument>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub document: Vec<CapabilityStatementDocument>,
 }
 
 /// Software that is covered by this capability statement.
@@ -249,10 +270,12 @@ pub struct CapabilityStatementSoftware {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// A name the software is known by
     pub name: types::String,
@@ -282,10 +305,12 @@ pub struct CapabilityStatementImplementation {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Describes this specific instance
     pub description: types::Markdown,
@@ -312,10 +337,12 @@ pub struct CapabilityStatementRest {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// client | server
     pub mode: crate::r5::coded::Coded<crate::r5::codes::RestfulCapabilityMode>,
@@ -333,22 +360,28 @@ pub struct CapabilityStatementRest {
     pub security: Option<CapabilityStatementRestSecurity>,
 
     /// Resource served on the REST interface
-    pub resource: Option<Vec<CapabilityStatementRestResource>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub resource: Vec<CapabilityStatementRestResource>,
 
     /// What operations are supported?
-    pub interaction: Option<Vec<CapabilityStatementRestInteraction>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub interaction: Vec<CapabilityStatementRestInteraction>,
 
     /// Search parameters for searching all resources
-    pub search_param: Option<Vec<CapabilityStatementRestResourceSearchParam>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub search_param: Vec<CapabilityStatementRestResourceSearchParam>,
 
     /// Definition of a system level operation
-    pub operation: Option<Vec<CapabilityStatementRestResourceOperation>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub operation: Vec<CapabilityStatementRestResourceOperation>,
 
     /// Compartments served/used by system
-    pub compartment: Option<Vec<types::Canonical>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub compartment: Vec<types::Canonical>,
     /// Primitive extension sibling for [`compartment`](Self::compartment) (FHIR `_compartment`).
     #[serde(rename = "_compartment")]
-    pub compartment_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub compartment_ext: Vec<Option<types::Element>>,
 }
 
 /// Information about security of implementation.
@@ -360,10 +393,12 @@ pub struct CapabilityStatementRestSecurity {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Adds CORS Headers (http://enable-cors.org/)
     pub cors: Option<types::Boolean>,
@@ -372,7 +407,8 @@ pub struct CapabilityStatementRestSecurity {
     pub cors_ext: Option<types::Element>,
 
     /// OAuth | SMART-on-FHIR | NTLM | Basic | Kerberos | Certificates
-    pub service: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub service: Vec<types::CodeableConcept>,
 
     /// General description of how security works
     pub description: Option<types::Markdown>,
@@ -390,10 +426,12 @@ pub struct CapabilityStatementRestResource {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// A resource type that is supported
     pub r#type: types::Code,
@@ -408,10 +446,12 @@ pub struct CapabilityStatementRestResource {
     pub profile_ext: Option<types::Element>,
 
     /// Use-case specific profiles
-    pub supported_profile: Option<Vec<types::Canonical>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub supported_profile: Vec<types::Canonical>,
     /// Primitive extension sibling for [`supported_profile`](Self::supported_profile) (FHIR `_supportedProfile`).
     #[serde(rename = "_supportedProfile")]
-    pub supported_profile_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub supported_profile_ext: Vec<Option<types::Element>>,
 
     /// Additional information about the use of the resource type
     pub documentation: Option<types::Markdown>,
@@ -420,7 +460,8 @@ pub struct CapabilityStatementRestResource {
     pub documentation_ext: Option<types::Element>,
 
     /// What operations are supported?
-    pub interaction: Option<Vec<CapabilityStatementRestResourceInteraction>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub interaction: Vec<CapabilityStatementRestResourceInteraction>,
 
     /// no-version | versioned | versioned-update
     pub versioning: Option<crate::r5::coded::Coded<crate::r5::codes::VersioningPolicy>>,
@@ -471,28 +512,36 @@ pub struct CapabilityStatementRestResource {
     pub conditional_delete_ext: Option<types::Element>,
 
     /// literal | logical | resolves | enforced | local
-    pub reference_policy: Option<Vec<crate::r5::coded::Coded<crate::r5::codes::ReferenceHandlingPolicy>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub reference_policy: Vec<crate::r5::coded::Coded<crate::r5::codes::ReferenceHandlingPolicy>>,
     /// Primitive extension sibling for [`reference_policy`](Self::reference_policy) (FHIR `_referencePolicy`).
     #[serde(rename = "_referencePolicy")]
-    pub reference_policy_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub reference_policy_ext: Vec<Option<types::Element>>,
 
     /// _include values supported by the server
-    pub search_include: Option<Vec<types::String>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub search_include: Vec<types::String>,
     /// Primitive extension sibling for [`search_include`](Self::search_include) (FHIR `_searchInclude`).
     #[serde(rename = "_searchInclude")]
-    pub search_include_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub search_include_ext: Vec<Option<types::Element>>,
 
     /// _revinclude values supported by the server
-    pub search_rev_include: Option<Vec<types::String>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub search_rev_include: Vec<types::String>,
     /// Primitive extension sibling for [`search_rev_include`](Self::search_rev_include) (FHIR `_searchRevInclude`).
     #[serde(rename = "_searchRevInclude")]
-    pub search_rev_include_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub search_rev_include_ext: Vec<Option<types::Element>>,
 
     /// Search parameters supported by implementation
-    pub search_param: Option<Vec<CapabilityStatementRestResourceSearchParam>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub search_param: Vec<CapabilityStatementRestResourceSearchParam>,
 
     /// Definition of a resource operation
-    pub operation: Option<Vec<CapabilityStatementRestResourceOperation>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub operation: Vec<CapabilityStatementRestResourceOperation>,
 }
 
 /// What operations are supported on a resource type?
@@ -504,10 +553,12 @@ pub struct CapabilityStatementRestResourceInteraction {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// read | vread | update | patch | delete | history-instance | history-type | create | search-type
     pub code: types::Code,
@@ -531,10 +582,12 @@ pub struct CapabilityStatementRestResourceSearchParam {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Name for parameter in search url
     pub name: types::String,
@@ -570,10 +623,12 @@ pub struct CapabilityStatementRestResourceOperation {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Name by which the operation/query is invoked
     pub name: types::String,
@@ -603,10 +658,12 @@ pub struct CapabilityStatementRestInteraction {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// transaction | batch | search-system | history-system
     pub code: types::Code,
@@ -630,13 +687,16 @@ pub struct CapabilityStatementMessaging {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Where messages should be sent
-    pub endpoint: Option<Vec<CapabilityStatementMessagingEndpoint>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub endpoint: Vec<CapabilityStatementMessagingEndpoint>,
 
     /// Reliable Message Cache Length (min)
     pub reliable_cache: Option<types::UnsignedInt>,
@@ -651,7 +711,8 @@ pub struct CapabilityStatementMessaging {
     pub documentation_ext: Option<types::Element>,
 
     /// Messages supported by this system
-    pub supported_message: Option<Vec<CapabilityStatementMessagingSupportedMessage>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub supported_message: Vec<CapabilityStatementMessagingSupportedMessage>,
 }
 
 /// Where messages should be sent.
@@ -663,10 +724,12 @@ pub struct CapabilityStatementMessagingEndpoint {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// http | ftp | mllp +
     pub protocol: types::Coding,
@@ -687,10 +750,12 @@ pub struct CapabilityStatementMessagingSupportedMessage {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// sender | receiver
     pub mode: crate::r5::coded::Coded<crate::r5::codes::EventCapabilityMode>,
@@ -714,10 +779,12 @@ pub struct CapabilityStatementDocument {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// producer | consumer
     pub mode: crate::r5::coded::Coded<crate::r5::codes::DocumentMode>,

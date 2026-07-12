@@ -77,13 +77,16 @@ pub struct SearchParameter {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Canonical identifier for this search parameter, represented as a globally unique URI used to reference it from other artifacts
     pub url: types::Uri,
@@ -92,7 +95,8 @@ pub struct SearchParameter {
     pub url_ext: Option<types::Element>,
 
     /// Additional identifier for the search parameter (business identifier)
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Business version of the search parameter
     pub version: Option<types::String>,
@@ -147,7 +151,8 @@ pub struct SearchParameter {
     pub publisher_ext: Option<types::Element>,
 
     /// Contact details for the publisher
-    pub contact: Option<Vec<types::ContactDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contact: Vec<types::ContactDetail>,
 
     /// Natural language description of the search parameter, explaining what it matches and how it is intended to be used
     pub description: types::Markdown,
@@ -156,10 +161,12 @@ pub struct SearchParameter {
     pub description_ext: Option<types::Element>,
 
     /// The context that the content is intended to support
-    pub use_context: Option<Vec<types::UsageContext>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub use_context: Vec<types::UsageContext>,
 
     /// Intended jurisdiction for search parameter (if applicable)
-    pub jurisdiction: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub jurisdiction: Vec<types::CodeableConcept>,
 
     /// Why this search parameter is defined
     pub purpose: Option<types::Markdown>,
@@ -189,7 +196,8 @@ pub struct SearchParameter {
     pub base: vec1::Vec1<types::Code>,
     /// Primitive extension sibling for [`base`](Self::base) (FHIR `_base`).
     #[serde(rename = "_base")]
-    pub base_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub base_ext: Vec<Option<types::Element>>,
 
     /// Data type of the search parameter's value: number | date | string | token | reference | composite | quantity | uri | special
     pub r#type: crate::r5::coded::Coded<crate::r5::codes::SearchParamType>,
@@ -216,10 +224,12 @@ pub struct SearchParameter {
     pub constraint_ext: Option<types::Element>,
 
     /// Types of resource (if a resource reference)
-    pub target: Option<Vec<types::Code>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub target: Vec<types::Code>,
     /// Primitive extension sibling for [`target`](Self::target) (FHIR `_target`).
     #[serde(rename = "_target")]
-    pub target_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub target_ext: Vec<Option<types::Element>>,
 
     /// Allow multiple values per parameter (or)
     pub multiple_or: Option<types::Boolean>,
@@ -234,25 +244,32 @@ pub struct SearchParameter {
     pub multiple_and_ext: Option<types::Element>,
 
     /// eq | ne | gt | lt | ge | le | sa | eb | ap
-    pub comparator: Option<Vec<crate::r5::coded::Coded<crate::r5::codes::SearchComparator>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub comparator: Vec<crate::r5::coded::Coded<crate::r5::codes::SearchComparator>>,
     /// Primitive extension sibling for [`comparator`](Self::comparator) (FHIR `_comparator`).
     #[serde(rename = "_comparator")]
-    pub comparator_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub comparator_ext: Vec<Option<types::Element>>,
 
     /// missing | exact | contains | not | text | in | not-in | below | above | type | identifier | of-type | code-text | text-advanced | iterate
-    pub modifier: Option<Vec<crate::r5::coded::Coded<crate::r5::codes::SearchModifierCode>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier: Vec<crate::r5::coded::Coded<crate::r5::codes::SearchModifierCode>>,
     /// Primitive extension sibling for [`modifier`](Self::modifier) (FHIR `_modifier`).
     #[serde(rename = "_modifier")]
-    pub modifier_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_ext: Vec<Option<types::Element>>,
 
     /// Chained names supported
-    pub chain: Option<Vec<types::String>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub chain: Vec<types::String>,
     /// Primitive extension sibling for [`chain`](Self::chain) (FHIR `_chain`).
     #[serde(rename = "_chain")]
-    pub chain_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub chain_ext: Vec<Option<types::Element>>,
 
     /// For Composite resources to define the parts
-    pub component: Option<Vec<SearchParameterComponent>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub component: Vec<SearchParameterComponent>,
 }
 
 /// For Composite resources to define the parts. Each component points to a
@@ -266,10 +283,12 @@ pub struct SearchParameterComponent {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Defines how the part works
     pub definition: types::Canonical,

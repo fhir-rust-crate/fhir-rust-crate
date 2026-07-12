@@ -86,13 +86,16 @@ pub struct ExampleScenario {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Canonical identifier for this example scenario, represented as a URI (globally unique)
     pub url: Option<types::Uri>,
@@ -101,7 +104,8 @@ pub struct ExampleScenario {
     pub url_ext: Option<types::Element>,
 
     /// Additional identifier for the example scenario
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Business version of the example scenario
     pub version: Option<types::String>,
@@ -150,7 +154,8 @@ pub struct ExampleScenario {
     pub publisher_ext: Option<types::Element>,
 
     /// Contact details for the publisher
-    pub contact: Option<Vec<types::ContactDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contact: Vec<types::ContactDetail>,
 
     /// Natural language description summarizing the purpose and content of the ExampleScenario.
     pub description: Option<types::Markdown>,
@@ -159,10 +164,12 @@ pub struct ExampleScenario {
     pub description_ext: Option<types::Element>,
 
     /// The context that the content is intended to support
-    pub use_context: Option<Vec<types::UsageContext>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub use_context: Vec<types::UsageContext>,
 
     /// Intended jurisdiction for example scenario (if applicable)
-    pub jurisdiction: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub jurisdiction: Vec<types::CodeableConcept>,
 
     /// The purpose of the example, e.g. to illustrate a scenario
     pub purpose: Option<types::Markdown>,
@@ -183,13 +190,16 @@ pub struct ExampleScenario {
     pub copyright_label_ext: Option<types::Element>,
 
     /// The people or systems (actors) that participate in and exchange data within the scenario.
-    pub actor: Option<Vec<ExampleScenarioActor>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub actor: Vec<ExampleScenarioActor>,
 
     /// The example data instances, and their versions over time, that are exchanged in the scenario.
-    pub instance: Option<Vec<ExampleScenarioInstance>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub instance: Vec<ExampleScenarioInstance>,
 
     /// The major, ordered processes composed of steps that describe how the scenario unfolds.
-    pub process: Option<Vec<ExampleScenarioProcess>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub process: Vec<ExampleScenarioProcess>,
 }
 
 /// ExampleScenarioActor
@@ -203,10 +213,12 @@ pub struct ExampleScenarioActor {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// ID or acronym of the actor
     pub key: types::String,
@@ -245,10 +257,12 @@ pub struct ExampleScenarioInstance {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// ID or acronym of the instance
     pub key: types::String,
@@ -285,10 +299,12 @@ pub struct ExampleScenarioInstance {
     pub content: Option<types::Reference>,
 
     /// Snapshot of instance that changes
-    pub version: Option<Vec<ExampleScenarioInstanceVersion>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub version: Vec<ExampleScenarioInstanceVersion>,
 
     /// Resources contained in the instance
-    pub contained_instance: Option<Vec<ExampleScenarioInstanceContainedInstance>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained_instance: Vec<ExampleScenarioInstanceContainedInstance>,
 }
 
 /// ExampleScenarioInstanceVersion
@@ -303,10 +319,12 @@ pub struct ExampleScenarioInstanceVersion {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// ID or acronym of the version
     pub key: types::String,
@@ -342,10 +360,12 @@ pub struct ExampleScenarioInstanceContainedInstance {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Key of contained instance
     pub instance_reference: types::String,
@@ -372,10 +392,12 @@ pub struct ExampleScenarioProcess {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Label for procss
     pub title: types::String,
@@ -402,7 +424,8 @@ pub struct ExampleScenarioProcess {
     pub post_conditions_ext: Option<types::Element>,
 
     /// Event within of the process
-    pub step: Option<Vec<ExampleScenarioProcessStep>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub step: Vec<ExampleScenarioProcessStep>,
 }
 
 /// ExampleScenarioProcessStep
@@ -418,10 +441,12 @@ pub struct ExampleScenarioProcessStep {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Sequential number of the step
     pub number: Option<types::String>,
@@ -442,7 +467,8 @@ pub struct ExampleScenarioProcessStep {
     pub operation: Option<ExampleScenarioProcessStepOperation>,
 
     /// Alternate non-typical step action
-    pub alternative: Option<Vec<ExampleScenarioProcessStepAlternative>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub alternative: Vec<ExampleScenarioProcessStepAlternative>,
 
     /// Pause in the flow?
     pub pause: Option<types::Boolean>,
@@ -463,10 +489,12 @@ pub struct ExampleScenarioProcessStepOperation {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Kind of action
     pub r#type: Option<types::Coding>,
@@ -526,10 +554,12 @@ pub struct ExampleScenarioProcessStepAlternative {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Label for alternative
     pub title: types::String,
@@ -544,7 +574,8 @@ pub struct ExampleScenarioProcessStepAlternative {
     pub description_ext: Option<types::Element>,
 
     /// Alternative action(s)
-    pub step: Option<Vec<ExampleScenarioProcessStep>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub step: Vec<ExampleScenarioProcessStep>,
 }
 
 #[cfg(test)]

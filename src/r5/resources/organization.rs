@@ -80,16 +80,20 @@ pub struct Organization {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Business identifiers that identify this organization across multiple systems, such as tax, national provider, or license numbers.
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Whether the organization's record is still in active use; a false value marks records that should no longer be selected for new activity.
     pub active: Option<types::Boolean>,
@@ -98,7 +102,8 @@ pub struct Organization {
     pub active_ext: Option<types::Element>,
 
     /// The kind or category of organization, coded so systems can classify it, for example a healthcare provider, payer, department, or educational institution.
-    pub r#type: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub r#type: Vec<types::CodeableConcept>,
 
     /// The public or human-readable name used to refer to the organization.
     pub name: Option<types::String>,
@@ -107,10 +112,12 @@ pub struct Organization {
     pub name_ext: Option<types::Element>,
 
     /// A list of alternate names that the organization is known as, or was known as in the past
-    pub alias: Option<Vec<types::String>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub alias: Vec<types::String>,
     /// Primitive extension sibling for [`alias`](Self::alias) (FHIR `_alias`).
     #[serde(rename = "_alias")]
-    pub alias_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub alias_ext: Vec<Option<types::Element>>,
 
     /// Additional details about the Organization that could be displayed as further information to identify the Organization beyond its name
     pub description: Option<types::Markdown>,
@@ -119,16 +126,19 @@ pub struct Organization {
     pub description_ext: Option<types::Element>,
 
     /// Official contact details for the Organization
-    pub contact: Option<Vec<types::ExtendedContactDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contact: Vec<types::ExtendedContactDetail>,
 
     /// A reference to the parent organization of which this organization forms a part, used to build institutional hierarchies of departments and divisions.
     pub part_of: Option<types::Reference>,
 
     /// Technical endpoints providing access to services operated for the organization
-    pub endpoint: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub endpoint: Vec<types::Reference>,
 
     /// Qualifications, certifications, accreditations, licenses, training, etc. pertaining to the provision of care
-    pub qualification: Option<Vec<OrganizationQualification>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub qualification: Vec<OrganizationQualification>,
 }
 
 /// Qualifications, certifications, accreditations, licenses, training, etc.
@@ -141,13 +151,16 @@ pub struct OrganizationQualification {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// An identifier for this qualification for the organization
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Coded representation of the qualification
     pub code: types::CodeableConcept,

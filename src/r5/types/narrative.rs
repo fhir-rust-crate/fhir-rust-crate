@@ -45,7 +45,8 @@ pub struct Narrative {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// generated | extensions | additional | empty
     pub status: crate::r5::coded::Coded<crate::r5::codes::NarrativeStatus>,

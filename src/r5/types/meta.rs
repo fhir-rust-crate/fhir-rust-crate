@@ -42,7 +42,8 @@ pub struct Meta {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Version specific identifier
     pub version_id: Option<types::Id>,
@@ -63,16 +64,20 @@ pub struct Meta {
     pub source_ext: Option<types::Element>,
 
     /// Profiles this resource claims to conform to
-    pub profile: Option<Vec<types::Canonical>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub profile: Vec<types::Canonical>,
     /// Primitive extension sibling for [`profile`](Self::profile) (FHIR `_profile`).
     #[serde(rename = "_profile")]
-    pub profile_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub profile_ext: Vec<Option<types::Element>>,
 
     /// Security Labels applied to this resource
-    pub security: Option<Vec<types::Coding>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub security: Vec<types::Coding>,
 
     /// Tags applied to this resource
-    pub tag: Option<Vec<types::Coding>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub tag: Vec<types::Coding>,
 }
 
 #[cfg(test)]

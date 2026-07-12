@@ -84,13 +84,16 @@ pub struct ConditionDefinition {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Canonical identifier for this condition definition, represented as a URI (globally unique)
     pub url: Option<types::Uri>,
@@ -99,7 +102,8 @@ pub struct ConditionDefinition {
     pub url_ext: Option<types::Element>,
 
     /// Additional identifier for the condition definition
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Business version of the condition definition
     pub version: Option<types::String>,
@@ -154,7 +158,8 @@ pub struct ConditionDefinition {
     pub publisher_ext: Option<types::Element>,
 
     /// Contact details for the publisher
-    pub contact: Option<Vec<types::ContactDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contact: Vec<types::ContactDetail>,
 
     /// Natural language description of the condition definition
     pub description: Option<types::Markdown>,
@@ -163,10 +168,12 @@ pub struct ConditionDefinition {
     pub description_ext: Option<types::Element>,
 
     /// The context that the content is intended to support
-    pub use_context: Option<Vec<types::UsageContext>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub use_context: Vec<types::UsageContext>,
 
     /// Intended jurisdiction for condition definition (if applicable)
-    pub jurisdiction: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub jurisdiction: Vec<types::CodeableConcept>,
 
     /// Required CodeableConcept identifying the condition, problem, or diagnosis this definition describes.
     pub code: types::CodeableConcept,
@@ -199,28 +206,36 @@ pub struct ConditionDefinition {
     pub has_stage_ext: Option<types::Element>,
 
     /// Formal Definition for the condition
-    pub definition: Option<Vec<types::Uri>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub definition: Vec<types::Uri>,
     /// Primitive extension sibling for [`definition`](Self::definition) (FHIR `_definition`).
     #[serde(rename = "_definition")]
-    pub definition_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub definition_ext: Vec<Option<types::Element>>,
 
     /// Observations particularly relevant to this condition
-    pub observation: Option<Vec<ConditionDefinitionObservation>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub observation: Vec<ConditionDefinitionObservation>,
 
     /// Medications particularly relevant for this condition
-    pub medication: Option<Vec<ConditionDefinitionMedication>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub medication: Vec<ConditionDefinitionMedication>,
 
     /// Observation that suggets this condition
-    pub precondition: Option<Vec<ConditionDefinitionPrecondition>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub precondition: Vec<ConditionDefinitionPrecondition>,
 
     /// Appropriate team for this condition
-    pub team: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub team: Vec<types::Reference>,
 
     /// Questionnaire for this condition
-    pub questionnaire: Option<Vec<ConditionDefinitionQuestionnaire>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub questionnaire: Vec<ConditionDefinitionQuestionnaire>,
 
     /// Plan that is appropriate
-    pub plan: Option<Vec<ConditionDefinitionPlan>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub plan: Vec<ConditionDefinitionPlan>,
 }
 
 /// Observations particularly relevant to this condition.
@@ -232,10 +247,12 @@ pub struct ConditionDefinitionObservation {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Category that is relevant
     pub category: Option<types::CodeableConcept>,
@@ -253,10 +270,12 @@ pub struct ConditionDefinitionMedication {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Category that is relevant
     pub category: Option<types::CodeableConcept>,
@@ -274,10 +293,12 @@ pub struct ConditionDefinitionPrecondition {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// sensitive | specific
     pub r#type: crate::r5::coded::Coded<crate::r5::codes::ConditionPreconditionType>,
@@ -302,10 +323,12 @@ pub struct ConditionDefinitionQuestionnaire {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// preadmit | diff-diagnosis | outcome
     pub purpose: crate::r5::coded::Coded<crate::r5::codes::ConditionQuestionnairePurpose>,
@@ -326,10 +349,12 @@ pub struct ConditionDefinitionPlan {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Use for the plan
     pub role: Option<types::CodeableConcept>,

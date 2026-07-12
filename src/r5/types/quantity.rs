@@ -41,7 +41,8 @@ pub struct Quantity {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
     /// The numeric value of the quantity, including any arbitrary precision.
     pub value: Option<types::Decimal>,
     /// Primitive extension sibling for [`value`](Self::value) (FHIR `_value`).

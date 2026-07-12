@@ -69,16 +69,20 @@ pub struct DeviceMetric {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Instance identifier
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Identity of metric, for example Heart Rate or PEEP Setting; a coded concept identifying what is measured.
     pub r#type: types::CodeableConcept,
@@ -111,7 +115,8 @@ pub struct DeviceMetric {
     pub measurement_frequency: Option<types::Quantity>,
 
     /// Describes any calibrations that have been performed, or that are required, for this metric.
-    pub calibration: Option<Vec<DeviceMetricCalibration>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub calibration: Vec<DeviceMetricCalibration>,
 }
 
 /// Describes the calibrations that have been performed or that are required to be performed.
@@ -123,10 +128,12 @@ pub struct DeviceMetricCalibration {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// unspecified | offset | gain | two-point
     pub r#type: Option<crate::r5::coded::Coded<crate::r5::codes::MetricCalibrationType>>,

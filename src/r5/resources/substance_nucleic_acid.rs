@@ -77,13 +77,16 @@ pub struct SubstanceNucleicAcid {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The type of the sequence, e.g. DNA or RNA, specified using a controlled vocabulary
     pub sequence_type: Option<types::CodeableConcept>,
@@ -104,7 +107,8 @@ pub struct SubstanceNucleicAcid {
     pub oligo_nucleotide_type: Option<types::CodeableConcept>,
 
     /// The individual nucleotide subunits that make up this substance, listed in order of decreasing length
-    pub subunit: Option<Vec<SubstanceNucleicAcidSubunit>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub subunit: Vec<SubstanceNucleicAcidSubunit>,
 }
 
 /// Subunits are listed in order of decreasing length; sequences of the same
@@ -118,10 +122,12 @@ pub struct SubstanceNucleicAcidSubunit {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Index of linear sequences of nucleic acids in order of decreasing length
     pub subunit: Option<types::Integer>,
@@ -151,10 +157,12 @@ pub struct SubstanceNucleicAcidSubunit {
     pub three_prime: Option<types::CodeableConcept>,
 
     /// The linkages between sugar residues will also be captured
-    pub linkage: Option<Vec<SubstanceNucleicAcidSubunitLinkage>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub linkage: Vec<SubstanceNucleicAcidSubunitLinkage>,
 
     /// 5.3.6.8.1 Sugar ID (Mandatory)
-    pub sugar: Option<Vec<SubstanceNucleicAcidSubunitSugar>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub sugar: Vec<SubstanceNucleicAcidSubunitSugar>,
 }
 
 /// The linkages between sugar residues will also be captured.
@@ -166,10 +174,12 @@ pub struct SubstanceNucleicAcidSubunitLinkage {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The entity that links the sugar residues together
     pub connectivity: Option<types::String>,
@@ -202,10 +212,12 @@ pub struct SubstanceNucleicAcidSubunitSugar {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The Substance ID of the sugar or sugar-like component that make up the nucleotide
     pub identifier: Option<types::Identifier>,

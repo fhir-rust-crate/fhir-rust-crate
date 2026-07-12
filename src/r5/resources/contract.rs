@@ -79,16 +79,20 @@ pub struct Contract {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Contract number
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Basal definition
     pub url: Option<types::Uri>,
@@ -136,16 +140,20 @@ pub struct Contract {
     pub expiration_type: Option<types::CodeableConcept>,
 
     /// The entity or entities the contract governs, such as a [`Patient`](crate::r5::resources::patient::Patient) or other party
-    pub subject: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub subject: Vec<types::Reference>,
 
     /// Authority under which this Contract has standing
-    pub authority: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub authority: Vec<types::Reference>,
 
     /// A sphere of control governed by an authoritative jurisdiction, organization, or person
-    pub domain: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub domain: Vec<types::Reference>,
 
     /// Specific Location
-    pub site: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub site: Vec<types::Reference>,
 
     /// Computer friendly designation
     pub name: Option<types::String>,
@@ -166,10 +174,12 @@ pub struct Contract {
     pub subtitle_ext: Option<types::Element>,
 
     /// Acronym or short name
-    pub alias: Option<Vec<types::String>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub alias: Vec<types::String>,
     /// Primitive extension sibling for [`alias`](Self::alias) (FHIR `_alias`).
     #[serde(rename = "_alias")]
-    pub alias_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub alias_ext: Vec<Option<types::Element>>,
 
     /// Source of Contract
     pub author: Option<types::Reference>,
@@ -185,31 +195,39 @@ pub struct Contract {
     pub r#type: Option<types::CodeableConcept>,
 
     /// Subtype within the context of type
-    pub sub_type: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub sub_type: Vec<types::CodeableConcept>,
 
     /// Contract precursor content
     pub content_definition: Option<ContractContentDefinition>,
 
     /// The ordered list of individual terms that make up the substantive content of the contract
-    pub term: Option<Vec<ContractTerm>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub term: Vec<ContractTerm>,
 
     /// Extra Information
-    pub supporting_info: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub supporting_info: Vec<types::Reference>,
 
     /// Key event in Contract History
-    pub relevant_history: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub relevant_history: Vec<types::Reference>,
 
     /// The parties who have signed the contract, along with their role and signature
-    pub signer: Option<Vec<ContractSigner>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub signer: Vec<ContractSigner>,
 
     /// Contract Friendly Language
-    pub friendly: Option<Vec<ContractFriendly>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub friendly: Vec<ContractFriendly>,
 
     /// Contract Legal Language
-    pub legal: Option<Vec<ContractLegal>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub legal: Vec<ContractLegal>,
 
     /// Computable Contract Language
-    pub rule: Option<Vec<ContractRule>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub rule: Vec<ContractRule>,
 
     /// The `Contract.legallyBinding[x]` choice element (0..1); see [`ContractLegallyBinding`].
     #[serde(flatten)]
@@ -225,10 +243,12 @@ pub struct ContractContentDefinition {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Content structure and use
     pub r#type: types::CodeableConcept,
@@ -267,10 +287,12 @@ pub struct ContractTerm {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Contract Term Number
     pub identifier: Option<types::Identifier>,
@@ -301,19 +323,23 @@ pub struct ContractTerm {
     pub text_ext: Option<types::Element>,
 
     /// Protection for the Term
-    pub security_label: Option<Vec<ContractTermSecurityLabel>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub security_label: Vec<ContractTermSecurityLabel>,
 
     /// Context of the Contract term
     pub offer: ContractTermOffer,
 
     /// Contract Term Asset List
-    pub asset: Option<Vec<ContractTermAsset>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub asset: Vec<ContractTermAsset>,
 
     /// Entity being ascribed responsibility
-    pub action: Option<Vec<ContractTermAction>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub action: Vec<ContractTermAction>,
 
     /// Nested Contract Term Group
-    pub group: Option<Vec<ContractTerm>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub group: Vec<ContractTerm>,
 }
 
 /// Protection for the Term.
@@ -325,25 +351,31 @@ pub struct ContractTermSecurityLabel {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Link to Security Labels
-    pub number: Option<Vec<types::UnsignedInt>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub number: Vec<types::UnsignedInt>,
     /// Primitive extension sibling for [`number`](Self::number) (FHIR `_number`).
     #[serde(rename = "_number")]
-    pub number_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub number_ext: Vec<Option<types::Element>>,
 
     /// Confidentiality Protection
     pub classification: types::Coding,
 
     /// Applicable Policy
-    pub category: Option<Vec<types::Coding>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub category: Vec<types::Coding>,
 
     /// Handling Instructions
-    pub control: Option<Vec<types::Coding>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub control: Vec<types::Coding>,
 }
 
 /// Context of the Contract term.
@@ -355,16 +387,20 @@ pub struct ContractTermOffer {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Offer business ID
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Offer Recipient
-    pub party: Option<Vec<ContractTermOfferParty>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub party: Vec<ContractTermOfferParty>,
 
     /// Negotiable offer asset
     pub topic: Option<types::Reference>,
@@ -376,10 +412,12 @@ pub struct ContractTermOffer {
     pub decision: Option<types::CodeableConcept>,
 
     /// How decision is conveyed
-    pub decision_mode: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub decision_mode: Vec<types::CodeableConcept>,
 
     /// Response to offer text
-    pub answer: Option<Vec<ContractTermOfferAnswer>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub answer: Vec<ContractTermOfferAnswer>,
 
     /// Human readable offer text
     pub text: Option<types::String>,
@@ -388,16 +426,20 @@ pub struct ContractTermOffer {
     pub text_ext: Option<types::Element>,
 
     /// Pointer to text
-    pub link_id: Option<Vec<types::String>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub link_id: Vec<types::String>,
     /// Primitive extension sibling for [`link_id`](Self::link_id) (FHIR `_linkId`).
     #[serde(rename = "_linkId")]
-    pub link_id_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub link_id_ext: Vec<Option<types::Element>>,
 
     /// Offer restriction numbers
-    pub security_label_number: Option<Vec<types::UnsignedInt>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub security_label_number: Vec<types::UnsignedInt>,
     /// Primitive extension sibling for [`security_label_number`](Self::security_label_number) (FHIR `_securityLabelNumber`).
     #[serde(rename = "_securityLabelNumber")]
-    pub security_label_number_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub security_label_number_ext: Vec<Option<types::Element>>,
 }
 
 /// Offer Recipient.
@@ -409,10 +451,12 @@ pub struct ContractTermOfferParty {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Referenced entity
     pub reference: vec1::Vec1<types::Reference>,
@@ -430,10 +474,12 @@ pub struct ContractTermOfferAnswer {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The `Contract.term.offer.answer.value[x]` choice element (0..1); see [`ContractTermOfferAnswerValue`].
     #[serde(flatten)]
@@ -449,28 +495,34 @@ pub struct ContractTermAsset {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Range of asset
     pub scope: Option<types::CodeableConcept>,
 
     /// Asset category
-    pub r#type: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub r#type: Vec<types::CodeableConcept>,
 
     /// Associated entities
-    pub type_reference: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub type_reference: Vec<types::Reference>,
 
     /// Asset sub-category
-    pub subtype: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub subtype: Vec<types::CodeableConcept>,
 
     /// Kinship of the asset
     pub relationship: Option<types::Coding>,
 
     /// Circumstance of the asset
-    pub context: Option<Vec<ContractTermAssetContext>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub context: Vec<ContractTermAssetContext>,
 
     /// Quality desctiption of asset
     pub condition: Option<types::String>,
@@ -479,13 +531,16 @@ pub struct ContractTermAsset {
     pub condition_ext: Option<types::Element>,
 
     /// Asset availability types
-    pub period_type: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub period_type: Vec<types::CodeableConcept>,
 
     /// Time period of the asset
-    pub period: Option<Vec<types::Period>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub period: Vec<types::Period>,
 
     /// Time period
-    pub use_period: Option<Vec<types::Period>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub use_period: Vec<types::Period>,
 
     /// Asset clause or question text
     pub text: Option<types::String>,
@@ -494,22 +549,28 @@ pub struct ContractTermAsset {
     pub text_ext: Option<types::Element>,
 
     /// Pointer to asset text
-    pub link_id: Option<Vec<types::String>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub link_id: Vec<types::String>,
     /// Primitive extension sibling for [`link_id`](Self::link_id) (FHIR `_linkId`).
     #[serde(rename = "_linkId")]
-    pub link_id_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub link_id_ext: Vec<Option<types::Element>>,
 
     /// Response to assets
-    pub answer: Option<Vec<ContractTermOfferAnswer>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub answer: Vec<ContractTermOfferAnswer>,
 
     /// Asset restriction numbers
-    pub security_label_number: Option<Vec<types::UnsignedInt>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub security_label_number: Vec<types::UnsignedInt>,
     /// Primitive extension sibling for [`security_label_number`](Self::security_label_number) (FHIR `_securityLabelNumber`).
     #[serde(rename = "_securityLabelNumber")]
-    pub security_label_number_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub security_label_number_ext: Vec<Option<types::Element>>,
 
     /// Contract Valued Item List
-    pub valued_item: Option<Vec<ContractTermAssetValuedItem>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub valued_item: Vec<ContractTermAssetValuedItem>,
 }
 
 /// Circumstance of the asset.
@@ -521,16 +582,19 @@ pub struct ContractTermAssetContext {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Creator,custodian or owner
     pub reference: Option<types::Reference>,
 
     /// Codeable asset context
-    pub code: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub code: Vec<types::CodeableConcept>,
 
     /// Context description
     pub text: Option<types::String>,
@@ -548,10 +612,12 @@ pub struct ContractTermAssetValuedItem {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The `Contract.term.asset.valuedItem.entity[x]` choice element (0..1); see [`ContractTermAssetValuedItemEntity`].
     #[serde(flatten)]
@@ -606,16 +672,20 @@ pub struct ContractTermAssetValuedItem {
     pub recipient: Option<types::Reference>,
 
     /// Pointer to specific item
-    pub link_id: Option<Vec<types::String>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub link_id: Vec<types::String>,
     /// Primitive extension sibling for [`link_id`](Self::link_id) (FHIR `_linkId`).
     #[serde(rename = "_linkId")]
-    pub link_id_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub link_id_ext: Vec<Option<types::Element>>,
 
     /// Security Labels that define affected terms
-    pub security_label_number: Option<Vec<types::UnsignedInt>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub security_label_number: Vec<types::UnsignedInt>,
     /// Primitive extension sibling for [`security_label_number`](Self::security_label_number) (FHIR `_securityLabelNumber`).
     #[serde(rename = "_securityLabelNumber")]
-    pub security_label_number_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub security_label_number_ext: Vec<Option<types::Element>>,
 }
 
 /// Entity being ascribed responsibility.
@@ -627,10 +697,12 @@ pub struct ContractTermAction {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// True if the term prohibits the action
     pub do_not_perform: Option<types::Boolean>,
@@ -642,16 +714,19 @@ pub struct ContractTermAction {
     pub r#type: types::CodeableConcept,
 
     /// Entity of the action
-    pub subject: Option<Vec<ContractTermActionSubject>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub subject: Vec<ContractTermActionSubject>,
 
     /// Purpose for the Contract Term Action
     pub intent: types::CodeableConcept,
 
     /// Pointer to specific item
-    pub link_id: Option<Vec<types::String>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub link_id: Vec<types::String>,
     /// Primitive extension sibling for [`link_id`](Self::link_id) (FHIR `_linkId`).
     #[serde(rename = "_linkId")]
-    pub link_id_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub link_id_ext: Vec<Option<types::Element>>,
 
     /// State of the action
     pub status: types::CodeableConcept,
@@ -660,26 +735,32 @@ pub struct ContractTermAction {
     pub context: Option<types::Reference>,
 
     /// Pointer to specific item
-    pub context_link_id: Option<Vec<types::String>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub context_link_id: Vec<types::String>,
     /// Primitive extension sibling for [`context_link_id`](Self::context_link_id) (FHIR `_contextLinkId`).
     #[serde(rename = "_contextLinkId")]
-    pub context_link_id_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub context_link_id_ext: Vec<Option<types::Element>>,
 
     /// The `Contract.term.action.occurrence[x]` choice element (0..1); see [`ContractTermActionOccurrence`].
     #[serde(flatten)]
     pub occurrence: Option<ContractTermActionOccurrence>,
 
     /// Who asked for action
-    pub requester: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub requester: Vec<types::Reference>,
 
     /// Pointer to specific item
-    pub requester_link_id: Option<Vec<types::String>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub requester_link_id: Vec<types::String>,
     /// Primitive extension sibling for [`requester_link_id`](Self::requester_link_id) (FHIR `_requesterLinkId`).
     #[serde(rename = "_requesterLinkId")]
-    pub requester_link_id_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub requester_link_id_ext: Vec<Option<types::Element>>,
 
     /// Kind of service performer
-    pub performer_type: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub performer_type: Vec<types::CodeableConcept>,
 
     /// Competency of the performer
     pub performer_role: Option<types::CodeableConcept>,
@@ -688,28 +769,36 @@ pub struct ContractTermAction {
     pub performer: Option<types::Reference>,
 
     /// Pointer to specific item
-    pub performer_link_id: Option<Vec<types::String>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub performer_link_id: Vec<types::String>,
     /// Primitive extension sibling for [`performer_link_id`](Self::performer_link_id) (FHIR `_performerLinkId`).
     #[serde(rename = "_performerLinkId")]
-    pub performer_link_id_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub performer_link_id_ext: Vec<Option<types::Element>>,
 
     /// Why is action (not) needed?
-    pub reason: Option<Vec<types::CodeableReference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub reason: Vec<types::CodeableReference>,
 
     /// Pointer to specific item
-    pub reason_link_id: Option<Vec<types::String>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub reason_link_id: Vec<types::String>,
     /// Primitive extension sibling for [`reason_link_id`](Self::reason_link_id) (FHIR `_reasonLinkId`).
     #[serde(rename = "_reasonLinkId")]
-    pub reason_link_id_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub reason_link_id_ext: Vec<Option<types::Element>>,
 
     /// Comments about the action
-    pub note: Option<Vec<types::Annotation>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub note: Vec<types::Annotation>,
 
     /// Action restriction numbers
-    pub security_label_number: Option<Vec<types::UnsignedInt>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub security_label_number: Vec<types::UnsignedInt>,
     /// Primitive extension sibling for [`security_label_number`](Self::security_label_number) (FHIR `_securityLabelNumber`).
     #[serde(rename = "_securityLabelNumber")]
-    pub security_label_number_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub security_label_number_ext: Vec<Option<types::Element>>,
 }
 
 /// Entity of the action.
@@ -721,10 +810,12 @@ pub struct ContractTermActionSubject {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Entity of the action
     pub reference: vec1::Vec1<types::Reference>,
@@ -742,10 +833,12 @@ pub struct ContractSigner {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Contract Signatory Role
     pub r#type: types::Coding,
@@ -766,10 +859,12 @@ pub struct ContractFriendly {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The `Contract.friendly.content[x]` choice element (0..1); see [`ContractFriendlyContent`].
     #[serde(flatten)]
@@ -785,10 +880,12 @@ pub struct ContractLegal {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The `Contract.legal.content[x]` choice element (0..1); see [`ContractLegalContent`].
     #[serde(flatten)]
@@ -804,10 +901,12 @@ pub struct ContractRule {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The `Contract.rule.content[x]` choice element (0..1); see [`ContractRuleContent`].
     #[serde(flatten)]

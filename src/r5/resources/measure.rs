@@ -81,13 +81,16 @@ pub struct Measure {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Canonical identifier for this measure, represented as a URI (globally unique)
     pub url: Option<types::Uri>,
@@ -96,7 +99,8 @@ pub struct Measure {
     pub url_ext: Option<types::Element>,
 
     /// Additional identifier for the measure
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Business version of the measure
     pub version: Option<types::String>,
@@ -161,7 +165,8 @@ pub struct Measure {
     pub publisher_ext: Option<types::Element>,
 
     /// Contact details for the publisher
-    pub contact: Option<Vec<types::ContactDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contact: Vec<types::ContactDetail>,
 
     /// Natural language description of the measure
     pub description: Option<types::Markdown>,
@@ -170,10 +175,12 @@ pub struct Measure {
     pub description_ext: Option<types::Element>,
 
     /// The context that the content is intended to support
-    pub use_context: Option<Vec<types::UsageContext>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub use_context: Vec<types::UsageContext>,
 
     /// Intended jurisdiction for measure (if applicable)
-    pub jurisdiction: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub jurisdiction: Vec<types::CodeableConcept>,
 
     /// Why this measure is defined
     pub purpose: Option<types::Markdown>,
@@ -215,28 +222,36 @@ pub struct Measure {
     pub effective_period: Option<types::Period>,
 
     /// The category of the measure, such as Education, Treatment, Assessment, etc
-    pub topic: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub topic: Vec<types::CodeableConcept>,
 
     /// Who authored the content
-    pub author: Option<Vec<types::ContactDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub author: Vec<types::ContactDetail>,
 
     /// Who edited the content
-    pub editor: Option<Vec<types::ContactDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub editor: Vec<types::ContactDetail>,
 
     /// Who reviewed the content
-    pub reviewer: Option<Vec<types::ContactDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub reviewer: Vec<types::ContactDetail>,
 
     /// Who endorsed the content
-    pub endorser: Option<Vec<types::ContactDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub endorser: Vec<types::ContactDetail>,
 
     /// Additional documentation, citations, etc
-    pub related_artifact: Option<Vec<types::RelatedArtifact>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub related_artifact: Vec<types::RelatedArtifact>,
 
     /// Canonical references to the Library resources that hold the measure's computable logic, such as CQL.
-    pub library: Option<Vec<types::Canonical>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub library: Vec<types::Canonical>,
     /// Primitive extension sibling for [`library`](Self::library) (FHIR `_library`).
     #[serde(rename = "_library")]
-    pub library_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub library_ext: Vec<Option<types::Element>>,
 
     /// Disclaimer for use of the measure or its referenced content
     pub disclaimer: Option<types::Markdown>,
@@ -254,7 +269,8 @@ pub struct Measure {
     pub composite_scoring: Option<types::CodeableConcept>,
 
     /// process | outcome | structure | patient-reported-outcome | composite
-    pub r#type: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub r#type: Vec<types::CodeableConcept>,
 
     /// How risk adjustment is applied for this measure
     pub risk_adjustment: Option<types::Markdown>,
@@ -284,7 +300,8 @@ pub struct Measure {
     pub improvement_notation: Option<types::CodeableConcept>,
 
     /// Defined terms used in the measure documentation
-    pub term: Option<Vec<MeasureTerm>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub term: Vec<MeasureTerm>,
 
     /// Additional guidance for implementers (deprecated)
     pub guidance: Option<types::Markdown>,
@@ -293,10 +310,12 @@ pub struct Measure {
     pub guidance_ext: Option<types::Element>,
 
     /// The population criteria groups that define how the measure is scored and evaluated.
-    pub group: Option<Vec<MeasureGroup>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub group: Vec<MeasureGroup>,
 
     /// What other data should be reported with the measure
-    pub supplemental_data: Option<Vec<MeasureSupplementalData>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub supplemental_data: Vec<MeasureSupplementalData>,
 }
 
 /// Defined terms used in the measure documentation.
@@ -308,10 +327,12 @@ pub struct MeasureTerm {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// What term?
     pub code: Option<types::CodeableConcept>,
@@ -332,10 +353,12 @@ pub struct MeasureGroup {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Unique id for group in measure
     pub link_id: Option<types::String>,
@@ -353,7 +376,8 @@ pub struct MeasureGroup {
     pub description_ext: Option<types::Element>,
 
     /// process | outcome | structure | patient-reported-outcome | composite
-    pub r#type: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub r#type: Vec<types::CodeableConcept>,
 
     /// The `Measure.group.subject[x]` choice element (0..1); see [`MeasureGroupSubject`].
     #[serde(flatten)]
@@ -381,16 +405,20 @@ pub struct MeasureGroup {
     pub improvement_notation: Option<types::CodeableConcept>,
 
     /// Logic used by the measure group
-    pub library: Option<Vec<types::Canonical>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub library: Vec<types::Canonical>,
     /// Primitive extension sibling for [`library`](Self::library) (FHIR `_library`).
     #[serde(rename = "_library")]
-    pub library_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub library_ext: Vec<Option<types::Element>>,
 
     /// Population criteria
-    pub population: Option<Vec<MeasureGroupPopulation>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub population: Vec<MeasureGroupPopulation>,
 
     /// Stratifier criteria for the measure
-    pub stratifier: Option<Vec<MeasureGroupStratifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub stratifier: Vec<MeasureGroupStratifier>,
 }
 
 /// Population criteria.
@@ -402,10 +430,12 @@ pub struct MeasureGroupPopulation {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Unique id for population in measure
     pub link_id: Option<types::String>,
@@ -447,10 +477,12 @@ pub struct MeasureGroupStratifier {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Unique id for stratifier in measure
     pub link_id: Option<types::String>,
@@ -474,7 +506,8 @@ pub struct MeasureGroupStratifier {
     pub group_definition: Option<types::Reference>,
 
     /// Stratifier criteria component for the measure
-    pub component: Option<Vec<MeasureGroupStratifierComponent>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub component: Vec<MeasureGroupStratifierComponent>,
 }
 
 /// Stratifier criteria component for the measure.
@@ -486,10 +519,12 @@ pub struct MeasureGroupStratifierComponent {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Unique id for stratifier component in measure
     pub link_id: Option<types::String>,
@@ -522,10 +557,12 @@ pub struct MeasureSupplementalData {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Unique id for supplementalData in measure
     pub link_id: Option<types::String>,
@@ -537,7 +574,8 @@ pub struct MeasureSupplementalData {
     pub code: Option<types::CodeableConcept>,
 
     /// supplemental-data | risk-adjustment-factor
-    pub usage: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub usage: Vec<types::CodeableConcept>,
 
     /// The human readable description of this supplemental data
     pub description: Option<types::Markdown>,

@@ -44,7 +44,8 @@ pub struct ProductShelfLife {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
     /// The type of shelf life being described, e.g. in-use or transformation
     /// shelf life, from an appropriate controlled vocabulary.
     pub r#type: Option<types::CodeableConcept>,
@@ -54,7 +55,8 @@ pub struct ProductShelfLife {
     pub period: Option<ProductShelfLifePeriod>,
 
     /// Special precautions for storage of the item, if any.
-    pub special_precautions_for_storage: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub special_precautions_for_storage: Vec<types::CodeableConcept>,
 }
 
 #[cfg(test)]

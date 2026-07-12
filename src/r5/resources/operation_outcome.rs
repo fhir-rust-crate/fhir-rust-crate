@@ -75,13 +75,16 @@ pub struct OperationOutcome {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// One or more issues describing each error, warning, or informational message from the action; at least one is expected
     pub issue: vec1::Vec1<OperationOutcomeIssue>,
@@ -99,10 +102,12 @@ pub struct OperationOutcomeIssue {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Severity of this issue, one of fatal, error, warning, information, or success, indicating how it affects the overall action
     pub severity: crate::r5::coded::Coded<crate::r5::codes::IssueSeverity>,
@@ -126,14 +131,18 @@ pub struct OperationOutcomeIssue {
     pub diagnostics_ext: Option<types::Element>,
 
     /// Deprecated: Path of element(s) related to issue
-    pub location: Option<Vec<types::String>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub location: Vec<types::String>,
     /// Primitive extension sibling for [`location`](Self::location) (FHIR `_location`).
     #[serde(rename = "_location")]
-    pub location_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub location_ext: Vec<Option<types::Element>>,
 
     /// FHIRPath of element(s) related to issue
-    pub expression: Option<Vec<types::String>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub expression: Vec<types::String>,
     /// Primitive extension sibling for [`expression`](Self::expression) (FHIR `_expression`).
     #[serde(rename = "_expression")]
-    pub expression_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub expression_ext: Vec<Option<types::Element>>,
 }

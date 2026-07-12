@@ -87,16 +87,20 @@ pub struct Encounter {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Identifier(s) by which this encounter is known
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Current lifecycle state of the encounter, such as planned, in-progress, on-hold, discharged, completed, cancelled, discontinued, entered-in-error, or unknown.
     pub status: crate::r5::coded::Coded<crate::r5::codes::EncounterStatus>,
@@ -105,16 +109,19 @@ pub struct Encounter {
     pub status_ext: Option<types::Element>,
 
     /// Classification of the encounter setting, such as inpatient, outpatient, ambulatory, emergency, or virtual.
-    pub class: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub class: Vec<types::CodeableConcept>,
 
     /// Indicates the urgency of the encounter
     pub priority: Option<types::CodeableConcept>,
 
     /// Specific type of encounter (e.g. e-mail consultation, surgical day-care, ...)
-    pub r#type: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub r#type: Vec<types::CodeableConcept>,
 
     /// Specific type of service
-    pub service_type: Option<Vec<types::CodeableReference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub service_type: Vec<types::CodeableReference>,
 
     /// Reference to the patient or group that is the subject of this encounter and receives the healthcare service.
     pub subject: Option<types::Reference>,
@@ -123,13 +130,16 @@ pub struct Encounter {
     pub subject_status: Option<types::CodeableConcept>,
 
     /// Episode(s) of care that this encounter should be recorded against
-    pub episode_of_care: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub episode_of_care: Vec<types::Reference>,
 
     /// The request that initiated this encounter
-    pub based_on: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub based_on: Vec<types::Reference>,
 
     /// The group(s) that are allocated to participate in this encounter
-    pub care_team: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub care_team: Vec<types::Reference>,
 
     /// Another Encounter this encounter is part of
     pub part_of: Option<types::Reference>,
@@ -138,13 +148,16 @@ pub struct Encounter {
     pub service_provider: Option<types::Reference>,
 
     /// The people, devices, or services that took part in the encounter, each with a role and time period, modeled by EncounterParticipant.
-    pub participant: Option<Vec<EncounterParticipant>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub participant: Vec<EncounterParticipant>,
 
     /// The appointment that scheduled this encounter
-    pub appointment: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub appointment: Vec<types::Reference>,
 
     /// Connection details of a virtual service (e.g. conference call)
-    pub virtual_service: Option<Vec<types::VirtualServiceDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub virtual_service: Vec<types::VirtualServiceDetail>,
 
     /// The actual start and end time of the encounter
     pub actual_period: Option<types::Period>,
@@ -165,28 +178,35 @@ pub struct Encounter {
     pub length: Option<types::Duration>,
 
     /// The list of medical reasons that are expected to be addressed during the episode of care
-    pub reason: Option<Vec<EncounterReason>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub reason: Vec<EncounterReason>,
 
     /// The list of diagnosis relevant to this encounter
-    pub diagnosis: Option<Vec<EncounterDiagnosis>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub diagnosis: Vec<EncounterDiagnosis>,
 
     /// The set of accounts that may be used for billing for this Encounter
-    pub account: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub account: Vec<types::Reference>,
 
     /// Diet preferences reported by the patient
-    pub diet_preference: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub diet_preference: Vec<types::CodeableConcept>,
 
     /// Wheelchair, translator, stretcher, etc
-    pub special_arrangement: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub special_arrangement: Vec<types::CodeableConcept>,
 
     /// Special courtesies (VIP, board member)
-    pub special_courtesy: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub special_courtesy: Vec<types::CodeableConcept>,
 
     /// Details about the admission to a healthcare service
     pub admission: Option<EncounterAdmission>,
 
     /// List of locations where the patient has been
-    pub location: Option<Vec<EncounterLocation>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub location: Vec<EncounterLocation>,
 }
 
 /// List of participants involved in the encounter.
@@ -198,13 +218,16 @@ pub struct EncounterParticipant {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Role of participant in encounter
-    pub r#type: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub r#type: Vec<types::CodeableConcept>,
 
     /// Period of time during the encounter that the participant participated
     pub period: Option<types::Period>,
@@ -223,16 +246,20 @@ pub struct EncounterReason {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// What the reason value should be used for/as
-    pub r#use: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub r#use: Vec<types::CodeableConcept>,
 
     /// Reason the encounter takes place (core or reference)
-    pub value: Option<Vec<types::CodeableReference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub value: Vec<types::CodeableReference>,
 }
 
 /// The list of diagnosis relevant to this encounter.
@@ -244,16 +271,20 @@ pub struct EncounterDiagnosis {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The diagnosis relevant to the encounter
-    pub condition: Option<Vec<types::CodeableReference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub condition: Vec<types::CodeableReference>,
 
     /// Role that this diagnosis has within the encounter (e.g. admission, billing, discharge …)
-    pub r#use: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub r#use: Vec<types::CodeableConcept>,
 }
 
 /// Details about the admission to a healthcare service.
@@ -265,10 +296,12 @@ pub struct EncounterAdmission {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Pre-admission identifier
     pub pre_admission_identifier: Option<types::Identifier>,
@@ -298,10 +331,12 @@ pub struct EncounterLocation {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Location the encounter takes place
     pub location: types::Reference,

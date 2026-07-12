@@ -81,16 +81,20 @@ pub struct VisionPrescription {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Business Identifier for vision prescription
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// The current lifecycle status of the prescription: active | cancelled |
     /// draft | entered-in-error.
@@ -141,10 +145,12 @@ pub struct VisionPrescriptionLensSpecification {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Product to be supplied
     pub product: types::CodeableConcept,
@@ -174,7 +180,8 @@ pub struct VisionPrescriptionLensSpecification {
     pub axis_ext: Option<types::Element>,
 
     /// Eye alignment compensation
-    pub prism: Option<Vec<VisionPrescriptionLensSpecificationPrism>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub prism: Vec<VisionPrescriptionLensSpecificationPrism>,
 
     /// Added power for multifocal levels
     pub add: Option<types::Decimal>,
@@ -216,7 +223,8 @@ pub struct VisionPrescriptionLensSpecification {
     pub brand_ext: Option<types::Element>,
 
     /// Notes for coatings
-    pub note: Option<Vec<types::Annotation>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub note: Vec<types::Annotation>,
 }
 
 /// Eye alignment compensation.
@@ -231,10 +239,12 @@ pub struct VisionPrescriptionLensSpecificationPrism {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Amount of adjustment
     pub amount: types::Decimal,

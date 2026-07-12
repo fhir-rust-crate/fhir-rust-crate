@@ -78,16 +78,20 @@ pub struct Goal {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// External Ids for this goal
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// The current lifecycle status of this goal: proposed | planned | accepted | active | on-hold | completed | cancelled | entered-in-error | rejected
     pub lifecycle_status: crate::r5::coded::Coded<crate::r5::codes::GoalStatus>,
@@ -99,7 +103,8 @@ pub struct Goal {
     pub achievement_status: Option<types::CodeableConcept>,
 
     /// E.g. Treatment, dietary, behavioral, etc
-    pub category: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub category: Vec<types::CodeableConcept>,
 
     /// After meeting the goal, ongoing activity is needed to sustain the goal objective
     pub continuous: Option<types::Boolean>,
@@ -121,7 +126,8 @@ pub struct Goal {
     pub start: Option<GoalStart>,
 
     /// One or more measurable target outcomes that define what should be achieved
-    pub target: Option<Vec<GoalTarget>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub target: Vec<GoalTarget>,
 
     /// When goal status took effect
     pub status_date: Option<types::Date>,
@@ -139,13 +145,16 @@ pub struct Goal {
     pub source: Option<types::Reference>,
 
     /// Issues addressed by this goal
-    pub addresses: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub addresses: Vec<types::Reference>,
 
     /// Comments about the goal
-    pub note: Option<Vec<types::Annotation>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub note: Vec<types::Annotation>,
 
     /// What result was achieved regarding the goal?
-    pub outcome: Option<Vec<types::CodeableReference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub outcome: Vec<types::CodeableReference>,
 }
 
 /// Target outcome for the goal.
@@ -160,10 +169,12 @@ pub struct GoalTarget {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The parameter whose value is being tracked
     pub measure: Option<types::CodeableConcept>,

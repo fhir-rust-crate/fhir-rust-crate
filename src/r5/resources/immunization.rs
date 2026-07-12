@@ -79,19 +79,24 @@ pub struct Immunization {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Business identifier
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Authority that the immunization event is based on
-    pub based_on: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub based_on: Vec<types::Reference>,
 
     /// The overall status of the event: completed | entered-in-error | not-done
     pub status: types::Code,
@@ -130,7 +135,8 @@ pub struct Immunization {
     pub encounter: Option<types::Reference>,
 
     /// Additional information in support of the immunization
-    pub supporting_information: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub supporting_information: Vec<types::Reference>,
 
     /// The `Immunization.occurrence[x]` choice element (0..1); see [`ImmunizationOccurrence`].
     #[serde(flatten)]
@@ -158,13 +164,16 @@ pub struct Immunization {
     pub dose_quantity: Option<types::Quantity>,
 
     /// Who performed event
-    pub performer: Option<Vec<ImmunizationPerformer>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub performer: Vec<ImmunizationPerformer>,
 
     /// Additional immunization notes
-    pub note: Option<Vec<types::Annotation>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub note: Vec<types::Annotation>,
 
     /// Why immunization occurred
-    pub reason: Option<Vec<types::CodeableReference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub reason: Vec<types::CodeableReference>,
 
     /// Dose potency
     pub is_subpotent: Option<types::Boolean>,
@@ -173,19 +182,23 @@ pub struct Immunization {
     pub is_subpotent_ext: Option<types::Element>,
 
     /// Reason for being subpotent
-    pub subpotent_reason: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub subpotent_reason: Vec<types::CodeableConcept>,
 
     /// Patient eligibility for a specific vaccination program
-    pub program_eligibility: Option<Vec<ImmunizationProgramEligibility>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub program_eligibility: Vec<ImmunizationProgramEligibility>,
 
     /// Funding source for the vaccine
     pub funding_source: Option<types::CodeableConcept>,
 
     /// Details of a reaction that follows immunization
-    pub reaction: Option<Vec<ImmunizationReaction>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub reaction: Vec<ImmunizationReaction>,
 
     /// Protocol followed by the provider
-    pub protocol_applied: Option<Vec<ImmunizationProtocolApplied>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub protocol_applied: Vec<ImmunizationProtocolApplied>,
 }
 
 /// Immunization.performer: Who performed event
@@ -197,10 +210,12 @@ pub struct ImmunizationPerformer {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// What type of performance was done
     pub function: Option<types::CodeableConcept>,
@@ -218,10 +233,12 @@ pub struct ImmunizationProgramEligibility {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The program that eligibility is declared for
     pub program: types::CodeableConcept,
@@ -239,10 +256,12 @@ pub struct ImmunizationReaction {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// When reaction started
     pub date: Option<types::DateTime>,
@@ -269,10 +288,12 @@ pub struct ImmunizationProtocolApplied {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Name of vaccine series
     pub series: Option<types::String>,
@@ -284,7 +305,8 @@ pub struct ImmunizationProtocolApplied {
     pub authority: Option<types::Reference>,
 
     /// Vaccine preventatable disease being targeted
-    pub target_disease: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub target_disease: Vec<types::CodeableConcept>,
 
     /// Dose number within series
     pub dose_number: types::String,

@@ -42,10 +42,12 @@ pub struct ElementDefinition {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Path of the element in the hierarchy of elements
     pub path: types::String,
@@ -54,10 +56,12 @@ pub struct ElementDefinition {
     pub path_ext: Option<types::Element>,
 
     /// xmlAttr | xmlText | typeAttr | cdaText | xhtml
-    pub representation: Option<Vec<crate::r5::coded::Coded<crate::r5::codes::PropertyRepresentation>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub representation: Vec<crate::r5::coded::Coded<crate::r5::codes::PropertyRepresentation>>,
     /// Primitive extension sibling for [`representation`](Self::representation) (FHIR `_representation`).
     #[serde(rename = "_representation")]
-    pub representation_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub representation_ext: Vec<Option<types::Element>>,
 
     /// Name for this particular element (in a set of slices)
     pub slice_name: Option<types::String>,
@@ -78,7 +82,8 @@ pub struct ElementDefinition {
     pub label_ext: Option<types::Element>,
 
     /// Corresponding codes in terminologies
-    pub code: Option<Vec<types::Coding>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub code: Vec<types::Coding>,
 
     /// This element is sliced - slices follow
     pub slicing: Option<ElementDefinitionSlicing>,
@@ -108,10 +113,12 @@ pub struct ElementDefinition {
     pub requirements_ext: Option<types::Element>,
 
     /// Other names
-    pub alias: Option<Vec<types::String>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub alias: Vec<types::String>,
     /// Primitive extension sibling for [`alias`](Self::alias) (FHIR `_alias`).
     #[serde(rename = "_alias")]
-    pub alias_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub alias_ext: Vec<Option<types::Element>>,
 
     /// Minimum Cardinality
     pub min: Option<types::UnsignedInt>,
@@ -135,7 +142,8 @@ pub struct ElementDefinition {
     pub content_reference_ext: Option<types::Element>,
 
     /// Data type and Profile for this element
-    pub r#type: Option<Vec<ElementDefinitionType>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub r#type: Vec<ElementDefinitionType>,
 
     /// The `ElementDefinition.defaultValue[x]` choice element (0..1); see [`ElementDefinitionDefaultValue`].
     #[serde(flatten)]
@@ -162,7 +170,8 @@ pub struct ElementDefinition {
     pub pattern: Option<ElementDefinitionPattern>,
 
     /// Example value (as defined for type)
-    pub example: Option<Vec<ElementDefinitionExample>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub example: Vec<ElementDefinitionExample>,
 
     /// The `ElementDefinition.minValue[x]` choice element (0..1); see [`ElementDefinitionMinValue`].
     #[serde(flatten)]
@@ -179,13 +188,16 @@ pub struct ElementDefinition {
     pub max_length_ext: Option<types::Element>,
 
     /// Reference to invariant about presence
-    pub condition: Option<Vec<types::Id>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub condition: Vec<types::Id>,
     /// Primitive extension sibling for [`condition`](Self::condition) (FHIR `_condition`).
     #[serde(rename = "_condition")]
-    pub condition_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub condition_ext: Vec<Option<types::Element>>,
 
     /// Condition that must evaluate to true
-    pub constraint: Option<Vec<ElementDefinitionConstraint>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub constraint: Vec<ElementDefinitionConstraint>,
 
     /// For primitives, that a value must be present - not replaced by an extension
     pub must_have_value: Option<types::Boolean>,
@@ -194,10 +206,12 @@ pub struct ElementDefinition {
     pub must_have_value_ext: Option<types::Element>,
 
     /// Extensions that are allowed to replace a primitive value
-    pub value_alternatives: Option<Vec<types::Canonical>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub value_alternatives: Vec<types::Canonical>,
     /// Primitive extension sibling for [`value_alternatives`](Self::value_alternatives) (FHIR `_valueAlternatives`).
     #[serde(rename = "_valueAlternatives")]
-    pub value_alternatives_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub value_alternatives_ext: Vec<Option<types::Element>>,
 
     /// If the element must be supported (discouraged - see obligations)
     pub must_support: Option<types::Boolean>,
@@ -227,7 +241,8 @@ pub struct ElementDefinition {
     pub binding: Option<ElementDefinitionBinding>,
 
     /// Map element to another set of definitions
-    pub mapping: Option<Vec<ElementDefinitionMapping>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub mapping: Vec<ElementDefinitionMapping>,
 }
 
 /// Indicates that the element is sliced into a set of alternative definitions, and describes
@@ -240,10 +255,12 @@ pub struct ElementDefinitionSlicing {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Element values that are used to distinguish the slices
-    pub discriminator: Option<Vec<ElementDefinitionSlicingDiscriminator>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub discriminator: Vec<ElementDefinitionSlicingDiscriminator>,
 
     /// Text description of how slicing works (or not)
     pub description: Option<types::String>,
@@ -273,7 +290,8 @@ pub struct ElementDefinitionSlicingDiscriminator {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// value | exists | type | profile | position
     pub r#type: crate::r5::coded::Coded<crate::r5::codes::DiscriminatorType>,
@@ -298,7 +316,8 @@ pub struct ElementDefinitionBase {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Path that identifies the base element
     pub path: types::String,
@@ -329,7 +348,8 @@ pub struct ElementDefinitionType {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Data type or Resource (reference to definition)
     pub code: types::Uri,
@@ -338,22 +358,28 @@ pub struct ElementDefinitionType {
     pub code_ext: Option<types::Element>,
 
     /// Profiles (StructureDefinition or IG) - one must apply
-    pub profile: Option<Vec<types::Canonical>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub profile: Vec<types::Canonical>,
     /// Primitive extension sibling for [`profile`](Self::profile) (FHIR `_profile`).
     #[serde(rename = "_profile")]
-    pub profile_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub profile_ext: Vec<Option<types::Element>>,
 
     /// Profile on the Reference/canonical target - one must apply
-    pub target_profile: Option<Vec<types::Canonical>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub target_profile: Vec<types::Canonical>,
     /// Primitive extension sibling for [`target_profile`](Self::target_profile) (FHIR `_targetProfile`).
     #[serde(rename = "_targetProfile")]
-    pub target_profile_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub target_profile_ext: Vec<Option<types::Element>>,
 
     /// contained | referenced | bundled - how aggregated
-    pub aggregation: Option<Vec<crate::r5::coded::Coded<crate::r5::codes::ResourceAggregationMode>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub aggregation: Vec<crate::r5::coded::Coded<crate::r5::codes::ResourceAggregationMode>>,
     /// Primitive extension sibling for [`aggregation`](Self::aggregation) (FHIR `_aggregation`).
     #[serde(rename = "_aggregation")]
-    pub aggregation_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub aggregation_ext: Vec<Option<types::Element>>,
 
     /// either | independent | specific
     pub versioning: Option<crate::r5::coded::Coded<crate::r5::codes::ReferenceVersionRules>>,
@@ -371,7 +397,8 @@ pub struct ElementDefinitionExample {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Describes the purpose of this example
     pub label: types::String,
@@ -394,7 +421,8 @@ pub struct ElementDefinitionConstraint {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Target of 'condition' reference above
     pub key: types::Id,
@@ -449,7 +477,8 @@ pub struct ElementDefinitionBinding {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// required | extensible | preferred | example
     pub strength: crate::r5::coded::Coded<crate::r5::codes::BindingStrength>,
@@ -470,7 +499,8 @@ pub struct ElementDefinitionBinding {
     pub value_set_ext: Option<types::Element>,
 
     /// Additional Bindings - more rules about the binding
-    pub additional: Option<Vec<ElementDefinitionBindingAdditional>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub additional: Vec<ElementDefinitionBindingAdditional>,
 }
 
 /// Describes additional bindings that provide more specific rules about the value set
@@ -483,7 +513,8 @@ pub struct ElementDefinitionBindingAdditional {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// maximum | minimum | required | extensible | candidate | current | preferred | ui | starter | component
     pub purpose: crate::r5::coded::Coded<crate::r5::codes::AdditionalBindingPurpose>,
@@ -510,7 +541,8 @@ pub struct ElementDefinitionBindingAdditional {
     pub short_doco_ext: Option<types::Element>,
 
     /// Qualifies the usage - jurisdiction, gender, workflow status etc.
-    pub usage: Option<Vec<types::UsageContext>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub usage: Vec<types::UsageContext>,
 
     /// Whether binding can applies to all repeats, or just one
     pub any: Option<types::Boolean>,
@@ -529,7 +561,8 @@ pub struct ElementDefinitionMapping {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Reference to mapping declaration
     pub identity: types::Id,

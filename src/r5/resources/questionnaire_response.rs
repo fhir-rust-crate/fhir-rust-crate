@@ -80,22 +80,28 @@ pub struct QuestionnaireResponse {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Business identifier for this set of answers
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Request fulfilled by this QuestionnaireResponse
-    pub based_on: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub based_on: Vec<types::Reference>,
 
     /// Part of referenced event
-    pub part_of: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub part_of: Vec<types::Reference>,
 
     /// Canonical URL of the `Questionnaire` resource that defines the questions being answered
     pub questionnaire: types::Canonical,
@@ -128,7 +134,8 @@ pub struct QuestionnaireResponse {
     pub source: Option<types::Reference>,
 
     /// The top-level tree of groups and questions, mirroring the structure of the source `Questionnaire`
-    pub item: Option<Vec<QuestionnaireResponseItem>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub item: Vec<QuestionnaireResponseItem>,
 }
 
 /// Groups and questions.
@@ -144,10 +151,12 @@ pub struct QuestionnaireResponseItem {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Pointer to specific item from Questionnaire
     pub link_id: types::String,
@@ -168,10 +177,12 @@ pub struct QuestionnaireResponseItem {
     pub text_ext: Option<types::Element>,
 
     /// The response(s) to the question
-    pub answer: Option<Vec<QuestionnaireResponseItemAnswer>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub answer: Vec<QuestionnaireResponseItemAnswer>,
 
     /// Child items of group item
-    pub item: Option<Vec<QuestionnaireResponseItem>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub item: Vec<QuestionnaireResponseItem>,
 }
 
 /// The response(s) to the question.
@@ -187,17 +198,20 @@ pub struct QuestionnaireResponseItemAnswer {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The `QuestionnaireResponse.item.answer.value[x]` choice element (0..1); see [`QuestionnaireResponseItemAnswerValue`].
     #[serde(flatten)]
     pub value: Option<QuestionnaireResponseItemAnswerValue>,
 
     /// Child items of question
-    pub item: Option<Vec<QuestionnaireResponseItem>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub item: Vec<QuestionnaireResponseItem>,
 }
 
 #[cfg(test)]

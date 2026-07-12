@@ -81,19 +81,23 @@ pub struct GuidanceResponse {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The identifier of the original guidance request that this response correlates to, if any
     pub request_identifier: Option<types::Identifier>,
 
     /// Business identifier
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// The `GuidanceResponse.module[x]` choice element (0..1); see [`GuidanceResponseModule`].
     #[serde(flatten)]
@@ -121,10 +125,12 @@ pub struct GuidanceResponse {
     pub performer: Option<types::Reference>,
 
     /// Why guidance is needed
-    pub reason: Option<Vec<types::CodeableReference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub reason: Vec<types::CodeableReference>,
 
     /// Additional notes about the response
-    pub note: Option<Vec<types::Annotation>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub note: Vec<types::Annotation>,
 
     /// Reference to an OperationOutcome containing messages resulting from the evaluation of the artifact or artifacts
     pub evaluation_message: Option<types::Reference>,
@@ -133,10 +139,12 @@ pub struct GuidanceResponse {
     pub output_parameters: Option<types::Reference>,
 
     /// Proposed actions resulting from the evaluation, such as RequestGroup resources, if any
-    pub result: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub result: Vec<types::Reference>,
 
     /// Additional data that was requested by the evaluating module but was not supplied with the original request
-    pub data_requirement: Option<Vec<types::DataRequirement>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub data_requirement: Vec<types::DataRequirement>,
 }
 
 #[cfg(test)]

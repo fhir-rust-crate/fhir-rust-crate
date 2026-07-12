@@ -74,16 +74,20 @@ pub struct PaymentReconciliation {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Business Identifier for a payment reconciliation
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Coded category of payment, such as a payment for a claim or a batch remittance.
     pub r#type: types::CodeableConcept,
@@ -194,13 +198,15 @@ pub struct PaymentReconciliation {
     pub payment_identifier: Option<types::Identifier>,
 
     /// Settlement particulars: how the total payment is distributed across the individual payables.
-    pub allocation: Option<Vec<PaymentReconciliationAllocation>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub allocation: Vec<PaymentReconciliationAllocation>,
 
     /// Printed form identifier
     pub form_code: Option<types::CodeableConcept>,
 
     /// Note concerning processing
-    pub process_note: Option<Vec<PaymentReconciliationProcessNote>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub process_note: Vec<PaymentReconciliationProcessNote>,
 }
 
 /// Settlement particulars: distribution of the total payment across the
@@ -213,10 +219,12 @@ pub struct PaymentReconciliationAllocation {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Business identifier of the payment detail
     pub identifier: Option<types::Identifier>,
@@ -272,10 +280,12 @@ pub struct PaymentReconciliationProcessNote {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// display | print | printoper
     pub r#type: Option<crate::r5::coded::Coded<crate::r5::codes::NoteType>>,

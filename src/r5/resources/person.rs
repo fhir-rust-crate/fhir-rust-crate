@@ -78,16 +78,20 @@ pub struct Person {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Business identifiers by which this person is known, such as a national or organizational person identifier
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Whether this person's record is in active use; a false value indicates the record should no longer be relied upon
     pub active: Option<types::Boolean>,
@@ -96,10 +100,12 @@ pub struct Person {
     pub active_ext: Option<types::Element>,
 
     /// One or more names associated with the person, each expressed as a structured human name
-    pub name: Option<Vec<types::HumanName>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub name: Vec<types::HumanName>,
 
     /// A contact detail for the person
-    pub telecom: Option<Vec<types::ContactPoint>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub telecom: Vec<types::ContactPoint>,
 
     /// male | female | other | unknown
     pub gender: Option<crate::r5::coded::Coded<crate::r5::codes::AdministrativeGender>>,
@@ -118,22 +124,26 @@ pub struct Person {
     pub deceased: Option<PersonDeceased>,
 
     /// One or more addresses for the person
-    pub address: Option<Vec<types::Address>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub address: Vec<types::Address>,
 
     /// Marital (civil) status of a person
     pub marital_status: Option<types::CodeableConcept>,
 
     /// Image of the person
-    pub photo: Option<Vec<types::Attachment>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub photo: Vec<types::Attachment>,
 
     /// A language which may be used to communicate with the person about his or her health
-    pub communication: Option<Vec<PersonCommunication>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub communication: Vec<PersonCommunication>,
 
     /// The organization that is the custodian of the person record
     pub managing_organization: Option<types::Reference>,
 
     /// Links to Patient, Practitioner, RelatedPerson, or other Person records that concern the same actual person
-    pub link: Option<Vec<PersonLink>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub link: Vec<PersonLink>,
 }
 
 /// A language which may be used to communicate with the person about his or her
@@ -146,10 +156,12 @@ pub struct PersonCommunication {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The language which can be used to communicate with the person about his or her health
     pub language: types::CodeableConcept,
@@ -170,10 +182,12 @@ pub struct PersonLink {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The resource to which this actual person is associated
     pub target: types::Reference,

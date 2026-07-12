@@ -82,13 +82,16 @@ pub struct ChargeItemDefinition {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Canonical identifier for this charge item definition, represented as a URI (globally unique); used to reference this definition from a `ChargeItem`
     pub url: Option<types::Uri>,
@@ -97,7 +100,8 @@ pub struct ChargeItemDefinition {
     pub url_ext: Option<types::Element>,
 
     /// Additional identifier for the charge item definition
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Business version of the charge item definition
     pub version: Option<types::String>,
@@ -122,22 +126,28 @@ pub struct ChargeItemDefinition {
     pub title_ext: Option<types::Element>,
 
     /// Underlying externally-defined charge item definition
-    pub derived_from_uri: Option<Vec<types::Uri>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub derived_from_uri: Vec<types::Uri>,
     /// Primitive extension sibling for [`derived_from_uri`](Self::derived_from_uri) (FHIR `_derivedFromUri`).
     #[serde(rename = "_derivedFromUri")]
-    pub derived_from_uri_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub derived_from_uri_ext: Vec<Option<types::Element>>,
 
     /// A larger definition of which this particular definition is a component or step
-    pub part_of: Option<Vec<types::Canonical>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub part_of: Vec<types::Canonical>,
     /// Primitive extension sibling for [`part_of`](Self::part_of) (FHIR `_partOf`).
     #[serde(rename = "_partOf")]
-    pub part_of_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub part_of_ext: Vec<Option<types::Element>>,
 
     /// Completed or terminated request(s) whose function is taken by this new request
-    pub replaces: Option<Vec<types::Canonical>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub replaces: Vec<types::Canonical>,
     /// Primitive extension sibling for [`replaces`](Self::replaces) (FHIR `_replaces`).
     #[serde(rename = "_replaces")]
-    pub replaces_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub replaces_ext: Vec<Option<types::Element>>,
 
     /// draft | active | retired | unknown
     pub status: crate::r5::coded::Coded<crate::r5::codes::PublicationStatus>,
@@ -164,7 +174,8 @@ pub struct ChargeItemDefinition {
     pub publisher_ext: Option<types::Element>,
 
     /// Contact details for the publisher
-    pub contact: Option<Vec<types::ContactDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contact: Vec<types::ContactDetail>,
 
     /// Natural language description of the charge item definition
     pub description: Option<types::Markdown>,
@@ -173,10 +184,12 @@ pub struct ChargeItemDefinition {
     pub description_ext: Option<types::Element>,
 
     /// The context that the content is intended to support
-    pub use_context: Option<Vec<types::UsageContext>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub use_context: Vec<types::UsageContext>,
 
     /// Intended jurisdiction for charge item definition (if applicable)
-    pub jurisdiction: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub jurisdiction: Vec<types::CodeableConcept>,
 
     /// Why this charge item definition is defined
     pub purpose: Option<types::Markdown>,
@@ -212,13 +225,16 @@ pub struct ChargeItemDefinition {
     pub code: Option<types::CodeableConcept>,
 
     /// Instances this definition applies to
-    pub instance: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub instance: Vec<types::Reference>,
 
     /// Whether or not the billing code is applicable
-    pub applicability: Option<Vec<ChargeItemDefinitionApplicability>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub applicability: Vec<ChargeItemDefinitionApplicability>,
 
     /// Group of properties which are applicable under the same conditions
-    pub property_group: Option<Vec<ChargeItemDefinitionPropertyGroup>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub property_group: Vec<ChargeItemDefinitionPropertyGroup>,
 }
 
 /// Expressions that describe applicability criteria for the billing code.
@@ -230,10 +246,12 @@ pub struct ChargeItemDefinitionApplicability {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Boolean-valued expression
     pub condition: Option<types::Expression>,
@@ -256,16 +274,20 @@ pub struct ChargeItemDefinitionPropertyGroup {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Conditions under which the priceComponent is applicable
-    pub applicability: Option<Vec<ChargeItemDefinitionApplicability>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub applicability: Vec<ChargeItemDefinitionApplicability>,
 
     /// Components of total line item price
-    pub price_component: Option<Vec<types::MonetaryComponent>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub price_component: Vec<types::MonetaryComponent>,
 }
 
 #[cfg(test)]

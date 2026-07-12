@@ -75,7 +75,8 @@ pub struct Parameters {
     pub language_ext: Option<types::Element>,
 
     /// The ordered set of named operation parameters carried by this resource, each supplying an input to or output from the operation.
-    pub parameter: Option<Vec<ParametersParameter>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub parameter: Vec<ParametersParameter>,
 }
 
 /// A parameter passed to or received from the operation.
@@ -87,10 +88,12 @@ pub struct ParametersParameter {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The parameter name as defined by the operation definition; it identifies which formal parameter this entry supplies.
     pub name: types::String,
@@ -106,7 +109,8 @@ pub struct ParametersParameter {
     pub resource: Option<::serde_json::Value>,
 
     /// Nested child parameters that let this parameter group several named values together as a multi-part structure.
-    pub part: Option<Vec<ParametersParameter>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub part: Vec<ParametersParameter>,
 }
 
 #[cfg(test)]

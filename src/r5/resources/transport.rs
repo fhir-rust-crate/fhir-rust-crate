@@ -77,16 +77,20 @@ pub struct Transport {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// External identifier
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Formal definition of transport
     pub instantiates_canonical: Option<types::Canonical>,
@@ -101,13 +105,15 @@ pub struct Transport {
     pub instantiates_uri_ext: Option<types::Element>,
 
     /// Request fulfilled by this transport
-    pub based_on: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub based_on: Vec<types::Reference>,
 
     /// Requisition or grouper id
     pub group_identifier: Option<types::Identifier>,
 
     /// Part of referenced event
-    pub part_of: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub part_of: Vec<types::Reference>,
 
     /// Current lifecycle state: in-progress | completed | abandoned | cancelled | planned | entered-in-error
     pub status: Option<crate::r5::coded::Coded<crate::r5::codes::TransportStatus>>,
@@ -170,7 +176,8 @@ pub struct Transport {
     pub requester: Option<types::Reference>,
 
     /// The kind of participant expected to carry out the transport
-    pub performer_type: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub performer_type: Vec<types::CodeableConcept>,
 
     /// The individual or organization responsible for carrying out the transport
     pub owner: Option<types::Reference>,
@@ -179,22 +186,27 @@ pub struct Transport {
     pub location: Option<types::Reference>,
 
     /// Associated insurance coverage
-    pub insurance: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub insurance: Vec<types::Reference>,
 
     /// Comments made about the transport
-    pub note: Option<Vec<types::Annotation>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub note: Vec<types::Annotation>,
 
     /// Key events in history of the Transport
-    pub relevant_history: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub relevant_history: Vec<types::Reference>,
 
     /// Constraints on fulfillment transports
     pub restriction: Option<TransportRestriction>,
 
     /// Information used to perform transport
-    pub input: Option<Vec<TransportInput>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub input: Vec<TransportInput>,
 
     /// Information produced as part of transport
-    pub output: Option<Vec<TransportOutput>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub output: Vec<TransportOutput>,
 
     /// The location to which the focus of the transport should be moved
     pub requested_location: types::Reference,
@@ -222,10 +234,12 @@ pub struct TransportRestriction {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// How many times to repeat
     pub repetitions: Option<types::PositiveInt>,
@@ -237,7 +251,8 @@ pub struct TransportRestriction {
     pub period: Option<types::Period>,
 
     /// For whom is fulfillment sought?
-    pub recipient: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub recipient: Vec<types::Reference>,
 }
 
 /// Transport.input
@@ -252,10 +267,12 @@ pub struct TransportInput {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Label for the input
     pub r#type: types::CodeableConcept,
@@ -277,10 +294,12 @@ pub struct TransportOutput {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Label for output
     pub r#type: types::CodeableConcept,

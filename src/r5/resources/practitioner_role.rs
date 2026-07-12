@@ -74,16 +74,20 @@ pub struct PractitionerRole {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Identifiers for a role/location
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Whether this practitioner role record is in active use
     pub active: Option<types::Boolean>,
@@ -101,31 +105,40 @@ pub struct PractitionerRole {
     pub organization: Option<types::Reference>,
 
     /// Coded roles this practitioner may perform, such as doctor, nurse, or pharmacist
-    pub code: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub code: Vec<types::CodeableConcept>,
 
     /// Coded clinical specialties exercised by the practitioner in this role
-    pub specialty: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub specialty: Vec<types::CodeableConcept>,
 
     /// Location(s) where the practitioner provides care
-    pub location: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub location: Vec<types::Reference>,
 
     /// Healthcare services provided for this role's Organization/Location(s)
-    pub healthcare_service: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub healthcare_service: Vec<types::Reference>,
 
     /// Official contact details relating to this PractitionerRole
-    pub contact: Option<Vec<types::ExtendedContactDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contact: Vec<types::ExtendedContactDetail>,
 
     /// Collection of characteristics (attributes)
-    pub characteristic: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub characteristic: Vec<types::CodeableConcept>,
 
     /// A language the practitioner (in this role) can use in patient communication
-    pub communication: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub communication: Vec<types::CodeableConcept>,
 
     /// Times the Practitioner is available at this location and/or healthcare service (including exceptions)
-    pub availability: Option<Vec<types::Availability>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub availability: Vec<types::Availability>,
 
     /// Endpoints for interacting with the practitioner in this role
-    pub endpoint: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub endpoint: Vec<types::Reference>,
 }
 
 #[cfg(test)]

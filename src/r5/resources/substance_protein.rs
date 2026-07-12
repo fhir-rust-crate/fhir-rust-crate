@@ -80,13 +80,16 @@ pub struct SubstanceProtein {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The SubstanceProtein descriptive elements will only be used when a complete or partial amino acid sequence is available or derivable from a nucleic acid sequence; coded using a [`CodeableConcept`](crate::r5::types::CodeableConcept)
     pub sequence_type: Option<types::CodeableConcept>,
@@ -98,13 +101,16 @@ pub struct SubstanceProtein {
     pub number_of_subunits_ext: Option<types::Element>,
 
     /// The disulphide bond between two cysteine residues shall be described, identifying the connecting residue positions
-    pub disulfide_linkage: Option<Vec<types::String>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub disulfide_linkage: Vec<types::String>,
     /// Primitive extension sibling for [`disulfide_linkage`](Self::disulfide_linkage) (FHIR `_disulfideLinkage`).
     #[serde(rename = "_disulfideLinkage")]
-    pub disulfide_linkage_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub disulfide_linkage_ext: Vec<Option<types::Element>>,
 
     /// The individual amino acid subunits that together constitute this SubstanceProtein, described in detail by [`SubstanceProteinSubunit`]
-    pub subunit: Option<Vec<SubstanceProteinSubunit>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub subunit: Vec<SubstanceProteinSubunit>,
 }
 
 /// SubstanceProteinSubunit
@@ -120,10 +126,12 @@ pub struct SubstanceProteinSubunit {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Index of primary sequences of amino acids linked through peptide bonds in order of decreasing length
     pub subunit: Option<types::Integer>,

@@ -82,13 +82,16 @@ pub struct EvidenceVariable {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Canonical identifier for this evidence variable, represented as a URI (globally unique)
     pub url: Option<types::Uri>,
@@ -97,7 +100,8 @@ pub struct EvidenceVariable {
     pub url_ext: Option<types::Element>,
 
     /// Additional identifier for the evidence variable
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Business version of the evidence variable
     pub version: Option<types::String>,
@@ -152,7 +156,8 @@ pub struct EvidenceVariable {
     pub publisher_ext: Option<types::Element>,
 
     /// Contact details for the publisher
-    pub contact: Option<Vec<types::ContactDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contact: Vec<types::ContactDetail>,
 
     /// Natural language description of the evidence variable
     pub description: Option<types::Markdown>,
@@ -161,10 +166,12 @@ pub struct EvidenceVariable {
     pub description_ext: Option<types::Element>,
 
     /// Used for footnotes or explanatory notes
-    pub note: Option<Vec<types::Annotation>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub note: Vec<types::Annotation>,
 
     /// The context that the content is intended to support
-    pub use_context: Option<Vec<types::UsageContext>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub use_context: Vec<types::UsageContext>,
 
     /// Why this EvidenceVariable is defined
     pub purpose: Option<types::Markdown>,
@@ -200,19 +207,24 @@ pub struct EvidenceVariable {
     pub effective_period: Option<types::Period>,
 
     /// Who authored the content
-    pub author: Option<Vec<types::ContactDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub author: Vec<types::ContactDetail>,
 
     /// Who edited the content
-    pub editor: Option<Vec<types::ContactDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub editor: Vec<types::ContactDetail>,
 
     /// Who reviewed the content
-    pub reviewer: Option<Vec<types::ContactDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub reviewer: Vec<types::ContactDetail>,
 
     /// Who endorsed the content
-    pub endorser: Option<Vec<types::ContactDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub endorser: Vec<types::ContactDetail>,
 
     /// Additional documentation, citations, etc
-    pub related_artifact: Option<Vec<types::RelatedArtifact>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub related_artifact: Vec<types::RelatedArtifact>,
 
     /// Actual or conceptual
     pub actual: Option<types::Boolean>,
@@ -221,7 +233,8 @@ pub struct EvidenceVariable {
     pub actual_ext: Option<types::Element>,
 
     /// A defining factor of the EvidenceVariable, such as an inclusion or exclusion criterion
-    pub characteristic: Option<Vec<EvidenceVariableCharacteristic>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub characteristic: Vec<EvidenceVariableCharacteristic>,
 
     /// The type of variable measurement: continuous | dichotomous | ordinal | polychotomous
     pub handling: Option<crate::r5::coded::Coded<crate::r5::codes::VariableHandling>>,
@@ -230,7 +243,8 @@ pub struct EvidenceVariable {
     pub handling_ext: Option<types::Element>,
 
     /// A grouping for ordinal or polychotomous variables
-    pub category: Option<Vec<EvidenceVariableCategory>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub category: Vec<EvidenceVariableCategory>,
 }
 
 /// A defining factor of the EvidenceVariable.
@@ -242,10 +256,12 @@ pub struct EvidenceVariableCharacteristic {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Label for internal linking
     pub link_id: Option<types::Id>,
@@ -260,7 +276,8 @@ pub struct EvidenceVariableCharacteristic {
     pub description_ext: Option<types::Element>,
 
     /// Used for footnotes or explanatory notes
-    pub note: Option<Vec<types::Annotation>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub note: Vec<types::Annotation>,
 
     /// Whether the characteristic is an inclusion criterion or exclusion criterion
     pub exclude: Option<types::Boolean>,
@@ -304,7 +321,8 @@ pub struct EvidenceVariableCharacteristic {
     pub duration: Option<EvidenceVariableCharacteristicDuration>,
 
     /// Timing in which the characteristic is determined
-    pub time_from_event: Option<Vec<EvidenceVariableCharacteristicTimeFromEvent>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub time_from_event: Vec<EvidenceVariableCharacteristicTimeFromEvent>,
 }
 
 /// Defines the characteristic using type and value.
@@ -316,16 +334,19 @@ pub struct EvidenceVariableCharacteristicDefinitionByTypeAndValue {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Expresses the type of characteristic
     pub r#type: types::CodeableConcept,
 
     /// Method for how the characteristic value was determined
-    pub method: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub method: Vec<types::CodeableConcept>,
 
     /// Device used for determining characteristic
     pub device: Option<types::Reference>,
@@ -347,10 +368,12 @@ pub struct EvidenceVariableCharacteristicDefinitionByCombination {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// all-of | any-of | at-least | at-most | statistical | net-effect | dataset
     pub code: crate::r5::coded::Coded<crate::r5::codes::CharacteristicCombination>,
@@ -377,10 +400,12 @@ pub struct EvidenceVariableCharacteristicTimeFromEvent {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Human readable description
     pub description: Option<types::Markdown>,
@@ -389,7 +414,8 @@ pub struct EvidenceVariableCharacteristicTimeFromEvent {
     pub description_ext: Option<types::Element>,
 
     /// Used for footnotes or explanatory notes
-    pub note: Option<Vec<types::Annotation>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub note: Vec<types::Annotation>,
 
     /// The `EvidenceVariable.characteristic.timeFromEvent.event[x]` choice element (0..1); see [`EvidenceVariableCharacteristicTimeFromEventEvent`].
     #[serde(flatten)]
@@ -411,10 +437,12 @@ pub struct EvidenceVariableCategory {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Description of the grouping
     pub name: Option<types::String>,

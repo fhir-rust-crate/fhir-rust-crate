@@ -77,20 +77,24 @@ pub struct MessageHeader {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The `MessageHeader.event[x]` choice element (0..1); see [`MessageHeaderEvent`].
     #[serde(flatten)]
     pub event: Option<MessageHeaderEvent>,
 
     /// Message destination application(s)
-    pub destination: Option<Vec<MessageHeaderDestination>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub destination: Vec<MessageHeaderDestination>,
 
     /// Real world sender of the message
     pub sender: Option<types::Reference>,
@@ -111,7 +115,8 @@ pub struct MessageHeader {
     pub response: Option<MessageHeaderResponse>,
 
     /// References to the actual subject data of the message, carried elsewhere in the enclosing Bundle.
-    pub focus: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub focus: Vec<types::Reference>,
 
     /// Link to the definition for this message
     pub definition: Option<types::Canonical>,
@@ -133,10 +138,12 @@ pub struct MessageHeaderDestination {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The `MessageHeader.destination.endpoint[x]` choice element (0..1); see [`MessageHeaderDestinationEndpoint`].
     #[serde(flatten)]
@@ -168,10 +175,12 @@ pub struct MessageHeaderSource {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The `MessageHeader.source.endpoint[x]` choice element (0..1); see [`MessageHeaderSourceEndpoint`].
     #[serde(flatten)]
@@ -212,10 +221,12 @@ pub struct MessageHeaderResponse {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Bundle.identifier of original message
     pub identifier: types::Identifier,

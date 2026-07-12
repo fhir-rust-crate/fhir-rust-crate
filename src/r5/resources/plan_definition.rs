@@ -81,13 +81,16 @@ pub struct PlanDefinition {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Canonical identifier for this plan definition, represented as a URI (globally unique)
     pub url: Option<types::Uri>,
@@ -96,7 +99,8 @@ pub struct PlanDefinition {
     pub url_ext: Option<types::Element>,
 
     /// Additional identifier for the plan definition
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Business version of the plan definition
     pub version: Option<types::String>,
@@ -158,7 +162,8 @@ pub struct PlanDefinition {
     pub publisher_ext: Option<types::Element>,
 
     /// Contact details for the publisher
-    pub contact: Option<Vec<types::ContactDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contact: Vec<types::ContactDetail>,
 
     /// Natural language description of the plan definition
     pub description: Option<types::Markdown>,
@@ -167,10 +172,12 @@ pub struct PlanDefinition {
     pub description_ext: Option<types::Element>,
 
     /// The context that the content is intended to support
-    pub use_context: Option<Vec<types::UsageContext>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub use_context: Vec<types::UsageContext>,
 
     /// Intended jurisdiction for plan definition (if applicable)
-    pub jurisdiction: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub jurisdiction: Vec<types::CodeableConcept>,
 
     /// Why this plan definition is defined
     pub purpose: Option<types::Markdown>,
@@ -212,37 +219,48 @@ pub struct PlanDefinition {
     pub effective_period: Option<types::Period>,
 
     /// E.g. Education, Treatment, Assessment
-    pub topic: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub topic: Vec<types::CodeableConcept>,
 
     /// Who authored the content
-    pub author: Option<Vec<types::ContactDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub author: Vec<types::ContactDetail>,
 
     /// Who edited the content
-    pub editor: Option<Vec<types::ContactDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub editor: Vec<types::ContactDetail>,
 
     /// Who reviewed the content
-    pub reviewer: Option<Vec<types::ContactDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub reviewer: Vec<types::ContactDetail>,
 
     /// Who endorsed the content
-    pub endorser: Option<Vec<types::ContactDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub endorser: Vec<types::ContactDetail>,
 
     /// Additional documentation, citations
-    pub related_artifact: Option<Vec<types::RelatedArtifact>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub related_artifact: Vec<types::RelatedArtifact>,
 
     /// Logic used by the plan definition
-    pub library: Option<Vec<types::Canonical>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub library: Vec<types::Canonical>,
     /// Primitive extension sibling for [`library`](Self::library) (FHIR `_library`).
     #[serde(rename = "_library")]
-    pub library_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub library_ext: Vec<Option<types::Element>>,
 
     /// The clinical or business goals the plan is intended to accomplish, against which its actions can be measured.
-    pub goal: Option<Vec<PlanDefinitionGoal>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub goal: Vec<PlanDefinitionGoal>,
 
     /// The actors, such as roles or participant types, that take part in carrying out the plan.
-    pub actor: Option<Vec<PlanDefinitionActor>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub actor: Vec<PlanDefinitionActor>,
 
     /// The ordered, possibly nested actions that make up the plan and define what should be done and when.
-    pub action: Option<Vec<PlanDefinitionAction>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub action: Vec<PlanDefinitionAction>,
 
     /// The `PlanDefinition.asNeeded[x]` choice element (0..1); see [`PlanDefinitionAsNeeded`].
     #[serde(flatten)]
@@ -258,10 +276,12 @@ pub struct PlanDefinitionGoal {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// E.g. Treatment, dietary, behavioral
     pub category: Option<types::CodeableConcept>,
@@ -276,13 +296,16 @@ pub struct PlanDefinitionGoal {
     pub start: Option<types::CodeableConcept>,
 
     /// What does the goal address
-    pub addresses: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub addresses: Vec<types::CodeableConcept>,
 
     /// Supporting documentation for the goal
-    pub documentation: Option<Vec<types::RelatedArtifact>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub documentation: Vec<types::RelatedArtifact>,
 
     /// Target outcome for the goal
-    pub target: Option<Vec<PlanDefinitionGoalTarget>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub target: Vec<PlanDefinitionGoalTarget>,
 }
 
 /// Target outcome for the goal.
@@ -294,10 +317,12 @@ pub struct PlanDefinitionGoalTarget {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The parameter whose value is to be tracked
     pub measure: Option<types::CodeableConcept>,
@@ -319,10 +344,12 @@ pub struct PlanDefinitionActor {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// User-visible title
     pub title: Option<types::String>,
@@ -349,10 +376,12 @@ pub struct PlanDefinitionActorOption {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// careteam | device | group | healthcareservice | location | organization | patient | practitioner | practitionerrole | relatedperson
     pub r#type: Option<crate::r5::coded::Coded<crate::r5::codes::ActionParticipantType>>,
@@ -382,10 +411,12 @@ pub struct PlanDefinitionAction {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Unique id for the action in the PlanDefinition
     pub link_id: Option<types::String>,
@@ -427,35 +458,44 @@ pub struct PlanDefinitionAction {
     pub code: Option<types::CodeableConcept>,
 
     /// Why the action should be performed
-    pub reason: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub reason: Vec<types::CodeableConcept>,
 
     /// Supporting documentation for the intended performer of the action
-    pub documentation: Option<Vec<types::RelatedArtifact>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub documentation: Vec<types::RelatedArtifact>,
 
     /// What goals this action supports
-    pub goal_id: Option<Vec<types::Id>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub goal_id: Vec<types::Id>,
     /// Primitive extension sibling for [`goal_id`](Self::goal_id) (FHIR `_goalId`).
     #[serde(rename = "_goalId")]
-    pub goal_id_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub goal_id_ext: Vec<Option<types::Element>>,
 
     /// The `PlanDefinition.action.subject[x]` choice element (0..1); see [`PlanDefinitionActionSubject`].
     #[serde(flatten)]
     pub subject: Option<PlanDefinitionActionSubject>,
 
     /// When the action should be triggered
-    pub trigger: Option<Vec<types::TriggerDefinition>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub trigger: Vec<types::TriggerDefinition>,
 
     /// Whether or not the action is applicable
-    pub condition: Option<Vec<PlanDefinitionActionCondition>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub condition: Vec<PlanDefinitionActionCondition>,
 
     /// Input data requirements
-    pub input: Option<Vec<PlanDefinitionActionInput>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub input: Vec<PlanDefinitionActionInput>,
 
     /// Output data definition
-    pub output: Option<Vec<PlanDefinitionActionOutput>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub output: Vec<PlanDefinitionActionOutput>,
 
     /// Relationship to another action
-    pub related_action: Option<Vec<PlanDefinitionActionRelatedAction>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub related_action: Vec<PlanDefinitionActionRelatedAction>,
 
     /// The `PlanDefinition.action.timing[x]` choice element (0..1); see [`PlanDefinitionActionTiming`].
     #[serde(flatten)]
@@ -465,7 +505,8 @@ pub struct PlanDefinitionAction {
     pub location: Option<types::CodeableReference>,
 
     /// Who should participate in the action
-    pub participant: Option<Vec<PlanDefinitionActionParticipant>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub participant: Vec<PlanDefinitionActionParticipant>,
 
     /// create | update | remove | fire-event
     pub r#type: Option<types::CodeableConcept>,
@@ -511,10 +552,12 @@ pub struct PlanDefinitionAction {
     pub transform_ext: Option<types::Element>,
 
     /// Dynamic aspects of the definition
-    pub dynamic_value: Option<Vec<PlanDefinitionActionDynamicValue>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub dynamic_value: Vec<PlanDefinitionActionDynamicValue>,
 
     /// A sub-action
-    pub action: Option<Vec<PlanDefinitionAction>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub action: Vec<PlanDefinitionAction>,
 }
 
 /// Whether or not the action is applicable.
@@ -526,10 +569,12 @@ pub struct PlanDefinitionActionCondition {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// applicability | start | stop
     pub kind: crate::r5::coded::Coded<crate::r5::codes::ActionConditionKind>,
@@ -550,10 +595,12 @@ pub struct PlanDefinitionActionInput {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// User-visible title
     pub title: Option<types::String>,
@@ -580,10 +627,12 @@ pub struct PlanDefinitionActionOutput {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// User-visible title
     pub title: Option<types::String>,
@@ -610,10 +659,12 @@ pub struct PlanDefinitionActionRelatedAction {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// What action is this related to
     pub target_id: types::Id,
@@ -647,10 +698,12 @@ pub struct PlanDefinitionActionParticipant {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// What actor
     pub actor_id: Option<types::String>,
@@ -689,10 +742,12 @@ pub struct PlanDefinitionActionDynamicValue {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The path to the element to be set dynamically
     pub path: Option<types::String>,

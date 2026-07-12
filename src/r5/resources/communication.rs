@@ -82,37 +82,48 @@ pub struct Communication {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Unique identifier
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Instantiates FHIR protocol or definition
-    pub instantiates_canonical: Option<Vec<types::Canonical>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub instantiates_canonical: Vec<types::Canonical>,
     /// Primitive extension sibling for [`instantiates_canonical`](Self::instantiates_canonical) (FHIR `_instantiatesCanonical`).
     #[serde(rename = "_instantiatesCanonical")]
-    pub instantiates_canonical_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub instantiates_canonical_ext: Vec<Option<types::Element>>,
 
     /// Instantiates external protocol or definition
-    pub instantiates_uri: Option<Vec<types::Uri>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub instantiates_uri: Vec<types::Uri>,
     /// Primitive extension sibling for [`instantiates_uri`](Self::instantiates_uri) (FHIR `_instantiatesUri`).
     #[serde(rename = "_instantiatesUri")]
-    pub instantiates_uri_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub instantiates_uri_ext: Vec<Option<types::Element>>,
 
     /// Request fulfilled by this communication
-    pub based_on: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub based_on: Vec<types::Reference>,
 
     /// Part of referenced event (e.g. Communication, Procedure)
-    pub part_of: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub part_of: Vec<types::Reference>,
 
     /// Reply to
-    pub in_response_to: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub in_response_to: Vec<types::Reference>,
 
     /// The lifecycle status of this communication: preparation | in-progress
     /// | not-done | on-hold | stopped | completed | entered-in-error | unknown.
@@ -125,7 +136,8 @@ pub struct Communication {
     pub status_reason: Option<types::CodeableConcept>,
 
     /// Message category
-    pub category: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub category: Vec<types::CodeableConcept>,
 
     /// routine | urgent | asap | stat
     pub priority: Option<crate::r5::coded::Coded<crate::r5::codes::RequestPriority>>,
@@ -134,7 +146,8 @@ pub struct Communication {
     pub priority_ext: Option<types::Element>,
 
     /// A channel of communication
-    pub medium: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub medium: Vec<types::CodeableConcept>,
 
     /// Focus of message, typically a reference to a `Patient` or `Group`
     /// about whom the communication is concerned.
@@ -144,7 +157,8 @@ pub struct Communication {
     pub topic: Option<types::CodeableConcept>,
 
     /// Resources that pertain to this communication
-    pub about: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub about: Vec<types::Reference>,
 
     /// The Encounter during which this Communication was created
     pub encounter: Option<types::Reference>,
@@ -163,19 +177,23 @@ pub struct Communication {
 
     /// Who the information is shared with, such as one or more patients,
     /// practitioners, or other care team members.
-    pub recipient: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub recipient: Vec<types::Reference>,
 
     /// Who shares the information, i.e. the originator of the communication.
     pub sender: Option<types::Reference>,
 
     /// Indication for message
-    pub reason: Option<Vec<types::CodeableReference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub reason: Vec<types::CodeableReference>,
 
     /// Message payload
-    pub payload: Option<Vec<CommunicationPayload>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub payload: Vec<CommunicationPayload>,
 
     /// Comments made about the communication
-    pub note: Option<Vec<types::Annotation>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub note: Vec<types::Annotation>,
 }
 
 /// Message payload.
@@ -190,10 +208,12 @@ pub struct CommunicationPayload {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The `Communication.payload.content[x]` choice element (0..1); see [`CommunicationPayloadContent`].
     #[serde(flatten)]

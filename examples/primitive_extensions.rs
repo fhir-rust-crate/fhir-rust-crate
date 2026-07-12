@@ -46,9 +46,8 @@ fn main() {
     if let Some(birth_time) = patient
         .birth_date_ext
         .as_ref()
-        .and_then(|e| e.extension.as_ref())
-        .into_iter()
-        .flatten()
+        .iter()
+        .flat_map(|e| &e.extension)
         .filter(|ext| ext.url.0.ends_with("patient-birthTime"))
         .find_map(|ext| match &ext.value {
             Some(ExtensionValue::DateTime(p)) => Some(&p.value),
@@ -73,7 +72,7 @@ fn main() {
     let built = Patient {
         birth_date: Some(Date("2000-01-01".to_string())),
         birth_date_ext: Some(Element {
-            extension: Some(vec![Extension {
+            extension: vec![Extension {
                 url: FhirString(
                     "http://hl7.org/fhir/StructureDefinition/patient-birthTime".to_string(),
                 ),
@@ -81,7 +80,7 @@ fn main() {
                     "2000-01-01T06:00:00Z".to_string(),
                 )))),
                 ..Default::default()
-            }]),
+            }],
             ..Default::default()
         }),
         ..Default::default()

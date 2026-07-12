@@ -82,13 +82,16 @@ pub struct NutritionProduct {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Coded identifier for the product that conveys its detailed nutrients and ingredients, drawn from food or supplement terminologies
     pub code: Option<types::CodeableConcept>,
@@ -100,28 +103,36 @@ pub struct NutritionProduct {
     pub status_ext: Option<types::Element>,
 
     /// Broad product groups or categories used to classify the product, such as Legume and Legume Products, Beverages, or Beef Products
-    pub category: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub category: Vec<types::CodeableConcept>,
 
     /// Manufacturer, representative or officially responsible for the product
-    pub manufacturer: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub manufacturer: Vec<types::Reference>,
 
     /// The product's nutritional composition, expressed as nutrient amounts such as per pack, per serving, or per dose
-    pub nutrient: Option<Vec<NutritionProductNutrient>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub nutrient: Vec<NutritionProductNutrient>,
 
     /// Ingredients contained in this product
-    pub ingredient: Option<Vec<NutritionProductIngredient>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub ingredient: Vec<NutritionProductIngredient>,
 
     /// Known or suspected allergens present in the product, supporting allergy screening and safe consumption
-    pub known_allergen: Option<Vec<types::CodeableReference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub known_allergen: Vec<types::CodeableReference>,
 
     /// Specifies descriptive properties of the nutrition product
-    pub characteristic: Option<Vec<NutritionProductCharacteristic>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub characteristic: Vec<NutritionProductCharacteristic>,
 
     /// One or several physical instances or occurrences of the nutrition product
-    pub instance: Option<Vec<NutritionProductInstance>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub instance: Vec<NutritionProductInstance>,
 
     /// Comments made about the product
-    pub note: Option<Vec<types::Annotation>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub note: Vec<types::Annotation>,
 }
 
 /// The product's nutritional information expressed by the nutrients.
@@ -133,16 +144,19 @@ pub struct NutritionProductNutrient {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The (relevant) nutrients in the product
     pub item: Option<types::CodeableReference>,
 
     /// The amount of nutrient expressed in one or more units: X per pack / per serving / per dose
-    pub amount: Option<Vec<types::Ratio>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub amount: Vec<types::Ratio>,
 }
 
 /// Ingredients contained in this product.
@@ -154,16 +168,19 @@ pub struct NutritionProductIngredient {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The ingredient contained in the product
     pub item: types::CodeableReference,
 
     /// The amount of ingredient that is in the product
-    pub amount: Option<Vec<types::Ratio>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub amount: Vec<types::Ratio>,
 }
 
 /// Specifies descriptive properties of the nutrition product.
@@ -175,10 +192,12 @@ pub struct NutritionProductCharacteristic {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Code specifying the type of characteristic
     pub r#type: types::CodeableConcept,
@@ -197,16 +216,19 @@ pub struct NutritionProductInstance {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The amount of items or instances
     pub quantity: Option<types::Quantity>,
 
     /// The identifier for the physical instance, typically a serial number or manufacturer number
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// The name for the specific product
     pub name: Option<types::String>,

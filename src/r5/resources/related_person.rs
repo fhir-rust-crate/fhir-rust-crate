@@ -82,16 +82,20 @@ pub struct RelatedPerson {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Business identifier(s) assigned to this related person, distinct from any identifiers held for the patient
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Whether this related person's record is currently in active use for care coordination
     pub active: Option<types::Boolean>,
@@ -103,13 +107,16 @@ pub struct RelatedPerson {
     pub patient: types::Reference,
 
     /// Coded nature of the relationship to the patient, such as parent, spouse, guardian, or emergency contact
-    pub relationship: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub relationship: Vec<types::CodeableConcept>,
 
     /// Name(s) by which this related person is known, using the same `HumanName` structure as on `Patient`
-    pub name: Option<Vec<types::HumanName>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub name: Vec<types::HumanName>,
 
     /// A contact detail for the person
-    pub telecom: Option<Vec<types::ContactPoint>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub telecom: Vec<types::ContactPoint>,
 
     /// male | female | other | unknown
     pub gender: Option<crate::r5::coded::Coded<crate::r5::codes::AdministrativeGender>>,
@@ -124,16 +131,19 @@ pub struct RelatedPerson {
     pub birth_date_ext: Option<types::Element>,
 
     /// Address where the related person can be contacted or visited
-    pub address: Option<Vec<types::Address>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub address: Vec<types::Address>,
 
     /// Image of the person
-    pub photo: Option<Vec<types::Attachment>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub photo: Vec<types::Attachment>,
 
     /// Period of time during which this relationship to the patient is considered valid and in effect
     pub period: Option<types::Period>,
 
     /// A language which may be used to communicate with the related person about the patient's health
-    pub communication: Option<Vec<RelatedPersonCommunication>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub communication: Vec<RelatedPersonCommunication>,
 }
 
 /// A language which may be used to communicate with the related person about the
@@ -146,10 +156,12 @@ pub struct RelatedPersonCommunication {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The language which can be used to communicate with the related person about the patient's health
     pub language: types::CodeableConcept,

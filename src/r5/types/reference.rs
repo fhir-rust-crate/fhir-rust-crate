@@ -43,7 +43,8 @@ pub struct Reference<T = Any> {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
     /// Literal reference, relative, internal or absolute URL. // « C »
     pub reference: Option<types::String>, //  « C »
     /// Primitive extension sibling for [`reference`](Self::reference) (FHIR `_reference`).
@@ -157,7 +158,7 @@ impl<T: ResourceType> Reference<T> {
     ) -> Option<&'b ::serde_json::Value> {
         let want = &self.reference.as_ref()?.0;
         let expected = T::resource_type_name();
-        for entry in bundle.entry.as_ref()? {
+        for entry in &bundle.entry {
             let matches_full_url = entry.full_url.as_ref().is_some_and(|u| &u.0 == want);
             let resource = entry.resource.as_ref();
             let rt = resource.and_then(|r| r.get("resourceType")).and_then(|v| v.as_str());

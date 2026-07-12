@@ -79,19 +79,24 @@ pub struct MedicationStatement {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// External identifier
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Part of referenced event
-    pub part_of: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub part_of: Vec<types::Reference>,
 
     /// Status of the assertion as a code such as recorded, entered-in-error, or draft, indicating how the statement should be interpreted.
     pub status: crate::r5::coded::Coded<crate::r5::codes::MedicationStatementStatus>,
@@ -100,7 +105,8 @@ pub struct MedicationStatement {
     pub status_ext: Option<types::Element>,
 
     /// Type of medication statement
-    pub category: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub category: Vec<types::CodeableConcept>,
 
     /// What medication was taken, given as a coded concept or a reference to a Medication resource.
     pub medication: types::CodeableReference,
@@ -122,19 +128,24 @@ pub struct MedicationStatement {
     pub date_asserted_ext: Option<types::Element>,
 
     /// Person or organization that provided the information about the taking of this medication
-    pub information_source: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub information_source: Vec<types::Reference>,
 
     /// Link to information used to derive the MedicationStatement
-    pub derived_from: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub derived_from: Vec<types::Reference>,
 
     /// Reason for why the medication is being/was taken
-    pub reason: Option<Vec<types::CodeableReference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub reason: Vec<types::CodeableReference>,
 
     /// Further information about the usage
-    pub note: Option<Vec<types::Annotation>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub note: Vec<types::Annotation>,
 
     /// Link to information relevant to the usage of a medication
-    pub related_clinical_information: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub related_clinical_information: Vec<types::Reference>,
 
     /// Full representation of the dosage instructions
     pub rendered_dosage_instruction: Option<types::Markdown>,
@@ -143,7 +154,8 @@ pub struct MedicationStatement {
     pub rendered_dosage_instruction_ext: Option<types::Element>,
 
     /// Details of how the medication is, was, or should be taken, including dose, route, and timing.
-    pub dosage: Option<Vec<types::Dosage>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub dosage: Vec<types::Dosage>,
 
     /// Indicates whether the medication is or is not being consumed or administered
     pub adherence: Option<MedicationStatementAdherence>,
@@ -161,10 +173,12 @@ pub struct MedicationStatementAdherence {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Type of adherence
     pub code: types::CodeableConcept,

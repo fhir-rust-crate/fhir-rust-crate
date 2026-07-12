@@ -81,13 +81,16 @@ pub struct GraphDefinition {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Canonical identifier for this graph definition, represented as a URI (globally unique), used to reference it from other artifacts
     pub url: Option<types::Uri>,
@@ -96,7 +99,8 @@ pub struct GraphDefinition {
     pub url_ext: Option<types::Element>,
 
     /// Additional identifier for the GraphDefinition (business identifier)
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Business version of the graph definition
     pub version: Option<types::String>,
@@ -145,7 +149,8 @@ pub struct GraphDefinition {
     pub publisher_ext: Option<types::Element>,
 
     /// Contact details for the publisher
-    pub contact: Option<Vec<types::ContactDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contact: Vec<types::ContactDetail>,
 
     /// Natural language description of the graph definition
     pub description: Option<types::Markdown>,
@@ -154,10 +159,12 @@ pub struct GraphDefinition {
     pub description_ext: Option<types::Element>,
 
     /// The context that the content is intended to support
-    pub use_context: Option<Vec<types::UsageContext>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub use_context: Vec<types::UsageContext>,
 
     /// Intended jurisdiction for graph definition (if applicable)
-    pub jurisdiction: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub jurisdiction: Vec<types::CodeableConcept>,
 
     /// Why this graph definition is defined
     pub purpose: Option<types::Markdown>,
@@ -184,10 +191,12 @@ pub struct GraphDefinition {
     pub start_ext: Option<types::Element>,
 
     /// The set of nodes that are potential targets for links within this graph
-    pub node: Option<Vec<GraphDefinitionNode>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub node: Vec<GraphDefinitionNode>,
 
     /// The rules about how references between resources are followed to build this graph
-    pub link: Option<Vec<GraphDefinitionLink>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub link: Vec<GraphDefinitionLink>,
 }
 
 /// Potential target for the link.
@@ -202,10 +211,12 @@ pub struct GraphDefinitionNode {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Internal ID - target for link references
     pub node_id: types::Id,
@@ -245,10 +256,12 @@ pub struct GraphDefinitionLink {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Why this link is specified
     pub description: Option<types::String>,
@@ -299,7 +312,8 @@ pub struct GraphDefinitionLink {
     pub params_ext: Option<types::Element>,
 
     /// Compartment Consistency Rules
-    pub compartment: Option<Vec<GraphDefinitionLinkCompartment>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub compartment: Vec<GraphDefinitionLinkCompartment>,
 }
 
 /// Compartment Consistency Rules.
@@ -315,10 +329,12 @@ pub struct GraphDefinitionLinkCompartment {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// where | requires
     pub r#use: crate::r5::coded::Coded<crate::r5::codes::GraphCompartmentUse>,

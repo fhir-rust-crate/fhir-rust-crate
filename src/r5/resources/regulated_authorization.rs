@@ -76,19 +76,24 @@ pub struct RegulatedAuthorization {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Business identifier for the authorization, typically assigned by the authorizing body
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// References to the medicinal product, device, treatment, facility or activity that is the subject being authorized
-    pub subject: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub subject: Vec<types::Reference>,
 
     /// Overall type of this authorization, for example drug marketing approval, orphan drug designation
     pub r#type: Option<types::CodeableConcept>,
@@ -100,7 +105,8 @@ pub struct RegulatedAuthorization {
     pub description_ext: Option<types::Element>,
 
     /// The territory in which the authorization has been granted
-    pub region: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub region: Vec<types::CodeableConcept>,
 
     /// The authorized status such as approved; intermediate states can instead be tracked through cases and applications
     pub status: Option<types::CodeableConcept>,
@@ -115,13 +121,15 @@ pub struct RegulatedAuthorization {
     pub validity_period: Option<types::Period>,
 
     /// Condition for which the use of the regulated product applies
-    pub indication: Option<Vec<types::CodeableReference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub indication: Vec<types::CodeableReference>,
 
     /// The intended use of the product, e.g. prevention, treatment
     pub intended_use: Option<types::CodeableConcept>,
 
     /// The legal/regulatory framework or reasons under which this authorization is granted
-    pub basis: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub basis: Vec<types::CodeableConcept>,
 
     /// The organization that has been granted this authorization, by the regulator
     pub holder: Option<types::Reference>,
@@ -130,7 +138,8 @@ pub struct RegulatedAuthorization {
     pub regulator: Option<types::Reference>,
 
     /// Additional information or supporting documentation about the authorization
-    pub attached_document: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub attached_document: Vec<types::Reference>,
 
     /// The case or regulatory procedure for granting or amending a regulated authorization
     pub case: Option<RegulatedAuthorizationCase>,
@@ -147,10 +156,12 @@ pub struct RegulatedAuthorizationCase {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Identifier by which this case can be referenced
     pub identifier: Option<types::Identifier>,
@@ -166,7 +177,8 @@ pub struct RegulatedAuthorizationCase {
     pub date: Option<RegulatedAuthorizationCaseDate>,
 
     /// Applications submitted to obtain a regulated authorization. Steps within the longer running case or procedure
-    pub application: Option<Vec<RegulatedAuthorizationCase>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub application: Vec<RegulatedAuthorizationCase>,
 }
 
 #[cfg(test)]

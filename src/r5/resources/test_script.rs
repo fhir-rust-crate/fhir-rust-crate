@@ -83,13 +83,16 @@ pub struct TestScript {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Canonical identifier for this test script, represented as a URI (globally unique), used to reference it from other artifacts
     pub url: Option<types::Uri>,
@@ -98,7 +101,8 @@ pub struct TestScript {
     pub url_ext: Option<types::Element>,
 
     /// Additional identifier for the test script
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Business version of the test script
     pub version: Option<types::String>,
@@ -147,7 +151,8 @@ pub struct TestScript {
     pub publisher_ext: Option<types::Element>,
 
     /// Contact details for the publisher
-    pub contact: Option<Vec<types::ContactDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contact: Vec<types::ContactDetail>,
 
     /// Natural language description of the test script
     pub description: Option<types::Markdown>,
@@ -156,10 +161,12 @@ pub struct TestScript {
     pub description_ext: Option<types::Element>,
 
     /// The context that the content is intended to support
-    pub use_context: Option<Vec<types::UsageContext>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub use_context: Vec<types::UsageContext>,
 
     /// Intended jurisdiction for test script (if applicable)
-    pub jurisdiction: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub jurisdiction: Vec<types::CodeableConcept>,
 
     /// Why this test script is defined
     pub purpose: Option<types::Markdown>,
@@ -180,34 +187,42 @@ pub struct TestScript {
     pub copyright_label_ext: Option<types::Element>,
 
     /// An abstract server representing a client or sender in a message exchange
-    pub origin: Option<Vec<TestScriptOrigin>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub origin: Vec<TestScriptOrigin>,
 
     /// An abstract server representing a destination or receiver in a message exchange
-    pub destination: Option<Vec<TestScriptDestination>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub destination: Vec<TestScriptDestination>,
 
     /// Required capability that is assumed to function correctly on the FHIR server being tested
     pub metadata: Option<TestScriptMetadata>,
 
     /// Indication of the artifact(s) that are tested by this test case
-    pub scope: Option<Vec<TestScriptScope>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub scope: Vec<TestScriptScope>,
 
     /// Fixture in the test script - by reference (uri)
-    pub fixture: Option<Vec<TestScriptFixture>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub fixture: Vec<TestScriptFixture>,
 
     /// Reference of the validation profile
-    pub profile: Option<Vec<types::Canonical>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub profile: Vec<types::Canonical>,
     /// Primitive extension sibling for [`profile`](Self::profile) (FHIR `_profile`).
     #[serde(rename = "_profile")]
-    pub profile_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub profile_ext: Vec<Option<types::Element>>,
 
     /// Placeholder for evaluated elements
-    pub variable: Option<Vec<TestScriptVariable>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub variable: Vec<TestScriptVariable>,
 
     /// A series of required setup operations, run once before any tests are executed, that establish the preconditions needed for the test suite
     pub setup: Option<TestScriptSetup>,
 
     /// A test in this script, each containing an ordered sequence of operations and assertions that exercise the system under test
-    pub test: Option<Vec<TestScriptTest>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub test: Vec<TestScriptTest>,
 
     /// A series of required clean up steps, run once after all tests complete, that remove fixtures and restore the server to its prior state
     pub teardown: Option<TestScriptTeardown>,
@@ -222,10 +237,12 @@ pub struct TestScriptOrigin {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The index of the abstract origin server starting at 1
     pub index: types::Integer,
@@ -252,10 +269,12 @@ pub struct TestScriptDestination {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The index of the abstract destination server starting at 1
     pub index: types::Integer,
@@ -282,13 +301,16 @@ pub struct TestScriptMetadata {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Links to the FHIR specification
-    pub link: Option<Vec<TestScriptMetadataLink>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub link: Vec<TestScriptMetadataLink>,
 
     /// Capabilities  that are assumed to function correctly on the FHIR server being tested
     pub capability: vec1::Vec1<TestScriptMetadataCapability>,
@@ -303,10 +325,12 @@ pub struct TestScriptMetadataLink {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// URL to the specification
     pub url: types::Uri,
@@ -330,10 +354,12 @@ pub struct TestScriptMetadataCapability {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Are the capabilities required?
     pub required: types::Boolean,
@@ -354,10 +380,12 @@ pub struct TestScriptMetadataCapability {
     pub description_ext: Option<types::Element>,
 
     /// Which origin server these requirements apply to
-    pub origin: Option<Vec<types::Integer>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub origin: Vec<types::Integer>,
     /// Primitive extension sibling for [`origin`](Self::origin) (FHIR `_origin`).
     #[serde(rename = "_origin")]
-    pub origin_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub origin_ext: Vec<Option<types::Element>>,
 
     /// Which server these requirements apply to
     pub destination: Option<types::Integer>,
@@ -366,10 +394,12 @@ pub struct TestScriptMetadataCapability {
     pub destination_ext: Option<types::Element>,
 
     /// Links to the FHIR specification
-    pub link: Option<Vec<types::Uri>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub link: Vec<types::Uri>,
     /// Primitive extension sibling for [`link`](Self::link) (FHIR `_link`).
     #[serde(rename = "_link")]
-    pub link_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub link_ext: Vec<Option<types::Element>>,
 
     /// Required Capability Statement
     pub capabilities: types::Canonical,
@@ -387,10 +417,12 @@ pub struct TestScriptScope {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The specific conformance artifact being tested
     pub artifact: types::Canonical,
@@ -414,10 +446,12 @@ pub struct TestScriptFixture {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Whether or not to implicitly create the fixture during setup
     pub autocreate: types::Boolean,
@@ -444,10 +478,12 @@ pub struct TestScriptVariable {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Descriptive name for this variable
     pub name: types::String,
@@ -507,10 +543,12 @@ pub struct TestScriptSetup {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// A setup operation or assert to perform
     pub action: vec1::Vec1<TestScriptSetupAction>,
@@ -525,10 +563,12 @@ pub struct TestScriptSetupAction {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The setup operation to perform
     pub operation: Option<TestScriptSetupActionOperation>,
@@ -546,10 +586,12 @@ pub struct TestScriptSetupActionOperation {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The operation code type that will be executed
     pub r#type: Option<types::Coding>,
@@ -615,7 +657,8 @@ pub struct TestScriptSetupActionOperation {
     pub params_ext: Option<types::Element>,
 
     /// Each operation can have one or more header elements
-    pub request_header: Option<Vec<TestScriptSetupActionOperationRequestHeader>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub request_header: Vec<TestScriptSetupActionOperationRequestHeader>,
 
     /// Fixture Id of mapped request
     pub request_id: Option<types::Id>,
@@ -657,10 +700,12 @@ pub struct TestScriptSetupActionOperationRequestHeader {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// HTTP header field name
     pub field: types::String,
@@ -684,10 +729,12 @@ pub struct TestScriptSetupActionAssert {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Tracking/logging assertion label
     pub label: Option<types::String>,
@@ -832,7 +879,8 @@ pub struct TestScriptSetupActionAssert {
     pub warning_only_ext: Option<types::Element>,
 
     /// Links or references to the testing requirements
-    pub requirement: Option<Vec<TestScriptSetupActionAssertRequirement>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub requirement: Vec<TestScriptSetupActionAssertRequirement>,
 }
 
 /// Links or references to the testing requirements.
@@ -844,10 +892,12 @@ pub struct TestScriptSetupActionAssertRequirement {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The `TestScript.setup.action.assert.requirement.link[x]` choice element (0..1); see [`TestScriptSetupActionAssertRequirementLink`].
     #[serde(flatten)]
@@ -863,10 +913,12 @@ pub struct TestScriptTest {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Tracking/logging name of this test
     pub name: Option<types::String>,
@@ -893,10 +945,12 @@ pub struct TestScriptTestAction {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The setup operation to perform
     pub operation: Option<TestScriptSetupActionOperation>,
@@ -914,10 +968,12 @@ pub struct TestScriptTeardown {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// One or more teardown operations to perform
     pub action: vec1::Vec1<TestScriptTeardownAction>,
@@ -932,10 +988,12 @@ pub struct TestScriptTeardownAction {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The teardown operation to perform
     pub operation: TestScriptSetupActionOperation,

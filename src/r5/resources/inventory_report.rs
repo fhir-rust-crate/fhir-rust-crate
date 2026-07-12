@@ -74,16 +74,20 @@ pub struct InventoryReport {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Business identifier for the report
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// The current status of this report in its workflow: draft | requested | active | entered-in-error
     pub status: crate::r5::coded::Coded<crate::r5::codes::InventoryreportStatus>,
@@ -116,10 +120,12 @@ pub struct InventoryReport {
     pub reporting_period: Option<types::Period>,
 
     /// One or more inventory listing sections, each grouping counted items by location, status, and/or count date
-    pub inventory_listing: Option<Vec<InventoryReportInventoryListing>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub inventory_listing: Vec<InventoryReportInventoryListing>,
 
     /// A note associated with the InventoryReport
-    pub note: Option<Vec<types::Annotation>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub note: Vec<types::Annotation>,
 }
 
 /// An inventory listing section (grouped by any of the attributes).
@@ -131,10 +137,12 @@ pub struct InventoryReportInventoryListing {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Location of the inventory items
     pub location: Option<types::Reference>,
@@ -149,7 +157,8 @@ pub struct InventoryReportInventoryListing {
     pub counting_date_time_ext: Option<types::Element>,
 
     /// The item or items in this listing
-    pub item: Option<Vec<InventoryReportInventoryListingItem>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub item: Vec<InventoryReportInventoryListingItem>,
 }
 
 /// The item or items in this listing.
@@ -161,10 +170,12 @@ pub struct InventoryReportInventoryListingItem {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The inventory category or classification of the items being reported
     pub category: Option<types::CodeableConcept>,

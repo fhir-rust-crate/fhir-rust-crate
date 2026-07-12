@@ -46,13 +46,16 @@ pub struct Availability {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Times the {item} is available
-    pub available_time: Option<Vec<AvailabilityAvailableTime>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub available_time: Vec<AvailabilityAvailableTime>,
 
     /// Not available during this time due to provided reason
-    pub not_available_time: Option<Vec<AvailabilityNotAvailableTime>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub not_available_time: Vec<AvailabilityNotAvailableTime>,
 }
 
 /// Times the {item} is available.
@@ -67,13 +70,16 @@ pub struct AvailabilityAvailableTime {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// mon | tue | wed | thu | fri | sat | sun
-    pub days_of_week: Option<Vec<crate::r5::coded::Coded<crate::r5::codes::DaysOfWeek>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub days_of_week: Vec<crate::r5::coded::Coded<crate::r5::codes::DaysOfWeek>>,
     /// Primitive extension sibling for [`days_of_week`](Self::days_of_week) (FHIR `_daysOfWeek`).
     #[serde(rename = "_daysOfWeek")]
-    pub days_of_week_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub days_of_week_ext: Vec<Option<types::Element>>,
 
     /// Always available? i.e. 24 hour service
     pub all_day: Option<types::Boolean>,
@@ -106,7 +112,8 @@ pub struct AvailabilityNotAvailableTime {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Reason presented to the user explaining why time not available
     pub description: Option<types::String>,

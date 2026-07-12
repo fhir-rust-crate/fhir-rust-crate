@@ -83,7 +83,7 @@ fn invariant_stmts(struct_name: &str, fields: &Fields) -> proc_macro2::TokenStre
     if struct_name == "Extension" {
         checks.extend(quote! {
             let __has_value = self.value.is_some();
-            let __has_ext = self.extension.as_ref().is_some_and(|e| !e.is_empty());
+            let __has_ext = !self.extension.is_empty();
             if __has_value == __has_ext {
                 issues.push(crate::r5::validate::ValidationIssue::new(
                     "",
@@ -98,23 +98,21 @@ fn invariant_stmts(struct_name: &str, fields: &Fields) -> proc_macro2::TokenStre
         if f.named.iter().any(|x| x.ident.as_ref().is_some_and(|i| i == "contained")));
     if has_contained {
         checks.extend(quote! {
-            if let ::core::option::Option::Some(__contained) = &self.contained {
-                for (__i, __c) in __contained.iter().enumerate() {
-                    if __c.get("contained").is_some() {
-                        issues.push(crate::r5::validate::ValidationIssue::new(
-                            &format!("contained[{__i}]"),
-                            "dom-2: a contained resource SHALL NOT itself contain resources",
-                        ));
-                    }
-                    let __meta = __c.get("meta");
-                    if __meta.and_then(|m| m.get("versionId")).is_some()
-                        || __meta.and_then(|m| m.get("lastUpdated")).is_some()
-                    {
-                        issues.push(crate::r5::validate::ValidationIssue::new(
-                            &format!("contained[{__i}]"),
-                            "dom-4: a contained resource SHALL NOT have meta.versionId or meta.lastUpdated",
-                        ));
-                    }
+            for (__i, __c) in self.contained.iter().enumerate() {
+                if __c.get("contained").is_some() {
+                    issues.push(crate::r5::validate::ValidationIssue::new(
+                        &format!("contained[{__i}]"),
+                        "dom-2: a contained resource SHALL NOT itself contain resources",
+                    ));
+                }
+                let __meta = __c.get("meta");
+                if __meta.and_then(|m| m.get("versionId")).is_some()
+                    || __meta.and_then(|m| m.get("lastUpdated")).is_some()
+                {
+                    issues.push(crate::r5::validate::ValidationIssue::new(
+                        &format!("contained[{__i}]"),
+                        "dom-4: a contained resource SHALL NOT have meta.versionId or meta.lastUpdated",
+                    ));
                 }
             }
         });

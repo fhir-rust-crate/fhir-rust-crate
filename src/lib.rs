@@ -59,11 +59,11 @@
 //!     id: Some(FhirString("pat-1".to_string())),
 //!     active: Some(Boolean(true)),
 //!     gender: Some(Coded::Known(AdministrativeGender::Male)),
-//!     name: Some(vec![HumanName {
+//!     name: vec![HumanName {
 //!         family: Some(FhirString("Chalmers".to_string())),
 //!         given: vec![FhirString("Peter".to_string())],
 //!         ..Default::default()
-//!     }]),
+//!     }],
 //!     ..Default::default()
 //! };
 //!

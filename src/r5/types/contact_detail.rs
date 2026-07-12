@@ -40,7 +40,8 @@ pub struct ContactDetail {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Name of an individual to contact
     pub name: Option<types::String>,
@@ -49,7 +50,8 @@ pub struct ContactDetail {
     pub name_ext: Option<types::Element>,
 
     /// Contact details for individual or organization
-    pub telecom: Option<Vec<types::ContactPoint>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub telecom: Vec<types::ContactPoint>,
 }
 
 #[cfg(test)]

@@ -83,13 +83,16 @@ pub struct TerminologyCapabilities {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Canonical identifier for this terminology capabilities, represented as a URI (globally unique)
     pub url: Option<types::Uri>,
@@ -98,7 +101,8 @@ pub struct TerminologyCapabilities {
     pub url_ext: Option<types::Element>,
 
     /// Additional identifier for the terminology capabilities
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Business version of the terminology capabilities
     pub version: Option<types::String>,
@@ -147,7 +151,8 @@ pub struct TerminologyCapabilities {
     pub publisher_ext: Option<types::Element>,
 
     /// Contact details for the publisher
-    pub contact: Option<Vec<types::ContactDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contact: Vec<types::ContactDetail>,
 
     /// Natural language description of the terminology capabilities
     pub description: Option<types::Markdown>,
@@ -156,10 +161,12 @@ pub struct TerminologyCapabilities {
     pub description_ext: Option<types::Element>,
 
     /// The context that the content is intended to support
-    pub use_context: Option<Vec<types::UsageContext>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub use_context: Vec<types::UsageContext>,
 
     /// Intended jurisdiction for terminology capabilities (if applicable)
-    pub jurisdiction: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub jurisdiction: Vec<types::CodeableConcept>,
 
     /// Why this terminology capabilities is defined
     pub purpose: Option<types::Markdown>,
@@ -198,7 +205,8 @@ pub struct TerminologyCapabilities {
     pub locked_date_ext: Option<types::Element>,
 
     /// A code system, with its supported versions and content mode, that the server can resolve terminology operations against
-    pub code_system: Option<Vec<TerminologyCapabilitiesCodeSystem>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub code_system: Vec<TerminologyCapabilitiesCodeSystem>,
 
     /// Information about the ValueSet/$expand operation
     pub expansion: Option<TerminologyCapabilitiesExpansion>,
@@ -228,10 +236,12 @@ pub struct TerminologyCapabilitiesSoftware {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// A name the software is known by
     pub name: types::String,
@@ -255,10 +265,12 @@ pub struct TerminologyCapabilitiesImplementation {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Describes this specific instance
     pub description: types::String,
@@ -282,10 +294,12 @@ pub struct TerminologyCapabilitiesCodeSystem {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Canonical identifier for the code system, represented as a URI
     pub uri: Option<types::Canonical>,
@@ -294,7 +308,8 @@ pub struct TerminologyCapabilitiesCodeSystem {
     pub uri_ext: Option<types::Element>,
 
     /// Version of Code System supported
-    pub version: Option<Vec<TerminologyCapabilitiesCodeSystemVersion>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub version: Vec<TerminologyCapabilitiesCodeSystemVersion>,
 
     /// not-present | example | fragment | complete | supplement
     pub content: crate::r5::coded::Coded<crate::r5::codes::CodesystemContentMode>,
@@ -318,10 +333,12 @@ pub struct TerminologyCapabilitiesCodeSystemVersion {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Version identifier for this version
     pub code: Option<types::String>,
@@ -342,19 +359,24 @@ pub struct TerminologyCapabilitiesCodeSystemVersion {
     pub compositional_ext: Option<types::Element>,
 
     /// Language Displays supported
-    pub language: Option<Vec<types::Code>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub language: Vec<types::Code>,
     /// Primitive extension sibling for [`language`](Self::language) (FHIR `_language`).
     #[serde(rename = "_language")]
-    pub language_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub language_ext: Vec<Option<types::Element>>,
 
     /// Filter Properties supported
-    pub filter: Option<Vec<TerminologyCapabilitiesCodeSystemVersionFilter>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub filter: Vec<TerminologyCapabilitiesCodeSystemVersionFilter>,
 
     /// Properties supported for $lookup
-    pub property: Option<Vec<types::Code>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub property: Vec<types::Code>,
     /// Primitive extension sibling for [`property`](Self::property) (FHIR `_property`).
     #[serde(rename = "_property")]
-    pub property_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub property_ext: Vec<Option<types::Element>>,
 }
 
 /// Filter Properties supported.
@@ -366,10 +388,12 @@ pub struct TerminologyCapabilitiesCodeSystemVersionFilter {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Code of the property supported
     pub code: types::Code,
@@ -381,7 +405,8 @@ pub struct TerminologyCapabilitiesCodeSystemVersionFilter {
     pub op: vec1::Vec1<types::Code>,
     /// Primitive extension sibling for [`op`](Self::op) (FHIR `_op`).
     #[serde(rename = "_op")]
-    pub op_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub op_ext: Vec<Option<types::Element>>,
 }
 
 /// Information about the ValueSet/$expand operation.
@@ -393,10 +418,12 @@ pub struct TerminologyCapabilitiesExpansion {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Whether the server can return nested value sets
     pub hierarchical: Option<types::Boolean>,
@@ -417,7 +444,8 @@ pub struct TerminologyCapabilitiesExpansion {
     pub incomplete_ext: Option<types::Element>,
 
     /// Supported expansion parameter
-    pub parameter: Option<Vec<TerminologyCapabilitiesExpansionParameter>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub parameter: Vec<TerminologyCapabilitiesExpansionParameter>,
 
     /// Documentation about text searching works
     pub text_filter: Option<types::Markdown>,
@@ -435,10 +463,12 @@ pub struct TerminologyCapabilitiesExpansionParameter {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Name of the supported expansion parameter
     pub name: types::Code,
@@ -462,10 +492,12 @@ pub struct TerminologyCapabilitiesValidateCode {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Whether translations are validated
     pub translations: types::Boolean,
@@ -483,10 +515,12 @@ pub struct TerminologyCapabilitiesTranslation {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Whether the client must identify the map
     pub needs_map: types::Boolean,
@@ -504,10 +538,12 @@ pub struct TerminologyCapabilitiesClosure {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// If cross-system closure is supported
     pub translation: Option<types::Boolean>,

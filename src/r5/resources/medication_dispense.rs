@@ -76,22 +76,28 @@ pub struct MedicationDispense {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// External identifier
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Plan that is fulfilled by this dispense
-    pub based_on: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub based_on: Vec<types::Reference>,
 
     /// Event that dispense is part of
-    pub part_of: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub part_of: Vec<types::Reference>,
 
     /// Current lifecycle state of the dispense, such as preparation, in-progress, cancelled, on-hold, completed, entered-in-error, stopped, declined, or unknown.
     pub status: crate::r5::coded::Coded<crate::r5::codes::MedicationdispenseStatus>,
@@ -109,7 +115,8 @@ pub struct MedicationDispense {
     pub status_changed_ext: Option<types::Element>,
 
     /// Type of medication dispense
-    pub category: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub category: Vec<types::CodeableConcept>,
 
     /// The medication product that was supplied, given either as a coded concept or a reference to a Medication resource.
     pub medication: types::CodeableReference,
@@ -121,16 +128,19 @@ pub struct MedicationDispense {
     pub encounter: Option<types::Reference>,
 
     /// Information that supports the dispensing of the medication
-    pub supporting_information: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub supporting_information: Vec<types::Reference>,
 
     /// Who performed event
-    pub performer: Option<Vec<MedicationDispensePerformer>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub performer: Vec<MedicationDispensePerformer>,
 
     /// Where the dispense occurred
     pub location: Option<types::Reference>,
 
     /// Medication order that authorizes the dispense
-    pub authorizing_prescription: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub authorizing_prescription: Vec<types::Reference>,
 
     /// Trial fill, partial fill, emergency fill, etc
     pub r#type: Option<types::CodeableConcept>,
@@ -163,10 +173,12 @@ pub struct MedicationDispense {
     pub destination: Option<types::Reference>,
 
     /// Who collected the medication or where the medication was delivered
-    pub receiver: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub receiver: Vec<types::Reference>,
 
     /// Information about the dispense
-    pub note: Option<Vec<types::Annotation>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub note: Vec<types::Annotation>,
 
     /// Full representation of the dosage instructions
     pub rendered_dosage_instruction: Option<types::Markdown>,
@@ -175,13 +187,15 @@ pub struct MedicationDispense {
     pub rendered_dosage_instruction_ext: Option<types::Element>,
 
     /// How the medication is to be used by the patient or administered by the caregiver
-    pub dosage_instruction: Option<Vec<types::Dosage>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub dosage_instruction: Vec<types::Dosage>,
 
     /// Whether a substitution was performed on the dispense
     pub substitution: Option<MedicationDispenseSubstitution>,
 
     /// A list of relevant lifecycle events
-    pub event_history: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub event_history: Vec<types::Reference>,
 }
 
 /// Who performed event.
@@ -196,10 +210,12 @@ pub struct MedicationDispensePerformer {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Who performed the dispense and what they did
     pub function: Option<types::CodeableConcept>,
@@ -221,10 +237,12 @@ pub struct MedicationDispenseSubstitution {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Whether a substitution was or was not performed on the dispense
     pub was_substituted: types::Boolean,
@@ -236,7 +254,8 @@ pub struct MedicationDispenseSubstitution {
     pub r#type: Option<types::CodeableConcept>,
 
     /// Why was substitution made
-    pub reason: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub reason: Vec<types::CodeableConcept>,
 
     /// Who is responsible for the substitution
     pub responsible_party: Option<types::Reference>,

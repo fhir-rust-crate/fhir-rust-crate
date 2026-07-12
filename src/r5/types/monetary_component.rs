@@ -46,7 +46,8 @@ pub struct MonetaryComponent {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
     /// base | surcharge | deduction | discount | tax | informational
     pub r#type: crate::r5::coded::Coded<crate::r5::codes::PriceComponentType>,
     /// Primitive extension sibling for [`type`](Self::r#type) (FHIR `_type`).

@@ -75,16 +75,20 @@ pub struct RiskAssessment {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Unique identifier for the assessment
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Request fulfilled by this assessment
     pub based_on: Option<types::Reference>,
@@ -121,13 +125,16 @@ pub struct RiskAssessment {
     pub performer: Option<types::Reference>,
 
     /// Why the assessment was necessary?
-    pub reason: Option<Vec<types::CodeableReference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub reason: Vec<types::CodeableReference>,
 
     /// Information used in assessment
-    pub basis: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub basis: Vec<types::Reference>,
 
     /// One or more predicted outcomes for the subject, each with its own probability, qualitative risk, and timeframe
-    pub prediction: Option<Vec<RiskAssessmentPrediction>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub prediction: Vec<RiskAssessmentPrediction>,
 
     /// Recommended steps to reduce the predicted risk, or an indication that no mitigation is available
     pub mitigation: Option<types::String>,
@@ -136,7 +143,8 @@ pub struct RiskAssessment {
     pub mitigation_ext: Option<types::Element>,
 
     /// Comments on the risk assessment
-    pub note: Option<Vec<types::Annotation>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub note: Vec<types::Annotation>,
 }
 
 /// RiskAssessmentPrediction
@@ -151,10 +159,12 @@ pub struct RiskAssessmentPrediction {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Possible outcome for the subject
     pub outcome: Option<types::CodeableConcept>,

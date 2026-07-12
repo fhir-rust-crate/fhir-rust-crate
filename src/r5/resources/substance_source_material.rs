@@ -81,13 +81,16 @@ pub struct SubstanceSourceMaterial {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// General high level classification of the source material specific to the origin of the material (e.g. plant, animal, mineral)
     pub source_material_class: Option<types::CodeableConcept>,
@@ -108,34 +111,42 @@ pub struct SubstanceSourceMaterial {
     pub organism_name_ext: Option<types::Element>,
 
     /// The parent of the herbal drug Ginkgo biloba, Leaf is the substance ID of the substance (fresh) of Ginkgo biloba L. or Ginkgo biloba L. (Whole plant)
-    pub parent_substance_id: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub parent_substance_id: Vec<types::Identifier>,
 
     /// The parent substance of the Herbal Drug, or Herbal preparation
-    pub parent_substance_name: Option<Vec<types::String>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub parent_substance_name: Vec<types::String>,
     /// Primitive extension sibling for [`parent_substance_name`](Self::parent_substance_name) (FHIR `_parentSubstanceName`).
     #[serde(rename = "_parentSubstanceName")]
-    pub parent_substance_name_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub parent_substance_name_ext: Vec<Option<types::Element>>,
 
     /// The country where the plant material is harvested or the countries where the plasma is sourced from as laid down in accordance with the Plasma Master File
-    pub country_of_origin: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub country_of_origin: Vec<types::CodeableConcept>,
 
     /// The place/region where the plant is harvested or the places/regions where the animal source material has its habitat
-    pub geographical_location: Option<Vec<types::String>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub geographical_location: Vec<types::String>,
     /// Primitive extension sibling for [`geographical_location`](Self::geographical_location) (FHIR `_geographicalLocation`).
     #[serde(rename = "_geographicalLocation")]
-    pub geographical_location_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub geographical_location_ext: Vec<Option<types::Element>>,
 
     /// Stage of life for animals, plants, insects and microorganisms. This information shall be provided only when the substance is significantly different in these stages (e.g. foetal bovine serum)
     pub development_stage: Option<types::CodeableConcept>,
 
     /// Many complex materials are fractions of parts of plants, animals, or minerals
-    pub fraction_description: Option<Vec<SubstanceSourceMaterialFractionDescription>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub fraction_description: Vec<SubstanceSourceMaterialFractionDescription>,
 
     /// This subclause describes the organism which the substance is derived from, including its full taxonomic classification
     pub organism: Option<SubstanceSourceMaterialOrganism>,
 
     /// To do
-    pub part_description: Option<Vec<SubstanceSourceMaterialPartDescription>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub part_description: Vec<SubstanceSourceMaterialPartDescription>,
 }
 
 /// Many complex materials are fractions of parts of plants, animals, or
@@ -149,10 +160,12 @@ pub struct SubstanceSourceMaterialFractionDescription {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// This element is capturing information about the fraction of a plant part, or human plasma for fractionation
     pub fraction: Option<types::String>,
@@ -175,10 +188,12 @@ pub struct SubstanceSourceMaterialOrganism {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The family of an organism shall be specified
     pub family: Option<types::CodeableConcept>,
@@ -199,7 +214,8 @@ pub struct SubstanceSourceMaterialOrganism {
     pub intraspecific_description_ext: Option<types::Element>,
 
     /// 4.9.13.6.1 Author type (Conditional)
-    pub author: Option<Vec<SubstanceSourceMaterialOrganismAuthor>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub author: Vec<SubstanceSourceMaterialOrganismAuthor>,
 
     /// 4.9.13.8.1 Hybrid species maternal organism ID (Optional)
     pub hybrid: Option<SubstanceSourceMaterialOrganismHybrid>,
@@ -219,10 +235,12 @@ pub struct SubstanceSourceMaterialOrganismAuthor {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The type of author of an organism species shall be specified
     pub author_type: Option<types::CodeableConcept>,
@@ -244,10 +262,12 @@ pub struct SubstanceSourceMaterialOrganismHybrid {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The identifier of the maternal species constituting the hybrid organism shall be specified based on a controlled vocabulary
     pub maternal_organism_id: Option<types::String>,
@@ -287,10 +307,12 @@ pub struct SubstanceSourceMaterialOrganismOrganismGeneral {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The kingdom of an organism shall be specified
     pub kingdom: Option<types::CodeableConcept>,
@@ -316,10 +338,12 @@ pub struct SubstanceSourceMaterialPartDescription {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Entity of anatomical origin of source material within an organism
     pub part: Option<types::CodeableConcept>,

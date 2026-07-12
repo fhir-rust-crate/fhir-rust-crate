@@ -78,13 +78,16 @@ pub struct StructureDefinition {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Canonical identifier for this structure definition, represented as a URI (globally unique); used to reference this definition from other resources
     pub url: types::Uri,
@@ -93,7 +96,8 @@ pub struct StructureDefinition {
     pub url_ext: Option<types::Element>,
 
     /// Additional identifier for the structure definition
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Business version of the structure definition
     pub version: Option<types::String>,
@@ -142,7 +146,8 @@ pub struct StructureDefinition {
     pub publisher_ext: Option<types::Element>,
 
     /// Contact details for the publisher
-    pub contact: Option<Vec<types::ContactDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contact: Vec<types::ContactDetail>,
 
     /// Natural language description of the structure definition
     pub description: Option<types::Markdown>,
@@ -151,10 +156,12 @@ pub struct StructureDefinition {
     pub description_ext: Option<types::Element>,
 
     /// The context that the content is intended to support
-    pub use_context: Option<Vec<types::UsageContext>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub use_context: Vec<types::UsageContext>,
 
     /// Intended jurisdiction for structure definition (if applicable)
-    pub jurisdiction: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub jurisdiction: Vec<types::CodeableConcept>,
 
     /// Why this structure definition is defined
     pub purpose: Option<types::Markdown>,
@@ -175,7 +182,8 @@ pub struct StructureDefinition {
     pub copyright_label_ext: Option<types::Element>,
 
     /// Assist with indexing and finding
-    pub keyword: Option<Vec<types::Coding>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub keyword: Vec<types::Coding>,
 
     /// FHIR Version this StructureDefinition targets
     pub fhir_version: Option<types::Code>,
@@ -184,7 +192,8 @@ pub struct StructureDefinition {
     pub fhir_version_ext: Option<types::Element>,
 
     /// External specification that the content is mapped to
-    pub mapping: Option<Vec<StructureDefinitionMapping>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub mapping: Vec<StructureDefinitionMapping>,
 
     /// primitive-type | complex-type | resource | logical; the category of definition this represents
     pub kind: crate::r5::coded::Coded<crate::r5::codes::StructureDefinitionKind>,
@@ -199,13 +208,16 @@ pub struct StructureDefinition {
     pub abstract_ext: Option<types::Element>,
 
     /// If an extension, where it can be used in instances
-    pub context: Option<Vec<StructureDefinitionContext>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub context: Vec<StructureDefinitionContext>,
 
     /// FHIRPath invariants - when the extension can be used
-    pub context_invariant: Option<Vec<types::String>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub context_invariant: Vec<types::String>,
     /// Primitive extension sibling for [`context_invariant`](Self::context_invariant) (FHIR `_contextInvariant`).
     #[serde(rename = "_contextInvariant")]
-    pub context_invariant_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub context_invariant_ext: Vec<Option<types::Element>>,
 
     /// Type defined or constrained by this structure
     pub r#type: types::Uri,
@@ -241,10 +253,12 @@ pub struct StructureDefinitionMapping {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Internal id when this mapping is used
     pub identity: types::Id,
@@ -280,10 +294,12 @@ pub struct StructureDefinitionContext {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// fhirpath | element | extension
     pub r#type: crate::r5::coded::Coded<crate::r5::codes::ExtensionContextType>,
@@ -307,10 +323,12 @@ pub struct StructureDefinitionSnapshot {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Definition of elements in the resource (if no StructureDefinition)
     pub element: vec1::Vec1<types::ElementDefinition>,
@@ -325,10 +343,12 @@ pub struct StructureDefinitionDifferential {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Definition of elements in the resource (if no StructureDefinition)
     pub element: vec1::Vec1<types::ElementDefinition>,

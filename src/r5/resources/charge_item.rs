@@ -82,28 +82,36 @@ pub struct ChargeItem {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Business Identifier for item
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Defining information about the code of this charge item
-    pub definition_uri: Option<Vec<types::Uri>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub definition_uri: Vec<types::Uri>,
     /// Primitive extension sibling for [`definition_uri`](Self::definition_uri) (FHIR `_definitionUri`).
     #[serde(rename = "_definitionUri")]
-    pub definition_uri_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub definition_uri_ext: Vec<Option<types::Element>>,
 
     /// Resource defining the code of this ChargeItem
-    pub definition_canonical: Option<Vec<types::Canonical>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub definition_canonical: Vec<types::Canonical>,
     /// Primitive extension sibling for [`definition_canonical`](Self::definition_canonical) (FHIR `_definitionCanonical`).
     #[serde(rename = "_definitionCanonical")]
-    pub definition_canonical_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub definition_canonical_ext: Vec<Option<types::Element>>,
 
     /// The current lifecycle status of the charge: planned | billable | not-billable | aborted | billed | entered-in-error | unknown.
     pub status: crate::r5::coded::Coded<crate::r5::codes::ChargeitemStatus>,
@@ -112,7 +120,8 @@ pub struct ChargeItem {
     pub status_ext: Option<types::Element>,
 
     /// Part of referenced ChargeItem
-    pub part_of: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub part_of: Vec<types::Reference>,
 
     /// A code that identifies the charge, like a billing code
     pub code: types::CodeableConcept,
@@ -128,7 +137,8 @@ pub struct ChargeItem {
     pub occurrence: Option<ChargeItemOccurrence>,
 
     /// Who performed charged service
-    pub performer: Option<Vec<ChargeItemPerformer>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub performer: Vec<ChargeItemPerformer>,
 
     /// Organization providing the charged service
     pub performing_organization: Option<types::Reference>,
@@ -143,7 +153,8 @@ pub struct ChargeItem {
     pub quantity: Option<types::Quantity>,
 
     /// Anatomical location, if relevant
-    pub bodysite: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub bodysite: Vec<types::CodeableConcept>,
 
     /// Unit price overriding the associated rules
     pub unit_price_component: Option<types::MonetaryComponent>,
@@ -164,22 +175,28 @@ pub struct ChargeItem {
     pub entered_date_ext: Option<types::Element>,
 
     /// Why was the charged  service rendered?
-    pub reason: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub reason: Vec<types::CodeableConcept>,
 
     /// Which rendered service is being charged?
-    pub service: Option<Vec<types::CodeableReference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub service: Vec<types::CodeableReference>,
 
     /// Product charged
-    pub product: Option<Vec<types::CodeableReference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub product: Vec<types::CodeableReference>,
 
     /// Account to place this charge
-    pub account: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub account: Vec<types::Reference>,
 
     /// Comments made about the ChargeItem
-    pub note: Option<Vec<types::Annotation>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub note: Vec<types::Annotation>,
 
     /// Further information supporting this charge
-    pub supporting_information: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub supporting_information: Vec<types::Reference>,
 }
 
 /// Who performed charged service.
@@ -193,10 +210,12 @@ pub struct ChargeItemPerformer {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// What type of performance was done
     pub function: Option<types::CodeableConcept>,

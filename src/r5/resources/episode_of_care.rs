@@ -81,16 +81,20 @@ pub struct EpisodeOfCare {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Business Identifier(s) relevant for this EpisodeOfCare
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Current lifecycle state of the episode: planned | waitlist | active | onhold | finished | cancelled | entered-in-error
     pub status: crate::r5::coded::Coded<crate::r5::codes::EpisodeOfCareStatus>,
@@ -99,16 +103,20 @@ pub struct EpisodeOfCare {
     pub status_ext: Option<types::Element>,
 
     /// Past list of status codes (the current status may be included to cover the start date of the status)
-    pub status_history: Option<Vec<EpisodeOfCareStatusHistory>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub status_history: Vec<EpisodeOfCareStatusHistory>,
 
     /// Type/class  - e.g. specialist referral, disease management
-    pub r#type: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub r#type: Vec<types::CodeableConcept>,
 
     /// The list of medical reasons that are expected to be addressed during the episode of care
-    pub reason: Option<Vec<EpisodeOfCareReason>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub reason: Vec<EpisodeOfCareReason>,
 
     /// The list of medical conditions that were addressed during the episode of care
-    pub diagnosis: Option<Vec<EpisodeOfCareDiagnosis>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub diagnosis: Vec<EpisodeOfCareDiagnosis>,
 
     /// Reference to the [`Patient`](crate::r5::resources::patient::Patient) who is the focus of this episode of care
     pub patient: types::Reference,
@@ -120,16 +128,19 @@ pub struct EpisodeOfCare {
     pub period: Option<types::Period>,
 
     /// Originating Referral Request(s)
-    pub referral_request: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub referral_request: Vec<types::Reference>,
 
     /// Care manager/care coordinator for the patient
     pub care_manager: Option<types::Reference>,
 
     /// Other practitioners facilitating this episode of care
-    pub care_team: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub care_team: Vec<types::Reference>,
 
     /// The set of accounts that may be used for billing for this EpisodeOfCare
-    pub account: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub account: Vec<types::Reference>,
 }
 
 /// Past list of status codes (the current status may be included to cover the
@@ -142,10 +153,12 @@ pub struct EpisodeOfCareStatusHistory {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// planned | waitlist | active | onhold | finished | cancelled | entered-in-error
     pub status: crate::r5::coded::Coded<crate::r5::codes::EpisodeOfCareStatus>,
@@ -167,16 +180,19 @@ pub struct EpisodeOfCareReason {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// What the reason value should be used for/as
     pub r#use: Option<types::CodeableConcept>,
 
     /// Medical reason to be addressed
-    pub value: Option<Vec<types::CodeableReference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub value: Vec<types::CodeableReference>,
 }
 
 /// The list of medical conditions that were addressed during the episode of
@@ -189,13 +205,16 @@ pub struct EpisodeOfCareDiagnosis {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The medical condition that was addressed during the episode of care
-    pub condition: Option<Vec<types::CodeableReference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub condition: Vec<types::CodeableReference>,
 
     /// Role that this diagnosis has within the episode of care (e.g. admission, billing, discharge …)
     pub r#use: Option<types::CodeableConcept>,

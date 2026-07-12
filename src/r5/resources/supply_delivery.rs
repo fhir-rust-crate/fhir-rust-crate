@@ -78,22 +78,28 @@ pub struct SupplyDelivery {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// External identifier
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Fulfills plan, proposal or order
-    pub based_on: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub based_on: Vec<types::Reference>,
 
     /// Part of referenced event
-    pub part_of: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub part_of: Vec<types::Reference>,
 
     /// Lifecycle status of the delivery event: in-progress | completed | abandoned | entered-in-error
     pub status: Option<crate::r5::coded::Coded<crate::r5::codes::SupplydeliveryStatus>>,
@@ -108,7 +114,8 @@ pub struct SupplyDelivery {
     pub r#type: Option<types::CodeableConcept>,
 
     /// One or more items, with quantity, that were delivered as part of this event
-    pub supplied_item: Option<Vec<SupplyDeliverySuppliedItem>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub supplied_item: Vec<SupplyDeliverySuppliedItem>,
 
     /// The `SupplyDelivery.occurrence[x]` choice element (0..1); see [`SupplyDeliveryOccurrence`].
     #[serde(flatten)]
@@ -121,7 +128,8 @@ pub struct SupplyDelivery {
     pub destination: Option<types::Reference>,
 
     /// Who received the delivery
-    pub receiver: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub receiver: Vec<types::Reference>,
 }
 
 /// The item that is delivered or supplied.
@@ -137,10 +145,12 @@ pub struct SupplyDeliverySuppliedItem {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Amount supplied
     pub quantity: Option<types::Quantity>,

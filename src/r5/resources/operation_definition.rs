@@ -76,13 +76,16 @@ pub struct OperationDefinition {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Canonical identifier for this operation definition, represented as an absolute URI (globally unique)
     pub url: Option<types::Uri>,
@@ -91,7 +94,8 @@ pub struct OperationDefinition {
     pub url_ext: Option<types::Element>,
 
     /// Additional identifier for the implementation guide (business identifier)
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Business version of the operation definition
     pub version: Option<types::String>,
@@ -146,7 +150,8 @@ pub struct OperationDefinition {
     pub publisher_ext: Option<types::Element>,
 
     /// Contact details for the publisher
-    pub contact: Option<Vec<types::ContactDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contact: Vec<types::ContactDetail>,
 
     /// Natural language description of the operation definition
     pub description: Option<types::Markdown>,
@@ -155,10 +160,12 @@ pub struct OperationDefinition {
     pub description_ext: Option<types::Element>,
 
     /// The context that the content is intended to support
-    pub use_context: Option<Vec<types::UsageContext>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub use_context: Vec<types::UsageContext>,
 
     /// Intended jurisdiction for operation definition (if applicable)
-    pub jurisdiction: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub jurisdiction: Vec<types::CodeableConcept>,
 
     /// Why this operation definition is defined
     pub purpose: Option<types::Markdown>,
@@ -203,10 +210,12 @@ pub struct OperationDefinition {
     pub base_ext: Option<types::Element>,
 
     /// Types this operation applies to
-    pub resource: Option<Vec<types::Code>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub resource: Vec<types::Code>,
     /// Primitive extension sibling for [`resource`](Self::resource) (FHIR `_resource`).
     #[serde(rename = "_resource")]
-    pub resource_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub resource_ext: Vec<Option<types::Element>>,
 
     /// Invoke at the system level?
     pub system: types::Boolean,
@@ -239,10 +248,12 @@ pub struct OperationDefinition {
     pub output_profile_ext: Option<types::Element>,
 
     /// The input and output parameters that define the operation or query interface.
-    pub parameter: Option<Vec<OperationDefinitionParameter>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub parameter: Vec<OperationDefinitionParameter>,
 
     /// Define overloaded variants for when  generating code
-    pub overload: Option<Vec<OperationDefinitionOverload>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub overload: Vec<OperationDefinitionOverload>,
 }
 
 /// Parameters for the operation/query.
@@ -257,10 +268,12 @@ pub struct OperationDefinitionParameter {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Name in Parameters.parameter.name or in URL
     pub name: types::Code,
@@ -275,10 +288,12 @@ pub struct OperationDefinitionParameter {
     pub use_ext: Option<types::Element>,
 
     /// instance | type | system
-    pub scope: Option<Vec<crate::r5::coded::Coded<crate::r5::codes::OperationParameterScope>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub scope: Vec<crate::r5::coded::Coded<crate::r5::codes::OperationParameterScope>>,
     /// Primitive extension sibling for [`scope`](Self::scope) (FHIR `_scope`).
     #[serde(rename = "_scope")]
-    pub scope_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub scope_ext: Vec<Option<types::Element>>,
 
     /// Minimum Cardinality
     pub min: types::Integer,
@@ -305,16 +320,20 @@ pub struct OperationDefinitionParameter {
     pub type_ext: Option<types::Element>,
 
     /// Allowed sub-type this parameter can have (if type is abstract)
-    pub allowed_type: Option<Vec<types::Code>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub allowed_type: Vec<types::Code>,
     /// Primitive extension sibling for [`allowed_type`](Self::allowed_type) (FHIR `_allowedType`).
     #[serde(rename = "_allowedType")]
-    pub allowed_type_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub allowed_type_ext: Vec<Option<types::Element>>,
 
     /// If type is Reference | canonical, allowed targets. If type is 'Resource', then this constrains the allowed resource types
-    pub target_profile: Option<Vec<types::Canonical>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub target_profile: Vec<types::Canonical>,
     /// Primitive extension sibling for [`target_profile`](Self::target_profile) (FHIR `_targetProfile`).
     #[serde(rename = "_targetProfile")]
-    pub target_profile_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub target_profile_ext: Vec<Option<types::Element>>,
 
     /// number | date | string | token | reference | composite | quantity | uri | special
     pub search_type: Option<crate::r5::coded::Coded<crate::r5::codes::SearchParamType>>,
@@ -326,10 +345,12 @@ pub struct OperationDefinitionParameter {
     pub binding: Option<OperationDefinitionParameterBinding>,
 
     /// References to this parameter
-    pub referenced_from: Option<Vec<OperationDefinitionParameterReferencedFrom>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub referenced_from: Vec<OperationDefinitionParameterReferencedFrom>,
 
     /// Parts of a nested Parameter
-    pub part: Option<Vec<OperationDefinitionParameter>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub part: Vec<OperationDefinitionParameter>,
 }
 
 /// ValueSet details if this is coded.
@@ -344,10 +365,12 @@ pub struct OperationDefinitionParameterBinding {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// required | extensible | preferred | example
     pub strength: crate::r5::coded::Coded<crate::r5::codes::BindingStrength>,
@@ -375,10 +398,12 @@ pub struct OperationDefinitionParameterReferencedFrom {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Referencing parameter
     pub source: types::String,
@@ -405,16 +430,20 @@ pub struct OperationDefinitionOverload {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Name of parameter to include in overload
-    pub parameter_name: Option<Vec<types::String>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub parameter_name: Vec<types::String>,
     /// Primitive extension sibling for [`parameter_name`](Self::parameter_name) (FHIR `_parameterName`).
     #[serde(rename = "_parameterName")]
-    pub parameter_name_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub parameter_name_ext: Vec<Option<types::Element>>,
 
     /// Comments to go on overload
     pub comment: Option<types::String>,

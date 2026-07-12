@@ -44,7 +44,8 @@ pub struct Contributor {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// author | editor | reviewer | endorser
     pub r#type: crate::r5::coded::Coded<crate::r5::codes::ContributorType>,
@@ -59,7 +60,8 @@ pub struct Contributor {
     pub name_ext: Option<types::Element>,
 
     /// Contact details of the contributor
-    pub contact: Option<Vec<types::ContactDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contact: Vec<types::ContactDetail>,
 }
 
 #[cfg(test)]

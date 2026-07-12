@@ -80,16 +80,20 @@ pub struct OrganizationAffiliation {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Business identifiers that are specific to this role
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Whether this organization affiliation record is in active use
     pub active: Option<types::Boolean>,
@@ -107,25 +111,32 @@ pub struct OrganizationAffiliation {
     pub participating_organization: Option<types::Reference>,
 
     /// The network in which the participatingOrganization provides the role's services (if defined) at the indicated locations (if defined)
-    pub network: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub network: Vec<types::Reference>,
 
     /// Coded definition of the role the participatingOrganization plays with respect to the primary organization
-    pub code: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub code: Vec<types::CodeableConcept>,
 
     /// Specific specialty of the participatingOrganization in the context of the role
-    pub specialty: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub specialty: Vec<types::CodeableConcept>,
 
     /// The location(s) at which the role occurs
-    pub location: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub location: Vec<types::Reference>,
 
     /// Healthcare services provided through the role
-    pub healthcare_service: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub healthcare_service: Vec<types::Reference>,
 
     /// Official contact details at the participatingOrganization relevant to this Affiliation
-    pub contact: Option<Vec<types::ExtendedContactDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contact: Vec<types::ExtendedContactDetail>,
 
     /// Technical endpoints providing access to services operated for this role
-    pub endpoint: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub endpoint: Vec<types::Reference>,
 }
 
 #[cfg(test)]

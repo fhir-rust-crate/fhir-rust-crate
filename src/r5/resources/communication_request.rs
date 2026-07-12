@@ -78,22 +78,28 @@ pub struct CommunicationRequest {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Unique identifier
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Fulfills plan or proposal
-    pub based_on: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub based_on: Vec<types::Reference>,
 
     /// Request(s) replaced by this request
-    pub replaces: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub replaces: Vec<types::Reference>,
 
     /// Composite request this is part of
     pub group_identifier: Option<types::Identifier>,
@@ -114,7 +120,8 @@ pub struct CommunicationRequest {
     pub intent_ext: Option<types::Element>,
 
     /// Message category
-    pub category: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub category: Vec<types::CodeableConcept>,
 
     /// routine | urgent | asap | stat
     pub priority: Option<crate::r5::coded::Coded<crate::r5::codes::RequestPriority>>,
@@ -129,19 +136,22 @@ pub struct CommunicationRequest {
     pub do_not_perform_ext: Option<types::Element>,
 
     /// A channel of communication
-    pub medium: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub medium: Vec<types::CodeableConcept>,
 
     /// The patient or group that is the focus of this communication request.
     pub subject: Option<types::Reference>,
 
     /// Resources that pertain to this communication request
-    pub about: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub about: Vec<types::Reference>,
 
     /// The Encounter during which this CommunicationRequest was created
     pub encounter: Option<types::Reference>,
 
     /// Message payload
-    pub payload: Option<Vec<CommunicationRequestPayload>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub payload: Vec<CommunicationRequestPayload>,
 
     /// The `CommunicationRequest.occurrence[x]` choice element (0..1); see [`CommunicationRequestOccurrence`].
     #[serde(flatten)]
@@ -157,16 +167,20 @@ pub struct CommunicationRequest {
     pub requester: Option<types::Reference>,
 
     /// Who to share the information with
-    pub recipient: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub recipient: Vec<types::Reference>,
 
     /// Who should share the information
-    pub information_provider: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub information_provider: Vec<types::Reference>,
 
     /// Why is communication needed?
-    pub reason: Option<Vec<types::CodeableReference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub reason: Vec<types::CodeableReference>,
 
     /// Comments made about communication request
-    pub note: Option<Vec<types::Annotation>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub note: Vec<types::Annotation>,
 }
 
 /// CommunicationRequestPayload
@@ -180,10 +194,12 @@ pub struct CommunicationRequestPayload {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The `CommunicationRequest.payload.content[x]` choice element (0..1); see [`CommunicationRequestPayloadContent`].
     #[serde(flatten)]

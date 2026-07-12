@@ -85,16 +85,20 @@ pub struct Appointment {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// External Ids for this item
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Lifecycle state of the appointment that drives scheduling workflow: proposed | pending | booked | arrived | fulfilled | cancelled | noshow | entered-in-error | checked-in | waitlist
     pub status: crate::r5::coded::Coded<crate::r5::codes::Appointmentstatus>,
@@ -106,22 +110,27 @@ pub struct Appointment {
     pub cancellation_reason: Option<types::CodeableConcept>,
 
     /// Classification when becoming an encounter
-    pub class: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub class: Vec<types::CodeableConcept>,
 
     /// A broad categorization of the service that is to be performed during this appointment
-    pub service_category: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub service_category: Vec<types::CodeableConcept>,
 
     /// The specific service that is to be performed during this appointment
-    pub service_type: Option<Vec<types::CodeableReference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub service_type: Vec<types::CodeableReference>,
 
     /// The specialty of a practitioner that would be required to perform the service requested in this appointment
-    pub specialty: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub specialty: Vec<types::CodeableConcept>,
 
     /// The style of appointment or patient that has been booked in the slot (not service type)
     pub appointment_type: Option<types::CodeableConcept>,
 
     /// Reason this appointment is scheduled
-    pub reason: Option<Vec<types::CodeableReference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub reason: Vec<types::CodeableReference>,
 
     /// Used to make informed decisions if needing to re-prioritize
     pub priority: Option<types::CodeableConcept>,
@@ -133,13 +142,16 @@ pub struct Appointment {
     pub description_ext: Option<types::Element>,
 
     /// Appointment replaced by this Appointment
-    pub replaces: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub replaces: Vec<types::Reference>,
 
     /// Connection details of a virtual service (e.g. conference call)
-    pub virtual_service: Option<Vec<types::VirtualServiceDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub virtual_service: Vec<types::VirtualServiceDetail>,
 
     /// Additional information to support the appointment
-    pub supporting_information: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub supporting_information: Vec<types::Reference>,
 
     /// The previous appointment in a series
     pub previous_appointment: Option<types::Reference>,
@@ -166,13 +178,16 @@ pub struct Appointment {
     pub minutes_duration_ext: Option<types::Element>,
 
     /// Potential date/time interval(s) requested to allocate the appointment within
-    pub requested_period: Option<Vec<types::Period>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub requested_period: Vec<types::Period>,
 
     /// The Slot resource(s) that this appointment is filling, drawn from a Schedule's published availability
-    pub slot: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub slot: Vec<types::Reference>,
 
     /// The set of accounts that may be used for billing for this Appointment
-    pub account: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub account: Vec<types::Reference>,
 
     /// The date that this appointment was initially created
     pub created: Option<types::DateTime>,
@@ -187,13 +202,16 @@ pub struct Appointment {
     pub cancellation_date_ext: Option<types::Element>,
 
     /// Additional comments
-    pub note: Option<Vec<types::Annotation>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub note: Vec<types::Annotation>,
 
     /// Detailed information and instructions for the patient
-    pub patient_instruction: Option<Vec<types::CodeableReference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub patient_instruction: Vec<types::CodeableReference>,
 
     /// The request this appointment is allocated to assess
-    pub based_on: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub based_on: Vec<types::Reference>,
 
     /// The patient or group of patients that this appointment primarily concerns
     pub subject: Option<types::Reference>,
@@ -214,7 +232,8 @@ pub struct Appointment {
     pub occurrence_changed_ext: Option<types::Element>,
 
     /// Details of the recurrence pattern/template used to generate occurrences
-    pub recurrence_template: Option<Vec<AppointmentRecurrenceTemplate>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub recurrence_template: Vec<AppointmentRecurrenceTemplate>,
 }
 
 /// Participants involved in appointment.
@@ -230,13 +249,16 @@ pub struct AppointmentParticipant {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Role of participant in the appointment
-    pub r#type: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub r#type: Vec<types::CodeableConcept>,
 
     /// Participation period of the actor
     pub period: Option<types::Period>,
@@ -270,10 +292,12 @@ pub struct AppointmentRecurrenceTemplate {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The timezone of the occurrences
     pub timezone: Option<types::CodeableConcept>,
@@ -294,10 +318,12 @@ pub struct AppointmentRecurrenceTemplate {
     pub occurrence_count_ext: Option<types::Element>,
 
     /// Specific dates for a recurring set of appointments (no template)
-    pub occurrence_date: Option<Vec<types::Date>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub occurrence_date: Vec<types::Date>,
     /// Primitive extension sibling for [`occurrence_date`](Self::occurrence_date) (FHIR `_occurrenceDate`).
     #[serde(rename = "_occurrenceDate")]
-    pub occurrence_date_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub occurrence_date_ext: Vec<Option<types::Element>>,
 
     /// Information about weekly recurring appointments
     pub weekly_template: Option<AppointmentRecurrenceTemplateWeeklyTemplate>,
@@ -309,16 +335,20 @@ pub struct AppointmentRecurrenceTemplate {
     pub yearly_template: Option<AppointmentRecurrenceTemplateYearlyTemplate>,
 
     /// Any dates that should be excluded from the series
-    pub excluding_date: Option<Vec<types::Date>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub excluding_date: Vec<types::Date>,
     /// Primitive extension sibling for [`excluding_date`](Self::excluding_date) (FHIR `_excludingDate`).
     #[serde(rename = "_excludingDate")]
-    pub excluding_date_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub excluding_date_ext: Vec<Option<types::Element>>,
 
     /// Any recurrence IDs that should be excluded from the recurrence
-    pub excluding_recurrence_id: Option<Vec<types::PositiveInt>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub excluding_recurrence_id: Vec<types::PositiveInt>,
     /// Primitive extension sibling for [`excluding_recurrence_id`](Self::excluding_recurrence_id) (FHIR `_excludingRecurrenceId`).
     #[serde(rename = "_excludingRecurrenceId")]
-    pub excluding_recurrence_id_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub excluding_recurrence_id_ext: Vec<Option<types::Element>>,
 }
 
 /// Information about weekly recurring appointments.
@@ -333,10 +363,12 @@ pub struct AppointmentRecurrenceTemplateWeeklyTemplate {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Recurs on Mondays
     pub monday: Option<types::Boolean>,
@@ -400,10 +432,12 @@ pub struct AppointmentRecurrenceTemplateMonthlyTemplate {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Recurs on a specific day of the month
     pub day_of_month: Option<types::PositiveInt>,
@@ -435,10 +469,12 @@ pub struct AppointmentRecurrenceTemplateYearlyTemplate {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Recurs every nth year
     pub year_interval: types::PositiveInt,

@@ -89,16 +89,20 @@ pub struct Patient {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Business identifiers assigned by an organization, such as a medical record number, that uniquely reference this patient.
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Whether this patient's record is in active use; a false value typically marks a record that is retired, merged, or entered in error.
     pub active: Option<types::Boolean>,
@@ -110,10 +114,12 @@ pub struct Patient {
     pub active_ext: Option<types::Element>,
 
     /// One or more names associated with the patient, allowing for official, usual, maiden, and other name uses.
-    pub name: Option<Vec<types::HumanName>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub name: Vec<types::HumanName>,
 
     /// A contact detail for the individual
-    pub telecom: Option<Vec<types::ContactPoint>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub telecom: Vec<types::ContactPoint>,
 
     /// The administrative gender used for record keeping, coded as male, female, other, or unknown, which may differ from clinical or biological sex.
     pub gender: Option<crate::r5::coded::Coded<crate::r5::codes::AdministrativeGender>>,
@@ -135,7 +141,8 @@ pub struct Patient {
     pub deceased: Option<PatientDeceased>,
 
     /// An address for the individual
-    pub address: Option<Vec<types::Address>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub address: Vec<types::Address>,
 
     /// Marital (civil) status of a patient
     pub marital_status: Option<types::CodeableConcept>,
@@ -145,22 +152,27 @@ pub struct Patient {
     pub multiple_birth: Option<PatientMultipleBirth>,
 
     /// Image of the patient
-    pub photo: Option<Vec<types::Attachment>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub photo: Vec<types::Attachment>,
 
     /// A contact party (e.g. guardian, partner, friend) for the patient
-    pub contact: Option<Vec<PatientContact>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contact: Vec<PatientContact>,
 
     /// A language which may be used to communicate with the patient about his or her health
-    pub communication: Option<Vec<PatientCommunication>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub communication: Vec<PatientCommunication>,
 
     /// Patient's nominated primary care provider
-    pub general_practitioner: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub general_practitioner: Vec<types::Reference>,
 
     /// Organization that is the custodian of the patient record
     pub managing_organization: Option<types::Reference>,
 
     /// Link to a Patient or RelatedPerson resource that concerns the same actual individual
-    pub link: Option<Vec<PatientLink>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub link: Vec<PatientLink>,
 }
 
 /// A contact party (e.g. guardian, partner, friend) for the patient.
@@ -172,19 +184,23 @@ pub struct PatientContact {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The kind of relationship
-    pub relationship: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub relationship: Vec<types::CodeableConcept>,
 
     /// A name associated with the contact person
     pub name: Option<types::HumanName>,
 
     /// A contact detail for the person
-    pub telecom: Option<Vec<types::ContactPoint>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub telecom: Vec<types::ContactPoint>,
 
     /// Address for the contact person
     pub address: Option<types::Address>,
@@ -212,10 +228,12 @@ pub struct PatientCommunication {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The language which can be used to communicate with the patient about his or her health
     pub language: types::CodeableConcept,
@@ -237,10 +255,12 @@ pub struct PatientLink {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The other patient or related person resource that the link refers to
     pub other: types::Reference,

@@ -79,13 +79,16 @@ pub struct CompartmentDefinition {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Canonical identifier for this compartment definition, represented as a
     /// URI (globally unique); used to reference this definition from other
@@ -142,7 +145,8 @@ pub struct CompartmentDefinition {
     pub publisher_ext: Option<types::Element>,
 
     /// Contact details for the publisher
-    pub contact: Option<Vec<types::ContactDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contact: Vec<types::ContactDetail>,
 
     /// Natural language description of the compartment definition
     pub description: Option<types::Markdown>,
@@ -151,7 +155,8 @@ pub struct CompartmentDefinition {
     pub description_ext: Option<types::Element>,
 
     /// The context that the content is intended to support
-    pub use_context: Option<Vec<types::UsageContext>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub use_context: Vec<types::UsageContext>,
 
     /// Why this compartment definition is defined
     pub purpose: Option<types::Markdown>,
@@ -176,7 +181,8 @@ pub struct CompartmentDefinition {
 
     /// How each resource type is related to the compartment, including the
     /// search parameter that links it to the membership resource
-    pub resource: Option<Vec<CompartmentDefinitionResource>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub resource: Vec<CompartmentDefinitionResource>,
 }
 
 /// How a resource is related to the compartment.
@@ -190,10 +196,12 @@ pub struct CompartmentDefinitionResource {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Name of resource type
     pub code: types::Code,
@@ -202,10 +210,12 @@ pub struct CompartmentDefinitionResource {
     pub code_ext: Option<types::Element>,
 
     /// Search Parameter Name, or chained parameters
-    pub param: Option<Vec<types::String>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub param: Vec<types::String>,
     /// Primitive extension sibling for [`param`](Self::param) (FHIR `_param`).
     #[serde(rename = "_param")]
-    pub param_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub param_ext: Vec<Option<types::Element>>,
 
     /// Additional documentation about the resource and compartment
     pub documentation: Option<types::String>,

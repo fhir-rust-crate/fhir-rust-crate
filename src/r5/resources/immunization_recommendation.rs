@@ -83,16 +83,20 @@ pub struct ImmunizationRecommendation {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Business identifier
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Reference to the patient for whom this set of recommendations is forecast.
     pub patient: types::Reference,
@@ -119,28 +123,35 @@ pub struct ImmunizationRecommendationRecommendation {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Coded vaccine or vaccine group that this recommendation applies to.
-    pub vaccine_code: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub vaccine_code: Vec<types::CodeableConcept>,
 
     /// Coded disease or diseases the recommended vaccine protects against.
-    pub target_disease: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub target_disease: Vec<types::CodeableConcept>,
 
     /// Vaccine which is contraindicated to fulfill the recommendation
-    pub contraindicated_vaccine_code: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contraindicated_vaccine_code: Vec<types::CodeableConcept>,
 
     /// Coded forecast status such as due, overdue, immune, complete, or contraindicated.
     pub forecast_status: types::CodeableConcept,
 
     /// Vaccine administration status reason
-    pub forecast_reason: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub forecast_reason: Vec<types::CodeableConcept>,
 
     /// Dates governing proposed immunization
-    pub date_criterion: Option<Vec<ImmunizationRecommendationRecommendationDateCriterion>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub date_criterion: Vec<ImmunizationRecommendationRecommendationDateCriterion>,
 
     /// Protocol details
     pub description: Option<types::Markdown>,
@@ -167,10 +178,12 @@ pub struct ImmunizationRecommendationRecommendation {
     pub series_doses_ext: Option<types::Element>,
 
     /// Past immunizations supporting recommendation
-    pub supporting_immunization: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub supporting_immunization: Vec<types::Reference>,
 
     /// Patient observations supporting recommendation
-    pub supporting_patient_information: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub supporting_patient_information: Vec<types::Reference>,
 }
 
 /// Dates governing proposed immunization.
@@ -182,10 +195,12 @@ pub struct ImmunizationRecommendationRecommendationDateCriterion {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Type of date
     pub code: types::CodeableConcept,

@@ -79,16 +79,20 @@ pub struct ImagingSelection {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Business Identifier for Imaging Selection
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Status of the imaging selection: available, entered-in-error, or unknown.
     pub status: crate::r5::coded::Coded<crate::r5::codes::ImagingselectionStatus>,
@@ -106,13 +110,16 @@ pub struct ImagingSelection {
     pub issued_ext: Option<types::Element>,
 
     /// Selector of the instances (human or machine)
-    pub performer: Option<Vec<ImagingSelectionPerformer>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub performer: Vec<ImagingSelectionPerformer>,
 
     /// Associated request
-    pub based_on: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub based_on: Vec<types::Reference>,
 
     /// Classifies the imaging selection
-    pub category: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub category: Vec<types::CodeableConcept>,
 
     /// Reason for or purpose of this imaging selection, expressed as text or a coded concept.
     pub code: types::CodeableConcept,
@@ -124,10 +131,12 @@ pub struct ImagingSelection {
     pub study_uid_ext: Option<types::Element>,
 
     /// The imaging study, commonly an ImagingStudy, from which this selection is derived.
-    pub derived_from: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub derived_from: Vec<types::Reference>,
 
     /// The network service providing retrieval for the images referenced in the imaging selection
-    pub endpoint: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub endpoint: Vec<types::Reference>,
 
     /// DICOM Series Instance UID
     pub series_uid: Option<types::Id>,
@@ -151,10 +160,12 @@ pub struct ImagingSelection {
     pub body_site: Option<types::CodeableReference>,
 
     /// Related resource that is the focus for the imaging selection
-    pub focus: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub focus: Vec<types::Reference>,
 
     /// The selected instances
-    pub instance: Option<Vec<ImagingSelectionInstance>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub instance: Vec<ImagingSelectionInstance>,
 }
 
 /// Selector of the instances (human or machine).
@@ -166,10 +177,12 @@ pub struct ImagingSelectionPerformer {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Type of performer
     pub function: Option<types::CodeableConcept>,
@@ -187,10 +200,12 @@ pub struct ImagingSelectionInstance {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// DICOM SOP Instance UID
     pub uid: types::Id,
@@ -208,16 +223,20 @@ pub struct ImagingSelectionInstance {
     pub sop_class: Option<types::Coding>,
 
     /// The selected subset of the SOP Instance
-    pub subset: Option<Vec<types::String>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub subset: Vec<types::String>,
     /// Primitive extension sibling for [`subset`](Self::subset) (FHIR `_subset`).
     #[serde(rename = "_subset")]
-    pub subset_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub subset_ext: Vec<Option<types::Element>>,
 
     /// A specific 2D region in a DICOM image / frame
-    pub image_region2_d: Option<Vec<ImagingSelectionInstanceImageRegion2D>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub image_region2_d: Vec<ImagingSelectionInstanceImageRegion2D>,
 
     /// A specific 3D region in a DICOM frame of reference
-    pub image_region3_d: Option<Vec<ImagingSelectionInstanceImageRegion3D>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub image_region3_d: Vec<ImagingSelectionInstanceImageRegion3D>,
 }
 
 /// A specific 2D region in a DICOM image / frame.
@@ -229,10 +248,12 @@ pub struct ImagingSelectionInstanceImageRegion2D {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// point | polyline | interpolated | circle | ellipse
     pub region_type: types::Code,
@@ -244,7 +265,8 @@ pub struct ImagingSelectionInstanceImageRegion2D {
     pub coordinate: vec1::Vec1<types::Decimal>,
     /// Primitive extension sibling for [`coordinate`](Self::coordinate) (FHIR `_coordinate`).
     #[serde(rename = "_coordinate")]
-    pub coordinate_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub coordinate_ext: Vec<Option<types::Element>>,
 }
 
 /// A specific 3D region in a DICOM frame of reference.
@@ -256,10 +278,12 @@ pub struct ImagingSelectionInstanceImageRegion3D {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// point | multipoint | polyline | polygon | ellipse | ellipsoid
     pub region_type: types::Code,
@@ -271,7 +295,8 @@ pub struct ImagingSelectionInstanceImageRegion3D {
     pub coordinate: vec1::Vec1<types::Decimal>,
     /// Primitive extension sibling for [`coordinate`](Self::coordinate) (FHIR `_coordinate`).
     #[serde(rename = "_coordinate")]
-    pub coordinate_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub coordinate_ext: Vec<Option<types::Element>>,
 }
 
 #[cfg(test)]

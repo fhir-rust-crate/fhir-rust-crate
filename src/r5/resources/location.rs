@@ -85,16 +85,20 @@ pub struct Location {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Unique code or number identifying the location to its users
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Overall availability status of the location as a whole, drawn from the value set active | suspended | inactive.
     pub status: Option<crate::r5::coded::Coded<crate::r5::codes::LocationStatus>>,
@@ -112,10 +116,12 @@ pub struct Location {
     pub name_ext: Option<types::Element>,
 
     /// A list of alternate names that the location is known as, or was known as, in the past
-    pub alias: Option<Vec<types::String>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub alias: Vec<types::String>,
     /// Primitive extension sibling for [`alias`](Self::alias) (FHIR `_alias`).
     #[serde(rename = "_alias")]
-    pub alias_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub alias_ext: Vec<Option<types::Element>>,
 
     /// Additional details about the location that could be displayed as further information to identify the location beyond its name
     pub description: Option<types::Markdown>,
@@ -130,10 +136,12 @@ pub struct Location {
     pub mode_ext: Option<types::Element>,
 
     /// Type of function performed
-    pub r#type: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub r#type: Vec<types::CodeableConcept>,
 
     /// Official contact details for the location
-    pub contact: Option<Vec<types::ExtendedContactDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contact: Vec<types::ExtendedContactDetail>,
 
     /// Physical location
     pub address: Option<types::Address>,
@@ -151,16 +159,20 @@ pub struct Location {
     pub part_of: Option<types::Reference>,
 
     /// Collection of characteristics (attributes)
-    pub characteristic: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub characteristic: Vec<types::CodeableConcept>,
 
     /// What days/times during a week is this location usually open (including exceptions)
-    pub hours_of_operation: Option<Vec<types::Availability>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub hours_of_operation: Vec<types::Availability>,
 
     /// Connection details of a virtual service (e.g. conference call)
-    pub virtual_service: Option<Vec<types::VirtualServiceDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub virtual_service: Vec<types::VirtualServiceDetail>,
 
     /// Technical endpoints providing access to services operated for the location
-    pub endpoint: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub endpoint: Vec<types::Reference>,
 }
 
 /// The absolute geographic location of the Location, expressed using the WGS84
@@ -174,10 +186,12 @@ pub struct LocationPosition {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Longitude with WGS84 datum
     pub longitude: types::Decimal,

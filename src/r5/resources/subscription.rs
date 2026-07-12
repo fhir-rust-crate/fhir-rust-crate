@@ -80,16 +80,20 @@ pub struct Subscription {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Additional identifiers (business identifier)
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Human readable name for this subscription
     pub name: Option<types::String>,
@@ -110,7 +114,8 @@ pub struct Subscription {
     pub topic_ext: Option<types::Element>,
 
     /// Contact details for source (e.g. troubleshooting)
-    pub contact: Option<Vec<types::ContactPoint>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contact: Vec<types::ContactPoint>,
 
     /// When to automatically delete the subscription
     pub end: Option<types::Instant>,
@@ -128,7 +133,8 @@ pub struct Subscription {
     pub reason_ext: Option<types::Element>,
 
     /// Criteria for narrowing the subscription topic stream
-    pub filter_by: Option<Vec<SubscriptionFilterBy>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub filter_by: Vec<SubscriptionFilterBy>,
 
     /// Coded type of notification channel, such as a REST hook, WebSocket, email, or messaging endpoint
     pub channel_type: types::Coding,
@@ -140,7 +146,8 @@ pub struct Subscription {
     pub endpoint_ext: Option<types::Element>,
 
     /// Channel type
-    pub parameter: Option<Vec<SubscriptionParameter>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub parameter: Vec<SubscriptionParameter>,
 
     /// Interval in seconds to send 'heartbeat' notification
     pub heartbeat_period: Option<types::UnsignedInt>,
@@ -185,10 +192,12 @@ pub struct SubscriptionFilterBy {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Allowed Resource (reference to definition) for this Subscription filter
     pub resource_type: Option<types::Uri>,
@@ -232,10 +241,12 @@ pub struct SubscriptionParameter {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Name (key) of the parameter
     pub name: types::String,

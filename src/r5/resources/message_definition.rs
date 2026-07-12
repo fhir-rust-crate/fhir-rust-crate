@@ -80,13 +80,16 @@ pub struct MessageDefinition {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// The cannonical URL for a given MessageDefinition
     pub url: Option<types::Uri>,
@@ -95,7 +98,8 @@ pub struct MessageDefinition {
     pub url_ext: Option<types::Element>,
 
     /// Business Identifier for a given MessageDefinition
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// Business version of the message definition
     pub version: Option<types::String>,
@@ -120,10 +124,12 @@ pub struct MessageDefinition {
     pub title_ext: Option<types::Element>,
 
     /// Takes the place of
-    pub replaces: Option<Vec<types::Canonical>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub replaces: Vec<types::Canonical>,
     /// Primitive extension sibling for [`replaces`](Self::replaces) (FHIR `_replaces`).
     #[serde(rename = "_replaces")]
-    pub replaces_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub replaces_ext: Vec<Option<types::Element>>,
 
     /// Publication lifecycle state of this definition: draft, active, retired, or unknown.
     pub status: crate::r5::coded::Coded<crate::r5::codes::PublicationStatus>,
@@ -150,7 +156,8 @@ pub struct MessageDefinition {
     pub publisher_ext: Option<types::Element>,
 
     /// Contact details for the publisher
-    pub contact: Option<Vec<types::ContactDetail>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contact: Vec<types::ContactDetail>,
 
     /// Natural language description of the message definition
     pub description: Option<types::Markdown>,
@@ -159,10 +166,12 @@ pub struct MessageDefinition {
     pub description_ext: Option<types::Element>,
 
     /// The context that the content is intended to support
-    pub use_context: Option<Vec<types::UsageContext>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub use_context: Vec<types::UsageContext>,
 
     /// Intended jurisdiction for message definition (if applicable)
-    pub jurisdiction: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub jurisdiction: Vec<types::CodeableConcept>,
 
     /// Why this message definition is defined
     pub purpose: Option<types::Markdown>,
@@ -189,10 +198,12 @@ pub struct MessageDefinition {
     pub base_ext: Option<types::Element>,
 
     /// Protocol/workflow this is part of
-    pub parent: Option<Vec<types::Canonical>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub parent: Vec<types::Canonical>,
     /// Primitive extension sibling for [`parent`](Self::parent) (FHIR `_parent`).
     #[serde(rename = "_parent")]
-    pub parent_ext: Option<Vec<Option<types::Element>>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub parent_ext: Vec<Option<types::Element>>,
 
     /// The `MessageDefinition.event[x]` choice element (0..1); see [`MessageDefinitionEvent`].
     #[serde(flatten)]
@@ -205,7 +216,8 @@ pub struct MessageDefinition {
     pub category_ext: Option<types::Element>,
 
     /// The focal resources that make up the message payload, with their profiles and cardinality.
-    pub focus: Option<Vec<MessageDefinitionFocus>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub focus: Vec<MessageDefinitionFocus>,
 
     /// always | on-error | never | on-success
     pub response_required: Option<crate::r5::coded::Coded<crate::r5::codes::MessageheaderResponseRequest>>,
@@ -214,7 +226,8 @@ pub struct MessageDefinition {
     pub response_required_ext: Option<types::Element>,
 
     /// The response messages that are permitted in reply to this message.
-    pub allowed_response: Option<Vec<MessageDefinitionAllowedResponse>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub allowed_response: Vec<MessageDefinitionAllowedResponse>,
 
     /// Canonical reference to a GraphDefinition
     pub graph: Option<types::Canonical>,
@@ -233,10 +246,12 @@ pub struct MessageDefinitionFocus {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Type of resource
     pub code: types::Code,
@@ -273,10 +288,12 @@ pub struct MessageDefinitionAllowedResponse {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Reference to allowed message definition response
     pub message: types::Canonical,

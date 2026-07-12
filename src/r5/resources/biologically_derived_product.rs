@@ -83,13 +83,16 @@ pub struct BiologicallyDerivedProduct {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Broad classification of the product: organ | tissue | fluid | cells | biologicalAgent
     pub product_category: Option<types::Coding>,
@@ -98,13 +101,16 @@ pub struct BiologicallyDerivedProduct {
     pub product_code: Option<types::CodeableConcept>,
 
     /// The parent biologically-derived product, when this instance is an aliquot or derivative of another product
-    pub parent: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub parent: Vec<types::Reference>,
 
     /// Request to obtain and/or infuse this product
-    pub request: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub request: Vec<types::Reference>,
 
     /// Instance identifier
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// An identifier that supports traceability to the event during which material
     /// in this product from one or more biological entities was obtained or pooled
@@ -112,7 +118,8 @@ pub struct BiologicallyDerivedProduct {
 
     /// Processing facilities responsible for the labeling and distribution of this
     /// biologically derived product
-    pub processing_facility: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub processing_facility: Vec<types::Reference>,
 
     /// A unique identifier for an aliquot of a product
     pub division: Option<types::String>,
@@ -136,7 +143,8 @@ pub struct BiologicallyDerivedProduct {
     pub storage_temp_requirements: Option<types::Range>,
 
     /// A property that is specific to this BiologicallyDerviedProduct instance
-    pub property: Option<Vec<BiologicallyDerivedProductProperty>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub property: Vec<BiologicallyDerivedProductProperty>,
 }
 
 /// BiologicallyDerivedProductCollection
@@ -151,10 +159,12 @@ pub struct BiologicallyDerivedProductCollection {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Individual performing collection
     pub collector: Option<types::Reference>,
@@ -180,10 +190,12 @@ pub struct BiologicallyDerivedProductProperty {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Code that specifies the property
     pub r#type: types::CodeableConcept,

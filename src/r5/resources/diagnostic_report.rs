@@ -80,19 +80,24 @@ pub struct DiagnosticReport {
     pub text: Option<types::Narrative>,
 
     /// Contained, inline Resources
-    pub contained: Option<Vec<::serde_json::Value>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub contained: Vec<::serde_json::Value>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Business identifier for report
-    pub identifier: Option<Vec<types::Identifier>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub identifier: Vec<types::Identifier>,
 
     /// What was requested
-    pub based_on: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub based_on: Vec<types::Reference>,
 
     /// registered | partial | preliminary | modified | final | amended | corrected | appended | cancelled | entered-in-error | unknown; tracks the report's lifecycle status
     pub status: crate::r5::coded::Coded<crate::r5::codes::DiagnosticReportStatus>,
@@ -101,7 +106,8 @@ pub struct DiagnosticReport {
     pub status_ext: Option<types::Element>,
 
     /// Service category, such as the performing department (e.g. laboratory, radiology, cardiology)
-    pub category: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub category: Vec<types::CodeableConcept>,
 
     /// Name/Code for this diagnostic report, identifying the type of report or panel being reported
     pub code: types::CodeableConcept,
@@ -123,28 +129,36 @@ pub struct DiagnosticReport {
     pub issued_ext: Option<types::Element>,
 
     /// Responsible Diagnostic Service
-    pub performer: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub performer: Vec<types::Reference>,
 
     /// Primary result interpreter
-    pub results_interpreter: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub results_interpreter: Vec<types::Reference>,
 
     /// Specimens this report is based on
-    pub specimen: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub specimen: Vec<types::Reference>,
 
     /// Observations that make up the individual results contributing to this report
-    pub result: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub result: Vec<types::Reference>,
 
     /// Comments about the diagnostic report
-    pub note: Option<Vec<types::Annotation>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub note: Vec<types::Annotation>,
 
     /// Reference to full details of an analysis associated with the diagnostic report
-    pub study: Option<Vec<types::Reference>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub study: Vec<types::Reference>,
 
     /// Additional information supporting the diagnostic report
-    pub supporting_info: Option<Vec<DiagnosticReportSupportingInfo>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub supporting_info: Vec<DiagnosticReportSupportingInfo>,
 
     /// Key images or data associated with this report
-    pub media: Option<Vec<DiagnosticReportMedia>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub media: Vec<DiagnosticReportMedia>,
 
     /// Reference to a Composition resource for the DiagnosticReport structure
     pub composition: Option<types::Reference>,
@@ -156,10 +170,12 @@ pub struct DiagnosticReport {
     pub conclusion_ext: Option<types::Element>,
 
     /// Codes for the clinical conclusion of test results
-    pub conclusion_code: Option<Vec<types::CodeableConcept>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub conclusion_code: Vec<types::CodeableConcept>,
 
     /// Entire report as issued
-    pub presented_form: Option<Vec<types::Attachment>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub presented_form: Vec<types::Attachment>,
 }
 
 /// DiagnosticReportSupportingInfo
@@ -174,10 +190,12 @@ pub struct DiagnosticReportSupportingInfo {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Supporting information role code
     pub r#type: types::CodeableConcept,
@@ -198,10 +216,12 @@ pub struct DiagnosticReportMedia {
     pub id: Option<types::String>,
 
     /// Additional content defined by implementations
-    pub extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub extension: Vec<types::Extension>,
 
     /// Extensions that cannot be ignored even if unrecognized
-    pub modifier_extension: Option<Vec<types::Extension>>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub modifier_extension: Vec<types::Extension>,
 
     /// Comment about the image or data (e.g. explanation)
     pub comment: Option<types::String>,
