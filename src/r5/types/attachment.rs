@@ -18,7 +18,7 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive_macros::Validate;
+use fhir_derive_macros::{Builder, Validate};
 
 /// Content in a defined format and encoding, either as inline base64 data or
 /// as a reference to a URL where the content can be retrieved. It is used to
@@ -37,7 +37,7 @@ use fhir_derive_macros::Validate;
 /// assert_eq!(value, back);
 /// ```
 #[serde_with::skip_serializing_none]
-#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate, Builder)]
 #[serde(rename_all = "camelCase")]
 pub struct Attachment {
     /// Unique id for inter-element referencing

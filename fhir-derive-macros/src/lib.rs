@@ -382,3 +382,116 @@ pub fn derive_fhir_choice(input: TokenStream) -> TokenStream {
     }
     .into()
 }
+
+/// If `ty` is `Option<Inner>`, return `Inner`.
+fn option_inner(ty: &Type) -> Option<&Type> {
+    let Type::Path(p) = ty else { return None };
+    let seg = p.path.segments.last()?;
+    if seg.ident != "Option" {
+        return None;
+    }
+    match &seg.arguments {
+        PathArguments::AngleBracketed(a) => match a.args.first()? {
+            GenericArgument::Type(t) => Some(t),
+            _ => None,
+        },
+        _ => None,
+    }
+}
+
+/// Derive a chainable builder: `<Type>::builder()` returns a `<Type>Builder`
+/// with a setter per field and a `build() -> Result<Type, BuilderError>` that
+/// fails if a required (non-`Option`, non-`Vec`, i.e. FHIR `1..1`) field is
+/// unset. Optional and repeating fields default to absent/empty.
+#[proc_macro_derive(Builder)]
+pub fn derive_builder(input: TokenStream) -> TokenStream {
+    let input = parse_macro_input!(input as DeriveInput);
+    let name = &input.ident;
+    let builder = format_ident!("{name}Builder");
+
+    let Data::Struct(data) = &input.data else {
+        return syn::Error::new_spanned(name, "Builder can only derive on structs")
+            .to_compile_error()
+            .into();
+    };
+    let Fields::Named(fields) = &data.fields else {
+        return syn::Error::new_spanned(name, "Builder needs named fields")
+            .to_compile_error()
+            .into();
+    };
+
+    let mut builder_fields = Vec::new();
+    let mut setters = Vec::new();
+    let mut build_fields = Vec::new();
+
+    for f in &fields.named {
+        let ident = f.ident.as_ref().unwrap();
+        let fname = ident.to_string();
+        let ty = &f.ty;
+
+        if let Some(inner) = option_inner(ty) {
+            // Optional field: builder holds `Option<Inner>`, setter takes `Inner`.
+            builder_fields.push(quote! { #ident: ::core::option::Option<#inner> });
+            setters.push(quote! {
+                #[must_use]
+                pub fn #ident(mut self, value: #inner) -> Self {
+                    self.#ident = ::core::option::Option::Some(value);
+                    self
+                }
+            });
+            build_fields.push(quote! { #ident: self.#ident });
+        } else if is_bare_vec(ty) {
+            // Repeating field: builder holds the `Vec` directly (default empty).
+            builder_fields.push(quote! { #ident: #ty });
+            setters.push(quote! {
+                #[must_use]
+                pub fn #ident(mut self, value: #ty) -> Self {
+                    self.#ident = value;
+                    self
+                }
+            });
+            build_fields.push(quote! { #ident: self.#ident });
+        } else {
+            // Required 1..1 field: builder holds `Option<T>`; build() errors if unset.
+            builder_fields.push(quote! { #ident: ::core::option::Option<#ty> });
+            setters.push(quote! {
+                #[must_use]
+                pub fn #ident(mut self, value: #ty) -> Self {
+                    self.#ident = ::core::option::Option::Some(value);
+                    self
+                }
+            });
+            build_fields.push(quote! {
+                #ident: self.#ident.ok_or_else(|| crate::r5::builder::BuilderError::missing(#fname))?
+            });
+        }
+    }
+
+    quote! {
+        #[doc = concat!("Builder for [`", stringify!(#name), "`].")]
+        #[derive(Debug, Default, Clone)]
+        pub struct #builder {
+            #(#builder_fields,)*
+        }
+
+        impl #name {
+            #[doc = "Start building a value with the builder."]
+            #[must_use]
+            pub fn builder() -> #builder {
+                #builder::default()
+            }
+        }
+
+        impl #builder {
+            #(#setters)*
+
+            #[doc = "Finish building, erroring if a required field is unset."]
+            pub fn build(self) -> ::core::result::Result<#name, crate::r5::builder::BuilderError> {
+                ::core::result::Result::Ok(#name {
+                    #(#build_fields,)*
+                })
+            }
+        }
+    }
+    .into()
+}

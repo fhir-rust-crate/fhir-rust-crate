@@ -15,7 +15,7 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive_macros::Validate;
+use fhir_derive_macros::{Builder, Validate};
 
 /// The base definition for all elements contained in a resource. Every FHIR
 /// element carries an optional `id` for inter-element referencing and an
@@ -32,7 +32,7 @@ use fhir_derive_macros::Validate;
 /// assert_eq!(json, ::serde_json::json!({}));
 /// ```
 #[serde_with::skip_serializing_none]
-#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate, Builder)]
 #[serde(rename_all = "camelCase")]
 pub struct Element {
     /// Unique id for inter-element referencing.

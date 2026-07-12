@@ -17,7 +17,7 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive_macros::Validate;
+use fhir_derive_macros::{Builder, Validate};
 
 /// A set of ordered quantities defined by a low and high limit, used to express a value that
 /// falls somewhere within a bounded interval, such as a normal reference range for an
@@ -36,7 +36,7 @@ use fhir_derive_macros::Validate;
 /// assert_eq!(value, back);
 /// ```
 #[serde_with::skip_serializing_none]
-#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate, Builder)]
 #[serde(rename_all = "camelCase")]
 pub struct Range {
     /// Unique id for inter-element referencing

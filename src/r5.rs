@@ -55,3 +55,6 @@ pub mod coded;
 
 /// Ergonomic extension accessors ([`ExtensionExt`](extension_ext::ExtensionExt)).
 pub mod extension_ext;
+
+/// Support for the generated `#[derive(Builder)]` builders.
+pub mod builder;

@@ -15,7 +15,7 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive_macros::Validate;
+use fhir_derive_macros::{Builder, Validate};
 
 /// Identifier is a FHIR R5 complex datatype that identifies some entity
 /// uniquely and unambiguously. It is most commonly used to carry business
@@ -36,7 +36,7 @@ use fhir_derive_macros::Validate;
 /// assert_eq!(value, back);
 /// ```
 #[serde_with::skip_serializing_none]
-#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate, Builder)]
 #[serde(rename_all = "camelCase")]
 pub struct Identifier {
     /// Unique id for inter-element referencing

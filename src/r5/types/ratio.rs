@@ -17,7 +17,7 @@
 
 use crate::r5::types;
 use ::serde::{Deserialize, Serialize};
-use fhir_derive_macros::Validate;
+use fhir_derive_macros::{Builder, Validate};
 
 /// A relationship of two `Quantity` values, expressed as a numerator and a denominator, used to represent ratios and rates such as concentrations or infusion rates.
 ///
@@ -32,7 +32,7 @@ use fhir_derive_macros::Validate;
 /// assert_eq!(value, back);
 /// ```
 #[serde_with::skip_serializing_none]
-#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate)]
+#[derive(Debug, Default, Clone, Serialize, Deserialize, PartialEq, Eq, Validate, Builder)]
 #[serde(rename_all = "camelCase")]
 pub struct Ratio {
     /// Unique id for inter-element referencing

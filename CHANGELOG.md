@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Builders (T16): `#[derive(Builder)]` generates `Type::builder()` → a chainable
+  `TypeBuilder` with a setter per field and `build() -> Result<Type,
+  BuilderError>` that enforces required (`1..1`) fields. Applied to the 10
+  most-used resources and all general-purpose datatypes (59 types).
+  `examples/build_patient.rs` rewritten with the builder.
 - Ergonomics (T17): a `fhir::prelude` (`use fhir::prelude::*;`) and the
   `ExtensionExt`/`ModifierExtensionExt` traits (`extension(url)`,
   `extensions(url)`, `set_extension`, `add_extension`) on every resource and
