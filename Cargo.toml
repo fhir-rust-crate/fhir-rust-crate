@@ -1,6 +1,6 @@
 [package]
 name = "fhir"
-version = "0.4.0"
+version = "1.0.0"
 edition = "2024"
 authors = ["Joel Parker Henderson <joel@joelparkerhenderson.com>"]
 description = "Fast Healthcare Interoperability Resources (FHIR) API is a standardized, RESTful interface for exchanging electronic health records."
@@ -37,7 +37,7 @@ xml = ["dep:quick-xml"]
 members = ["fhir-derive-macros"]
 
 [dependencies]
-fhir-derive-macros = { path = "fhir-derive-macros", version = "0.2.0" } # Procedural macros for this crate (e.g. #[derive(Validate)]).
+fhir-derive-macros = { path = "fhir-derive-macros", version = "1.0.0" } # Procedural macros for this crate (e.g. #[derive(Validate)]).
 serde = { version = "~1.0.228", features = ["derive"] } # A serialization/deserialization framework.
 serde_json = { version = "~1.0.150" } # Serde serialization/deserialization of JSON data.
 serde_with = { version = "3.21" } # Serde annotation helpers for serde "with" and "serde_as"

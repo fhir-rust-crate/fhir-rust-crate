@@ -102,9 +102,9 @@ jobs:
       - uses: Swatinem/rust-cache@v2
       # The proc-macro crate has no path deps, so its dry-run must be green.
       - run: cargo publish --dry-run -p fhir-derive-macros
-      # The parent depends on fhir-derive-macros 0.2.0 (new derives FhirChoice /
-      # Builder), which is not yet on crates.io, so its dry-run cannot resolve
-      # that version from the registry. Non-blocking until the macro crate 0.2.0
-      # is published (publish it first, then `cargo publish` for fhir).
+      # The parent depends on fhir-derive-macros 1.0.0, which is not yet on
+      # crates.io, so its dry-run cannot resolve that version from the registry.
+      # Non-blocking until the macro crate 1.0.0 is published (publish it first,
+      # then `cargo publish` for fhir).
       - run: cargo publish --dry-run -p fhir
         continue-on-error: true

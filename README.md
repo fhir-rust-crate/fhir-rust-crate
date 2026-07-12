@@ -9,9 +9,9 @@ Fast Healthcare Interoperability Resources (FHIR, pronounced "fire") is the HL7
 standard for exchanging electronic health records. This crate lets you build,
 parse, validate, and round-trip FHIR resources in idiomatic Rust with `serde`.
 
-> **Status:** work in progress. The R5 data model (resources, datatypes,
-> primitives, code systems, validation) is implemented and green; APIs may still
-> change before 1.0.
+> **Status:** stable (1.0). The R5 data model (resources, datatypes,
+> primitives, code systems, validation) is implemented and green, and the API
+> follows semantic versioning.
 
 > FHIR® is a registered trademark of Health Level Seven International. This crate
 > is not affiliated with or endorsed by HL7.
@@ -35,7 +35,7 @@ parse, validate, and round-trip FHIR resources in idiomatic Rust with `serde`.
 
 ```toml
 [dependencies]
-fhir = "0.4"
+fhir = "1"
 serde_json = "1" # or any other serde data format
 ```
 

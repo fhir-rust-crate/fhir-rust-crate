@@ -30,7 +30,7 @@
 //!
 //! ```toml
 //! [dependencies]
-//! fhir = "0.4"
+//! fhir = "1"
 //! serde_json = "1" # or any other serde data format
 //! ```
 //!

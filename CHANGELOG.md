@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.0] - 2026-07-12
+
+First stable release. No API changes from 0.4.0 — this promotes the crate to
+1.0.0 (and `fhir-derive-macros` to 1.0.0) to commit to semantic-versioning
+stability for the R5 model, choice enums, `Coded<E>`, cardinality mapping
+(`0..*`→`Vec<T>`, `1..*`→`vec1::Vec1<T>`), builders, prelude, and the
+`client`/`xml`/`precise-decimal` features.
+
 ## [0.4.0] - 2026-07-12
 
 Also bumps `fhir-derive-macros` to 0.2.0 (new `FhirChoice` and `Builder`
@@ -154,7 +162,8 @@ Initial release: the complete FHIR R5 (5.0.0) data model in idiomatic,
 - Runnable examples: `build_patient`, `validate_resource`, `read_bundle`,
   `code_systems`.
 
-[Unreleased]: https://github.com/joelparkerhenderson/fhir-rust-crate/compare/v0.4.0...HEAD
+[Unreleased]: https://github.com/joelparkerhenderson/fhir-rust-crate/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/joelparkerhenderson/fhir-rust-crate/compare/v0.4.0...v1.0.0
 [0.4.0]: https://github.com/joelparkerhenderson/fhir-rust-crate/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/joelparkerhenderson/fhir-rust-crate/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/joelparkerhenderson/fhir-rust-crate/compare/v0.1.0...v0.2.0
