@@ -4,7 +4,7 @@
 
 ```toml
 [dependencies]
-fhir = "0.3"
+fhir = "0.4"
 serde_json = "1" # or any other serde data format
 ```
 

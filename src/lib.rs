@@ -30,7 +30,7 @@
 //!
 //! ```toml
 //! [dependencies]
-//! fhir = "0.1"
+//! fhir = "0.4"
 //! serde_json = "1" # or any other serde data format
 //! ```
 //!
@@ -165,8 +165,8 @@
 //! |------------------|------------------|
 //! | `0..1`           | `Option<T>`      |
 //! | `1..1`           | `T`              |
-//! | `0..*`           | `Option<Vec<T>>` |
-//! | `1..*`           | `Vec<T>`         |
+//! | `0..*`           | `Vec<T>`         |
+//! | `1..*`           | `Vec1<T>`        |
 //!
 //! A `value[x]` *choice* element becomes one generated enum with a variant per
 //! allowed type — for example `Observation.value` is `Option<ObservationValue>`

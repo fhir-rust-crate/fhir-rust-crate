@@ -28,8 +28,8 @@ the normative version of the conventions in
   | --- | --- |
   | `0..1` | `Option<T>` |
   | `1..1` | `T` |
-  | `0..*` | `Option<Vec<T>>` |
-  | `1..*` | `Vec<T>` |
+  | `0..*` | `Vec<T>` |
+  | `1..*` | `vec1::Vec1<T>` |
 
 - **R6.7** A `Vec` field using `skip_serializing_if = "Vec::is_empty"` MUST also
   declare `#[serde(default)]`, so an omitted array deserializes to an empty

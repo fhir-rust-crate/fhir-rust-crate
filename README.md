@@ -35,7 +35,7 @@ parse, validate, and round-trip FHIR resources in idiomatic Rust with `serde`.
 
 ```toml
 [dependencies]
-fhir = "0.1"
+fhir = "0.4"
 serde_json = "1" # or any other serde data format
 ```
 
@@ -53,11 +53,11 @@ let patient = Patient {
     id: Some(FhirString("pat-1".to_string())),
     active: Some(Boolean(true)),
     gender: Some(Coded::Known(AdministrativeGender::Male)),
-    name: Some(vec![HumanName {
+    name: vec![HumanName {
         family: Some(FhirString("Chalmers".to_string())),
         given: vec![FhirString("Peter".to_string())],
         ..Default::default()
-    }]),
+    }],
     ..Default::default()
 };
 
@@ -80,8 +80,8 @@ through `serde_json` (or any serde format).
   |------------------|------------------|
   | `0..1`           | `Option<T>`      |
   | `1..1`           | `T`              |
-  | `0..*`           | `Option<Vec<T>>` |
-  | `1..*`           | `Vec<T>`         |
+  | `0..*`           | `Vec<T>`         |
+  | `1..*`           | `Vec1<T>`        |
 
 - **`value[x]` choice elements** are one generated enum per element (e.g.
   `Observation.value` is `Option<ObservationValue>` with a variant per allowed

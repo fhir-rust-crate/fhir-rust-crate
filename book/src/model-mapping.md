@@ -9,11 +9,13 @@ Rust is uniform and predictable.
 |------------------|------------------|
 | `0..1`           | `Option<T>`      |
 | `1..1`           | `T`              |
-| `0..*`           | `Option<Vec<T>>` |
-| `1..*`           | `Vec<T>`         |
+| `0..*`           | `Vec<T>`         |
+| `1..*`           | `Vec1<T>`        |
 
-Because bare `Vec` is used for a few `0..*` fields too, "is this `1..*`?" is
-answered from the metadata table, not the type — see [Validation](validation.md).
+A `1..*` element uses [`vec1::Vec1<T>`](https://docs.rs/vec1) (a non-empty vector),
+so the "at least one" constraint holds at compile time; a `0..*` element is a bare
+`Vec<T>` that is empty when absent (`#[serde(default, skip_serializing_if =
+"Vec::is_empty")]`).
 
 ## Primitives are transparent newtypes
 

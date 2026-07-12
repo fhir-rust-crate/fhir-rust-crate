@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-07-12
+
+Also bumps `fhir-derive-macros` to 0.2.0 (new `FhirChoice` and `Builder`
+derives, plus cardinality/invariant checks in `Validate`).
+
 ### Added
 - FHIR XML (T21, feature `xml`): `fhir::r5::xml::to_xml`/`from_xml` convert a
   resource to/from FHIR XML via a metadata-driven serde_json::Value bridge
@@ -149,7 +154,8 @@ Initial release: the complete FHIR R5 (5.0.0) data model in idiomatic,
 - Runnable examples: `build_patient`, `validate_resource`, `read_bundle`,
   `code_systems`.
 
-[Unreleased]: https://github.com/joelparkerhenderson/fhir-rust-crate/compare/v0.3.0...HEAD
+[Unreleased]: https://github.com/joelparkerhenderson/fhir-rust-crate/compare/v0.4.0...HEAD
+[0.4.0]: https://github.com/joelparkerhenderson/fhir-rust-crate/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/joelparkerhenderson/fhir-rust-crate/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/joelparkerhenderson/fhir-rust-crate/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/joelparkerhenderson/fhir-rust-crate/releases/tag/v0.1.0
