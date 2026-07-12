@@ -52,3 +52,6 @@ pub mod temporal;
 
 /// The [`Coded`](coded::Coded) wrapper for `required`-binding coded fields.
 pub mod coded;
+
+/// Ergonomic extension accessors ([`ExtensionExt`](extension_ext::ExtensionExt)).
+pub mod extension_ext;

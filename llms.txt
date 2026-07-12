@@ -32,6 +32,11 @@ The public API lives under the `r5` module (FHIR Release 5):
 - `r5::choice` — support types for `value[x]` choice enums (`Primitive<T>`).
 - `r5::coded` — the `Coded<E>` wrapper typing `required`-binding fields as their
   `codes` enum with an `Unknown(String)` fallback for wire compatibility.
+- `r5::extension_ext` — the `ExtensionExt`/`ModifierExtensionExt` traits:
+  `extension(url)`, `extensions(url)`, `set_extension`, `add_extension`.
+
+The crate root also exposes `prelude` (`use fhir::prelude::*;`) re-exporting the
+most-used resources, datatypes, `Validate`, `Coded`, and `ExtensionExt`.
 - `r5::temporal` — parsing and precision-aware comparison for the date/time
   primitives (`Date::parse_parts`, `DateParts`, FHIR precision ordering).
 - `r5::parse` — the spec-driven code generator that reads the FHIR specification

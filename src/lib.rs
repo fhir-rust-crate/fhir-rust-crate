@@ -183,6 +183,7 @@
 //! cargo run --example read_bundle
 //! cargo run --example primitive_extensions
 //! cargo run --example operation_outcome
+//! cargo run --example extensions
 //! ```
 //!
 //! ## Crate layout
@@ -222,6 +223,7 @@
 #![allow(rustdoc::bare_urls)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
+pub mod prelude;
 pub mod r5;
 pub mod util;
 

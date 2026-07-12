@@ -21,6 +21,8 @@
     "r5::meta": "Per-element metadata extracted from the specification (cardinality, bindings, value[x] choice types, reference target profiles, summary membership), queryable by FHIR path.",
     "r5::choice": "Support types for value[x] choice enums (Primitive<T>) plus the FhirChoice derive.",
     "r5::coded": "The Coded<E> wrapper typing required-binding fields as their codes enum with an Unknown(String) fallback.",
+    "r5::extension_ext": "The ExtensionExt/ModifierExtensionExt traits: extension(url), extensions(url), set_extension, add_extension.",
+    "prelude": "Crate-root prelude (use fhir::prelude::*) re-exporting the most-used resources, datatypes, Validate, Coded, and ExtensionExt.",
     "r5::temporal": "Parsing and precision-aware comparison for the date/time primitives (Date::parse_parts, DateParts, FHIR precision ordering).",
     "r5::parse": "The spec-driven code generator that reads the FHIR specification JSON in `DEFINITIONS_DIR`.",
     "r5::abstract_types": "Base/abstract FHIR interfaces used by the generator.",

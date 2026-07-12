@@ -135,6 +135,7 @@ cargo run --example read_bundle        # dispatch on each entry's resourceType
 cargo run --example code_systems       # code-system enums
 cargo run --example primitive_extensions  # _field primitive extensions
 cargo run --example operation_outcome     # validation → OperationOutcome
+cargo run --example extensions            # ExtensionExt: get/set extensions
 ```
 
 ## Crate layout

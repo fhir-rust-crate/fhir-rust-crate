@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Ergonomics (T17): a `fhir::prelude` (`use fhir::prelude::*;`) and the
+  `ExtensionExt`/`ModifierExtensionExt` traits (`extension(url)`,
+  `extensions(url)`, `set_extension`, `add_extension`) on every resource and
+  datatype that carries extensions. New `examples/extensions.rs`.
 - Common invariants (T14): `Validate` enforces `ext-1` (an extension has a value
   xor nested extensions) and `dom-2`/`dom-4` (rules on contained resources). A
   generated coverage report of all 314 constraint keys is committed at
