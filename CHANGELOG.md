@@ -8,6 +8,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Common invariants (T14): `Validate` enforces `ext-1` (an extension has a value
+  xor nested extensions) and `dom-2`/`dom-4` (rules on contained resources). A
+  generated coverage report of all 314 constraint keys is committed at
+  `spec/10-invariants-coverage.md`.
+- `OperationOutcome` bridge (T15): `From<Vec<ValidationIssue>>` +
+  `examples/operation_outcome.rs`.
 - Deeper validation (T13): `Validate` now reports empty `1..*` elements (read
   from `meta` at runtime, since bare `Vec` is also used for some `0..*`) and
   required-binding codes outside the value set (a `Coded::Unknown`). See

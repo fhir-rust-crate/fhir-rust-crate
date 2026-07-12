@@ -22,9 +22,11 @@ pub fn derive_validate(input: TokenStream) -> TokenStream {
     let body = match &input.data {
         Data::Struct(s) => {
             let stmts = struct_field_stmts(&s.fields, &name.to_string());
+            let invariants = invariant_stmts(&name.to_string(), &s.fields);
             quote! {
                 let mut issues = ::std::vec::Vec::new();
                 #(#stmts)*
+                #invariants
                 issues
             }
         }
@@ -69,6 +71,56 @@ pub fn derive_validate(input: TokenStream) -> TokenStream {
         }
     }
     .into()
+}
+
+/// Emit the recognized FHIR invariant checks for a struct (see
+/// `spec/10-invariants-coverage.md`): `ext-1` on `Extension`, and `dom-2`/`dom-4`
+/// on any domain resource (a struct with a `contained` field).
+fn invariant_stmts(struct_name: &str, fields: &Fields) -> proc_macro2::TokenStream {
+    let mut checks = proc_macro2::TokenStream::new();
+
+    // ext-1: an Extension SHALL have either a value or nested extensions, not both.
+    if struct_name == "Extension" {
+        checks.extend(quote! {
+            let __has_value = self.value.is_some();
+            let __has_ext = self.extension.as_ref().is_some_and(|e| !e.is_empty());
+            if __has_value == __has_ext {
+                issues.push(crate::r5::validate::ValidationIssue::new(
+                    "",
+                    "ext-1: an extension SHALL have either a value or nested extensions, not both",
+                ));
+            }
+        });
+    }
+
+    // dom-2 / dom-4: rules on a domain resource's contained resources.
+    let has_contained = matches!(fields, Fields::Named(f)
+        if f.named.iter().any(|x| x.ident.as_ref().is_some_and(|i| i == "contained")));
+    if has_contained {
+        checks.extend(quote! {
+            if let ::core::option::Option::Some(__contained) = &self.contained {
+                for (__i, __c) in __contained.iter().enumerate() {
+                    if __c.get("contained").is_some() {
+                        issues.push(crate::r5::validate::ValidationIssue::new(
+                            &format!("contained[{__i}]"),
+                            "dom-2: a contained resource SHALL NOT itself contain resources",
+                        ));
+                    }
+                    let __meta = __c.get("meta");
+                    if __meta.and_then(|m| m.get("versionId")).is_some()
+                        || __meta.and_then(|m| m.get("lastUpdated")).is_some()
+                    {
+                        issues.push(crate::r5::validate::ValidationIssue::new(
+                            &format!("contained[{__i}]"),
+                            "dom-4: a contained resource SHALL NOT have meta.versionId or meta.lastUpdated",
+                        ));
+                    }
+                }
+            }
+        });
+    }
+
+    checks
 }
 
 /// Snake-case identifier (after stripping a raw `r#`) to camelCase, matching the

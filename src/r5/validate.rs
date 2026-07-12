@@ -294,6 +294,53 @@ mod tests {
         assert_eq!(issues[0].path, "gender.code");
     }
 
+    // T14: ext-1 — an Extension must have a value XOR nested extensions.
+    #[test]
+    fn invariant_ext_1() {
+        use crate::r5::choice::Primitive;
+        use crate::r5::types::extension::{Extension, ExtensionValue};
+        use crate::r5::types::{Boolean, String as FhirString};
+
+        let url = || FhirString("http://example.org/x".to_string());
+
+        // Neither value nor extension -> violates ext-1.
+        let neither = Extension { url: url(), ..Default::default() };
+        assert!(neither.validate().iter().any(|i| i.message.contains("ext-1")));
+
+        // Exactly a value -> ok.
+        let value_only = Extension {
+            url: url(),
+            value: Some(ExtensionValue::Boolean(Primitive::new(Boolean(true)))),
+            ..Default::default()
+        };
+        assert!(!value_only.validate().iter().any(|i| i.message.contains("ext-1")));
+
+        // Both value and a nested extension -> violates ext-1.
+        let both = Extension {
+            url: url(),
+            value: Some(ExtensionValue::Boolean(Primitive::new(Boolean(true)))),
+            extension: Some(vec![value_only.clone()]),
+            ..Default::default()
+        };
+        assert!(both.validate().iter().any(|i| i.message.contains("ext-1")));
+    }
+
+    // T14: dom-2 — a contained resource must not itself contain resources.
+    #[test]
+    fn invariant_dom_2() {
+        use crate::r5::resources::Patient;
+
+        let patient = Patient {
+            contained: Some(vec![serde_json::json!({
+                "resourceType": "Observation",
+                "id": "o1",
+                "contained": [{ "resourceType": "Patient", "id": "nested" }]
+            })]),
+            ..Default::default()
+        };
+        assert!(patient.validate().iter().any(|i| i.message.contains("dom-2")));
+    }
+
     // T13: an empty 1..* Vec is a cardinality violation.
     #[test]
     fn cardinality_flags_empty_required_vec() {
