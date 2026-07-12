@@ -143,6 +143,7 @@ cargo run --example primitive_extensions  # _field primitive extensions
 cargo run --example operation_outcome     # validation → OperationOutcome
 cargo run --example extensions            # ExtensionExt: get/set extensions
 cargo run --example transaction_bundle    # build/read a transaction Bundle
+cargo run --example client_crud --features client  # REST CRUD vs HAPI
 ```
 
 ## Crate layout

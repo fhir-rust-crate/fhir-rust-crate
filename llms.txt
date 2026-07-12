@@ -39,6 +39,8 @@ The public API lives under the `r5` module (FHIR Release 5):
   `next_link` paging, and the transaction/batch builder.
 - `r5::summary` — `to_summary_value` (the FHIR `_summary=true` view via the
   `is_summary` metadata).
+- `client` (feature `client`) — an async FHIR REST `Client` (reqwest/tokio):
+  read/vread/create/update/delete/search/capabilities; errors carry `OperationOutcome`.
 
 The crate root also exposes `prelude` (`use fhir::prelude::*;`) re-exporting the
 most-used resources, datatypes, `Validate`, `Coded`, and `ExtensionExt`.
@@ -66,7 +68,8 @@ The crate root also exposes the top-level modules `r5` and `util`, the
 
 FHIR element cardinality maps to Rust types: `0..1` → `Option<T>`,
 `1..1` → `T`, `0..*` → `Option<Vec<T>>`, `1..*` → `Vec<T>`. A `value[x]` choice
-element becomes one field per allowed type, named `value_<type>`.
+element is one generated enum per element (a variant per allowed type), and a
+`required`-binding coded field is its `codes` enum wrapped in `Coded<E>`.
 
 ## Examples
 

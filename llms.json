@@ -31,7 +31,8 @@
     "r5::abstract_types": "Base/abstract FHIR interfaces used by the generator.",
     "r5::properties": "Generator-internal support module.",
     "r5::resource": "Generator-internal support module.",
-    "r5::todo": "Generator-internal support module."
+    "r5::todo": "Generator-internal support module.",
+    "client": "(feature `client`) async FHIR REST Client (reqwest/tokio): read/vread/create/update/delete/search/capabilities."
   },
   "key_types": [
     "fhir::r5::resources::Resource",

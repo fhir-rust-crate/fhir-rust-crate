@@ -226,6 +226,9 @@
 #![allow(rustdoc::bare_urls)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
+/// An async FHIR REST client (feature `client`).
+#[cfg(feature = "client")]
+pub mod client;
 pub mod prelude;
 pub mod r5;
 pub mod util;

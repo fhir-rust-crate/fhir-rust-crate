@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- REST client (T19, feature `client`): async `fhir::client::Client` (reqwest +
+  tokio) with read/vread/create/update/delete/search/capabilities; error
+  responses surface the server `OperationOutcome`. wiremock unit tests;
+  `examples/client_crud.rs` runs against the public HAPI R5 server.
 - Summary serialization (T20): `fhir::r5::summary::to_summary_value` returns the
   FHIR `_summary=true` view (isSummary + mandatory top-level elements) using the
   meta table; doctest on Patient.

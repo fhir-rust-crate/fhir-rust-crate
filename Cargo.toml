@@ -28,6 +28,8 @@ all-features = true
 # `serde_json::Number` with arbitrary precision. Off by default because it is a
 # global serde_json effect and changes `Number` equality to be string-based.
 precise-decimal = ["serde_json/arbitrary_precision"]
+# An async FHIR REST client (`fhir::client`). Pulls in reqwest + tokio.
+client = ["dep:reqwest", "dep:tokio"]
 
 [workspace]
 members = ["fhir-derive-macros"]
@@ -39,3 +41,9 @@ serde_json = { version = "~1.0.150" } # Serde serialization/deserialization of J
 serde_with = { version = "3.21" } # Serde annotation helpers for serde "with" and "serde_as"
 indoc = { version = "2.0" } # Indented string literal procedural macro.
 convert_case = { version = "0.11" } # Convert text case, such as from camel case to snake case.
+reqwest = { version = "0.12", features = ["json"], optional = true } # HTTP client for the `client` feature.
+tokio = { version = "1", features = ["rt-multi-thread", "macros"], optional = true } # Async runtime for the `client` feature.
+
+[dev-dependencies]
+wiremock = "0.6" # Mock HTTP server for `client` unit tests.
+tokio = { version = "1", features = ["rt-multi-thread", "macros"] } # Async runtime for tests.
