@@ -37,6 +37,8 @@ The public API lives under the `r5` module (FHIR Release 5):
 - `r5::builder` — `BuilderError` for the generated `Type::builder()` builders.
 - `r5::bundle_util` — `Bundle` iteration (`iter_resources`, `resources::<T>`),
   `next_link` paging, and the transaction/batch builder.
+- `r5::summary` — `to_summary_value` (the FHIR `_summary=true` view via the
+  `is_summary` metadata).
 
 The crate root also exposes `prelude` (`use fhir::prelude::*;`) re-exporting the
 most-used resources, datatypes, `Validate`, `Coded`, and `ExtensionExt`.

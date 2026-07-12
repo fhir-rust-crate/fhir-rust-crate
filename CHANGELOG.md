@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Summary serialization (T20): `fhir::r5::summary::to_summary_value` returns the
+  FHIR `_summary=true` view (isSummary + mandatory top-level elements) using the
+  meta table; doctest on Patient.
 - Bundle utilities (T18): `Bundle::iter_resources`, `Bundle::resources::<T>(rt)`,
   `Bundle::next_link` paging, and a `Bundle::transaction()`/`batch()` builder
   (`create`/`update`/`delete`). New `examples/transaction_bundle.rs`. (Typed

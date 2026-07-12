@@ -61,3 +61,6 @@ pub mod builder;
 
 /// Utilities for `Bundle`s: iteration, paging, and transaction/batch building.
 pub mod bundle_util;
+
+/// Summary serialization (the FHIR `_summary=true` view).
+pub mod summary;
