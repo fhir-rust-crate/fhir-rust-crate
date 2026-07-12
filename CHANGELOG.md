@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Documentation guide (T23): an mdBook in `book/` (getting started, model
+  mapping, JSON serialization, validation, terminology, extensions, bundles,
+  generator internals); CI builds it, and README links to it.
 - REST client (T19, feature `client`): async `fhir::client::Client` (reqwest +
   tokio) with read/vread/create/update/delete/search/capabilities; error
   responses surface the server `OperationOutcome`. wiremock unit tests;
@@ -39,27 +42,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   from `meta` at runtime, since bare `Vec` is also used for some `0..*`) and
   required-binding codes outside the value set (a `Coded::Unknown`). See
   `spec/07-validation.md`.
-
-### Changed (breaking)
-- Coded fields with a `required` binding are now typed as their `codes` enum via
-  the new `fhir::r5::coded::Coded<E>` wrapper (`Known(E)` | `Unknown(String)`
-  fallback for wire compatibility), instead of the opaque `types::Code`. 343
-  fields retyped. `Coded::code()` returns the wire string; `Coded::known()` the
-  enum. See `spec/05-code-systems.md`.
-
-### Added
-- Typed references: `Reference` is now `Reference<T = Any>`, a phantom-typed
+- Typed references (T11): `Reference` is now `Reference<T = Any>`, a phantom-typed
   newtype over the same wire form (`Reference<Any>` = the old untyped reference,
   so existing code is unaffected). Adds the `ResourceType` marker trait, the
   `Any` target, `.cast()`/`.into_any()`, and `.resolve(&bundle)` to look a
   reference up in a `Bundle`. (Machinery only; typing individual reference fields
   from `targetProfile` is a follow-up rollout.)
-- `fhir::r5::temporal`: precision-aware parsing for the date/time primitives —
-  `Date::parse_parts`/`DateTime::date_parts`/`Instant::date_parts`/`Time::parse_parts`,
-  a `DateParts` type with FHIR precision ordering (`"2024"` vs `"2024-03"` is
-  indeterminate), and `TimeParts`. Storage is unchanged (still `String`).
+- Primitive value APIs (T12): `fhir::r5::temporal` — precision-aware parsing for
+  the date/time primitives (`Date::parse_parts`/`DateTime::date_parts`/
+  `Instant::date_parts`/`Time::parse_parts`), a `DateParts` type with FHIR
+  precision ordering (`"2024"` vs `"2024-03"` is indeterminate), and `TimeParts`.
+  Storage is unchanged (still `String`).
 - `precise-decimal` feature: back `serde_json::Number` with arbitrary precision
   to preserve exact `decimal` values.
+
+### Changed (breaking)
+- Coded fields (T10) with a `required` binding are now typed as their `codes`
+  enum via the new `fhir::r5::coded::Coded<E>` wrapper (`Known(E)` |
+  `Unknown(String)` fallback for wire compatibility), instead of the opaque
+  `types::Code`. 343 fields retyped. `Coded::code()` returns the wire string;
+  `Coded::known()` the enum. See `spec/05-code-systems.md`.
 
 ## [0.3.0] - 2026-07-11
 

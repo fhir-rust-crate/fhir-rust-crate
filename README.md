@@ -164,12 +164,15 @@ examples/           Runnable example programs
 
 ## Documentation
 
-Build and open the full API documentation, including the crate guide and every
-resource/datatype:
+- **The guide** — a task-oriented mdBook in [`book/`](book/) (getting started,
+  model mapping, JSON serialization, validation, terminology, extensions,
+  bundles, and generator internals). Build it with `mdbook build book`.
+- **API reference** — build and open the full API docs, including the crate
+  guide and every resource/datatype:
 
-```sh
-cargo doc --open
-```
+  ```sh
+  cargo doc --open
+  ```
 
 ## The code generator
 
