@@ -182,6 +182,7 @@
 //! cargo run --example validate_resource
 //! cargo run --example read_bundle
 //! cargo run --example primitive_extensions
+//! cargo run --example operation_outcome
 //! ```
 //!
 //! ## Crate layout

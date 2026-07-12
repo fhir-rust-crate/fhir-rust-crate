@@ -29,6 +29,46 @@ pub struct ValidationIssue {
     pub message: String,
 }
 
+impl From<ValidationIssue> for crate::r5::resources::operation_outcome::OperationOutcomeIssue {
+    fn from(issue: ValidationIssue) -> Self {
+        use crate::r5::coded::Coded;
+        use crate::r5::codes::{IssueSeverity, IssueType};
+        Self {
+            severity: Coded::Known(IssueSeverity::Error),
+            code: Coded::Known(IssueType::Invalid),
+            diagnostics: Some(types::String(issue.message)),
+            expression: Some(vec![types::String(issue.path)]),
+            ..Default::default()
+        }
+    }
+}
+
+/// Bridge validation results into a FHIR `OperationOutcome` — each
+/// [`ValidationIssue`] becomes an `issue` entry with `error` severity and an
+/// `invalid` code, its message in `diagnostics` and its path in `expression`.
+///
+/// ```
+/// use fhir::r5::resources::Patient;
+/// use fhir::r5::resources::operation_outcome::OperationOutcome;
+/// use fhir::r5::types::Uri;
+/// use fhir::r5::validate::Validate;
+///
+/// let mut patient = Patient::default();
+/// patient.implicit_rules = Some(Uri(" bad ".to_string()));
+///
+/// let outcome: OperationOutcome = patient.validate().into();
+/// assert_eq!(outcome.issue.len(), 1);
+/// assert_eq!(outcome.issue[0].expression.as_ref().unwrap()[0].0, "implicit_rules.uri");
+/// ```
+impl From<Vec<ValidationIssue>> for crate::r5::resources::operation_outcome::OperationOutcome {
+    fn from(issues: Vec<ValidationIssue>) -> Self {
+        Self {
+            issue: issues.into_iter().map(Into::into).collect(),
+            ..Default::default()
+        }
+    }
+}
+
 impl ValidationIssue {
     pub(crate) fn new(path: &str, message: impl Into<String>) -> Self {
         Self {

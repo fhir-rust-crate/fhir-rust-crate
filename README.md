@@ -134,6 +134,7 @@ cargo run --example validate_resource  # recursive validation and issue paths
 cargo run --example read_bundle        # dispatch on each entry's resourceType
 cargo run --example code_systems       # code-system enums
 cargo run --example primitive_extensions  # _field primitive extensions
+cargo run --example operation_outcome     # validation → OperationOutcome
 ```
 
 ## Crate layout
