@@ -251,6 +251,10 @@ A FHIR profile offers two views of a profiled resource:
 - Resource: <https://build.fhir.org/resource.html>
 - Versions / standards process: <https://build.fhir.org/versions.html#std-process>
 
+## FHIR®
+
+FHIR® is the registered trademark of HL7 and is used with the permission of HL7. Use of the FHIR trademark does not constitute endorsement of this library by HL7.
+
 ## License
 
 Licensed under any of:
