@@ -89,7 +89,7 @@ than normalizing. See spec 12.
 - R5 additionally provides a phantom-typed `Reference<T>` with a `ResourceType`
   marker trait, so a reference can name its target at compile time. The
   machinery exists but no generated field uses it, and R4 has no counterpart.
-  Rolling it out across both releases, driven by each element's `targetProfile`,
+  Rolling it out across every release, driven by each element's `targetProfile`,
   is future work.
 
 ## Acceptance criteria

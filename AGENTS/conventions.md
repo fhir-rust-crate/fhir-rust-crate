@@ -6,10 +6,10 @@ match them exactly, so that every datatype and resource looks and behaves the
 same. The normative details live in
 [`../spec/06-serialization.md`](../spec/06-serialization.md).
 
-Examples below use R5 paths. Everything applies verbatim to R4 with `r5`
-replaced by `r4` — with one addition: a type outside the default release carries
-`#[fhir_version("r4")]` so the derive macros know which `meta` table,
-`types::Element`, and `choice::Primitive` to name.
+Examples below use R5 paths. Everything applies verbatim to R4 and R3 with `r5`
+replaced — with one addition: a type outside the default release carries
+`#[fhir_version("r4")]` (or `"r3"`) so the derive macros know which `meta`
+table, `types::Element`, and `choice::Primitive` to name.
 
 ## The canonical struct
 
@@ -29,7 +29,8 @@ pub struct Example {
 }
 ```
 
-The R4 equivalent is the same with `crate::r4::types` and one extra attribute:
+The R4 equivalent is the same with `crate::r4::types` and one extra attribute
+(R3 likewise, with `"r3"`):
 
 ```rust
 #[serde(rename_all = "camelCase")]

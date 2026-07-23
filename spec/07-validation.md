@@ -39,15 +39,18 @@ validation layer that walks a value and reports issues.
 
 ### Primitive checks
 
-- **R7.3** Each release MUST implement `Validate` for its own primitives, with
-  the FHIR format constraint where one exists. The rules are shared helpers, so
-  releases cannot drift apart on what a valid `code` is:
+- **R7.3** Each release MUST implement `Validate` for **its own** primitives,
+  with the FHIR format constraint where one exists. The rules are shared
+  helpers, so releases cannot drift apart on what a valid `code` is:
   - `code`: non-empty, trimmed, single internal spaces
     (`[^\s]+(\s[^\s]+)*`).
   - `id`: 1..=64 chars from `[A-Za-z0-9-.]`.
   - `oid`: begins `urn:oid:`; `uuid`: begins `urn:uuid:`.
   - `uri`, `canonical`, `url`: non-empty and not surrounded by whitespace.
   - Other primitives are valid by construction (no extra check yet).
+
+  A release implements only the primitives it defines: R3 has no `canonical` or
+  `url`, so it checks two fewer types than R4 and R5 (spec 02).
 
 ### The derive macro
 

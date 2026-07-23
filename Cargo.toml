@@ -1,6 +1,6 @@
 [package]
 name = "fhir"
-version = "1.1.0"
+version = "1.2.0"
 edition = "2024"
 authors = ["Joel Parker Henderson <joel@joelparkerhenderson.com>"]
 homepage = "https://github.com/joelparkerhenderson/fhir-rust-crate"
