@@ -1,19 +1,36 @@
 # fhir
 
-> A Rust implementation of the HL7 FHIR® Release 5 (R5) data model, plus a
-> spec-driven code generator that produces it from the official FHIR
-> specification JSON. Every resource and datatype is a `serde`-serializable Rust
-> type that round-trips to and from canonical FHIR JSON. FHIR (Fast Healthcare
-> Interoperability Resources) is the HL7 standard for exchanging electronic
-> health records.
+> A Rust implementation of the HL7 FHIR® data model, plus a spec-driven code
+> generator that produces it from the official FHIR specification JSON. Two
+> releases are modelled: R5 (5.0.0) and R4 (4.0.1). Every resource and datatype
+> is a `serde`-serializable Rust type that round-trips to and from canonical
+> FHIR JSON. FHIR (Fast Healthcare Interoperability Resources) is the HL7
+> standard for exchanging electronic health records.
 
-The model is comprehensive: 21 primitive datatypes, 50 complex datatypes,
-158 resources, 400+ code-system enums, and a recursive validation layer. The
-crate is imported as `fhir` (for example `use fhir::r5::resources::Patient;`).
+Each release is comprehensive. R5: 21 primitive datatypes, 50 complex
+datatypes, 158 resources, 419 code-system enums. R4: 20 primitive datatypes,
+43 complex datatypes, 146 resources, 486 code-system enums. Both have a
+recursive validation layer. The crate is imported as `fhir` (for example
+`use fhir::r5::resources::Patient;`).
+
+## Releases and cargo features
+
+Each release is a cargo feature, because each is ~135,000 lines of generated
+Rust and callers should compile only what they use:
+
+- `r5` (default) — the FHIR R5 model under `fhir::r5`.
+- `r4` — the FHIR R4 model under `fhir::r4`.
+
+An R4 `Patient` and an R5 `Patient` are different Rust types, deliberately: the
+releases disagree (for example `Observation.value[x]` admits 11 types in R4 and
+13 in R5), and one type standing for both would either accept invalid data or
+silently drop valid data. Convert between them through JSON, explicitly. The
+two modules are otherwise identical in shape, so porting code between releases
+means changing `r5` to `r4` in the import path.
 
 ## Crate layout
 
-The public API lives under the `r5` module (FHIR Release 5):
+Each release module (`r5`, `r4`) has the same shape; `r5` is shown:
 
 - `r5::resources` — the 158 R5 resources as structs (Patient, Observation,
   Encounter, …), plus the polymorphic `Resource` enum tagged by `resourceType`
@@ -55,8 +72,25 @@ most-used resources, datatypes, `Validate`, `Coded`, and `ExtensionExt`.
 Generator-internal support modules (not part of the consumer API):
 `r5::properties`, `r5::resource`, `r5::todo`.
 
-The crate root also exposes the top-level modules `r5` and `util`, the
-`DEFINITIONS_DIR` path constant, and the `SourceCodeString` type alias.
+The crate root holds everything that does not vary by release, re-exported by
+each release module so that (for example) `fhir::r4::validate::Validate` and
+`fhir::r5::validate::Validate` are the same trait:
+
+- `validate` — the `Validate` trait and `ValidationIssue`.
+- `coded` — the `Coded<E>` wrapper.
+- `builder` — `BuilderError`.
+- `meta` — the shape of the per-element metadata table and its lookups.
+- `temporal` — date/time parsing and precision-aware comparison.
+- `summary` — the `_summary=true` pruning algorithm.
+- `xml` — the FHIR XML bridge (feature `xml`).
+- `client` — the async REST client, generic over a release (feature `client`).
+- `release` — the `Release` trait, for code generic over a FHIR release.
+- `codegen` — the release-parameterized generator (specification JSON to Rust).
+- `prelude` — the R5 prelude (`use fhir::prelude::*`); see also `r4::prelude`.
+- `util` — small string helpers.
+
+It also exposes the `DEFINITIONS_DIR` path constant (R5) and the
+`SourceCodeString` type alias.
 
 ## Key types
 
@@ -65,13 +99,17 @@ The crate root also exposes the top-level modules `r5` and `util`, the
 - `fhir::r5::types::{Code, Id, DateTime, Boolean, Integer64}` — primitive newtypes.
 - `fhir::r5::types::{HumanName, CodeableConcept, Period}` — complex datatypes.
 - `fhir::r5::validate::{Validate, ValidationIssue}` — validation.
+- `fhir::r4::resources::Patient`, … — the same, for FHIR R4.
+- `fhir::release::Release` — a FHIR release as a type (`fhir::r4::R4`, `fhir::r5::R5`).
+- `fhir::codegen::Version` — the release a generator run targets.
 
 ## Cardinality mapping
 
 FHIR element cardinality maps to Rust types: `0..1` → `Option<T>`,
-`1..1` → `T`, `0..*` → `Option<Vec<T>>`, `1..*` → `Vec<T>`. A `value[x]` choice
+`1..1` → `T`, `0..*` → `Vec<T>`, `1..*` → `vec1::Vec1<T>`. A `value[x]` choice
 element is one generated enum per element (a variant per allowed type), and a
-`required`-binding coded field is its `codes` enum wrapped in `Coded<E>`.
+`required`-binding coded field is its `codes` enum wrapped in `Coded<E>`. This
+is the same in every release.
 
 ## Examples
 
@@ -81,6 +119,8 @@ Runnable programs in the `examples/` directory (`cargo run --example <name>`):
 - `validate_resource` — validate a resource and inspect `ValidationIssue`s.
 - `read_bundle` — read a Bundle and dispatch on each entry's resource type.
 - `code_systems` — use `CodeSystem` enums as type-safe coded values.
+- `r4_patient` — the same as `build_patient`, in FHIR R4 (`--features r4`).
+- `r4_and_r5_side_by_side` — use both releases at once and convert between them.
 
 ## Documentation
 

@@ -1,7 +1,7 @@
 # Contributing to `fhir`
 
 Thanks for your interest in improving the `fhir` crate — a Rust implementation
-of the HL7 FHIR® Release 5 (R5) data model plus the spec-driven code generator
+of the HL7 FHIR® data model (releases R5 and R4) plus the spec-driven generator
 that produces it.
 
 This file is the short version. The authoritative, in-depth guidance lives in
@@ -32,24 +32,34 @@ crate-wide, so keep it clean.
 ### Round-trip tests against the official examples
 
 The always-on `roundtrip_curated_subset` test round-trips a committed set of
-official FHIR R5 examples (`tests/data/roundtrip_examples/`). To run the full
+official examples (`tests/data/roundtrip_examples_<release>/`). To run the full
 ~2800-file official set:
 
 ```sh
-bin/fetch-examples   # downloads + unpacks ~190 MB into a git-ignored dir
-cargo test --test roundtrip_official_examples -- --ignored --nocapture
+bin/fetch-examples r5   # downloads + unpacks ~190 MB into a git-ignored dir
+cargo test --test roundtrip_r5_examples -- --ignored --nocapture
+
+bin/fetch-examples r4
+cargo test --features r4 --test roundtrip_r4_examples -- --ignored --nocapture
 ```
+
+Not every official example round-trips, and that is not always our bug: 198 of
+the 2911 official R4 examples omit an element the specification makes mandatory.
+Check the specification's cardinality before weakening a type to accept one.
 
 Known gaps are tracked in [`tasks-roundtrip-failures.md`](tasks-roundtrip-failures.md).
 
 ## The code generator
 
-The model under `src/r5/{types,resources,codes.rs}` is **generated** from the
-official FHIR specification JSON in `doc/fhir-specifications/r5/`. The generator
-lives in `src/r5/parse/` and is driven by the thin binary in `src/main.rs`:
+The model under `src/<release>/{types,resources,codes.rs}` is **generated** from
+that release's official FHIR specification JSON in
+`doc/fhir-specifications/<release>/`. The generator lives in `src/codegen/` and
+is driven by the thin binary in `src/main.rs`. `src/r4` is entirely generated;
+`src/r5` carries hand-written prose and must not be regenerated over:
 
 ```sh
-cargo run          # reads the spec JSON, writes generated Rust to tmp/out/
+cargo run -- r4                    # rewrite src/r4 from the R4 definitions
+cargo run -- r5 --out tmp/out/r5   # emit R5 elsewhere, to compare
 ```
 
 **Prefer changing the generator over hand-editing generated shapes.** When you

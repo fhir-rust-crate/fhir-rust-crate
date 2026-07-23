@@ -7,6 +7,57 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- **FHIR R4 (4.0.1) support** under `fhir::r4`, behind a new `r4` cargo
+  feature. A complete, independent model: 20 primitive datatypes, 43 complex
+  datatypes, 146 resources, 486 code-system enums, `value[x]` choice enums,
+  `Coded<E>` for required bindings, `Vec1` for `1..*`, primitive-extension
+  siblings, builders, prelude, extension helpers, `Bundle` utilities, summary
+  serialization, and the `client`/`xml` features. `fhir::r4` mirrors
+  `fhir::r5` module for module, so porting code between releases is a matter of
+  changing one path segment.
+- `fhir::codegen` — a release-parameterized code generator that emits a whole
+  release's finished module tree in one pass. Run it with `cargo run -- r4`.
+  Everything that varies by release is reachable from `codegen::Version`.
+- `fhir::release::Release` — a FHIR release as a type, implemented by
+  `fhir::r4::R4` and `fhir::r5::R5`, for code generic over a release.
+- Release-independent modules at the crate root, re-exported by every release
+  module: `validate`, `coded`, `builder`, `meta`, `temporal`, `summary`, and
+  `xml`. `fhir::r4::validate::Validate` and `fhir::r5::validate::Validate` are
+  the *same* trait, so one `#[derive(Validate)]` and one generic bound serve
+  both releases.
+- `#[fhir_version("r4")]` in `fhir-derive-macros`, naming the release for the
+  few paths that are release-specific. Defaults to `r5`; an unknown release is
+  a compile error.
+- Examples `r4_patient` and `r4_and_r5_side_by_side`.
+- `spec/12-fhir-releases.md` and a "FHIR releases" chapter in the book, defining
+  how releases coexist and why they are separate types.
+- The official R4 definition JSON under
+  `doc/fhir-specifications/r4/fhir-definitions-json/`, so R4 generation is
+  reproducible from a clean clone.
+
+### Changed
+- **`r5` is now a cargo feature**, on by default. Existing dependants are
+  unaffected; `default-features = false` now means no release model, so pick one
+  explicitly.
+- `fhir::client::Client` is a type alias for `ReleaseClient<R5>`, which is
+  generic over a `Release`. Existing uses of `Client` and `ClientError` continue
+  to work unchanged; `fhir::r4::client::Client` is the R4 counterpart.
+- `fhir::prelude` is the R5 prelude and now re-exports `fhir::r5::prelude`,
+  which is its new canonical home. `fhir::r4::prelude` is the R4 counterpart.
+- `bin/fetch-examples` takes a release argument (`bin/fetch-examples r4`).
+- The round-trip tests are per release —
+  `tests/roundtrip_r4_examples.rs` and `tests/roundtrip_r5_examples.rs`, sharing
+  `tests/common/` — and the curated example subsets moved to
+  `tests/data/roundtrip_examples_<release>/`.
+
+### Notes
+- R4 is verified against the 2911 official R4 example resources: 2713
+  round-trip exactly, 0 mismatch. The 198 that fail all omit an element the R4
+  specification makes mandatory (188 auto-generated questionnaires missing
+  `Questionnaire.item.linkId`, 10 SearchParameters missing
+  `SearchParameter.base`), so the model rejects them correctly.
+
 ## [1.0.0] - 2026-07-12
 
 First stable release. No API changes from 0.4.0 — this promotes the crate to

@@ -8,6 +8,8 @@
 //!
 //! See `spec/09-primitive-extensions.md` for the design comparison and decision.
 
+#![cfg(feature = "r5")]
+
 use fhir::r5::resources::Resource;
 use serde_json::{Value, json};
 

@@ -1,9 +1,15 @@
 # Conventions
 
-These conventions are **mandatory** and uniform across the whole model. The
-generator emits them and hand-authored code must match them exactly, so that
-every datatype and resource looks and behaves the same. The normative details
-live in [`../spec/06-serialization.md`](../spec/06-serialization.md).
+These conventions are **mandatory** and uniform across the whole model, and
+across every FHIR release. The generator emits them and hand-authored code must
+match them exactly, so that every datatype and resource looks and behaves the
+same. The normative details live in
+[`../spec/06-serialization.md`](../spec/06-serialization.md).
+
+Examples below use R5 paths. Everything applies verbatim to R4 with `r5`
+replaced by `r4` — with one addition: a type outside the default release carries
+`#[fhir_version("r4")]` so the derive macros know which `meta` table,
+`types::Element`, and `choice::Primitive` to name.
 
 ## The canonical struct
 
@@ -23,6 +29,14 @@ pub struct Example {
 }
 ```
 
+The R4 equivalent is the same with `crate::r4::types` and one extra attribute:
+
+```rust
+#[serde(rename_all = "camelCase")]
+#[fhir_version("r4")]
+pub struct Example { /* … */ }
+```
+
 Rules embodied above:
 
 - **Derives, in this order:** `Debug, Default, Clone, Serialize, Deserialize,
@@ -34,7 +48,10 @@ Rules embodied above:
 - `#[serde_with::skip_serializing_none]` so `None` fields are omitted.
 - `#[serde(rename_all = "camelCase")]` maps snake_case Rust fields to camelCase
   FHIR JSON keys. Do **not** add per-field `#[serde(rename)]` unless the JSON
-  key cannot be produced by camelCase.
+  key cannot be produced by camelCase. It genuinely cannot when the FHIR name
+  has consecutive capitals — serde only uppercases the letter after an
+  underscore, so `truth_tp` becomes `truthTp`, never `truthTP`. Those fields
+  (`truthTP`, `queryFP`, `carrierAIDC`, `requestURL`, …) spell their key out.
 - Do **not** add `#[serde(deny_unknown_fields)]` on model structs.
 
 ## Field types and cardinality
@@ -61,11 +78,13 @@ backbone struct, or `::serde_json::Value` for polymorphic `Resource` slots.
 
 ## Coded values (required bindings)
 
-A coded field whose binding strength is `required` is typed as its
-[`r5::codes`] enum wrapped in `fhir::r5::coded::Coded<E>` — a
+A coded field whose binding strength is `required` is typed as its release's
+`codes` enum wrapped in `fhir::coded::Coded<E>` — a
 `Known(E) | Unknown(String)` untagged fallback that keeps wire compatibility
 with codes outside the value set. Use `Coded<E>`, not the opaque `types::Code`,
-for required bindings. See [`../spec/05-code-systems.md`](../spec/05-code-systems.md).
+for required bindings. `Coded<E>` is one type shared by every release; the enum
+inside it is release-specific. See
+[`../spec/05-code-systems.md`](../spec/05-code-systems.md).
 
 ## Choice elements `[x]`
 
@@ -105,10 +124,14 @@ A tuple newtype serializes transparently as its inner value. Details in
 
 ## Module wiring
 
-- Each datatype is `src/r5/types/<snake>.rs`, declared in `src/r5/types.rs`
-  with both `pub mod <snake>;` and `pub use <snake>::<Pascal>;`.
-- Each resource is `src/r5/resources/<snake>.rs`, declared the same way in
-  `src/r5/resources.rs`, which also defines the `Resource` enum.
+- Each datatype is `src/<release>/types/<snake>.rs`, declared in
+  `src/<release>/types.rs` with both `pub mod <snake>;` and
+  `pub use <snake>::<Pascal>;`.
+- Each resource is `src/<release>/resources/<snake>.rs`, declared the same way
+  in `src/<release>/resources.rs`, which also defines the `Resource` enum.
+- The module is named after the definition's `name`, not its `type`. A profile
+  such as `MoneyQuantity` has `type: "Quantity"` but lives in
+  `money_quantity.rs` as `struct MoneyQuantity`.
 
 ## Documentation
 

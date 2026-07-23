@@ -1,57 +1,127 @@
 # Code generation
 
-This crate is spec-driven: the FHIR R5 specification JSON is the input, Rust is
-the output. This document explains the generator so agents can extend it rather
-than hand-writing model shapes. The normative contract is
+This crate is spec-driven: the official FHIR specification JSON is the input,
+Rust is the output. This document explains the generators so agents can extend
+them rather than hand-writing model shapes. The normative contract is
 [`../spec/08-code-generation.md`](../spec/08-code-generation.md).
+
+There are **two** generators, for historical reasons, and it matters which one
+you are working with:
+
+| | `crate::codegen` | `crate::r5::parse` |
+| --- | --- | --- |
+| Releases | any (`Version::R4`, `Version::R5`) | R5 only |
+| Emits | the **finished** module tree | a rough **starting point** |
+| Output | `src/<release>/…` | `tmp/out/*.rs` |
+| Used for | all of `src/r4` | the original authoring of `src/r5` |
+
+New work belongs in `codegen`. `r5::parse` is kept because the shipped R5 model
+was authored through it and its splicing generators are still how R5 is edited
+in bulk.
 
 ## Inputs
 
-`doc/fhir-specifications/r5/fhir-definitions-json/`:
+`doc/fhir-specifications/<release>/fhir-definitions-json/`:
 
 | File | Produces |
 | --- | --- |
 | `profiles-types.json` | primitive + complex datatypes |
 | `profiles-resources.json` | resources |
-| `valuesets.json` | code-system enums (`r5::codes`) |
+| `valuesets.json` | code-system enums (`<release>::codes`) |
 | `conceptmaps.json`, `search-parameters.json`, `dataelements.json`, `profiles-others.json` | supporting bundles |
 
-## The parse layer
+R4 also ships `v2-tables.json` and `v3-codesystems.json`. These are deliberately
+not read: they are external HL7 v2/v3 terminologies, not FHIR-defined ones, and
+no FHIR element has a `required` binding into them.
 
-`r5::parse::<bundle>` mirrors each StructureDefinition bundle. Every bundle
-module has:
+The R4 and R5 bundles have **identical structure** — same `StructureDefinition`,
+same `ElementDefinition`, same FHIRPath system type URLs — which is why one set
+of input types in `codegen::spec` reads both.
 
-- `Bundle`, `Entry`, `Resource`, `Element`, `Snapshot`, … structs that
-  deserialize the spec JSON.
-- `resource_into_rust(&Resource)` → writes a Rust file to `tmp/out/<snake>.rs`.
-- `element_into_rust_struct_attribute(&Element)` → maps one FHIR element to one
-  (or, for `[x]` choices, several) Rust struct fields.
+## Running it
 
-`src/main.rs` runs the datatypes generator; `cargo run` regenerates
-`tmp/out/`.
+```sh
+cargo run -- r4                    # rewrite src/r4 from the R4 definitions
+cargo run -- r5 --out tmp/out/r5   # emit R5 somewhere safe, to compare
+```
 
-## The element → field mapping
+`cargo run -- r5` with no `--out` **refuses to run**. `src/r5` carries
+hand-written prose that regeneration would destroy; emitting elsewhere and
+diffing is how you check the generator against the shipped model.
 
-`element_into_rust_struct_attribute` implements the rules in
-[`conventions.md`](conventions.md):
+## `codegen`: the release-parameterized generator
 
-1. Skip the root element (path has no `.`).
-2. Resolve the FHIR type code → Rust type:
-   - FHIRPath system primitive `http://hl7.org/fhirpath/System.X` → `types::X`.
-   - Otherwise `types::Pascal(code)`.
-3. Apply cardinality: `Option<T>` / `T` / `Vec<T>` / `vec1::Vec1<T>`.
-4. Expand `[x]` choice elements (later folded into one `FhirChoice` enum).
-5. snake_case the name and escape Rust keywords (`r#type`, …).
+```text
+codegen::version   Version: the only thing that knows one release from another
+codegen::spec      permissive serde views of the definition JSON
+codegen::naming    FHIR names -> Rust identifiers (the rules in conventions.md)
+codegen::plan      StructureDefinition -> TypePlan (all the real decisions)
+codegen::render    TypePlan -> Rust source (text assembly only)
+codegen::primitives   the primitive newtype table
+codegen::codes_gen    CodeSystem -> enum
+codegen::meta_gen     ElementDefinition -> the meta table
+codegen::extension_ext_gen   the per-release ExtensionExt impl list
+```
 
-## The metadata table and splicing generators
+Planning is separated from rendering so the decisions with consequences can be
+tested on their own. The interesting ones:
 
-The initial field mapping is a *starting point*. The shipped model is refined by
-a family of **metadata-driven splicing generators** that edit the existing
-hand-documented files in place (never blind regeneration), each driven by an
-`#[ignore]` test under `src/r5/parse/`:
+1. **Backbone detection is structural, not nominal.** An element becomes a
+   nested struct if other elements have it as a path prefix — never because its
+   type code says `BackboneElement`. R4 and R5 spell datatype backbones
+   (`Element`) and resource backbones (`BackboneElement`) differently, and
+   neither spelling is reliable.
+2. **`contentReference` resolves to the referenced struct.** R4 writes
+   `#Observation.referenceRange`, R5 a full URL with the same fragment.
+3. **A definition's Rust name is its `name`, not its `type`.** A *profile*
+   constrains an existing type and keeps that type's element paths:
+   `MoneyQuantity`, `SimpleQuantity`, `Age`, `Distance`, `Count` and `Duration`
+   are all `type: "Quantity"`. Without this they would collide on one module.
+4. **Type cycles are broken with `Box`.** `Reference` holds an `Identifier`
+   which holds a `Reference`; a depth-first walk in name order boxes the field
+   that closes each cycle, so the choice is stable across runs. Only inline
+   fields can close a cycle — a `Vec` already indirects.
+5. **`Default` is settled across the whole model.** A struct with a `1..*`
+   (`Vec1`) field has no default, and a `1..1` field of such a struct inherits
+   the problem, so it is iterated to a fixed point rather than decided per type.
+6. **Choice fields are always `Option`**, even when the specification makes them
+   mandatory: a choice enum has no default, and every struct must derive one.
+7. **A field spells its serde key out only when it must.** `rename_all =
+   "camelCase"` covers nearly everything, but serde only uppercases after an
+   underscore, so it cannot produce `truthTP` or `requestURL` from a snake_case
+   identifier. `naming::needs_explicit_rename` decides.
 
-- `meta.rs` — emits `r5::meta`, the path-keyed table of cardinality, bindings,
-  choice types, reference targets, and summary membership. It underpins the rest.
+## Determinism
+
+Generation must be deterministic (same input → same output) so `git diff` on
+`src/r4` is meaningful. Do not introduce ordering that depends on hash-map
+iteration, timestamps, or randomness — `codegen` sorts with `BTreeMap`/`BTreeSet`
+and by name throughout, and `write_if_changed` leaves untouched files alone so
+timestamps stay stable.
+
+## Naming a release in generated code
+
+Most generated code targets the crate root (`crate::validate`,
+`crate::coded`, `crate::builder`), which is release-independent. Three things
+are not: the `meta` table, `types::Element`, and `choice::Primitive`. The derive
+macros resolve those through a `#[fhir_version("r4")]` attribute, which
+`render::version_attribute` emits for every release except R5 (the macros'
+default). If you add a release, add it to `KNOWN_VERSIONS` in
+`fhir-derive-macros`.
+
+## `r5::parse`: the legacy layer and its splicing generators
+
+`r5::parse::<bundle>` mirrors each StructureDefinition bundle, with
+`resource_into_rust(&Resource)` writing a rough Rust file to `tmp/out/`. Its
+field mapping is only a starting point: **it flattens nested backbone elements**,
+producing duplicate `id`/`extension` fields rather than named nested structs.
+
+The shipped R5 model was refined from that starting point by a family of
+**metadata-driven splicing generators** that edit the existing hand-documented
+files in place (never blind regeneration), each driven by an `#[ignore]` test:
+
+- `meta.rs` — emits the path-keyed table of cardinality, bindings, choice types,
+  reference targets, and summary membership. It underpins the rest.
 - `siblings.rs` — adds the `_field` primitive-extension siblings (spec 09).
 - `choice_gen.rs` — folds `value[x]` fields into `FhirChoice` enums (spec 11).
 - `coded_gen.rs` — retypes `required`-binding fields to `Coded<Enum>` (spec 05).
@@ -62,33 +132,14 @@ Because these generators must compile the library to run (they are lib tests), a
 mass edit that breaks `#[cfg(test)]` code must be applied together with its test
 fix-ups, or reverted to a compiling state first.
 
-**Known generator limitation:** it *flattens* nested backbone elements
-(producing duplicate `id`/`extension` fields). For types/resources with
-backbones, the real model instead defines named nested structs (see
-[`architecture.md`](architecture.md)). This is why the shipped model was
-authored with the generator's field mapping as a starting point, not by blind
-regeneration.
-
-## Generating code-system enums (`r5::codes`)
-
-`r5::codes` is generated from complete `CodeSystem` entries in
-`valuesets.json`: each becomes a Rust enum whose variants are the PascalCase
-codes with `#[serde(rename = "<code>")]`. Variant names are sanitized (keyword
-guard for `Self`, digit prefix `N`, de-duplication). See
-[`../spec/05-code-systems.md`](../spec/05-code-systems.md).
-
 ## Extending the generator
 
-- Prefer changing `element_into_rust_struct_attribute` (it improves every
-  generated type at once) over editing individual output files.
-- Keep the four parallel generator copies
-  (`profiles_types`, `profiles_others`, `profiles_resources`,
-  `search_parameters`) consistent, or consolidate them.
-- After any generator change, run the parse tests and regenerate, then diff
-  `tmp/out/` to confirm the output is well-formed Rust.
-
-## Reproducible, deterministic output
-
-Generation must be deterministic (same input → same output) so `tmp/out/` diffs
-are meaningful. Do not introduce ordering that depends on hash-map iteration,
-timestamps, or randomness.
+- Change `codegen::plan` (it improves every release at once) rather than editing
+  individual output files.
+- Anything that differs between releases must be reachable from
+  `codegen::Version`. A `match` on the release anywhere else is a smell.
+- After any generator change: `cargo run -- r4`, then run the green gate with
+  `--features r4`, then check `git diff --stat src/r4` looks like what you meant.
+- Validate against reality with the official examples:
+  `bin/fetch-examples r4` then
+  `cargo test --features r4 --test roundtrip_r4_examples -- --ignored --nocapture`.

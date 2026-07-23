@@ -3,7 +3,7 @@ name = "fhir"
 version = "1.0.0"
 edition = "2024"
 authors = ["Joel Parker Henderson <joel@joelparkerhenderson.com>"]
-description = "Fast Healthcare Interoperability Resources (FHIR) API is a standardized, RESTful interface for exchanging electronic health records."
+description = "Fast Healthcare Interoperability Resources (FHIR) data model for Rust: the complete FHIR R5 and R4 resources, datatypes, and code systems as serde-serializable types, plus a spec-driven code generator."
 readme = "README.md"
 repository = "https://github.com/joelparkerhenderson/fhir-rust-crate/"
 license = "MIT OR Apache-2.0 OR BSD-3-Clause OR GPL-2.0-only OR GPL-3.0-only"
@@ -38,11 +38,59 @@ r5 = []
 precise-decimal = ["serde_json/arbitrary_precision"]
 # An async FHIR REST client (`fhir::client`). Pulls in reqwest + tokio.
 client = ["dep:reqwest", "dep:tokio"]
-# FHIR XML serialization (`fhir::r5::xml`). Pulls in quick-xml.
+# FHIR XML serialization (`fhir::r4::xml`, `fhir::r5::xml`). Pulls in quick-xml.
 xml = ["dep:quick-xml"]
 
 [workspace]
 members = ["fhir-derive-macros"]
+
+# The examples are written against a specific release's model, so each one
+# declares the feature that provides it. Without this, `cargo build
+# --all-targets --no-default-features --features r4` would try to compile the
+# R5 examples against a crate that has no `r5` module.
+[[example]]
+name = "build_patient"
+required-features = ["r5"]
+
+[[example]]
+name = "client_crud"
+required-features = ["r5", "client"]
+
+[[example]]
+name = "code_systems"
+required-features = ["r5"]
+
+[[example]]
+name = "extensions"
+required-features = ["r5"]
+
+[[example]]
+name = "operation_outcome"
+required-features = ["r5"]
+
+[[example]]
+name = "primitive_extensions"
+required-features = ["r5"]
+
+[[example]]
+name = "read_bundle"
+required-features = ["r5"]
+
+[[example]]
+name = "transaction_bundle"
+required-features = ["r5"]
+
+[[example]]
+name = "validate_resource"
+required-features = ["r5"]
+
+[[example]]
+name = "r4_patient"
+required-features = ["r4"]
+
+[[example]]
+name = "r4_and_r5_side_by_side"
+required-features = ["r4", "r5"]
 
 [dependencies]
 fhir-derive-macros = { path = "fhir-derive-macros", version = "1.0.0" } # Procedural macros for this crate (e.g. #[derive(Validate)]).

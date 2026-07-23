@@ -2,37 +2,47 @@
 
 ## Purpose
 
-`fhir` is a Rust crate that provides the **FHIR Release 5 (R5, version 5.0.0)**
-data model as strongly-typed, `serde`-serializable Rust, together with a
-spec-driven code generator that derives that model from the official FHIR
-specification JSON.
+`fhir` is a Rust crate that provides the **FHIR** data model as strongly-typed,
+`serde`-serializable Rust, together with a spec-driven code generator that
+derives that model from the official FHIR specification JSON.
+
+Two releases are modelled, each complete and independent: **R5 (5.0.0)** under
+`fhir::r5` and **R4 (4.0.1)** under `fhir::r4`. How they coexist — and why they
+are separate types rather than one — is defined in
+[spec 12](12-fhir-releases.md). Every other spec in this directory applies to
+each release in turn; where they say "R5" for concreteness, read "the release".
 
 FHIR (Fast Healthcare Interoperability Resources) is the HL7 standard for
 representing and exchanging electronic health records.
 
 ## Scope
 
-In scope:
+In scope, for each modelled release:
 
-- The FHIR R5 **primitive datatypes** (spec 02).
-- The FHIR R5 **complex datatypes** (spec 03).
-- The FHIR R5 **resources** (spec 04).
-- The FHIR R5 **code systems** as enums (spec 05).
+- The FHIR **primitive datatypes** (spec 02).
+- The FHIR **complex datatypes** (spec 03).
+- The FHIR **resources** (spec 04).
+- The FHIR **code systems** as enums (spec 05).
 - **JSON serialization** to/from canonical FHIR JSON (spec 06).
 - **Structural validation** of the model (spec 07).
 - The **code generator** that produces the model from spec JSON (spec 08).
+- **Multiple releases** side by side (spec 12).
 
 Out of scope (for now; see each spec's Future work):
 
-- FHIR XML and Turtle representations.
-- A running FHIR REST server or client.
+- FHIR Turtle representation. (XML is supported behind the `xml` feature.)
+- A running FHIR REST server. (A client is supported behind the `client`
+  feature.)
 - FHIRPath evaluation and full invariant (constraint) checking.
-- FHIR versions other than R5.
+- FHIR releases other than R4 and R5.
+- Automatic conversion between releases.
 
 ## Goals
 
-1. **Correctness.** Types mirror the FHIR R5 StructureDefinitions; JSON
-   round-trips losslessly for supported representations.
+1. **Correctness.** Types mirror their release's StructureDefinitions; JSON
+   round-trips losslessly for supported representations. A release's types
+   accept exactly what that release permits — no more, so invalid data is
+   caught, and no less, so valid data is never dropped.
 2. **Ergonomics.** Idiomatic Rust: `Default`, `Clone`, `PartialEq`, `serde`,
    and rich rustdoc with runnable examples.
 3. **Uniformity.** Every type is built the same way, so the model is
@@ -45,6 +55,8 @@ Out of scope (for now; see each spec's Future work):
 
 - Hiding FHIR's shape behind a "friendlier" abstraction. This crate exposes
   FHIR faithfully.
+- Papering over the differences between FHIR releases. Where R4 and R5 disagree,
+  the types disagree too.
 - Runtime reflection or dynamic typing beyond the `Resource` enum and the
   `serde_json::Value` used for polymorphic `contained` slots.
 

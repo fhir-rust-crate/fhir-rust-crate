@@ -1,38 +1,64 @@
-//! # FHIR R5 for Rust
+//! # FHIR for Rust
 //!
-//! `fhir` is a Rust implementation of the **HL7 FHIR® Release 5 (R5)** data
-//! model, together with a code generator that produces it from the official
-//! FHIR specification JSON files.
+//! `fhir` is a Rust implementation of the **HL7 FHIR®** data model, together
+//! with a code generator that produces it from the official FHIR specification
+//! JSON files. Two releases are modelled: **R5** (5.0.0) under [`r5`], and
+//! **R4** (4.0.1) under [`r4`].
 //!
 //! Fast Healthcare Interoperability Resources (FHIR) is the HL7 standard for
-//! exchanging electronic health records. This crate gives you:
+//! exchanging electronic health records. For each release this crate gives you:
 //!
-//! - **Every R5 resource** (Patient, Observation, Encounter, …) as a Rust
-//!   `struct` under [`r5::resources`], each round-tripping to and from the
-//!   canonical FHIR JSON via `serde`.
-//! - **Every R5 datatype** (Period, HumanName, CodeableConcept, …) under
-//!   [`r5::types`], including the primitive newtypes ([`Code`](r5::types::Code),
-//!   [`Id`](r5::types::Id), [`DateTime`](r5::types::DateTime), …).
+//! - **Every resource** (Patient, Observation, Encounter, …) as a Rust
+//!   `struct` under [`r5::resources`] / [`r4::resources`], each round-tripping
+//!   to and from the canonical FHIR JSON via `serde`.
+//! - **Every datatype** (Period, HumanName, CodeableConcept, …) under
+//!   [`r5::types`] / [`r4::types`], including the primitive newtypes
+//!   ([`Code`](r5::types::Code), [`Id`](r5::types::Id),
+//!   [`DateTime`](r5::types::DateTime), …).
 //! - **Type-safe code systems** — 400+ FHIR `CodeSystem`s as Rust enums under
-//!   [`r5::codes`].
-//! - **A polymorphic [`Resource`](r5::resources::Resource) enum** tagged by
-//!   `resourceType`, for reading a resource whose type you do not know ahead of
-//!   time.
-//! - **Lightweight validation** via the [`Validate`](r5::validate::Validate)
-//!   trait and `#[derive(Validate)]`.
-//! - **A code generator** under [`r5::parse`] that reads the FHIR spec JSON
-//!   shipped in [`DEFINITIONS_DIR`] and emits Rust source.
+//!   [`r5::codes`] / [`r4::codes`].
+//! - **A polymorphic `Resource` enum** tagged by `resourceType`, for reading a
+//!   resource whose type you do not know ahead of time.
+//! - **Lightweight validation** via the [`Validate`](validate::Validate) trait
+//!   and `#[derive(Validate)]`.
+//! - **A code generator** under [`codegen`] that reads the specification JSON
+//!   for a release and emits its Rust model.
 //!
 //! FHIR® is a registered trademark of Health Level Seven International. This
 //! crate is not affiliated with or endorsed by HL7.
 //!
 //! ## Installation
 //!
+//! Each release is a complete model of ~135,000 lines, so they are cargo
+//! features and you compile only what you use. `r5` is on by default:
+//!
 //! ```toml
 //! [dependencies]
-//! fhir = "1"
+//! fhir = "1"                                              # R5 only
+//! # fhir = { version = "1", features = ["r4"] }           # R5 and R4
+//! # fhir = { version = "1", default-features = false, features = ["r4"] }  # R4 only
 //! serde_json = "1" # or any other serde data format
 //! ```
+//!
+//! ## Choosing a release
+//!
+//! An R4 `Patient` and an R5 `Patient` are different Rust types, and that is
+//! deliberate. The releases disagree in ways that quietly corrupt data if
+//! conflated: `Observation.value[x]` allows 11 types in R4 and 13 in R5,
+//! `MedicationRequest.medication[x]` is a choice element in R4 but a
+//! `CodeableReference` in R5, and R4 has no `integer64`, `CodeableReference`,
+//! or `RatioRange` datatype at all. Convert between the releases explicitly,
+//! through JSON, deciding what to do with whatever does not carry over — see
+//! the `r4_and_r5_side_by_side` example.
+//!
+//! What the releases *do* share lives in the crate root and is re-exported from
+//! both: the [`Validate`](validate::Validate) trait, [`Coded<E>`](coded::Coded),
+//! [`BuilderError`](builder::BuilderError), the [`meta`] table types, date/time
+//! parsing in [`temporal`], and the REST [`client`], which is generic over a
+//! [`Release`](release::Release).
+//!
+//! The examples below use R5. Every one of them works for R4 by changing `r5`
+//! to `r4`.
 //!
 //! ## Design in one paragraph
 //!
@@ -191,12 +217,23 @@
 //!
 //! ## Crate layout
 //!
-//! - [`r5::resources`] — the 158 R5 resources, plus the [`Resource`](r5::resources::Resource) enum.
-//! - [`r5::types`] — the ~50 complex datatypes and 21 primitive newtypes.
+//! Per release (`r5` shown; `r4` is identical in shape):
+//!
+//! - [`r5::resources`] — the 158 R5 resources (146 in R4), plus the
+//!   [`Resource`](r5::resources::Resource) enum.
+//! - [`r5::types`] — the complex datatypes and primitive newtypes.
 //! - [`r5::codes`] — FHIR `CodeSystem`s as enums.
-//! - [`r5::validate`] — the [`Validate`](r5::validate::Validate) trait and primitive constraints.
-//! - [`r5::meta`] — per-element specification metadata (cardinality, bindings, choice types, reference targets).
-//! - [`r5::parse`] — the code generator that reads [`DEFINITIONS_DIR`].
+//! - [`r5::validate`] — that release's primitive-format constraints.
+//! - [`r5::meta`] — per-element specification metadata (cardinality, bindings,
+//!   choice types, reference targets).
+//!
+//! Shared across releases:
+//!
+//! - [`validate`] — the [`Validate`](validate::Validate) trait and [`ValidationIssue`](validate::ValidationIssue).
+//! - [`coded`], [`builder`], [`meta`], [`temporal`], [`summary`] — the machinery each release binds to its own types.
+//! - [`release`] — the [`Release`](release::Release) trait, for code generic over a release.
+//! - [`client`] — the async REST client (feature `client`).
+//! - [`codegen`] — the generator that turns specification JSON into a release model.
 
 // Enable Clippy's pedantic lint group across the whole crate.
 #![warn(clippy::pedantic)]
@@ -282,6 +319,10 @@ pub mod codegen;
 
 /// Absolute path to the directory holding the FHIR R5 specification JSON files
 /// that ship with this crate.
+///
+/// This names R5 specifically, for the R5-only code that predates multi-release
+/// support. For a directory chosen by release, use
+/// [`Version::definitions_dir`](codegen::Version::definitions_dir).
 pub static DEFINITIONS_DIR: std::sync::LazyLock<std::path::PathBuf> =
     std::sync::LazyLock::new(|| {
         std::path::PathBuf::from(env!("CARGO_MANIFEST_DIR"))

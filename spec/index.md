@@ -33,6 +33,7 @@ this directory defines **what must be true**, not how to work.
 | 09 | [Primitive extensions](09-primitive-extensions.md) | The `_field` sibling representation |
 | 10 | [Invariant coverage](10-invariants-coverage.md) | Which FHIR constraints are enforced |
 | 11 | [Choice types](11-choice-types.md) | `value[x]` choice elements as enums |
+| 12 | [FHIR releases](12-fhir-releases.md) | Modelling R4 and R5 side by side |
 
 ## Cross-cutting invariants
 
@@ -47,17 +48,20 @@ These hold across every spec and are non-negotiable:
    omit absent optional fields.
 4. **Uniformity.** Every datatype/resource MUST follow the same struct
    conventions (see spec 06); no bespoke shapes.
-5. **Spec authority.** The FHIR R5 definition JSON in
-   `doc/fhir-specifications/r5/fhir-definitions-json/` is the upstream source;
-   these specs interpret it for this crate.
+5. **Spec authority.** The FHIR definition JSON in
+   `doc/fhir-specifications/<release>/fhir-definitions-json/` is the upstream
+   source; these specs interpret it for this crate.
+6. **Release fidelity.** Each modelled release stands on its own. Specs 02–11
+   apply to every release independently; spec 12 governs how they coexist.
 
 ## Status
 
-The crate satisfies specs 01–11 for the shipped model (currently released as
-**0.4.0**): 21 primitives, 50 datatypes, 158 resources, 419 code enums,
-recursive validation, `_field` primitive extensions (09), invariant coverage
-(10), and `value[x]` choice enums (11). Cardinality maps exactly —
+The crate satisfies specs 01–12 for both shipped releases. R5: 21 primitives,
+50 datatypes, 158 resources, 419 code enums. R4: 20 primitives, 43 datatypes,
+146 resources, 486 code enums. Each has recursive validation, `_field` primitive
+extensions (09), invariant coverage (10), and `value[x]` choice enums (11).
+Cardinality maps exactly —
 `0..1`→`Option<T>`, `1..1`→`T`, `0..*`→`Vec<T>`, `1..*`→`vec1::Vec1<T>` — and
-required-binding codes are `Coded<E>`. The remaining planned work is a second
-model version (FHIR R4B) under a `r4b` feature. Open improvements are recorded
-as **Future work** sections within the relevant spec.
+required-binding codes are `Coded<E>`. Open improvements are recorded as
+**Future work** sections within the relevant spec; the next planned release
+models are R4B and R6.

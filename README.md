@@ -1,43 +1,95 @@
-# FHIR R5 for Rust
+# FHIR for Rust
 
 [![CI](https://github.com/joelparkerhenderson/fhir-rust-crate/actions/workflows/ci.yml/badge.svg)](https://github.com/joelparkerhenderson/fhir-rust-crate/actions/workflows/ci.yml)
 
-A Rust implementation of the **HL7 FHIR® Release 5 (R5)** data model, plus a
-code generator that produces it from the official FHIR specification JSON files.
+A Rust implementation of the **HL7 FHIR®** data model, plus a code generator
+that produces it from the official FHIR specification JSON files. Two releases
+are modelled: **R5 (5.0.0)** and **R4 (4.0.1)**.
 
 Fast Healthcare Interoperability Resources (FHIR, pronounced "fire") is the HL7
 standard for exchanging electronic health records. This crate lets you build,
 parse, validate, and round-trip FHIR resources in idiomatic Rust with `serde`.
 
-> **Status:** stable (1.0). The R5 data model (resources, datatypes,
-> primitives, code systems, validation) is implemented and green, and the API
-> follows semantic versioning.
+> **Status:** stable (1.0). Both data models (resources, datatypes, primitives,
+> code systems, validation) are implemented and green, and the API follows
+> semantic versioning.
 
 > FHIR® is a registered trademark of Health Level Seven International. This crate
 > is not affiliated with or endorsed by HL7.
 
 ## Features
 
-- **158 R5 resources** (Patient, Observation, Encounter, …) as Rust structs,
-  each round-tripping to and from canonical FHIR JSON via `serde`.
-- **~50 complex datatypes** (Period, HumanName, CodeableConcept, …) and **21
-  primitive newtypes** (`Code`, `Id`, `DateTime`, …) that serialize
-  transparently.
+Per release, under `fhir::r5` and `fhir::r4`:
+
+- **Every resource** (Patient, Observation, Encounter, …) as a Rust struct,
+  round-tripping to and from canonical FHIR JSON via `serde` — 158 in R5,
+  146 in R4.
+- **Every complex datatype** (Period, HumanName, CodeableConcept, …) and every
+  **primitive newtype** (`Code`, `Id`, `DateTime`, …), serializing transparently.
 - **400+ code systems** as type-safe enums that serialize to their canonical
   FHIR code strings.
 - **A polymorphic `Resource` enum**, tagged by `resourceType`, for reading a
   resource whose type you do not know ahead of time.
 - **Lightweight validation** via a `Validate` trait and `#[derive(Validate)]`
   that walks every field recursively.
-- **A code generator** that reads the bundled FHIR R5 spec JSON and emits Rust.
+- **Builders, a prelude, extension helpers, `Bundle` utilities**, and summary
+  serialization.
+- Optional **async REST client** (`client`) and **FHIR XML** (`xml`).
+
+And a **code generator** that reads the bundled specification JSON for a release
+and emits that release's Rust model.
 
 ## Installation
 
+Each release is a complete model of ~135,000 lines of Rust, so they are cargo
+features: you compile only what you use. `r5` is on by default.
+
 ```toml
 [dependencies]
+# R5 only (the default)
 fhir = "1"
+
+# R5 and R4
+# fhir = { version = "1", features = ["r4"] }
+
+# R4 only
+# fhir = { version = "1", default-features = false, features = ["r4"] }
+
 serde_json = "1" # or any other serde data format
 ```
+
+## Choosing a release
+
+An R4 `Patient` and an R5 `Patient` are **different Rust types**, on purpose.
+The releases genuinely disagree — `Observation.value[x]` admits 11 types in R4
+and 13 in R5, `MedicationRequest.medication[x]` is a choice element in R4 but a
+`CodeableReference` in R5, and R4 has no `integer64`, `CodeableReference`, or
+`RatioRange` at all. A single type standing for both would either accept data
+that is invalid in both releases or silently drop data that is valid in one.
+
+The two modules are otherwise identical in shape, so porting code between
+releases is a matter of changing one path segment:
+
+```rust
+use fhir::r4::resources::Patient;   // instead of fhir::r5::resources::Patient
+use fhir::r4::codes::AdministrativeGender;
+```
+
+To move data between releases, go through JSON and decide explicitly what to do
+with whatever does not carry over — serde will tell you what the target release
+will not accept, rather than discarding it:
+
+```rust
+let json = serde_json::to_value(&r4_patient)?;
+let r5_patient: fhir::r5::resources::Patient = serde_json::from_value(json)?;
+```
+
+See the `r4_and_r5_side_by_side` example for a worked version.
+
+What the releases *share* lives at the crate root and is re-exported by both, so
+`fhir::r4::validate::Validate` and `fhir::r5::validate::Validate` are the same
+trait: validation, `Coded<E>`, builders, the element metadata table, date/time
+parsing, and the REST client.
 
 ## Quick start
 
@@ -144,21 +196,42 @@ cargo run --example operation_outcome     # validation → OperationOutcome
 cargo run --example extensions            # ExtensionExt: get/set extensions
 cargo run --example transaction_bundle    # build/read a transaction Bundle
 cargo run --example client_crud --features client  # REST CRUD vs HAPI
+
+cargo run --example r4_patient --features r4              # the same, in R4
+cargo run --example r4_and_r5_side_by_side --features "r4 r5"  # both at once
 ```
+
+The R5 examples all work for R4 by changing `r5` to `r4` in the imports.
 
 ## Crate layout
 
 ```txt
 src/
   lib.rs            Crate root and guide (see `cargo doc --open`)
-  r5/
-    resources/      158 resource structs + the polymorphic `Resource` enum
-    types/          ~50 complex datatypes + 21 primitive newtypes
+
+  # Shared by every release, and re-exported from each.
+  validate.rs       `Validate` trait, `ValidationIssue`, primitive checks
+  coded.rs          `Coded<E>` for required-binding codes
+  builder.rs        `BuilderError`
+  meta.rs           The shape of the per-element metadata table
+  temporal.rs       Date/time parsing and precision-aware comparison
+  summary.rs        `_summary=true` pruning
+  xml.rs            FHIR XML bridge (feature `xml`)
+  client.rs         Async REST client, generic over a release (feature `client`)
+  release.rs        The `Release` trait
+  codegen/          The generator: specification JSON -> a release's Rust
+
+  # One tree per release, identical in shape.
+  r5/               158 resources, 50 datatypes, 21 primitives, 419 code enums
+  r4/               146 resources, 43 datatypes, 20 primitives, 486 code enums
+    resources/      Resource structs + the polymorphic `Resource` enum
+    types/          Complex datatypes + primitive newtypes
     codes.rs        FHIR CodeSystems as enums
-    validate.rs     `Validate` trait + primitive constraints
-    parse/          Code generator that reads the spec JSON
+    validate.rs     That release's primitive constraints
+    meta/           That release's generated element metadata
+
 fhir-derive-macros/ Proc-macro crate providing `#[derive(Validate)]`
-doc/                Bundled FHIR R5 specification JSON files
+doc/                Bundled FHIR specification JSON, one directory per release
 examples/           Runnable example programs
 ```
 
@@ -176,20 +249,28 @@ examples/           Runnable example programs
 
 ## The code generator
 
-The types under `src/r5/types` and `src/r5/resources` are derived from the
-official FHIR R5 specification JSON in
-`doc/fhir-specifications/r5/fhir-definitions-json/` (exposed at runtime as
-`fhir::DEFINITIONS_DIR`). The generator lives under `src/r5/parse`; the binary
-in `src/main.rs` drives it. See [`AGENTS.md`](AGENTS.md) and
+Each release's `types`, `resources`, `codes`, and `meta` modules are derived
+from that release's official specification JSON in
+`doc/fhir-specifications/<release>/fhir-definitions-json/`. The generator lives
+under `src/codegen`; the binary in `src/main.rs` drives it:
+
+```sh
+cargo run -- r4                    # rewrite src/r4 from the R4 definitions
+cargo run -- r5 --out tmp/out/r5   # emit R5 elsewhere, to compare
+```
+
+`src/r4` is entirely generated and safe to rewrite. `src/r5` is not: it carries
+hand-written prose on top of generated shapes, so `cargo run -- r5` refuses to
+write there without an explicit `--out`. See [`AGENTS.md`](AGENTS.md) and
 [`spec/`](spec/) for the generator's design and conventions.
 
 ---
 
 ## FHIR specification reference
 
-The remainder of this document is background reference on the FHIR R5
-specification files the generator consumes. It is useful when working on the
-generator itself.
+The remainder of this document is background reference on the FHIR
+specification files the generator consumes (described for R5; R4 publishes the
+same bundles). It is useful when working on the generator itself.
 
 ### Datatype categories
 

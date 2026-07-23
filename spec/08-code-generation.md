@@ -6,22 +6,48 @@ spec-driven. Operational how-to is in
 
 ## Background
 
-The FHIR R5 specification is published as StructureDefinition JSON bundles. The
-generator reads those bundles and emits Rust source, so the model can be
+Every FHIR release is published as StructureDefinition JSON bundles. The
+generator reads those bundles and emits Rust source, so a model can be
 (re)derived from the upstream truth rather than hand-maintained.
+
+The bundles have the same structure in every release, which is what makes one
+generator able to produce them all.
 
 ## Inputs
 
 - **R8.1** The generator MUST read from
-  `doc/fhir-specifications/r5/fhir-definitions-json/`:
+  `doc/fhir-specifications/<release>/fhir-definitions-json/`:
   `profiles-types.json` (datatypes), `profiles-resources.json` (resources),
   `valuesets.json` (code systems), and the supporting bundles
   (`conceptmaps.json`, `search-parameters.json`, `dataelements.json`,
   `profiles-others.json`).
+- **R8.1a** Bundles carrying terminologies FHIR does not itself define
+  (R4's `v2-tables.json` and `v3-codesystems.json`) MUST NOT be read: no FHIR
+  element has a `required` binding into them, so they would add enums nothing
+  refers to.
 
-## Parse layer
+## Release parameterization
 
-- **R8.2** Each bundle MUST have a `r5::parse::<bundle>` module whose structs
+- **R8.2a** Every generator input and output that varies by release MUST be
+  reachable from `codegen::Version`: the definition directory, the output
+  directory, the module name, the release label, and the specification URL.
+  Release-specific behaviour elsewhere is a defect.
+- **R8.2b** The generator MUST emit the *finished* module tree in one pass —
+  nested backbone structs, choice enums, `Coded<E>`, `Vec1`, primitive-extension
+  siblings, builders, and per-module tests — not an intermediate that needs
+  hand-finishing.
+- **R8.2c** The generator MUST refuse to overwrite a hand-documented release
+  tree. `src/r5` is such a tree; writing it requires an explicit output
+  directory.
+
+## Legacy parse layer
+
+The requirements below describe `r5::parse`, the original R5-only generator
+that produced a starting point for hand-finishing in `tmp/out/`. It is retained
+because the shipped R5 model was authored through it and its splicing
+generators are still how R5 is edited in bulk. New work goes in `codegen`.
+
+- **R8.2** Each bundle MUST have an `r5::parse::<bundle>` module whose structs
   (`Bundle`, `Entry`, `Resource`, `Element`, `Snapshot`, …) deserialize the
   spec JSON faithfully. A `test_serde_json_from_reader` test MUST deserialize
   the real bundle; a missing field (serde `unknown field`) is a defect to fix.

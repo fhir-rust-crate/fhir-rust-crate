@@ -12,6 +12,8 @@
 //! round-trip; (2) the paired `_value<Type>` extension round-trips; (3) the enum
 //! flattens onto the parent; (4) "exactly one" is what serialization emits.
 
+#![cfg(feature = "r5")]
+
 use fhir::r5::types::{Boolean, CodeableConcept, Element, Quantity, String as FhirString};
 use serde::de::{self, MapAccess, Visitor};
 use serde::ser::SerializeMap;

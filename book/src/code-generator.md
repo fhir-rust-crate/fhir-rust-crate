@@ -1,41 +1,54 @@
 # Code generator internals
 
-The model under `src/r5/{types,resources,codes.rs}` is **generated** from the
-official FHIR specification JSON in `doc/fhir-specifications/r5/`. This chapter
-sketches how, for contributors.
+The model under `src/<release>/{types,resources,codes.rs}` is **generated** from
+that release's official FHIR specification JSON in
+`doc/fhir-specifications/<release>/`. This chapter sketches how, for
+contributors.
 
 ## The pipeline
 
-The generator lives under `src/r5/parse/` and is driven by the thin binary in
+The generator lives under `src/codegen/` and is driven by the thin binary in
 `src/main.rs`:
 
 ```sh
-cargo run   # reads the spec JSON, writes generated Rust
+cargo run -- r4                    # rewrite src/r4 from the R4 definitions
+cargo run -- r5 --out tmp/out/r5   # emit R5 elsewhere, to compare
 ```
 
 It deserializes the `StructureDefinition` bundles with serde structs mirroring
-the FHIR JSON, then translates each `ElementDefinition` into a Rust struct field,
-applying the uniform conventions (`rename_all = "camelCase"`,
-`skip_serializing_none`, the cardinality mapping).
+the FHIR JSON — one set for both releases, since their bundles have the same
+structure — then plans each type and renders it, applying the uniform
+conventions (`rename_all = "camelCase"`, `skip_serializing_none`, the
+cardinality mapping).
+
+`src/r4` is entirely generated and safe to rewrite. `src/r5` is not: it carries
+hand-written prose on top of generated shapes, so `cargo run -- r5` refuses to
+write there without an explicit `--out`. Everything that varies by release is
+reachable from `codegen::Version`.
 
 ## The metadata table
 
-`src/r5/parse/meta.rs` extracts a compile-time table (`fhir::r5::meta`) of per-
-element facts — cardinality, coded-value bindings, `value[x]` type lists,
-reference target profiles, and summary membership — keyed by FHIR path. This
+`src/codegen/meta_gen.rs` extracts a compile-time table (`fhir::r5::meta`,
+`fhir::r4::meta`) of per-element facts — cardinality, coded-value bindings,
+`value[x]` type lists, reference target profiles, and summary membership —
+keyed by FHIR path. This
 table is the foundation the later layers build on: choice enums, coded fields,
 validation, and summary serialization all consult it.
 
-## Layered generators
+## Splicing generators (R5 only)
 
-Several focused generators splice into the already-documented model files rather
-than regenerating them (which would destroy the curated prose docs). Each is
-driven by an ignored test and the metadata table:
+R5 predates the one-pass generator: its modules were authored by refining rough
+output and then documenting it by hand. Editing them in bulk therefore uses a
+second family of generators under `src/r5/parse/` that **splice into** the
+already-documented files rather than regenerating them. Each is driven by an
+ignored test and the metadata table:
 
 - `siblings.rs` — the `_field` primitive-extension siblings, and the `Element`
   base (`id`/`extension`) on complex datatypes.
 - `choice_gen.rs` — the `value[x]` choice enums (`#[derive(FhirChoice)]`).
 - `coded_gen.rs` — `required`-binding fields retyped to `Coded<Enum>`.
+
+R4 needs none of this: `cargo run -- r4` emits the finished shape directly.
 
 ## The green gate
 
@@ -47,6 +60,15 @@ cargo test          # unit + integration
 cargo test --doc    # doctests
 cargo clippy --all-targets -- -D warnings
 RUSTDOCFLAGS="-D warnings" cargo doc --no-deps
+```
+
+`r4` is off by default, so those commands do not exercise it. If you touched the
+generator, the derive macros, the crate-root modules, or `src/r4`, run the gate
+with the release enabled too:
+
+```sh
+cargo test --features "r4 xml client"
+cargo clippy --all-targets --features "r4 xml client" -- -D warnings
 ```
 
 The living specifications in

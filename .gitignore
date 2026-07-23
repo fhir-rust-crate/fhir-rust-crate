@@ -1,9 +1,9 @@
 /target
 
-# Full official FHIR R5 example set, fetched on demand by `bin/fetch-examples`
-# for the `#[ignore]` round-trip test. ~190 MB, not committed. The curated
-# always-on subset under tests/data/roundtrip_examples/ IS committed.
-/doc/fhir-specifications/r5/fhir-examples-json/
+# Full official FHIR example sets, fetched on demand by `bin/fetch-examples`
+# for the `#[ignore]` round-trip tests. ~190 MB each, not committed. The curated
+# always-on subsets under tests/data/roundtrip_examples_<release>/ ARE committed.
+/doc/fhir-specifications/*/fhir-examples-json/
 
 # mdBook build output
 /book/book/
