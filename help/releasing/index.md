@@ -49,7 +49,7 @@ Run:
 
 ```sh
 RUSTC_BOOTSTRAP=1 RUSTDOCFLAGS="-Z unstable-options --output-format json" cargo doc --no-deps
-rustdoc-md --path target/doc/assertables.json --output assertables.md
+rustdoc-md --path target/doc/fhir.json --output fhir.md
 cp fhir.md llms.txt
 ```
 
@@ -60,7 +60,6 @@ The code above generates the crate's documentation:
 2. Convert from the JSON file into a Markdown file `target/doc/fhir.md`.
 
 3. Copy the Markdown file to the standard file name `llms.txt`; do a copy instead of a symlink because symlinks don't work well on some operating systems.
-
 
 ## Release
 
@@ -75,4 +74,4 @@ cargo publish
 
 Confirm that the crate is published:
 
-* <https://crates.io/crates/fhir>
+- <https://crates.io/crates/fhir>

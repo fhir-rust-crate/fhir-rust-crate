@@ -1,8 +1,9 @@
 [package]
 name = "fhir"
-version = "1.0.0"
+version = "1.1.0"
 edition = "2024"
 authors = ["Joel Parker Henderson <joel@joelparkerhenderson.com>"]
+homepage = "https://github.com/joelparkerhenderson/fhir-rust-crate"
 description = "Fast Healthcare Interoperability Resources (FHIR) data model for Rust: the complete FHIR R5 and R4 resources, datatypes, and code systems as serde-serializable types, plus a spec-driven code generator."
 readme = "README.md"
 repository = "https://github.com/joelparkerhenderson/fhir-rust-crate/"
@@ -22,6 +23,12 @@ include = [
 
 [package.metadata.docs.rs]
 all-features = true
+
+[package.metadata.wix]
+upgrade-guid = "641DA961-135A-4BF8-9D03-13CA038FDAB1"
+path-guid = "0ED797FA-7E35-4848-A1E1-1E8FDB5B148E"
+license = false
+eula = false
 
 [features]
 # Which FHIR releases to compile. Each release is a complete, independent model
@@ -43,6 +50,25 @@ xml = ["dep:quick-xml"]
 
 [workspace]
 members = ["fhir-derive-macros"]
+
+# Config for 'cargo dist'
+[workspace.metadata.dist]
+# The preferred cargo-dist version to use in CI (Cargo.toml SemVer syntax)
+cargo-dist-version = "0.14.1"
+# CI backends to support
+ci = "github"
+# The installers to generate for each app
+installers = ["shell", "powershell", "npm", "homebrew", "msi"]
+# Target platforms to build apps for (Rust target-triple syntax)
+targets = ["aarch64-apple-darwin", "x86_64-apple-darwin", "x86_64-unknown-linux-gnu", "x86_64-unknown-linux-musl", "x86_64-pc-windows-msvc"]
+# The archive format to use for windows builds (defaults .zip)
+windows-archive = ".tar.gz"
+# The archive format to use for non-windows builds (defaults .tar.xz)
+unix-archive = ".tar.gz"
+# Publish jobs to run in CI
+pr-run-mode = "plan"
+# Whether to install an updater program
+install-updater = false
 
 # The examples are written against a specific release's model, so each one
 # declares the feature that provides it. Without this, `cargo build
@@ -111,3 +137,8 @@ quick-xml = { version = "0.36", optional = true } # XML reader/writer for the `x
 [dev-dependencies]
 wiremock = "0.6" # Mock HTTP server for `client` unit tests.
 tokio = { version = "1", features = ["rt-multi-thread", "macros"] } # Async runtime for tests.
+
+# The profile that 'cargo dist' will build with
+[profile.dist]
+inherits = "release"
+lto = "thin"
