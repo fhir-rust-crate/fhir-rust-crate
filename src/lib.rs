@@ -10,14 +10,14 @@
 //! exchanging electronic health records. For each release this crate gives you:
 //!
 //! - **Every resource** (Patient, Observation, Encounter, …) as a Rust
-//!   `struct` under [`r5::resources`] / [`r4::resources`], each round-tripping
-//!   to and from the canonical FHIR JSON via `serde`.
+//!   `struct` under [`r5::resources`] / [`r4::resources`] / [`r3::resources`],
+//!   each round-tripping to and from the canonical FHIR JSON via `serde`.
 //! - **Every datatype** (Period, HumanName, CodeableConcept, …) under
-//!   [`r5::types`] / [`r4::types`], including the primitive newtypes
-//!   ([`Code`](r5::types::Code), [`Id`](r5::types::Id),
+//!   [`r5::types`] / [`r4::types`] / [`r3::types`], including the primitive
+//!   newtypes ([`Code`](r5::types::Code), [`Id`](r5::types::Id),
 //!   [`DateTime`](r5::types::DateTime), …).
 //! - **Type-safe code systems** — 400+ FHIR `CodeSystem`s as Rust enums under
-//!   [`r5::codes`] / [`r4::codes`].
+//!   [`r5::codes`] / [`r4::codes`] / [`r3::codes`].
 //! - **A polymorphic `Resource` enum** tagged by `resourceType`, for reading a
 //!   resource whose type you do not know ahead of time.
 //! - **Lightweight validation** via the [`Validate`](validate::Validate) trait

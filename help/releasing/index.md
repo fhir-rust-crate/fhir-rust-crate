@@ -61,6 +61,12 @@ The code above generates the crate's documentation:
 
 3. Copy the Markdown file to the standard file name `llms.txt`; do a copy instead of a symlink because symlinks don't work well on some operating systems.
 
+Note that this runs at the **default** feature set, so the per-item listing
+covers R5 only; the crate-level summary at the top still describes every
+release. `llms.txt` ships inside the published crate (see `include` in
+`Cargo.toml`), and adding `--features "r3 r4 xml client"` here triples it from
+about 8 MB to about 21 MB — so widen it only deliberately.
+
 ## Release
 
 Releasing a new version uses these steps:
