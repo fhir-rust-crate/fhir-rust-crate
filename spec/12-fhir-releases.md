@@ -82,7 +82,8 @@ doubles build time, which is why this is opt-in rather than always-on.
 
 Because R12.9 makes `Validate` one trait rather than two, a single
 `#[derive(Validate)]` implementation serves every release, and a caller can
-write `fn check<T: Validate>(v: &T)` that accepts R4 and R5 values alike.
+write `fn check<T: Validate>(v: &T)` that accepts values of every release
+alike.
 
 ## Naming a release in generated code
 
@@ -149,6 +150,6 @@ the two trees must be edited differently.
 - R6 when it is published, and R4B, which the release table would accommodate
   without structural change.
 - A `Release`-generic façade over the common resources, for callers that handle
-  both releases and only need the elements the releases agree on.
+  several releases and only need the elements they agree on.
 - Machine-checked conversion between releases, driven by the official
   cross-version extension maps rather than by hand-written rules.

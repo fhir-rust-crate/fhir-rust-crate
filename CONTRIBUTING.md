@@ -1,7 +1,7 @@
 # Contributing to `fhir`
 
 Thanks for your interest in improving the `fhir` crate — a Rust implementation
-of the HL7 FHIR® data model (releases R5 and R4) plus the spec-driven generator
+of the HL7 FHIR® data model (releases R5, R4 and R3) plus the spec-driven generator
 that produces it.
 
 This file is the short version. The authoritative, in-depth guidance lives in
@@ -41,11 +41,15 @@ cargo test --test roundtrip_r5_examples -- --ignored --nocapture
 
 bin/fetch-examples r4
 cargo test --features r4 --test roundtrip_r4_examples -- --ignored --nocapture
+
+bin/fetch-examples r3
+cargo test --features r3 --test roundtrip_r3_examples -- --ignored --nocapture
 ```
 
 Not every official example round-trips, and that is not always our bug: 198 of
-the 2911 official R4 examples omit an element the specification makes mandatory.
-Check the specification's cardinality before weakening a type to accept one.
+2911 official R4 examples and 174 of 1693 R3 ones omit an element their own
+release makes mandatory. Check the specification's cardinality before weakening
+a type to accept one.
 
 Known gaps are tracked in [`tasks-roundtrip-failures.md`](tasks-roundtrip-failures.md).
 

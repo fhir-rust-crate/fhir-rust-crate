@@ -6,8 +6,9 @@
 `serde`-serializable Rust, together with a spec-driven code generator that
 derives that model from the official FHIR specification JSON.
 
-Two releases are modelled, each complete and independent: **R5 (5.0.0)** under
-`fhir::r5` and **R4 (4.0.1)** under `fhir::r4`. How they coexist — and why they
+Three releases are modelled, each complete and independent: **R5 (5.0.0)**
+under `fhir::r5`, **R4 (4.0.1)** under `fhir::r4`, and **R3 (3.0.2, also
+published as STU3)** under `fhir::r3`. How they coexist — and why they
 are separate types rather than one — is defined in
 [spec 12](12-fhir-releases.md). Every other spec in this directory applies to
 each release in turn; where they say "R5" for concreteness, read "the release".
@@ -34,7 +35,7 @@ Out of scope (for now; see each spec's Future work):
 - A running FHIR REST server. (A client is supported behind the `client`
   feature.)
 - FHIRPath evaluation and full invariant (constraint) checking.
-- FHIR releases other than R4 and R5.
+- FHIR releases other than R3, R4 and R5.
 - Automatic conversion between releases.
 
 ## Goals
@@ -55,8 +56,8 @@ Out of scope (for now; see each spec's Future work):
 
 - Hiding FHIR's shape behind a "friendlier" abstraction. This crate exposes
   FHIR faithfully.
-- Papering over the differences between FHIR releases. Where R4 and R5 disagree,
-  the types disagree too.
+- Papering over the differences between FHIR releases. Where the releases
+  disagree, the types disagree too.
 - Runtime reflection or dynamic typing beyond the `Resource` enum and the
   `serde_json::Value` used for polymorphic `contained` slots.
 

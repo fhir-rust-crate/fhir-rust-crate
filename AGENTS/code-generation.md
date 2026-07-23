@@ -10,10 +10,10 @@ you are working with:
 
 | | `crate::codegen` | `crate::r5::parse` |
 | --- | --- | --- |
-| Releases | any (`Version::R4`, `Version::R5`) | R5 only |
+| Releases | any (`Version::R3`, `R4`, `R5`) | R5 only |
 | Emits | the **finished** module tree | a rough **starting point** |
 | Output | `src/<release>/…` | `tmp/out/*.rs` |
-| Used for | all of `src/r4` | the original authoring of `src/r5` |
+| Used for | all of `src/r3` and `src/r4` | the original authoring of `src/r5` |
 
 New work belongs in `codegen`. `r5::parse` is kept because the shipped R5 model
 was authored through it and its splicing generators are still how R5 is edited
@@ -30,17 +30,33 @@ in bulk.
 | `valuesets.json` | code-system enums (`<release>::codes`) |
 | `conceptmaps.json`, `search-parameters.json`, `dataelements.json`, `profiles-others.json` | supporting bundles |
 
-R4 also ships `v2-tables.json` and `v3-codesystems.json`. These are deliberately
-not read: they are external HL7 v2/v3 terminologies, not FHIR-defined ones, and
-no FHIR element has a `required` binding into them.
+R3 and R4 also ship `v2-tables.json` and `v3-codesystems.json`. These are
+deliberately not read: they are external HL7 v2/v3 terminologies, not
+FHIR-defined ones, and no FHIR element has a `required` binding into them.
 
 The R4 and R5 bundles have **identical structure** — same `StructureDefinition`,
-same `ElementDefinition`, same FHIRPath system type URLs — which is why one set
-of input types in `codegen::spec` reads both.
+same `ElementDefinition`, same FHIRPath system type URLs. **R3 does not**, and
+`codegen::spec` normalizes the differences at the input boundary so they never
+leak downstream:
+
+| Fact | R3 | R4 / R5 |
+| --- | --- | --- |
+| `type.targetProfile` | one string | a list |
+| binding's value set | `valueSetReference` (a `Reference`) or `valueSetUri` | `valueSet` (canonical) |
+| a primitive's own `value` element | states no `type.code` | states one |
+| `<Type>.id`, `Extension.url` | ordinary `string`/`id`/`uri` | a FHIRPath system type |
+
+The last of those is why "is this element FHIR infrastructure?" is decided
+**structurally** (`ElementDefinition::is_system_element`) rather than from the
+type code — otherwise every R3 struct would sprout a spurious `_id` sibling.
+
+Missing the value-set difference would have been silent: R3 would simply have
+produced no `Coded<E>` fields at all.
 
 ## Running it
 
 ```sh
+cargo run -- r3                    # rewrite src/r3 from the R3 definitions
 cargo run -- r4                    # rewrite src/r4 from the R4 definitions
 cargo run -- r5 --out tmp/out/r5   # emit R5 somewhere safe, to compare
 ```
@@ -68,10 +84,10 @@ tested on their own. The interesting ones:
 
 1. **Backbone detection is structural, not nominal.** An element becomes a
    nested struct if other elements have it as a path prefix — never because its
-   type code says `BackboneElement`. R4 and R5 spell datatype backbones
-   (`Element`) and resource backbones (`BackboneElement`) differently, and
-   neither spelling is reliable.
-2. **`contentReference` resolves to the referenced struct.** R4 writes
+   type code says `BackboneElement`. The releases spell datatype backbones
+   (`Element`) and resource backbones (`BackboneElement`) differently, and no
+   spelling is reliable across all three.
+2. **`contentReference` resolves to the referenced struct.** R3 and R4 write
    `#Observation.referenceRange`, R5 a full URL with the same fragment.
 3. **A definition's Rust name is its `name`, not its `type`.** A *profile*
    constrains an existing type and keeps that type's element paths:
@@ -94,7 +110,7 @@ tested on their own. The interesting ones:
 ## Determinism
 
 Generation must be deterministic (same input → same output) so `git diff` on
-`src/r4` is meaningful. Do not introduce ordering that depends on hash-map
+a generated tree is meaningful. Do not introduce ordering that depends on hash-map
 iteration, timestamps, or randomness — `codegen` sorts with `BTreeMap`/`BTreeSet`
 and by name throughout, and `write_if_changed` leaves untouched files alone so
 timestamps stay stable.
@@ -104,7 +120,7 @@ timestamps stay stable.
 Most generated code targets the crate root (`crate::validate`,
 `crate::coded`, `crate::builder`), which is release-independent. Three things
 are not: the `meta` table, `types::Element`, and `choice::Primitive`. The derive
-macros resolve those through a `#[fhir_version("r4")]` attribute, which
+macros resolve those through a `#[fhir_version("r4")]` (or `"r3"`) attribute, which
 `render::version_attribute` emits for every release except R5 (the macros'
 default). If you add a release, add it to `KNOWN_VERSIONS` in
 `fhir-derive-macros`.
@@ -138,8 +154,13 @@ fix-ups, or reverted to a compiling state first.
   individual output files.
 - Anything that differs between releases must be reachable from
   `codegen::Version`. A `match` on the release anywhere else is a smell.
-- After any generator change: `cargo run -- r4`, then run the green gate with
-  `--features r4`, then check `git diff --stat src/r4` looks like what you meant.
+- After any generator change, regenerate **every** release it can affect:
+  `cargo run -- r3 && cargo run -- r4`, run the green gate with
+  `--features "r3 r4 xml client"`, then check `git diff --stat src/r3 src/r4`
+  looks like what you meant.
 - Validate against reality with the official examples:
   `bin/fetch-examples r4` then
   `cargo test --features r4 --test roundtrip_r4_examples -- --ignored --nocapture`.
+- A definition that fails to parse **stops** generation rather than being
+  skipped. Keep it that way: silently skipping one drops a whole resource from
+  the model, and this rule is what surfaced two of R3's differences immediately.
