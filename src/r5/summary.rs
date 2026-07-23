@@ -1,9 +1,12 @@
-//! Summary serialization (the FHIR `_summary=true` view).
+//! Summary serialization for FHIR R5 (the `_summary=true` view).
 //!
 //! FHIR lets a client request only the *summary* elements of a resource — those
 //! marked `isSummary` in the specification, plus mandatory elements. This module
 //! prunes a serialized resource down to that set using the
 //! [`meta`](crate::r5::meta) table.
+//!
+//! The pruning itself does not vary by release and lives in [`crate::summary`];
+//! this module binds it to the R5 element table.
 //!
 //! ```
 //! use fhir::r5::resources::Patient;
@@ -32,51 +35,12 @@ use crate::r5::meta;
 /// — are removed.
 #[must_use]
 pub fn to_summary_value<T: Serialize>(resource: &T, resource_type: &str) -> Value {
-    let mut value = ::serde_json::to_value(resource).unwrap_or(Value::Null);
-    prune_to_summary(&mut value, resource_type);
-    // A bare resource struct does not serialize `resourceType` (the `Resource`
-    // enum adds it); inject it so the summary is a valid resource.
-    if let Value::Object(map) = &mut value {
-        map.entry("resourceType".to_string())
-            .or_insert_with(|| Value::String(resource_type.to_string()));
-    }
-    value
+    crate::summary::to_summary_value(meta::elements(), resource, resource_type)
 }
 
 /// Prune a serialized resource object in place to its summary elements.
 pub fn prune_to_summary(value: &mut Value, resource_type: &str) {
-    let Value::Object(map) = value else { return };
-    let bases = summary_bases(resource_type);
-    map.retain(|key, _| keep_in_summary(key, &bases));
-}
-
-/// A direct child element: (camelCase base name, is-summary-or-mandatory, is-choice).
-fn summary_bases(resource_type: &str) -> Vec<(String, bool, bool)> {
-    let prefix_len = resource_type.len() + 1;
-    meta::elements_of(resource_type)
-        .filter(|e| !e.path[prefix_len..].contains('.')) // direct children only
-        .map(|e| {
-            let leaf = &e.path[prefix_len..];
-            let is_choice = leaf.ends_with("[x]");
-            let base = leaf.trim_end_matches("[x]").to_string();
-            (base, e.is_summary || e.min >= 1, is_choice)
-        })
-        .collect()
-}
-
-fn keep_in_summary(key: &str, bases: &[(String, bool, bool)]) -> bool {
-    if key == "resourceType" {
-        return true;
-    }
-    // A `_field` sibling follows its base element.
-    let bare = key.strip_prefix('_').unwrap_or(key);
-    bases.iter().any(|(base, is_summary, is_choice)| {
-        *is_summary
-            && (bare == base
-                || (*is_choice
-                    && bare.starts_with(base.as_str())
-                    && bare[base.len()..].chars().next().is_some_and(char::is_uppercase)))
-    })
+    crate::summary::prune_to_summary(meta::elements(), value, resource_type);
 }
 
 #[cfg(test)]

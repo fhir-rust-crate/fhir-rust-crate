@@ -7,6 +7,10 @@
 //! to parse it. [`Coded<E>`] wraps the enum with an [`Unknown`](Coded::Unknown)
 //! fallback so every wire value round-trips. See `spec/05-code-systems.md`.
 //!
+//! [`Coded<E>`] is generic over the enum and therefore release-independent, so
+//! it is defined once in [`crate::coded`]; this module re-exports it so R5 code
+//! keeps using `fhir::r5::coded::Coded`.
+//!
 //! ```
 //! use fhir::r5::coded::Coded;
 //! use fhir::r5::codes::AdministrativeGender;
@@ -26,99 +30,4 @@
 //! assert_eq!(serde_json::to_value(&unknown).unwrap(), "robot");
 //! ```
 
-use ::serde::{Deserialize, Serialize};
-
-use crate::r5::validate::{Validate, ValidationIssue};
-
-/// A coded value: a known [`codes`](crate::r5::codes) enum variant `E`, or any
-/// other code string preserved verbatim.
-///
-/// Deserialization tries `E` first (untagged) and falls back to
-/// [`Unknown`](Self::Unknown); serialization emits the underlying code string in
-/// either case.
-#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
-#[serde(untagged)]
-pub enum Coded<E> {
-    /// A recognized code from the bound value set.
-    Known(E),
-    /// A code outside the value set, preserved for round-tripping.
-    Unknown(String),
-}
-
-impl<E: Default> Default for Coded<E> {
-    fn default() -> Self {
-        Coded::Known(E::default())
-    }
-}
-
-impl<E> Coded<E> {
-    /// The known enum variant, if this value is recognized.
-    pub fn known(&self) -> Option<&E> {
-        match self {
-            Coded::Known(e) => Some(e),
-            Coded::Unknown(_) => None,
-        }
-    }
-
-    /// Whether this value is an unrecognized code.
-    #[must_use]
-    pub fn is_unknown(&self) -> bool {
-        matches!(self, Coded::Unknown(_))
-    }
-}
-
-impl<E: Serialize> Coded<E> {
-    /// The underlying FHIR code string (the enum's canonical code, or the raw
-    /// unknown code).
-    #[must_use]
-    pub fn code(&self) -> String {
-        match self {
-            Coded::Known(e) => ::serde_json::to_value(e)
-                .ok()
-                .and_then(|v| v.as_str().map(str::to_string))
-                .unwrap_or_default(),
-            Coded::Unknown(s) => s.clone(),
-        }
-    }
-}
-
-impl<E> Validate for Coded<E> {
-    // Every `Coded` field has a `required` binding (that is why it was typed as
-    // an enum), so an `Unknown` code is outside the value set (T13).
-    fn validate(&self) -> Vec<ValidationIssue> {
-        match self {
-            Coded::Known(_) => Vec::new(),
-            Coded::Unknown(code) => vec![ValidationIssue::new(
-                "code",
-                format!("code {code:?} is not in the required value set"),
-            )],
-        }
-    }
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-    use crate::r5::codes::AdministrativeGender;
-
-    #[test]
-    fn known_and_unknown_roundtrip() {
-        for (json, expect) in [
-            (serde_json::json!("male"), Coded::Known(AdministrativeGender::Male)),
-            (serde_json::json!("xyz"), Coded::Unknown("xyz".to_string())),
-        ] {
-            let parsed: Coded<AdministrativeGender> =
-                serde_json::from_value(json.clone()).unwrap();
-            assert_eq!(parsed, expect);
-            assert_eq!(serde_json::to_value(&parsed).unwrap(), json);
-        }
-    }
-
-    #[test]
-    fn default_is_known() {
-        assert_eq!(
-            Coded::<AdministrativeGender>::default(),
-            Coded::Known(AdministrativeGender::default())
-        );
-    }
-}
+pub use crate::coded::Coded;

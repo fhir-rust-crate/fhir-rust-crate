@@ -1,9 +1,9 @@
 //! Generated element-metadata table — DO NOT EDIT.
 //!
-//! Produced from the FHIR R5 specification JSON by `crate::r5::parse::meta`.
-//! Regenerate with `cargo run` (or the `regenerate` test in that module).
+//! Produced from the FHIR R5 specification JSON by `crate::codegen::meta_gen`.
+//! Regenerate with `cargo run -- r5`.
 
-use super::{BindingMeta, BindingStrength, ElementMeta, TypeRef};
+use crate::meta::{BindingMeta, BindingStrength, ElementMeta, TypeRef};
 
 pub(super) static ELEMENTS: &[ElementMeta] = &[
     ElementMeta { path: "Account.balance", min: 0, max: "*", is_summary: false, binding: None, types: &[TypeRef { code: "BackboneElement", target_profiles: &[] }] },

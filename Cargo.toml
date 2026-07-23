@@ -24,6 +24,14 @@ include = [
 all-features = true
 
 [features]
+# Which FHIR releases to compile. Each release is a complete, independent model
+# (~135k lines of generated Rust), so they are opt-in: enable only what you use.
+# `r5` is on by default because it is the release this crate shipped first.
+default = ["r5"]
+# The FHIR Release 4 (4.0.1) model: `fhir::r4`.
+r4 = []
+# The FHIR Release 5 (5.0.0) model: `fhir::r5`.
+r5 = []
 # Preserve exact `decimal` precision (trailing zeros, high precision) by backing
 # `serde_json::Number` with arbitrary precision. Off by default because it is a
 # global serde_json effect and changes `Number` equality to be string-based.

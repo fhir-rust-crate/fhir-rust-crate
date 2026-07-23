@@ -1,29 +1,90 @@
-//! Command-line entry point for the FHIR specifications parser / generator.
+//! Command-line entry point for the FHIR specifications code generator.
+//!
+//! ```sh
+//! cargo run -- r4                  # regenerate src/r4 from the R4 definitions
+//! cargo run -- r5 --out tmp/out/r5 # regenerate R5 somewhere safe, to compare
+//! ```
+//!
+//! See [`fhir::codegen`] for what the generator emits and how.
 
-use fhir::DEFINITIONS_DIR;
-use fhir::r5::parse;
-use std::fs::File;
-use std::io::BufReader;
+use std::path::PathBuf;
+use std::process::ExitCode;
 
-/// Read `profiles-types.json` and generate a Rust source file for each FHIR R5
-/// datatype it defines.
-fn generate_profiles_types() {
-    let path = DEFINITIONS_DIR.join("profiles-types.json");
-    let file = File::open(path).expect("open");
-    let reader = BufReader::new(file);
-    let bundle: parse::profiles_types::Bundle = ::serde_json::from_reader(reader).unwrap();
-    bundle
-        .entry
-        .into_iter()
-        .map(|resource_head| resource_head.resource)
-        .for_each(|resource| {
-            parse::profiles_types::resource_into_rust(&resource).expect("resource_into_rust");
-        });
+use fhir::codegen::{self, Version};
+
+/// How to run the generator.
+struct Options {
+    /// The release to generate.
+    version: Version,
+    /// Where to write it.
+    out: PathBuf,
 }
 
-fn main() {
-    generate_profiles_types();
-    // Extract per-element metadata (bindings, choice types, reference targets,
-    // cardinality, summary flags) into tmp/out/meta.json and src/r5/meta/generated.rs.
-    parse::meta::generate();
+fn main() -> ExitCode {
+    let args: Vec<String> = std::env::args().skip(1).collect();
+    let options = match parse_args(&args) {
+        Ok(options) => options,
+        Err(message) => {
+            eprintln!("{message}\n\n{USAGE}");
+            return ExitCode::FAILURE;
+        }
+    };
+
+    println!("Generating {} into {}", options.version.label(), options.out.display());
+    match codegen::generate_into(options.version, &options.out) {
+        Ok(summary) => {
+            println!("{summary}");
+            ExitCode::SUCCESS
+        }
+        Err(e) => {
+            eprintln!("generation failed: {e}");
+            ExitCode::FAILURE
+        }
+    }
+}
+
+const USAGE: &str = "\
+Usage: cargo run -- <release> [--out <dir>]
+
+  <release>     r4 or r5
+  --out <dir>   where to write the model (default: src/<release>)
+
+R5 has no default output directory: the shipped src/r5 modules carry
+hand-written documentation that regeneration would overwrite, so an explicit
+--out is required for it.";
+
+/// Parse the command line, defaulting the output directory where it is safe to.
+fn parse_args(args: &[String]) -> Result<Options, String> {
+    let mut version = None;
+    let mut out = None;
+    let mut rest = args.iter();
+
+    while let Some(arg) = rest.next() {
+        match arg.as_str() {
+            "--out" => {
+                let dir = rest.next().ok_or("--out needs a directory")?;
+                out = Some(PathBuf::from(dir));
+            }
+            "-h" | "--help" => return Err("Showing usage.".to_string()),
+            other => {
+                version = Some(
+                    Version::parse(other).ok_or_else(|| format!("unknown release {other:?}"))?,
+                );
+            }
+        }
+    }
+
+    let version = version.ok_or("no release given")?;
+    let out = match (out, version) {
+        (Some(dir), _) => dir,
+        (None, Version::R4) => version.source_dir(),
+        (None, Version::R5) => {
+            return Err(
+                "refusing to regenerate over src/r5, which is hand-documented; \
+                 pass --out to write elsewhere"
+                    .to_string(),
+            )
+        }
+    };
+    Ok(Options { version, out })
 }

@@ -1,27 +1,72 @@
-//! Procedural macros for the `fhir-specifications-parser` crate.
+//! Procedural macros for the `fhir` crate.
 //!
 //! Provides `#[derive(Validate)]`, which generates a recursive
-//! `crate::r5::validate::Validate` implementation that validates every field
+//! `crate::validate::Validate` implementation that validates every field
 //! (for structs) or the active variant's data (for enums), prefixing each
-//! nested issue's `path` with the field name.
+//! nested issue's `path` with the field name; `#[derive(FhirChoice)]` for
+//! `value[x]` choice enums; and `#[derive(Builder)]`.
+//!
+//! # Choosing a FHIR release
+//!
+//! Most of the generated code targets release-independent items in the crate
+//! root (`crate::validate`, `crate::builder`). A few pieces are per-release —
+//! the `meta` element table, `types::Element`, and `choice::Primitive` — so a
+//! type from a release other than the default declares it:
+//!
+//! ```ignore
+//! #[derive(Validate)]
+//! #[fhir_version("r4")]
+//! pub struct Patient { /* … */ }
+//! ```
+//!
+//! R5 is the default, since it is the release this crate shipped first.
 
 use proc_macro::TokenStream;
 use quote::{format_ident, quote};
 use syn::{
-    parse_macro_input, Data, DeriveInput, Fields, GenericArgument, Index, LitStr, PathArguments,
-    Type,
+    parse_macro_input, Attribute, Data, DeriveInput, Fields, GenericArgument, Index, LitStr,
+    PathArguments, Type,
 };
 
+/// The FHIR releases whose model modules the generated code can name.
+const KNOWN_VERSIONS: [&str; 2] = ["r4", "r5"];
+
+/// Resolve `#[fhir_version("r4")]` into the release module path `crate::r4`.
+///
+/// Defaults to `crate::r5` when the attribute is absent.
+fn version_path(attrs: &[Attribute]) -> Result<proc_macro2::TokenStream, syn::Error> {
+    let Some(attr) = attrs.iter().find(|a| a.path().is_ident("fhir_version")) else {
+        return Ok(quote! { crate::r5 });
+    };
+    let literal = attr.parse_args::<LitStr>()?;
+    let version = literal.value();
+    if !KNOWN_VERSIONS.contains(&version.as_str()) {
+        return Err(syn::Error::new_spanned(
+            &literal,
+            format!(
+                "unknown FHIR version {version:?}; expected one of {}",
+                KNOWN_VERSIONS.join(", ")
+            ),
+        ));
+    }
+    let ident = syn::Ident::new(&version, literal.span());
+    Ok(quote! { crate::#ident })
+}
+
 /// Derive a recursive `Validate` implementation.
-#[proc_macro_derive(Validate)]
+#[proc_macro_derive(Validate, attributes(fhir_version))]
 pub fn derive_validate(input: TokenStream) -> TokenStream {
     let input = parse_macro_input!(input as DeriveInput);
     let name = &input.ident;
     let (impl_g, ty_g, where_g) = input.generics.split_for_impl();
+    let version = match version_path(&input.attrs) {
+        Ok(v) => v,
+        Err(e) => return e.to_compile_error().into(),
+    };
 
     let body = match &input.data {
         Data::Struct(s) => {
-            let stmts = struct_field_stmts(&s.fields, &name.to_string());
+            let stmts = struct_field_stmts(&s.fields, &name.to_string(), &version);
             let invariants = invariant_stmts(&name.to_string(), &s.fields);
             quote! {
                 let mut issues = ::std::vec::Vec::new();
@@ -40,7 +85,7 @@ pub fn derive_validate(input: TokenStream) -> TokenStream {
                             .map(|i| syn::Ident::new(&format!("__f{i}"), proc_macro2::Span::call_site()))
                             .collect();
                         let calls = binds.iter().map(|b| quote! {
-                            issues.extend(crate::r5::validate::Validate::validate(#b));
+                            issues.extend(crate::validate::Validate::validate(#b));
                         });
                         quote! { #name::#vname( #(#binds),* ) => { #(#calls)* } }
                     }
@@ -48,7 +93,7 @@ pub fn derive_validate(input: TokenStream) -> TokenStream {
                         let names: Vec<syn::Ident> =
                             f.named.iter().map(|x| x.ident.clone().unwrap()).collect();
                         let calls = names.iter().map(|b| quote! {
-                            issues.extend(crate::r5::validate::Validate::validate(#b));
+                            issues.extend(crate::validate::Validate::validate(#b));
                         });
                         quote! { #name::#vname { #(#names),* } => { #(#calls)* } }
                     }
@@ -64,8 +109,8 @@ pub fn derive_validate(input: TokenStream) -> TokenStream {
     };
 
     quote! {
-        impl #impl_g crate::r5::validate::Validate for #name #ty_g #where_g {
-            fn validate(&self) -> ::std::vec::Vec<crate::r5::validate::ValidationIssue> {
+        impl #impl_g crate::validate::Validate for #name #ty_g #where_g {
+            fn validate(&self) -> ::std::vec::Vec<crate::validate::ValidationIssue> {
                 #body
             }
         }
@@ -85,7 +130,7 @@ fn invariant_stmts(struct_name: &str, fields: &Fields) -> proc_macro2::TokenStre
             let __has_value = self.value.is_some();
             let __has_ext = !self.extension.is_empty();
             if __has_value == __has_ext {
-                issues.push(crate::r5::validate::ValidationIssue::new(
+                issues.push(crate::validate::ValidationIssue::new(
                     "",
                     "ext-1: an extension SHALL have either a value or nested extensions, not both",
                 ));
@@ -100,7 +145,7 @@ fn invariant_stmts(struct_name: &str, fields: &Fields) -> proc_macro2::TokenStre
         checks.extend(quote! {
             for (__i, __c) in self.contained.iter().enumerate() {
                 if __c.get("contained").is_some() {
-                    issues.push(crate::r5::validate::ValidationIssue::new(
+                    issues.push(crate::validate::ValidationIssue::new(
                         &format!("contained[{__i}]"),
                         "dom-2: a contained resource SHALL NOT itself contain resources",
                     ));
@@ -109,7 +154,7 @@ fn invariant_stmts(struct_name: &str, fields: &Fields) -> proc_macro2::TokenStre
                 if __meta.and_then(|m| m.get("versionId")).is_some()
                     || __meta.and_then(|m| m.get("lastUpdated")).is_some()
                 {
-                    issues.push(crate::r5::validate::ValidationIssue::new(
+                    issues.push(crate::validate::ValidationIssue::new(
                         &format!("contained[{__i}]"),
                         "dom-4: a contained resource SHALL NOT have meta.versionId or meta.lastUpdated",
                     ));
@@ -145,7 +190,11 @@ fn is_bare_vec(ty: &syn::Type) -> bool {
     matches!(ty, syn::Type::Path(p) if p.path.segments.last().is_some_and(|s| s.ident == "Vec"))
 }
 
-fn struct_field_stmts(fields: &Fields, struct_name: &str) -> Vec<proc_macro2::TokenStream> {
+fn struct_field_stmts(
+    fields: &Fields,
+    struct_name: &str,
+    version: &proc_macro2::TokenStream,
+) -> Vec<proc_macro2::TokenStream> {
     match fields {
         Fields::Named(f) => f
             .named
@@ -162,13 +211,13 @@ fn struct_field_stmts(fields: &Fields, struct_name: &str) -> Vec<proc_macro2::To
                     quote! {
                         if self.#ident.is_empty() {
                             if let ::core::option::Option::Some(__prefix) =
-                                crate::r5::meta::struct_prefix(#struct_name)
+                                #version::meta::struct_prefix(#struct_name)
                             {
                                 let __path = format!("{}.{}", __prefix, #fhir_field);
-                                if crate::r5::meta::element(&__path)
+                                if #version::meta::element(&__path)
                                     .is_some_and(|__e| __e.min >= 1 && __e.is_multiple())
                                 {
-                                    issues.push(crate::r5::validate::ValidationIssue::new(
+                                    issues.push(crate::validate::ValidationIssue::new(
                                         #fname,
                                         "cardinality: a 1..* element must have at least one entry",
                                     ));
@@ -180,7 +229,7 @@ fn struct_field_stmts(fields: &Fields, struct_name: &str) -> Vec<proc_macro2::To
                     quote! {}
                 };
                 quote! {
-                    for mut __issue in crate::r5::validate::Validate::validate(&self.#ident) {
+                    for mut __issue in crate::validate::Validate::validate(&self.#ident) {
                         __issue.path = if __issue.path.is_empty() {
                             #fname.to_string()
                         } else {
@@ -199,7 +248,7 @@ fn struct_field_stmts(fields: &Fields, struct_name: &str) -> Vec<proc_macro2::To
             .map(|(i, _)| {
                 let idx = Index::from(i);
                 quote! {
-                    issues.extend(crate::r5::validate::Validate::validate(&self.#idx));
+                    issues.extend(crate::validate::Validate::validate(&self.#idx));
                 }
             })
             .collect(),
@@ -235,10 +284,14 @@ fn primitive_inner(ty: &Type) -> Option<&Type> {
 /// keys onto the parent object; `Deserialize` scans a (flattened) map for those
 /// keys, ignoring all others. Deserialization is lenient: a map with no value
 /// key errors, which under `#[serde(flatten)]` on `Option<_>` becomes `None`.
-#[proc_macro_derive(FhirChoice, attributes(fhir))]
+#[proc_macro_derive(FhirChoice, attributes(fhir, fhir_version))]
 pub fn derive_fhir_choice(input: TokenStream) -> TokenStream {
     let input = parse_macro_input!(input as DeriveInput);
     let name = &input.ident;
+    let version = match version_path(&input.attrs) {
+        Ok(v) => v,
+        Err(e) => return e.to_compile_error().into(),
+    };
 
     let Data::Enum(data) = &input.data else {
         return syn::Error::new_spanned(&input.ident, "FhirChoice can only derive on enums")
@@ -294,7 +347,7 @@ pub fn derive_fhir_choice(input: TokenStream) -> TokenStream {
             });
             val_decls.push(quote! {
                 let mut #val_var: ::core::option::Option<#inner> = ::core::option::Option::None;
-                let mut #ext_var: ::core::option::Option<crate::r5::types::Element> =
+                let mut #ext_var: ::core::option::Option<#version::types::Element> =
                     ::core::option::Option::None;
             });
             key_arms.push(quote! {
@@ -304,7 +357,7 @@ pub fn derive_fhir_choice(input: TokenStream) -> TokenStream {
             build_arms.push(quote! {
                 if let ::core::option::Option::Some(value) = #val_var {
                     return ::core::result::Result::Ok(#name::#vident(
-                        crate::r5::choice::Primitive { value, extension: #ext_var }
+                        #version::choice::Primitive { value, extension: #ext_var }
                     ));
                 }
             });
@@ -460,7 +513,7 @@ pub fn derive_builder(input: TokenStream) -> TokenStream {
                 }
             });
             build_fields.push(quote! {
-                #ident: self.#ident.ok_or_else(|| crate::r5::builder::BuilderError::missing(#fname))?
+                #ident: self.#ident.ok_or_else(|| crate::builder::BuilderError::missing(#fname))?
             });
         }
     }
@@ -484,7 +537,7 @@ pub fn derive_builder(input: TokenStream) -> TokenStream {
             #(#setters)*
 
             #[doc = "Finish building, erroring if a required field is unset."]
-            pub fn build(self) -> ::core::result::Result<#name, crate::r5::builder::BuilderError> {
+            pub fn build(self) -> ::core::result::Result<#name, crate::builder::BuilderError> {
                 ::core::result::Result::Ok(#name {
                     #(#build_fields,)*
                 })

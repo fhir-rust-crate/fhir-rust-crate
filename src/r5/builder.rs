@@ -1,9 +1,13 @@
-//! Support for the generated resource/datatype builders.
+//! Support for the generated R5 resource/datatype builders.
 //!
 //! `#[derive(fhir_derive_macros::Builder)]` generates a `<Type>Builder` with a
 //! chainable setter per field and a `build()` that returns
 //! [`Result<T, BuilderError>`], failing if a required (`1..1`) field was not set.
 //! Optional (`0..1`) and repeating fields default to absent/empty.
+//!
+//! [`BuilderError`] itself is release-independent, so it is defined once in
+//! [`crate::builder`]; this module re-exports it so R5 code keeps using
+//! `fhir::r5::builder::BuilderError`.
 //!
 //! ```
 //! use fhir::r5::resources::Observation;
@@ -22,27 +26,4 @@
 //! assert!(matches!(obs.status, Coded::Known(ObservationStatus::Final)));
 //! ```
 
-use std::fmt;
-
-/// Error returned by a builder's `build()` when a required field is missing.
-#[derive(Debug, Clone, PartialEq, Eq)]
-pub struct BuilderError {
-    /// The name of the required field that was not set.
-    pub missing_field: String,
-}
-
-impl BuilderError {
-    /// A missing required field.
-    #[must_use]
-    pub fn missing(field: &str) -> Self {
-        Self { missing_field: field.to_string() }
-    }
-}
-
-impl fmt::Display for BuilderError {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "required field `{}` was not set", self.missing_field)
-    }
-}
-
-impl std::error::Error for BuilderError {}
+pub use crate::builder::BuilderError;

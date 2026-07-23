@@ -229,9 +229,56 @@
 /// An async FHIR REST client (feature `client`).
 #[cfg(feature = "client")]
 pub mod client;
+
+/// Common imports for working with FHIR R5 (feature `r5`).
+#[cfg(feature = "r5")]
 pub mod prelude;
+
+/// The FHIR Release 5 (5.0.0) model (feature `r5`, on by default).
+#[cfg(feature = "r5")]
 pub mod r5;
+
+/// The FHIR Release 4 (4.0.1) model (feature `r4`).
+#[cfg(feature = "r4")]
+pub mod r4;
+
 pub mod util;
+
+// ---- Release-independent core ----------------------------------------------
+//
+// These modules hold the parts of the model that do not change between FHIR
+// releases, so that one implementation serves every release and a value from
+// any release satisfies the same traits. Each release module re-exports them
+// (e.g. `r5::validate::Validate` is `validate::Validate`).
+
+/// The [`Validate`](validate::Validate) trait and [`ValidationIssue`](validate::ValidationIssue),
+/// shared by every FHIR release.
+pub mod validate;
+
+/// The [`Coded<E>`](coded::Coded) wrapper for `required`-binding coded fields.
+pub mod coded;
+
+/// Support for the generated `#[derive(Builder)]` builders.
+pub mod builder;
+
+/// The shape of the per-element specification metadata each release generates.
+pub mod meta;
+
+/// Parsing and precision-aware comparison for the FHIR date/time primitives.
+pub mod temporal;
+
+/// Pruning a resource to the FHIR `_summary=true` view.
+pub mod summary;
+
+/// FHIR XML serialization (feature `xml`).
+#[cfg(feature = "xml")]
+pub mod xml;
+
+/// Naming a FHIR release in generic code (the [`Release`](release::Release) trait).
+pub mod release;
+
+/// The spec-JSON to Rust code generator, parameterized by FHIR release.
+pub mod codegen;
 
 /// Absolute path to the directory holding the FHIR R5 specification JSON files
 /// that ship with this crate.

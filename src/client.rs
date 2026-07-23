@@ -14,17 +14,34 @@
 //! println!("{patient:?}");
 //! # Ok(()) }
 //! ```
+//!
+//! # Choosing a release
+//!
+//! The wire protocol is the same for every FHIR release; only the resource
+//! types differ. [`ReleaseClient<R>`] is therefore generic over a
+//! [`Release`](crate::release::Release), and each release module exposes an
+//! alias for it: [`Client`] here (and [`r5::client::Client`](crate::r5::client))
+//! for R5, [`r4::client::Client`](crate::r4::client) for R4.
+//!
+//! ```no_run
+//! # async fn demo() -> Result<(), Box<dyn std::error::Error>> {
+//! let r4 = fhir::r4::client::Client::new("https://hapi.fhir.org/baseR4");
+//! let bundle = r4.search("Patient", &[("name", "chalmers")]).await?;
+//! # Ok(()) }
+//! ```
 
 use ::serde::Serialize;
 
-use crate::r5::resources::{Bundle, CapabilityStatement, OperationOutcome, Resource};
+use crate::release::Release;
 
 /// FHIR JSON media type.
 const FHIR_JSON: &str = "application/fhir+json";
 
-/// An error from a FHIR REST interaction.
-#[derive(Debug)]
-pub enum ClientError {
+/// An error from a FHIR REST interaction with release `R`.
+///
+/// Most code wants the release-specific alias — [`ClientError`] for R5, or
+/// [`r4::client::ClientError`](crate::r4::client) for R4.
+pub enum ReleaseClientError<R: Release> {
     /// A transport or (de)serialization error from `reqwest`.
     Http(reqwest::Error),
     /// The server returned an error status with an `OperationOutcome` body.
@@ -32,7 +49,7 @@ pub enum ClientError {
         /// HTTP status code.
         status: u16,
         /// The parsed outcome.
-        outcome: Box<OperationOutcome>,
+        outcome: Box<R::OperationOutcome>,
     },
     /// The server returned an error status without a parseable `OperationOutcome`.
     Status {
@@ -43,34 +60,70 @@ pub enum ClientError {
     },
 }
 
-impl std::fmt::Display for ClientError {
+// Written by hand rather than derived: `#[derive(Debug)]` would demand
+// `R: Debug` of the release marker, which says nothing about whether the error
+// can be printed.
+impl<R: Release> std::fmt::Debug for ReleaseClientError<R> {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
-            ClientError::Http(e) => write!(f, "HTTP error: {e}"),
-            ClientError::Outcome { status, .. } => {
-                write!(f, "FHIR error status {status} (OperationOutcome)")
-            }
-            ClientError::Status { status, .. } => write!(f, "error status {status}"),
+            ReleaseClientError::Http(e) => f.debug_tuple("Http").field(e).finish(),
+            ReleaseClientError::Outcome { status, outcome } => f
+                .debug_struct("Outcome")
+                .field("status", status)
+                .field("outcome", outcome)
+                .finish(),
+            ReleaseClientError::Status { status, body } => f
+                .debug_struct("Status")
+                .field("status", status)
+                .field("body", body)
+                .finish(),
         }
     }
 }
 
-impl std::error::Error for ClientError {}
-
-impl From<reqwest::Error> for ClientError {
-    fn from(e: reqwest::Error) -> Self {
-        ClientError::Http(e)
+impl<R: Release> std::fmt::Display for ReleaseClientError<R> {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            ReleaseClientError::Http(e) => write!(f, "HTTP error: {e}"),
+            ReleaseClientError::Outcome { status, .. } => {
+                write!(f, "FHIR error status {status} (OperationOutcome)")
+            }
+            ReleaseClientError::Status { status, .. } => write!(f, "error status {status}"),
+        }
     }
 }
 
-/// An async FHIR REST client for a single service base URL.
-#[derive(Debug, Clone)]
-pub struct Client {
-    base_url: String,
-    http: reqwest::Client,
+impl<R: Release> std::error::Error for ReleaseClientError<R> {}
+
+impl<R: Release> From<reqwest::Error> for ReleaseClientError<R> {
+    fn from(e: reqwest::Error) -> Self {
+        ReleaseClientError::Http(e)
+    }
 }
 
-impl Client {
+/// An async FHIR REST client for a single service base URL, speaking release `R`.
+///
+/// Most code wants the release-specific alias — [`Client`] for R5, or
+/// [`r4::client::Client`](crate::r4::client) for R4.
+#[derive(Clone)]
+pub struct ReleaseClient<R: Release> {
+    base_url: String,
+    http: reqwest::Client,
+    release: std::marker::PhantomData<R>,
+}
+
+// As with the error type, deriving would impose a needless `R: Debug`.
+impl<R: Release> std::fmt::Debug for ReleaseClient<R> {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.debug_struct("ReleaseClient")
+            .field("base_url", &self.base_url)
+            .field("http", &self.http)
+            .field("release", &R::LABEL)
+            .finish()
+    }
+}
+
+impl<R: Release> ReleaseClient<R> {
     /// A client for the given service base URL (e.g. `https://.../baseR5`).
     #[must_use]
     pub fn new(base_url: impl Into<String>) -> Self {
@@ -82,26 +135,34 @@ impl Client {
     #[must_use]
     pub fn with_http(base_url: impl Into<String>, http: reqwest::Client) -> Self {
         let base_url = base_url.into().trim_end_matches('/').to_string();
-        Self { base_url, http }
+        Self { base_url, http, release: std::marker::PhantomData }
     }
 
-    /// Send a request, returning the response on success or a [`ClientError`]
-    /// (parsing an `OperationOutcome` from an error body when possible).
-    async fn send(&self, req: reqwest::RequestBuilder) -> Result<reqwest::Response, ClientError> {
+    /// Send a request, returning the response on success or a
+    /// [`ReleaseClientError`] (parsing an `OperationOutcome` from an error body
+    /// when possible).
+    async fn send(
+        &self,
+        req: reqwest::RequestBuilder,
+    ) -> Result<reqwest::Response, ReleaseClientError<R>> {
         let resp = req.header(reqwest::header::ACCEPT, FHIR_JSON).send().await?;
         if resp.status().is_success() {
             return Ok(resp);
         }
         let status = resp.status().as_u16();
         let body = resp.text().await?;
-        match ::serde_json::from_str::<OperationOutcome>(&body) {
-            Ok(outcome) => Err(ClientError::Outcome { status, outcome: Box::new(outcome) }),
-            Err(_) => Err(ClientError::Status { status, body }),
+        match ::serde_json::from_str::<R::OperationOutcome>(&body) {
+            Ok(outcome) => Err(ReleaseClientError::Outcome { status, outcome: Box::new(outcome) }),
+            Err(_) => Err(ReleaseClientError::Status { status, body }),
         }
     }
 
     /// `GET [base]/[type]/[id]` — read the current version of a resource.
-    pub async fn read(&self, resource_type: &str, id: &str) -> Result<Resource, ClientError> {
+    pub async fn read(
+        &self,
+        resource_type: &str,
+        id: &str,
+    ) -> Result<R::Resource, ReleaseClientError<R>> {
         let url = format!("{}/{}/{}", self.base_url, resource_type, id);
         Ok(self.send(self.http.get(url)).await?.json().await?)
     }
@@ -112,7 +173,7 @@ impl Client {
         resource_type: &str,
         id: &str,
         version_id: &str,
-    ) -> Result<Resource, ClientError> {
+    ) -> Result<R::Resource, ReleaseClientError<R>> {
         let url = format!("{}/{}/{}/_history/{}", self.base_url, resource_type, id, version_id);
         Ok(self.send(self.http.get(url)).await?.json().await?)
     }
@@ -122,7 +183,7 @@ impl Client {
         &self,
         resource_type: &str,
         resource: &T,
-    ) -> Result<Resource, ClientError> {
+    ) -> Result<R::Resource, ReleaseClientError<R>> {
         let url = format!("{}/{}", self.base_url, resource_type);
         Ok(self.send(self.http.post(url).json(resource)).await?.json().await?)
     }
@@ -133,13 +194,13 @@ impl Client {
         resource_type: &str,
         id: &str,
         resource: &T,
-    ) -> Result<Resource, ClientError> {
+    ) -> Result<R::Resource, ReleaseClientError<R>> {
         let url = format!("{}/{}/{}", self.base_url, resource_type, id);
         Ok(self.send(self.http.put(url).json(resource)).await?.json().await?)
     }
 
     /// `DELETE [base]/[type]/[id]`.
-    pub async fn delete(&self, resource_type: &str, id: &str) -> Result<(), ClientError> {
+    pub async fn delete(&self, resource_type: &str, id: &str) -> Result<(), ReleaseClientError<R>> {
         let url = format!("{}/{}/{}", self.base_url, resource_type, id);
         self.send(self.http.delete(url)).await?;
         Ok(())
@@ -150,21 +211,31 @@ impl Client {
         &self,
         resource_type: &str,
         params: &[(&str, &str)],
-    ) -> Result<Bundle, ClientError> {
+    ) -> Result<R::Bundle, ReleaseClientError<R>> {
         let url = format!("{}/{}", self.base_url, resource_type);
         Ok(self.send(self.http.get(url).query(params)).await?.json().await?)
     }
 
     /// `GET [base]/metadata` — the server's `CapabilityStatement`.
-    pub async fn capabilities(&self) -> Result<CapabilityStatement, ClientError> {
+    pub async fn capabilities(&self) -> Result<R::CapabilityStatement, ReleaseClientError<R>> {
         let url = format!("{}/metadata", self.base_url);
         Ok(self.send(self.http.get(url)).await?.json().await?)
     }
 }
 
+/// An async FHIR R5 REST client.
+#[cfg(feature = "r5")]
+pub type Client = ReleaseClient<crate::r5::R5>;
+
+/// An error from a FHIR R5 REST interaction.
+#[cfg(feature = "r5")]
+pub type ClientError = ReleaseClientError<crate::r5::R5>;
+
 #[cfg(test)]
+#[cfg(feature = "r5")]
 mod tests {
     use super::*;
+    use crate::r5::resources::Resource;
     use wiremock::matchers::{method, path};
     use wiremock::{Mock, MockServer, ResponseTemplate};
 

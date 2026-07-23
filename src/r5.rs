@@ -68,3 +68,26 @@ pub mod summary;
 /// FHIR XML serialization (feature `xml`).
 #[cfg(feature = "xml")]
 pub mod xml;
+
+/// Common imports for working with FHIR R5.
+pub mod prelude;
+
+/// An async FHIR R5 REST client (feature `client`).
+#[cfg(feature = "client")]
+pub mod client;
+
+/// The FHIR R5 release, as a type.
+///
+/// Marker for release-parameterized code such as
+/// [`ReleaseClient`](crate::client::ReleaseClient); see [`crate::release`].
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Default)]
+pub struct R5;
+
+impl crate::release::Release for R5 {
+    const LABEL: &'static str = "R5";
+    const VERSION: &'static str = "5.0.0";
+    type Resource = resources::Resource;
+    type Bundle = resources::Bundle;
+    type CapabilityStatement = resources::CapabilityStatement;
+    type OperationOutcome = resources::OperationOutcome;
+}
