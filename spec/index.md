@@ -39,20 +39,20 @@ this directory defines **what must be true**, not how to work.
 | 09 | [Primitive extensions](09-primitive-extensions.md) | The `_field` sibling representation |
 | 10 | [Invariant coverage](10-invariants-coverage.md) | Which FHIR constraints are enforced |
 | 11 | [Choice types](11-choice-types.md) | `value[x]` choice elements as enums |
-| 12 | [FHIR releases](12-fhir-releases.md) | Modelling R4 and R5 side by side |
+| 12 | [FHIR releases](12-fhir-releases.md) | Modelling R3, R4 and R5 side by side |
 
 Specs 02–11 define one release's model and apply to every release
 independently; spec 12 defines how the releases coexist. Where the releases
 differ in scale, each spec states both figures:
 
-| | R5 (5.0.0) | R4 (4.0.1) |
-| --- | ---: | ---: |
-| Primitive datatypes | 21 | 20 |
-| Complex datatypes | 50 | 43 |
-| Resources | 158 | 146 |
-| Code-system enums | 419 | 486 |
-| Choice elements | 261 | 186 |
-| Invariant keys | 314 | 240 |
+| | R5 (5.0.0) | R4 (4.0.1) | R3 (3.0.2) |
+| --- | ---: | ---: | ---: |
+| Primitive datatypes | 21 | 20 | 18 |
+| Complex datatypes | 50 | 43 | 36 |
+| Resources | 158 | 146 | 117 |
+| Code-system enums | 419 | 486 | 386 |
+| Choice elements | 261 | 186 | 133 |
+| Invariant keys | 314 | 240 | 187 |
 
 ## Cross-cutting invariants
 
@@ -75,7 +75,7 @@ These hold across every spec and are non-negotiable:
 
 ## Status
 
-The crate satisfies specs 01–12 for both shipped releases. Each release has the
+The crate satisfies specs 01–12 for all three shipped releases. Each release has the
 full model above, recursive validation (07), `_field` primitive extensions (09),
 invariant coverage (10), and `value[x]` choice enums (11). Cardinality maps
 exactly — `0..1`→`Option<T>`, `1..1`→`T`, `0..*`→`Vec<T>`,

@@ -4,8 +4,9 @@ The other chapters each explain one topic. This one builds a small but complete
 record and carries it through every stage a real integration goes through:
 construct, validate, serialize, bundle, summarize, and read back.
 
-Everything here is R5. It works unchanged for R4 by replacing `r5` with `r4` in
-the imports — see [FHIR releases](fhir-releases.md).
+Everything here is R5. It works for R4 or R3 by replacing `r5` in the imports,
+with the caveats in [FHIR releases](fhir-releases.md) — R3, for instance, types
+a resource's `id` as an `Id` rather than a `String`.
 
 Every step below is also a runnable program, so it is compiled and executed by
 the test suite rather than merely written down:

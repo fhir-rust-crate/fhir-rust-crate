@@ -2,8 +2,9 @@
 
 `fhir` is a Rust implementation of the **HL7 FHIR®** data model, together with a
 spec-driven code generator that produces it from the official FHIR
-specification JSON. Two releases are modelled: **R5 (5.0.0)** under `fhir::r5`
-and **R4 (4.0.1)** under `fhir::r4`.
+specification JSON. Three releases are modelled: **R5 (5.0.0)** under
+`fhir::r5`, **R4 (4.0.1)** under `fhir::r4`, and **R3 (3.0.2, STU3)** under
+`fhir::r3`.
 
 Fast Healthcare Interoperability Resources (FHIR, pronounced "fire") is the HL7
 standard for exchanging electronic health records. This crate lets you **build,
@@ -15,7 +16,7 @@ For each release:
 
 - **Every resource** (Patient, Observation, Encounter, …) as a Rust struct,
   plus a polymorphic `Resource` enum tagged by `resourceType` — 158 in R5,
-  146 in R4.
+  146 in R4, 117 in R3.
 - **Every complex datatype** and **primitive newtype**, serializing
   transparently to its JSON form.
 - **400+ code systems** as type-safe enums; `required`-binding fields are typed

@@ -79,8 +79,7 @@ fn render_binding(element: &ElementDefinition) -> String {
         _ => "Example",
     };
     let value_set = binding
-        .value_set
-        .as_deref()
+        .value_set()
         .map_or_else(|| "None".to_string(), |vs| format!("Some({vs:?})"));
     format!("Some(BindingMeta {{ strength: BindingStrength::{strength}, value_set: {value_set} }})")
 }

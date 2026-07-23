@@ -96,20 +96,72 @@ pub struct ElementDefinition {
 pub struct ElementType {
     /// The FHIR type code, e.g. `"Quantity"`, `"string"`, or a FHIRPath system
     /// type URL such as `http://hl7.org/fhirpath/System.String`.
+    ///
+    /// Empty when the definition states no code at all. R3 does this on a
+    /// primitive's own `value` element, where the type is carried only by a
+    /// `structuredefinition-json-type` extension — those elements are not
+    /// modelled, because a primitive's Rust representation comes from
+    /// [`super::primitives`] rather than from the snapshot.
+    #[serde(default)]
     pub code: String,
     /// For `Reference`/`canonical`, the resource profiles that may be targeted.
-    #[serde(default)]
+    ///
+    /// R3 writes a single string here and repeats the whole type entry once per
+    /// target; R4 and R5 write a list. Both are read into a list.
+    #[serde(default, deserialize_with = "string_or_seq")]
     pub target_profile: Vec<String>,
 }
 
 /// An element's value-set binding (`ElementDefinition.binding`).
+///
+/// The releases spell the bound value set three different ways, so read
+/// [`Binding::value_set`] rather than any one field.
 #[derive(Debug, Clone, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Binding {
     /// `required`, `extensible`, `preferred`, or `example`.
     pub strength: String,
-    /// The canonical `ValueSet` URL, possibly with a `|version` suffix.
-    pub value_set: Option<String>,
+    /// R4/R5: the canonical `ValueSet` URL, possibly with a `|version` suffix.
+    #[serde(rename = "valueSet")]
+    value_set_canonical: Option<String>,
+    /// R3: the value set as a `Reference`.
+    value_set_reference: Option<BindingReference>,
+    /// R3: the value set as a bare URI.
+    value_set_uri: Option<String>,
+}
+
+/// The `Reference` form of an R3 binding's value set.
+#[derive(Debug, Clone, Deserialize)]
+pub struct BindingReference {
+    /// The referenced `ValueSet` URL.
+    pub reference: Option<String>,
+}
+
+impl Binding {
+    /// The bound `ValueSet` URL, whichever way this release spells it.
+    #[must_use]
+    pub fn value_set(&self) -> Option<&str> {
+        self.value_set_canonical
+            .as_deref()
+            .or_else(|| self.value_set_reference.as_ref()?.reference.as_deref())
+            .or(self.value_set_uri.as_deref())
+    }
+}
+
+/// Deserialize a field that may be either a single string or a list of them.
+fn string_or_seq<'de, D: ::serde::Deserializer<'de>>(
+    deserializer: D,
+) -> Result<Vec<String>, D::Error> {
+    #[derive(Deserialize)]
+    #[serde(untagged)]
+    enum OneOrMany {
+        One(String),
+        Many(Vec<String>),
+    }
+    Ok(match OneOrMany::deserialize(deserializer)? {
+        OneOrMany::One(s) => vec![s],
+        OneOrMany::Many(v) => v,
+    })
 }
 
 /// A FHIR `CodeSystem`, the source of the generated `codes` enums.
@@ -199,6 +251,22 @@ impl ElementDefinition {
         self.base_path().rsplit_once('.').map(|(owner, _)| owner)
     }
 
+    /// Whether this element is FHIR *infrastructure* rather than a primitive
+    /// element that can carry its own extensions.
+    ///
+    /// `Element.id`, every `<Type>.id`, and `Extension.url` are serialized as
+    /// bare JSON attributes with no `_field` sibling. R4 and R5 say so by
+    /// giving them a FHIRPath system type (`http://hl7.org/fhirpath/System.*`);
+    /// R3 predates that convention and types them as ordinary `string`, `id` or
+    /// `uri`, so the rule is expressed structurally and holds for all three.
+    #[must_use]
+    pub fn is_system_element(&self) -> bool {
+        if self.types.iter().any(|t| t.code.starts_with("http://hl7.org/fhirpath/System.")) {
+            return true;
+        }
+        self.leaf() == "id" || self.path == "Extension.url"
+    }
+
     /// The element path a `contentReference` points at, e.g.
     /// `"Observation.referenceRange"`.
     ///
@@ -236,12 +304,28 @@ fn read_resources<T: for<'de> Deserialize<'de>>(
     let reader = std::io::BufReader::new(file);
     let bundle: Bundle = ::serde_json::from_reader(reader)
         .map_err(|e| std::io::Error::other(format!("{}: {e}", path.display())))?;
-    Ok(bundle
-        .entry
-        .into_iter()
-        .filter(|entry| entry.resource.get("resourceType").and_then(|v| v.as_str()) == Some(resource_type))
-        .filter_map(|entry| ::serde_json::from_value::<T>(entry.resource).ok())
-        .collect())
+    let mut out = Vec::new();
+    for entry in bundle.entry {
+        if entry.resource.get("resourceType").and_then(|v| v.as_str()) != Some(resource_type) {
+            continue;
+        }
+        // Silently skipping a definition that fails to parse would drop a whole
+        // resource from the generated model, which is far worse than stopping.
+        let name = entry
+            .resource
+            .get("name")
+            .and_then(|v| v.as_str())
+            .unwrap_or("<unnamed>")
+            .to_string();
+        let parsed = ::serde_json::from_value::<T>(entry.resource).map_err(|e| {
+            std::io::Error::other(format!(
+                "{}: could not read {resource_type} {name:?}: {e}",
+                path.display()
+            ))
+        })?;
+        out.push(parsed);
+    }
+    Ok(out)
 }
 
 /// Index the given definitions by FHIR type name, e.g. `"Patient"`.
@@ -303,6 +387,78 @@ mod tests {
                 .to_string(),
         );
         assert_eq!(el.content_reference_path(), Some("Observation.referenceRange"));
+    }
+
+    #[test]
+    fn system_elements_are_recognized_in_every_release() {
+        // R4/R5 mark them with a FHIRPath system type.
+        let mut el = element("Element.id", "1");
+        el.types = vec![ElementType {
+            code: "http://hl7.org/fhirpath/System.String".to_string(),
+            target_profile: Vec::new(),
+        }];
+        assert!(el.is_system_element());
+
+        // R3 types the same element as a plain `string`.
+        let mut el = element("Element.id", "1");
+        el.types = vec![ElementType { code: "string".to_string(), target_profile: Vec::new() }];
+        assert!(el.is_system_element());
+
+        // As it does `Extension.url`, which R3 calls a `uri`.
+        let mut el = element("Extension.url", "1");
+        el.types = vec![ElementType { code: "uri".to_string(), target_profile: Vec::new() }];
+        assert!(el.is_system_element());
+
+        // An ordinary primitive element is not one.
+        let mut el = element("Patient.birthDate", "1");
+        el.types = vec![ElementType { code: "date".to_string(), target_profile: Vec::new() }];
+        assert!(!el.is_system_element());
+    }
+
+    #[test]
+    fn target_profile_reads_both_shapes() {
+        // R3 writes one string; R4/R5 write a list.
+        let one: ElementType =
+            ::serde_json::from_value(::serde_json::json!({ "code": "Reference",
+                "targetProfile": "http://hl7.org/fhir/StructureDefinition/Patient" }))
+            .unwrap();
+        assert_eq!(one.target_profile, ["http://hl7.org/fhir/StructureDefinition/Patient"]);
+
+        let many: ElementType =
+            ::serde_json::from_value(::serde_json::json!({ "code": "Reference",
+                "targetProfile": ["a", "b"] }))
+            .unwrap();
+        assert_eq!(many.target_profile, ["a", "b"]);
+
+        let none: ElementType =
+            ::serde_json::from_value(::serde_json::json!({ "code": "string" })).unwrap();
+        assert!(none.target_profile.is_empty());
+    }
+
+    #[test]
+    fn binding_value_set_reads_every_spelling() {
+        // R4/R5: a canonical string.
+        let b: Binding = ::serde_json::from_value(::serde_json::json!({
+            "strength": "required", "valueSet": "http://x/vs|4.0.1" }))
+        .unwrap();
+        assert_eq!(b.value_set(), Some("http://x/vs|4.0.1"));
+
+        // R3: a Reference.
+        let b: Binding = ::serde_json::from_value(::serde_json::json!({
+            "strength": "required", "valueSetReference": { "reference": "http://x/vs" } }))
+        .unwrap();
+        assert_eq!(b.value_set(), Some("http://x/vs"));
+
+        // R3: a bare URI.
+        let b: Binding = ::serde_json::from_value(::serde_json::json!({
+            "strength": "required", "valueSetUri": "http://x/vs" }))
+        .unwrap();
+        assert_eq!(b.value_set(), Some("http://x/vs"));
+
+        // No value set at all.
+        let b: Binding =
+            ::serde_json::from_value(::serde_json::json!({ "strength": "example" })).unwrap();
+        assert_eq!(b.value_set(), None);
     }
 
     #[test]

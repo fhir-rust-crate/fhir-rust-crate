@@ -68,10 +68,12 @@ Rules any representation must honour:
   `skip_serializing_none` for the scalar form, `skip_serializing_if =
   "Vec::is_empty"` for the repeating one — so extension-free data serializes
   unchanged.
-- **R9.5** An element typed as a FHIRPath system type
-  (`http://hl7.org/fhirpath/System.String`) MUST NOT get a sibling. `Element.id`
-  and `Extension.url` are spelled that way precisely because FHIR gives them no
-  `_id`/`_url`.
+- **R9.5** FHIR infrastructure elements — every `<Type>.id`, and
+  `Extension.url` — MUST NOT get a sibling: they are bare JSON attributes with
+  no `_id`/`_url`. R4 and R5 say so by typing them as a FHIRPath system type
+  (`http://hl7.org/fhirpath/System.String`); R3 predates that convention and
+  types them as an ordinary `string`, `id` or `uri`, so the rule MUST be applied
+  structurally rather than read off the type code.
 - **R9.6** `#[derive(Validate)]` MUST recurse into `_field` `Element`s so their
   nested extensions are validated.
 - **R9.7** Non-primitive elements are unaffected: complex datatypes model

@@ -3,27 +3,27 @@
 [![CI](https://github.com/joelparkerhenderson/fhir-rust-crate/actions/workflows/ci.yml/badge.svg)](https://github.com/joelparkerhenderson/fhir-rust-crate/actions/workflows/ci.yml)
 
 A Rust implementation of the **HL7 FHIR®** data model, plus a code generator
-that produces it from the official FHIR specification JSON files. Two releases
-are modelled: **R5 (5.0.0)** and **R4 (4.0.1)**.
+that produces it from the official FHIR specification JSON files. Three releases
+are modelled: **R5 (5.0.0)**, **R4 (4.0.1)**, and **R3 (3.0.2, STU3)**.
 
 Fast Healthcare Interoperability Resources (FHIR, pronounced "fire") is the HL7
 standard for exchanging electronic health records. This crate lets you build,
 parse, validate, and round-trip FHIR resources in idiomatic Rust with `serde`.
 
-> **Status:** stable (1.0). Both data models (resources, datatypes, primitives,
-> code systems, validation) are implemented and green, and the API follows
-> semantic versioning.
+> **Status:** stable (1.0). All three data models (resources, datatypes,
+> primitives, code systems, validation) are implemented and green, and the API
+> follows semantic versioning.
 
 > FHIR® is a registered trademark of Health Level Seven International. This crate
 > is not affiliated with or endorsed by HL7.
 
 ## Features
 
-Per release, under `fhir::r5` and `fhir::r4`:
+Per release, under `fhir::r5`, `fhir::r4` and `fhir::r3`:
 
 - **Every resource** (Patient, Observation, Encounter, …) as a Rust struct,
   round-tripping to and from canonical FHIR JSON via `serde` — 158 in R5,
-  146 in R4.
+  146 in R4, 117 in R3.
 - **Every complex datatype** (Period, HumanName, CodeableConcept, …) and every
   **primitive newtype** (`Code`, `Id`, `DateTime`, …), serializing transparently.
 - **400+ code systems** as type-safe enums that serialize to their canonical
@@ -49,23 +49,40 @@ features: you compile only what you use. `r5` is on by default.
 # R5 only (the default)
 fhir = "1"
 
-# R5 and R4
+# R5 plus older releases
 # fhir = { version = "1", features = ["r4"] }
+# fhir = { version = "1", features = ["r3", "r4"] }
 
-# R4 only
+# One older release on its own
 # fhir = { version = "1", default-features = false, features = ["r4"] }
+# fhir = { version = "1", default-features = false, features = ["r3"] }
 
 serde_json = "1" # or any other serde data format
 ```
 
+| Release | Module | Feature | Resources | Datatypes | Primitives | Code enums |
+| --- | --- | --- | ---: | ---: | ---: | ---: |
+| R5 (5.0.0) | `fhir::r5` | `r5` (default) | 158 | 50 | 21 | 419 |
+| R4 (4.0.1) | `fhir::r4` | `r4` | 146 | 43 | 20 | 486 |
+| R3 (3.0.2) | `fhir::r3` | `r3` | 117 | 36 | 18 | 386 |
+
 ## Choosing a release
 
-An R4 `Patient` and an R5 `Patient` are **different Rust types**, on purpose.
-The releases genuinely disagree — `Observation.value[x]` admits 11 types in R4
-and 13 in R5, `MedicationRequest.medication[x]` is a choice element in R4 but a
-`CodeableReference` in R5, and R4 has no `integer64`, `CodeableReference`, or
-`RatioRange` at all. A single type standing for both would either accept data
-that is invalid in both releases or silently drop data that is valid in one.
+An R3 `Patient`, an R4 `Patient` and an R5 `Patient` are **different Rust
+types**, on purpose. The releases genuinely disagree, and not merely by growing:
+
+- `Observation.value[x]` admits eleven types in R3 and eleven in R4 — but not
+  the same eleven. R3 allows `Attachment` and not `integer`; R4 reversed both;
+  R5 allows all of them plus `Reference`.
+- A resource's `id` is typed `id` in R3 and `string` in R4/R5.
+  `Extension.url` is a `uri` in R3 and a `string` afterwards.
+- `MedicationRequest.medication[x]` is a choice element in R4 but a
+  `CodeableReference` in R5.
+- R3 has no `canonical` or `url` primitive; R4 has no `integer64`,
+  `CodeableReference`, or `RatioRange`.
+
+A single type standing for all of them would either accept data that is invalid
+in every release or silently drop data that is valid in one.
 
 The two modules are otherwise identical in shape, so porting code between
 releases is a matter of changing one path segment:
@@ -73,6 +90,11 @@ releases is a matter of changing one path segment:
 ```rust
 use fhir::r4::resources::Patient;   // instead of fhir::r5::resources::Patient
 use fhir::r4::codes::AdministrativeGender;
+```
+
+```rust
+use fhir::r3::resources::Patient;   // …or fhir::r3
+use fhir::r3::codes::AdministrativeGender;
 ```
 
 To move data between releases, go through JSON and decide explicitly what to do
@@ -86,10 +108,10 @@ let r5_patient: fhir::r5::resources::Patient = serde_json::from_value(json)?;
 
 See the `r4_and_r5_side_by_side` example for a worked version.
 
-What the releases *share* lives at the crate root and is re-exported by both, so
-`fhir::r4::validate::Validate` and `fhir::r5::validate::Validate` are the same
-trait: validation, `Coded<E>`, builders, the element metadata table, date/time
-parsing, and the REST client.
+What the releases *share* lives at the crate root and is re-exported by each, so
+`fhir::r3::validate::Validate`, `fhir::r4::validate::Validate` and
+`fhir::r5::validate::Validate` are all the same trait: validation, `Coded<E>`,
+builders, the element metadata table, date/time parsing, and the REST client.
 
 ## Quick start
 
@@ -199,10 +221,11 @@ cargo run --example transaction_bundle    # build/read a transaction Bundle
 cargo run --example client_crud --features client  # REST CRUD vs HAPI
 
 cargo run --example r4_patient --features r4              # the same, in R4
-cargo run --example r4_and_r5_side_by_side --features "r4 r5"  # both at once
+cargo run --example r3_patient --features r3              # the same, in R3
+cargo run --example r4_and_r5_side_by_side --features "r4 r5"  # two at once
 ```
 
-The R5 examples all work for R4 by changing `r5` to `r4` in the imports.
+The R5 examples all work for R4 or R3 by changing `r5` in the imports.
 
 ## Crate layout
 
@@ -225,6 +248,7 @@ src/
   # One tree per release, identical in shape.
   r5/               158 resources, 50 datatypes, 21 primitives, 419 code enums
   r4/               146 resources, 43 datatypes, 20 primitives, 486 code enums
+  r3/               117 resources, 36 datatypes, 18 primitives, 386 code enums
     resources/      Resource structs + the polymorphic `Resource` enum
     types/          Complex datatypes + primitive newtypes
     codes.rs        FHIR CodeSystems as enums
@@ -256,11 +280,12 @@ from that release's official specification JSON in
 under `src/codegen`; the binary in `src/main.rs` drives it:
 
 ```sh
+cargo run -- r3                    # rewrite src/r3 from the R3 definitions
 cargo run -- r4                    # rewrite src/r4 from the R4 definitions
 cargo run -- r5 --out tmp/out/r5   # emit R5 elsewhere, to compare
 ```
 
-`src/r4` is entirely generated and safe to rewrite. `src/r5` is not: it carries
+`src/r3` and `src/r4` are entirely generated and safe to rewrite. `src/r5` is not: it carries
 hand-written prose on top of generated shapes, so `cargo run -- r5` refuses to
 write there without an explicit `--out`. See [`AGENTS.md`](AGENTS.md) and
 [`spec/`](spec/) for the generator's design and conventions.

@@ -143,7 +143,7 @@ fn example_doctest(
 pub fn version_attribute(version: Version) -> String {
     match version {
         Version::R5 => String::new(),
-        other @ Version::R4 => format!("#[fhir_version(\"{}\")]\n", other.module()),
+        other => format!("#[fhir_version(\"{}\")]\n", other.module()),
     }
 }
 

@@ -22,6 +22,18 @@ pub fn render(types: &[TypePlan], resources: &[TypePlan], version: Version) -> S
     let label = version.label();
     let module = version.module();
 
+    // `Extension.url` is a `uri` in R3 but a `string` in R4/R5, so the doc
+    // example and the test helper have to name whichever type this release
+    // actually generated.
+    let url_type = types
+        .iter()
+        .find(|p| p.type_name == "Extension")
+        .and_then(|p| p.structs.iter().find(|s| s.is_root))
+        .and_then(|s| s.fields.iter().find(|f| f.ident == "url"))
+        .map_or("types::String", |f| f.inner_type.as_str())
+        .to_string();
+    let url_ctor = url_type.strip_prefix("types::").unwrap_or(&url_type).to_string();
+
     let mut out = format!(
         "//! Ergonomic extension accessors: the [`ExtensionExt`] and\n\
          //! [`ModifierExtensionExt`] traits.\n\
@@ -32,13 +44,12 @@ pub fn render(types: &[TypePlan], resources: &[TypePlan], version: Version) -> S
          //!\n\
          //! ```\n\
          //! use fhir::{module}::resources::Patient;\n\
-         //! use fhir::{module}::types::Extension;\n\
-         //! use fhir::{module}::types::String as FhirString;\n\
+         //! use fhir::{module}::types::{{Extension, {url_ctor}}};\n\
          //! use fhir::{module}::extension_ext::ExtensionExt;\n\
          //!\n\
          //! let mut patient = Patient::default();\n\
          //! patient.set_extension(Extension {{\n\
-         //!     url: FhirString(\"http://example.org/eye-color\".to_string()),\n\
+         //!     url: {url_ctor}(\"http://example.org/eye-color\".to_string()),\n\
          //!     ..Default::default()\n\
          //! }});\n\
          //! assert!(patient.extension(\"http://example.org/eye-color\").is_some());\n\
@@ -66,7 +77,7 @@ pub fn render(types: &[TypePlan], resources: &[TypePlan], version: Version) -> S
     }
     out.push_str(");\n");
 
-    out.push_str(&tests(module));
+    out.push_str(&tests(module, &url_ctor));
     out
 }
 
@@ -183,16 +194,21 @@ fn names_with_field(
 }
 
 /// The module's own tests, which check the accessors against a real resource.
-fn tests(module: &str) -> String {
+///
+/// `url_ctor` is the bare name of the type this release gives `Extension.url`
+/// (`String`, `Uri`, …).
+fn tests(module: &str, url_ctor: &str) -> String {
     format!(
         "\n#[cfg(test)]\n\
          mod tests {{\n\
          \x20   use super::*;\n\
          \x20   use crate::{module}::resources::Patient;\n\
-         \x20   use crate::{module}::types::String as FhirString;\n\
          \n\
          \x20   fn extension(url: &str) -> Extension {{\n\
-         \x20       Extension {{ url: FhirString(url.to_string()), ..Default::default() }}\n\
+         \x20       Extension {{\n\
+         \x20           url: crate::{module}::types::{url_ctor}(url.to_string()),\n\
+         \x20           ..Default::default()\n\
+         \x20       }}\n\
          \x20   }}\n\
          \n\
          \x20   #[test]\n\
@@ -268,9 +284,32 @@ mod tests {
     }
 
     #[test]
+    fn the_test_helper_names_this_releases_url_type() {
+        // R3 types `Extension.url` as a `uri`; R4 and R5 as a `string`.
+        let extension = plan(::serde_json::json!({
+            "name": "Extension", "type": "Extension", "kind": "complex-type", "url": "u",
+            "snapshot": { "element": [
+                { "path": "Extension" },
+                { "path": "Extension.url", "min": 1, "max": "1",
+                  "type": [{ "code": "uri" }] },
+            ]}
+        }));
+        let out = render(&[extension], &[], Version::R3);
+        assert!(out.contains("url: crate::r3::types::Uri(url.to_string())"), "{out}");
+        // The module-doc example must agree with it.
+        assert!(out.contains("//! use fhir::r3::types::{Extension, Uri};"), "{out}");
+        assert!(out.contains("//!     url: Uri(\"http://example.org/eye-color\".to_string()),"));
+
+        // With no Extension in the plan set, the common case is assumed.
+        let out = render(&[], &[], Version::R4);
+        assert!(out.contains("url: crate::r4::types::String(url.to_string())"));
+    }
+
+    #[test]
     fn emits_the_traits_and_a_release_scoped_import() {
         let out = render(&[], &[], Version::R4);
         assert!(out.contains("use crate::r4::types::Extension;"));
+        assert!(out.contains("use fhir::r4::types::{Extension, String};"));
         assert!(out.contains("pub trait ExtensionExt: HasExtension {"));
         assert!(out.contains("impl<T: HasExtension + ?Sized> ExtensionExt for T {}"));
         assert!(out.contains("use crate::r4::resources::Patient;"));

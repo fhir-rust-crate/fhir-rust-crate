@@ -46,7 +46,7 @@ fn main() -> ExitCode {
 const USAGE: &str = "\
 Usage: cargo run -- <release> [--out <dir>]
 
-  <release>     r4 or r5
+  <release>     r3, r4, or r5
   --out <dir>   where to write the model (default: src/<release>)
 
 R5 has no default output directory: the shipped src/r5 modules carry
@@ -77,7 +77,8 @@ fn parse_args(args: &[String]) -> Result<Options, String> {
     let version = version.ok_or("no release given")?;
     let out = match (out, version) {
         (Some(dir), _) => dir,
-        (None, Version::R4) => version.source_dir(),
+        // R5 is the one release whose modules carry hand-written prose that
+        // regeneration would destroy.
         (None, Version::R5) => {
             return Err(
                 "refusing to regenerate over src/r5, which is hand-documented; \
@@ -85,6 +86,7 @@ fn parse_args(args: &[String]) -> Result<Options, String> {
                     .to_string(),
             )
         }
+        (None, _) => version.source_dir(),
     };
     Ok(Options { version, out })
 }

@@ -8,6 +8,7 @@ Applies to every modelled release, identically.
 | --- | --- |
 | R5 | 261 |
 | R4 | 186 |
+| R3 | 133 |
 
 ## Background: how FHIR JSON represents a choice element
 
@@ -22,8 +23,11 @@ named by suffixing the chosen type to the base: `valueQuantity`, `valueString`,
 
 Most choices allow 2–13 types; a handful (`Extension.value[x]`, for one) allow
 every datatype in the release. The releases disagree about which types a given
-choice admits — `Observation.value[x]` allows 11 in R4 and 13 in R5 — which is
-one of the reasons a release's model is not portable to another (spec 12).
+choice admits, and not merely by growing: `Observation.value[x]` allows eleven
+types in R3 and eleven in R4, but not the same eleven — R3 permits `Attachment`
+and not `integer`, R4 reversed both, and R5 allows all of them plus `Reference`.
+This is one of the reasons a release's model is not portable to another
+(spec 12).
 
 ## Representation: one enum per choice, flattened onto the parent
 

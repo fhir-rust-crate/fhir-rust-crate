@@ -7,13 +7,12 @@
 //!
 //! ```
 //! use fhir::r4::resources::Patient;
-//! use fhir::r4::types::Extension;
-//! use fhir::r4::types::String as FhirString;
+//! use fhir::r4::types::{Extension, String};
 //! use fhir::r4::extension_ext::ExtensionExt;
 //!
 //! let mut patient = Patient::default();
 //! patient.set_extension(Extension {
-//!     url: FhirString("http://example.org/eye-color".to_string()),
+//!     url: String("http://example.org/eye-color".to_string()),
 //!     ..Default::default()
 //! });
 //! assert!(patient.extension("http://example.org/eye-color").is_some());
@@ -454,10 +453,12 @@ impl_has_modifier_extension!(
 mod tests {
     use super::*;
     use crate::r4::resources::Patient;
-    use crate::r4::types::String as FhirString;
 
     fn extension(url: &str) -> Extension {
-        Extension { url: FhirString(url.to_string()), ..Default::default() }
+        Extension {
+            url: crate::r4::types::String(url.to_string()),
+            ..Default::default()
+        }
     }
 
     #[test]

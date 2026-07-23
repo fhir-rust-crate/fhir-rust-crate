@@ -28,21 +28,22 @@ cargo clippy --all-targets -- -D warnings     # zero warnings (pedantic is on)
 RUSTDOCFLAGS="-D warnings" cargo doc --no-deps
 ```
 
-## Two FHIR releases, and only one is on by default
+## Three FHIR releases, and only one is on by default
 
-The crate models **R5** (`fhir::r5`, feature `r5`, default) and **R4**
-(`fhir::r4`, feature `r4`, opt-in). The commands above therefore do **not** see
-R4. If you touched the generator, the derive macros, the crate-root modules, or
-`src/r4`, run the gate with the release enabled too:
+The crate models **R5** (`fhir::r5`, feature `r5`, default), **R4**
+(`fhir::r4`), and **R3/STU3** (`fhir::r3`). The commands above therefore see
+only R5. If you touched the generator, the derive macros, the crate-root
+modules, or `src/r3`/`src/r4`, run the gate with those releases enabled too:
 
 ```sh
-cargo test --features "r4 xml client"
-cargo clippy --all-targets --features "r4 xml client" -- -D warnings
+cargo test --features "r3 r4 xml client"
+cargo clippy --all-targets --features "r3 r4 xml client" -- -D warnings
 ```
 
 And note which tree you are editing:
 
-- **`src/r4/` is generated.** Change `src/codegen/`, then `cargo run -- r4`.
+- **`src/r3/` and `src/r4/` are generated.** Change `src/codegen/`, then
+  `cargo run -- r3` / `cargo run -- r4`.
 - **`src/r5/` is hand-documented.** Never regenerate over it; `cargo run -- r5`
   refuses without an explicit `--out`.
 

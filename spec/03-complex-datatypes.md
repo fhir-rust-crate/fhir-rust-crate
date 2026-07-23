@@ -8,6 +8,7 @@ Applies to every modelled release.
 | --- | --- |
 | R5 | 50 |
 | R4 | 43 |
+| R3 | 36 |
 
 ## Background
 
@@ -59,12 +60,17 @@ RelatedArtifact, TriggerDefinition, UsageContext, …) and the special-purpose
 types (Dosage, ElementDefinition, Extension, Meta, Narrative, …) exist in both
 releases.
 
-| Only in R5 | Only in R4 |
-| --- | --- |
-| `Availability`, `CodeableReference`, `ExtendedContactDetail`, `MonetaryComponent`, `RatioRange`, `VirtualServiceDetail`, and the abstract bases `Base`, `DataType`, `PrimitiveType`, `BackboneType` | `Population`, `ProdCharacteristic`, `SubstanceAmount` |
+R3's 36 datatypes are a strict subset of R4's 43, which is *not* a subset of
+R5's 50:
+
+| | Datatypes it adds over the previous release | Datatypes it drops |
+| --- | --- | --- |
+| R4 over R3 | `Expression`, `MarketingStatus`, `MoneyQuantity`, `Population`, `ProdCharacteristic`, `ProductShelfLife`, `SubstanceAmount` (and the `canonical`/`url` primitives) | — |
+| R5 over R4 | `Availability`, `CodeableReference`, `ExtendedContactDetail`, `MonetaryComponent`, `RatioRange`, `VirtualServiceDetail`, and the abstract bases `Base`, `DataType`, `PrimitiveType`, `BackboneType` (and the `integer64` primitive) | `Population`, `ProdCharacteristic`, `SubstanceAmount` |
 
 These differences are why a datatype from one release MUST NOT be used to model
-the other (spec 12).
+another (spec 12). Even where a datatype exists in every release its elements
+may differ: `Extension.url` is a `uri` in R3 and a `string` afterwards.
 
 ## Documentation
 

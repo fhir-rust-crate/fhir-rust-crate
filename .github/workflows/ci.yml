@@ -19,8 +19,9 @@ jobs:
       - uses: Swatinem/rust-cache@v2
       - run: cargo build --all-targets
       # Every release model, and the R4-only build downstream users may pick.
-      - run: cargo build --all-targets --features r4
+      - run: cargo build --all-targets --features "r3 r4"
       - run: cargo build --no-default-features --features r4
+      - run: cargo build --no-default-features --features r3
 
   test:
     name: Test
@@ -31,9 +32,9 @@ jobs:
       - uses: Swatinem/rust-cache@v2
       - run: cargo test
       - run: cargo test --doc
-      # Both release models together: this is what runs the R4 tests and
-      # doctests, since `r4` is off by default.
-      - run: cargo test --features r4
+      # Every release model together: this is what runs the R3 and R4 tests
+      # and doctests, since only `r5` is on by default.
+      - run: cargo test --features "r3 r4"
 
   clippy:
     name: Clippy
@@ -45,7 +46,7 @@ jobs:
           components: clippy
       - uses: Swatinem/rust-cache@v2
       - run: cargo clippy --all-targets -- -D warnings
-      - run: cargo clippy --all-targets --features "r4 xml client" -- -D warnings
+      - run: cargo clippy --all-targets --features "r3 r4 xml client" -- -D warnings
 
   msrv:
     name: MSRV (1.88)
@@ -77,7 +78,8 @@ jobs:
       - run: cargo build --features precise-decimal
       # The release features are independent: each must stand on its own.
       - run: cargo test --no-default-features --features "r4 xml client" --lib
-      - run: cargo test --features "r4 xml client"
+      - run: cargo test --no-default-features --features "r3 xml client" --lib
+      - run: cargo test --features "r3 r4 xml client"
 
   book:
     name: mdBook
@@ -102,7 +104,7 @@ jobs:
       - uses: dtolnay/rust-toolchain@stable
       - uses: Swatinem/rust-cache@v2
       - run: cargo doc --no-deps
-      - run: cargo doc --no-deps --features "r4 xml client"
+      - run: cargo doc --no-deps --features "r3 r4 xml client"
 
   publish-dry-run:
     name: Publish dry-run

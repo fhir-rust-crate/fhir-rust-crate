@@ -4,7 +4,7 @@ version = "1.1.0"
 edition = "2024"
 authors = ["Joel Parker Henderson <joel@joelparkerhenderson.com>"]
 homepage = "https://github.com/joelparkerhenderson/fhir-rust-crate"
-description = "Fast Healthcare Interoperability Resources (FHIR) data model for Rust: the complete FHIR R5 and R4 resources, datatypes, and code systems as serde-serializable types, plus a spec-driven code generator."
+description = "Fast Healthcare Interoperability Resources (FHIR) data model for Rust: the complete FHIR R5, R4, and R3 resources, datatypes, and code systems as serde-serializable types, plus a spec-driven code generator."
 readme = "README.md"
 repository = "https://github.com/joelparkerhenderson/fhir-rust-crate/"
 license = "MIT OR Apache-2.0 OR BSD-3-Clause OR GPL-2.0-only OR GPL-3.0-only"
@@ -35,6 +35,8 @@ eula = false
 # (~135k lines of generated Rust), so they are opt-in: enable only what you use.
 # `r5` is on by default because it is the release this crate shipped first.
 default = ["r5"]
+# The FHIR Release 3 (3.0.2, also called STU3) model: `fhir::r3`.
+r3 = []
 # The FHIR Release 4 (4.0.1) model: `fhir::r4`.
 r4 = []
 # The FHIR Release 5 (5.0.0) model: `fhir::r5`.
@@ -45,7 +47,8 @@ r5 = []
 precise-decimal = ["serde_json/arbitrary_precision"]
 # An async FHIR REST client (`fhir::client`). Pulls in reqwest + tokio.
 client = ["dep:reqwest", "dep:tokio"]
-# FHIR XML serialization (`fhir::r4::xml`, `fhir::r5::xml`). Pulls in quick-xml.
+# FHIR XML serialization (`fhir::r3::xml`, `fhir::r4::xml`, `fhir::r5::xml`).
+# Pulls in quick-xml.
 xml = ["dep:quick-xml"]
 
 [workspace]
@@ -113,6 +116,10 @@ required-features = ["r5"]
 [[example]]
 name = "tutorial"
 required-features = ["r5"]
+
+[[example]]
+name = "r3_patient"
+required-features = ["r3"]
 
 [[example]]
 name = "r4_patient"

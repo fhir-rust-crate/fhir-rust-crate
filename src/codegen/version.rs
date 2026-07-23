@@ -11,6 +11,8 @@ use std::path::PathBuf;
 /// A FHIR release that the generator can produce a model for.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum Version {
+    /// FHIR Release 3 (3.0.2), also published as STU3.
+    R3,
     /// FHIR Release 4 (4.0.1).
     R4,
     /// FHIR Release 5 (5.0.0).
@@ -19,13 +21,14 @@ pub enum Version {
 
 impl Version {
     /// Every release the generator knows about.
-    pub const ALL: [Version; 2] = [Version::R4, Version::R5];
+    pub const ALL: [Version; 3] = [Version::R3, Version::R4, Version::R5];
 
     /// Parse a release token such as `"r4"` (case-insensitive, `R4`/`4.0.1`
     /// also accepted).
     #[must_use]
     pub fn parse(token: &str) -> Option<Self> {
         match token.to_ascii_lowercase().as_str() {
+            "r3" | "stu3" | "3" | "3.0" | "3.0.1" | "3.0.2" => Some(Version::R3),
             "r4" | "4" | "4.0" | "4.0.1" => Some(Version::R4),
             "r5" | "5" | "5.0" | "5.0.0" => Some(Version::R5),
             _ => None,
@@ -36,6 +39,7 @@ impl Version {
     #[must_use]
     pub fn module(self) -> &'static str {
         match self {
+            Version::R3 => "r3",
             Version::R4 => "r4",
             Version::R5 => "r5",
         }
@@ -45,6 +49,7 @@ impl Version {
     #[must_use]
     pub fn label(self) -> &'static str {
         match self {
+            Version::R3 => "R3",
             Version::R4 => "R4",
             Version::R5 => "R5",
         }
@@ -54,6 +59,7 @@ impl Version {
     #[must_use]
     pub fn version_string(self) -> &'static str {
         match self {
+            Version::R3 => "3.0.2",
             Version::R4 => "4.0.1",
             Version::R5 => "5.0.0",
         }
@@ -63,6 +69,8 @@ impl Version {
     #[must_use]
     pub fn spec_url(self) -> &'static str {
         match self {
+            // R3 is published under its STU3 name.
+            Version::R3 => "https://hl7.org/fhir/STU3/",
             Version::R4 => "https://hl7.org/fhir/R4/",
             Version::R5 => "https://hl7.org/fhir/R5/",
         }
@@ -122,6 +130,8 @@ mod tests {
 
     #[test]
     fn parse_tokens() {
+        assert_eq!(Version::parse("r3"), Some(Version::R3));
+        assert_eq!(Version::parse("STU3"), Some(Version::R3));
         assert_eq!(Version::parse("r4"), Some(Version::R4));
         assert_eq!(Version::parse("R5"), Some(Version::R5));
         assert_eq!(Version::parse("4.0.1"), Some(Version::R4));

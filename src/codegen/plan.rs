@@ -336,8 +336,14 @@ fn plan_field(
         inner_type = rename.struct_name(target);
     } else {
         let type_code = element.types.first()?.code.as_str();
+        if type_code.is_empty() {
+            return None; // a type the definition never names cannot be modelled
+        }
         inner_type = scalar_type(type_code, element, ctx);
-        if ctx.is_primitive(type_code) {
+        // `Element.id`, `<Type>.id` and `Extension.url` are bare JSON
+        // attributes: FHIR gives them no `_field` sibling even though R3 types
+        // them as ordinary primitives.
+        if ctx.is_primitive(type_code) && !element.is_system_element() {
             sibling = Some(SiblingPlan {
                 ident: format!("{}_ext", naming::snake(leaf)),
                 wire: format!("_{leaf}"),
@@ -368,7 +374,7 @@ fn scalar_type(type_code: &str, element: &ElementDefinition, ctx: &Context) -> S
     if type_code == "code"
         && let Some(binding) = &element.binding
         && binding.strength == "required"
-        && let Some(enum_name) = binding.value_set.as_deref().and_then(|vs| ctx.code_enum_for(vs))
+        && let Some(enum_name) = binding.value_set().and_then(|vs| ctx.code_enum_for(vs))
     {
         let module = &ctx.module;
         return format!("crate::coded::Coded<crate::{module}::codes::{enum_name}>");

@@ -9,6 +9,7 @@ Applies to every modelled release.
 | --- | --- |
 | R5 | 158 |
 | R4 | 146 |
+| R3 | 117 |
 
 ## Background
 
@@ -61,12 +62,17 @@ A resource is a top-level FHIR entity that can be exchanged on its own
 
 ## Release differences
 
-The two releases do not agree on the resource list. R4 has 20 resources R5 does
-not (`CatalogEntry`, `DeviceUseStatement`, `DocumentManifest`, `Media`,
-`RequestGroup`, the `MedicinalProduct*` family, …); R5 has 32 that R4 does not
-(`ActorDefinition`, `Citation`, `Ingredient`, `Permission`,
-`RequestOrchestration`, `SubscriptionTopic`, `Transport`, …). Resources present
-in both often differ in their elements. See spec 12.
+The releases do not agree on the resource list, and it grew with each one: 117
+in R3, 146 in R4, 158 in R5. R4 has 20 resources R5 does not (`CatalogEntry`,
+`DeviceUseStatement`, `DocumentManifest`, `Media`, `RequestGroup`, the
+`MedicinalProduct*` family, …); R5 has 32 that R4 does not (`ActorDefinition`,
+`Citation`, `Ingredient`, `Permission`, `RequestOrchestration`,
+`SubscriptionTopic`, `Transport`, …).
+
+Resources present in more than one release often differ in their elements, and
+sometimes in the type of an element they share. A resource's own `id` is typed
+`id` in R3 and `string` in R4/R5, which the models reflect faithfully rather
+than normalizing. See spec 12.
 
 ## Documentation
 

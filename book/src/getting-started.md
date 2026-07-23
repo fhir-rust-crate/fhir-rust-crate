@@ -8,11 +8,11 @@ fhir = "1"
 serde_json = "1" # or any other serde data format
 ```
 
-That gives you FHIR R5. For R4, or for both releases at once, see
+That gives you FHIR R5. For R4 or R3, or several releases at once, see
 [FHIR releases](fhir-releases.md).
 
 The crate is imported as `fhir`. A `fhir::prelude` re-exports the most-used
-items (`fhir::r4::prelude` is its R4 counterpart):
+items (`fhir::r4::prelude` and `fhir::r3::prelude` are its counterparts):
 
 ```rust
 use fhir::prelude::*;

@@ -9,10 +9,11 @@ Applies to every modelled release.
 | --- | --- |
 | R5 | 419 |
 | R4 | 486 |
+| R3 | 386 |
 
-R4 has more because its `valuesets.json` publishes more complete code systems,
-not because it is richer terminology: R5 moved several to external
-terminologies that no FHIR element binds to with `required` strength.
+The counts do not track release age: they follow how many `complete` code
+systems each release's `valuesets.json` happens to publish. R5 moved several to
+external terminologies that no FHIR element binds to with `required` strength.
 
 ## Background
 
@@ -57,7 +58,10 @@ matching.
   generated enum MUST be typed as that enum rather than the opaque
   `types::Code`, so the compiler enforces the value set. The enum is resolved
   from the value set URL's last segment (ignoring any `|version` suffix) by the
-  same rule as R5.5, so binding and enum always agree.
+  same rule as R5.5, so binding and enum always agree. The releases spell the
+  bound value set differently — `valueSet` in R4/R5, `valueSetReference` or
+  `valueSetUri` in R3 — and all three MUST resolve identically (spec 12,
+  R12.17).
 - **R5.8** A coded field MUST NOT be a bare enum. A closed enum would reject any
   code outside the value set, which is unacceptable for a data-exchange library:
   real data carries newer codes, local extensions, and simply invalid values,

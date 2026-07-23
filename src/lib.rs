@@ -2,8 +2,9 @@
 //!
 //! `fhir` is a Rust implementation of the **HL7 FHIR®** data model, together
 //! with a code generator that produces it from the official FHIR specification
-//! JSON files. Two releases are modelled: **R5** (5.0.0) under [`r5`], and
-//! **R4** (4.0.1) under [`r4`].
+//! JSON files. Three releases are modelled: **R5** (5.0.0) under [`r5`],
+//! **R4** (4.0.1) under [`r4`], and **R3** (3.0.2, also called STU3) under
+//! [`r3`].
 //!
 //! Fast Healthcare Interoperability Resources (FHIR) is the HL7 standard for
 //! exchanging electronic health records. For each release this crate gives you:
@@ -34,22 +35,24 @@
 //!
 //! ```toml
 //! [dependencies]
-//! fhir = "1"                                              # R5 only
-//! # fhir = { version = "1", features = ["r4"] }           # R5 and R4
-//! # fhir = { version = "1", default-features = false, features = ["r4"] }  # R4 only
+//! fhir = "1"                                                # R5 only
+//! # fhir = { version = "1", features = ["r3", "r4"] }       # every release
+//! # fhir = { version = "1", default-features = false, features = ["r3"] }  # R3 only
 //! serde_json = "1" # or any other serde data format
 //! ```
 //!
 //! ## Choosing a release
 //!
-//! An R4 `Patient` and an R5 `Patient` are different Rust types, and that is
+//! An R3, R4 and R5 `Patient` are three different Rust types, and that is
 //! deliberate. The releases disagree in ways that quietly corrupt data if
-//! conflated: `Observation.value[x]` allows 11 types in R4 and 13 in R5,
-//! `MedicationRequest.medication[x]` is a choice element in R4 but a
-//! `CodeableReference` in R5, and R4 has no `integer64`, `CodeableReference`,
-//! or `RatioRange` datatype at all. Convert between the releases explicitly,
-//! through JSON, deciding what to do with whatever does not carry over — see
-//! the `r4_and_r5_side_by_side` example.
+//! conflated. `Observation.value[x]` allows eleven types in R3 and eleven in
+//! R4 — but not the same eleven, since R3 permits `Attachment` and not
+//! `integer` and R4 reversed both. A resource's `id` is typed `id` in R3 and
+//! `string` afterwards. `MedicationRequest.medication[x]` is a choice element
+//! in R4 but a `CodeableReference` in R5. R3 has no `canonical` or `url`
+//! primitive; R4 has no `integer64` or `CodeableReference`. Convert between
+//! releases explicitly, through JSON, deciding what to do with whatever does
+//! not carry over — see the `r4_and_r5_side_by_side` example.
 //!
 //! What the releases *do* share lives in the crate root and is re-exported from
 //! both: the [`Validate`](validate::Validate) trait, [`Coded<E>`](coded::Coded),
@@ -57,8 +60,8 @@
 //! parsing in [`temporal`], and the REST [`client`], which is generic over a
 //! [`Release`](release::Release).
 //!
-//! The examples below use R5. Every one of them works for R4 by changing `r5`
-//! to `r4`.
+//! The examples below use R5. Every one of them works for another release by
+//! changing `r5` in the import path.
 //!
 //! ## Design in one paragraph
 //!
@@ -219,7 +222,7 @@
 //!
 //! Per release (`r5` shown; `r4` is identical in shape):
 //!
-//! - [`r5::resources`] — the 158 R5 resources (146 in R4), plus the
+//! - [`r5::resources`] — the 158 R5 resources (146 in R4, 117 in R3), plus the
 //!   [`Resource`](r5::resources::Resource) enum.
 //! - [`r5::types`] — the complex datatypes and primitive newtypes.
 //! - [`r5::codes`] — FHIR `CodeSystem`s as enums.
@@ -278,6 +281,10 @@ pub mod r5;
 /// The FHIR Release 4 (4.0.1) model (feature `r4`).
 #[cfg(feature = "r4")]
 pub mod r4;
+
+/// The FHIR Release 3 (3.0.2, also called STU3) model (feature `r3`).
+#[cfg(feature = "r3")]
+pub mod r3;
 
 pub mod util;
 
