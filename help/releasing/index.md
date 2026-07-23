@@ -48,7 +48,8 @@ cargo doc
 Run:
 
 ```sh
-RUSTC_BOOTSTRAP=1 RUSTDOCFLAGS="-Z unstable-options --output-format json" cargo doc --no-deps
+RUSTC_BOOTSTRAP=1 RUSTDOCFLAGS="-Z unstable-options --output-format json" \
+    cargo doc --no-deps --features "r3 r4 xml client"
 rustdoc-md --path target/doc/fhir.json --output fhir.md
 cp fhir.md llms.txt
 ```
@@ -61,11 +62,11 @@ The code above generates the crate's documentation:
 
 3. Copy the Markdown file to the standard file name `llms.txt`; do a copy instead of a symlink because symlinks don't work well on some operating systems.
 
-Note that this runs at the **default** feature set, so the per-item listing
-covers R5 only; the crate-level summary at the top still describes every
-release. `llms.txt` ships inside the published crate (see `include` in
-`Cargo.toml`), and adding `--features "r3 r4 xml client"` here triples it from
-about 8 MB to about 21 MB — so widen it only deliberately.
+Run this with **every feature enabled**, so the output documents all three
+release models and the optional `client`/`xml` surfaces rather than the default
+R5-only view. That makes `llms.txt` about 21 MB instead of about 8 MB; it ships
+inside the published crate (see `include` in `Cargo.toml`), so re-check
+`cargo package --list` and the resulting `.crate` size when the model grows.
 
 ## Release
 
