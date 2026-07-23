@@ -60,7 +60,7 @@ pub struct Coding {
     #[serde(rename = "_code")]
     pub code_ext: Option<types::Element>,
     /// A human-readable representation of the meaning of the code, following the code system's rules.
-    pub display: Option<String>,   // « C »
+    pub display: Option<types::String>, // « C »
     /// Primitive extension sibling for [`display`](Self::display) (FHIR `_display`).
     #[serde(rename = "_display")]
     pub display_ext: Option<types::Element>,

@@ -100,7 +100,7 @@ impl TransactionBuilder {
     /// Add a `POST` (create) entry: the resource is created at `resource_type`.
     #[must_use]
     pub fn create<T: Serialize>(mut self, resource: &T, resource_type: &str) -> Self {
-        let value = ::serde_json::to_value(resource).ok();
+        let value = serialize_entry(resource, resource_type);
         self.push(HttpVerb::POST, resource_type, value);
         self
     }
@@ -108,7 +108,9 @@ impl TransactionBuilder {
     /// Add a `PUT` (update) entry at `url` (e.g. `"Patient/123"`).
     #[must_use]
     pub fn update<T: Serialize>(mut self, resource: &T, url: &str) -> Self {
-        let value = ::serde_json::to_value(resource).ok();
+        // The type is the first segment of the URL: `Patient/123` is a Patient.
+        let resource_type = url.split('/').next().unwrap_or_default();
+        let value = serialize_entry(resource, resource_type);
         self.push(HttpVerb::PUT, url, value);
         self
     }
@@ -129,6 +131,25 @@ impl TransactionBuilder {
             ..Default::default()
         }
     }
+}
+
+/// Serialize a resource for a bundle entry, ensuring it carries its
+/// `resourceType`.
+///
+/// A bare resource struct does not serialize one — the polymorphic `Resource`
+/// enum is what adds the discriminator — but a bundle entry without it is not a
+/// valid FHIR resource, and cannot be read back through `Resource`. The caller
+/// has already told us the type, so fill it in.
+fn serialize_entry<T: Serialize>(
+    resource: &T,
+    resource_type: &str,
+) -> Option<::serde_json::Value> {
+    let mut value = ::serde_json::to_value(resource).ok()?;
+    if let Some(map) = value.as_object_mut() {
+        map.entry("resourceType".to_string())
+            .or_insert_with(|| ::serde_json::Value::String(resource_type.to_string()));
+    }
+    Some(value)
 }
 
 #[cfg(test)]
@@ -153,6 +174,25 @@ mod tests {
         ));
         assert_eq!(entries[1].request.as_ref().unwrap().url.0, "Patient/old");
         assert!(entries[1].resource.is_none());
+    }
+
+    #[test]
+    fn entries_carry_their_resource_type() {
+        // Without `resourceType` a bundle entry is not a valid FHIR resource,
+        // and reading it back through the `Resource` enum silently yields
+        // nothing.
+        let patient = Patient { id: Some(types::String("p1".to_string())), ..Default::default() };
+        let bundle = Bundle::transaction()
+            .create(&patient, "Patient")
+            .update(&patient, "Patient/p1")
+            .build();
+
+        for entry in &bundle.entry {
+            let value = entry.resource.as_ref().expect("entry has a resource");
+            assert_eq!(value.get("resourceType").and_then(|v| v.as_str()), Some("Patient"));
+        }
+        assert_eq!(bundle.iter_resources().count(), 2);
+        assert_eq!(bundle.resources::<Patient>("Patient").count(), 2);
     }
 
     #[test]

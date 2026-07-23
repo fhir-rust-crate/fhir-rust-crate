@@ -4,6 +4,9 @@ Defines the JSON mapping between the Rust model and canonical FHIR JSON. This is
 the normative version of the conventions in
 [`../AGENTS/conventions.md`](../AGENTS/conventions.md).
 
+Applies to every modelled release, identically: the releases differ in *which*
+elements exist, never in how an element is mapped.
+
 ## Requirements
 
 ### Struct shape
@@ -17,7 +20,12 @@ the normative version of the conventions in
   optional fields are omitted from output.
 - **R6.3** Structs MUST carry `#[serde(rename_all = "camelCase")]`. Per-field
   `#[serde(rename)]` is only allowed when camelCase cannot produce the correct
-  FHIR key.
+  FHIR key, and MUST be present when it cannot. serde only uppercases the letter
+  following an underscore, so it can never reproduce a FHIR name with
+  consecutive capitals: `truth_tp` becomes `truthTp`, never `truthTP`. Fields
+  such as `truthTP`, `queryFP`, `carrierAIDC` and `requestURL` therefore spell
+  their key out. Omitting the rename silently drops the element on both read and
+  write, which no test of default values would catch.
 - **R6.4** Structs MUST NOT use `#[serde(deny_unknown_fields)]` (forward
   compatibility with unknown/extension fields).
 - **R6.5** No field may be a bare `f64`/`f32` (breaks `Eq`); use
@@ -53,15 +61,25 @@ the normative version of the conventions in
   via `#[serde(flatten)]` (as `Option<<Struct><Base>>`). Exactly one variant can
   be set, so "at most one" is a compile-time property. Serialization MUST still
   produce the FHIR keys `value<Type>` (`valueQuantity`, `valueString`, …).
-  Primitive variants carry the paired `_value<Type>` extension via
-  `fhir::r5::choice::Primitive<T>`; complex variants hold `Box<T>`. The full
+  Primitive variants carry the paired `_value<Type>` extension via that
+  release's `choice::Primitive<T>`; complex variants hold `Box<T>`. A choice
+  field is always `Option`, even where the specification makes the element
+  mandatory: a choice enum has no default, and R6.1 requires one. The full
   contract is [spec 11](11-choice-types.md).
+
+### Primitive extensions
+
+- **R6.11** A primitive-typed element MUST carry a `_field` sibling for its `id`
+  and `extension`, per [spec 09](09-primitive-extensions.md). Elements typed as
+  a FHIRPath system type (`http://hl7.org/fhirpath/System.String`, used for
+  `Element.id` and `Extension.url`) are not primitive *datatypes* and MUST NOT
+  get one.
 
 ### Polymorphic slots
 
 - **R6.12** `contained` and other `Resource`/`DomainResource`-typed elements
   are `::serde_json::Value`. A top-level polymorphic resource uses the
-  `Resource` enum tagged by `resourceType` (spec 04, R4.6).
+  `Resource` enum tagged by `resourceType` (spec 04, R4.7).
 
 ### Round-trip guarantee
 
@@ -72,10 +90,12 @@ the normative version of the conventions in
 
 ## Acceptance criteria
 
-- [ ] A representative resource with nested backbones and choice fields
-      round-trips through `serde_json`.
-- [ ] Optional `None` fields and empty `Vec`s are omitted from output and
-      re-read without error.
-- [ ] FHIR keys in output are camelCase; keyword fields serialize to their FHIR
-      names (`type`, `use`, …).
-- [ ] `cargo clippy --all-targets` reports zero warnings.
+1. A representative resource with nested backbones and choice fields round-trips
+   through `serde_json`, in every release.
+2. Optional `None` fields and empty `Vec`s are omitted from output and re-read
+   without error.
+3. FHIR keys in output are camelCase; keyword fields serialize to their FHIR
+   names (`type`, `use`, …); names with consecutive capitals survive unchanged.
+4. The official example resources round-trip exactly, except where the example
+   itself violates the specification (spec 12, acceptance 7).
+5. `cargo clippy --all-targets` reports zero warnings for every release.

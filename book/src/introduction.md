@@ -29,9 +29,14 @@ For each release:
 ## How to read this guide
 
 Each chapter is task-oriented and standalone. Start with
-[Getting started](getting-started.md), then read
-[FHIR releases](fhir-releases.md) if you need R4 or both releases at once, then
+[Getting started](getting-started.md), then work through the
+[Tutorial](tutorial.md), which carries one small record through every stage —
+construct, validate, serialize, bundle, summarize, read back. After that, read
+[FHIR releases](fhir-releases.md) if you need R4 or both releases at once, and
 dip into whichever topic you need.
+
+Every line of the tutorial is also a runnable program
+(`cargo run --example tutorial`), so it cannot drift from the crate.
 
 Examples throughout use R5 paths. Every one of them works for R4 by changing
 `r5` to `r4`.

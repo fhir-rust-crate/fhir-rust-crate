@@ -29,12 +29,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `#[fhir_version("r4")]` in `fhir-derive-macros`, naming the release for the
   few paths that are release-specific. Defaults to `r5`; an unknown release is
   a compile error.
-- Examples `r4_patient` and `r4_and_r5_side_by_side`.
+- Examples `tutorial`, `r4_patient`, and `r4_and_r5_side_by_side`. The
+  `tutorial` example is the book's new end-to-end chapter, compiled and run by
+  the test suite so the guide cannot drift from the crate.
 - `spec/12-fhir-releases.md` and a "FHIR releases" chapter in the book, defining
   how releases coexist and why they are separate types.
+- A "Tutorial: a patient record end to end" chapter in the book.
 - The official R4 definition JSON under
   `doc/fhir-specifications/r4/fhir-definitions-json/`, so R4 generation is
   reproducible from a clean clone.
+
+### Fixed
+- `Bundle::transaction()`/`batch()` entries now carry their `resourceType`. A
+  bare resource struct does not serialize one — the polymorphic `Resource` enum
+  is what adds the discriminator — so a built transaction bundle was not valid
+  FHIR, and reading it back with `iter_resources()` or `resources::<T>()`
+  silently yielded nothing. Affects R5 as well as R4.
+- `Coding.display` and `CodeableConcept.text` are `types::String` rather than a
+  bare `std::string::String`, matching every other primitive field and the
+  convention in spec 03 (R3.3). The JSON is unchanged; only the Rust type
+  differs. **Breaking** for code that sets those two fields.
+- `Reference::_marker` is public (and `#[doc(hidden)]`), so `Reference` can be
+  built with the `Type { field: …, ..Default::default() }` idiom the rest of the
+  model documents. Previously the private phantom field made that a compile
+  error from outside the crate.
 
 ### Changed
 - **`r5` is now a cargo feature**, on by default. Existing dependants are

@@ -66,8 +66,13 @@ pub struct Reference<T = Any> {
 
     /// Compile-time marker for the referenced resource type. Zero-sized and not
     /// serialized; `Reference<Patient>` and `Reference<Any>` share one wire form.
+    ///
+    /// Public only so that callers can use the struct-literal idiom the rest of
+    /// the model documents — `Reference { reference: …, ..Default::default() }`
+    /// needs access to every field. Treat it as an implementation detail.
+    #[doc(hidden)]
     #[serde(skip)]
-    pub(crate) _marker: PhantomData<fn() -> T>,
+    pub _marker: PhantomData<fn() -> T>,
 }
 
 /// A marker type naming the resource a [`Reference`] points to.

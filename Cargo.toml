@@ -85,6 +85,10 @@ name = "validate_resource"
 required-features = ["r5"]
 
 [[example]]
+name = "tutorial"
+required-features = ["r5"]
+
+[[example]]
 name = "r4_patient"
 required-features = ["r4"]
 

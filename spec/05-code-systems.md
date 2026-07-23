@@ -1,91 +1,108 @@
 # 05 — Code systems
 
-Defines the type-safe code-system enums in `r5::codes`.
+Defines the type-safe code-system enums in each release's `codes` module, and
+how a coded field is typed.
+
+Applies to every modelled release.
+
+| Release | Code-system enums |
+| --- | --- |
+| R5 | 419 |
+| R4 | 486 |
+
+R4 has more because its `valuesets.json` publishes more complete code systems,
+not because it is richer terminology: R5 moved several to external
+terminologies that no FHIR element binds to with `required` strength.
 
 ## Background
 
 FHIR `code` values are drawn from **CodeSystems**. Many are small, closed
-enumerations (e.g. `administrative-gender` → male | female | other | unknown).
-Representing these as Rust enums gives compile-time safety and exhaustive
+enumerations (`administrative-gender` → male | female | other | unknown).
+Representing those as Rust enums gives compile-time safety and exhaustive
 matching.
 
-## Requirements
+## Generating the enums
 
-- **R5.1** For every `CodeSystem` in `valuesets.json` whose `content` is
-  `complete` and which has **≥ 2** concepts, `r5::codes` MUST provide a Rust
-  `enum` whose variants are its codes.
+- **R5.1** For every `CodeSystem` in the release's `valuesets.json` whose
+  `content` is `complete` and which has at least one concept, `codes` MUST
+  provide a Rust `enum` whose variants are its codes. A system that is not
+  `complete` does not list all its codes, so a closed Rust enum would reject
+  valid data; those stay `types::Code`.
 - **R5.2** Each enum MUST derive `Debug, Clone, Serialize, Deserialize,
-  PartialEq, Eq, Default`; the first concept is the `#[default]` variant.
+  PartialEq, Eq, Default`; the first concept is the `#[default]` variant, so
+  that `Coded<E>` and every struct holding one can derive `Default`.
 - **R5.3** Each variant MUST serialize to its exact FHIR code string via
   `#[serde(rename = "<code>")]`, so `to_value`/`from_value` use the canonical
   codes, not the Rust identifiers.
 - **R5.4** Variant identifiers MUST be sanitized deterministically:
-  - PascalCase of the code, non-alphanumeric separators removed.
+  - PascalCase of the code, with non-alphanumeric characters treated as word
+    separators.
   - A leading digit is prefixed with `N`.
-  - Rust reserved words in PascalCase form (e.g. `Self`) get a trailing `_`.
-  - Collisions within an enum are de-duplicated with a numeric suffix.
-- **R5.5** Enum type names MUST be the PascalCase of the CodeSystem id, with the
-  same collision handling across the module.
-- **R5.6** `r5::codes` MUST be generated deterministically from the spec (same
-  input → identical file), and MUST carry doc comments (system URL wrapped in
-  `<...>` so rustdoc treats it as a link; concept displays as field docs).
+  - `Self`, which is reserved even in type position, becomes `SelfCode`.
+  - Collisions within an enum are de-duplicated with a numeric suffix, in
+    specification order.
+- **R5.5** An enum's name MUST be derived from the **last segment of the code
+  system's URL**, sanitized as in R5.4 — not from its `name` — because that is
+  what a value-set binding refers to. A URL need not be tidy
+  (`urn:iso-astm:E1762-95:2013` is real), so the same sanitizing applies. The
+  first system to claim a name keeps it.
+- **R5.6** `codes` MUST be generated deterministically (same input → identical
+  file) and MUST carry doc comments: the system's description, its URL wrapped
+  in `<…>` so rustdoc treats it as a link, and each concept's display as the
+  variant's doc.
 
-## Relationship to the model
+## Typing coded fields
 
-`r5::codes` is currently **standalone**: model structs use `types::Code` (a
-string newtype) for coded fields, not these enums. Wiring specific
-required-binding fields to their enum (e.g. `Patient.gender` →
-`AdministrativeGender`) is **future work**, because it requires the binding
-strength and value-set membership from the spec.
+- **R5.7** An element with a `required` binding whose value set maps to a
+  generated enum MUST be typed as that enum rather than the opaque
+  `types::Code`, so the compiler enforces the value set. The enum is resolved
+  from the value set URL's last segment (ignoring any `|version` suffix) by the
+  same rule as R5.5, so binding and enum always agree.
+- **R5.8** A coded field MUST NOT be a bare enum. A closed enum would reject any
+  code outside the value set, which is unacceptable for a data-exchange library:
+  real data carries newer codes, local extensions, and simply invalid values,
+  and reading MUST NOT fail. The field is wrapped instead:
+
+  ```rust
+  pub enum Coded<E> {           // fhir::coded
+      Known(E),                 // a recognized code from the value set
+      Unknown(String),          // any other code, preserved verbatim
+  }
+  ```
+
+  `Coded<E>` is `#[serde(untagged)]`: deserialization tries `E` first and falls
+  back to `Unknown`; serialization emits the code string either way. So a
+  required-binding field is `Option<Coded<AdministrativeGender>>`, or
+  `Coded<…>` for `1..1`.
+
+- **R5.9** `Coded<E>` is generic over the enum and therefore release-independent.
+  It MUST be defined once (`fhir::coded`) and re-exported by each release, not
+  duplicated.
+- **R5.10** A `Coded::Unknown` value is by definition outside its required value
+  set, so `Validate` MUST report it (spec 07).
+
+### Why the wrapper rather than an `Other(String)` variant
+
+Adding `Other(String)` to all 900+ generated enums would put the fallback in
+every enum's match arms, defeat exhaustive matching, and have to be re-derived
+on every regeneration. One wrapper localizes the policy, leaves `codes` a pure
+translation of the specification, and makes the retype round-trip-safe even
+where an enum mapping turns out to be wrong: the value simply lands in
+`Unknown`.
 
 ## Future work
 
-- Wire `required`-binding fields to their code enums.
-- Expose value-set membership and binding metadata.
+- Expose value-set membership so `Validate` can check `extensible` and
+  `preferred` bindings, not just `required` ones.
 - Provide `FromStr`/`Display` conveniences alongside serde.
 
 ## Acceptance criteria
 
-- [ ] `r5::codes` contains an enum for every complete CodeSystem with ≥ 2
-      concepts.
-- [ ] `AdministrativeGender::Female` serializes to `"female"`; `"male"`
-      deserializes to `AdministrativeGender::Male`.
-- [ ] Generation is deterministic and the module compiles with zero clippy
-      warnings (no bare URLs, no keyword/identifier errors).
-
-## Typing coded fields (T10)
-
-Status: **decided and rolled out.** Elements with a `required` binding whose
-value set maps to an existing code enum are typed as that enum rather than the
-opaque `types::Code`, so the compiler enforces the value set.
-
-**Fallback policy — decision.** A closed enum would reject any code outside the
-value set, which is unacceptable for a data-exchange library (data carries newer
-codes, local extensions, or simply invalid values, and read must not fail).
-Rather than add an `Other(String)` variant to every one of the ~419 generated
-enums, the field type is wrapped:
-
-```rust
-pub enum Coded<E> {           // fhir::r5::coded
-    Known(E),                 // a recognized code from the value set
-    Unknown(String),          // any other code, preserved verbatim
-}
-```
-
-`Coded<E>` is `#[serde(untagged)]`: deserialization tries `E` first and falls
-back to `Unknown`; serialization emits the code string either way. This keeps
-`codes.rs` untouched, makes the retype **round-trip-safe** (a code outside the
-set — or a mis-mapped enum — simply lands in `Unknown`), and localizes the
-policy in one type. A required-binding field is therefore
-`Option<Coded<AdministrativeGender>>` (or `Coded<…>` for `1..1`).
-
-Rollout: `src/r5/parse/coded_gen.rs` retyped 343 fields (27 datatypes + 316
-resources) whose value set maps to a code enum. Membership-of-value-set checking
-for the `Unknown` fallback is deferred to the validation-depth work (T13).
-
-### Acceptance criteria (T10)
-
-- [x] ≥100 required-binding fields retyped (343 done).
-- [x] `Coded<E>` round-trips known and unknown codes; official-examples run
-      unchanged (2822/2824).
-- [x] Examples and doctests migrated to the enum API; full gate green.
+1. `codes` contains an enum for every complete `CodeSystem` its release
+   publishes with at least one concept.
+2. `AdministrativeGender::Female` serializes to `"female"`; `"male"`
+   deserializes to `AdministrativeGender::Male`.
+3. A code outside a required value set round-trips unchanged through
+   `Coded::Unknown` and is reported by `Validate`.
+4. Generation is deterministic and the module compiles with zero clippy
+   warnings.

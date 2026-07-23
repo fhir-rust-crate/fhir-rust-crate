@@ -187,6 +187,7 @@ match serde_json::from_value(json).unwrap() {
 Programs in the [`examples/`](examples/) directory demonstrate common tasks:
 
 ```sh
+cargo run --example tutorial           # the guide's end-to-end walkthrough
 cargo run --example build_patient      # build a resource and print its JSON
 cargo run --example validate_resource  # recursive validation and issue paths
 cargo run --example read_bundle        # dispatch on each entry's resourceType

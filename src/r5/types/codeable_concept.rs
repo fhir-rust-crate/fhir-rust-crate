@@ -50,7 +50,7 @@ pub struct CodeableConcept {
 
     /// A plain text representation of the concept, used when no coding fully captures the
     /// meaning or as a human-readable fallback alongside the codings.
-    pub text: Option<String>,
+    pub text: Option<types::String>,
     /// Primitive extension sibling for [`text`](Self::text) (FHIR `_text`).
     #[serde(rename = "_text")]
     pub text_ext: Option<types::Element>,

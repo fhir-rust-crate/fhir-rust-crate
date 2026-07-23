@@ -56,11 +56,13 @@ let bundle = Bundle::transaction()
     .delete("Patient/2")           // DELETE Patient/2
     .build();
 
-assert_eq!(bundle.entry.unwrap().len(), 3);
+assert_eq!(bundle.entry.len(), 3);
 ```
 
 ## Talking to a server
 
-With the `client` feature, `fhir::client::Client` sends these interactions to a
-FHIR server; a transaction bundle can be `POST`ed to the base URL. See the
-`client_crud` example.
+With the `client` feature, `fhir::r5::client::Client` sends these interactions to
+a FHIR server; a transaction bundle can be `POST`ed to the base URL. See the
+`client_crud` example. `fhir::r4::client::Client` is the R4 counterpart — one
+implementation, generic over the release, so both return their own release's
+`Resource` and `Bundle`.

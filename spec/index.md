@@ -12,21 +12,27 @@ this directory defines **what must be true**, not how to work.
 ## How to read these specs
 
 - Requirement levels use **MUST / SHOULD / MAY** (RFC 2119 sense).
+- Requirements are numbered `R<spec>.<n>` and referred to by that number from
+  the code and from the other specs, so a rule has exactly one home.
 - Each spec ends with **Acceptance criteria** — objective checks that decide
   whether the requirement is met. The green gate (`cargo build`, `cargo test`,
   `cargo clippy --all-targets`) enforces most of them mechanically.
 - Specs are numbered by layer, from the smallest units up to the pipeline that
   produces them.
+- Specs state what is true **now**, in the present tense. Decisions that were
+  weighed and rejected are kept only where the reasoning still guides future
+  change; the history of how the code got here belongs in
+  [`../CHANGELOG.md`](../CHANGELOG.md) and in git.
 
 ## The specifications
 
 | # | Spec | Scope |
 | --- | --- | --- |
-| 01 | [Overview](01-overview.md) | Purpose, scope, FHIR R5, crate identity, goals |
-| 02 | [Primitive types](02-primitive-types.md) | The 21 FHIR primitive datatypes |
-| 03 | [Complex datatypes](03-complex-datatypes.md) | The 50 complex datatypes |
-| 04 | [Resources](04-resources.md) | The 158 resources + the `Resource` enum |
-| 05 | [Code systems](05-code-systems.md) | The 419 code-system enums |
+| 01 | [Overview](01-overview.md) | Purpose, scope, crate identity, goals |
+| 02 | [Primitive types](02-primitive-types.md) | The FHIR primitive datatypes as newtypes |
+| 03 | [Complex datatypes](03-complex-datatypes.md) | The complex datatypes as structs |
+| 04 | [Resources](04-resources.md) | The resources + the `Resource` enum |
+| 05 | [Code systems](05-code-systems.md) | `CodeSystem`s as enums, and `Coded<E>` |
 | 06 | [Serialization](06-serialization.md) | JSON mapping, serde, choice `[x]`, cardinality |
 | 07 | [Validation](07-validation.md) | The `Validate` trait and `#[derive(Validate)]` |
 | 08 | [Code generation](08-code-generation.md) | The spec-JSON → Rust generator |
@@ -34,6 +40,19 @@ this directory defines **what must be true**, not how to work.
 | 10 | [Invariant coverage](10-invariants-coverage.md) | Which FHIR constraints are enforced |
 | 11 | [Choice types](11-choice-types.md) | `value[x]` choice elements as enums |
 | 12 | [FHIR releases](12-fhir-releases.md) | Modelling R4 and R5 side by side |
+
+Specs 02–11 define one release's model and apply to every release
+independently; spec 12 defines how the releases coexist. Where the releases
+differ in scale, each spec states both figures:
+
+| | R5 (5.0.0) | R4 (4.0.1) |
+| --- | ---: | ---: |
+| Primitive datatypes | 21 | 20 |
+| Complex datatypes | 50 | 43 |
+| Resources | 158 | 146 |
+| Code-system enums | 419 | 486 |
+| Choice elements | 261 | 186 |
+| Invariant keys | 314 | 240 |
 
 ## Cross-cutting invariants
 
@@ -56,12 +75,13 @@ These hold across every spec and are non-negotiable:
 
 ## Status
 
-The crate satisfies specs 01–12 for both shipped releases. R5: 21 primitives,
-50 datatypes, 158 resources, 419 code enums. R4: 20 primitives, 43 datatypes,
-146 resources, 486 code enums. Each has recursive validation, `_field` primitive
-extensions (09), invariant coverage (10), and `value[x]` choice enums (11).
-Cardinality maps exactly —
-`0..1`→`Option<T>`, `1..1`→`T`, `0..*`→`Vec<T>`, `1..*`→`vec1::Vec1<T>` — and
-required-binding codes are `Coded<E>`. Open improvements are recorded as
-**Future work** sections within the relevant spec; the next planned release
-models are R4B and R6.
+The crate satisfies specs 01–12 for both shipped releases. Each release has the
+full model above, recursive validation (07), `_field` primitive extensions (09),
+invariant coverage (10), and `value[x]` choice enums (11). Cardinality maps
+exactly — `0..1`→`Option<T>`, `1..1`→`T`, `0..*`→`Vec<T>`,
+`1..*`→`vec1::Vec1<T>` — and required-binding codes are `Coded<E>`.
+
+Open improvements are recorded as **Future work** sections within the relevant
+spec. The largest of them are a FHIRPath evaluator (unlocking most of spec 10),
+typed `Reference<T>` rollout (spec 04), and the next release models, R4B and
+R6 (spec 12).

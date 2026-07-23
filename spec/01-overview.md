@@ -66,19 +66,23 @@ Out of scope (for now; see each spec's Future work):
 - Cargo **workspace** with one extra member, `fhir-derive-macros` (proc-macros).
 - Library **and** binary: the library is the model + generator API; the binary
   runs the generator. A library target is required so doctests execute.
+- Each modelled release is a cargo feature (spec 12); `r5` is the default.
 
 ## Success definition
 
 The crate meets this overview when:
 
-- The model covers the R5 primitive types, complex datatypes, resources, and
-  code systems.
+- Each modelled release covers its own primitive types, complex datatypes,
+  resources, and code systems in full.
 - Every value round-trips through JSON.
-- The green gate passes (build, tests, doctests, pedantic clippy).
+- The green gate passes (build, tests, doctests, pedantic clippy) for every
+  release and every supported feature combination.
 
 ## Acceptance criteria
 
-- [ ] `cargo build` succeeds for the workspace.
-- [ ] The public API exposes `fhir::r5::{types, resources, codes, validate}`.
-- [ ] `cargo test` and `cargo clippy --all-targets` are clean.
-- [ ] Each downstream spec (02–08) has its own acceptance criteria met.
+1. `cargo build` succeeds for the workspace.
+2. The public API exposes `fhir::<release>::{types, resources, codes, validate,
+   meta}` for every enabled release.
+3. `cargo test` and `cargo clippy --all-targets` are clean, for the default
+   features and with every release enabled.
+4. Each downstream spec (02–12) has its own acceptance criteria met.

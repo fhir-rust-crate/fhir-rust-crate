@@ -1,58 +1,77 @@
-# 10 — Invariant coverage (T14)
+# 10 — Invariant coverage
 
-Generated report. It lists every FHIR `ElementDefinition.constraint` invariant
-`key` in the R5 specification, its occurrence count, and whether this crate
-enforces it in `Validate`. Recognized invariants are checked by `invariant_stmts`
-in `fhir-derive-macros`; everything else is **listed here, not silently dropped**,
-as a candidate for future coverage.
+FHIR states many rules as `ElementDefinition.constraint` **invariants** —
+FHIRPath expressions such as "an extension must have a value or children, not
+both". This spec records which of them the crate enforces, and enumerates the
+rest so that unenforced rules are visible rather than silently dropped.
 
-- Distinct invariant keys: **314**
-- Total constraint occurrences: **10992**
-- Enforced keys: **3** — `dom-2`, `dom-4`, `ext-1`
+## Requirements
+
+- **R10.1** Every invariant the crate does not enforce MUST be listed here.
+  Silence is not permitted: a reader must be able to tell what validation does
+  and does not cover.
+- **R10.2** An invariant is enforced only if it can be checked structurally,
+  without a FHIRPath evaluator. Enforcement lives in `invariant_stmts` in
+  `fhir-derive-macros`, so it applies to every release at once.
+
+## Scale
+
+| Release | Distinct invariant keys | Constraint occurrences |
+|---|---:|---:|
+| R5 | 314 | 10,992 |
+| R4 | 240 | 8,971 |
 
 ## Enforced
 
-| Key | Count | Rule |
-|---|---:|---|
-| `ext-1` | 1637 | Must have either extensions or value[x], not both |
-| `dom-2` | 122 | A contained resource SHALL NOT itself contain nested resources |
-| `dom-4` | 122 | A contained resource SHALL NOT have a meta.versionId or meta.lastUpdated |
+| Key | R5 | R4 | Rule |
+|---|---:|---:|---|
+| `ext-1` | 1637 | 1295 | An extension must have either extensions or `value[x]`, not both |
+| `dom-2` | 122 | 145 | A contained resource SHALL NOT itself contain nested resources |
+| `dom-4` | 122 | 145 | A contained resource SHALL NOT have a `meta.versionId` or `meta.lastUpdated` |
 
-These are the structurally-checkable, high-frequency invariants. `ext-1` alone
-covers 1637 elements; the two `dom-*` rules apply to every domain resource's
-`contained` list.
+These are the structurally checkable, high-frequency invariants. `ext-1` alone
+covers 1,637 R5 elements; the two `dom-*` rules apply to every domain resource's
+`contained` list. All three are checked identically in both releases.
 
-## Not yet enforced (top 25 by frequency)
+## Not yet enforced (most frequent)
 
-Most remaining invariants require a FHIRPath evaluator. `ele-1` ("every element
-must have a value or children") alone accounts for the large majority of all
-constraint occurrences; enforcing it meaningfully needs FHIRPath and is deferred.
+| Key | R5 | R4 | Rule |
+|---|---:|---:|---|
+| `ele-1` | 8363 | 6710 | All FHIR elements must have a `@value` or children |
+| `dom-3` | 122 | 145 | A contained resource SHALL be referred to from elsewhere in the resource |
+| `dom-5` | 122 | 145 | A contained resource SHALL NOT have a security label |
+| `dom-6` | 122 | 145 | A resource should have narrative for robust management |
+| `cnl-1` | 33 | 0 | URL should not contain a pipe or `#` — they make canonical processing hard |
+| `cnl-0` | 32 | 0 | Name should be usable as a machine-processing identifier |
+| `qty-3` | 7 | 7 | If a unit code is present, the system SHALL also be present |
+| `inv-1` | 3 | 3 | A parameter must have one and only one of (value, resource, part) |
+| `org-3` | 2 | 1 | An organization's telecom can never be of use `home` |
+| `att-1` | 1 | 1 | If an Attachment has data, it SHALL have a `contentType` |
+| `age-1` | 1 | 1 | An Age SHALL have a code if it has a value, expressing time |
+| `cnt-3` | 1 | 1 | A Count SHALL have code `1` if it has a value |
+| `drq-1` | 1 | 1 | Either a path or a searchParam must be provided, but not both |
 
-| Key | Count | Rule |
-|---|---:|---|
-| `ele-1` | 8363 | All FHIR elements must have a @value or children |
-| `dom-3` | 122 | A contained resource SHALL be referred to from elsewhere in the resource |
-| `dom-5` | 122 | A contained resource SHALL NOT have a security label |
-| `dom-6` | 122 | A resource should have narrative for robust management |
-| `cnl-1` | 33 | URL should not contain pipe or # — these make canonical processing hard |
-| `cnl-0` | 32 | Name should be usable as a machine-processing identifier |
-| `qty-3` | 7 | If a unit code is present, the system SHALL also be present |
-| `inv-1` | 3 | A parameter must have one and only one of (value, resource, part) |
-| `org-3` | 2 | An organization's telecom can never be of use 'home' |
-| `org-4` | 2 | An organization's address can never be of use 'home' |
-| `pld-0` | 2 | Input data elements must have a requirement or relatedData, not both |
-| `pld-1` | 2 | Output data elements must have a requirement or relatedData, not both |
-| `app-5` | 1 | Appointment start must be <= end |
-| `app-2` | 1 | Either start and end are specified, or neither |
-| `app-1` | 1 | Either the type or actor on the participant SHALL be specified |
-| `bdl-1` | 1 | Bundle total only when a search or history |
-| `bdl-2` | 1 | Bundle entry.search only when a search |
+`ele-1` alone accounts for the large majority of all constraint occurrences.
+Enforcing it meaningfully needs FHIRPath, and is deferred. The remaining keys
+(314 in R5, 240 in R4) appear once or twice each and live in the specification
+JSON; regenerate these tables from `ElementDefinition.constraint` when coverage
+changes.
 
-(The full 314-key set lives in the spec JSON; regenerate this table from
-`ElementDefinition.constraint` when coverage changes.)
+Note that `cnl-0` and `cnl-1` are R5-only: R4 does not state them. Counts differ
+between releases wherever the resource list does, which is why both columns are
+shown rather than one.
 
-## Acceptance criteria (T14)
+## Future work
 
-- [x] >=3 invariant classes enforced with tests (`ext-1`, `dom-2`, `dom-4` — see
-      `src/r5/validate.rs` tests `invariant_ext_1`, `invariant_dom_2`).
-- [x] Unrecognized constraints are enumerated here rather than dropped.
+- A FHIRPath evaluator, which would unlock `ele-1` and most of the tail.
+- Enforcing the arithmetic invariants (`app-5`: start ≤ end, and similar) that
+  are structurally checkable but element-specific, most likely as generated
+  per-type checks driven by the `meta` table.
+
+## Acceptance criteria
+
+1. At least three invariant classes are enforced with tests — `ext-1`, `dom-2`,
+   `dom-4`, covered by the `invariant_ext_1` and `invariant_dom_2` tests in each
+   release's `validate` module.
+2. Unrecognized constraints are enumerated here rather than dropped.
+3. The counts above match the shipped specification JSON.
